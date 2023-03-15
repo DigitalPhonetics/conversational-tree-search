@@ -1,0 +1,15 @@
+rules = _{ SOI ~ "{{" ~ assignment ~ "}}"  ~ EOI }
+
+assignment = _{ identifier ~ "=" ~ vartype }
+
+identifier = @{  ASCII_ALPHA ~ ASCII_ALPHANUMERIC* }
+vartype = {
+	"TEXT" |
+    "NUMBER" | 
+    "BOOLEAN" |
+    "TIMESPAN" |
+    "TIMEPOINT" |
+    "LOCATION"
+}
+
+WHITESPACE = _{ " " | "\t" }
