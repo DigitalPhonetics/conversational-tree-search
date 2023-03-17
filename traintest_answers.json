@@ -1,556 +1,556 @@
 {
-    "wo finde ich meine personalnummer?": [
-        "Wo kann ich meine Mitarbeiternummer finden?",
-        "Wo finde ich meine Personalnummer?",
-        "Was ist meine Personalnummer?",
-        "Personalnummer",
-        "Mitarbeiternummer",
-        "Wie lautet meine Personalnummer?",
-        "Wie lautet meine Mitarbeiternummer?",
-        "Wie kann ich meine Personalnummer finden?"
+    "where can I find my employee identification number?": [
+        "Where can I find my employee number?",
+        "Where can I find my employee identification number?",
+        "What is my employee identification number?",
+        "Employee Identification Number",
+        "Employee number",
+        "What is the numer for my employee identification?",
+        "What is of my employee number?",
+        "How can I found my employee identification number?"
     ],
-    "mietwagen": [
-        "Ich will ein Auto mieten",
-        "Autoverleih",
-        "Wagen mieten",
-        "Auto mieten",
-        "Mietwagen",
-        "gemietetes Auto",
-        "Leihwagen",
-        "Ein Mietauto",
-        "Mietwagenverleih"
+    "rental car": [
+        "I want to rent a car",
+        "Car rental service",
+        "Rent a car",
+        "Hire a car",
+        "Rental car",
+        "Hired car",
+        "Rented vehicle",
+        "A hired vehicle",
+        "Rental vehicle service"
     ],
-    "notfall-team intern": [
-        "Kontaktiere Notfall-Team",
-        "Notfallkontakt",
-        "Das Notfall Team kontaktieren",
-        "Internes Notfall Team",
-        "Kontakt f\u00fcr Notf\u00e4lle",
-        "Notfall-Team intern",
-        "Team f\u00fcr Notf\u00e4lle",
-        "Abteilung f\u00fcr Notf\u00e4lle",
-        "Notfallteam"
+    "internal emergency team": [
+        "Contact emergency team",
+        "Emergency contact",
+        "Contact the emergency team",
+        "Emergency team",
+        "Contact for emergencies",
+        "Internal emergency team",
+        "Emergency response team",
+        "Emergency response department",
+        "Emergency response group"
     ],
-    "telefon- und internetgeb\u00fchren": [
-        "Telefongeld",
-        "Online-Geb\u00fchren",
-        "Handykosten",
-        "Internetanschluss",
-        "Handygeb\u00fchren",
-        "Telefongeb\u00fchren",
-        "Kosten f\u00fcrs Internet",
-        "Internetgeb\u00fchren",
-        "Kosten f\u00fcr Telefonate",
-        "Telefon",
+    "telephone and internet fees": [
+        "Charges for telephone use",
+        "Online fees",
+        "Cell phone costs",
+        "Internet connection",
+        "Cell phone fees",
+        "Telephone fees",
+        "Costs for WIFI use",
+        "WIFI fees",
+        "Costs for phone usage",
+        "Telephone",
         "Internet",
-        "Telefon- und Internetgeb\u00fchren"
+        "Telephone and internet fees"
     ],
-    "eintrittskosten": [
-        "Eintrittsgeb\u00fchren",
-        "Einlass",
-        "Kosten f\u00fcr den Einlass",
-        "Geb\u00fchren f\u00fcr den Eintritt",
-        "Kosten f\u00fcr Eintrittskarten",
-        "Eintrittskarten",
-        "Eintrittskosten",
-        "Eintrittspreis"
+    "entrance fees": [
+        "Entrance fees",
+        "Admission",
+        "Costs for admission",
+        "Fees for entrance",
+        "Cost of entrance cards",
+        "Admission tickets",
+        "Entrance costs",
+        "Admission fees"
     ],
-    "schutzimpfungen": [
-        "Geb\u00fchren f\u00fcr Impfung",
-        "Schutzimpfungen",
-        "Vorbeugende Impfung",
-        "Vakzin",
-        "Vorsorgeimpfung",
-        "Impfkosten",
-        "Impfung",
-        "Impfstoff"
+    "vaccinations": [
+        "Costs for vaccination",
+        "Vaccinations",
+        "Required shots",
+        "Vaccine",
+        "Recommended vaccines",
+        "Vaccination costs",
+        "Shots",
+        "Needed shots"
     ],
-    "service-angebote": [
-        "Welche Leistungen sind verf\u00fcgbar?",
-        "Service-Angebote",
-        "\u00dcbersicht der Angebote",
-        "Welche Angebote gibt es?",
-        "Leistungsangebot",
-        "Angebote",
-        "Welche Dienstleistungen werden angeboten?",
+    "service offers": [
+        "Which services are available?",
+        "Service offers",
+        "Overview of services",
+        "What services are there?",
+        "Service offer",
+        "Services",
+        "Which services are offered?",
         "Service",
-        "Leistungs\u00fcbersicht",
-        "Angebotene Dienstleistungen",
-        "Serviceleistungen",
-        "Informationen \u00fcber Services"
+        "List of offered services",
+        "Provided services",
+        "Service catalog",
+        "Information about services"
     ],
-    "verwandte": [
-        "Meiner Mutter",
-        "Schwester",
-        "Bei Angeh\u00f6rigen",
-        "Bei meinem Bruder",
-        "Famlie",
-        "Den Eltern",
-        "Bei Verwandten",
-        "Vater",
-        "Familienmitglieder",
-        "Familienangeh\u00f6rige"
+    "relatives": [
+        "My mother",
+        "Sister",
+        "With relatives",
+        "With my brother",
+        "Family",
+        "My parents",
+        "With family",
+        "Father",
+        "Family members",
+        "Cousin"
     ],
-    "\u00f6pnv": [
-        "\u00d6PNV",
-        "Personennahverkehr",
-        "Die \u00d6ffentlichen",
-        "Bus fahren",
-        "\u00f6ffentliche Transportmittel",
-        "Einen Bus",
-        "\u00d6ffentliche Verkehrsmittel",
-        "Nahverkehr",
-        "U-Bahn",
-        "\u00f6ffentlicher Personennahverkehr",
-        "\u00f6ffentlicher Nahverkehr",
-        "Linienbus"
+    "public transit": [
+        "Public transit",
+        "Public transportation",
+        "Public transport",
+        "Taking the bus",
+        "Regional transportation",
+        "A bus",
+        "Light rail",
+        "Metro train",
+        "Subway",
+        "Commuter rail",
+        "Metro bus",
+        "Tram"
     ],
-    "informationen der risikoklassen der l\u00e4nder": [
-        "Infos zu Risikoklassen",
-        "Infos zu Bedrohungen",
-        "Gef\u00e4hrungspotential",
-        "Landesrisiko",
-        "Informationen zu Gefahren",
-        "Informationen der Risikoklassen der L\u00e4nder",
-        "Risikoinformationen",
-        "Gefahrenstufen",
-        "Bedrohungen"
+    "information about countries' risk categories": [
+        "Info about risk categories",
+        "Information about threats",
+        "Danger level",
+        "Country risk level",
+        "Information about dangers",
+        "Informationen about risks in different countries",
+        "Travel risk information",
+        "Risk level",
+        "Threats"
     ],
-    "dienstreise": [
-        "gesch\u00e4ftlich",
-        "Eine dienstliche Reise",
-        "dienstlich Unterwegs",
-        "Es handelt sich um eine Gesch\u00e4ftsreise",
-        "Dienstreise"
+    "business trip": [
+        "For business",
+        "A business trip",
+        "Traveling for business",
+        "It's business travel",
+        "Business travel"
     ],
-    "reise buchen": [
+    "book a trip": [
         "Reise buchen",
         "Eine Gesch\u00e4ftsreise planen",
         "Business trip",
         "Reisen",
         "Ich muss verreisen"
     ],
-    "unterkunft": [
-        "Wohnm\u00f6glichkeiten",
-        "Beherbergung",
-        "Quartier",
-        "Zimmer",
-        "Wohngelegenheit",
+    "accomodation": [
+        "Living space",
+        "Hostel",
+        "Quarters",
+        "Room",
+        "Overnight accomodation",
         "Hotel",
-        "Unterkunft",
-        "Zur Unterbringung",
-        "Welche \u00dcbernachtungsm\u00f6glichkeiten gibt es?"
+        "Accomodation",
+        "For a place to stay",
+        "What options are there for overnight accomodations?"
     ],
-    "zug": [
-        "S-Bahn",
-        "Zug",
-        "Bahn fahren",
-        "Schnellzug",
-        "Regionalzug"
+    "train": [
+        "Subway",
+        "Train",
+        "Take the train",
+        "Express train",
+        "Regional train"
     ],
-    "ich m\u00f6chte ein anderes transportmittel buchen": [
-        "Zus\u00e4tzliche Bef\u00f6rderungsm\u00f6glichkeit buchen",
-        "Anderes Transportmittel",
-        "Flugzeug buchen",
-        "Ich brauche auch noch einen Mietwagen",
-        "Zug buchen",
-        "Ich m\u00f6chte ein anderes Transportmittel buchen"
+    "i want to book different transportation": [
+        "Additional transport option",
+        "Other transportation",
+        "Book a flight",
+        "I still need a rental car",
+        "Book a train",
+        "I want to book other transportation"
     ],
-    "was ist eine zuweisung/abordnung?": [
-        "Was ist eine Zuweisung?",
-        "Wann handelt es sich um eine Zuweisung?",
-        "In welchem Fall handelt es sich um eine Abordnung?",
-        "Ich wei\u00df nicht, was eine Zuweisung ist",
-        "Was ist eine Abordnung?",
-        "Definition Abordnung",
-        "Was ist eine Zuweisung/Abordnung?"
+    "what is a reallocation/delegation?": [
+        "What is a reallocation?",
+        "When does it count as a reallocation?",
+        "Which cases are treated as a delegation?",
+        "I don't know what a reallocation is",
+        "What is a delegation?",
+        "Define a delegation",
+        "What is a reallocation/delegation?"
     ],
-    "alleine": [
-        "ganz allein",
-        "Alleine",
-        "Ich reise ohne Begleitung",
-        "Nur ich",
-        "Ohne Famlie"
+    "alone": [
+        "by myself",
+        "alone",
+        "I'm traveling without accompaniment",
+        "Only me",
+        "Without family"
     ],
-    "mit familie": [
-        "Mit Familie",
-        "Zusammen mit meiner Frau",
-        "Mit Mann und Kinder",
-        "Ich und meine Angeh\u00f6rigen",
-        "Mit Begleitung"
+    "with family": [
+        "With family",
+        "Together with my wife",
+        "With my husband and children",
+        "Myself and my dependents",
+        "With my daughter and son"
     ],
-    "schulungsangebote": [
-        "Schulungsangebote",
+    "training opportunities": [
+        "Training opportunities",
         "Training f\u00fcr Travel Risk Management",
-        "Welche Schulungen werden angeboten?",
-        "Kurse",
-        "\u00dcberblick zu Schulungsma\u00dfnahmen",
-        "Infos zu Weiterbildunsm\u00f6glichkeiten"
+        "What trainings are offered?",
+        "Courses",
+        "Overeview of courses offered",
+        "Information about additional training"
     ],
-    "vor antritt einer dienstreise": [
-        "Vor Antritt einer Dienstreise",
-        "Vor der Abreise",
-        "Infos zum Reiseantritt",
-        "Informationen vor meiner Dienstreise",
-        "Was muss ich vor der Abreise wissen"
+    "before beginning travel": [
+        "Before beginning travel",
+        "Before leaving",
+        "Infoabout starting a trip",
+        "Info before setting off",
+        "What do I need to know before I go?"
     ],
-    "reiserisiko-l\u00e4nderdatenbank": [
-        "Reiserisiko-L\u00e4nderdatenbank",
-        "Gef\u00e4hrungspotential",
-        "Infos zu Bedrohungen",
-        "Infos zu Risikoklassen",
-        "Risikoinformationen",
-        "Datenbank der L\u00e4nder",
-        "Informationen zu Gefahren",
-        "Datenbank",
-        "Landesrisiko",
-        "Gefahrenstufen",
-        "Bedrohungen"
+    "travel risk country database": [
+        "Travel risk country database",
+        "Danger level",
+        "Information about threats",
+        "Info about risk categories",
+        "Travel risk information",
+        "Countries databaser",
+        "Information about dangers",
+        "Database",
+        "Country risk level",
+        "Risk level",
+        "Threats"
     ],
-    "versicherungen": [
-        "Kosten f\u00fcr Reiser\u00fccktrittsversicherung",
-        "Ich musste Geld f\u00fcr Reiseversicherungen ausgeben",
-        "Versicherungkosten",
-        "Versicherungsgeb\u00fchren",
-        "Versicherungen",
-        "Auslandskrankenversicherung"
+    "insurance": [
+        "Expense for travel cancellation insurance",
+        "I had to pay for travel insurance",
+        "Insurance costs",
+        "Insurance fees",
+        "Travel insurance",
+        "Travel health insurance"
     ],
     "hotel": [
-        "Autobahnhotel",
-        "Jugendherberge",
+        "Roadside hotel",
+        "Youth hostel",
         "Hotel",
-        "In einer Pension",
+        "In a bed and breakfast",
         "Motel",
         "Hostel",
-        "Herberge",
-        "Im Gasthof",
-        "In einem Airbnb",
-        "Pension"
+        "Lodge",
+        "Holiday cottage",
+        "In an Airbnb",
+        "Self catering cottage"
     ],
-    "darf ich ein zimmer f\u00fcr mich alleine buchen?": [
-        "Kann ich alleine schlafen?",
-        "Einzelzimmer",
-        "Ist es erlaubt ein Einzelzimmer zu buchen?",
-        "Darf ich ein Zimmer f\u00fcr mich alleine buchen?",
-        "Darf ich ein eigenes Zimmer nehmen?"
+    "can I book a room for just myself?": [
+        "Can I sleep by myself?",
+        "Single room",
+        "Ist it allowed to book a room to myself?",
+        "Can I book a room for just myself?",
+        "Can I have my own room?"
     ],
-    "dienstreise beantragen": [
-        "Erlaubnis",
-        "Dienstreise beantragen",
-        "Formular zur Beantragung",
-        "Dienstreiseantrag",
-        "Einwilligung des Vorgesetzten zur Dienstreise"
+    "apply for a business trip": [
+        "Permission",
+        "Apply to go on a business trip",
+        "Form for travel approval",
+        "Application for travel approval",
+        "Permission from a manager for a business trip"
     ],
-    "formular finden": [
-        "Suchen",
-        "Finden",
-        "Formular finden",
-        "Wo finde ich Formulare?",
-        "Ich suche ein Dokument"
+    "find a form": [
+        "Search",
+        "Find",
+        "Find a form",
+        "Where can I find a form?",
+        "I'm looking for a document"
     ],
-    "transportmittel": [
-        "Informationen zu Fortbewegungsmitteln",
-        "Flugzeug buchen",
+    "transportation": [
+        "Information on ground transportation",
+        "Book a flight",
         "Bus",
-        "Bahnkarte kaufen",
-        "Transportmittel"
+        "Buy a train ticket",
+        "Transportation"
     ],
-    "nein": [
-        "Habe ich nicht",
-        "N\u00f6",
-        "niemals",
-        "Nee",
-        "keine",
-        "nicht",
-        "Nein"
+    "no": [
+        "I don't have",
+        "Nah",
+        "Never",
+        "Nope",
+        "None",
+        "Nada",
+        "no"
     ],
-    "ja": [
-        "So ist es",
-        "Ja",
-        "Nat\u00fcrlich",
-        "Habe ich",
-        "Genau"
+    "yes": [
+        "Correct",
+        "Yes",
+        "Of course",
+        "I have",
+        "Exactly"
     ],
-    "sicherheitsnotfall": [
-        "Ein Sicherheitsvorfall ist aufgetreten",
-        "Sicherheitsnotfall",
-        "Es gibt ein Sicherheitsproblem",
-        "Sicherheitsrelevantes Ereignis"
+    "safety emergency": [
+        "There's been a safety emergency",
+        "Safety emergency",
+        "I have a safety issue",
+        "There's a security problem"
     ],
-    "dienstgang": [
-        "Dienstgang",
-        "Dienstgangt"
+    "intracity bussiness trip": [
+        "Intracity bussiness trip",
+        "I'm traveling within the city"
     ],
-    "was ist zu beachten?": [
-        "Auf was muss ich aufpassen?",
-        "Gibt es etwas zu beachten?",
-        "Was ist zu beachten?",
-        "Was sollte ich ber\u00fccksichtigen?"
+    "what do I need to consider?": [
+        "What do I need to watch out for?",
+        "Is there anything I need to be careful about?",
+        "What do I need to consider?",
+        "What should I keep in mind?"
     ],
-    "notfall auf der dienstreise": [
-        "Eine Notlage ist eingetreten",
-        "Notfall",
-        "Notfall auf der Dienstreise",
-        "Reisenotfall"
+    "emergency on a business trip": [
+        "There's been an emergency",
+        "Emergency",
+        "Emergency on a business trip",
+        "Travel emergency"
     ],
-    "notfall-app": [
-        "Was ist die Notfall-App?",
-        "Mehr Informationen zur App",
-        "Notfall-App",
-        "Was kann die App?"
+    "emergency-app": [
+        "What is the emergency app?",
+        "More information about the app",
+        "Emergency-app",
+        "What can the app do?"
     ],
-    "\u00fcbergep\u00e4ck": [
-        "Gep\u00e4ck wiegt mehr als erlaubt",
-        "Koffer zu schwer",
-        "Extra Gep\u00e4ck",
-        "Zus\u00e4tzliches Gep\u00e4ck",
-        "\u00dcbergep\u00e4ck",
-        "Zus\u00e4tzliche Koffer"
+    "oversized baggage": [
+        "My bag is too heavy",
+        "My suitcase weighs too much",
+        "Extra luggage",
+        "Additional bag",
+        "Oversized baggage",
+        "What if I need an extra suitcase?"
     ],
-    "bekannte": [
-        "Bei Bekannten \u00fcbernachten",
-        "Bei Freunden",
-        "Kollegen",
-        "Bekannte"
+    "friends": [
+        "Staying with friends",
+        "At a friend's place",
+        "With a friend",
+        "Friends"
     ],
-    "ich ben\u00f6tige auskunft zu anderen unterk\u00fcnften": [
-        "Informationen zu anderen \u00dcbernachtungsm\u00f6glichkeiten",
-        "Ich ben\u00f6tige Auskunft zu anderen Unterk\u00fcnften",
-        "Ich will auch noch auf einem Campingplatz \u00fcbernachten",
-        "Infos \u00fcber Hotels",
-        "Weitere Unterkunft"
+    "I would like information on other options for accomodation": [
+        "Information on other hotel options",
+        "I would like information on other options for accomodation",
+        "I changed my mind about where I want to stay",
+        "Info about hotels",
+        "Alternative accomodations"
     ],
-    "dienstreise abrechnen": [
-        "Formular zur Erstattung",
-        "Dienstreiseabrechnung",
-        "Dienstreise abrechnen",
-        "Erstattung"
+    "business trip reimbursement": [
+        "Form for cost reimbursement",
+        "Business trip reimbursement",
+        "How do I get reimbursed for my trip?",
+        "Reimbursement"
     ],
-    "forschungssemester": [
-        "Auslandssemester",
-        "Forschungsaufenthalt",
-        "Forschungssemester",
-        "Semester im Ausland"
+    "research semester": [
+        "Exchange Semester",
+        "Research sabbatical",
+        "Research semester",
+        "Foreign exchange semester"
     ],
-    "was sind nebenkosten?": [
-        "Was sind Nebenkosten?",
-        "Beispiele f\u00fcr Nebenkosten",
-        "Ich wei\u00df nicht was Nebenkosten sind",
-        "Welche Kosten gelten als Nebenkosten?",
-        "Was f\u00e4llt unter Nebenkosten?"
+    "what are incidental costs?": [
+        "What are incidental costs?",
+        "Example of incidental costs",
+        "I don't know what incidental costs are",
+        "Which costs count as incidental costs?",
+        "What is included by incidental costs?"
     ],
-    "hilfe beim ausf\u00fcllen": [
-        "Ausf\u00fcllhilfe",
-        "Ausf\u00fcllen",
-        "Ich ben\u00f6tige Unterst\u00fctzung beim Ausf\u00fcllen eines Formulars",
-        "Hilfe beim Ausf\u00fcllen",
-        "Formularhilfe"
+    "help filling out a form": [
+        "Assistance filling out a form",
+        "Filling out",
+        "I need help filling out a form",
+        "Help filling out a form",
+        "Help with a form"
     ],
-    "transportmittel verpasst oder ausgefallen": [
-        "Fortbewegungsmittel verpasst",
-        "Mein Flug wurde storniert",
-        "Transportmittel verpasst oder ausgefallen",
-        "Mein Zug ist ausgefallen",
-        "Ich habe meinen Anschluss nicht erreicht"
+    "Transport missed or cancelled": [
+        "I missed my train",
+        "My flight was cancelled ",
+        "Transport missed or cancelled",
+        "My train was cancelled",
+        "I missed my connection"
     ],
-    "was ist der unterschied zwischen dienstgang und dienstreise?": [
-        "Definition Dienstreise",
-        "Worin unterscheiden sich diese?",
-        "Was ist der Unterschied zwischen Dienstgang und Dienstreise?",
-        "Was ist ein Dienstgang?"
+    "what is the difference between an intracity business trip and a business trip?": [
+        "What is the definition of a business trip?",
+        "How are these different?",
+        "What is the difference between an intracity business trip and a business trip?",
+        "What is an intracity business trip?"
     ],
     "travel risk management": [
-        "Reisesicherheit",
+        "Travel safety",
         "Travel Risk Management",
-        "Informationen zu Reiserisikomanagement",
-        "Was ist Travel-Risk-Management?"
+        "Information about managing travel safety",
+        "What is travel risk management?"
     ],
-    "eigener pkw": [
-        "privateigener PKW",
+    "personal car": [
+        "Personal car",
         "Auto",
-        "Meinen Wagen",
-        "Eigener PKW",
-        "Privatauto"
+        "My vehicle",
+        "My own car",
+        "Personal vehicle"
     ],
-    "hilfe im notfall": [
-        "Notfallhilfe",
-        "Notfall auf der Dienstreise",
-        "Eine Notlage ist eingetreten",
-        "Ich brauche Hilfe",
-        "Hilfe im Notfall",
-        "Nothilfe",
-        "Hilfe"
+    "emergency help": [
+        "Emergency help",
+        "Emergency on a business trip",
+        "There's been an emergency",
+        "I need help",
+        "Emergency aid",
+        "Aid",
+        "Help"
     ],
-    "nebenkosten": [
-        "Anfallende Kosten",
-        "Weitere Kosten",
-        "Nebengeb\u00fchren",
-        "Andere Geb\u00fchren",
-        "Nebenkosten"
+    "incidental costs": [
+        "Ancillary costs",
+        "Additional expenses",
+        "Incidental expenses",
+        "Other fees",
+        "Incidental costs"
     ],
-    "konferenzen": [
-        "Konferenzkosten",
-        "Geb\u00fchren f\u00fcr Konferenzmitgliedschaft",
-        "Kongress",
-        "Tagungsgeb\u00fchren",
-        "Konferenzen",
-        "Tagung"
+    "conferences": [
+        "Conference expenses",
+        "Conference member entrance fee",
+        "Congress",
+        "Expo costs",
+        "Conference",
+        "Expo"
     ],
-    "muss ich kurtaxe oder \u00fcbernachtungssteuern zahlen?": [
-        "Fallen auf einer dienstlichen Reise auch Steuern f\u00fcr die \u00dcbernachtung an?",
-        "Muss ich Kurtaxe entrichten?",
-        "Ist Kurtaxe erstattbar?",
-        "Bin ich Steuerpflichtig?",
-        "Muss ich Kurtaxe oder \u00dcbernachtungssteuern zahlen?"
+    "do I have to pay a resort tax?": [
+        "Do resort taxes also apply to business travel?",
+        "Do I need to pay a resort tax?",
+        "Are resort taxes reimbursable ?",
+        "Am I required to pay taxes for the trip?",
+        "Do I have to pay a resort tax?"
     ],
-    "hotelliste": [
-        "Welche Hotels sollte man buchen?",
-        "Hotelvorschl\u00e4ge",
-        "Liste der empfohlenen Hotels",
-        "Offizielle Hotelempfehlungen",
-        "Hotelliste"
+    "hotel list": [
+        "Which hotels should I book from?",
+        "Recommended hotels",
+        "List of suggested hotels",
+        "Official hotel recommendations",
+        "Hotel list"
     ],
-    "wie viel zeit habe ich, um die dienstreiseabrechnung einzureichen?": [
-        "Gibt es eine Frist f\u00fcr die Einreichung des Erstattungsantrags?",
-        "Bis wann muss ich meine Erstattung beantragen?",
-        "Frist f\u00fcr Abrechnung",
-        "Wie lange habe ich Zeit f\u00fcr die Dienstreisekostenabrechnung?",
-        "Wie viel Zeit habe ich, um die Dienstreiseabrechnung einzureichen?"
+    "how long do I have to submit my trip reiumbursement request?": [
+        "What is the time window to submit my trip reiumbursement request?",
+        "When is the deadline for a reimbursement request?",
+        "Time window for submitting reimbursement",
+        "How much time to I have to submit a reimbursement request for my business trip?",
+        "How long do I have to submit my trip reiumbursement request?"
     ],
-    "medizinischer notfall": [
-        "Gesundheitsproblem",
-        "Problem mit Gesundheit",
-        "Ich brauche dringend medizinische Unterst\u00fctzung",
-        "Medizinischer Notfall",
-        "Ich brauche einen Arzt"
+    "medical emergency": [
+        "Health emergency",
+        "Medical problem",
+        "I need immediate medical help",
+        "Medical emergency",
+        "I need a doctor"
     ],
-    "problem/notfall w\u00e4hrend der dienstreise": [
-        "Eine Notlage ist eingetreten",
-        "Reisenotfall",
-        "Notfall",
-        "Problem/Notfall w\u00e4hrend der Dienstreise",
-        "Notfall auf der Dienstreise"
+    "problem/emergency during a business trip": [
+        "There's been an emergency",
+        "Travel emergency",
+        "Emergency",
+        "Problem/emergency during a business trip",
+        "Emergency on a business trip"
     ],
-    "tagegeld": [
-        "T\u00e4gliche Spesen",
-        "Geld f\u00fcr Nahrung",
-        "Tagegeld",
-        "Tagespauschale"
+    "per diem": [
+        "Food allowance",
+        "Budget for food",
+        "Per diem",
+        "Money for food"
     ],
-    "allgemeine informationen": [
-        "Allgemeine Informationen",
-        "Allgemeines",
-        "Informationen",
-        "Mehr Informationen \u00fcber Travel Risk Management"
+    "general information": [
+        "General information",
+        "General",
+        "Information",
+        "More information about travel risk management"
     ],
     "md medicus": [
         "Medicus",
         "MD Medicus"
     ],
-    "kreditkartengeb\u00fchren": [
-        "Kreditkartengeb\u00fchren",
-        "Kosten f\u00fcr Kreditkarte",
-        "Wechselgeb\u00fchren bei Visakarte",
-        "Kosten f\u00fcr Nutzung meiner Kreditkarte"
+    "credit card fees": [
+        "Credit card fees",
+        "Costs for a credit card",
+        "Exchange fees for a visa card",
+        "Costs for using my credit card"
     ],
-    "selbstversorgerhaus": [
-        "Selbstversorgerhaus",
-        "In einem Selbstversorgerhaus"
+    "self-catering house": [
+        "Self-catering house",
+        "Staying in a self-catering house"
     ],
-    "darf ich als alleinreisende*r ein doppelzimmer buchen?": [
-        "Sind Doppelzimmer erlaubt?",
-        "Darf ich ein Doppelzimmer f\u00fcr mich selbst buchen?",
-        "Kann ich ein Doppelzimmer nehmen?",
-        "Doppelzimmer"
+    "can I book a doublebed room even if I'm traveling alone?": [
+        "Are double bed rooms allowed?",
+        "Can I book a doublebed room even if I'm traveling alone?",
+        "Can I book a double bed room?",
+        "Double bed room"
     ],
-    "wo kann ich die dienstreiseabrechnung einreichen": [
-        "Wo kann ich die Dienstreiseabrechnung einreichen?",
-        "Wohin schicke ich die Abrechnung meiner Dienstreise?",
-        "Wo gebe ich das Erstattungsformular ab?",
-        "Wie kann ich die Dienstreisekostenabrechnung einreichen?"
+    "where can I submit my travel reimbursement request": [
+        "Where can I submit my travel reimbursement request?",
+        "Who do I send my travel reimbursement to?",
+        "Where do I submit the travel reimbursement form?",
+        "How can I submit my reimbursement request?"
     ],
-    "formulare, fristen und abl\u00e4ufe": [
-        "Wo finde ich die Formulare?",
-        "Informationen zu Abl\u00e4ufen",
-        "Formulare, Fristen und Abl\u00e4ufe",
-        "Welche Formulare ben\u00f6tige ich?",
-        "Welche Fristen gibt es?"
+    "forms, deadlines, and procedures": [
+        "Where do I find the forms?",
+        "Information about procedures",
+        "Forms, deadlines, and procedures",
+        "Which forms do I need?",
+        "What deadlines are there?"
     ],
-    "vorschuss beantragen": [
-        "Anzahlung beantragen",
-        "Vorschuss beantragen",
-        "Ich brauche Geld im Voraus",
-        "Ich ben\u00f6tige eine Vorauszahlung",
-        "Vorschuss"
+    "request an advance": [
+        "Request an advance of funds",
+        "Request an advance",
+        "I need money in advance",
+        "I need money before teh trip",
+        "Advance"
     ],
     "taxi": [
         "Taxi",
-        "Uber oder Taxi"
+        "Uber or taxi"
     ],
-    "garderobengeb\u00fchren": [
-        "Kosten f\u00fcr Gardarobe",
-        "Verwahrgeb\u00fchr f\u00fcr Gep\u00e4ck",
-        "Kosten f\u00fcr Kleiderablage",
-        "Gardarobengeb\u00fchren"
+    "cloakroom fees": [
+        "Costs for use of a cloakroom",
+        "Costs for luggage supervision",
+        "Fees storing a jacket",
+        "Cloakroom fees"
     ],
-    "wohnmobil": [
-        "Wohnmobil",
-        "Im Camper",
-        "Camping-Van",
-        "Wohnwagen"
+    "camper": [
+        "Camping van",
+        "In a camper",
+        "Mobile home",
+        "Camper van"
     ],
-    "campingplatz": [
-        "Campingplatz",
-        "Camping Gel\u00e4nde",
-        "Zeltplatz",
-        "Auf einem Campingplatz"
+    "campsite": [
+        "Campsite",
+        "Campground",
+        "Tent camping site",
+        "At a campsite"
     ],
-    "reise stornieren": [
-        "Reise stornieren",
-        "Stornieren",
-        "Was muss ich tun um zu stornieren?",
-        "Reise absagen",
-        "Stornogeb\u00fchren"
+    "cancel a trip": [
+        "Cancel a trip",
+        "Cancel",
+        "What do I need to do to cancel?",
+        "Travel cancellation",
+        "Cancellation fees"
     ],
-    "flug": [
-        "Flieger",
-        "Darf ich ein Flugzeug nehmen?",
-        "Sind Fl\u00fcge erlaubt?",
-        "Flug",
-        "Ich will fliegen",
-        "Flugzeug"
+    "flight": [
+        "Plane",
+        "Am I allowed to fly?",
+        "Are flights okay?",
+        "Flight",
+        "I want to fly",
+        "Airplane"
     ],
-    "postgeb\u00fchren": [
-        "Postgeb\u00fchren",
-        "Paket versenden",
-        "Brief abschickem",
-        "Versandgeb\u00fchren",
-        "Kosten f\u00fcr Briefmarken"
+    "mail fees": [
+        "Mail fees",
+        "Send a package",
+        "Post a letter",
+        "Shipping fees",
+        "Cost for stamps"
     ],
-    "visumgeb\u00fchren": [
-        "Einreisevisum",
-        "Kosten f\u00fcr Visum",
-        "Visumantrag",
-        "Visumgeb\u00fchren"
+    "visa fees": [
+        "Entrance visa",
+        "Costs for a visa",
+        "Visa application",
+        "Visa fees"
     ],
-    "konferenzdinner ": [
-        "Konferenzdinner",
-        "Tagungsessen",
-        "Abendessen auf Konferenz",
-        "Kosten f\u00fcr gemeinesames Essen"
+    "conference dinner ": [
+        "Conference dinner",
+        "Conference meals",
+        "Lunch at a conference",
+        "Costs for a business meal"
     ],
-    "parkgeb\u00fchren": [
-        "Parkentgelt",
-        "Parkhausticket",
-        "Parkgeb\u00fchren",
-        "Parkuhr",
-        "Kosten f\u00fcrs Parken",
+    "parking fees": [
+        "Parking costs",
+        "Parking garage ticket",
+        "Parking fees",
+        "Metred parking fees",
+        "Costs for parking a car",
         "Parkticket"
     ],
-    "coronatests (pcr- oder antigentests)": [
+    "corona tests (prc or antigen tests)": [
         "PRC Test",
-        "Coronatests (PCR- oder Antigentests)",
+        "corona tests (prc or antigen tests)",
         "Covid Test",
-        "Antigentest"
+        "Antigen test"
     ]
 }
