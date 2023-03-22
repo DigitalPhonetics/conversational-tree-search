@@ -1,7 +1,15 @@
 import os
+os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+from django.conf import settings
+settings.configure(DEBUG=True, BASE_DIR=os.path.curdir)
+
+from chatbot.adviser.app.answerTemplateParser import AnswerTemplateParser
+from chatbot.adviser.app.logicParser import LogicTemplateParser
+from chatbot.adviser.app.nlu import NLU
+from chatbot.adviser.app.parserValueProvider import RealValueBackend
 
 from chatbot.adviser.app.rl.dqn.dqn import DQNNetwork
-os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+
 
 MODEL_PATH = "/mount/arbeitsdaten/asr-2/vaethdk/adviser_reisekosten/newruns/V9_ALTERNATIVESEED_ROBERTA_NEWARCH_dqn_50dialog_1_cross-en-de-roberta-sentence-transformer_nouser_intent_prediction_dqn_50dialog_1_cross-en-de-roberta-sentence-transformer_nouser_intent_prediction__9546370__1672918719"
 CKPT = "760000"
@@ -19,7 +27,7 @@ import traceback
 from chatbot.adviser.app.rl.dialogtree import DialogTree
 import chatbot.adviser.app.rl.dataset as Data
 from chatbot.adviser.app.rl.spaceAdapter import AnswerSimilarityEmbeddingConfig, IntentEmbeddingConfig, SpaceAdapter, ActionConfig, SpaceAdapterAttentionInput, SpaceAdapterAttentionQueryInput, SpaceAdapterConfiguration, SpaceAdapterSpaceInput, TextEmbeddingConfig
-from chatbot.adviser.app.rl.utils import EMBEDDINGS, AutoSkipMode, StateEntry, AverageMetric, EnvInfo, ExperimentLogging, _del_checkpoint, _get_file_hash, _munchausen_stable_logsoftmax, _munchausen_stable_softmax, _save_checkpoint, safe_division
+from chatbot.adviser.app.rl.utils import EMBEDDINGS, AutoSkipMode, StateEntry, AverageMetric, EnvInfo, ExperimentLogging, _del_checkpoint, _get_file_hash, _load_a1_laenderliste, _munchausen_stable_logsoftmax, _munchausen_stable_softmax, _save_checkpoint, safe_division
 from chatbot.adviser.app.rl.layers.attention.attention_factory import AttentionActivationConfig, AttentionMechanismConfig, AttentionVectorAggregation
 from chatbot.adviser.app.encoding.text import TextEmbeddingPooling, TextEmbeddings
 
@@ -319,19 +327,77 @@ def next_action(current_node, obs):
     # q_values = q_values.view(-1, 7)
     print(intent_logits.size())
     ###
-    print("Intent logits", intent_logits)
-    print("Q values:", q_values)
+    # print("Intent logits", intent_logits)
+    # print("Q values:", q_values)
     if adapter.configuration.action_masking:
-        print("MASKING")
+        # print("MASKING")
         q_values = torch.masked_fill(q_values, adapter.get_action_masks(node_keys=[current_node.key])[:,:q_values.size(-1)], float('-inf'))
-        print(" Masked Q values:", q_values)
+        # print(" Masked Q values:", q_values)
     next_action_indices = q_values.argmax(-1).tolist()
     print("Next action", [(action, action_to_text(current_node, action)) for action in next_action_indices])
     intent_classes = None if isinstance(intent_logits, type(None)) else (torch.sigmoid(intent_logits).view(-1) > 0.5).long().tolist()
-    print("Intent class", intent_classes)
+    # print("Intent class", intent_classes)
     print(["FAQ" if intent == 1 else "DIALOG" for intent in intent_classes])
-    return next_action_indices
-                
+    return next_action_indices[0] + 1 # offset STOP action
+
+def consume_logic_node(node: Data.DialogNode, bst: dict, logicParser: LogicTemplateParser, value_backend: RealValueBackend):
+    while node and node.node_type == Data.NodeType.LOGIC.value:
+        lhs = node.content.text
+        var_name = lhs.lstrip("{{").strip() # form: {{ VAR_NAME
+        if var_name in bst:
+            default_answer = None
+            for idx, answer in enumerate(node.answers):
+                # check if full statement {{{lhs rhs}}} evaluates to True
+                rhs = answer.content.text
+                if not "DEFAULT" in rhs: # handle DEFAULT case last!
+                    if logicParser.parse_template(f"{lhs} {rhs}", value_backend, bst):
+                        # evaluates to True, follow this path!
+                        default_answer = answer
+                        break
+                else:
+                    default_answer = answer
+            node = Data.objects[0].node_by_key(default_answer.connected_node_key)
+        else:
+            raise f"ERROR: VARIABLE {var_name} NOT IN BST"
+    return node
+
+def update_bst(var_name: str, var_type: str, str_val: str, bst: dict, embeddings: TextEmbeddings) -> dict:
+    if var_type == "NUMBER":
+        bst[var_name] = float(str_val)
+    elif var_type == "BOOLEAN":
+        utterance_emb = embeddings.encode(str_val) # 1 x 512
+        answers = ["ja", "nein"]
+        answer_embs = torch.cat([embeddings.encode(answer) for answer in answers], axis=0).squeeze(1) # 2 x 1 x 512 -> 2 x 512
+        similarities = torch.cosine_similarity(utterance_emb, answer_embs, -1)
+        most_similar_answer_idx = similarities.argmax(-1).item()
+        max_similarity_score = similarities[most_similar_answer_idx] # top answer score
+        bst[var_name] = True if most_similar_answer_idx == 0 else False
+    elif var_type in ["TIMESPAN", "TIMEPOINT"]:
+        results = nlu.extract_time(str_val)
+        # extract match depending on type of time 
+        time = list(filter(lambda l: len(l) > 0, results.values()))
+        if len(time) > 0:
+            # take 1st match
+            bst[var_name] = time[0][0]
+        else:
+            raise f"Unknown time constraint: {str_val} - Evaluated to: {results}"
+    elif var_type == "LOCATION":
+        nlu_result = nlu.extract_places(str_val)
+        if var_name == "LAND":
+            if len(nlu_result["LAND"]) > 0:
+                if not "LAND" in bst:
+                    bst["LAND"] = nlu_result['LAND'][0]
+            else:
+                raise f"Unknown country: {str_val}"
+        if var_name == "STADT":
+            if len(nlu_result["STADT"]) > 0:
+                if not "STADT" in bst:
+                    bst["STADT"] = nlu_result["STADT"][0]
+            else:
+                bst["STADT"] = str_val
+    return bst
+    
+             
 args = load_config()
 torch.backends.cudnn.deterministic = args["experiment"]["cudnn_deterministic"]
 
@@ -340,6 +406,11 @@ text_enc = get_text_embedding(args)
 adapter = setup_space_adapter(text_enc)
 model = init_model(args)
 load_weigths(model)
+
+logicParser = LogicTemplateParser()
+answer_template_parser = AnswerTemplateParser()
+value_backend = RealValueBackend(_load_a1_laenderliste())
+nlu = NLU()
 
 loop = True
 while loop:
@@ -350,7 +421,7 @@ while loop:
     current_node = Data.objects[0].node_by_key(tree.get_start_node().connected_node_key)
     initial_user_utterance = None
     bst = {}
-    last_action_idx = 1  # TODO last action index has to start with 0 IF THERE IS NOT STOP ACTION, otherwise 1
+    last_action_idx = 1  # last action index should always be the "real index": should start with 1 (even if there is no STOP action)
     user_utterances_history = []
     system_utterances_history = []
 
@@ -359,10 +430,17 @@ while loop:
             # system turn
             print_system(current_node.key, system_utterances_history)
 
-            if turn == 0 or last_action_idx == 0:   # TODO last action index has to start with 0 IF THERE IS NOT STOP ACTION, otherwise 1 -> remove turn == 0 from this statement
+            if last_action_idx == 1:
+                # ASK
                 initial_user_utterance = input(">>")
                 current_user_utterance = deepcopy(initial_user_utterance)
+
+                if current_node.node_type == Data.NodeType.VARIABLE.value:
+                    # variable node: parse variable name & type, assign value
+                    var = answer_template_parser.find_variable(current_node.answers[0].content.text)
+                    bst = update_bst(var.name, var.type, current_user_utterance.strip(), bst, text_enc)
             else:
+                # SKIP
                 current_user_utterance = ""
             user_utterances_history.append(deepcopy(current_user_utterance))
             if current_user_utterance == "exit":
@@ -374,12 +452,19 @@ while loop:
                 break 
 
             # choose next action
-            last_action_idx = next_action(current_node, get_obs(current_node, initial_user_utterance, current_user_utterance, system_utterances_history, user_utterances_history, bst, last_action_idx))[0]
+            last_action_idx = next_action(current_node, get_obs(current_node, initial_user_utterance, current_user_utterance, system_utterances_history, user_utterances_history, bst, last_action_idx))
 
             # progress system
-            if last_action_idx > 0:
-                current_node = Data.objects[0].node_by_key(current_node.answer_by_index(last_action_idx - 1).connected_node_key)
+            if last_action_idx == 1 and current_node.connected_node_key:
+                # SKIP without answers (info node)
+                current_node = Data.objects[0].node_by_key(current_node.connected_node_key)
+            elif last_action_idx >= 2:
+                # SKIP with answers (user response node)
+                current_node = Data.objects[0].node_by_key(current_node.answer_by_index(last_action_idx - 2).connected_node_key)
             # AUTO SKIP MODE current_node = handle_skips(current_node, system_utterances_history, user_utterances_history)
+
+            # handle logic nodes
+            current_node = consume_logic_node(current_node, bst, logicParser, value_backend)
 
             turn += 1
     except:
