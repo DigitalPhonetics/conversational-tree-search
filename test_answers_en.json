@@ -1,6 +1,6 @@
 {
     "where can I find my employee identification number?": [
-        "What is the numer for my employee identification?",
+        "What is the number for my employee identification?",
         "What is of my employee number?",
         "How can I found my employee identification number?"
     ],
@@ -14,7 +14,7 @@
         "Emergency response department",
         "Emergency response group"
     ],
-    "telephone and internet fees": [
+    "telephone and/or internet fees": [
         "Costs for phone usage",
         "Telephone",
         "Internet",
@@ -28,7 +28,7 @@
     "vaccinations": [
         "Vaccination costs",
         "Shots",
-        "Nopeded shots"
+        "Needed shots"
     ],
     "service offers": [
         "List of offered services",
@@ -56,13 +56,13 @@
         "Business travel"
     ],
     "book a trip": [
-        "Reisen",
-        "Ich muss verreisen"
+        "Travel",
+        "I'm planning to travel"
     ],
-    "accomodation": [
-        "Accomodation",
+    "accommodation": [
+        "Accommodation",
         "For a place to stay",
-        "What options are there for overnight accomodations?"
+        "What options are there for overnight accommodations?"
     ],
     "train": [
         "Express train",
@@ -86,10 +86,10 @@
         "With my daughter and son"
     ],
     "training opportunities": [
-        "Overeview of courses offered",
+        "Overview of courses offered",
         "Information about additional training"
     ],
-    "before beginning travel": [
+    "before the start of a business trip": [
         "Info before setting off",
         "What do I need to know before I go?"
     ],
@@ -138,7 +138,7 @@
         "I have a safety issue",
         "There's a security problem"
     ],
-    "intracity bussiness trip": [
+    "intracity business trip": [
         "I'm traveling within the city"
     ],
     "what do I need to consider?": [
@@ -153,7 +153,7 @@
         "Emergency-app",
         "What can the app do?"
     ],
-    "oversized baggage": [
+    "oversized/overweight baggage": [
         "Oversized baggage",
         "What if I need an extra suitcase?"
     ],
@@ -161,9 +161,9 @@
         "With a friend",
         "Friends"
     ],
-    "I would like information on other options for accomodation": [
+    "I would like information on other options for accommodation": [
         "Info about hotels",
-        "Alternative accomodations"
+        "Alternative accommodations"
     ],
     "business trip reimbursement": [
         "How do I get reimbursed for my trip?",
@@ -175,7 +175,7 @@
     ],
     "what are incidental costs?": [
         "Which costs count as incidental costs?",
-        "Was fällt unter Nebenkosten?"
+        "What is included by incidental costs?"
     ],
     "help filling out a form": [
         "Help filling out a form",
@@ -218,9 +218,9 @@
         "Official hotel recommendations",
         "Hotel list"
     ],
-    "how long do I have to submit my trip reiumbursement request?": [
+    "how long do I have to submit my trip reimbursement request?": [
         "How much time to I have to submit a reimbursement request for my business trip?",
-        "How long do I have to submit my trip reiumbursement request?"
+        "How long do I have to submit my trip reimbursement request?"
     ],
     "medical emergency": [
         "Medical emergency",
@@ -248,7 +248,7 @@
     "self-catering house": [
         "Staying in a self-catering house"
     ],
-    "can I book a doublebed room even if I'm traveling alone?": [
+    "can I book a double bed room even if I'm traveling alone?": [
         "Can I book a double bed room?",
         "Double bed room"
     ],
@@ -261,7 +261,7 @@
         "What deadlines are there?"
     ],
     "request an advance": [
-        "I need money before teh trip",
+        "I need money before the trip",
         "Advance"
     ],
     "taxi": [
@@ -296,13 +296,13 @@
         "Visa application",
         "Visa fees"
     ],
-    "conference dinner ": [
+    "conference meals ": [
         "Lunch at a conference",
         "Costs for a business meal"
     ],
     "parking fees": [
         "Costs for parking a car",
-        "Parkticket"
+        "Parking ticket"
     ],
     "corona tests (prc or antigen tests)": [
         "Covid Test",
