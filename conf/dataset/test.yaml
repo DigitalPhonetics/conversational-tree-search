@@ -1,0 +1,5 @@
+defaults:
+  - base
+
+graph_path: resources/test_graph.json
+answer_path: resources/test_answers.json

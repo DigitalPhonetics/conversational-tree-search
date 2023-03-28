@@ -31,7 +31,7 @@ from torch.nn.utils.rnn import pack_sequence
 
 
 
-EXPERIMENT_LOGGING = ExperimentLogging.ONLINE
+EXPERIMENT_LOGGING = ExperimentLogging.OFFLINE
 
 
 class Trainer:
@@ -42,7 +42,7 @@ class Trainer:
         # ADD stop_action ARG TO CONFIGURATION
         # ADD noise ARG TO STATE TEXT INPUTS
         seed = 12345678
-        self.exp_name_prefix = "V9_NEWARCH_NOTEXTS"
+        self.exp_name_prefix = "TEST"
    
         self.args = {
             "spaceadapter": {

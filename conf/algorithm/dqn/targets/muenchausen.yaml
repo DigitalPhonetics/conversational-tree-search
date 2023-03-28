@@ -1,0 +1,4 @@
+_target_: algorithm.dqn.targets.MuenchausenTarget
+tau: 0.03
+alpha: 0.9
+clipping: -1.0

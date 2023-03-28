@@ -18,7 +18,6 @@ __pycache__/
 *.pt
 *.pth
 *.txt
-*.json
 *.bin
 .data/
 .ipynb_checkpoints/

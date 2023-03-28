@@ -1,0 +1,5 @@
+defaults:
+  - backend: prioritized
+
+_target_: data.buffers.dqn.her.HindsightExperienceReplayBuffer
+guided_free_ratio: 0.0

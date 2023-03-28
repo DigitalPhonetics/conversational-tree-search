@@ -1,0 +1,6 @@
+ckpt_name: 'T-Systems-onsite/cross-en-de-roberta-sentence-transformer'
+embedding_dim: 768
+cache_db_index: 2
+pooling: "NONE"
+noise_std: 0.0
+caching: true
