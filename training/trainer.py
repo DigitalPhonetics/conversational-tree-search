@@ -1,4 +1,7 @@
 
+import torch
+
+
 class Trainer:
     def __init__(self, device, cache, 
                     training, validation, testing, 
@@ -17,8 +20,16 @@ class Trainer:
         # TODO move model to device
         # TODO train, eval, test loops
 
+        
+
 
         print("DEVICE", device)
         print("HELLO")
         print("CACHE", cache)
         print("TRAINING", training)
+        
+
+
+        # Model setup
+        model = model.to(device)
+        model = torch.compile(model)

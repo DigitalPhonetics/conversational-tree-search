@@ -1,8 +1,9 @@
 from typing import List
 
 import torch
+from models.dqn.base import DQNBase
 
-class DecoupledDuelingDQN:
+class DecoupledDuelingDQN(DQNBase):
     def __init__(self, intent_prediction: bool,
                 shared_layer_sizes: List[int],
                 value_layer_sizes: List[int],
@@ -10,5 +11,5 @@ class DecoupledDuelingDQN:
                 dropout_rate: float,
                 normalization_layers: bool,
                 activation_fn: torch.nn.Module) -> None:
-        pass
+        super().__init__()
 

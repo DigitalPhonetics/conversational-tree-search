@@ -17,6 +17,7 @@ defaults:
 
   - cache@experiment.cache: kapweihe
 
+  # overwrite defaults loaded above with the following content from this file
   - _self_
 
 experiment:
@@ -63,6 +64,9 @@ experiment:
     num_train_envs: 8
     num_val_envs: 8
     num_test_envs: 8
+    sys_token: "[SYS]"
+    usr_token: "[USR]"
+    sep_token: ""
   actions:
     in_state_space: true
     action_masking: true

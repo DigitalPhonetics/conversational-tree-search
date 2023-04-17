@@ -18,6 +18,7 @@ class InstanceType(Enum):
     ALGORITHM = 'algorithm'
     CACHE = 'cache'
     CONFIG = 'config'
+    BUFFER = 'buffer'
 
 @dataclass
 class CacheConfig:

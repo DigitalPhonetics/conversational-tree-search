@@ -1,15 +1,24 @@
 
 from collections import defaultdict
 from dataclasses import dataclass
+from enum import Enum
+from functools import reduce
 import json
 import random
-from typing import List, Set
+from typing import Dict, List, Set, Tuple
 
 import pandas as pd
 
+
+class NodeType(Enum):
+    INFO = "infoNode"
+    VARIABLE = "userInputNode"
+    QUESTION = "userResponseNode"
+    LOGIC = "logicNode"
+
+
 @dataclass
 class DatasetConfig:
-    _target_: str
     graph_path: str
     answer_path: str
     use_answer_synonyms: bool
@@ -32,7 +41,7 @@ class Question:
 class DialogNode:
     key: str
     text: str
-    node_type: str
+    node_type: NodeType
     answers: List[Answer]
     questions: List[Question]
     connected_node: "DialogNode"
@@ -63,15 +72,23 @@ class Tagegeld:
 
 class GraphDataset:
     def __init__(self, graph_path: str, answer_path: str, use_answer_synonyms: bool) -> None:
-        print("Dataset: ", graph_path, answer_path, use_answer_synonyms)
 
-        self.graph = self._load_graph()
+        self.graph = self._load_graph(graph_path)
         self.answer_synonyms = self._load_answer_synonyms(answer_path, use_answer_synonyms)
         self.a1_countries = self._load_a1_countries()
-        self.hotel_costs = self._load_hotel_costs()
+        self.hotel_costs, self.country_list, self.city_list = self._load_hotel_costs()
 
+        self.num_guided_goal_nodes = sum([1 for node in self.node_list if (node.node_type in [NodeType.QUESTION, NodeType.VARIABLE] and len(node.answers) > 0) or (node.node_type == NodeType.INFO)])
+        self.num_answer_synonyms = sum([len(self.answer_synonyms[answer]) for answer in self.answer_synonyms])
         self._max_tree_depth = None
         self._max_node_degree = None
+
+        print("===== Dataset Statistics =====")
+        print("- files: ", graph_path, answer_path)
+        print("- synonyms:", use_answer_synonyms)
+        print("- depth:", self.get_max_tree_depth(), " - degree:", self.get_max_node_degree())
+        print("- answers:", sum([len(self.answer_synonyms[key]) for key in self.answer_synonyms]))
+        print("- questions:", len(self.question_list))
       
     def _load_graph(self, graph_path: str):
         # load graph
@@ -90,7 +107,7 @@ class GraphDataset:
                 # parse node info (have to create all nodes before we can create the answers because they can be linked to otherwise not yet existing nodes)
                 node = DialogNode(key=int(dialognode_json['id']),
                                 text=dialognode_json['data']['raw_text'],
-                                node_type=dialognode_json['type'],
+                                node_type=NodeType(dialognode_json['type']),
                                 answers=[],
                                 questions=[],
                                 connected_node=None)
@@ -108,13 +125,13 @@ class GraphDataset:
                     answer = Answer(
                         key=int(answer_json['id']), 
                         text=answer_json['raw_text'],
-                        answer_index=index,
+                        index=index,
                         connected_node=None,
                         parent=node) # store answers in correct order
                     node.answers.append(answer)
                     self.answers_by_key[answer.key] = answer
                 # sort answers
-                node.answers.sort(key=lambda ans: ans.answer_index)
+                node.answers.sort(key=lambda ans: ans.index)
                 
                 for faq_json in dialognode_json['data']['questions']:
                     question = Question(key=int(faq_json['id']),
@@ -137,11 +154,12 @@ class GraphDataset:
     def _load_answer_synonyms(self, answer_path: str, use_answer_synonyms: bool):
         # load synonyms
         with open(answer_path, "r") as f:
-            answer_data = json.load(f)
+            answers = json.load(f)
+            answer_data = {answer.lower(): answers[answer] for answer in answers}
             if not use_answer_synonyms:
                 print("- not using synonyms")
                 # key is also the only possible value
-                answer_data = {answer: [answer] for answer in answer_data}
+                answer_data = {answer.lower(): [answer] for answer in answer_data}
         return answer_data
 
     def _load_a1_countries(self):
@@ -149,16 +167,27 @@ class GraphDataset:
             a1_countries = json.load(f)
         return a1_countries
 
-    def _load_hotel_costs(self):
+    def _load_hotel_costs(self) -> Tuple[Dict[str, Dict[str, float]], Set[str], Set[str]]:
+        """
+        Returns:
+            hotel_costs: country -> city -> value
+            country_list: Set[str]            
+            city_list: Set[str]
+        """
         # load max. hotel costs
         hotel_costs = defaultdict(lambda: dict())
+        country_list = set()
+        city_list = set()
+
         content = pd.read_excel("resources/TAGEGELD_AUSLAND.xlsx")
         for idx, row in content.iterrows():
-            land = row['Land']
-            stadt = row['Stadt']
+            country = row['Land']
+            city = row['Stadt']
+            country_list.add(country)
+            city_list.add(city)
             tagegeld = row['Tagegeld LRKG']
-            hotel_costs[land][stadt] = Tagegeld(land=land, stadt=stadt, tagegeldsatz=tagegeld)
-        return hotel_costs
+            hotel_costs[country][city] = Tagegeld(land=country, stadt=city, tagegeldsatz=tagegeld)
+        return hotel_costs, country_list, city_list
     
     def _get_max_tree_depth(self, current_node: DialogNode, current_max_depth: int, visited: Set[int]) -> int:
         """ Return maximum tree depth (max. number of steps to leave node) in whole graph """
@@ -177,7 +206,7 @@ class GraphDataset:
             # continue recursion by visiting children
             max_child_depth = max([self._get_max_tree_depth(answer.connected_node, current_max_depth + 1, visited) for answer in current_node.answers if answer.connected_node])
             return max_child_depth
-        elif current_node.connected_node_key:
+        elif current_node.connected_node:
             # node without answers, e.g. info node
             # continue recursion by visiting children
             return self._get_max_tree_depth(current_node.connected_node, current_max_depth + 1, visited)
@@ -209,3 +238,6 @@ class GraphDataset:
             # calculate, then cache value
             self._max_node_degree = self._get_max_node_degree()
         return self._max_node_degree
+
+    def count_question_nodes(self) -> int:
+        return len(self.nodes_by_type[NodeType.QUESTION])

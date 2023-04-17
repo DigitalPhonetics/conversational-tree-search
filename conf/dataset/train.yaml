@@ -1,5 +1,2 @@
-defaults:
-  - base
-
 graph_path: resources/train_graph.json
 answer_path: resources/train_answers.json
