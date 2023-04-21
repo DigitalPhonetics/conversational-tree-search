@@ -15,6 +15,7 @@ class NodeType(Enum):
     VARIABLE = "userInputNode"
     QUESTION = "userResponseNode"
     LOGIC = "logicNode"
+    START = "startNode"
 
 
 @dataclass
@@ -61,6 +62,18 @@ class DialogNode:
     def answer_by_connected_node(self, connected_node: "DialogNode") -> Answer:
         return next(ans for ans in self.answers if ans.connected_node.key == connected_node.key)
 
+    def __str__(self) -> str:
+        return f"""DialogNode.{self.node_type.name}(key: {self.key}, answers: {len(self.answers)}, questions: {len(self.questions)})
+        - connected_node: {self.connected_node.key if self.connected_node else None}
+        - text: {self.text[:100]}
+        """
+
+    def __repr__(self) -> str:
+        return f"""DialogNode.{self.node_type.name}(key: {self.key}, answers: {len(self.answers)}, questions: {len(self.questions)})
+        - connected_node: {self.connected_node.key if self.connected_node else None}
+        - text: {self.text[:100]}
+        """
+
 @dataclass
 class Tagegeld:
     land: str
@@ -77,6 +90,8 @@ class GraphDataset:
         self.answer_synonyms = self._load_answer_synonyms(answer_path, use_answer_synonyms)
         self.a1_countries = self._load_a1_countries()
         self.hotel_costs, self.country_list, self.city_list = self._load_hotel_costs()
+        self._load_country_synonyms()
+        self._load_city_synonyms()
 
         self.num_guided_goal_nodes = sum([1 for node in self.node_list if (node.node_type in [NodeType.QUESTION, NodeType.VARIABLE] and len(node.answers) > 0) or (node.node_type == NodeType.INFO)])
         self.num_answer_synonyms = sum([len(self.answer_synonyms[answer]) for answer in self.answer_synonyms])
@@ -117,7 +132,7 @@ class GraphDataset:
                     self.nodes_by_type[node.node_type] = []
                 self.nodes_by_type[node.node_type].append(node)
                 self.node_list.append(node)
-                if node.node_type == 'startNode':
+                if node.node_type == NodeType.START:
                     self.start_node = node
 
                 for index, answer_json in enumerate(dialognode_json['data']['answers']):
@@ -145,7 +160,7 @@ class GraphDataset:
             # parse connections
             for connection in data['connections']:
                 fromDialogNode = self.nodes_by_key[int(connection['source'])]
-                if fromDialogNode.node_type == 'startNode' or fromDialogNode.node_type == 'infoNode':
+                if fromDialogNode.node_type == NodeType.START or fromDialogNode.node_type == NodeType.INFO:
                     fromDialogNode.connected_node = self.nodes_by_key[int(connection['target'])]
                 else:
                     fromDialogAnswer = self.answers_by_key[int(connection['sourceHandle'])]
@@ -189,6 +204,22 @@ class GraphDataset:
             hotel_costs[country][city] = Tagegeld(land=country, stadt=city, tagegeldsatz=tagegeld)
         return hotel_costs, country_list, city_list
     
+    def _load_country_synonyms(self):
+        with open('resources/country_synonyms.json', 'r') as f:
+            country_synonyms = json.load(f)
+            self.country_keys = [country.lower() for country in country_synonyms.keys()]
+            self.countries = {country.lower(): country for country in country_synonyms.keys()}
+            self.countries.update({country_syn.lower(): country for country, country_syns in country_synonyms.items()
+                                    for country_syn in country_syns})
+    
+    def _load_city_synonyms(self):
+        with open('resources/city_synonyms.json', 'r') as f:
+            city_synonyms = json.load(f)
+            self.city_keys = [city.lower() for city in city_synonyms.keys()]
+            self.cities = {city.lower(): city for city in city_synonyms.keys() if city != '$REST'}
+            self.cities.update({city_syn.lower(): city for city, city_syns in city_synonyms.items()
+                                for city_syn in city_syns})
+
     def _get_max_tree_depth(self, current_node: DialogNode, current_max_depth: int, visited: Set[int]) -> int:
         """ Return maximum tree depth (max. number of steps to leave node) in whole graph """
 
@@ -196,7 +227,7 @@ class GraphDataset:
             return current_max_depth
         visited.add(current_node.key)
 
-        if current_node.node_type == 'startNode':
+        if current_node.node_type == NodeType.START:
             # begin recursion at start node
             current_node = current_node.connected_node
 
@@ -241,3 +272,6 @@ class GraphDataset:
 
     def count_question_nodes(self) -> int:
         return len(self.nodes_by_type[NodeType.QUESTION])
+
+    def random_question(self) -> Question:
+        return random.choice(self.question_list)

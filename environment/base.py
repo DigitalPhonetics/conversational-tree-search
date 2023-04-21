@@ -10,13 +10,14 @@ from enum import IntEnum
 import gym
 from gym import spaces
 import logging
-from chatbot.adviser.app.rl.goal import ImpossibleGoalError, UserResponse
+from chatbot.adviser.app.rl.goal import ImpossibleGoalError, UserResponse, UserGoalGenerator
 from chatbot.adviser.app.rl.utils import EnvInfo, StateEntry, rand_remove_questionmark
 
 from data.dataset import Answer, DialogNode, GraphDataset, NodeType
 
 from chatbot.adviser.app.answerTemplateParser import AnswerTemplateParser
 from chatbot.adviser.app.logicParser import LogicTemplateParser
+from chatbot.adviser.app.systemTemplateParser import SystemTemplateParser
 from chatbot.adviser.app.parserValueProvider import RealValueBackend
 # from chatbot.adviser.app.rl.dialogtree import DialogTree
 from chatbot.adviser.app.rl.goal import VariableValue
@@ -58,6 +59,7 @@ class EnvironmentConfig:
 # - chain_dialog_history -> now returns 5 instead of 2 entries per list item
 # - handle_logic_node -> doesn't return reward anymore, doesn't handle chained logic nodes anymore, doesn't log, doesn't update last_node, throws MissingBSTValue
 
+# TODO how do we get a real user in ?
 
 class MissingBSTValue(Exception):
     def __init__(self, var_name: str, bst: dict) -> None:
@@ -85,14 +87,21 @@ def chain_dialog_history(sys_utterances: List[str], usr_utterances: List[str], s
 
 
 class BaseEnv:
-    def __init__(self, env_id: int, dataset: GraphDataset, sys_token: str, usr_token: str, sep_token: str,
-            max_steps: int, max_reward: float,
+    def __init__(self, env_id: int, dataset: GraphDataset, 
+            sys_token: str, usr_token: str, sep_token: str,
+            max_steps: int, max_reward: float, user_patience: int,
             answer_parser: AnswerTemplateParser, logic_parser: LogicTemplateParser,
-            value_backend: RealValueBackend) -> None:
+            value_backend: RealValueBackend,
+            auto_skip: AutoSkipMode) -> None:
         self.env_id = env_id
         self.data = dataset
         self.max_steps = max_steps
         self.max_reward = max_reward
+        self.user_patience = user_patience
+        self.auto_skip_mode = auto_skip
+        self.sys_token = sys_token
+        self.usr_token = usr_token
+        self.sep_token = sep_token
         
         self.answerParser = answer_parser
         self.logicParser = logic_parser
@@ -104,6 +113,7 @@ class BaseEnv:
         self.coverage_synonyms = defaultdict(int)
         self.coverage_variables = defaultdict(lambda: defaultdict(int))
         self.reached_dialog_tree_end = 0
+        self.current_episode = 0
 
     def pre_reset(self):
         self.current_step = 0
@@ -131,6 +141,7 @@ class BaseEnv:
         self.node_coverage[self.current_node.key] += 1
 
         # dialog stats
+        self.current_episode += 1
         self.current_step = 0
         self.episode_reward = 0.0
         self.skipped_nodes = 0
@@ -159,12 +170,6 @@ class BaseEnv:
     def reached_max_length(self) -> bool:
         return self.current_step == self.max_steps - 1 # -1 because first turn is counted as step 0
 
-    def get_goal_node_coverage_free(self):
-        return len(self.goal_node_coverage_free) / self.data.count_question_nodes()
-
-    def get_goal_node_coverage_guided(self):
-        return len(self.goal_node_coverage_guided) / self.data.num_guided_goal_nodes
-
     def get_node_coverage(self):
         return len(self.node_coverage) / len(self.data.node_list)
 
@@ -192,7 +197,7 @@ class BaseEnv:
                                                             sys_token=self.sys_token, usr_token=self.usr_token, sep_token=self.sep_token),
             StateEntry.BST.value: deepcopy(self.bst),
             StateEntry.LAST_SYSACT.value: self.last_action_idx,
-            StateEntry.NOISE.value: self.noise
+            # StateEntry.NOISE.value: self.noise
         }
 
     def get_transition(self, answer_index: int) -> Union[DialogNode, None]:
@@ -294,28 +299,28 @@ class BaseEnv:
     def skip(self, answer_index: int) -> Tuple[bool, float]:
         raise NotImplementedError 
 
-    def step(self, action: int) -> Tuple[float, bool]:
+    def step(self, action: int, replayed_user_utterance: Tuple[str, None] = None) -> Tuple[float, bool]:
         reward = 0.0
         done = False 
         prev_node_key = self.current_node.key
 
         # check if dialog should end
-        if self._check_user_patience_reached(): 
+        if self.check_user_patience_reached(): 
             reward -= self.max_reward  # bad
             done = True
             self.episode_log.append(f'{self.env_id}-{self.current_episode}$ REACHED MAX USER PATIENCE')
-        elif self._reached_max_length():
+        elif self.reached_max_length():
             done = True # already should have large negtative reward (expect if in guided mode, where max length could even be desired)
             self.episode_log.append(f'{self.env_id}-{self.current_episode}$ REACHED MAX LENGTH')
         else:
             assert self.current_node.node_type != NodeType.LOGIC
             if action == ActionType.ASK:
-                done, reward = self.ask()
+                done, reward = self.ask(replayed_user_utterance)
             else:
                 done, reward = self.skip(action-1) # get answer index by shifting actions to the left
                 
             self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> USER UTTERANCE: {self.current_user_utterance}')
-            self.episode_log.append(f'{self.env_id}-{self.current_episode}$ TO NODE: {self.current_node.node_type.value} - {self.current_node.key} - {self.current_node.content.text[:100]}')
+            self.episode_log.append(f'{self.env_id}-{self.current_episode}$ TO NODE: {self.current_node.node_type.value} - {self.current_node.key} - {self.current_node.text[:100]}')
 
             # update history
             self.last_action_idx = action
@@ -328,7 +333,7 @@ class BaseEnv:
             self.update_node_counters()
             self.update_action_counters(action)
 
-            if (not done) and self.goal_node and self.auto_skip != AutoSkipMode.NONE and self.last_action_idx == ActionType.ASK:
+            if (not done) and self.goal_node and self.auto_skip_mode != AutoSkipMode.NONE and self.last_action_idx == ActionType.ASK:
                 self.auto_skip()
 
             # handle logic node auto-transitioning here
@@ -423,13 +428,15 @@ class BaseEnv:
 
 class _GuidedEnvironment(BaseEnv):
     def __init__(self, env_id: int, dataset: GraphDataset, sys_token: str, usr_token: str, sep_token: str,
-            max_steps: int, max_reward: float,
+            max_steps: int, max_reward: float, user_patience: int,
             answer_parser: AnswerTemplateParser, logic_parser: LogicTemplateParser,
-            value_backend: RealValueBackend) -> None:
+            value_backend: RealValueBackend,
+            auto_skip: AutoSkipMode) -> None:
         super().__init__(env_id=env_id, dataset=dataset,
             sys_token=sys_token, usr_token=usr_token, sep_token=sep_token,
-            max_steps=max_steps, max_reward=max_reward,
-            answer_parser=answer_parser, logic_parser=logic_parser, value_backend=value_backend)
+            max_steps=max_steps, max_reward=max_reward, user_patience=user_patience,
+            answer_parser=answer_parser, logic_parser=logic_parser, value_backend=value_backend,
+            auto_skip=auto_skip)
 
     def draw_random_answer(self, node: DialogNode) -> Tuple[Answer, str]:
         if not node.key in self.user_answer_keys:
@@ -437,7 +444,7 @@ class _GuidedEnvironment(BaseEnv):
             self.user_answer_keys[node.key] = UserResponse(relevant=True, answer_key=node.random_answer().key)
         # answer = DialogAnswer.objects.get(version=self.version, key=self.user_answer_keys[node.key])
         answer = self.data.answers_by_key[self.user_answer_keys[node.key].answer_key]
-        user_utterance = rand_remove_questionmark(random.choice(self.answer_synonyms[answer.text.lower()]))
+        user_utterance = rand_remove_questionmark(random.choice(self.data.answer_synonyms[answer.text.lower()]))
         return answer, user_utterance
         
     def reset(self, current_episode: int):
@@ -486,7 +493,7 @@ class _GuidedEnvironment(BaseEnv):
         if done or isinstance(self.goal_node, type(None)):
             self.episode_log.append(f'{self.env_id}-{self.current_episode} NO NEXT GOAL - LOGIC NODE WITHOUT REQUIRED BST VARIABLE$')
             return False
-        self.goal_node_coverage_guided[self.goal_node.key] += 1
+        self.goal_node_coverage[self.goal_node.key] += 1
         return True
    
     def ask(self, replayed_user_utterance: Tuple[str, None]) -> Tuple[bool, float]:
@@ -494,7 +501,7 @@ class _GuidedEnvironment(BaseEnv):
         reward = 0.0
 
         if self.last_action_idx == ActionType.ASK:
-            if self.auto_skip != AutoSkipMode.NONE:
+            if self.auto_skip_mode != AutoSkipMode.NONE:
                 reward += 2 # ask is also skip
                 # last ask brought us to correct goal
                 if not self.choose_next_goal_node_guided():
@@ -540,7 +547,7 @@ class _GuidedEnvironment(BaseEnv):
         done = False
         reward = 0.0
 
-        next_node = self._get_transition(answer_index)
+        next_node = self.get_transition(answer_index)
         if (not next_node) or self.goal_node.key != next_node.key:
             reward -= 4 # skipping is good after ask, but followup-node is wrong!
             self.reached_goals.append(0)
@@ -592,23 +599,28 @@ class _GuidedEnvironment(BaseEnv):
 
 class _FreeEnvironment(BaseEnv):
     def __init__(self, env_id: int, dataset: GraphDataset, sys_token: str, usr_token: str, sep_token: str,
-            max_steps: int, max_reward: float,
-            answer_parser: AnswerTemplateParser, logic_parser: LogicTemplateParser,
-            value_backend: RealValueBackend) -> None:
+            max_steps: int, max_reward: float, user_patience: int,
+            answer_parser: AnswerTemplateParser, system_parser: SystemTemplateParser, logic_parser: LogicTemplateParser,
+            value_backend: RealValueBackend,
+            auto_skip: AutoSkipMode) -> None:
         super().__init__(env_id=env_id, dataset=dataset,
             sys_token=sys_token, usr_token=usr_token, sep_token=sep_token, 
-            max_steps=max_steps, max_reward=max_reward,
-            answer_parser=answer_parser, logic_parser=logic_parser, value_backend=value_backend)
+            max_steps=max_steps, max_reward=max_reward, user_patience=user_patience,
+            answer_parser=answer_parser, logic_parser=logic_parser, value_backend=value_backend,
+            auto_skip=auto_skip)
+        self.goal_gen = UserGoalGenerator(graph=dataset, answer_parser=answer_parser,
+            system_parser=system_parser, value_backend=value_backend,
+            paraphrase_fraction=0.0, generate_fraction=0.0)
 
     def reset(self, current_episode: int):
         self.pre_reset()
 
-        self.is_faq_mode = True
+        self.goal = None
         while not self.goal:
             try:
                 self.goal = self.goal_gen.draw_goal()
             except ImpossibleGoalError:
-                # print("IMPOSSIBLE GOAL")
+                print("IMPOSSIBLE GOAL")
                 continue
             except ValueError:
                 continue
@@ -640,7 +652,7 @@ class _FreeEnvironment(BaseEnv):
             reward -= 1
 
         if not done:
-            if self.auto_skip != AutoSkipMode.NONE:
+            if self.auto_skip_mode != AutoSkipMode.NONE:
                 reward -= 1 # because it is 2 actions
 
             if self.current_node.node_type == NodeType.VARIABLE:
@@ -652,7 +664,7 @@ class _FreeEnvironment(BaseEnv):
                     reward -= 1 # variable value already known
                 
                 # get user reply and save to bst
-                var_instance = self.goal.get_user_input(self.current_node, self.bst)
+                var_instance = self.goal.get_user_input(self.current_node, self.bst, self.data)
                 self.bst[var.name] = var_instance.var_value
                 self.current_user_utterance = str(deepcopy(var_instance.var_value))
 
@@ -685,7 +697,7 @@ class _FreeEnvironment(BaseEnv):
                         self.current_user_utterance = replayed_user_utterance
                     else:
                         answer = self.current_node.answer_by_key(response.answer_key)
-                        self.current_user_utterance = rand_remove_questionmark(random.choice(self.answer_synonyms[answer.text.lower()]))
+                        self.current_user_utterance = rand_remove_questionmark(random.choice(self.data.answer_synonyms[answer.text.lower()]))
                     self.coverage_synonyms[self.current_user_utterance.replace("?", "")] += 1
             # info nodes don't require special handling
 
@@ -718,11 +730,94 @@ class _FreeEnvironment(BaseEnv):
 
 
 
+class RealUserEnvironment(BaseEnv):
+    def __init__(self, env_id: int, dataset: GraphDataset, sys_token: str, usr_token: str, sep_token: str,
+            max_steps: int, max_reward: float,
+            answer_parser: AnswerTemplateParser, logic_parser: LogicTemplateParser,
+            value_backend: RealValueBackend,
+            auto_skip: AutoSkipMode) -> None:
+        super().__init__(env_id=env_id, dataset=dataset,
+            sys_token=sys_token, usr_token=usr_token, sep_token=sep_token, 
+            max_steps=max_steps, max_reward=max_reward,
+            answer_parser=answer_parser, logic_parser=logic_parser, value_backend=value_backend,
+            auto_skip=auto_skip)
+
+    def reset(self):
+        self.pre_reset()
+
+        # Mock a goal node that we can never reach to keep the conversation alive
+        self.goal_node = DialogNode(key="syntheticGoalNode", text="Synthetic Goal Node", node_type=NodeType.INFO, answers=[], questions=[], connected_node=None)
+
+        # Output first node
+        print(self.current_node.text)
+        # Ask for initial user input
+        self.initial_user_utterance = deepcopy(input(">>"))
+
+        self.reached_goal_once = False
+        self.asked_goal_once = False
+        self.constraints = {}
+        
+        self.post_reset()
+
+    def check_user_patience_reached(self) -> bool:
+        return False # should never quit dialog automatically
+
+    def ask(self, replayed_user_utterance: Tuple[str, None]) -> Tuple[bool, float]:
+        reward = 0.0
+        # output system text
+        print("ASKING", self.current_node.text)
+
+        if self.auto_skip_mode != AutoSkipMode.NONE:
+            reward -= 1 # because it is 2 actions
+
+        if self.current_node.node_type == NodeType.VARIABLE:
+            # get variable name
+            var = self.answer_template_parser.find_variable(self.current_node.answer_by_index(0).text)
+
+            # check if variable was already asked
+            if var.name in self.bst:
+                reward -= 1 # variable value already known
+            
+            # get user reply and save to bst
+            var_value = input(">>")
+            self.bst[var.name] = var_value
+            self.current_user_utterance = str(deepcopy(var_value))
+
+            self.coverage_variables[var.name][self.bst[var.name]] += 1
+        elif self.current_node.node_type == NodeType.QUESTION:
+            response = input(">>")
+            self.current_user_utterance = deepcopy(response)
+
+        return False, reward
+
+    def skip(self, answer_index: int) -> Tuple[bool, float]:
+        done = False
+        reward = -1.0
+        
+        print("SKIPPING", self.current_node.text[:100])
+        next_node = self.get_transition(answer_index)
+
+        if next_node:
+            # valid transition
+            self.current_node = next_node
+        else:
+            done = True
+            print("REACHED END OF DIALOG TREE")
+        return done, reward
+
+    def reached_goal(self) -> Union[bool, float]:
+        return False
+
+    def asked_goal(self) -> Union[bool, float]:
+        return False
+
+
+
 class CTSEnvironment(gym.Env):
     def __init__(self, mode: str,
                 dataset: GraphDataset,
                 guided_free_ratio: float,
-                auto_skip: bool,
+                auto_skip: AutoSkipMode,
                 normalize_rewards: bool,
                 max_steps: int,
                 user_patience: int,
@@ -735,28 +830,48 @@ class CTSEnvironment(gym.Env):
 
         answer_parser = AnswerTemplateParser()
         logic_parser = LogicTemplateParser()
+        system_parser = SystemTemplateParser()
         value_backend = RealValueBackend(dataset.a1_countries)
 
         self.guided_free_ratio = guided_free_ratio
         self.max_reward = 4 * dataset.get_max_tree_depth() if normalize_rewards else 1.0
-        self.current_episode = 0
+        
         
         if guided_free_ratio > 0.0:
-            self.guided_env = _GuidedEnvironment(dataset=dataset, sys_token=sys_token, usr_token=usr_token, sep_token=sep_token, max_steps=max_steps, max_reward=self.max_reward, answer_parser=answer_parser, logic_parser=logic_parser, value_backend=value_backend)
+            self.guided_env = _GuidedEnvironment(dataset=dataset, 
+                sys_token=sys_token, usr_token=usr_token, sep_token=sep_token,
+                max_steps=max_steps, max_reward=self.max_reward, user_patience=user_patience,
+                answer_parser=answer_parser, logic_parser=logic_parser,
+                value_backend=value_backend,
+                auto_skip=auto_skip)
         if guided_free_ratio < 1.0:
-            self.free_env = _FreeEnvironment(dataset=dataset, sys_token=sys_token, usr_token=usr_token, sep_token=sep_token, max_steps=max_steps, max_reward=self.max_reward, answer_parser=answer_parser, logic_parser=logic_parser, value_backend=value_backend)
+            self.free_env = _FreeEnvironment(dataset=dataset, 
+                sys_token=sys_token, usr_token=usr_token, sep_token=sep_token,
+                max_steps=max_steps, max_reward=self.max_reward, user_patience=user_patience,
+                answer_parser=answer_parser, system_parser=system_parser, logic_parser=logic_parser, 
+                value_backend=value_backend,
+                auto_skip=auto_skip)
 
         # TODO add logger
         # TODO forward coverage stats
+    
+    @property
+    def current_episode(self):
+        return self.guided_env.current_episode + self.free_env.current_episode
 
     def reset(self):
-        self.current_episode += 1
         # choose uniformely at random between guided and free env according to ratio
         self.active_env = self.guided_env if random.random() < self.guided_free_ratio else self.free_env
         return self.active_env.reset(current_episode=self.current_episode)
 
-    def step(self, action: int) -> Tuple[dict, float, bool, dict]:
-        obs, reward, done, info = self.active_env.step(action)
+    def step(self, action: int, replayed_user_utterance: Tuple[str, None] = None) -> Tuple[dict, float, bool, dict]:
+        obs, reward, done, info = self.active_env.step(action, replayed_user_utterance)
         info[EnvInfo.IS_FAQ] = self.active_env == self.free_env
         return obs, reward, done, info
+
+    def get_goal_node_coverage_free(self):
+        return len(self.free_env.goal_node_coverage) / self.data.count_question_nodes()
+
+    def get_goal_node_coverage_guided(self):
+        return len(self.guided_env.goal_node_coverage) / self.data.num_guided_goal_nodes
 
