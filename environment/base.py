@@ -1,11 +1,13 @@
 from collections import defaultdict
 from copy import deepcopy
-from dataclasses import dataclass
 import itertools
-from typing import Any, Optional, Tuple, Union, Dict, List
-from enum import IntEnum
+from typing import Any, Tuple, Union, Dict, List
 
-from chatbot.adviser.app.rl.utils import EnvInfo, StateEntry
+import torch
+
+from chatbot.adviser.app.rl.utils import EnvInfo, State
+from config import StateConfig, ActionType
+from data.cache import Cache
 
 from data.dataset import DialogNode, GraphDataset, NodeType
 
@@ -13,26 +15,7 @@ from chatbot.adviser.app.answerTemplateParser import AnswerTemplateParser
 from chatbot.adviser.app.logicParser import LogicTemplateParser
 from chatbot.adviser.app.parserValueProvider import RealValueBackend
 from chatbot.adviser.app.rl.utils import AutoSkipMode
-
-
-class ActionType(IntEnum):
-    ASK = 0
-    SKIP = 1
-    
-@dataclass
-class EnvironmentConfig:
-    guided_free_ratio: float
-    auto_skip: bool
-    normalize_rewards: bool
-    max_steps: int
-    user_patience: int
-    stop_when_reaching_goal: bool 
-    num_train_envs: int 
-    num_val_envs: int
-    num_test_envs: int
-    sys_token: Optional[str] = ""
-    usr_token: Optional[str] = ""
-    sep_token: Optional[str] = ""
+from encoding.state import StateEncoding
 
 
 # TODO restructure env
@@ -53,39 +36,42 @@ class MissingBSTValue(Exception):
         super().__init__(var_name, bst)
 
 
-def chain_dialog_history(sys_utterances: List[str], usr_utterances: List[str], sys_token: str = "", usr_token: str = "", sep_token: str = "") -> List[Tuple[str,str,str,str,str]]:
-    """
-    Interleave system and user utterances to a combined history.
+class StaticFeatureExtractor:
+    def __init__(self, cache: Cache, state_config: StateConfig) -> None:
+        self.cache = cache
+        self.relevant_input_keys = {}
 
-    Args:
-        sys_utterances: List of all system utterances (one turn per list entry)
-        usr_utterances: List of all user utterances (one turn per list entry)
-        sys_token: Token appended to each system utterance, e.g. "[SYS]" -> [SYS] sys turn 1 [USR] usr turn 1 [SYS] sys turn 2 ...
-        usr_token: Token appended to each user utterance, e.g. "[SYS]" -> [SYS] sys turn 1 [USR] usr turn 1 [SYS] sys turn 2 ...
-        sep_token Seperator token added between each system and user utterance, e.g. "[SEP]" -> sys 1 [SEP] usr turn 1 [SEP] sys turn 2 ...
-
-    Returns: 
-        List[Tuple(sys_token, sys_turn, sep_token, usr_token, usr_turn)]
-    """
-    turns = len(sys_utterances)
-    assert len(usr_utterances) == turns
-    return list(itertools.chain(zip([sys_token] * turns, [utterance for utterance in sys_utterances], [sep_token] * turns, [usr_token] * turns, [utterance for utterance in usr_utterances])))
-
+    def extract_features(self, state: Dict[State, Any]) -> Dict[str, torch.FloatTensor]:
+        # TODO
+        # 1. extract only the keys relevant to the state_config
+        # 2. encode all of these 
+        #   2.1 (including noise)
+        # 3. return
+        pass
+        
 
 
 class BaseEnv:
-    def __init__(self, env_id: int, dataset: GraphDataset, 
+    def __init__(self, env_id: int,
+            cache: Cache, dataset: GraphDataset, 
+            state_encoding: StateEncoding,
             sys_token: str, usr_token: str, sep_token: str,
             max_steps: int, max_reward: float, user_patience: int,
             answer_parser: AnswerTemplateParser, logic_parser: LogicTemplateParser,
             value_backend: RealValueBackend,
             auto_skip: AutoSkipMode) -> None:
+        
         self.env_id = env_id
         self.data = dataset
+        self.cache = cache
+        self.state_encoding = state_encoding
+
         self.max_steps = max_steps
         self.max_reward = max_reward
+
         self.user_patience = user_patience
         self.auto_skip_mode = auto_skip
+
         self.sys_token = sys_token
         self.usr_token = usr_token
         self.sep_token = sep_token
@@ -108,8 +94,10 @@ class BaseEnv:
         self.visited_node_keys = defaultdict(int)
         self.episode_log = []
         self.bst = {}
-        
+       
+        self.initial_user_utterance = "" 
         self.current_node = self.data.start_node.connected_node
+        self.prev_node = None
         self.last_action_idx = ActionType.ASK.value # start by asking start node
 
     def post_reset(self):
@@ -150,6 +138,8 @@ class BaseEnv:
         self.episode_log.append(f'{self.env_id}-{self.current_episode}$ GOAL: {self.goal_node.key} {self.goal_node.text[:100]}') 
         self.episode_log.append(f'{self.env_id}-{self.current_episode}$ CONSTRAINTS: {self.constraints}')
         self.episode_log.append(f'{self.env_id}-{self.current_episode}$ INITIAL UTTERANCE: {self.initial_user_utterance}') 
+
+        return self.state_encoding.encode(observation=self.get_obs(), sys_token=self.sys_token, usr_token=self.usr_token, sep_token=self.sep_token)
     
     def check_user_patience_reached(self) -> bool:
         return self.visited_node_keys[self.current_node.key] > self.user_patience # +1 because  skip action to node already counts as 1 visit
@@ -172,19 +162,22 @@ class BaseEnv:
             "LAND": len(self.coverage_variables["LAND"]) / len(self.data.country_list)
         }
 
-    def get_obs(self) -> Dict[StateEntry, Any]:
+
+    def get_obs(self) -> Dict[EnvInfo, Any]:
         return {
-            StateEntry.DIALOG_NODE.value: self.current_node,
-            StateEntry.DIALOG_NODE_KEY.value: self.current_node.key,
-            StateEntry.ORIGINAL_USER_UTTERANCE.value: deepcopy(self.initial_user_utterance),
-            StateEntry.CURRENT_USER_UTTERANCE.value: deepcopy(self.current_user_utterance),
-            StateEntry.SYSTEM_UTTERANCE_HISTORY.value: deepcopy(self.system_utterances_history),
-            StateEntry.USER_UTTERANCE_HISTORY.value: deepcopy(self.user_utterances_history),
-            StateEntry.DIALOG_HISTORY.value: chain_dialog_history(sys_utterances=self.system_utterances_history, usr_utterances=self.user_utterances_history,
-                                                            sys_token=self.sys_token, usr_token=self.usr_token, sep_token=self.sep_token),
-            StateEntry.BST.value: deepcopy(self.bst),
-            StateEntry.LAST_SYSACT.value: self.last_action_idx,
-            # StateEntry.NOISE.value: self.noise
+                EnvInfo.DIALOG_NODE: self.current_node,
+                EnvInfo.PREV_NODE: self.prev_node,
+                EnvInfo.LAST_SYSTEM_ACT: self.last_action_idx,
+                EnvInfo.BELIEFSTATE: deepcopy(self.bst),
+                EnvInfo.EPISODE_REWARD: self.episode_reward,
+                EnvInfo.EPISODE_LENGTH: self.current_step,
+                EnvInfo.EPISODE: self.current_episode,
+                EnvInfo.REACHED_GOAL_ONCE: self.reached_goal(),
+                EnvInfo.ASKED_GOAL: self.asked_goal(),
+                EnvInfo.INITIAL_USER_UTTERANCE: deepcopy(self.initial_user_utterance),
+                EnvInfo.CURRENT_USER_UTTERANCE: deepcopy(self.current_user_utterance),
+                EnvInfo.USER_UTTERANCE_HISTORY: deepcopy(self.user_utterances_history),
+                EnvInfo.SYSTEM_UTTERANCE_HISTORY: deepcopy(self.system_utterances_history)
         }
 
     def get_transition(self, answer_index: int) -> Union[DialogNode, None]:
@@ -286,10 +279,10 @@ class BaseEnv:
     def skip(self, answer_index: int) -> Tuple[bool, float]:
         raise NotImplementedError 
 
-    def step(self, action: int, replayed_user_utterance: Tuple[str, None] = None) -> Tuple[float, bool]:
+    def step(self, action: int, replayed_user_utterance: Tuple[str, None] = None) -> Tuple[torch.FloatTensor, float, bool, Dict[EnvInfo, Any]]:
         reward = 0.0
         done = False 
-        prev_node_key = self.current_node.key
+        self.prev_node = self.current_node
 
         # check if dialog should end
         if self.check_user_patience_reached(): 
@@ -340,15 +333,9 @@ class BaseEnv:
             self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> TURN REWARD: {reward}')
             self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> FINAL REWARD: {self.episode_reward}')
 
-        info = {EnvInfo.NODE_KEY: self.current_node.key,
-                EnvInfo.PREV_NODE_KEY: prev_node_key,
-                EnvInfo.EPISODE_REWARD: self.episode_reward,
-                EnvInfo.EPISODE_LENGTH: self.current_step,
-                EnvInfo.EPISODE: self.current_episode,
-                EnvInfo.REACHED_GOAL_ONCE: self.reached_goal(),
-                EnvInfo.ASKED_GOAL: self.asked_goal()
-        }
-        return self.get_obs(), reward/self.max_reward, done, info
+        obs = self.get_obs()
+        return self.state_encoding.encode(observation=obs, sys_token=self.sys_token, usr_token=self.usr_token, sep_token=self.sep_token), reward/self.max_reward, done, obs
+
 
     def update_action_counters(self, action: int):
         action_type = ActionType.ASK if action == ActionType.ASK else ActionType.SKIP

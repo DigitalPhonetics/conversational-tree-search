@@ -12,8 +12,10 @@ defaults:
 
   # embeddings
   - embeddings/text/model@experiment.state.node_text: roberta_sentencesim
-  - embeddings/text/model@experiment.state.original_user_utterance: roberta_sentencesim
+  - embeddings/text/model@experiment.state.initial_user_utterance: roberta_sentencesim
+  - embeddings/text/model@experiment.state.current_user_utterance: roberta_sentencesim
   - embeddings/text/model@experiment.state.action_text: roberta_sentencesim
+  - embeddings/text/model@experiment.state.dialog_history: roberta_sentencesim
 
   - cache@experiment.cache: kapweihe
 
@@ -27,8 +29,6 @@ experiment:
   logging:
     keep_checkpoints: 5
     logging: NONE
-  cache:
-    active: true
   training:
     noise: 0.3
     every_steps: 1
@@ -56,7 +56,7 @@ experiment:
     blubb: 0.1
   environment:
     guided_free_ratio: 0.5
-    auto_skip: false
+    auto_skip: NONE
     normalize_rewards: true
     max_steps: 50
     user_patience: 3
@@ -79,9 +79,12 @@ experiment:
     node_type: true
     node_text:
       active: true
-    original_user_utterance: 
-      active: false
-    dialog_history: /embeddings/text/text
+    dialog_history:
+      active: true
+    current_user_utterance:
+      active: true
+    initial_user_utterance:
+      active: true
     action_text:
       active: true
     action_position: true

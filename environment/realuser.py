@@ -3,21 +3,25 @@ from typing import Tuple, Union
 
 
 from data.dataset import DialogNode, GraphDataset, NodeType
+from data.cache import Cache
 
 from chatbot.adviser.app.answerTemplateParser import AnswerTemplateParser
 from chatbot.adviser.app.logicParser import LogicTemplateParser
 from chatbot.adviser.app.parserValueProvider import RealValueBackend
 from chatbot.adviser.app.rl.utils import AutoSkipMode
+from encoding.state import StateEncoding
 from environment.base import BaseEnv
 
 
 class RealUserEnvironment(BaseEnv):
-    def __init__(self, env_id: int, dataset: GraphDataset, sys_token: str, usr_token: str, sep_token: str,
+    def __init__(self, env_id: int, 
+            cache: Cache, dataset: GraphDataset, state_encoding: StateEncoding,
+            sys_token: str, usr_token: str, sep_token: str,
             max_steps: int, max_reward: float,
             answer_parser: AnswerTemplateParser, logic_parser: LogicTemplateParser,
             value_backend: RealValueBackend,
             auto_skip: AutoSkipMode) -> None:
-        super().__init__(env_id=env_id, dataset=dataset,
+        super().__init__(env_id=env_id, cache=cache, dataset=dataset, state_encoding=state_encoding,
             sys_token=sys_token, usr_token=usr_token, sep_token=sep_token, 
             max_steps=max_steps, max_reward=max_reward,
             answer_parser=answer_parser, logic_parser=logic_parser, value_backend=value_backend,
@@ -38,7 +42,7 @@ class RealUserEnvironment(BaseEnv):
         self.asked_goal_once = False
         self.constraints = {}
         
-        self.post_reset()
+        return self.post_reset()
 
     def check_user_patience_reached(self) -> bool:
         return False # should never quit dialog automatically

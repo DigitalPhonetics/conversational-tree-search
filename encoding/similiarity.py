@@ -23,7 +23,7 @@ class AnswerSimilarityEncoding:
         return 1 # only one similarity per action  #self.encoding_dim
 
     @torch.no_grad()
-    def encode(self, current_user_utterance: str, dialog_node: DialogNode, noise: float=0.0, **kwargs) -> torch.FloatTensor:
+    def encode(self, current_user_utterance: str, dialog_node: DialogNode, noise: float=0.0) -> torch.FloatTensor:
         # num_answers = dialog_node.answers.count()
         num_answers = dialog_node.answer_count()
         if not current_user_utterance:
@@ -45,7 +45,7 @@ class AnswerSimilarityEncoding:
         return embedding.unsqueeze(0).unsqueeze(-1) # 1 x max_actions x 1
 
     @torch.no_grad()
-    def batch_encode(self, current_user_utterance: List[str], dialog_node: List[DialogNode], noise: float = 0.0, **kwargs) -> Tuple[torch.FloatTensor, torch.FloatTensor]:
+    def batch_encode(self, current_user_utterance: List[str], dialog_node: List[DialogNode], noise: float = 0.0) -> Tuple[torch.FloatTensor, torch.FloatTensor]:
         """
         Returns:
             similaries: batch x max_actions

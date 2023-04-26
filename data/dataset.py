@@ -2,7 +2,6 @@
 from collections import defaultdict
 from dataclasses import dataclass
 from enum import Enum
-from functools import reduce
 import json
 import random
 from typing import Dict, List, Set, Tuple
@@ -16,6 +15,10 @@ class NodeType(Enum):
     QUESTION = "userResponseNode"
     LOGIC = "logicNode"
     START = "startNode"
+
+
+    def __lt__(self, other):
+        return self.value < other.value
 
 
 @dataclass
@@ -73,6 +76,7 @@ class DialogNode:
         - connected_node: {self.connected_node.key if self.connected_node else None}
         - text: {self.text[:100]}
         """
+  
 
 @dataclass
 class Tagegeld:

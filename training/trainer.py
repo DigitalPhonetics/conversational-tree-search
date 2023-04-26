@@ -1,6 +1,8 @@
 
 import torch
 
+# TODO observations from results have to be converted to tensors
+
 
 class Trainer:
     def __init__(self, device, cache, 

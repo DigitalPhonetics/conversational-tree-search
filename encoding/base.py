@@ -1,5 +1,6 @@
-import torch
 from typing import Union, Tuple
+
+import torch
 
 class Encoding:
     def __init__(self, device: str) -> None:
@@ -11,6 +12,5 @@ class Encoding:
     def encode(self, **kwargs) -> torch.FloatTensor:
         raise NotImplementedError
 
-    def batch_encode(self, **kwargs) -> Union[torch.FloatTensor, Tuple[torch.FloatTensor, torch.FloatTensor]]:
+    def batch_encode(self, **kwargs) -> torch.FloatTensor:
         raise NotImplementedError
-

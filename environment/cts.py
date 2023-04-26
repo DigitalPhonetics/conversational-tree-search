@@ -5,19 +5,23 @@ import gym
 from chatbot.adviser.app.rl.utils import EnvInfo
 
 from data.dataset import GraphDataset
+from data.cache import Cache
 
 from chatbot.adviser.app.answerTemplateParser import AnswerTemplateParser
 from chatbot.adviser.app.logicParser import LogicTemplateParser
 from chatbot.adviser.app.systemTemplateParser import SystemTemplateParser
 from chatbot.adviser.app.parserValueProvider import RealValueBackend
 from chatbot.adviser.app.rl.utils import AutoSkipMode
+from encoding.state import StateEncoding
 from environment.free import FreeEnvironment
 from environment.guided import GuidedEnvironment
 
 
 class CTSEnvironment(gym.Env):
-    def __init__(self, mode: str,
+    def __init__(self, env_id: int, mode: str,
+                cache: Cache,
                 dataset: GraphDataset,
+                state_encoding: StateEncoding,
                 guided_free_ratio: float,
                 auto_skip: AutoSkipMode,
                 normalize_rewards: bool,
@@ -28,6 +32,7 @@ class CTSEnvironment(gym.Env):
                 num_val_envs: int,
                 num_test_envs: int,
                 sys_token: str, usr_token: str, sep_token: str):
+        self.env_id = env_id
         print("ENV!!", mode, "TOKENS:", sys_token, usr_token, sep_token)
 
         answer_parser = AnswerTemplateParser()
@@ -40,14 +45,14 @@ class CTSEnvironment(gym.Env):
         
         
         if guided_free_ratio > 0.0:
-            self.guided_env = GuidedEnvironment(dataset=dataset, 
+            self.guided_env = GuidedEnvironment(env_id=env_id, cache=cache, dataset=dataset, state_encoding=state_encoding,
                 sys_token=sys_token, usr_token=usr_token, sep_token=sep_token,
                 max_steps=max_steps, max_reward=self.max_reward, user_patience=user_patience,
                 answer_parser=answer_parser, logic_parser=logic_parser,
                 value_backend=value_backend,
                 auto_skip=auto_skip)
         if guided_free_ratio < 1.0:
-            self.free_env = FreeEnvironment(dataset=dataset, 
+            self.free_env = FreeEnvironment(env_id=env_id, cache=cache, dataset=dataset, state_encoding=state_encoding,
                 sys_token=sys_token, usr_token=usr_token, sep_token=sep_token,
                 max_steps=max_steps, max_reward=self.max_reward, user_patience=user_patience,
                 answer_parser=answer_parser, system_parser=system_parser, logic_parser=logic_parser, 

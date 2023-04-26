@@ -1,6 +1,7 @@
 ckpt_name: 'distiluse-base-multilingual-cased-v2'
 embedding_dim: 512
 cache_db_index: 3
-pooling: "NONE"
+pooling: NONE
 noise_std: 0.0
 caching: true
+_target_: encoding.text.sbert.SentenceEmbeddings

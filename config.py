@@ -1,18 +1,23 @@
 
-from dataclasses import dataclass, field
-from enum import Enum
-from pathlib import Path
-from typing import Any, Optional, Type, Union
+from dataclasses import dataclass
+from enum import Enum, IntEnum
+from typing import Any, Optional 
 from hydra.core.config_store import ConfigStore
-from omegaconf import MISSING
+from chatbot.adviser.app.rl.utils import AutoSkipMode
 
 from data.dataset import DatasetConfig
-from embeddings.text.base import TextEmbeddingConfig
-from environment.base import EnvironmentConfig
-
+from encoding.text.base import TextEmbeddingConfig
 
 
 INSTANCES = {}
+
+
+
+
+class ActionType(IntEnum):
+    ASK = 0
+    SKIP = 1
+
 
 class InstanceType(Enum):
     ALGORITHM = 'algorithm'
@@ -61,9 +66,26 @@ class StateConfig:
     node_type: bool
     action_position: bool
     node_text: Optional[TextEmbeddingConfig] = None
-    original_user_utterance: Optional[TextEmbeddingConfig] = None
-    dialog_history: Optional[Any] = None
+    dialog_history: Optional[TextEmbeddingConfig] = None
     action_text: Optional[TextEmbeddingConfig] = None
+    current_user_utterance: Optional[TextEmbeddingConfig] = None
+    initial_user_utterance: Optional[TextEmbeddingConfig] = None
+
+    
+@dataclass
+class EnvironmentConfig:
+    guided_free_ratio: float
+    auto_skip: AutoSkipMode
+    normalize_rewards: bool
+    max_steps: int
+    user_patience: int
+    stop_when_reaching_goal: bool 
+    num_train_envs: int 
+    num_val_envs: int
+    num_test_envs: int
+    sys_token: Optional[str] = ""
+    usr_token: Optional[str] = ""
+    sep_token: Optional[str] = ""
 
 
 @dataclass

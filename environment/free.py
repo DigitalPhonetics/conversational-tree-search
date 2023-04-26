@@ -4,6 +4,7 @@ from typing import Tuple, Union
 
 from chatbot.adviser.app.rl.goal import ImpossibleGoalError, UserGoalGenerator
 from chatbot.adviser.app.rl.utils import rand_remove_questionmark
+from data.cache import Cache
 
 from data.dataset import GraphDataset, NodeType
 
@@ -12,16 +13,18 @@ from chatbot.adviser.app.logicParser import LogicTemplateParser
 from chatbot.adviser.app.systemTemplateParser import SystemTemplateParser
 from chatbot.adviser.app.parserValueProvider import RealValueBackend
 from chatbot.adviser.app.rl.utils import AutoSkipMode
+from encoding.state import StateEncoding
 from environment.base import BaseEnv
 
 
 class FreeEnvironment(BaseEnv):
-    def __init__(self, env_id: int, dataset: GraphDataset, sys_token: str, usr_token: str, sep_token: str,
+    def __init__(self, env_id: int, cache: Cache, dataset: GraphDataset, state_encoding: StateEncoding,
+            sys_token: str, usr_token: str, sep_token: str,
             max_steps: int, max_reward: float, user_patience: int,
             answer_parser: AnswerTemplateParser, system_parser: SystemTemplateParser, logic_parser: LogicTemplateParser,
             value_backend: RealValueBackend,
             auto_skip: AutoSkipMode) -> None:
-        super().__init__(env_id=env_id, dataset=dataset,
+        super().__init__(env_id=env_id, cache=cache, dataset=dataset, state_encoding=state_encoding,
             sys_token=sys_token, usr_token=usr_token, sep_token=sep_token, 
             max_steps=max_steps, max_reward=max_reward, user_patience=user_patience,
             answer_parser=answer_parser, logic_parser=logic_parser, value_backend=value_backend,
@@ -50,8 +53,8 @@ class FreeEnvironment(BaseEnv):
         self.constraints = self.goal.variables 
         
         self.coverage_synonyms[self.goal.faq_key] += 1
-        self.post_reset()
         self.episode_log.append(f'{self.env_id}-{self.current_episode}$ MODE: Free') 
+        return self.post_reset()
 
     def ask(self, replayed_user_utterance: Tuple[str, None]) -> Tuple[bool, float]:
         reward = 0.0

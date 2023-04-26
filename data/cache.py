@@ -1,30 +1,130 @@
-from typing import Any
-from config import INSTANCES, InstanceType
+import importlib
+from typing import Any, Dict, List, Union
+from chatbot.adviser.app.rl.utils import State
+from config import INSTANCES, InstanceType, StateConfig, ActionType
+import redis
 import redisai as rai
+import torch
+from data.dataset import DialogNode, GraphDataset
+from encoding.action import ActionTypeEncoding
+from encoding.bst import BSTEncoding
+from encoding.intent import IntentEncoding
+from encoding.nodeinfo.nodetype import NodeTypeEncoding
+from encoding.nodeinfo.position import TreePositionEncoding, AnswerPositionEncoding
 
-def requires_caching(obj):
-    return hasattr(obj, '__dict__') and "caching" in obj and obj["caching"] == True
+from encoding.text.base import TextEmbeddingConfig, TextEmbeddingPooling, TextEmbeddings
+
+
+def requires_text_embedding(obj):
+    return hasattr(obj, '__dict__') and "ckpt_name" in obj
+
 
 class Cache:
-    def __init__(self, active: bool, host: str, port: int) -> None:
+    def __init__(self, device: str, data: GraphDataset, host: str, port: int, state_config: StateConfig) -> None:
         global INSTANCES
         INSTANCES[InstanceType.CACHE] = self
-
-        candidate_keys = filter(lambda x: requires_caching(INSTANCES[InstanceType.CONFIG].experiment.state[x]), INSTANCES[InstanceType.CONFIG].experiment.state)
-        self.connections = {
-            input_key: rai.Client(host=host, port=port, db=INSTANCES[InstanceType.CONFIG].experiment.state[input_key].cache_db_index)
-            for input_key in candidate_keys
-        }
+        self.device = device
+        self.text_embeddings: Dict[str, TextEmbeddings] = {}
+        self.other_embeddings = {}
         
-        print("CANDS", self.connections)
-        # db_indices = list(filter(lambda state_input: "cache_db_index" in state_input, .values()))
-        # print("Setup Cache for db indices ", db_indices)
+        # extract all state input keys that require text embeddings and load the embeddings (use text inputs)
+        # (make sure to only load one instance of each different embedding type)
+        text_embedding_keys = filter(lambda x: requires_text_embedding(state_config[x]), state_config)
+        self.state_embedding_cfg: Dict[State, TextEmbeddingConfig] = {}
+        self.cache_connections = {}
+        for state_input_key in text_embedding_keys:
+            # save each configuration individually, but share the embeddings instance
+            embedding_cfg: TextEmbeddingConfig = state_config[state_input_key]
+            self.state_embedding_cfg[State(state_input_key)] = embedding_cfg
+            cls_name_components = embedding_cfg._target_.split(".")
+            if not embedding_cfg._target_ in self.text_embeddings:
+                print(f"Loading Embedding (caching: {embedding_cfg.caching}) {embedding_cfg._target_} ...")
+                embedding_cls: TextEmbeddings = getattr(importlib.import_module(".".join(cls_name_components[:-1])), cls_name_components[-1])
+                embedding_instance = embedding_cls(device=device, ckpt_name=embedding_cfg.ckpt_name, embedding_dim=embedding_cfg.embedding_dim)
+                self.text_embeddings[embedding_cfg._target_] = embedding_instance
+                if embedding_cfg.caching:
+                    self.cache_connections[embedding_cfg._target_] = rai.Client(host=host, port=port, db=embedding_cfg.cache_db_index)
+
+        # extract all state input keys that require positional embeddings (use DialogNode inputs)
+        if state_config.node_position:
+            self.node_position_encoding = TreePositionEncoding(device=device, data=data) 
+        if state_config.action_position:
+            self.action_position_encoding = AnswerPositionEncoding(device=device, data=data)
+
+        # extract other input keys that require encoding (use individual inputs)
+        self.node_type_encoding = NodeTypeEncoding(device=device, data=data) if state_config.node_type else None
+        self.action_type_encoding = ActionTypeEncoding(device=device)
+        self.bst_encoding = BSTEncoding(device=device, data=data) if state_config.beliefstate else None
+        # self.intent_encoding = IntentEncoding(device=device, ckpt_dir=TODO)
+        # TODO similarity encoding
+
+    @torch.no_grad()
+    def _apply_noise(self, state_input_key: State, embeddings: torch.FloatTensor) -> torch.FloatTensor:
+        if self.state_embedding_cfg[state_input_key].noise_std > 0.0:
+            return torch.normal(mean=embeddings, std=self.state_embedding_cfg[state_input_key].noise_std*torch.abs(embeddings))
+        return embeddings
+
+    @torch.no_grad()
+    def _apply_pooling(self, embeddings: torch.FloatTensor, pooling: TextEmbeddingPooling) -> torch.FloatTensor:
+        # pooling
+        if pooling == TextEmbeddingPooling.MEAN:
+            return embeddings.mean(1)   # 1 x seq_len x 1024 => average to 1 x 1024 to get sentence embedding
+        elif pooling == TextEmbeddingPooling.CLS:
+            return embeddings[:, 0, :]  # extract CLS embedding 1 x seq_len x 1024 =>  1 x 1024 
+        elif pooling == TextEmbeddingPooling.MAX:
+            return embeddings.max(1)[0] #1 x seq_len x 1024 => max-pool to 1 x 1024 to get sentence embedding
+        else:
+            return embeddings # return unprocessed sequence: 1 x 1 x embedding_dim -> 1 x embedding_dim
+
+    @torch.no_grad()
+    def _encode(self, state_input_key: State, text_embedding_name: str, caching: bool, cache_key: str, encode_fn: Any, value: Union[str, List[str]]):
+        final_caching = caching and self.state_embedding_cfg[state_input_key].caching
+        pooling = self.state_embedding_cfg[state_input_key].pooling
+
+        embeddings = None
+        if final_caching:
+            # don't cache empty text
+            # don't cache numbers (because they can be drawn randomly and explode memory)
+            # don't cache if caching is turned off (e.g. for attention)
+            try:
+                embeddings = torch.tensor(self.cache_connections[text_embedding_name].tensorget(cache_key), device=self.device) # 1 x tokens x encoding_dim
+            except redis.exceptions.ResponseError:
+                # key does not exist (yet) -> do nothing to trigger embedding from model
+                pass
+        if not torch.is_tensor(embeddings):
+            # key did not exist in cache
+            embeddings = encode_fn(value)
+            if final_caching:
+                self.cache_connections[text_embedding_name].tensorset(cache_key, embeddings.detach().cpu().numpy())
+
+        embeddings = self._apply_noise(state_input_key=state_input_key, embeddings=embeddings)
+        embeddings = self._apply_pooling(embeddings, pooling)
+        return embeddings
 
 
-        # print("DB INDEX", .node_text)
+    @torch.no_grad()
+    def encode_text(self, state_input_key: State, text: str):
+        text_embedding_name = self.state_embedding_cfg[state_input_key]._target_
+        text_embedding: TextEmbeddings = self.text_embeddings[text_embedding_name]
+        return self._encode(state_input_key=state_input_key,
+                            text_embedding_name=text_embedding_name,
+                            caching=text and (not text.isnumeric()),
+                            cache_key=text.lower(),
+                            encode_fn=text_embedding.encode,
+                            value=text).squeeze(0)
 
-    def get(self, state_input_key: str, key: str, value: Any):
-        pass
-
-    def set(self, state_input_key: str, key: str):
-        pass
+    @torch.no_grad()
+    def encode_answer_text(self, node: DialogNode):
+        """
+        Returns:
+            encoded answers (torch.FloatTensor): num_actions x embedding_size, if pooled
+                                                 num_actions x max_length x embeddings_size, if pooling = None
+        """
+        text_embedding_name = self.state_embedding_cfg[State.ACTION_TEXT]._target_
+        text_embedding: TextEmbeddings = self.text_embeddings[text_embedding_name]
+        return self._encode(state_input_key=State.ACTION_TEXT,
+                            text_embedding_name=text_embedding_name,
+                            caching=len(node.answers) > 0,
+                            cache_key=f"actions_{node.key}",
+                            encode_fn=text_embedding.batch_encode, # returns: num_actions x max_length x embedding_size
+                            value=[node.answer_by_index(i).text for i in range(len(node.answers))])
