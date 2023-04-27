@@ -20,10 +20,9 @@ Here, we encode non-regular trees:
 class TreePositionEncoding(Encoding):
     def __init__(self, device: str, data: GraphDataset) -> None:
         super().__init__(device)
-        self.data = data
 
         # build encoding
-        self.node_mapping, self.encodings_length = self._process_node_tree()
+        self.node_mapping, self.encodings_length = self._process_node_tree(data)
 
     @torch.no_grad()
     def encode(self, dialog_node: DialogNode) -> torch.FloatTensor:
@@ -31,7 +30,7 @@ class TreePositionEncoding(Encoding):
         Returns:
             torch.FloatTensor (1 x encoding_dim)
         """
-        return torch.tensor([[int(bit) for bit in self.node_mapping[dialog_node.key].zfill(self.encodings_length)]], dtype=torch.float, device=self.device)
+        return torch.tensor([self.node_mapping[dialog_node.key]], dtype=torch.float, device=self.device)
 
     @torch.no_grad()
     def batch_encode(self, dialog_node: List[DialogNode], **kwargs) -> torch.FloatTensor:
@@ -39,7 +38,7 @@ class TreePositionEncoding(Encoding):
         Returns:
             torch.FloatTensor (batch x encoding_dim)
         """
-        return torch.tensor([[int(bit) for bit in self.node_mapping[node.key].zfill(self.encodings_length)] for node in dialog_node], dtype=torch.float, device=self.device)
+        return torch.tensor([self.node_mapping[node.key] for node in dialog_node], dtype=torch.float, device=self.device)
 
     def get_encoding_dim(self) -> int:
         return self.encodings_length
@@ -48,19 +47,21 @@ class TreePositionEncoding(Encoding):
         """ Returns the maximum node degree in the current tree depth """
         max_degree = 0
         for path, node in current_level_nodes:
-            node_degree = len(node.answers)
+            # node degree should still be 1 even if there are no answers, but directly connected nodes
+            node_degree = 1 if node.connected_node else len(node.answers) 
             if node_degree > max_degree:
                 max_degree = node_degree
         return max_degree
 
-    def _process_node_tree(self) -> Tuple[Dict[str, str], int]:
+    def _process_node_tree(self, data: GraphDataset) -> Tuple[Dict[str, str], int]:
         print("Building tree embedding for nodes...")
-        current_level_nodes: List[Tuple[str, DialogNode]] = [("", self.data.start_node)] # load start node
+        current_level_nodes: List[Tuple[str, DialogNode]] = [("", data.start_node.connected_node)] # load start node
         encodings_map = {current_level_nodes[0][1].key: ""}
         visited_node_ids = set() # prevent loops
         
         encoding_length = 0
         while len(current_level_nodes) > 0:
+            assert encodings_map[data.start_node.connected_node.key] == ''
             # process current tree level
             next_level_nodes = []
             max_node_degree = self._get_max_node_degree_on_current_level(current_level_nodes)
@@ -69,20 +70,23 @@ class TreePositionEncoding(Encoding):
                 if node.key in visited_node_ids:
                     continue # break loops
                 visited_node_ids.add(node.key)
-                for answer in node.answers:
-                    if answer.connected_node:
-                        # append binary node answer index to path leading to current node, padded to max level degree
-                        new_path = node_path + f"{answer.index:b}".zfill(max_node_degree)
-                        encodings_map[answer.connected_node.key] = new_path
-                        next_level_nodes.append((new_path, answer.connected_node))
-                if node.connected_node:
-                    new_path = node_path + "1".zfill(max_node_degree) # if no answers but connected node -> answer index = 1
+                
+                if node.connected_node and not node.connected_node.key in visited_node_ids:
+                    new_path = "1".rjust(max_node_degree, "0") + node_path # if no answers but connected node -> answer index = 1
                     encodings_map[node.connected_node.key] = new_path
                     next_level_nodes.append((new_path, node.connected_node))
+                else:
+                    for answer in node.answers:
+                        if answer.connected_node and not answer.connected_node.key in visited_node_ids:
+                            # append binary node answer index to path leading to current node, padded to max level degree
+                            new_path = "".join(str(i) for i in F.one_hot(torch.tensor([answer.index]), num_classes=max_node_degree).squeeze(0).tolist()) + node_path
+                            encodings_map[answer.connected_node.key] = new_path
+                            next_level_nodes.append((new_path, answer.connected_node))
             current_level_nodes = next_level_nodes
 
         print("Done")
-        return encodings_map, encoding_length
+        # pad all encodings to final length
+        return {key: [int(char) for char in encodings_map[key].rjust(encoding_length, '0')] for key in encodings_map}, encoding_length
 
 
 
