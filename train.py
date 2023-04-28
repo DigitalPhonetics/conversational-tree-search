@@ -3,6 +3,7 @@ import hydra
 from hydra.core.config_store import ConfigStore
 from hydra.utils import instantiate
 from omegaconf import OmegaConf
+from chatbot.adviser.app.rl.utils import EnvInfo
 
 from config import INSTANCES, ActionConfig, InstanceType, StateConfig, register_configs
 from data.cache import Cache
@@ -63,21 +64,37 @@ def load_cfg(cfg):
         print("TEST ENV")
     
     # trainer = instantiate(cfg.experiment)
-
-    print("S1")
+    print("STATE SIZE", train_env.observation_space)
     s1 = train_env.reset()
-    print(s1)
-    print("S2")
-    s2, reward, done, info = train_env.step(0) # ASK
-    print(s2)
-    print(reward)
-    print(done)
-    print(info)
-    s3, reward, done, info = train_env.step(2) # SKIP
-    print(s3)
-    print(reward)
-    print(done)
-    print(info)
+    # print(s1.size())
+    print(s1.shape)
+
+    from stable_baselines3 import DQN
+    from stable_baselines3.common.env_checker import check_env
+    # check_env(train_env)
+
+    model = DQN("MlpPolicy", train_env, verbose=1, device=cfg.experiment.device)
+    model.learn(total_timesteps=1000, log_interval=10)
+
+
+    # TEST CODE
+    # print("RESET")
+    # print("STATE S1", s1)
+    # s2, reward, done, info = train_env.step(0) # ASK
+    # print("========= STEP ASK ==========")
+    # print(s2.size())
+    # print("STATE S2", s2)
+    # print("REWARD", reward)
+    # print("DONE", done)
+    # print("INFO", info)
+    # print("ANSWERS", info[EnvInfo.DIALOG_NODE].answers)
+    # print("========= STEP 2 = SKIP -1 ==========")
+    # s3, reward, done, info = train_env.step(2) # SKIP
+    # print("STATE S3", s3)
+    # print(s3.size())
+    # print("REWARD", reward)
+    # print("DONE", done)
+    # print("INFO", info)
     
 
 

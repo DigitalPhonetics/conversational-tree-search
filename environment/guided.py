@@ -115,7 +115,7 @@ class GuidedEnvironment(BaseEnv):
         if self.current_node.node_type == NodeType.VARIABLE:
             # get variable name and value
             answer = self.current_node.answers[0]
-            var = self.answer_template_parser.find_variable(answer.text)
+            var = self.answerParser.find_variable(answer.text)
 
             # check if variable was already asked
             if var.name in self.bst:
@@ -123,7 +123,7 @@ class GuidedEnvironment(BaseEnv):
                 self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> VARIABLE ALREADY KNOWN')
             else:
                 # draw random variable
-                self.bst[var.name] = VariableValue(var_name=var.name, var_type=var.type).draw_value() # variable is asked for the 1st time
+                self.bst[var.name] = VariableValue(var_name=var.name, var_type=var.type).draw_value(self.data) # variable is asked for the 1st time
             self.current_user_utterance = str(deepcopy(self.bst[var.name]))
             self.coverage_variables[var.name][self.bst[var.name]] += 1
             self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> VAR NAME: {var.name}, VALUE: {self.bst[var.name]}')

@@ -87,15 +87,15 @@ class Cache:
             # don't cache numbers (because they can be drawn randomly and explode memory)
             # don't cache if caching is turned off (e.g. for attention)
             try:
-                embeddings = torch.tensor(self.cache_connections[text_embedding_name].tensorget(cache_key), device=self.device) # 1 x tokens x encoding_dim
+                embeddings = torch.tensor(self.cache_connections[text_embedding_name].tensorget(cache_key)) # 1 x tokens x encoding_dim
             except redis.exceptions.ResponseError:
                 # key does not exist (yet) -> do nothing to trigger embedding from model
                 pass
         if not torch.is_tensor(embeddings):
             # key did not exist in cache
-            embeddings = encode_fn(value)
+            embeddings = encode_fn(value).detach().cpu()
             if final_caching:
-                self.cache_connections[text_embedding_name].tensorset(cache_key, embeddings.detach().cpu().numpy())
+                self.cache_connections[text_embedding_name].tensorset(cache_key, embeddings.numpy())
 
         embeddings = self._apply_noise(state_input_key=state_input_key, embeddings=embeddings)
         embeddings = self._apply_pooling(embeddings, pooling)

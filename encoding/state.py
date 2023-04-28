@@ -73,16 +73,15 @@ class StateEncoding:
             assert action_config.in_state_space, "Can only encode action features if actions are in state space"
             state_dim += self.cache.action_position_encoding.get_encoding_dim()
             state_action_subvector += self.cache.action_position_encoding.get_encoding_dim()
-        if state_config.node_text:
+        if state_config.node_text.active:
             state_dim += self.cache.text_embeddings[state_config.node_text._target_].get_encoding_dim()
-        if state_config.initial_user_utterance:
+        if state_config.initial_user_utterance.active:
             state_dim += self.cache.text_embeddings[state_config.initial_user_utterance._target_].get_encoding_dim()
-        if state_config.current_user_utterance:
+        if state_config.current_user_utterance.active:
             state_dim += self.cache.text_embeddings[state_config.current_user_utterance._target_].get_encoding_dim()
-        if state_config.dialog_history:
-            # TODO
+        if state_config.dialog_history.active:
             state_dim += self.cache.text_embeddings[state_config.dialog_history._target_].get_encoding_dim()
-        if state_config.action_text:
+        if state_config.action_text.active:
             assert action_config.in_state_space, "Can only encode action features if actions are in state space"
             state_dim += self.cache.text_embeddings[state_config.action_text._target_].get_encoding_dim()
             state_action_subvector += self.cache.text_embeddings[state_config.action_text._target_].get_encoding_dim()
@@ -123,7 +122,7 @@ class StateEncoding:
         if self.state_config.current_user_utterance and self.state_config.current_user_utterance.active:
             state_encoding.append(self.cache.encode_text(State.CURRENT_USER_UTTERANCE, text=observation[EnvInfo.CURRENT_USER_UTTERANCE]))
 
-        print([s.size() for s in state_encoding])
+        # print([s.size() for s in state_encoding])
         state_encoding = torch.cat(state_encoding, dim=-1) # 1 x state_dim - state_action_subvector
 
         assert state_encoding.size(0) == 1, f"observation encoding for single observation should not produce batch, but found dimensions {state_encoding.size()}"
@@ -140,15 +139,15 @@ class StateEncoding:
             # encode ask action (available for all nodes) except logic / start nodes
             # ASK action should just tell action type, and not have any action position or action text (pad with 0 after action type)
             assert node.node_type not in [NodeType.LOGIC, NodeType.START]
-            action_encoding.append(F.one_hot(torch.tensor([ActionType.ASK.value], dtype=torch.long, device=self.cache.device), num_classes=self.space_dims.state_action_subvector)) # 1 x state_action_subvector
+            action_encoding.append(F.one_hot(torch.tensor([ActionType.ASK.value], dtype=torch.long), num_classes=self.space_dims.state_action_subvector)) # 1 x state_action_subvector
 
             if num_answers == 0 and node.connected_node:
                 # no answers, but a connected node: add zero-padded SKIP action
-                action_encoding.append(F.one_hot(torch.tensor([ActionType.SKIP.value], dtype=torch.long, device=self.cache.device), num_classes=self.space_dims.state_action_subvector)) # 1 x state_action_subvector
+                action_encoding.append(F.one_hot(torch.tensor([ActionType.SKIP.value], dtype=torch.long), num_classes=self.space_dims.state_action_subvector)) # 1 x state_action_subvector
                 num_actions += 1
             elif self.state_config.action_position or self.state_config.action_text.active:
                 answer_info_encoding = [
-                    F.one_hot(torch.tensor([ActionType.SKIP.value] * num_answers, dtype=torch.long, device=self.cache.device), num_classes=2) # always add action type (ASK or SKIP)
+                    F.one_hot(torch.tensor([ActionType.SKIP.value] * num_answers, dtype=torch.long), num_classes=2) # always add action type (ASK or SKIP)
                 ]
                 if self.state_config.action_position:
                     answer_info_encoding.append(self.cache.action_position_encoding.encode(dialog_node=node)) # num_answers x max_node_degree
@@ -164,7 +163,7 @@ class StateEncoding:
             # concatenate actions with state (duplicate state encoding for each action)
             state_encoding = state_encoding.repeat(num_actions, 1) # num_actions x state_dim - state_action_subvector
             state_encoding = torch.cat((state_encoding, action_encoding), -1).unsqueeze(0) # 1 x num_actions x state_dim
-        return state_encoding
+        return state_encoding.squeeze().cpu() # .cpu().numpy()
 
     def batch_encode(self):
         # TODO 

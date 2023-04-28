@@ -162,7 +162,6 @@ class BaseEnv:
             "LAND": len(self.coverage_variables["LAND"]) / len(self.data.country_list)
         }
 
-
     def get_obs(self) -> Dict[EnvInfo, Any]:
         return {
                 EnvInfo.DIALOG_NODE: self.current_node,

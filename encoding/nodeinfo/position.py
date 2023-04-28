@@ -30,7 +30,7 @@ class TreePositionEncoding(Encoding):
         Returns:
             torch.FloatTensor (1 x encoding_dim)
         """
-        return torch.tensor([self.node_mapping[dialog_node.key]], dtype=torch.float, device=self.device)
+        return torch.tensor([self.node_mapping[dialog_node.key]], dtype=torch.float)
 
     @torch.no_grad()
     def batch_encode(self, dialog_node: List[DialogNode], **kwargs) -> torch.FloatTensor:
@@ -38,7 +38,7 @@ class TreePositionEncoding(Encoding):
         Returns:
             torch.FloatTensor (batch x encoding_dim)
         """
-        return torch.tensor([self.node_mapping[node.key] for node in dialog_node], dtype=torch.float, device=self.device)
+        return torch.tensor([self.node_mapping[node.key] for node in dialog_node], dtype=torch.float)
 
     def get_encoding_dim(self) -> int:
         return self.encodings_length
@@ -110,13 +110,13 @@ class AnswerPositionEncoding(Encoding):
         num_answers = len(dialog_node.answers)
         if num_answers > 0: 
             # node with answers
-            return F.one_hot(torch.tensor(list(range(num_answers)), dtype=torch.long, device=self.device), num_classes=self.max_degree)
+            return F.one_hot(torch.tensor(list(range(num_answers)), dtype=torch.long), num_classes=self.max_degree)
         elif dialog_node.connected_node: 
             # node without answers, but directly connected neighbour
-            return F.one_hot(torch.tensor([0], dtype=torch.long, device=self.device), num_classes=self.max_degree)
+            return F.one_hot(torch.tensor([0], dtype=torch.long), num_classes=self.max_degree)
         else:
             # node without answers and neighbours
-            return torch.zeros((1, self.max_degree), dtype=torch.float, device=self.device)
+            return torch.zeros((1, self.max_degree), dtype=torch.float)
 
     @torch.no_grad()
     def batch_encode(self, dialog_node: List[DialogNode], **kwargs) -> Tuple[torch.FloatTensor, torch.FloatTensor]:
@@ -124,6 +124,6 @@ class AnswerPositionEncoding(Encoding):
         Returns:
             # batch x max_answers x max_node_degree, batch (num_answers)
         """
-        # return pad_sequence([self._encode(node) for node in dialog_node], batch_first=True), torch.tensor([node.answers.count() for node in dialog_node], device=self.device)
-        return pad_sequence([self._encode(node) for node in dialog_node], batch_first=True), torch.tensor([len(node.answers) for node in dialog_node], device=self.device)
+        # return pad_sequence([self._encode(node) for node in dialog_node], batch_first=True), torch.tensor([node.answers.count() for node in dialog_node])
+        return pad_sequence([self._encode(node) for node in dialog_node], batch_first=True), torch.tensor([len(node.answers) for node in dialog_node])
        

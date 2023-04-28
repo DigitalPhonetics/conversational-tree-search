@@ -25,7 +25,7 @@ class NodeTypeEncoding(Encoding):
         Returns:
             torch.FloatTensor (1 x encoding_dim)
         """
-        return self.encoding[dialog_node.node_type].clone().float().to(self.device)
+        return self.encoding[dialog_node.node_type].clone().float()
 
     # TODO fix -> do same as in encode
     # @torch.no_grad()

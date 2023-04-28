@@ -79,7 +79,7 @@ class FreeEnvironment(BaseEnv):
 
             if self.current_node.node_type == NodeType.VARIABLE:
                 # get variable name and value
-                var = self.answer_template_parser.find_variable(self.current_node.answer_by_index(0).text)
+                var = self.answerParser.find_variable(self.current_node.answer_by_index(0).text)
 
                 # check if variable was already asked
                 if var.name in self.bst:

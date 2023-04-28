@@ -2,6 +2,7 @@ import random
 from typing import Tuple
 
 import gym
+import gym.spaces
 from chatbot.adviser.app.rl.utils import EnvInfo
 
 from data.dataset import GraphDataset
@@ -33,17 +34,18 @@ class CTSEnvironment(gym.Env):
                 num_test_envs: int,
                 sys_token: str, usr_token: str, sep_token: str):
         self.env_id = env_id
-        print("ENV!!", mode, "TOKENS:", sys_token, usr_token, sep_token)
 
+        self.max_reward = 4 * dataset.get_max_tree_depth() if normalize_rewards else 1.0
+
+        # text parsers
         answer_parser = AnswerTemplateParser()
         logic_parser = LogicTemplateParser()
         system_parser = SystemTemplateParser()
         value_backend = RealValueBackend(dataset.a1_countries)
 
+        
+        # initialize task-specific environments
         self.guided_free_ratio = guided_free_ratio
-        self.max_reward = 4 * dataset.get_max_tree_depth() if normalize_rewards else 1.0
-        
-        
         if guided_free_ratio > 0.0:
             self.guided_env = GuidedEnvironment(env_id=env_id, cache=cache, dataset=dataset, state_encoding=state_encoding,
                 sys_token=sys_token, usr_token=usr_token, sep_token=sep_token,
@@ -59,8 +61,14 @@ class CTSEnvironment(gym.Env):
                 value_backend=value_backend,
                 auto_skip=auto_skip)
 
+        # setup state space info
+        self.action_space = gym.spaces.Discrete(state_encoding.space_dims.action_vector)
+        self.observation_space = gym.spaces.Box(low=float('-inf'), high=float('inf'), shape=(state_encoding.space_dims.state_vector,)) #, dtype=np.float32)
+
         # TODO add logger
         # TODO forward coverage stats
+
+        print("ENV!!", mode, "TOKENS:", sys_token, usr_token, sep_token)
     
     @property
     def current_episode(self):
