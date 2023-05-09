@@ -7,10 +7,10 @@ from chatbot.adviser.app.rl.utils import AutoSkipMode
 
 from data.dataset import DatasetConfig
 from encoding.text.base import TextEmbeddingConfig
+from utils.envutils import GoalDistanceMode
 
 
 INSTANCES = {}
-
 
 
 
@@ -56,7 +56,6 @@ class OptimizerConfig:
 class ActionConfig:
     in_state_space: bool
     action_masking: bool
-    stop_action: bool
 
 @dataclass
 class StateConfig:
@@ -83,6 +82,8 @@ class EnvironmentConfig:
     num_train_envs: int 
     num_val_envs: int
     num_test_envs: int
+    goal_distance_mode: GoalDistanceMode
+    goal_distance_increment: int
     sys_token: Optional[str] = ""
     usr_token: Optional[str] = ""
     sep_token: Optional[str] = ""
