@@ -224,36 +224,35 @@ class GraphDataset:
             self.cities.update({city_syn.lower(): city for city, city_syns in city_synonyms.items()
                                 for city_syn in city_syns})
 
-    def _get_max_tree_depth(self, current_node: DialogNode, current_max_depth: int, visited: Set[int]) -> int:
+    def _get_max_tree_depth(self) -> int:
         """ Return maximum tree depth (max. number of steps to leave node) in whole graph """
+        level = 0
+        current_level_nodes = [self.start_node.connected_node]
+        visited_node_ids = set() # cycle breaking
+        while len(current_level_nodes) > 0:
+            # traverse current node level, append all children to next level nodes
+            next_level_nodes = []
+            for current_node in current_level_nodes:
+                if current_node.key in visited_node_ids:
+                    continue
+                visited_node_ids.add(current_node.key)
 
-        if current_node.key in visited:
-            return current_max_depth
-        visited.add(current_node.key)
-
-        if current_node.node_type == NodeType.START:
-            # begin recursion at start node
-            current_node = current_node.connected_node
-
-        # if current_node.answers.count() > 0:
-        if len(current_node.answers) > 0:
-            # normal node
-            # continue recursion by visiting children
-            max_child_depth = max([self._get_max_tree_depth(answer.connected_node, current_max_depth + 1, visited) for answer in current_node.answers if answer.connected_node])
-            return max_child_depth
-        elif current_node.connected_node:
-            # node without answers, e.g. info node
-            # continue recursion by visiting children
-            return self._get_max_tree_depth(current_node.connected_node, current_max_depth + 1, visited)
-        else:
-            # reached leaf node
-            return current_max_depth
+                # add children of node to next level nodes
+                if current_node.connected_node:
+                    next_level_nodes.append(current_node.connected_node)
+                    assert len(current_node.answers) == 0
+                elif len(current_node.answers) > 0:
+                    next_level_nodes += [answer.connected_node for answer in current_node.answers]
+            # continue with next level breadth search
+            current_level_nodes = next_level_nodes
+            level += 1
+        return level
 
     def get_max_tree_depth(self) -> int:
         """ Return maximum tree depth (max. number of steps to leave node) in whole graph (cached) """
         if not self._max_tree_depth:
             # calculate, then cache value
-            self._max_tree_depth = self._get_max_tree_depth(current_node=self.start_node, current_max_depth=0, visited=set([]))
+            self._max_tree_depth = self._get_max_tree_depth()
         return self._max_tree_depth
 
     def _get_max_node_degree(self) -> int:
