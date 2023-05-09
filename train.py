@@ -1,8 +1,10 @@
 from typing import Tuple
+import gym
 import hydra
 from hydra.core.config_store import ConfigStore
 from hydra.utils import instantiate
 from omegaconf import OmegaConf
+from algorithm.dqn.dqn import CustomDQNPolicy, CustomQNetwork
 from chatbot.adviser.app.rl.utils import EnvInfo
 
 from config import INSTANCES, ActionConfig, InstanceType, StateConfig, register_configs
@@ -10,6 +12,7 @@ from data.cache import Cache
 from data.dataset import GraphDataset
 from encoding.state import StateEncoding
 from environment.cts import CTSEnvironment
+
 
 cs = ConfigStore.instance()
 register_configs()
@@ -24,6 +27,9 @@ def setup_cache_and_encoding(device: str, data: GraphDataset, state_config: Stat
     encoding = StateEncoding(cache=cache, state_config=state_config, action_config=action_config, data=data)
     return cache, encoding
 
+
+def make_env(env_id: int, cache: Cache, mode: str, dataset: GraphDataset, state_encoding, environment_config):
+    return CTSEnvironment(env_id=env_id, cache=cache, mode=mode, dataset=dataset, state_encoding=state_encoding, **environment_config)
 
 
 @hydra.main(version_base=None, config_path="conf", config_name="default")
@@ -49,6 +55,26 @@ def load_cfg(cfg):
         if not cache:
             cache, state_encoding = setup_cache_and_encoding(device=cfg.experiment.device, data=train_data, state_config=cfg.experiment.state, action_config=cfg.experiment.actions)
         train_env = CTSEnvironment(env_id=env_id, cache=cache, mode='train', dataset=train_data, state_encoding=state_encoding, **cfg.experiment.environment)
+        
+        # subprocess vec env test
+        # from stable_baselines3.common.env_util import make_vec_env
+        # from stable_baselines3.common.vec_env import SubprocVecEnv
+        # gym.envs.register(
+        #     id='simulator-v1',
+        #     entry_point='environment.cts:CTSEnvironment',
+        #     max_episode_steps=1000,
+        # )
+        # kwargs = {
+        #     "env_id": env_id,
+        #     "cache": cache,
+        #     "mode":'train',
+        #     "dataset": train_data,
+        #     "state_encoding": state_encoding, 
+        #     **cfg.experiment.environment
+        # }
+        # NOTE: this uses a dummy vec env only, otherwise we get a threading error!
+        # env = make_vec_env(env_id='simulator-v1', n_envs=1, env_kwargs=kwargs) # , vec_env_cls=SubprocVecEnv)
+        
         print("TRAIN ENV")
     if "validation" in cfg.experiment:
         val_data = instantiate(cfg.experiment.validation.dataset, _target_='data.dataset.GraphDataset')
@@ -65,16 +91,24 @@ def load_cfg(cfg):
     
     # trainer = instantiate(cfg.experiment)
     print("STATE SIZE", train_env.observation_space)
+    print("ACTION SIZE", train_env.action_space)
     s1 = train_env.reset()
     # print(s1.size())
     print(s1.shape)
+
+    # dqn = CustomQNetwork(observation_space=train_env.observation_space, action_space=train_env.action_space,
+                            # hidden_layer_sizes=[1024,1024])
 
     from stable_baselines3 import DQN
     from stable_baselines3.common.env_checker import check_env
     # check_env(train_env)
 
-    model = DQN("MlpPolicy", train_env, verbose=1, device=cfg.experiment.device)
-    model.learn(total_timesteps=1000, log_interval=10)
+    policy_kwargs = {
+        "hidden_layer_sizes": [1024, 1024],
+        "normalization_layers": False
+    }
+    model = DQN(CustomDQNPolicy, train_env, verbose=1, device=cfg.experiment.device, policy_kwargs=policy_kwargs, exploration_initial_eps=0.06, learning_starts=2, batch_size=2, train_freq=1)
+    model.learn(total_timesteps=1000, log_interval=10, progress_bar=False)
 
 
     # TEST CODE
