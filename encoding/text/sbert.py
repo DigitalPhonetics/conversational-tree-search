@@ -1,4 +1,6 @@
 from typing import Tuple, List, Union
+import os
+
 import transformers
 
 from encoding.text.base import TextEmbeddings
@@ -13,7 +15,9 @@ class SentenceEmbeddings(TextEmbeddings):
     def __init__(self, device: str, ckpt_name: str, embedding_dim: int) -> None:
         from sentence_transformers import SentenceTransformer
         super().__init__(device, ckpt_name, embedding_dim)
-        self.bert_sentence_embedder = SentenceTransformer(ckpt_name, device=device, cache_folder = '.models')
+        path = f".models/{ckpt_name.replace('/', '_')}"
+        name_or_path = path if os.path.exists(path) else ckpt_name
+        self.bert_sentence_embedder = SentenceTransformer(path, device=device, cache_folder = '.models')
 
     @torch.no_grad()
     def _encode(self, text: Union[str, None]) -> torch.FloatTensor:
