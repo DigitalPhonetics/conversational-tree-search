@@ -37,6 +37,7 @@ class StateDims:
     state_vector: int
     action_vector: int
     state_action_subvector: int # the size of the action subspace in the state space (if actions in state space, else 0)
+    num_actions: int # real number of actions, independent of space sizes
         
 
 class StateEncoding:
@@ -86,15 +87,16 @@ class StateEncoding:
             state_dim += self.cache.text_embeddings[state_config.action_text._target_].get_encoding_dim()
             state_action_subvector += self.cache.text_embeddings[state_config.action_text._target_].get_encoding_dim()
 
-        return StateDims(state_vector=state_dim, action_vector=action_dim, state_action_subvector=state_action_subvector)
+        num_actions = data.get_max_node_degree() + 1 # real number of actions, independent of space sizes (+ 1 for ASK action, rest is skip actions)
+        return StateDims(state_vector=state_dim, action_vector=action_dim, state_action_subvector=state_action_subvector, num_actions=num_actions)
 
     def encode(self, observation: Dict[EnvInfo, Any], sys_token: str, usr_token: str, sep_token: str):
         """
         Calls encoders from cache to transform observation/info dicts into a state vector.
 
         Returns:
-            state_vector (FloatTensor): 1 x state_dim, if action_config.in_state_space = False,
-                                        1 x num_actions(state) x state_dim, else (NOTE num_actions varies with state!)
+            state_vector (FloatTensor): state_dim, if action_config.in_state_space = False,
+                                        num_actions(state) x state_dim, else (NOTE num_actions varies with state!)
         """
 
         node: DialogNode = observation[EnvInfo.DIALOG_NODE]
@@ -133,18 +135,18 @@ class StateEncoding:
             # actions are part of input space: embed them, and concatenate each of them with the state encoding vector
             # each action encoding starts with the action type encoding (ASK or SKIP as a one-hot encoding: [1,0] - ask, or [0,1] - skip)
             num_answers = len(node.answers) # get number of skip actions
-            num_actions = num_answers + 1 # always includes ASK action
             action_encoding = []
+            pad_rows = self.space_dims.num_actions - num_answers - 1  # subtract 1 for ASK action
             
             # encode ask action (available for all nodes) except logic / start nodes
             # ASK action should just tell action type, and not have any action position or action text (pad with 0 after action type)
-            assert node.node_type not in [NodeType.LOGIC, NodeType.START]
+            assert node.node_type not in [NodeType.LOGIC, NodeType.START] # TODO bug!
             action_encoding.append(F.one_hot(torch.tensor([ActionType.ASK.value], dtype=torch.long), num_classes=self.space_dims.state_action_subvector)) # 1 x state_action_subvector
 
             if num_answers == 0 and node.connected_node:
                 # no answers, but a connected node: add zero-padded SKIP action
                 action_encoding.append(F.one_hot(torch.tensor([ActionType.SKIP.value], dtype=torch.long), num_classes=self.space_dims.state_action_subvector)) # 1 x state_action_subvector
-                num_actions += 1
+                pad_rows -= 1 # subtract 1 for default SKIP action
             elif self.state_config.action_position or self.state_config.action_text.active:
                 answer_info_encoding = [
                     F.one_hot(torch.tensor([ActionType.SKIP.value] * num_answers, dtype=torch.long), num_classes=2) # always add action type (ASK or SKIP)
@@ -158,12 +160,17 @@ class StateEncoding:
                 assert answer_info_encoding.size(0) == num_answers, f"expected {num_answers} answers as first dimension, got {answer_info_encoding.size()}"
                 assert answer_info_encoding.size(1) == self.space_dims.state_action_subvector, f"expected {self.space_dims.state_action_subvector} in last dimension, got {answer_info_encoding.size()}"
                 action_encoding.append(answer_info_encoding)
-            # concatenate all actions
-            action_encoding = torch.cat(action_encoding, dim=0) # num_answers (or 1 if no answers) + 1 (ASK) x state_action_subvector
+
+            action_encoding = torch.cat(action_encoding, dim=0) # num_answers x state_action_subvector
+            # zero-pad rows (bottom) to max. action number
+            action_encoding = F.pad(action_encoding, (0,0,0, pad_rows), 'constant', 0.0)
+            assert action_encoding.size(0) == self.space_dims.num_actions
             # concatenate actions with state (duplicate state encoding for each action)
-            state_encoding = state_encoding.repeat(num_actions, 1) # num_actions x state_dim - state_action_subvector
-            state_encoding = torch.cat((state_encoding, action_encoding), -1).unsqueeze(0) # 1 x num_actions x state_dim
-        return state_encoding.squeeze().cpu() # .cpu().numpy()
+            state_encoding = state_encoding.repeat(self.space_dims.num_actions, 1) # num_actions x state_dim - state_action_subvector
+            state_encoding = torch.cat((state_encoding, action_encoding), -1) # num_actions x state_dim
+            if pad_rows > 0:
+                state_encoding[-pad_rows:, :] = 0.0 # mask repeated state in padded rows
+        return state_encoding.squeeze()
 
     def batch_encode(self):
         # TODO 
