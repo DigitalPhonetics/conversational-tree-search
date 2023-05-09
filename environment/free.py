@@ -21,6 +21,7 @@ class FreeEnvironment(BaseEnv):
     def __init__(self, env_id: int, cache: Cache, dataset: GraphDataset, state_encoding: StateEncoding,
             sys_token: str, usr_token: str, sep_token: str,
             max_steps: int, max_reward: float, user_patience: int,
+            stop_when_reaching_goal: bool,
             answer_parser: AnswerTemplateParser, system_parser: SystemTemplateParser, logic_parser: LogicTemplateParser,
             value_backend: RealValueBackend,
             auto_skip: AutoSkipMode) -> None:
@@ -30,28 +31,23 @@ class FreeEnvironment(BaseEnv):
             answer_parser=answer_parser, logic_parser=logic_parser, value_backend=value_backend,
             auto_skip=auto_skip)
         self.goal_gen = UserGoalGenerator(graph=dataset, answer_parser=answer_parser,
-            system_parser=system_parser, value_backend=value_backend,
-            paraphrase_fraction=0.0, generate_fraction=0.0)
+            system_parser=system_parser, value_backend=value_backend)
+        self.stop_when_reaching_goal = stop_when_reaching_goal
 
-    def reset(self, current_episode: int):
+    def reset(self, current_episode: int, max_distance: int):
         self.pre_reset()
 
         self.goal = None
         while not self.goal:
             try:
-                self.goal = self.goal_gen.draw_goal()
+                self.goal = self.goal_gen.draw_goal_free(max_distance)
             except ImpossibleGoalError:
                 print("IMPOSSIBLE GOAL")
                 continue
             except ValueError:
                 print("VALUE ERROR")
                 continue
-        self.goal_node = self.goal.goal_node
-        self.initial_user_utterance = deepcopy(self.goal.initial_user_utterance)
-        self.reached_goal_once = False
-        self.asked_goal_once = False
-        self.constraints = self.goal.variables 
-        
+
         self.coverage_synonyms[self.goal.faq_key] += 1
         self.episode_log.append(f'{self.env_id}-{self.current_episode}$ MODE: Free') 
         return self.post_reset()

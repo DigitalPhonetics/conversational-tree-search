@@ -1,5 +1,6 @@
 from copy import deepcopy
-from typing import Tuple, Union
+from dataclasses import dataclass
+from typing import Any, Dict, Tuple, Union
 
 
 from data.dataset import DialogNode, GraphDataset, NodeType
@@ -12,6 +13,12 @@ from chatbot.adviser.app.rl.utils import AutoSkipMode
 from encoding.state import StateEncoding
 from environment.base import BaseEnv
 
+
+@dataclass
+class RealUserGoal:
+    initial_user_utterance: str
+    goal_node: DialogNode
+    constraints: Dict[str, Any]
 
 class RealUserEnvironment(BaseEnv):
     def __init__(self, env_id: int, 
@@ -31,17 +38,14 @@ class RealUserEnvironment(BaseEnv):
         self.pre_reset()
 
         # Mock a goal node that we can never reach to keep the conversation alive
-        self.goal_node = DialogNode(key="syntheticGoalNode", text="Synthetic Goal Node", node_type=NodeType.INFO, answers=[], questions=[], connected_node=None)
+        goal_node = DialogNode(key="syntheticGoalNode", text="Synthetic Goal Node", node_type=NodeType.INFO, answers=[], questions=[], connected_node=None)
 
         # Output first node
         print(self.current_node.text)
         # Ask for initial user input
-        self.initial_user_utterance = deepcopy(input(">>"))
+        initial_user_utterance = deepcopy(input(">>"))
+        self.goal = RealUserGoal(initial_user_utterance=initial_user_utterance, goal_node=goal_node, constraints={})
 
-        self.reached_goal_once = False
-        self.asked_goal_once = False
-        self.constraints = {}
-        
         return self.post_reset()
 
     def check_user_patience_reached(self) -> bool:

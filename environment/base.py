@@ -100,13 +100,15 @@ class BaseEnv:
         self.prev_node = None
         self.last_action_idx = ActionType.ASK.value # start by asking start node
 
+
     def post_reset(self):
         """
         Requires:
-            self.goal_node: DialogNode
-            self.initial_utterance: str
+            self.goal: UserGoal or RealUserGoal
         """
-        self.goal_node_coverage[self.goal_node.key] += 1
+        self.initial_user_utterance = deepcopy(self.goal.initial_user_utterance)
+
+        self.goal_node_coverage[self.goal.goal_node.key] += 1
         self.current_user_utterance = deepcopy(self.initial_user_utterance)
         self.user_utterances_history = [deepcopy(self.initial_user_utterance)]
         self.system_utterances_history = [deepcopy(self.current_node.text)]
@@ -133,10 +135,14 @@ class BaseEnv:
         self.actioncount_ask_question_irrelevant = 0
         self.actioncount_missingvariable = 0
 
+        # task stats
+        self.reached_goal_once = False
+        self.asked_goal_once = False
+
         # Logging
         self.episode_log.append(f'{self.env_id}-{self.current_episode}$ ======== RESET =========')
-        self.episode_log.append(f'{self.env_id}-{self.current_episode}$ GOAL: {self.goal_node.key} {self.goal_node.text[:100]}') 
-        self.episode_log.append(f'{self.env_id}-{self.current_episode}$ CONSTRAINTS: {self.constraints}')
+        self.episode_log.append(f'{self.env_id}-{self.current_episode}$ GOAL: {self.goal.goal_node.key} {self.goal.goal_node.text[:100]}') 
+        self.episode_log.append(f'{self.env_id}-{self.current_episode}$ CONSTRAINTS: {self.goal.constraints}')
         self.episode_log.append(f'{self.env_id}-{self.current_episode}$ INITIAL UTTERANCE: {self.initial_user_utterance}') 
 
         return self.state_encoding.encode(observation=self.get_obs(), sys_token=self.sys_token, usr_token=self.usr_token, sep_token=self.sep_token)
@@ -231,7 +237,7 @@ class BaseEnv:
         #         else:
         #             if self.auto_skip == AutoSkipMode.ORACLE:
         #                 # semantic level: choose correct answer to jump to (assume perfect NLU)
-        #                 skip_action = self.current_node.answer_by_goalnode_key(self.goal_node.key)
+        #                 skip_action = self.current_node.answer_by_goalnode_key(self.goal.goal_node.key)
         #             else:
         #                 # utterance level: choose answer to jump to by similarity
         #                 if self.current_node.node_type == NodeType.QUESTION.value:
@@ -252,7 +258,7 @@ class BaseEnv:
         #         self.current_node = Data.objects[self.version].node_by_key(self.current_node.connected_node_key)
         #         self.user_utterances_history.append("")
         #         self.system_utterances_history.append(deepcopy(self.current_node.content.text))
-        #     if self.current_node.key == self.goal_node.key:
+        #     if self.current_node.key == self.goal.goal_node.key:
         #         # check if skipped-to node is goal node
         #         if self.is_faq_mode:
         #             self.reached_goal_once = True
@@ -312,7 +318,7 @@ class BaseEnv:
             self.update_node_counters()
             self.update_action_counters(action)
 
-            if (not done) and self.goal_node and self.auto_skip_mode != AutoSkipMode.NONE and self.last_action_idx == ActionType.ASK:
+            if (not done) and self.goal.goal_node and self.auto_skip_mode != AutoSkipMode.NONE and self.last_action_idx == ActionType.ASK:
                 self.auto_skip()
 
             # handle logic node auto-transitioning here
@@ -323,7 +329,7 @@ class BaseEnv:
                     done = logic_done
                 self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> TURN REWARD: {reward}')
 
-                if not self.goal_node:
+                if not self.goal.goal_node:
                     done = True # check if we reached end of dialog tree
                     self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> REACHED TREE END')
 
@@ -347,9 +353,6 @@ class BaseEnv:
     def update_node_counters(self):
         if self.current_node:
             self.node_count[self.current_node.node_type] += 1
-
-    def post_handle_logic_nodes(self, did_handle_logic_nodes):
-        pass
 
     def handle_logic_nodes(self) -> Tuple[float, bool, bool]:
         reward = 0
@@ -390,8 +393,8 @@ class BaseEnv:
                 done = True
                 break
 
-        if did_handle_logic_node and not done:
-            self.post_handle_logic_nodes()
+        # if did_handle_logic_node and not done:
+        #     self.post_handle_logic_nodes()
         
         return reward, done, did_handle_logic_node
 
