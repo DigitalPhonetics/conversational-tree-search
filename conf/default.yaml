@@ -60,17 +60,18 @@ experiment:
     normalize_rewards: true
     max_steps: 50
     user_patience: 3
-    stop_when_reaching_goal: true
+    stop_when_reaching_goal: true # stop after goal node was both reached + presented (ASK)
     num_train_envs: 8
     num_val_envs: 8
     num_test_envs: 8
     sys_token: "[SYS]"
     usr_token: "[USR]"
     sep_token: ""
+    goal_distance_mode: INCREMENT_EVERY_N_EPISODES
+    goal_distance_increment: 10000 # increment distance by 1 after N episodes - will be ignored if goal distance mode is different from INCREMENT_EVERY_N_EPISODES
   actions:
     in_state_space: true
     action_masking: true
-    stop_action: false
   state:
     # TODO: make all of these classes, so we can easily plug everything together as a sequence of maps from property -> class -> sub-vector?
     last_system_action: true
@@ -91,21 +92,4 @@ experiment:
     # TODO attentions    
     # TODO user_intent_prediction
 
-
-
-
   _target_: training.trainer.Trainer
-
-# configuration:
-#   validation:
-#     active: true
-#     every_train_timesteps: 10000
-#     num_dialogs: 500
-#     data: /data/train
-#     noise: 0.0
-#   testing:
-#     active: true
-#     every_train_timesteps: 10000
-#     num_dialogs: 500
-#     test: /data/test
-#     noise: 0.0
