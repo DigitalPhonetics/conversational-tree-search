@@ -120,8 +120,8 @@ class Evaluator:
         self.text_enc = EMBEDDINGS[text_embedding_name]['class'](device=self.device, **EMBEDDINGS[text_embedding_name]['args'])
 
         self.exp_name = f"BASELINE_{self.exp_name_prefix}"
-        os.makedirs(f"/fs/scratch/users/vaethdk/adviser_reisekosten/newruns/{self.exp_name}")
-        dialog_logfile = f"/fs/scratch/users/vaethdk/adviser_reisekosten/newruns/{self.exp_name}/dialogs.txt"
+        os.makedirs(f"/fs/scratch/users/vaethdk/adviser_reisekosten/newruns_en/{self.exp_name}")
+        dialog_logfile = f"/fs/scratch/users/vaethdk/adviser_reisekosten/newruns_en/{self.exp_name}/dialogs.txt"
         # TODO save config file to this directory
 
         self.tree = DialogTree(version=0 if config.mode in [EnvironmentMode.TRAIN, EnvironmentMode.EVAL] else 1)

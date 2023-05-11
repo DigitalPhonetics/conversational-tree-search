@@ -80,7 +80,7 @@ class SentenceEmbeddings(TextEmbeddings):
             * distiluse-base-multilingual-cased: (1, 512)
         """
         if text:
-            return self.bert_sentence_embedder.encode(text, convert_to_numpy=False, convert_to_tensor=True, show_progress_bar=False).unsqueeze(0).unsqueeze(1)
+            return self.bert_sentence_embedder.encode(text, convert_to_numpy=False, convert_to_tensor=True, show_progress_bar=False, device=self.device).unsqueeze(0).unsqueeze(1)
         else:
             return torch.zeros(1, 1, self.embedding_dim, dtype=torch.float, device=self.device)
 

@@ -201,22 +201,27 @@ class Trainer:
             }
         }
 
+
         # set random seed
+        print("Setting random seeds...")
         random.seed(self.args["experiment"]["seed"])
         np.random.seed(self.args["experiment"]["seed"])
         torch.manual_seed(self.args["experiment"]["seed"])
         torch.backends.cudnn.deterministic = self.args["experiment"]["cudnn_deterministic"]
 
         # load dialog tree
+        print("Loading data...")
         self.tree = DialogTree(version=0)
         self.eval_tree = DialogTree(version=1)
 
         # load text embedding
+        print("Loading embeddings...")
         text_embedding_name = self.args['spaceadapter']['configuration'].text_embedding
         self.cache_conn = rai.Client(host='localhost', port=64123, db=EMBEDDINGS[text_embedding_name]['args'].pop('cache_db_index'))
         self.text_enc = EMBEDDINGS[text_embedding_name]['class'](device=self.device, **EMBEDDINGS[text_embedding_name]['args'])
 
         # post-init spaceadapter 
+        print("Configuration of Space Adapter....")
         self.spaceadapter_config: SpaceAdapterConfiguration = self.args['spaceadapter']['configuration']
         self.spaceadapter_state: SpaceAdapterSpaceInput = self.args['spaceadapter']['state']
         self.spaceadapter_attention: List[SpaceAdapterAttentionInput] = self.args['spaceadapter']['attention']
@@ -237,13 +242,23 @@ class Trainer:
                     if not spaceadapter_json['state'][key]['active']:
                         self.exp_name += f"_no{key}"
             self.run_name = f"{self.exp_name}__{seed}__{int(time.time())}"
-            os.makedirs(f"/mount/arbeitsdaten/asr-2/vaethdk/adviser_reisekosten/newruns/{self.run_name}")
-            os.makedirs(f"/fs/scratch/users/vaethdk/adviser_reisekosten/newruns/{self.run_name}")
-            log_to_file_test = f"/fs/scratch/users/vaethdk/adviser_reisekosten/newruns/{self.run_name}/test_dialogs.txt"
-            log_to_file_eval = f"/fs/scratch/users/vaethdk/adviser_reisekosten/newruns/{self.run_name}/eval_dialogs.txt"
+            os.makedirs(f"/mount/arbeitsdaten/asr-2/vaethdk/adviser_reisekosten/newruns_en/{self.run_name}")
+            os.makedirs(f"/fs/scratch/users/vaethdk/adviser_reisekosten/newruns_en/{self.run_name}")
+            log_to_file_eval = f"/fs/scratch/users/vaethdk/adviser_reisekosten/newruns_en/{self.run_name}/eval_dialogs.txt"
+            log_to_file_test = f"/fs/scratch/users/vaethdk/adviser_reisekosten/newruns_en/{self.run_name}/test_dialogs.txt"
+            
+            eval_logger = logging.getLogger("env" + "EVAL")
+            eval_file_handler = logging.FileHandler(log_to_file_eval, mode='w')
+            eval_file_handler.setLevel(logging.INFO)
+            eval_logger.addHandler(eval_file_handler)
+
+            test_logger = logging.getLogger("env" + "TEST")
+            test_file_handler = logging.FileHandler(log_to_file_test, mode='w')
+            test_file_handler.setLevel(logging.INFO)
+            test_logger.addHandler(test_file_handler)
         else:
-            log_to_file_test = None
-            log_to_file_eval = None
+            eval_logger = None
+            test_logger = None
 
         # init spaceadapter
         self.adapter = SpaceAdapter(device=self.device, dialog_tree=self.tree, **self.args["spaceadapter"])
@@ -266,10 +281,13 @@ class Trainer:
        
         dialog_faq_ratio = self.args['simulation'].pop('dialog_faq_ratio')
 
+        print("Starting environments...")
         self.train_env = ParallelDialogEnvironment(dialog_tree=self.tree, adapter=self.adapter, stop_action=self.adapter.configuration.stop_action, use_answer_synonyms=self.adapter.configuration.use_answer_synonyms, mode=EnvironmentMode.TRAIN, n_envs=self.n_train_envs, auto_skip=self.spaceadapter_config.auto_skip, dialog_faq_ratio=dialog_faq_ratio, similarity_model=similarity_model, log_to_file=None, **self.args['simulation'])
-        self.eval_env = ParallelDialogEnvironment(dialog_tree=self.tree, adapter=self.adapter, stop_action=self.adapter.configuration.stop_action, use_answer_synonyms=self.adapter.configuration.use_answer_synonyms, mode=EnvironmentMode.EVAL, n_envs=self.n_test_envs, auto_skip=self.spaceadapter_config.auto_skip, dialog_faq_ratio=0.5, similarity_model=similarity_model, log_to_file=log_to_file_eval, **self.args['simulation'])
-        self.test_env = ParallelDialogEnvironment(dialog_tree=self.eval_tree, adapter=self.adapter, stop_action=self.adapter.configuration.stop_action, use_answer_synonyms=self.adapter.configuration.use_answer_synonyms, mode=EnvironmentMode.TEST, n_envs=self.n_test_envs, auto_skip=self.spaceadapter_config.auto_skip, dialog_faq_ratio=0.5, similarity_model=similarity_model, log_to_file=log_to_file_test, **self.args['simulation'])
+        self.eval_env = ParallelDialogEnvironment(dialog_tree=self.tree, adapter=self.adapter, stop_action=self.adapter.configuration.stop_action, use_answer_synonyms=self.adapter.configuration.use_answer_synonyms, mode=EnvironmentMode.EVAL, n_envs=self.n_test_envs, auto_skip=self.spaceadapter_config.auto_skip, dialog_faq_ratio=0.5, similarity_model=similarity_model, log_to_file=eval_logger, **self.args['simulation'])
+        self.test_env = ParallelDialogEnvironment(dialog_tree=self.eval_tree, adapter=self.adapter, stop_action=self.adapter.configuration.stop_action, use_answer_synonyms=self.adapter.configuration.use_answer_synonyms, mode=EnvironmentMode.TEST, n_envs=self.n_test_envs, auto_skip=self.spaceadapter_config.auto_skip, dialog_faq_ratio=0.5, similarity_model=similarity_model, log_to_file=test_logger, **self.args['simulation'])
         
+        print("Setup logging...")
+
         if EXPERIMENT_LOGGING == ExperimentLogging.OFFLINE:
             # TODO set wandb api key in env variable: "WANDB_API_KEY"
             os.environ["WANDB_MODE"] = "offline"
@@ -277,15 +295,16 @@ class Trainer:
         args = {key: self.args[key] for key in self.args if key != 'spaceadapter'}
         if EXPERIMENT_LOGGING != ExperimentLogging.NONE:
             # write code 
-            wandb.init(project="adviser-reisekosten", config=(spaceadapter_json | args), save_code=True, name=self.exp_name, settings=wandb.Settings(code_dir="/fs/scratch/users/vaethdk/adviser_reisekosten/chatbot/management/commands"))
+            wandb.init(project="cts_en", config=(spaceadapter_json | args), save_code=True, name=self.exp_name, settings=wandb.Settings(code_dir="/fs/scratch/users/vaethdk/cts_english/chatbot/management/commands"))
             wandb.config.update({'datasetversion': _get_file_hash('train_graph.json')}) # log dataset version hash
 
         #
         # network setup
         #
+        print("Loading model...")
         if self.algorithm == 'dqn':
-            self.model = self._dqn_model_from_args(self.args).to(self.device)
-            self.target_network = self._dqn_model_from_args(self.args).to(self.device)
+            self.model = torch.compile(self._dqn_model_from_args(self.args).to(self.device))
+            self.target_network = torch.compile(self._dqn_model_from_args(self.args).to(self.device))
             self.target_network.load_state_dict(self.model.state_dict())
             # self.experiment.set_model_graph(str(self.model))
         self.optimizer = self._optimizer_from_args(self.args, self.model)
@@ -297,6 +316,7 @@ class Trainer:
         #
         # buffer setup
         #
+        print("Setting up replay buffer...")
         if self.algorithm == "dqn":
             if not "buffer_type" in self.args['dqn'] or self.args['dqn']['buffer_type'] == 'uniform':
                 from chatbot.adviser.app.rl.dqn.replay_uniform import UniformReplayBuffer
@@ -324,11 +344,12 @@ class Trainer:
                                                     similarity_model=similarity_model)
         # write experiment config file
         if EXPERIMENT_LOGGING != ExperimentLogging.NONE:
-            with open(f"/mount/arbeitsdaten/asr-2/vaethdk/adviser_reisekosten/newruns/{self.run_name}/config.json", "w") as f:
+            with open(f"/mount/arbeitsdaten/asr-2/vaethdk/adviser_reisekosten/newruns_en/{self.run_name}/config.json", "w") as f:
                 json.dump({'spaceadapter': spaceadapter_json} | args, f)
 
 
         # Setup train metrics
+        print("Setting up metrics...")
         self.train_episodic_return = AverageMetric(name='train/episodic_return', running_avg=25)
         self.train_episode_length = AverageMetric(name="train/episode_length", running_avg=25)
         self.train_success = AverageMetric(name="train/success", running_avg=25)
@@ -417,7 +438,7 @@ class Trainer:
                         counter += 1
                         if p.exitcode == 0:
                             success = True
-                            self.savefile_goal_asked_score[f"/mount/arbeitsdaten/asr-2/vaethdk/adviser_reisekosten/newruns/{self.run_name}/ckpt_{global_step}.pt"] = goal_asked_score
+                            self.savefile_goal_asked_score[f"/mount/arbeitsdaten/asr-2/vaethdk/adviser_reisekosten/newruns_en/{self.run_name}/ckpt_{global_step}.pt"] = goal_asked_score
                     if not success:
                         print(f"FAILED SAVING 5 times for checkpoint at step {global_step}")
                 else:
@@ -428,7 +449,7 @@ class Trainer:
                                                                     torch.get_rng_state().clone().detach().cpu(),
                                                                     np.random.get_state(),
                                                                     random.getstate())
-                    self.savefile_goal_asked_score[f"/mount/arbeitsdaten/asr-2/vaethdk/adviser_reisekosten/newruns/{self.run_name}/ckpt_{global_step}.pt"] = goal_asked_score
+                    self.savefile_goal_asked_score[f"/mount/arbeitsdaten/asr-2/vaethdk/adviser_reisekosten/newruns_en/{self.run_name}/ckpt_{global_step}.pt"] = goal_asked_score
     
 
     def _parse_activation_fn(self, activation_fn_name: str):
@@ -598,7 +619,7 @@ class Trainer:
                         elif info[EnvInfo.IS_FAQ] == True and majority_class == 0:
                             intentprediction_fn += 1
                             
-                    if EXPERIMENT_LOGGING != ExperimentLogging.NONE and env_instance.log_to_file:
+                    if EXPERIMENT_LOGGING != ExperimentLogging.NONE and not isinstance(env_instance.logger, type(None)):
                         env_instance.logger.info("\n".join(env_instance.episode_log))
                     
                     intent_history[done_idx] = [] # reset intent history
