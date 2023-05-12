@@ -182,7 +182,7 @@ class GraphDataset:
         return answer_data
 
     def _load_a1_countries(self):
-        with open("resources/a1_countries.json", "r") as f:
+        with open("resources/en/a1_countries.json", "r") as f:
             a1_countries = json.load(f)
         return a1_countries
 
@@ -198,7 +198,7 @@ class GraphDataset:
         country_list = set()
         city_list = set()
 
-        content = pd.read_excel("resources/TAGEGELD_AUSLAND.xlsx")
+        content = pd.read_excel("resources/en/TAGEGELD_AUSLAND.xlsx")
         for idx, row in content.iterrows():
             country = row['Land']
             city = row['Stadt']
@@ -209,7 +209,7 @@ class GraphDataset:
         return hotel_costs, country_list, city_list
     
     def _load_country_synonyms(self):
-        with open('resources/country_synonyms.json', 'r') as f:
+        with open('resources/en/country_synonyms.json', 'r') as f:
             country_synonyms = json.load(f)
             self.country_keys = [country.lower() for country in country_synonyms.keys()]
             self.countries = {country.lower(): country for country in country_synonyms.keys()}
@@ -217,7 +217,7 @@ class GraphDataset:
                                     for country_syn in country_syns})
     
     def _load_city_synonyms(self):
-        with open('resources/city_synonyms.json', 'r') as f:
+        with open('resources/en/city_synonyms.json', 'r') as f:
             city_synonyms = json.load(f)
             self.city_keys = [city.lower() for city in city_synonyms.keys()]
             self.cities = {city.lower(): city for city in city_synonyms.keys() if city != '$REST'}

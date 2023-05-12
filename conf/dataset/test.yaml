@@ -1,2 +1,2 @@
-graph_path: resources/test_graph.json
-answer_path: resources/test_answers.json
+graph_path: resources/en/test_graph.json
+answer_path: resources/en/test_answers.json

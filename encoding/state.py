@@ -140,14 +140,14 @@ class StateEncoding:
             
             # encode ask action (available for all nodes) except logic / start nodes
             # ASK action should just tell action type, and not have any action position or action text (pad with 0 after action type)
-            assert node.node_type not in [NodeType.LOGIC, NodeType.START] # TODO bug!
+            assert node.node_type not in [NodeType.START]
             action_encoding.append(F.one_hot(torch.tensor([ActionType.ASK.value], dtype=torch.long), num_classes=self.space_dims.state_action_subvector)) # 1 x state_action_subvector
 
             if num_answers == 0 and node.connected_node:
                 # no answers, but a connected node: add zero-padded SKIP action
                 action_encoding.append(F.one_hot(torch.tensor([ActionType.SKIP.value], dtype=torch.long), num_classes=self.space_dims.state_action_subvector)) # 1 x state_action_subvector
                 pad_rows -= 1 # subtract 1 for default SKIP action
-            elif self.state_config.action_position or self.state_config.action_text.active:
+            elif num_answers > 0 and (self.state_config.action_position or self.state_config.action_text.active):
                 answer_info_encoding = [
                     F.one_hot(torch.tensor([ActionType.SKIP.value] * num_answers, dtype=torch.long), num_classes=2) # always add action type (ASK or SKIP)
                 ]
@@ -160,7 +160,6 @@ class StateEncoding:
                 assert answer_info_encoding.size(0) == num_answers, f"expected {num_answers} answers as first dimension, got {answer_info_encoding.size()}"
                 assert answer_info_encoding.size(1) == self.space_dims.state_action_subvector, f"expected {self.space_dims.state_action_subvector} in last dimension, got {answer_info_encoding.size()}"
                 action_encoding.append(answer_info_encoding)
-
             action_encoding = torch.cat(action_encoding, dim=0) # num_answers x state_action_subvector
             # zero-pad rows (bottom) to max. action number
             action_encoding = F.pad(action_encoding, (0,0,0, pad_rows), 'constant', 0.0)

@@ -17,7 +17,7 @@ class SentenceEmbeddings(TextEmbeddings):
         super().__init__(device, ckpt_name, embedding_dim)
         path = f".models/{ckpt_name.replace('/', '_')}"
         name_or_path = path if os.path.exists(path) else ckpt_name
-        self.bert_sentence_embedder = SentenceTransformer(path, device=device, cache_folder = '.models')
+        self.bert_sentence_embedder = torch.compile(SentenceTransformer(path, device=device, cache_folder = '.models').to(device))
 
     @torch.no_grad()
     def _encode(self, text: Union[str, None]) -> torch.FloatTensor:

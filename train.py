@@ -4,15 +4,19 @@ import hydra
 from hydra.core.config_store import ConfigStore
 from hydra.utils import instantiate
 from omegaconf import OmegaConf
-from algorithm.dqn.dqn import CustomDQNPolicy, CustomQNetwork
-from chatbot.adviser.app.rl.utils import EnvInfo
+from algorithm.dqn.dqn import CustomDQNPolicy
 
 from config import INSTANCES, ActionConfig, InstanceType, StateConfig, register_configs
 from data.cache import Cache
 from data.dataset import GraphDataset
 from encoding.state import StateEncoding
 from environment.cts import CTSEnvironment
+from stable_baselines3.common.monitor import Monitor
+from stable_baselines3.common.callbacks import CallbackList, CheckpointCallback, EvalCallback
 
+
+import wandb
+from wandb.integration.sb3 import WandbCallback
 
 cs = ConfigStore.instance()
 register_configs()
@@ -42,6 +46,8 @@ def load_cfg(cfg):
     val_data = None
     test_data = None
 
+  
+
     train_env = None
     val_env = None
     test_env = None
@@ -49,51 +55,74 @@ def load_cfg(cfg):
     cache = None
     state_encoding = None
 
+    run = wandb.init(
+        project="cts_en_stablebaselines",
+        config=cfg,
+        sync_tensorboard=True,  # auto-upload sb3's tensorboard metrics
+        # monitor_gym=True,  # auto-upload the videos of agents playing the game
+        # save_code=True,  # optional
+    )
+    # TODO make wandb callback configurable and optional for testing 
+    callbacks = [
+        WandbCallback(
+            model_save_path=f"/mount/arbeitsdaten/asr-2/vaethdk/tmp_debugging_weights/{run.id}",
+            verbose=2,
+        )
+    ]
+
     env_id = 0
     if "training" in cfg.experiment: 
         train_data = instantiate(cfg.experiment.training.dataset, _target_='data.dataset.GraphDataset')
         if not cache:
             cache, state_encoding = setup_cache_and_encoding(device=cfg.experiment.device, data=train_data, state_config=cfg.experiment.state, action_config=cfg.experiment.actions)
         train_env = CTSEnvironment(env_id=env_id, cache=cache, mode='train', dataset=train_data, state_encoding=state_encoding, **cfg.experiment.environment)
-        
+        from stable_baselines3.common.env_util import make_vec_env
         # subprocess vec env test
         # from stable_baselines3.common.env_util import make_vec_env
         # from stable_baselines3.common.vec_env import SubprocVecEnv
-        # gym.envs.register(
-        #     id='simulator-v1',
-        #     entry_point='environment.cts:CTSEnvironment',
-        #     max_episode_steps=1000,
-        # )
-        # kwargs = {
-        #     "env_id": env_id,
-        #     "cache": cache,
-        #     "mode":'train',
-        #     "dataset": train_data,
-        #     "state_encoding": state_encoding, 
-        #     **cfg.experiment.environment
-        # }
+        gym.envs.register(
+            id='simulator-v1',
+            entry_point='environment.cts:CTSEnvironment',
+            max_episode_steps=1000,
+        )
+        kwargs = {
+            "env_id": env_id,
+            "cache": cache,
+            "mode":'train',
+            "dataset": train_data,
+            "state_encoding": state_encoding, 
+            **cfg.experiment.environment
+        }
         # NOTE: this uses a dummy vec env only, otherwise we get a threading error!
-        # env = make_vec_env(env_id='simulator-v1', n_envs=1, env_kwargs=kwargs) # , vec_env_cls=SubprocVecEnv)
-        
+        # train_env = make_vec_env(env_id='simulator-v1', n_envs=cfg.experiment.environment.num_train_envs, env_kwargs=kwargs) # , vec_env_cls=SubprocVecEnv)
+        train_env = Monitor(train_env)
         print("TRAIN ENV")
     if "validation" in cfg.experiment:
         val_data = instantiate(cfg.experiment.validation.dataset, _target_='data.dataset.GraphDataset')
         if not cache:
             cache, state_encoding = setup_cache_and_encoding(device=cfg.experiment.device, data=val_data, state_config=cfg.experiment.state, action_config=cfg.experiment.actions)
-        val_env = instantiate(cfg.experiment.environment, _target_="environment.cts.CTSEnvironment", env_id=env_id, cache=cache, mode='val', dataset=val_data, state_encoding=state_encoding)
+        val_env = CTSEnvironment(env_id=200, cache=cache, mode='val', dataset=val_data, state_encoding=state_encoding, **cfg.experiment.environment)
+        val_env = Monitor(val_env)
+        callbacks.append(EvalCallback(val_env, best_model_save_path="/mount/arbeitsdaten/asr-2/vaethdk/tmp_debugging_weights/{run.id}/best_eval/weights",
+                             log_path="/mount/arbeitsdaten/asr-2/vaethdk/tmp_debugging_weights/{run.id}/best_eval/logs", eval_freq=cfg.experiment.validation.every_steps,
+                             deterministic=True, render=False))
         print("VAL ENV")
-    if "testing" in cfg.experiment:
-        test_data = instantiate(cfg.experiment.testing.dataset, _target_='data.dataset.GraphDataset')
-        if not cache:
-            cache, state_encoding = setup_cache_and_encoding(device=cfg.experiment.device, data=test_data, state_config=cfg.experiment.state, action_config=cfg.experiment.actions)
-        test_env = instantiate(cfg.experiment.environment, _target_="environment.cts.CTSEnvironment", env_id=env_id, cache=cache, mode='test', dataset=test_data, state_encoding=state_encoding)
-        print("TEST ENV")
+    # if "testing" in cfg.experiment:
+    #     test_data = instantiate(cfg.experiment.testing.dataset, _target_='data.dataset.GraphDataset')
+    #     if not cache:
+    #         cache, state_encoding = setup_cache_and_encoding(device=cfg.experiment.device, data=test_data, state_config=cfg.experiment.state, action_config=cfg.experiment.actions)
+    #     test_env = instantiate(cfg.experiment.environment, _target_="environment.cts.CTSEnvironment", env_id=env_id, cache=cache, mode='test', dataset=test_data, state_encoding=state_encoding)
+    #     callbacks.append(EvalCallback(test_env, best_model_save_path="/mount/arbeitsdaten/asr-2/vaethdk/tmp_debugging_weights/{run.id}/best_test/weights",
+    #                     log_path="/mount/arbeitsdaten/asr-2/vaethdk/tmp_debugging_weights/{run.id}/best_test/logs", eval_freq=cfg.experiment.testing.every_steps,
+    #                     deterministic=True, render=False))
+    #     print("TEST ENV")
     
     # trainer = instantiate(cfg.experiment)
+
+
     print("STATE SIZE", train_env.observation_space)
     print("ACTION SIZE", train_env.action_space)
     s1 = train_env.reset()
-    # print(s1.size())
     print(s1.shape)
 
     # dqn = CustomQNetwork(observation_space=train_env.observation_space, action_space=train_env.action_space,
@@ -107,8 +136,26 @@ def load_cfg(cfg):
         "hidden_layer_sizes": [1024, 1024],
         "normalization_layers": False
     }
-    model = DQN(CustomDQNPolicy, train_env, verbose=1, device=cfg.experiment.device, policy_kwargs=policy_kwargs, exploration_initial_eps=0.06, learning_starts=2, batch_size=2, train_freq=1)
-    model.learn(total_timesteps=1000, log_interval=10, progress_bar=False)
+   
+    # TODO missing parameters in our config:
+    # - tau
+    # - gradient_steos
+    model = DQN(CustomDQNPolicy, train_env, verbose=1, device=cfg.experiment.device, policy_kwargs=policy_kwargs, 
+                learning_rate=cfg.experiment.optimizer.lr, 
+                exploration_initial_eps=cfg.experiment.algorithm.dqn.eps_start, exploration_final_eps=cfg.experiment.algorithm.dqn.eps_end, exploration_fraction=cfg.experiment.algorithm.dqn.exploration_fraction,
+                buffer_size=cfg.experiment.algorithm.dqn.buffer.backend.buffer_size, 
+                learning_starts=cfg.experiment.algorithm.dqn.warmup_turns,
+                gamma=cfg.experiment.algorithm.dqn.gamma,
+                train_freq=cfg.experiment.algorithm.dqn.train_frequency,
+                target_update_interval=cfg.experiment.algorithm.dqn.target_network_update_frequency,
+                max_grad_norm=cfg.experiment.algorithm.dqn.max_grad_norm,
+                tensorboard_log=f"runs/{run.id}")
+    
+
+    model.learn(total_timesteps=cfg.experiment.algorithm.dqn.timesteps_per_reset, log_interval=10000, progress_bar=False,
+                    callback=CallbackList(callbacks)
+        )
+    run.finish()
 
 
     # TEST CODE

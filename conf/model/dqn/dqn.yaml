@@ -1,7 +1,7 @@
 _target_: models.dqn.dqn.DQN
 intent_prediction: true
-hidden_layer_sizes: [4096, 2048, 1024]
-dropout_rate: 0.25
+hidden_layer_sizes: [4096, 4096, 2048, 2048, 1024]
+dropout_rate: 0.1
 normalization_layers: false
 activation_fn: 
   _target_: torch.nn.SELU
