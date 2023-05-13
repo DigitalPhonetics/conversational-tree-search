@@ -146,15 +146,13 @@ class CustomVecEnv(VecEnv):
         #
         # TODO better IDEA: buf_obs encoding contains all terminal_observations as well - just have to pick them by index and concatenate!
         # 
-        terminal_observations = {env_idx: info['terminal_observation'] for env_idx, info in enumerate(self.buf_infos) if "terminal_observation" in info}
-        if len(terminal_observations) > 0:
-            terminal_encoded = self.state_encoding.batch_encode(terminal_observations.values(), sys_token=self.sys_token, usr_token=self.usr_token, sep_token=self.sep_token)
-            batch_idx = 0
-            for env_idx in terminal_observations:
-                self.buf_infos[env_idx]['terminal_observation'] = terminal_encoded[batch_idx]
-                batch_idx += 1
-        return self.state_encoding.batch_encode(self.buf_obs, sys_token=self.sys_token, usr_token=self.usr_token, sep_token=self.sep_token)
-
+        batch_encoding = self.state_encoding.batch_encode(self.buf_obs, sys_token=self.sys_token, usr_token=self.usr_token, sep_token=self.sep_token)
+        terminal_observations = [env_idx for env_idx, info in enumerate(self.buf_infos) if "terminal_observation" in info]
+        for env_idx in terminal_observations:
+            self.buf_infos[env_idx]['terminal_observation'] = batch_encoding[batch_idx]
+            batch_idx += 1
+        return batch_encoding
+    
     def get_attr(self, attr_name: str, indices: VecEnvIndices = None) -> List[Any]:
         """Return attribute from vectorized environment (see base class)."""
         target_envs = self._get_target_envs(indices)
