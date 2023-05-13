@@ -19,11 +19,11 @@ class ActionTypeEncoding(Encoding):
         return F.one_hot(torch.tensor([action > ActionType.ASK], dtype=torch.long), num_classes=self.get_encoding_dim())
 
     @torch.no_grad()
-    def batch_encode(self, actions: List[int]) -> torch.FloatTensor:
+    def batch_encode(self, action: List[int]) -> torch.FloatTensor:
         """ 
         Returns:
             intent class (one-hot encoded): batch x 2
         """
-        return F.one_hot(torch.tensor([[action > ActionType.ASK] for action in actions], dtype=torch.long), num_classes=self.get_encoding_dim())
+        return F.one_hot(torch.tensor([act > ActionType.ASK for act in action], dtype=torch.long), num_classes=self.get_encoding_dim())
         
 

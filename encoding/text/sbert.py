@@ -32,7 +32,7 @@ class SentenceEmbeddings(TextEmbeddings):
             return torch.zeros(1, 1, self.embedding_dim, dtype=torch.float, device=self.device)
 
     @torch.no_grad()
-    def _batch_encode(self, text: List[str]) -> Tuple[torch.FloatTensor, torch.FloatTensor]:
+    def _batch_encode(self, text: List[str]) -> Tuple[torch.FloatTensor]:
         """
         Returns:
             encodings: batch x 512

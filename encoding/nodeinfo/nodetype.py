@@ -1,4 +1,5 @@
 
+from typing import List
 import torch
 import torch.nn.functional as F
 
@@ -27,12 +28,10 @@ class NodeTypeEncoding(Encoding):
         """
         return self.encoding[dialog_node.node_type].clone().float()
 
-    # TODO fix -> do same as in encode
-    # @torch.no_grad()
-    # def batch_encode(self, dialog_node: DialogNode) -> torch.FloatTensor:
-    #     """
-    #     Returns:
-    #         torch.FloatTensor (1 x encoding_dim)
-    #     """
-    #     return torch.tensor([[list(int(bit) for bit in self.encoding[node.node_type].zfill(self.encoding_size))] for node in dialog_node], dtype=torch.float, device=self.device)
-
+    @torch.no_grad()
+    def batch_encode(self, dialog_node: List[DialogNode]) -> torch.FloatTensor:
+        """
+        Returns:
+            torch.FloatTensor (batch x encoding_dim)
+        """
+        return torch.cat([self.encoding[node.node_type] for node in dialog_node]).float()

@@ -1,3 +1,4 @@
+from copy import deepcopy
 import importlib
 from typing import Any, Dict, List, Union
 from chatbot.adviser.app.rl.utils import State
@@ -112,6 +113,23 @@ class Cache:
                             cache_key=text.lower(),
                             encode_fn=text_embedding.encode,
                             value=text).squeeze(0)
+    
+    @torch.no_grad()
+    def batch_encode_text(self, state_input_key: State, text: List[str]):
+        """
+        IMPORTANT: DOES NOT CACHE!
+        """
+        text_embedding_name = self.state_embedding_cfg[state_input_key]._target_
+        text_embedding: TextEmbeddings = self.text_embeddings[text_embedding_name]
+
+        # embedding
+        embeddings = text_embedding.batch_encode(text) # batch x embedding_dim
+
+        # noise
+        embeddings = self._apply_noise(state_input_key=state_input_key, embeddings=embeddings)
+        embeddings = self._apply_pooling(embeddings, self.state_embedding_cfg[state_input_key].pooling)
+
+        return embeddings.detach().cpu()
 
     @torch.no_grad()
     def encode_answer_text(self, node: DialogNode):
@@ -128,3 +146,66 @@ class Cache:
                             cache_key=f"actions_{node.key}",
                             encode_fn=text_embedding.batch_encode, # returns: num_actions x max_length x embedding_size
                             value=[node.answer_by_index(i).text for i in range(len(node.answers))])
+    
+    @torch.no_grad()
+    def batch_encode_answer_text(self, node: List[DialogNode], action_space_dim: int):
+        """
+        IMPORTANT: DOES NOT CACHE!
+
+        Returns:
+            Padded tensor: len(node) x action_space_dim x 2 + embedding_dim (+2: includes action type encoding)
+        """
+        text_embedding_name = self.state_embedding_cfg[State.ACTION_TEXT]._target_
+        text_embedding: TextEmbeddings = self.text_embeddings[text_embedding_name]
+
+        # get dimensions
+        num_nodes = len(node)
+        num_answers = [len(n.answers) for n in node]
+
+        embeddings = torch.zeros(num_nodes, action_space_dim, 2+text_embedding.get_encoding_dim(), dtype=torch.float)
+
+        # sharding to keep memory constraints
+        MAX_BATCH_SIZE = 128
+        batch_start_index = 0
+        batch_end_index = 0
+        current_batch = []
+        node_index = 0
+        
+        while batch_end_index < len(node):
+            # build next batch
+            while batch_end_index < len(node) and len(current_batch) < MAX_BATCH_SIZE:
+                if len(node[batch_end_index].answers) == 0:
+                    # no answers in node - skip
+                    batch_end_index += 1
+                    continue
+                if len(current_batch) + len(node[batch_end_index].answers) < MAX_BATCH_SIZE:
+                    # extend batch
+                    current_batch += [node[batch_end_index].answer_by_index(i).text for i in range(len(node[batch_end_index].answers))]
+                    batch_end_index += 1
+                else:
+                    # reached max batch size
+                    break
+            
+            # batch encode current shard
+            if len(current_batch) > 0:
+                # encode
+                enc = text_embedding.batch_encode(current_batch).detach().cpu() # batch x embedding_dim
+                # noise
+                enc = self._apply_noise(state_input_key=State.ACTION_TEXT, embeddings=enc)
+                enc = enc.detach().cpu()
+                
+                # assign answer embeddings to correct tensor positions
+                enc_start = 0
+                for answer_count in num_answers[batch_start_index:batch_end_index]:
+                    # Add action type (SKIP) encoding
+                    embeddings[node_index, :answer_count, ActionType.ASK.value] = 1.0
+                    if answer_count > 0:
+                        # Add answer text encoding
+                        embeddings[node_index, :answer_count, 2:] = enc[enc_start:enc_start+answer_count]
+                    enc_start += answer_count
+                    node_index += 1
+                batch_start_index = batch_end_index
+
+        return embeddings
+
+           

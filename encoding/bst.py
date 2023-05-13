@@ -37,4 +37,4 @@ class BSTEncoding(Encoding):
         Returns:
             batch x bst_entries (one-hot encoded)
         """
-        return torch.tensor([[1.0 if var_name in batch_item else 0.0 for var_name in self.variables] for batch_item in bst]).unsqueeze(dim=0)
+        return torch.tensor([[1.0 if var_name in batch_item else 0.0 for var_name in self.variables] for batch_item in bst])

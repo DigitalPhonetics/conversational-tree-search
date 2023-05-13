@@ -5,7 +5,7 @@ import torch as th
 import torch.nn as nn
 from torch.nn.utils.weight_norm import weight_norm
 
-from gym import spaces
+from gymnasium import spaces
 from stable_baselines3.common.torch_layers import BaseFeaturesExtractor, FlattenExtractor
 from stable_baselines3.dqn.policies import DQNPolicy, QNetwork, BasePolicy
 from stable_baselines3.common.type_aliases import Schedule

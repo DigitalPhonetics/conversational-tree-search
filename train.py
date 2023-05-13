@@ -1,5 +1,5 @@
 from typing import Tuple
-import gym
+import gymnasium as gym
 import hydra
 from hydra.core.config_store import ConfigStore
 from hydra.utils import instantiate
@@ -10,13 +10,16 @@ from config import INSTANCES, ActionConfig, InstanceType, StateConfig, register_
 from data.cache import Cache
 from data.dataset import GraphDataset
 from encoding.state import StateEncoding
-from environment.cts import CTSEnvironment
 from stable_baselines3.common.monitor import Monitor
 from stable_baselines3.common.callbacks import CallbackList, CheckpointCallback, EvalCallback
 
 
 import wandb
 from wandb.integration.sb3 import WandbCallback
+
+from environment.vec.vecenv import CustomVecEnv
+from environment.vec.cts import CTSEnvironment
+
 
 cs = ConfigStore.instance()
 register_configs()
@@ -75,11 +78,10 @@ def load_cfg(cfg):
         train_data = instantiate(cfg.experiment.training.dataset, _target_='data.dataset.GraphDataset')
         if not cache:
             cache, state_encoding = setup_cache_and_encoding(device=cfg.experiment.device, data=train_data, state_config=cfg.experiment.state, action_config=cfg.experiment.actions)
-        train_env = CTSEnvironment(env_id=env_id, cache=cache, mode='train', dataset=train_data, state_encoding=state_encoding, **cfg.experiment.environment)
-        from stable_baselines3.common.env_util import make_vec_env
+        # train_env = CTSEnvironment(env_id=env_id, cache=cache, mode='train', dataset=train_data, state_encoding=state_encoding, **cfg.experiment.environment)
         # subprocess vec env test
-        # from stable_baselines3.common.env_util import make_vec_env
         # from stable_baselines3.common.vec_env import SubprocVecEnv
+        from stable_baselines3.common.env_util import make_vec_env
         gym.envs.register(
             id='simulator-v1',
             entry_point='environment.cts:CTSEnvironment',
@@ -87,26 +89,33 @@ def load_cfg(cfg):
         )
         kwargs = {
             "env_id": env_id,
-            "cache": cache,
+            # "cache": cache,
             "mode":'train',
             "dataset": train_data,
-            "state_encoding": state_encoding, 
+            # "state_encoding": state_encoding, 
             **cfg.experiment.environment
         }
         # NOTE: this uses a dummy vec env only, otherwise we get a threading error!
-        # train_env = make_vec_env(env_id='simulator-v1', n_envs=cfg.experiment.environment.num_train_envs, env_kwargs=kwargs) # , vec_env_cls=SubprocVecEnv)
-        train_env = Monitor(train_env)
+        train_env = make_vec_env(env_id=CTSEnvironment, 
+                                 n_envs=cfg.experiment.environment.num_train_envs, env_kwargs=kwargs, 
+                                 vec_env_cls=CustomVecEnv, vec_env_kwargs={
+                                     "state_encoding": state_encoding,
+                                     "sys_token": cfg.experiment.environment.sys_token,
+                                     "usr_token": cfg.experiment.environment.usr_token,
+                                     "sep_token": cfg.experiment.environment.sep_token
+                                 })
+        # train_env = Monitor(train_env)
         print("TRAIN ENV")
-    if "validation" in cfg.experiment:
-        val_data = instantiate(cfg.experiment.validation.dataset, _target_='data.dataset.GraphDataset')
-        if not cache:
-            cache, state_encoding = setup_cache_and_encoding(device=cfg.experiment.device, data=val_data, state_config=cfg.experiment.state, action_config=cfg.experiment.actions)
-        val_env = CTSEnvironment(env_id=200, cache=cache, mode='val', dataset=val_data, state_encoding=state_encoding, **cfg.experiment.environment)
-        val_env = Monitor(val_env)
-        callbacks.append(EvalCallback(val_env, best_model_save_path="/mount/arbeitsdaten/asr-2/vaethdk/tmp_debugging_weights/{run.id}/best_eval/weights",
-                             log_path="/mount/arbeitsdaten/asr-2/vaethdk/tmp_debugging_weights/{run.id}/best_eval/logs", eval_freq=cfg.experiment.validation.every_steps,
-                             deterministic=True, render=False))
-        print("VAL ENV")
+    # if "validation" in cfg.experiment:
+    #     val_data = instantiate(cfg.experiment.validation.dataset, _target_='data.dataset.GraphDataset')
+    #     if not cache:
+    #         cache, state_encoding = setup_cache_and_encoding(device=cfg.experiment.device, data=val_data, state_config=cfg.experiment.state, action_config=cfg.experiment.actions)
+    #     val_env = CTSEnvironment(env_id=200, cache=cache, mode='val', dataset=val_data, state_encoding=state_encoding, **cfg.experiment.environment)
+    #     val_env = Monitor(val_env)
+    #     callbacks.append(EvalCallback(val_env, best_model_save_path="/mount/arbeitsdaten/asr-2/vaethdk/tmp_debugging_weights/{run.id}/best_eval/weights",
+    #                          log_path="/mount/arbeitsdaten/asr-2/vaethdk/tmp_debugging_weights/{run.id}/best_eval/logs", eval_freq=cfg.experiment.validation.every_steps,
+    #                          deterministic=True, render=False))
+    #     print("VAL ENV")
     # if "testing" in cfg.experiment:
     #     test_data = instantiate(cfg.experiment.testing.dataset, _target_='data.dataset.GraphDataset')
     #     if not cache:

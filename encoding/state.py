@@ -90,6 +90,7 @@ class StateEncoding:
         num_actions = data.get_max_node_degree() + 1 # real number of actions, independent of space sizes (+ 1 for ASK action, rest is skip actions)
         return StateDims(state_vector=state_dim, action_vector=action_dim, state_action_subvector=state_action_subvector, num_actions=num_actions)
 
+
     def encode(self, observation: Dict[EnvInfo, Any], sys_token: str, usr_token: str, sep_token: str):
         """
         Calls encoders from cache to transform observation/info dicts into a state vector.
@@ -171,6 +172,66 @@ class StateEncoding:
                 state_encoding[-pad_rows:, :] = 0.0 # mask repeated state in padded rows
         return state_encoding.squeeze()
 
-    def batch_encode(self):
-        # TODO 
-        raise NotImplementedError
+    def batch_encode(self, observation: List[Dict[EnvInfo, Any]], sys_token: str, usr_token: str, sep_token: str):
+        nodes: List[DialogNode] = [obs[EnvInfo.DIALOG_NODE] for obs in observation]
+
+        state_encoding = []
+        if self.state_config.beliefstate:
+            state_encoding.append(self.cache.bst_encoding.batch_encode(bst=[obs[EnvInfo.BELIEFSTATE] for obs in observation]))
+        if self.state_config.last_system_action:
+            state_encoding.append(self.cache.action_type_encoding.batch_encode(action=[obs[EnvInfo.LAST_SYSTEM_ACT] for obs in observation]))
+        if self.state_config.node_position:
+            state_encoding.append(self.cache.node_position_encoding.batch_encode(dialog_node=nodes))
+        if self.state_config.node_type:
+            state_encoding.append(self.cache.node_type_encoding.batch_encode(dialog_node=nodes))
+        if self.state_config.node_text and self.state_config.node_text.active:
+            state_encoding.append(self.cache.batch_encode_text(state_input_key=State.NODE_TEXT, text=[obs[EnvInfo.DIALOG_NODE].text for obs in observation]))
+        if self.state_config.initial_user_utterance and self.state_config.initial_user_utterance.active:
+            state_encoding.append(self.cache.batch_encode_text(state_input_key=State.INITIAL_USER_UTTERANCE, text=[obs[EnvInfo.INITIAL_USER_UTTERANCE] for obs in observation]))
+        if self.state_config.dialog_history and self.state_config.dialog_history.active:
+            dialog_history = [chain_dialog_history(sys_utterances=obs[EnvInfo.SYSTEM_UTTERANCE_HISTORY], usr_utterances=obs[EnvInfo.USER_UTTERANCE_HISTORY],
+                                                            sys_token=sys_token, usr_token=usr_token, sep_token=sep_token) for obs in observation]
+            dialog_history = [["".join(turn) for turn in batch_item] for batch_item in dialog_history]
+            dialog_history = ["".join(batch_item) for batch_item in dialog_history]
+            state_encoding.append(self.cache.batch_encode_text(state_input_key=State.DIALOG_HISTORY, text=dialog_history))
+        if self.state_config.current_user_utterance and self.state_config.current_user_utterance.active:
+            state_encoding.append(self.cache.batch_encode_text(State.CURRENT_USER_UTTERANCE, text=[obs[EnvInfo.CURRENT_USER_UTTERANCE] for obs in observation]))
+
+        state_encoding = torch.cat(state_encoding, dim=-1) # batch x (state_dim - state_action_subvector)
+
+        assert state_encoding.size(0) == len(nodes), f"observation encoding for batch observation should match batch size {len(nodes)}, but found dimensions {state_encoding.size()}"
+        assert state_encoding.size(1) == self.space_dims.state_vector - self.space_dims.state_action_subvector, f"Expected observation vector without action encodings to be of size {self.space_dims.state_vector - self.space_dims.state_action_subvector}, but found dimensions {state_encoding.size()}"
+
+        # encode actions
+        if self.action_config.in_state_space:
+            # actions are part of input space: embed them, and concatenate each of them with the state encoding vector
+            # each action encoding starts with the action type encoding (ASK or SKIP as a one-hot encoding: [1,0] - ask, or [0,1] - skip)
+            action_encoding = torch.zeros(len(nodes), self.space_dims.num_actions, self.space_dims.state_action_subvector)
+            subvec_index = 0
+            
+            # encode ask action (available for all nodes) except logic / start nodes
+            # ASK action should just tell action type, and not have any action position or action text (pad with 0 after action type)
+            # assert node.node_type not in [NodeType.START]
+            action_encoding[:,0,:] =  F.one_hot(torch.tensor([ActionType.ASK.value] * len(nodes), dtype=torch.long), num_classes=self.space_dims.state_action_subvector) # batch x state_action_subvector
+            subvec_index += 2 # action type encoding
+            if self.state_config.action_text.active:
+                action_text_embedding_name = self.cache.state_embedding_cfg[State.ACTION_TEXT]._target_
+                action_text_embedding = self.cache.text_embeddings[action_text_embedding_name]
+                subvec_index += action_text_embedding.get_encoding_dim()
+                action_encoding[:, 1:, :subvec_index] = self.cache.batch_encode_answer_text(node=nodes, action_space_dim=self.space_dims.num_actions-1) # batch x max_answers x embedding; start from 1 and actions-1 because of ASK action
+            if self.state_config.action_position:
+                action_encoding[:, 1:, subvec_index:subvec_index+self.cache.action_position_encoding.get_encoding_dim()] = self.cache.action_position_encoding.batch_encode(dialog_node=nodes, max_actions=self.space_dims.num_actions-1) # start from 1 and actions-1 because of ASK action
+            
+            # concatenate actions with state (duplicate state encoding for each action)
+            state_encoding = state_encoding.unsqueeze(1).repeat(1, self.space_dims.num_actions, 1) # batch x num_actions x (state_dim - state_action_subvector)
+            state_encoding = torch.cat((state_encoding, action_encoding), -1) # batch x num_actions x state_dim
+
+            # mask repeated state in zero-rows
+            for node_idx, node in enumerate(nodes):
+                has_connected_node = not isinstance(node.connected_node, type(None))
+                node_action_count = max(len(node.answers) + 1, 1 + int(has_connected_node)) # add ASK action, second argument: no answers: node gets a default SKIP action, if not end of tree
+                if node_action_count < self.space_dims.num_actions:
+                    # we have padding to do!
+                    state_encoding[node_idx, node_action_count:, :] = 0.0
+            return state_encoding
+        return state_encoding

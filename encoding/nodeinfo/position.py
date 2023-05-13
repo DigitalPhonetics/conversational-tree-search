@@ -118,12 +118,19 @@ class AnswerPositionEncoding(Encoding):
             # node without answers and neighbours
             return torch.zeros((1, self.max_degree), dtype=torch.float)
 
+    # TODO 
     @torch.no_grad()
-    def batch_encode(self, dialog_node: List[DialogNode], **kwargs) -> Tuple[torch.FloatTensor, torch.FloatTensor]:
+    def batch_encode(self, dialog_node: List[DialogNode], max_actions: int, **kwargs) -> Tuple[torch.FloatTensor, torch.FloatTensor]:
         """
         Returns:
-            # batch x max_answers x max_node_degree, batch (num_answers)
+            batch x max_actions x encoding
         """
-        # return pad_sequence([self._encode(node) for node in dialog_node], batch_first=True), torch.tensor([node.answers.count() for node in dialog_node])
-        return pad_sequence([self._encode(node) for node in dialog_node], batch_first=True), torch.tensor([len(node.answers) for node in dialog_node])
-       
+        encoding = torch.zeros(len(dialog_node), max_actions, self.max_degree)
+        for node_idx, node in enumerate(dialog_node):
+            if len(node.answers) > 0:
+                encoding[node_idx, :len(node.answers), :] = F.one_hot(torch.tensor(list(range(len(node.answers)))), num_classes=self.max_degree)
+            elif node.connected_node:
+                # node without answers, but directly connected neighbour
+                encoding[node_idx, 0, 0] = 1.0
+        return encoding
+   
