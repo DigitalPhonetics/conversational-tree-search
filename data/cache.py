@@ -165,7 +165,7 @@ class Cache:
         embeddings = torch.zeros(num_nodes, action_space_dim, 2+text_embedding.get_encoding_dim(), dtype=torch.float)
 
         # sharding to keep memory constraints
-        MAX_BATCH_SIZE = 128
+        MAX_BATCH_SIZE = 768
         batch_start_index = 0
         batch_end_index = 0
         current_batch = []
@@ -205,6 +205,7 @@ class Cache:
                     enc_start += answer_count
                     node_index += 1
                 batch_start_index = batch_end_index
+                current_batch = []
 
         return embeddings
 
