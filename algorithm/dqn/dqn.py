@@ -1,8 +1,10 @@
 
+from copy import deepcopy
 from typing import List, Tuple, Union, Dict, Optional, Type, Any
 
 import torch as th
 import torch.nn as nn
+import torch.nn.functional as F
 from torch.nn.utils.weight_norm import weight_norm
 
 from gymnasium import spaces
@@ -11,23 +13,17 @@ from stable_baselines3.dqn.policies import DQNPolicy, QNetwork, BasePolicy
 from stable_baselines3.common.type_aliases import Schedule
 
 
+from encoding.state import StateDims
+
 
 def add_weight_normalization(layer: nn.Module):
     return weight_norm(layer, dim=None)
 
 
-class MaskingLayer(nn.Module):
-    def __init__(self, original_layer: nn.Module) -> None:
-        super().__init__()
-        self.original_layer = original_layer
-    
-    def forward(self, input: Tuple[th.Tensor, th.Tensor]):
-        """
-        Args:
-            input[0]: batch x state_dim
-            input[1]: mask: batch x actions x state_dim
-        """
-        return self.original_layer(input[0]) * input[1], input[1]
+def mask_output(input: th.Tensor, mask: th.Tensor):
+    if th.is_tensor(mask):
+        return input * mask
+    return input
 
 
 class CustomQNetwork(BasePolicy):
@@ -58,9 +54,9 @@ class CustomQNetwork(BasePolicy):
         )
 
         self.activation_fn = activation_fn
+        self.dropout_rate = dropout_rate
 
         # network architecture
-        self.dropout_rate = dropout_rate
 
         # create layers
         layers = []
@@ -72,25 +68,18 @@ class CustomQNetwork(BasePolicy):
             layer = nn.Linear(current_input_dim, layer_size)
             if normalization_layers:
                 layer = add_weight_normalization(layer)
-            if self.actions_in_state_space:
-                layer = MaskingLayer(layer)
             layers.append(layer)
             activation = activation_fn()
-            if self.actions_in_state_space:
-                activation = MaskingLayer(activation)
             layers.append(activation)
-            if dropout_rate > 0.0:
-                layers.append(nn.Dropout(p=dropout_rate))
             current_input_dim = layer_size
         # output layer
         output_layer = nn.Linear(current_input_dim, self.output_dim)
-        if self.actions_in_state_space:
-            output_layer = MaskingLayer(output_layer)
         layers.append(output_layer)
 
-        self.q_net = nn.Sequential(*layers)
+        self.q_net = nn.ModuleList(layers)
+        print("NETWORK", self.q_net)
 
-    def forward(self, obs: th.Tensor) -> th.Tensor:
+    def forward(self, obs: th.Tensor, deterministic: bool = False) -> th.Tensor:
         """
         Predict the q-values.
 
@@ -98,21 +87,25 @@ class CustomQNetwork(BasePolicy):
         :return: The estimated Q-Value for each action.
         """
         mask = None # mask will be 0.0 for rows that should be masked, so we can multiply with them and eliminate gradient propagation for these
-        x = obs
+        q = obs
         if self.actions_in_state_space:
             # obs: batch x actions x state
-            mask = (~(obs.abs().sum(-1) == 0.0)).float() # batch x actions
-            x = (obs, mask.unsqueeze(-1)) # input requires mask now
+            mask = (~(obs.abs().sum(-1) == 0.0)).float().unsqueeze(-1) # batch x actions x 1
         
-        q = self.q_net(x)
+        for layer_idx, layer in enumerate(self.q_net):
+            q = layer(q)
+            if (not deterministic) and layer_idx < len(self.q_net) - 1 and self.dropout_rate > 0.0:
+                # no dropout in last layer, or if deterministic output is required
+                q = F.dropout(q, p=self.dropout_rate)
+            q = mask_output(q, mask)
+
         if self.actions_in_state_space:
-            # reshape outputs (discard mask, which is q[1])
-            q = q[0]
+            # reshape outputs
             q = q.view(-1, self.action_space.n)
         return q
 
     def _predict(self, observation: th.Tensor, deterministic: bool = True) -> th.Tensor:
-        q_values = self(observation)
+        q_values = self(observation, deterministic=deterministic)
         if self.actions_in_state_space:
             # obs: batch x actions x state
             mask = (observation.abs().sum(-1) == 0.0) # batch x actions
@@ -121,7 +114,274 @@ class CustomQNetwork(BasePolicy):
         # Greedy action
         action = q_values.argmax(dim=1).reshape(-1)
         return action
+
+
+
+class CustomDuelingQNetwork(BasePolicy):
+    action_space: spaces.Discrete
+
+    def __init__(
+        self,
+        observation_space: spaces.Space,
+        action_space: spaces.Discrete,
+        shared_layer_sizes: List[int],
+        value_layer_sizes: List[int],
+        advantage_layer_sizes: List[int],
+        state_dims: StateDims,
+        normalization_layers: bool = False,
+        dropout_rate: float = 0.0,
+        activation_fn: Type[nn.Module] = nn.ReLU,
+    ) -> None:
+        super().__init__(
+            observation_space,
+            action_space,
+            features_extractor=None,
+            normalize_images=False,
+        )
+
+        self.activation_fn = activation_fn
+        self.dropout_rate = dropout_rate
+        self.state_dims = state_dims
+        self.actions_in_state_space = len(observation_space.shape) > 1
+        self.output_dim = 1 if self.actions_in_state_space else action_space.n
+        self.state_input_size = state_dims.state_vector - state_dims.state_action_subvector
+
+        # network architecture
+        shared_layers = []
+        action_inputs = []
+        value_layers = []
+        advantage_layers = []
+
+        # create shared (and optionally, action input) layers
+        shared_layer_dim = self.state_input_size
+        action_layer_dim = state_dims.state_action_subvector if self.actions_in_state_space else 0
+        for layer_size in shared_layer_sizes:
+            shared_layer = nn.Linear(shared_layer_dim, layer_size)
+            if normalization_layers:
+                shared_layer = add_weight_normalization(shared_layer)
+            shared_layers.append(shared_layer)
+            activation = activation_fn()
+            shared_layers.append(activation)
+            shared_layer_dim = layer_size
+
+            if self.actions_in_state_space:
+                action_layer = nn.Linear(action_layer_dim, layer_size)
+                if normalization_layers:
+                    action_layer = add_weight_normalization(action_layer)
+                action_inputs.append(action_layer)
+                activation = activation_fn()
+                action_inputs.append(activation)
+                action_layer_dim = layer_size
+
+        # create value layers: (state_input_dim - action_input_dim) -> 1
+        value_layer_dim = shared_layer_dim
+        for layer_size in value_layer_sizes:
+            value_layer = nn.Linear(value_layer_dim, layer_size)
+            if normalization_layers:
+                value_layer = add_weight_normalization(value_layer)
+            value_layers.append(value_layer)
+            activation = activation_fn()
+            value_layers.append(activation)
+            value_layer_dim = layer_size
+        value_output_layer = nn.Linear(value_layer_dim, 1) # value output layer
+        value_layers.append(value_output_layer)
+
+        # advantage layer: shared_layer_sizes[-1] -> actions
+        advantage_layer_dim = shared_layer_dim + action_layer_dim
+        for layer_size in advantage_layer_sizes:
+            adv_layer = nn.Linear(advantage_layer_dim, layer_size)
+            if normalization_layers:
+                adv_layer = add_weight_normalization(adv_layer)
+            advantage_layers.append(adv_layer)
+            activation = activation_fn()
+            advantage_layers.append(activation)
+            advantage_layer_dim = layer_size
+
+        # advantage output layer: advantage_layer_dim -> actions
+        output_layer = nn.Linear(advantage_layer_dim, self.output_dim)
+        advantage_layers.append(output_layer)
+
+        # connect layers to module
+        self.shared_net = nn.ModuleList(shared_layers)
+        self.action_input_net = nn.ModuleList(action_inputs)
+        self.value_net = nn.ModuleList(value_layers)
+        self.advantage_net = nn.ModuleList(advantage_layers)
+
+
+    def forward(self, obs: th.Tensor, deterministic: bool = False) -> th.Tensor:
+        """
+        Predict the q-values.
+
+        :param obs: Observation
+        :return: The estimated Q-Value for each action.
+        """
+        # preprocess inputs
+        mask = None # mask will be 0.0 for rows that should be masked, so we can multiply with them and eliminate gradient propagation for these
+        num_actions = self.state_dims.num_actions
+        state_input = obs
+        if self.actions_in_state_space:
+            # obs: batch x actions x state
+            mask = (~(obs.abs().sum(-1) == 0.0)).float() # batch x actions
+            num_actions = mask.sum(-1) # batch (contains number of actions per batch)
+            mask = mask.unsqueeze(-1) # batch x actions x 1
+
+            state_input = obs[:, :, :self.state_input_size] # state input portion of input
+            action_input = obs[:, :, self.state_input_size:] # action input portion of input
+
+            action_stream = action_input
+            for layer in self.action_input_net:
+                action_stream = layer(action_stream)
+                if (not deterministic) and self.dropout_rate > 0.0:
+                    action_stream = F.dropout(action_stream, p=self.dropout_rate)
+                action_stream = mask_output(action_stream, mask)
+            
+        # calculate streams
+        shared_stream = state_input
+        for layer in self.shared_net:
+            shared_stream = layer(shared_stream)
+            if (not deterministic) and self.dropout_rate > 0.0:
+                shared_stream = F.dropout(shared_stream, p=self.dropout_rate)
+            shared_stream = mask_output(shared_stream, mask)
+        
+        value_stream = shared_stream
+        for layer_idx, layer in enumerate(self.value_net):
+            value_stream = layer(value_stream)
+            if (not deterministic) and layer_idx < len(self.value_net) - 1 and self.dropout_rate > 0.0:
+                # no dropout in last layer, or if deterministic output is required
+                value_stream = F.dropout(value_stream, p=self.dropout_rate)
+            value_stream = mask_output(value_stream, mask)
+
+        advantage_stream = shared_stream
+        if self.actions_in_state_space:
+            advantage_stream = th.cat((advantage_stream, action_stream), -1)
+        for layer_idx, layer in enumerate(self.advantage_net):
+            advantage_stream = layer(advantage_stream)
+            if (not deterministic) and layer_idx < len(self.advantage_net) - 1 and self.dropout_rate > 0.0:
+                # no dropout in last layer, or if deterministic output is required 
+                advantage_stream = F.dropout(advantage_stream, p=self.dropout_rate)
+            advantage_stream = mask_output(advantage_stream, mask)
+
+        if self.actions_in_state_space:
+            # adapt dimensions
+            value_stream = value_stream.squeeze(-1)
+            advantage_stream = advantage_stream.squeeze(-1) # batch x actions x 1 -> batch x actions (because we only have 1 output here)
+            
+        # calculate advantage mean
+        advantage_stream_mean = advantage_stream.sum(-1) / num_actions
+        # combine value and advantage streams into Q values
+        q = value_stream + advantage_stream - advantage_stream_mean.unsqueeze(-1) # batch x actions
+
+        return q
+       
+    def _predict(self, observation: th.Tensor, deterministic: bool = True) -> th.Tensor:
+        q_values = self(observation, deterministic=deterministic)
+        if self.actions_in_state_space:
+            # obs: batch x actions x state
+            mask = (observation.abs().sum(-1) == 0.0) # batch x actions
+            q_values = th.masked_fill(q_values, mask, float('-inf'))
+
+        # Greedy action
+        action = q_values.argmax(dim=-1).reshape(-1)
+        return action
     
+
+ 
+class CustomDuelingQNetworkWithIntentPrediction(CustomDuelingQNetwork):
+    action_space: spaces.Discrete
+    def __init__(
+        self,
+        observation_space: spaces.Space,
+        action_space: spaces.Discrete,
+        shared_layer_sizes: List[int],
+        value_layer_sizes: List[int],
+        advantage_layer_sizes: List[int],
+        state_dims: StateDims,
+        normalization_layers: bool = False,
+        dropout_rate: float = 0.0,
+        activation_fn: Type[nn.Module] = nn.ReLU,
+    ) -> None:
+        super().__init__(
+            observation_space=observation_space,
+            action_space=action_space,
+            shared_layer_sizes=shared_layer_sizes,
+            value_layer_sizes=value_layer_sizes,
+            advantage_layer_sizes=advantage_layer_sizes,
+            state_dims=state_dims,
+            normalization_layers=normalization_layers,
+            dropout_rate=dropout_rate,
+            activation_fn=activation_fn
+        )
+
+        # intent prediction head
+        self.intent_head = nn.Sequential(
+            nn.Linear(shared_layer_sizes[-1], 256),
+            nn.SELU(),
+            nn.Dropout(p=dropout_rate),
+            nn.Linear(256, 1)
+        )
+
+    def forward(self, obs: th.Tensor) -> th.Tensor:
+        """
+        Predict the q-values.
+
+        :param obs: Observation
+        :return: The estimated Q-Value for each action.
+        """
+        # preprocess inputs
+        mask = None # mask will be 0.0 for rows that should be masked, so we can multiply with them and eliminate gradient propagation for these
+        num_actions = self.state_dims.num_actions
+        state_input = obs
+        if self.actions_in_state_space:
+            # obs: batch x actions x state
+            mask = (~(obs.abs().sum(-1) == 0.0)).float() # batch x actions
+            num_actions = mask.sum(-1) # batch (contains number of actions per batch)
+
+            state_input = obs[:, :, :self.state_input_size] # state input portion of input
+            action_input = obs[:, :, self.state_input_size:] # action input portion of input
+
+            state_input = (state_input, mask.unsqueeze(-1)) # input requires mask now
+            action_input = (action_input, mask.unsqueeze(-1)) # input requires mask now
+            
+            action_stream = self.action_input_net(action_input)
+        
+        # calculate streams
+        shared_stream = self.shared_net(state_input)
+        value_stream = self.value_net(shared_stream)
+        advantage_stream = shared_stream
+        if self.actions_in_state_space:
+            advantage_stream = th.cat((advantage_stream, action_stream), -1)
+        advantage_stream = self.advantage_net(shared_stream)
+
+        if self.actions_in_state_space:
+            # unpack values from (value, mask) tuples and adapt dimensions
+            value_stream = value_stream[0]
+            value_stream = value_stream.squeeze(-1)
+            advantage_stream = advantage_stream[0]
+            advantage_stream = advantage_stream.squeeze(-1) # batch x actions x 1 -> batch x actions (because we only have 1 output here)
+            
+        # calculate advantage mean
+        advantage_stream_mean = advantage_stream.sum(-1) / num_actions
+        # combine value and advantage streams into Q values
+        q = value_stream + advantage_stream - advantage_stream_mean.unsqueeze(1) # batch x actions
+
+        # intent prediction
+        intent_logits = shared_stream.mean(dim=1) if self.actions_in_state_space else shared_stream  # batch x shared_dim
+        intent_logits = self.intent_head(intent_logits) # batch x 1
+        
+        return q, intent_logits
+       
+    def _predict(self, observation: th.Tensor, deterministic: bool = True) -> th.Tensor:
+        q_values, intent_logits = self(observation)
+        if self.actions_in_state_space:
+            # obs: batch x actions x state
+            mask = (observation.abs().sum(-1) == 0.0) # batch x actions
+            q_values = th.masked_fill(q_values, mask, float('-inf'))
+
+        # Greedy action
+        action = q_values.argmax(dim=1).reshape(-1)
+        return action, intent_logits
+    
+
 
 
 class CustomDQNPolicy(DQNPolicy):
@@ -148,7 +408,7 @@ class CustomDQNPolicy(DQNPolicy):
         observation_space: spaces.Space,
         action_space: spaces.Discrete,
         lr_schedule: Schedule,
-        hidden_layer_sizes: List[int],
+        net_arch,
         normalization_layers: bool = False,
         activation_fn: Type[nn.Module] = nn.ReLU,
         features_extractor_class: Type[BaseFeaturesExtractor] = FlattenExtractor,
@@ -157,14 +417,13 @@ class CustomDQNPolicy(DQNPolicy):
         optimizer_class: Type[th.optim.Optimizer] = th.optim.Adam,
         optimizer_kwargs: Optional[Dict[str, Any]] = None,
     ) -> None:
-        self.hidden_layer_sizes = hidden_layer_sizes
         self.normalization_layers = normalization_layers
 
         super().__init__(
             observation_space,
             action_space,
             lr_schedule,
-            None, # net_arch -> replaced here by hidden_layer_sizes
+            net_arch, # net_arch -> replaced here by hidden_layer_sizes
             activation_fn,
             features_extractor_class,
             features_extractor_kwargs,
@@ -175,16 +434,17 @@ class CustomDQNPolicy(DQNPolicy):
 
     def make_q_net(self) -> QNetwork:
         # Make sure we always have separate networks for features extractors etc
-        net_args = self._update_features_extractor(self.net_args, features_extractor=None)
-        del net_args['net_arch']
+        net_args = deepcopy(self._update_features_extractor(self.net_args, features_extractor=None))
         del net_args['normalize_images']
         del net_args['features_extractor']
         del net_args['features_dim']
-        return th.compile(CustomQNetwork(hidden_layer_sizes=self.hidden_layer_sizes,
-                              normalization_layers=self.normalization_layers,
-                              **net_args
-            ).to(self.device))
+        del net_args['activation_fn']
+        
+        arch = net_args.pop('net_arch')
+        net_cls = arch.pop('net_cls')
 
+        return net_cls(**net_args, **arch).to(self.device) # TODO th.compile(
+        
 
 # @torch.no_grad()
 # def select_actions_eps_greedy(self, training: bool, q_values: torch.FloatTensor, action_mask: Union[torch.FloatTensor, None], epsilon: float) -> torch.LongTensor:

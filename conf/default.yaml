@@ -31,7 +31,7 @@ experiment:
     logging: NONE
   training:
     noise: 0.3
-    every_steps: 1
+    every_steps: 128
     steps: 1000000
     dataset:
       use_answer_synonyms: true
@@ -61,9 +61,9 @@ experiment:
     max_steps: 50
     user_patience: 3
     stop_when_reaching_goal: true # stop after goal node was both reached + presented (ASK)
-    num_train_envs: 8
-    num_val_envs: 8
-    num_test_envs: 8
+    num_train_envs: 128
+    num_val_envs: 100
+    num_test_envs: 100
     sys_token: "[SYS]"
     usr_token: "[USR]"
     sep_token: ""
