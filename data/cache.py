@@ -22,8 +22,6 @@ def requires_text_embedding(obj):
 
 class Cache:
     def __init__(self, device: str, data: GraphDataset, host: str, port: int, state_config: StateConfig) -> None:
-        global INSTANCES
-        INSTANCES[InstanceType.CACHE] = self
         self.device = device
         self.text_embeddings: Dict[str, TextEmbeddings] = {}
         self.other_embeddings = {}

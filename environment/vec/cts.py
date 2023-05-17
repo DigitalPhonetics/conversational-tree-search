@@ -17,7 +17,9 @@ from utils.envutils import GoalDistanceMode
 import gymnasium
 
 class CTSEnvironment(gymnasium.Env):
-    def __init__(self, env_id: int, mode: str,
+    def __init__(self, 
+                # env_id: int,
+                mode: str,
                 dataset: GraphDataset,
                 guided_free_ratio: float,
                 auto_skip: AutoSkipMode,
@@ -29,9 +31,10 @@ class CTSEnvironment(gymnasium.Env):
                 goal_distance_mode: GoalDistanceMode,
                 goal_distance_increment: int,
                 **kwargs):
-        self.env_id = env_id
+        # self.env_id = env_id
         self.goal_distance_mode = goal_distance_mode
         self.goal_distance_increment = goal_distance_increment
+        self.data = dataset
 
         self.max_reward = 4 * dataset.get_max_tree_depth() if normalize_rewards else 1.0
         self.max_distance = dataset.get_max_node_degree() if goal_distance_mode == GoalDistanceMode.FULL_DISTANCE else 2 # set max. or min. distance to start
@@ -45,7 +48,7 @@ class CTSEnvironment(gymnasium.Env):
         # initialize task-specific environments
         self.guided_free_ratio = guided_free_ratio
         if guided_free_ratio > 0.0:
-            self.guided_env = GuidedEnvironment(env_id=env_id, dataset=dataset,
+            self.guided_env = GuidedEnvironment(dataset=dataset,
                 sys_token=sys_token, usr_token=usr_token, sep_token=sep_token,
                 max_steps=max_steps, max_reward=self.max_reward, user_patience=user_patience,
                 stop_when_reaching_goal=stop_when_reaching_goal,
@@ -53,7 +56,7 @@ class CTSEnvironment(gymnasium.Env):
                 value_backend=value_backend,
                 auto_skip=auto_skip)
         if guided_free_ratio < 1.0:
-            self.free_env = FreeEnvironment(env_id=env_id, dataset=dataset,
+            self.free_env = FreeEnvironment(dataset=dataset,
                 sys_token=sys_token, usr_token=usr_token, sep_token=sep_token,
                 max_steps=max_steps, max_reward=self.max_reward, user_patience=user_patience,
                 stop_when_reaching_goal=stop_when_reaching_goal,
@@ -82,6 +85,7 @@ class CTSEnvironment(gymnasium.Env):
     def step(self, action: int, replayed_user_utterance: Tuple[str, None] = None) -> Tuple[dict, float, bool, dict]:
         obs, reward, done = self.active_env.step(action, replayed_user_utterance)
         obs[EnvInfo.IS_FAQ] = self.active_env == self.free_env
+        obs["is_success"] = obs[EnvInfo.ASKED_GOAL]
         return obs, reward, done, False, obs # truncated, info = obs before encoding
     
 

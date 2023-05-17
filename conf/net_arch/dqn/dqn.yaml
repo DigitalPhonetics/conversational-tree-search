@@ -1,7 +1,5 @@
-_target_: models.dqn.dqn.DQN
-intent_prediction: true
+net_cls: algorithm.dqn.dqn.CustomQNetwork
 hidden_layer_sizes: [4096, 4096, 2048, 2048, 1024]
 dropout_rate: 0.1
 normalization_layers: false
-activation_fn: 
-  _target_: torch.nn.SELU
+activation_fn: torch.nn.SELU

@@ -17,14 +17,14 @@ from environment.vec.base import BaseEnv
 
 
 class FreeEnvironment(BaseEnv):
-    def __init__(self, env_id: int, dataset: GraphDataset,
+    def __init__(self, dataset: GraphDataset,
             sys_token: str, usr_token: str, sep_token: str,
             max_steps: int, max_reward: float, user_patience: int,
             stop_when_reaching_goal: bool,
             answer_parser: AnswerTemplateParser, system_parser: SystemTemplateParser, logic_parser: LogicTemplateParser,
             value_backend: RealValueBackend,
             auto_skip: AutoSkipMode) -> None:
-        super().__init__(env_id=env_id, dataset=dataset,
+        super().__init__(dataset=dataset,
             sys_token=sys_token, usr_token=usr_token, sep_token=sep_token, 
             max_steps=max_steps, max_reward=max_reward, user_patience=user_patience,
             answer_parser=answer_parser, logic_parser=logic_parser, value_backend=value_backend,

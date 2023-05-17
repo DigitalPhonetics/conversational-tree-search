@@ -1,16 +1,18 @@
+import itertools
+from statistics import mean
 import warnings
-from collections import OrderedDict
 from copy import deepcopy
-from typing import Any, Callable, Dict, List, Optional, Sequence, Type, Union
+from typing import Any, Callable, DefaultDict, Dict, List, Optional, Sequence, Type, Union
 
 import gymnasium as gym
 import numpy as np
 
 from stable_baselines3.common.vec_env.base_vec_env import VecEnv, VecEnvIndices, VecEnvObs, VecEnvStepReturn
 from stable_baselines3.common.vec_env.patch_gym import _patch_env
-from stable_baselines3.common.vec_env.util import copy_obs_dict, dict_to_obs, obs_space_info
+from stable_baselines3.common.vec_env.util import obs_space_info
 
 from encoding.state import StateEncoding
+from environment.vec.cts import CTSEnvironment
 
 
 class CustomVecEnv(VecEnv):
@@ -34,18 +36,7 @@ class CustomVecEnv(VecEnv):
                  usr_token: str,
                  sep_token: str,
                  ):
-        self.envs = [_patch_env(fn()) for fn in env_fns]
-        # if len(set([id(env.unwrapped) for env in self.envs])) != len(self.envs):
-        #     raise ValueError(
-        #         "You tried to create multiple environments, but the function to create them returned the same instance "
-        #         "instead of creating different objects. "
-        #         "You are probably using `make_vec_env(lambda: env)` or `DummyVecEnv([lambda: env] * n_envs)`. "
-        #         "You should replace `lambda: env` by a `make_env` function that "
-        #         "creates a new instance of the environment at every call "
-        #         "(using `gym.make()` for instance). You can take a look at the documentation for an example. "
-        #         "Please read https://github.com/DLR-RM/stable-baselines3/issues/1151 for more information."
-        #     )
-        
+        self.envs: List[CTSEnvironment] = [_patch_env(fn()) for fn in env_fns]
         self.sys_token = sys_token
         self.usr_token = usr_token
         self.sep_token = sep_token
@@ -183,3 +174,101 @@ class CustomVecEnv(VecEnv):
     def _get_target_envs(self, indices: VecEnvIndices) -> List[gym.Env]:
         indices = self._get_indices(indices)
         return [self.envs[i] for i in indices]
+
+    def stats_asked_goals_free(self):
+        if hasattr(self.envs[0], "free_env"):
+            return mean(itertools.chain(*[env.free_env.asked_goals for env in self.envs]))
+        return 0
+
+    def stats_asked_goals_guided(self):
+        if hasattr(self.envs[0], "guided_env"):
+            return mean(itertools.chain(*[env.guided_env.asked_goals for env in self.envs]))
+        return 0
+
+    def stats_reached_goals_free(self):
+        if hasattr(self.envs[0], "free_env"):
+            return mean(itertools.chain(*[env.free_env.reached_goals for env in self.envs]))
+        return 0
+
+    def stats_reached_goals_guided(self):
+        if hasattr(self.envs[0], "guided_env"): 
+            return mean(itertools.chain(*[env.guided_env.reached_goals for env in self.envs]))
+        return 0 
+    
+    def stats_goal_node_coverage_free(self):
+        if hasattr(self.envs[0], "free_env"):
+            return mean(itertools.chain(*[env.free_env.goal_node_coverage for env in self.envs]))
+        return 0
+
+    def stats_goal_node_coverage_guided(self):
+        if hasattr(self.envs[0], "guided_env"): 
+            return mean(itertools.chain(*[env.guided_env.goal_node_coverage for env in self.envs]))
+        return 0
+    
+    def _join_dicts(self, dicts: List[DefaultDict[str, float]]) -> Dict[str, float]:
+        """
+        Sums the values from each dict by key
+        """
+        result = {}
+        keys = set(itertools.chain(*[d.keys() for d in dicts]))
+        for key in keys:
+            result[key] = sum([d[key] for d in dicts])
+        return result
+
+    def stats_node_coverage(self):
+        coverage_dicts = []
+        for env in self.envs:
+            if hasattr(env, "free_env"):
+                coverage_dicts.append(env.free_env.node_coverage)
+            if hasattr(env, "guided_env"): 
+                coverage_dicts.append(env.guided_env.node_coverage)
+        coverage_dict = self._join_dicts(coverage_dicts)
+        return len(coverage_dict) / len(self.envs[0].data.node_list)
+    
+    def stats_synonym_coverage_questions(self):
+        if hasattr(self.envs[0], "free_env"):
+            coverage_dict = self._join_dicts([env.free_env.coverage_synonyms for env in self.envs])
+            return len(coverage_dict) / len(self.envs[0].data.question_list)
+        return 0
+
+    def stats_synonym_coverage_answers(self):
+        if hasattr(self.envs[0], "guided_env"):
+            coverage_dict = self._join_dicts([env.guided_env.coverage_synonyms for env in self.envs])
+            return len(coverage_dict) / self.envs[0].data.num_answer_synonyms
+        return 0
+    
+    def stats_actioncount_skips_indvalid(self):
+        count = 0
+        for env in self.envs:
+            if hasattr(env, "free_env"):
+                count += env.free_env.actioncount_skip_invalid
+            if hasattr(env, "guided_env"): 
+                count += env.guided_env.actioncount_skip_invalid
+        return count
+
+    def stats_actioncount_ask_variable_irrelevant(self):
+        count = 0
+        for env in self.envs:
+            if hasattr(env, "free_env"):
+                count += env.free_env.actioncount_ask_variable_irrelevant
+            if hasattr(env, "guided_env"): 
+                count += env.guided_env.actioncount_ask_variable_irrelevant
+        return count
+
+    def stats_actioncount_ask_question_irrelevant(self):
+        count = 0
+        for env in self.envs:
+            if hasattr(env, "free_env"):
+                count += env.free_env.actioncount_ask_question_irrelevant
+            if hasattr(env, "guided_env"): 
+                count += env.guided_env.actioncount_ask_question_irrelevant
+        return count
+
+    def stats_actioncount_missingvariable(self):
+        count = 0
+        for env in self.envs:
+            if hasattr(env, "free_env"):
+                count += env.free_env.actioncount_missingvariable
+            if hasattr(env, "guided_env"): 
+                count += env.guided_env.actioncount_missingvariable
+        return count

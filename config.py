@@ -1,8 +1,10 @@
 
 from dataclasses import dataclass
 from enum import Enum, IntEnum
-from typing import Any, Optional 
+from typing import Any, Optional, Type 
 from hydra.core.config_store import ConfigStore
+import torch
+import torch.nn as nn
 from chatbot.adviser.app.rl.utils import AutoSkipMode
 
 from data.dataset import DatasetConfig
@@ -13,6 +15,14 @@ from utils.envutils import GoalDistanceMode
 INSTANCES = {}
 
 
+class WandbLogLevel(Enum):
+    NONE = 'none',
+    OFFLINE = 'offline'
+    ONLINE = 'online'
+
+class DialogLogLevel(Enum):
+    NONE = 'none'
+    FULL = 'full'
 
 class ActionType(IntEnum):
     ASK = 0
@@ -90,6 +100,18 @@ class EnvironmentConfig:
 
 
 @dataclass
+class PolicyConfig:
+    _target_: str
+    activation_fn: str
+    net_arch: Any
+
+@dataclass
+class LoggingConfig:
+    dialog_log: DialogLogLevel
+    wandb_log: WandbLogLevel
+    log_interval: int
+
+@dataclass
 class Experiment:
     _target_: str
     device: str
@@ -97,9 +119,9 @@ class Experiment:
     seed: int
     cudnn_deterministic: bool
     optimizer: OptimizerConfig
-    model: Any
+    policy: PolicyConfig
     algorithm: Any
-    logging: Any
+    logging: LoggingConfig
     environment: EnvironmentConfig
     actions: ActionConfig
     state: StateConfig

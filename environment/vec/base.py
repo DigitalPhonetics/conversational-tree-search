@@ -31,18 +31,18 @@ from encoding.state import StateEncoding
 
 # TODO how do we get a real user in ?
 
-
+import random
 
 class BaseEnv:
-    def __init__(self, env_id: int,
+    def __init__(self, 
             dataset: GraphDataset, 
             sys_token: str, usr_token: str, sep_token: str,
             max_steps: int, max_reward: float, user_patience: int,
             answer_parser: AnswerTemplateParser, logic_parser: LogicTemplateParser,
             value_backend: RealValueBackend,
             auto_skip: AutoSkipMode) -> None:
-        
-        self.env_id = env_id
+
+        self.env_id = random.randint(0, 99999999)
         self.data = dataset
 
         self.max_steps = max_steps
@@ -59,13 +59,33 @@ class BaseEnv:
         self.logicParser = logic_parser
         self.value_backend = value_backend
 
+        # stats
+        self.reset_stats()
+
+    def reset_stats(self):
+        # success stats
+        self.reached_goals = []
+        self.asked_goals = []
+
         # coverage stats
         self.goal_node_coverage = defaultdict(int)
         self.node_coverage = defaultdict(int)
         self.coverage_synonyms = defaultdict(int)
         self.coverage_variables = defaultdict(lambda: defaultdict(int))
-        self.reached_dialog_tree_end = 0
+        # self.reached_dialog_tree_end = 0 # TODO add
         self.current_episode = 0
+
+        # node stats
+        self.node_count = {node_type: 0 for node_type in NodeType}
+
+        # action stats
+        self.actioncount = {action_type: 0 for action_type in ActionType} # counts all ask- and skip-events
+        self.actioncount_skips = {node_type: 0 for node_type in NodeType} # counts skip events per node type
+        self.actioncount_skip_invalid = 0
+        self.actioncount_asks = {node_type: 0 for node_type in NodeType}  # counts ask events per node type
+        self.actioncount_ask_variable_irrelevant = 0
+        self.actioncount_ask_question_irrelevant = 0
+        self.actioncount_missingvariable = 0
 
     def pre_reset(self):
         self.current_step = 0
@@ -78,7 +98,6 @@ class BaseEnv:
         self.current_node = self.data.start_node.connected_node
         self.prev_node = None
         self.last_action_idx = ActionType.ASK.value # start by asking start node
-
 
     def post_reset(self):
         """
@@ -101,18 +120,6 @@ class BaseEnv:
         self.current_step = 0
         self.episode_reward = 0.0
         self.skipped_nodes = 0
-
-        # node stats
-        self.node_count = {node_type: 0 for node_type in NodeType}
-
-        # action stats
-        self.actioncount = {action_type: 0 for action_type in ActionType} # counts all ask- and skip-events
-        self.actioncount_skips = {node_type: 0 for node_type in NodeType} # counts skip events per node type
-        self.actioncount_skip_invalid = 0
-        self.actioncount_asks = {node_type: 0 for node_type in NodeType}  # counts ask events per node type
-        self.actioncount_ask_variable_irrelevant = 0
-        self.actioncount_ask_question_irrelevant = 0
-        self.actioncount_missingvariable = 0
 
         # task stats
         self.reached_goal_once = False
@@ -314,6 +321,8 @@ class BaseEnv:
 
         self.episode_reward += reward
         if done:
+            self.reached_goals.append(float(self.reached_goal_once))
+            self.asked_goals.append(float(self.asked_goal_once))
             self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> TURN REWARD: {reward}')
             self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> FINAL REWARD: {self.episode_reward}')
 
@@ -336,7 +345,6 @@ class BaseEnv:
     def handle_logic_nodes(self) -> Tuple[float, bool, bool]:
         reward = 0
         done = False
-
         did_handle_logic_node = False
         while self.current_node and self.current_node.node_type == NodeType.LOGIC:
             did_handle_logic_node = True
@@ -360,6 +368,7 @@ class BaseEnv:
                         default_answer = answer
                 self.current_node = default_answer.connected_node
                 if self.current_node:
+                    self.node_coverage[self.current_node.key] += 1
                     self.episode_log.append(f"{self.env_id}-{self.current_episode}$ -> AUTO SKIP LOGIC NODE: SUCCESS {self.current_node.key}")
                 else:
                     self.episode_log.append(f"{self.env_id}-{self.current_episode}$ -> AUTO SKIP LOGIC NODE: SUCCESS, but current node NULL {self.current_node}")

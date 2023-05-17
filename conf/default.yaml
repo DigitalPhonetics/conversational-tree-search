@@ -7,7 +7,7 @@ defaults:
   
   # model, algorithm & optimizer
   - optimizer@experiment.optimizer: adam
-  - model@experiment.model: dqn/dqn
+  - net_arch@experiment.policy.net_arch: dqn/decoupled_dueling_dqn
   - algorithm@experiment.algorithm: dqn/dqn
 
   # embeddings
@@ -27,8 +27,10 @@ experiment:
   seed: 12345678
   cudnn_deterministic: false
   logging:
-    keep_checkpoints: 5
-    logging: NONE
+    # keep_checkpoints: 5
+    wandb_log: ONLINE
+    dialog_log: NONE
+    log_interval: 1000
   training:
     noise: 0.3
     every_steps: 128
@@ -48,6 +50,9 @@ experiment:
     dataset:
       use_answer_synonyms: true
   # testing:
+  policy:
+    _target_: algorithm.dqn.dqn.CustomDQNPolicy
+    activation_fn: torch.nn.SELU
   optimizer:
     lr: 0.0001
   # model:

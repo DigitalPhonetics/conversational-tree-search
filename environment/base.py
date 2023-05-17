@@ -381,6 +381,7 @@ class BaseEnv:
                         default_answer = answer
                 self.current_node = default_answer.connected_node
                 if self.current_node:
+                    self.node_coverage[self.current_node.key] += 1
                     self.episode_log.append(f"{self.env_id}-{self.current_episode}$ -> AUTO SKIP LOGIC NODE: SUCCESS {self.current_node.key}")
                 else:
                     self.episode_log.append(f"{self.env_id}-{self.current_episode}$ -> AUTO SKIP LOGIC NODE: SUCCESS, but current node NULL {self.current_node}")

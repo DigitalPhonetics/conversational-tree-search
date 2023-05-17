@@ -42,6 +42,7 @@ class CustomQNetwork(BasePolicy):
         observation_space: spaces.Space,
         action_space: spaces.Discrete,
         hidden_layer_sizes: List[int],
+        state_dims: StateDims,
         normalization_layers: bool = False,
         dropout_rate: float = 0.0,
         activation_fn: Type[nn.Module] = nn.ReLU,
@@ -383,6 +384,11 @@ class CustomDuelingQNetworkWithIntentPrediction(CustomDuelingQNetwork):
     
 
 
+def to_class(path:str):
+    from pydoc import locate
+    class_instance = locate(path)
+    return class_instance
+
 
 class CustomDQNPolicy(DQNPolicy):
     """
@@ -441,84 +447,6 @@ class CustomDQNPolicy(DQNPolicy):
         del net_args['activation_fn']
         
         arch = net_args.pop('net_arch')
-        net_cls = arch.pop('net_cls')
+        net_cls = to_class(arch.pop('net_cls'))
 
-        return net_cls(**net_args, **arch).to(self.device) # TODO th.compile(
-        
-
-# @torch.no_grad()
-# def select_actions_eps_greedy(self, training: bool, q_values: torch.FloatTensor, action_mask: Union[torch.FloatTensor, None], epsilon: float) -> torch.LongTensor:
-#     """ Epsilon-greedy policy.
-
-#     Args:
-#         node_keys: current node keys
-#         state_vectors: current state (dimension batch x state_dim    or num_actions x state_dim)
-#         epsilon: current scheduled exploration rate
-
-#     Returns:
-#         List of action indices for action selected by the agent for the current states
-#         List of predicted intent classes if supported by model, else None
-#     """
-#     # TODO mask STOP action in first turn?
-
-#     # epsilon greedy exploration
-#     if training and random.random() < epsilon:
-#         # exploration
-#         if torch.is_tensor(action_mask):
-#             # only choose between allowed actions after masking
-#             allowed_action_indices = (~action_mask).float() # batch x num_max_actions
-#             next_action_indices = [random.choice(allowed_action_indices[batch_idx].nonzero().view(-1).tolist()) for batch_idx in range(allowed_action_indices.size(0))] # 1-dim list with one valid action index per batch item
-#         else:
-#             # no masking: random choice
-#             next_action_indices = [random.randint(0, self.adapter.num_actions - 1) for _ in range(q_values.size(0))]
-#     else:
-#         # exploitation
-#         final_values = q_values
-#         if torch.is_tensor(action_mask):
-#             final_values = torch.masked_fill(q_values, action_mask[:,:q_values.size(-1)], float('-inf'))
-#         next_action_indices = final_values.argmax(-1).tolist()
-
-#     return next_action_indices
-
-
-# def linear_schedule(start_e: float, end_e: float, duration: int, t: int):
-#         slope = (end_e - start_e) / duration
-#         return max(slope * t + start_e, end_e)
-
-# class DQNAlgorithm(Algorithm):
-#     def __init__(self, buffer, targets,
-#         timesteps_per_reset: int,
-#         reset_exploration_times: int,
-#         max_grad_norm: float,
-#         batch_size: int,
-#         gamma: float,
-#         exploration_fraction: float,
-#         eps_start: float,
-#         eps_end: float,
-#         train_frequency: int,
-#         warmup_turns: int,
-#         target_network_update_frequency: int,
-#         q_value_clipping: float
-#         ) -> None:
-#         global INSTANCES
-#         INSTANCES[InstanceType.ALGORITHM] = self
-#         print("DQN Trainer")
-
-#         self.eps_start = eps_start
-#         self.eps_end = eps_end
-#         self.exploration_fraction = exploration_fraction
-#         self.timesteps_per_reset = timesteps_per_reset
-
-
-#     def run_single_timestep(self, engine, timestep: int):
-#         """
-#         Args:
-#             timestep: GLOBAL timestep (not step in current episode)
-#         """
-#         epsilon = linear_schedule(start_e=self.eps_start, end_e=self.eps_end, duration=self.exploration_fraction * self.timesteps_per_reset, t=timestep % self.timesteps_per_reset)
-
-#         # TODO get observation as vector
-#         # TODO select actions based on eps-greedy
-#         # TODO call environment step() using action
-#         # TODO get next observation as vector
-#         # TODO store experience in replay buffer
+        return th.compile(net_cls(**net_args, **arch).to(self.device))
