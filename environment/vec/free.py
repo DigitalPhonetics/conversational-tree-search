@@ -47,7 +47,6 @@ class FreeEnvironment(BaseEnv):
                 print("VALUE ERROR")
                 continue
 
-        self.coverage_synonyms[self.goal.faq_key] += 1
         self.episode_log.append(f'{self.env_id}-{self.current_episode}$ MODE: Free') 
         return self.post_reset()
 
@@ -58,7 +57,7 @@ class FreeEnvironment(BaseEnv):
         if not self.asked_goal_once and self.goal.has_reached_goal_node(self.current_node):
             # we ask goal node for the first time
             reward += self.max_reward
-            self.asked_goal_once = 1
+            self.asked_goal_once = True
             self.episode_log.append(f'{self.env_id}-{self.current_episode}$ ASK REACHED GOAL')
 
             if self.stop_when_reaching_goal:
@@ -115,7 +114,6 @@ class FreeEnvironment(BaseEnv):
                     else:
                         answer = self.current_node.answer_by_key(response.answer_key)
                         self.current_user_utterance = rand_remove_questionmark(random.choice(self.data.answer_synonyms[answer.text.lower()]))
-                    self.coverage_synonyms[self.current_user_utterance.replace("?", "")] += 1
             # info nodes don't require special handling
 
         return done, reward

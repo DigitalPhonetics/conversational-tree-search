@@ -116,6 +116,7 @@ class BaseEnv:
 
         # coverage stats
         self.node_coverage[self.current_node.key] += 1
+        self.coverage_synonyms[self.goal.initial_user_utterance.replace("?", "")] += 1
 
         # dialog stats
         self.current_episode += 1

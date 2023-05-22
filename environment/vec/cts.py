@@ -37,7 +37,7 @@ class CTSEnvironment(gymnasium.Env):
         self.data = dataset
 
         self.max_reward = 4 * dataset.get_max_tree_depth() if normalize_rewards else 1.0
-        self.max_distance = dataset.get_max_node_degree() if goal_distance_mode == GoalDistanceMode.FULL_DISTANCE else 2 # set max. or min. distance to start
+        self.max_distance = dataset.get_max_tree_depth() + 1  if goal_distance_mode == GoalDistanceMode.FULL_DISTANCE else 2 # set max. or min. distance to start
 
         # text parsers
         answer_parser = AnswerTemplateParser()

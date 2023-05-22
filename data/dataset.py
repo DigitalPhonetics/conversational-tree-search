@@ -97,7 +97,8 @@ class GraphDataset:
         self._load_country_synonyms()
         self._load_city_synonyms()
 
-        self.num_guided_goal_nodes = sum([1 for node in self.node_list if (node.node_type in [NodeType.QUESTION, NodeType.VARIABLE] and len(node.answers) > 0) or (node.node_type == NodeType.INFO)])
+        self.num_guided_goal_nodes = sum([1 for node in self.node_list if (node.node_type in [NodeType.INFO, NodeType.QUESTION, NodeType.VARIABLE] and len(node.answers) > 0) or (node.node_type == NodeType.INFO)])
+        self.num_free_goal_nodes = sum([1 for node in self.node_list if len(node.questions) > 0])
         self.num_answer_synonyms = sum([len(self.answer_synonyms[answer]) for answer in self.answer_synonyms])
         self._max_tree_depth = None
         self._max_node_degree = None
@@ -114,13 +115,13 @@ class GraphDataset:
         with open(graph_path, "r") as f:
             data = json.load(f)
 
-            self.nodes_by_key = {}
-            self.nodes_by_type = {}
-            self.node_list = []
-            self.answers_by_key = {}
-            self.questions_by_key = {}
-            self.question_list = []
-            self.start_node = None
+            self.nodes_by_key: Dict[str, DialogNode] = {}
+            self.nodes_by_type: Dict[NodeType, List[DialogNode]] = {}
+            self.node_list: List[DialogNode] = []
+            self.answers_by_key: Dict[str, Answer] = {}
+            self.questions_by_key: Dict[str, Question] = {}
+            self.question_list: List[Question] = []
+            self.start_node: DialogNode = None
 
             for dialognode_json in data['nodes']:
                 # parse node info (have to create all nodes before we can create the answers because they can be linked to otherwise not yet existing nodes)

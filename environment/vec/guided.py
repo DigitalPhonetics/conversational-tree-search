@@ -53,8 +53,6 @@ class GuidedEnvironment(BaseEnv):
                 print("VALUE ERROR")
                 continue
 
-        self.coverage_synonyms[self.initial_user_utterance.replace("?", "")] += 1
-
         self.episode_log.append(f'{self.env_id}-{self.current_episode}$ MODE: GUIDED') 
         return self.post_reset()
    

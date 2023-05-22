@@ -147,10 +147,11 @@ class CustomEvalCallback(EventCallback):
                     ) from e
 
             # Reset metrics
-            if hasattr(self.eval_env.envs[0], "guided_env"):
-                self.eval_env.envs[0].guided_env.reset_stats()
-            if hasattr(self.eval_env.envs[0], 'free_env'):
-                self.eval_env.envs[0].free_env.reset_stats()
+            for env in self.eval_env.envs:
+                if hasattr(env, "guided_env"):
+                    env.guided_env.reset_stats()
+                if hasattr(env, 'free_env'):
+                    env.free_env.reset_stats()
 
             episode_rewards, episode_lengths = evaluate_policy(
                 self.model,

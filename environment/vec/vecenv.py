@@ -176,34 +176,26 @@ class CustomVecEnv(VecEnv):
         return [self.envs[i] for i in indices]
 
     def stats_asked_goals_free(self):
-        if hasattr(self.envs[0], "free_env"):
-            return mean(itertools.chain(*[env.free_env.asked_goals for env in self.envs]))
-        return 0
+        return mean(itertools.chain(*[env.free_env.asked_goals for env in self.envs if hasattr(env, "free_env")]))
 
     def stats_asked_goals_guided(self):
-        if hasattr(self.envs[0], "guided_env"):
-            return mean(itertools.chain(*[env.guided_env.asked_goals for env in self.envs]))
-        return 0
+        return mean(itertools.chain(*[env.guided_env.asked_goals for env in self.envs if hasattr(env, "guided_env")]))
 
     def stats_reached_goals_free(self):
-        if hasattr(self.envs[0], "free_env"):
-            return mean(itertools.chain(*[env.free_env.reached_goals for env in self.envs]))
-        return 0
+        return mean(itertools.chain(*[env.free_env.reached_goals for env in self.envs if hasattr(env, "free_env")]))
 
     def stats_reached_goals_guided(self):
-        if hasattr(self.envs[0], "guided_env"): 
-            return mean(itertools.chain(*[env.guided_env.reached_goals for env in self.envs]))
-        return 0 
+        return mean(itertools.chain(*[env.guided_env.reached_goals for env in self.envs if hasattr(env, "guided_env")]))
     
     def stats_goal_node_coverage_free(self):
-        if hasattr(self.envs[0], "free_env"):
-            return mean(itertools.chain(*[env.free_env.goal_node_coverage for env in self.envs]))
-        return 0
+        coverage_dicts = [env.free_env.goal_node_coverage for env in self.envs if hasattr(env, "free_env")]
+        coverage_dict = self._join_dicts(coverage_dicts)
+        return len(coverage_dict) / self.envs[0].data.num_free_goal_nodes
 
     def stats_goal_node_coverage_guided(self):
-        if hasattr(self.envs[0], "guided_env"): 
-            return mean(itertools.chain(*[env.guided_env.goal_node_coverage for env in self.envs]))
-        return 0
+        coverage_dicts = [env.guided_env.goal_node_coverage for env in self.envs if hasattr(env, "guided_env")]
+        coverage_dict = self._join_dicts(coverage_dicts)
+        return len(coverage_dict) / self.envs[0].data.num_guided_goal_nodes
     
     def _join_dicts(self, dicts: List[DefaultDict[str, float]]) -> Dict[str, float]:
         """
@@ -226,16 +218,12 @@ class CustomVecEnv(VecEnv):
         return len(coverage_dict) / len(self.envs[0].data.node_list)
     
     def stats_synonym_coverage_questions(self):
-        if hasattr(self.envs[0], "free_env"):
-            coverage_dict = self._join_dicts([env.free_env.coverage_synonyms for env in self.envs])
-            return len(coverage_dict) / len(self.envs[0].data.question_list)
-        return 0
+        coverage_dict = self._join_dicts([env.free_env.coverage_synonyms for env in self.envs if hasattr(env, "free_env")])
+        return len(coverage_dict) / len(self.envs[0].data.question_list)
 
     def stats_synonym_coverage_answers(self):
-        if hasattr(self.envs[0], "guided_env"):
-            coverage_dict = self._join_dicts([env.guided_env.coverage_synonyms for env in self.envs])
-            return len(coverage_dict) / self.envs[0].data.num_answer_synonyms
-        return 0
+        coverage_dict = self._join_dicts([env.guided_env.coverage_synonyms for env in self.envs if hasattr(env, "guided_env")])
+        return len(coverage_dict) / self.envs[0].data.num_answer_synonyms
     
     def stats_actioncount_skips_indvalid(self):
         count = 0

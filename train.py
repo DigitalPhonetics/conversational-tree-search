@@ -145,6 +145,7 @@ def load_cfg(cfg):
     from stable_baselines3 import DQN
     from stable_baselines3.common.buffers import ReplayBuffer
     from stable_baselines3.common.env_checker import check_env
+    from stable_baselines3 import HerReplayBuffer
     # check_env(train_env)
 
     # TODO missing parameters in our config:
@@ -168,11 +169,10 @@ def load_cfg(cfg):
                 target_update_interval=cfg.experiment.algorithm.dqn.target_network_update_frequency * cfg.experiment.environment.num_train_envs,
                 max_grad_norm=cfg.experiment.algorithm.dqn.max_grad_norm,
                 tensorboard_log=f"runs/{run_id}",
-                replay_buffer_class=ReplayBuffer,
-                optimize_memory_usage=False
+                # replay_buffer_class=ReplayBuffer,
+                optimize_memory_usage=False,
             ) # TODO configure replay buffer class!
     
-    from stable_baselines3 import HerReplayBuffer
     model.learn(total_timesteps=cfg.experiment.algorithm.dqn.timesteps_per_reset, log_interval=cfg.experiment.logging.log_interval, progress_bar=False,
                     callback=CallbackList(callbacks)
         )

@@ -26,6 +26,7 @@ runs/
 debug/
 newruns/
 study_data/
+outputs/
 
 
 Cargo.lock
