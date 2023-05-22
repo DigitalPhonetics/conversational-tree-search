@@ -106,6 +106,8 @@ class CustomEvalCallback(EventCallback):
         self.intent_accuracies = []
         self.intent_consistencies = []
 
+        self.free_dialogs = []
+        self.guided_dialogs = []
 
 
     def _init_callback(self) -> None:
@@ -161,7 +163,7 @@ class CustomEvalCallback(EventCallback):
                 if hasattr(env, 'free_env'):
                     env.free_env.reset_stats()
 
-            episode_rewards, episode_lengths, intent_accuracy, intent_consistency = evaluate_policy(
+            episode_rewards, episode_lengths, intent_accuracy, intent_consistency, free_dialogs, guided_dialogs = evaluate_policy(
                 self.model,
                 self.eval_env,
                 n_eval_episodes=self.n_eval_episodes,
@@ -209,6 +211,8 @@ class CustomEvalCallback(EventCallback):
             self.actioncount_ask_variable_irrelevant.append(self.eval_env.stats_actioncount_ask_variable_irrelevant())
             self.actioncount_ask_question_irrelevant.append(self.eval_env.stats_actioncount_ask_question_irrelevant())
             self.actioncount_missingvariable.append(self.eval_env.stats_actioncount_missingvariable())
+            self.free_dialogs.append(free_dialogs)
+            self.guided_dialogs.append(guided_dialogs)
             
             for env in self.eval_env.envs:
                 if hasattr(env, "free_env"):
@@ -225,7 +229,8 @@ class CustomEvalCallback(EventCallback):
                 self.logger.record(f"{self.mode}/intent_accuracy", self.intent_accuracies[-1])
                 self.logger.record(f"{self.mode}/intent_consistency", self.intent_consistencies[-1])
 
-            
+            self.logger.record(f"{self.mode}/free_dialog_percentage", self.free_dialogs[-1])
+            self.logger.record(f"{self.mode}/guided_dialog_percentage", self.guided_dialogs[-1])
             self.logger.record(f"{self.mode}/goal_asked_free", self.goal_asked_free[-1])
             self.logger.record(f"{self.mode}/goal_asked_guided", self.goal_asked_guided[-1])
             self.logger.record(f"{self.mode}/goal_reached_free", self.goal_reached_free[-1])

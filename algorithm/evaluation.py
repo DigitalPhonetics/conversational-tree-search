@@ -80,6 +80,10 @@ def custom_evaluate_policy(
     episode_rewards = []
     episode_lengths = []
 
+    total_dialogs = 0
+    free_dialogs = 0
+    guided_dialogs = 0
+
     intent_accuracies = []
     intent_consistencies = []
     intent_episode_log = defaultdict(list)
@@ -127,6 +131,13 @@ def custom_evaluate_policy(
                         intent_episode_log[i] = []
 
                 if dones[i]:
+                    # record env mode: free or guided
+                    total_dialogs += 1
+                    if info[EnvInfo.IS_FAQ]:
+                        free_dialogs += 1
+                    else:
+                        guided_dialogs += 1
+
                     if is_monitor_wrapped:
                         # Atari wrapper can send a "done" signal when
                         # the agent loses a life, but it does not correspond
@@ -153,6 +164,9 @@ def custom_evaluate_policy(
 
     mean_reward = np.mean(episode_rewards)
     std_reward = np.std(episode_rewards)
+
+    free_dialogs = free_dialogs / total_dialogs
+    guided_dialogs = guided_dialogs / total_dialogs
     
     if len(intent_accuracies) > 0:
         intent_accuracies = mean(intent_accuracies)
@@ -164,5 +178,5 @@ def custom_evaluate_policy(
     if reward_threshold is not None:
         assert mean_reward > reward_threshold, "Mean reward below threshold: " f"{mean_reward:.2f} < {reward_threshold:.2f}"
     if return_episode_rewards:
-        return episode_rewards, episode_lengths, intent_accuracies, intent_consistencies
-    return mean_reward, std_reward, intent_accuracies, intent_consistencies
+        return episode_rewards, episode_lengths, intent_accuracies, intent_consistencies, free_dialogs, guided_dialogs
+    return mean_reward, std_reward, intent_accuracies, intent_consistencies, free_dialogs, guided_dialogs
