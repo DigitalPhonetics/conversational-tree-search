@@ -12,7 +12,7 @@ from stable_baselines3.common.vec_env.patch_gym import _patch_env
 from stable_baselines3.common.vec_env.util import obs_space_info
 
 from encoding.state import StateEncoding
-from environment.vec.cts import CTSEnvironment
+from environment.cts import CTSEnvironment
 
 
 class CustomVecEnv(VecEnv):
@@ -218,11 +218,17 @@ class CustomVecEnv(VecEnv):
         return len(coverage_dict) / len(self.envs[0].data.node_list)
     
     def stats_synonym_coverage_questions(self):
-        coverage_dict = self._join_dicts([env.free_env.coverage_synonyms for env in self.envs if hasattr(env, "free_env")])
+        coverage_dict = self._join_dicts([env.free_env.coverage_question_synonyms for env in self.envs if hasattr(env, "free_env")])
         return len(coverage_dict) / len(self.envs[0].data.question_list)
 
     def stats_synonym_coverage_answers(self):
-        coverage_dict = self._join_dicts([env.guided_env.coverage_synonyms for env in self.envs if hasattr(env, "guided_env")])
+        coverage_dicts = []
+        for env in self.envs:
+            if hasattr(env, "guided_env"):
+                coverage_dicts.append(env.guided_env.coverage_answer_synonyms)
+            if hasattr(env, "free_env"):
+                coverage_dicts.append(env.free_env.coverage_answer_synonyms)
+        coverage_dict = self._join_dicts(coverage_dicts)
         return len(coverage_dict) / self.envs[0].data.num_answer_synonyms
     
     def stats_actioncount_skips_indvalid(self):

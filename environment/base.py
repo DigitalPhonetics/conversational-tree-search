@@ -1,13 +1,11 @@
 from collections import defaultdict
 from copy import deepcopy
-import itertools
-from typing import Any, Tuple, Union, Dict, List
+from typing import Any, Tuple, Union, Dict
 
 import torch
 
-from chatbot.adviser.app.rl.utils import EnvInfo, State
-from config import StateConfig, ActionType
-from data.cache import Cache
+from chatbot.adviser.app.rl.utils import EnvInfo
+from config import ActionType
 
 from data.dataset import DialogNode, GraphDataset, NodeType
 
@@ -15,56 +13,20 @@ from chatbot.adviser.app.answerTemplateParser import AnswerTemplateParser
 from chatbot.adviser.app.logicParser import LogicTemplateParser
 from chatbot.adviser.app.parserValueProvider import RealValueBackend
 from chatbot.adviser.app.rl.utils import AutoSkipMode
-from encoding.state import StateEncoding
 
-
-# TODO restructure env
-# TODO restructure space adapter
-# TODO restructure models
-
-# TODO add new config options:
-# - chain_dialog_history -> sys_token, usr_token, sep_token
-
-# TODO update function usage:
-# - chain_dialog_history -> now returns 5 instead of 2 entries per list item
-# - handle_logic_node -> doesn't return reward anymore, doesn't handle chained logic nodes anymore, doesn't log, doesn't update last_node, throws MissingBSTValue
-
-# TODO how do we get a real user in ?
-
-class MissingBSTValue(Exception):
-    def __init__(self, var_name: str, bst: dict) -> None:
-        super().__init__(var_name, bst)
-
-
-class StaticFeatureExtractor:
-    def __init__(self, cache: Cache, state_config: StateConfig) -> None:
-        self.cache = cache
-        self.relevant_input_keys = {}
-
-    def extract_features(self, state: Dict[State, Any]) -> Dict[str, torch.FloatTensor]:
-        # TODO
-        # 1. extract only the keys relevant to the state_config
-        # 2. encode all of these 
-        #   2.1 (including noise)
-        # 3. return
-        pass
-        
-
+import random
 
 class BaseEnv:
-    def __init__(self, env_id: int,
-            cache: Cache, dataset: GraphDataset, 
-            state_encoding: StateEncoding,
+    def __init__(self, 
+            dataset: GraphDataset, 
             sys_token: str, usr_token: str, sep_token: str,
             max_steps: int, max_reward: float, user_patience: int,
             answer_parser: AnswerTemplateParser, logic_parser: LogicTemplateParser,
             value_backend: RealValueBackend,
             auto_skip: AutoSkipMode) -> None:
-        
-        self.env_id = env_id
+
+        self.env_id = random.randint(0, 99999999)
         self.data = dataset
-        self.cache = cache
-        self.state_encoding = state_encoding
 
         self.max_steps = max_steps
         self.max_reward = max_reward
@@ -80,13 +42,33 @@ class BaseEnv:
         self.logicParser = logic_parser
         self.value_backend = value_backend
 
+        # stats
+        self.reset_stats()
+
+    def reset_stats(self):
+        # success stats
+        self.reached_goals = []
+        self.asked_goals = []
+
         # coverage stats
         self.goal_node_coverage = defaultdict(int)
         self.node_coverage = defaultdict(int)
-        self.coverage_synonyms = defaultdict(int)
+        self.coverage_answer_synonyms = defaultdict(int)
         self.coverage_variables = defaultdict(lambda: defaultdict(int))
-        self.reached_dialog_tree_end = 0
+        # self.reached_dialog_tree_end = 0 # TODO add
         self.current_episode = 0
+
+        # node stats
+        self.node_count = {node_type: 0 for node_type in NodeType}
+
+        # action stats
+        self.actioncount = {action_type: 0 for action_type in ActionType} # counts all ask- and skip-events
+        self.actioncount_skips = {node_type: 0 for node_type in NodeType} # counts skip events per node type
+        self.actioncount_skip_invalid = 0
+        self.actioncount_asks = {node_type: 0 for node_type in NodeType}  # counts ask events per node type
+        self.actioncount_ask_variable_irrelevant = 0
+        self.actioncount_ask_question_irrelevant = 0
+        self.actioncount_missingvariable = 0
 
     def pre_reset(self):
         self.current_step = 0
@@ -99,7 +81,6 @@ class BaseEnv:
         self.current_node = self.data.start_node.connected_node
         self.prev_node = None
         self.last_action_idx = ActionType.ASK.value # start by asking start node
-
 
     def post_reset(self):
         """
@@ -116,25 +97,12 @@ class BaseEnv:
 
         # coverage stats
         self.node_coverage[self.current_node.key] += 1
-        self.coverage_synonyms[self.goal.initial_user_utterance.replace("?", "")] += 1
 
         # dialog stats
         self.current_episode += 1
         self.current_step = 0
         self.episode_reward = 0.0
         self.skipped_nodes = 0
-
-        # node stats
-        self.node_count = {node_type: 0 for node_type in NodeType}
-
-        # action stats
-        self.actioncount = {action_type: 0 for action_type in ActionType} # counts all ask- and skip-events
-        self.actioncount_skips = {node_type: 0 for node_type in NodeType} # counts skip events per node type
-        self.actioncount_skip_invalid = 0
-        self.actioncount_asks = {node_type: 0 for node_type in NodeType}  # counts ask events per node type
-        self.actioncount_ask_variable_irrelevant = 0
-        self.actioncount_ask_question_irrelevant = 0
-        self.actioncount_missingvariable = 0
 
         # task stats
         self.reached_goal_once = False
@@ -146,7 +114,7 @@ class BaseEnv:
         self.episode_log.append(f'{self.env_id}-{self.current_episode}$ CONSTRAINTS: {self.goal.constraints}')
         self.episode_log.append(f'{self.env_id}-{self.current_episode}$ INITIAL UTTERANCE: {self.initial_user_utterance}') 
 
-        return self.state_encoding.encode(observation=self.get_obs(), sys_token=self.sys_token, usr_token=self.usr_token, sep_token=self.sep_token)
+        return self.get_obs()
     
     def check_user_patience_reached(self) -> bool:
         return self.visited_node_keys[self.current_node.key] > self.user_patience # +1 because  skip action to node already counts as 1 visit
@@ -160,8 +128,8 @@ class BaseEnv:
     def get_coverage_faqs(self):
         return len(self.coverage_faqs) / len(self.data.question_list)
 
-    def get_coverage_synonyms(self):
-        return len(self.coverage_synonyms) / self.data.num_answer_synonyms
+    def get_coverage_answer_synonyms(self):
+        return len(self.coverage_answer_synonyms) / self.data.num_answer_synonyms
     
     def get_coverage_variables(self):
         return {
@@ -336,11 +304,13 @@ class BaseEnv:
 
         self.episode_reward += reward
         if done:
+            self.reached_goals.append(float(self.reached_goal_once))
+            self.asked_goals.append(float(self.asked_goal_once))
             self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> TURN REWARD: {reward}')
             self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> FINAL REWARD: {self.episode_reward}')
 
         obs = self.get_obs()
-        return self.state_encoding.encode(observation=obs, sys_token=self.sys_token, usr_token=self.usr_token, sep_token=self.sep_token), reward/self.max_reward, done, obs
+        return obs, reward/self.max_reward, done
 
 
     def update_action_counters(self, action: int):
@@ -358,7 +328,6 @@ class BaseEnv:
     def handle_logic_nodes(self) -> Tuple[float, bool, bool]:
         reward = 0
         done = False
-
         did_handle_logic_node = False
         while self.current_node and self.current_node.node_type == NodeType.LOGIC:
             did_handle_logic_node = True

@@ -1,35 +1,32 @@
 from copy import deepcopy
 import random
-from statistics import mean
 from typing import Tuple, Union
 
-from chatbot.adviser.app.rl.goal import ImpossibleGoalError, UserGoalGenerator, UserResponse
+from chatbot.adviser.app.rl.goal import ImpossibleGoalError, UserGoalGenerator
 from chatbot.adviser.app.rl.utils import rand_remove_questionmark
 from chatbot.adviser.app.systemTemplateParser import SystemTemplateParser
 from config import ActionType
 
-from data.dataset import Answer, DialogNode, GraphDataset, NodeType
-from data.cache import Cache
+from data.dataset import GraphDataset, NodeType
 
 from chatbot.adviser.app.answerTemplateParser import AnswerTemplateParser
 from chatbot.adviser.app.logicParser import LogicTemplateParser
 from chatbot.adviser.app.parserValueProvider import RealValueBackend
 from chatbot.adviser.app.rl.goal import VariableValue
 from chatbot.adviser.app.rl.utils import AutoSkipMode
-from encoding.state import StateEncoding
 from environment.base import BaseEnv
 
 
 
 class GuidedEnvironment(BaseEnv):
-    def __init__(self, env_id: int, cache: Cache, dataset: GraphDataset, state_encoding: StateEncoding,
+    def __init__(self,dataset: GraphDataset, 
             sys_token: str, usr_token: str, sep_token: str,
             max_steps: int, max_reward: float, user_patience: int,
             stop_when_reaching_goal: bool,
             answer_parser: AnswerTemplateParser, system_parser: SystemTemplateParser, logic_parser: LogicTemplateParser,
             value_backend: RealValueBackend,
             auto_skip: AutoSkipMode) -> None:
-        super().__init__(env_id=env_id, cache=cache, dataset=dataset, state_encoding=state_encoding,
+        super().__init__(dataset=dataset,
             sys_token=sys_token, usr_token=usr_token, sep_token=sep_token,
             max_steps=max_steps, max_reward=max_reward, user_patience=user_patience,
             answer_parser=answer_parser, logic_parser=logic_parser, value_backend=value_backend,
@@ -53,6 +50,8 @@ class GuidedEnvironment(BaseEnv):
                 print("VALUE ERROR")
                 continue
 
+        self.coverage_answer_synonyms[self.goal.initial_user_utterance.replace("?", "")] += 1
+        
         self.episode_log.append(f'{self.env_id}-{self.current_episode}$ MODE: GUIDED') 
         return self.post_reset()
    
@@ -125,7 +124,7 @@ class GuidedEnvironment(BaseEnv):
                     else:
                         answer = self.current_node.answer_by_key(response.answer_key)
                         self.current_user_utterance = rand_remove_questionmark(random.choice(self.data.answer_synonyms[answer.text.lower()]))
-                    self.coverage_synonyms[self.current_user_utterance.replace("?", "")] += 1
+                    self.coverage_answer_synonyms[self.current_user_utterance.replace("?", "")] += 1
         return done, reward
 
     def skip(self, answer_index: int) -> Tuple[bool, float]:

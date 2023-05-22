@@ -1,10 +1,10 @@
+from collections import defaultdict
 from copy import deepcopy
 import random
 from typing import Tuple, Union
 
 from chatbot.adviser.app.rl.goal import ImpossibleGoalError, UserGoalGenerator
 from chatbot.adviser.app.rl.utils import rand_remove_questionmark
-from data.cache import Cache
 
 from data.dataset import GraphDataset, NodeType
 
@@ -13,19 +13,18 @@ from chatbot.adviser.app.logicParser import LogicTemplateParser
 from chatbot.adviser.app.systemTemplateParser import SystemTemplateParser
 from chatbot.adviser.app.parserValueProvider import RealValueBackend
 from chatbot.adviser.app.rl.utils import AutoSkipMode
-from encoding.state import StateEncoding
 from environment.base import BaseEnv
 
 
 class FreeEnvironment(BaseEnv):
-    def __init__(self, env_id: int, cache: Cache, dataset: GraphDataset, state_encoding: StateEncoding,
+    def __init__(self, dataset: GraphDataset,
             sys_token: str, usr_token: str, sep_token: str,
             max_steps: int, max_reward: float, user_patience: int,
             stop_when_reaching_goal: bool,
             answer_parser: AnswerTemplateParser, system_parser: SystemTemplateParser, logic_parser: LogicTemplateParser,
             value_backend: RealValueBackend,
             auto_skip: AutoSkipMode) -> None:
-        super().__init__(env_id=env_id, cache=cache, dataset=dataset, state_encoding=state_encoding,
+        super().__init__(dataset=dataset,
             sys_token=sys_token, usr_token=usr_token, sep_token=sep_token, 
             max_steps=max_steps, max_reward=max_reward, user_patience=user_patience,
             answer_parser=answer_parser, logic_parser=logic_parser, value_backend=value_backend,
@@ -33,6 +32,7 @@ class FreeEnvironment(BaseEnv):
         self.goal_gen = UserGoalGenerator(graph=dataset, answer_parser=answer_parser,
             system_parser=system_parser, value_backend=value_backend)
         self.stop_when_reaching_goal = stop_when_reaching_goal
+        self.coverage_question_synonyms = defaultdict(int)
 
     def reset(self, current_episode: int, max_distance: int):
         self.pre_reset()
@@ -47,6 +47,8 @@ class FreeEnvironment(BaseEnv):
             except ValueError:
                 print("VALUE ERROR")
                 continue
+
+        self.coverage_question_synonyms[self.goal.initial_user_utterance.replace("?", "")] += 1
 
         self.episode_log.append(f'{self.env_id}-{self.current_episode}$ MODE: Free') 
         return self.post_reset()
@@ -115,10 +117,13 @@ class FreeEnvironment(BaseEnv):
                     else:
                         answer = self.current_node.answer_by_key(response.answer_key)
                         self.current_user_utterance = rand_remove_questionmark(random.choice(self.data.answer_synonyms[answer.text.lower()]))
-                    # self.coverage_synonyms[self.current_user_utterance.replace("?", "")] += 1
+                    self.coverage_answer_synonyms[self.current_user_utterance.replace("?", "")] += 1
             # info nodes don't require special handling
 
         return done, reward
+    
+    def get_coverage_question_synonyms(self):
+        return len(self.coverage_question_synonyms) / len(self.data.question_list)
 
     def skip(self, answer_index: int) -> Tuple[bool, float]:
         reward = -1.0
