@@ -1,184 +1,308 @@
 {
   "Afghanistan": [],
-  "Ägypten": ["Aegypten"],
-  "Albanien": [],
-  "Algerien": [],
+  "Egypt": [
+  ],
+  "Albania": [],
+  "Algeria": [],
   "Andorra": [],
   "Angola": [],
-  "Antigua und Barbuda": ["Antigua", "Barbuda"],
-  "Äquatorialguinea": ["Aequatorialguinea"],
-  "Argentinien": [],
-  "Armenien": [],
-  "Aserbaidschan": [],
-  "Äthiopien": ["Aethiopien"],
-  "Australien": [],
+  "Antigua and Barbuda": [
+      "Antigua",
+      "Barbuda"
+  ],
+  "Equatorial Guinea": [
+      "Aequatorialguinea"
+  ],
+  "Argentina": [],
+  "Armenia": [],
+  "Azerbaijan": [],
+  "Ethiopia": [
+  ],
+  "Australia": [],
   "Bahrain": [],
-  "Bangladesch": [],
+  "Bangladesh": [],
   "Barbados": [],
-  "Belgien": [],
+  "Belgium": [],
   "Benin": [],
-  "Bolivien": [],
-  "Bosnien und Herzegowina": ["Bosnien", "Herzegowina"],
-  "Botsuana": [],
-  "Brasilien": [],
+  "Bolivia": [],
+  "Bosnia and Herzegovina": [
+      "Bosnia",
+      "Herzegovina"
+  ],
+  "Botswana": [],
+  "Brazil": [],
   "Brunei": [],
-  "Bulgarien": [],
+  "Bulgaria": [],
   "Burkina Faso": [],
   "Burundi": [],
   "China": [],
   "Chile": [],
-  "Costa Rica": ["Costarica"],
-  "Côte d'Ivoire": ["Elfenbeinküste", "Cote d Ivoire", "Cote divoire", "Cote d'Ivoire"],
-  "Dänemark": ["Daenemark"],
-  "Deutschland": [],
+  "Costa Rica": [
+      "Costarica"
+  ],
+  "Côte d'Ivoire": [
+      "Ivory Coast",
+      "Cote d Ivoire",
+      "Cote divoire",
+      "Cote d'Ivoire"
+  ],
+  "Denmark": [
+  ],
+  "Germany": [],
   "Dominica": [],
-  "Dominikanische Republik": ["Domrep", "Dom Rep"],
-  "Dschibuti": [],
+  "Dominican Republic": [
+      "Domrep",
+      "Dom Rep"
+  ],
+  "Djibouti": [],
   "Ecuador": [],
   "El Salvador": [],
   "Eritrea": [],
-  "Estland": [],
-  "Fidschi": [],
-  "Finnland": [],
-  "Frankreich": [],
-  "Gabun": [],
+  "Estonia": [],
+  "Fiji": [],
+  "Finland": [],
+  "France": [],
+  "Gabon": [],
   "Gambia": [],
-  "Großbritannien": ["UK", "Vereinigtes Königreich", "England", "Schottland", "Wales", "Nordirland", "Grossbritannien"],
-  "Georgien": [],
+  "Great Britain": [
+      "UK",
+      "United Kingdom",
+      "England",
+      "Scotland",
+      "Wales",
+      "Northern Ireland"
+  ],
+  "Georgia": [],
   "Ghana": [],
   "Grenada": [],
-  "Griechenland": [],
+  "Greece": [],
   "Guatemala": [],
   "Guinea": [],
-  "Guinea-Bissau": ["Guinea Bissau"],
+  "Guinea-Bissau": [
+      "Guinea Bissau"
+  ],
   "Guyana": [],
   "Haiti": [],
   "Honduras": [],
-  "Indien": [],
-  "Indonesien": [],
-  "Irak": [],
+  "India": [],
+  "Indonesia": [],
+  "Iraq": [],
   "Iran": [],
-  "Irland": [],
-  "Island": [],
+  "Ireland": [],
+  "Iceland": [],
   "Israel": [],
-  "Italien": [],
-  "Jamaika": [],
+  "Italy": [],
+  "Jamaica": [],
   "Japan": [],
-  "Jemen": ["Yemen"],
-  "Jordanien": [],
-  "Kambodscha": [],
-  "Kamerun": [],
-  "Kanada": [],
-  "Kap Verde": ["Kapverde"],
-  "Kasachstan": [],
-  "Katar": ["Qatar"],
-  "Kenia": ["Kenya"],
-  "Kirgisistan": [],
-  "Kolumbien": ["Columbien"],
-  "Demokratische Republik Kongo": ["DR Kongo", "Kongo"],
-  "Republik Kongo": [],
-  "Demokratische Republik Korea": ["Nordkorea"],
-  "Republik Korea": ["Südkorea", "Suedkorea", "Korea"],
+  "Yemen": [
+      "Yemen"
+  ],
+  "Jordan": [],
+  "Cambodia": [],
+  "Cameroon": [],
+  "Canada": [],
+  "Cape Verde": [
+      "Cape Verde"
+  ],
+  "Kazakhstan": [],
+  "Qatar": [
+      "Qatar"
+  ],
+  "Kenya": [
+      "Kenya"
+  ],
+  "Kyrgyzstan": [],
+  "Colombia": [
+      "Columbien"
+  ],
+  "Democratic Republic of the Congo": [
+      "DR Congo",
+      "Congo"
+  ],
+  "Republic of Congo": [],
+  "Democratic People’s Republic of Korea": [
+      "North Korea"
+  ],
+  "Republic of Korea": [
+      "South Korea",
+      "Korea"
+  ],
   "Kosovo": [],
-  "Kroatien": [],
-  "Kuba": ["Cuba"],
+  "Croatia": [],
+  "Cuba": [
+      "Cuba"
+  ],
   "Kuwait": [],
   "Laos": [],
   "Lesotho": [],
-  "Lettland": [],
-  "Libanon": [],
-  "Libyen": ["Lybien"],
-  "Liechtenstein": ["Lichtenstein"],
-  "Litauen": [],
-  "Luxemburg": [],
-  "Madagaskar": [],
+  "Latvia": [],
+  "Lebanon": [],
+  "Libya": [
+  ],
+  "Liechtenstein": [
+  ],
+  "Lithuania": [],
+  "Luxembourg": [],
+  "Madagascar": [],
   "Malawi": [],
-  "Malaysia": ["Malaisien", "Malaysien"],
-  "Malediven": [],
+  "Malaysia": [
+  ],
+  "Maldives": [],
   "Mali": [],
   "Malta": [],
-  "Marokko": ["Marrokko", "Marocco", "Marrocco"],
-  "Marshallinseln": ["Marshall Inseln"],
-  "Mauretanien": [],
+  "Morocco": [
+  ],
+  "Marshall Islands": [
+  ],
+  "Mauritania": [],
   "Mauritius": [],
-  "Mazedonien": ["Makedonien", "Nordmazedonien"],
-  "Mikronesien": [],
-  "Mexiko": ["Mexico"],
-  "Republik Moldau": ["Moldau", "Moldawien", "Moldavien"],
+  "Macedonia": [
+      "North Macedonia"
+  ],
+  "Micronesia": [],
+  "Mexico": [
+      "Mexico"
+  ],
+  "Republic of Moldova": [
+      "Moldova",
+      "Moldavia"
+  ],
   "Monaco": [],
-  "Mongolei": [],
+  "Mongolia": [],
   "Montenegro": [],
-  "Mosambik": [],
+  "Mozambique": [],
   "Myanmar": [],
   "Namibia": [],
   "Nepal": [],
-  "Neuseeland": [],
+  "New Zealand": [],
   "Nicaragua": [],
-  "Niederlande": ["Holland"],
+  "Netherlands": [
+  ],
   "Niger": [],
   "Nigeria": [],
-  "Norwegen": [],
+  "Norway": [],
   "Oman": [],
-  "Österreich": ["Oesterreich"],
+  "Austria": [
+  ],
   "Pakistan": [],
   "Palau": [],
   "Panama": [],
-  "Papua-Neuguinea": ["Papua Neuguinea", "Neuguinea"],
+  "Papua New Guinea": [
+      "Papua Neuguinea",
+      "Neuguinea"
+  ],
   "Paraguay": [],
   "Peru": [],
-  "Philippinen": ["Phillippinen", "Philipinen", "Phillipinen"],
-  "Polen": [],
+  "Philippines": [
+  ],
+  "Poland": [],
   "Portugal": [],
-  "Ruanda": ["Rwanda"],
-  "Rumänien": ["Rumaenien"],
-  "Russ. Föd.": ["Russland", "Russische Föderation", "Russische Foederation"],
-  "Sambia": [],
+  "Rwanda": [
+      "Rwanda"
+  ],
+  "Romania": [
+  ],
+  "Russian Federation": [
+      "Russia"
+  ],
+  "Zambia": [],
   "Samoa": [],
-  "San Marino": ["Sanmarino"],
-  "Sao Tomé- Principe": ["São Tomé und Príncipe", "São Tomé Príncipe", "Sao Tome und Principe", "São Tomé", "Sao Tome", "Saotome", "Principe", "Príncipe"],
-  "Saudi-Arabien ": ["Saudi Arabien", "Saudi", "Arabien", "Saud Arabien", "Saudisch Arabien"],
-  "Schweden": [],
-  "Schweiz": [],
+  "San Marino": [
+      "Sanmarino"
+  ],
+  "Sao Tome and Principe": [
+      "São Tomé and Príncipe",
+      "Sao Tome and Principe",
+      "São Tomé",
+      "Sao Tome",
+      "Principe",
+      "Príncipe"
+  ],
+  "Saudi Arabia": [
+  ],
+  "Sweden": [],
+  "Switzerland": [],
   "Senegal": [],
-  "Serbien": [],
-  "Sierra Leone": ["Sierraleone"],
-  "Simbabwe": ["Zimbabwe"],
-  "Singapur": ["Singapore"],
-  "Slowakische Republik": ["Slowakei"],
-  "Slowenien": [],
-  "Spanien": ["Kanarische Inseln", "Kanaren"],
-  "Sri Lanka": ["Srilanka"],
-  "St. Kitts und Nevis": ["Sankt Kitts und Nevis", "Sankt Kitts", "Kitts", "Nevis"],
-  "St. Lucia": ["Santa Lucia", "Sankt Lucia", "Saint Lucia"],
-  "St. Vincent": ["Sankt Vincent", "Saint Vincent"],
-  "Südafrika": ["Suedafrika"],
+  "Serbia": [],
+  "Sierra Leone": [
+      "Sierraleone"
+  ],
+  "Zimbabwe": [
+  ],
+  "Singapore": [
+  ],
+  "Slovak Republic": [
+      "Slovakia"
+  ],
+  "Slovenia": [],
+  "Spain": [
+      "Canary Islands"
+  ],
+  "Sri Lanka": [
+      "Srilanka"
+  ],
+  "St. Kitts and Nevis": [
+      "Sankt Kitts and Nevis",
+      "Sankt Kitts",
+      "Kitts",
+      "Nevis"
+  ],
+  "St. Lucia": [
+      "Santa Lucia",
+      "Saint Lucia"
+  ],
+  "St. Vincent": [
+      "Saint Vincent"
+  ],
+  "South Africa": [
+  ],
   "Sudan": [],
-  "Südsudan": ["Suedsudan"],
+  "South Sudan": [
+  ],
   "Suriname": [],
-  "Syrien": [],
-  "Tadschikistan": [],
+  "Syria": [],
+  "Tajikistan": [],
   "Taiwan": [],
-  "Tansania": [],
+  "Tanzania": [],
   "Thailand": [],
   "Togo": [],
   "Tonga": [],
-  "Trinidad und Tobago": ["Trinidad", "Tobago"],
-  "Tschad": [],
-  "Tschechische Republik": ["Tschechien", "Tschechei"],
-  "Tunesien": [],
-  "Türkei": ["Tuerkei"],
+  "Trinidad and Tobago": [
+      "Trinidad",
+      "Tobago"
+  ],
+  "Chad": [],
+  "Czech Republic": [
+      "Czechia"
+  ],
+  "Tunisia": [],
+  "Turkey": [
+  ],
   "Turkmenistan": [],
   "Uganda": [],
   "Ukraine": [],
-  "Ungarn": [],
+  "Hungary": [],
   "Uruguay": [],
-  "USA": ["US", "Vereinigte Staaten von Amerika", "Amerika", "Vereinigte Staaten"],
-  "Usbekistan": [],
-  "Ver. Arab. Emirate": ["Vereinigte Arabische Emirate", "Emirate"],
-  "Vatikanstaat": ["Vatikan"],
+  "USA": [
+      "US",
+      "United States of America",
+      "America",
+      "United States"
+  ],
+  "Uzbekistan": [],
+  "United Arab Emirates": [
+      "Emirates"
+  ],
+  "Vatican City": [
+      "Vatican"
+  ],
   "Venezuela": [],
   "Vietnam": [],
-  "Weißrussland": ["Belarus", "Weissrussland"],
-  "Zentralafrikanische Republik": ["Zentralafrika"],
-  "Zypern": []
+  "Belarus": [
+      "Belarus"
+  ],
+  "Central African Republic": [
+      "Central Africa"
+  ],
+  "Cyprus": []
 }

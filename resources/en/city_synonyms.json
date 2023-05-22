@@ -3,44 +3,85 @@
   "Canberra": [],
   "Sydney": [],
   "Brasilia": [],
-  "Rio de Janeiro": ["Rio"],
-  "Sao Paulo": ["São Paulo"],
+  "Rio de Janeiro": [
+      "Rio"
+  ],
+  "Sao Paulo": [
+      "São Paulo"
+  ],
   "Chengdu": [],
-  "Hongkong": [],
-  "Peking": [],
+  "Hong Kong": [],
+  "Beijing": [],
   "Shanghai": [],
-  "Dep 92,93 oder 94": ["Dep 92", "Dep 93", "Dep 94", "Departement 92", "Departement 93", "Departement 94"],
+  "Dep 92,93 or 94": [
+      "Dep 92",
+      "Dep 93",
+      "Dep 94",
+      "Department 92",
+      "Department 93",
+      "Department 94"
+  ],
   "Lyon": [],
   "Marseille": [],
   "Paris": [],
-  "Straßburg": ["Strasbourg", "Strassbourg"],
+  "Strasbourg": [
+      "Strassbourg"
+  ],
   "London": [],
-  "Athen": [],
+  "Athens": [],
   "Chennai": [],
-  "Kalkutta": [],
+  "Kolkata": [],
   "Mumbai": [],
-  "Neu Delhi": ["Neudelhi"],
-  "Mailand": ["Milano"],
-  "Rom": ["Roma"],
-  "Tokio": [],
+  "New Delhi": [
+  ],
+  "Milan": [
+      "Milano"
+  ],
+  "Rome": [
+      "Roma"
+  ],
+  "Tokyo": [],
   "Ottawa": [],
   "Toronto": [],
   "Vancouver": [],
   "Islamabad": [],
-  "Breslau": ["Wrocław", "Wroclaw"],
-  "Danzig": ["Gdansk", "Gdańsk"],
-  "Kanarische": ["Kanarische Inseln", "Kanaren"],
-  "Krakau": ["Kraków", "Krakow"],
-  "Warschau": ["Warszawa", "Warsow"],
-  "Lissabon": ["Lisboa"],
-  "Bukarest": [],
-  "Moskau": [],
-  "St.Peterburg": ["Sankt Petersburg", "St. Petersburg", "St.Petersburg", "Peterburg", "Petersburg"],
-  "Genf": ["Geneva", "Genève"],
+  "Wroclaw": [
+      "Wrocław",
+      "Wroclaw"
+  ],
+  "Gdansk": [
+      "Gdansk",
+      "Gdańsk"
+  ],
+  "Canary Islands": [
+  ],
+  "Krakow": [
+      "Kraków",
+      "Krakow"
+  ],
+  "Warsaw": [
+      "Warszawa",
+      "Warsow"
+  ],
+  "Lisbon": [
+      "Lisboa"
+  ],
+  "Bucharest": [],
+  "Moscow": [],
+  "St. Petersburg": [
+      "Saint Petersburg",
+      "Petersburg"
+  ],
+  "Geneva": [
+      "Geneva",
+      "Genève"
+  ],
   "Barcelona": [],
   "Madrid": [],
-  "Palma de Mallorca": ["Palma"],
-  "Kapstadt": [],
+  "Palma de Mallorca": [
+      "Palma"
+  ],
+  "Cape Town": [],
   "Johannesburg": [],
   "Istanbul": [],
   "Izmir": [],
@@ -48,9 +89,18 @@
   "Boston": [],
   "Chicago": [],
   "Houston": [],
-  "Los Angeles": ["LA"],
+  "Los Angeles": [
+      "LA"
+  ],
   "Miami": [],
-  "New York": ["NY", "NYC", "New York City"],
+  "New York": [
+      "NY",
+      "NYC",
+      "New York City"
+  ],
   "San Francisco": [],
-  "Washington DC": ["Washington D.C.", "Washington, D.C."]
+  "Washington DC": [
+      "Washington D.C.",
+      "Washington, D.C."
+  ]
 }
