@@ -114,6 +114,7 @@ class FreeEnvironment(BaseEnv):
                     else:
                         answer = self.current_node.answer_by_key(response.answer_key)
                         self.current_user_utterance = rand_remove_questionmark(random.choice(self.data.answer_synonyms[answer.text.lower()]))
+                    # self.coverage_synonyms[self.current_user_utterance.replace("?", "")] += 1
             # info nodes don't require special handling
 
         return done, reward
