@@ -5,8 +5,8 @@ import warnings
 
 from stable_baselines3.common.callbacks import BaseCallback, EventCallback
 from stable_baselines3.common.vec_env import sync_envs_normalization
-from stable_baselines3.common.evaluation import evaluate_policy
 
+from algorithm.evaluation import custom_evaluate_policy as evaluate_policy
 from environment.vec.vecenv import CustomVecEnv
 
 
@@ -97,6 +97,14 @@ class CustomEvalCallback(EventCallback):
         self.actioncount_ask_variable_irrelevant = []
         self.actioncount_ask_question_irrelevant = []
         self.actioncount_missingvariable = []
+        
+        self.cumulative_coverage_nodes = set()
+        self.cumulative_coverage_questions = set()
+        self.cumulative_coverage_answers = set()
+
+        # intent prediction
+        self.intent_accuracies = []
+        self.intent_consistencies = []
 
 
 
@@ -153,7 +161,7 @@ class CustomEvalCallback(EventCallback):
                 if hasattr(env, 'free_env'):
                     env.free_env.reset_stats()
 
-            episode_rewards, episode_lengths = evaluate_policy(
+            episode_rewards, episode_lengths, intent_accuracy, intent_consistency = evaluate_policy(
                 self.model,
                 self.eval_env,
                 n_eval_episodes=self.n_eval_episodes,
@@ -201,16 +209,36 @@ class CustomEvalCallback(EventCallback):
             self.actioncount_ask_variable_irrelevant.append(self.eval_env.stats_actioncount_ask_variable_irrelevant())
             self.actioncount_ask_question_irrelevant.append(self.eval_env.stats_actioncount_ask_question_irrelevant())
             self.actioncount_missingvariable.append(self.eval_env.stats_actioncount_missingvariable())
+            
+            for env in self.eval_env.envs:
+                if hasattr(env, "free_env"):
+                    self.cumulative_coverage_nodes.update(env.free_env.node_coverage.keys())
+                    self.cumulative_coverage_questions.update(env.free_env.coverage_question_synonyms.keys())
+                    self.cumulative_coverage_answers.update(env.free_env.coverage_answer_synonyms.keys())
+                if hasattr(env, 'guided_env'):
+                    self.cumulative_coverage_nodes.update(env.guided_env.node_coverage.keys())
+                    self.cumulative_coverage_answers.update(env.guided_env.coverage_answer_synonyms.keys())
 
+            if not isinstance(intent_accuracy, type(None)):
+                self.intent_accuracies.append(intent_accuracy)
+                self.intent_consistencies.append(intent_consistency)
+                self.logger.record(f"{self.mode}/intent_accuracy", self.intent_accuracies[-1])
+                self.logger.record(f"{self.mode}/intent_consistency", self.intent_consistencies[-1])
+
+            
             self.logger.record(f"{self.mode}/goal_asked_free", self.goal_asked_free[-1])
             self.logger.record(f"{self.mode}/goal_asked_guided", self.goal_asked_guided[-1])
             self.logger.record(f"{self.mode}/goal_reached_free", self.goal_reached_free[-1])
             self.logger.record(f"{self.mode}/goal_reached_guided", self.goal_reached_guided[-1])
             self.logger.record(f"{self.mode}/goal_node_coverage_free", self.goal_node_coverage_free[-1])
             self.logger.record(f"{self.mode}/goal_node_coverage_guided", self.goal_node_coverage_guided[-1])
-            self.logger.record(f"{self.mode}/node_coverage", self.node_coverage[-1])
-            self.logger.record(f"{self.mode}/synonym_coverage_questions", self.synonym_coverage_questions[-1])
-            self.logger.record(f"{self.mode}/synonym_coverage_answers", self.synonym_coverage_answers[-1])
+            self.logger.record(f"{self.mode}/epoch_node_coverage", self.node_coverage[-1])
+            self.logger.record(f"{self.mode}/total_node_coverage", len(self.cumulative_coverage_nodes) / len(self.eval_env.envs[0].data.node_list))
+            self.logger.record(f"{self.mode}/epoch_node_coverage", self.node_coverage[-1])
+            self.logger.record(f"{self.mode}/total_coverage_questions", len(self.cumulative_coverage_questions) / len(self.eval_env.envs[0].data.question_list))
+            self.logger.record(f"{self.mode}/epoch_coverage_questions", self.synonym_coverage_questions[-1])
+            self.logger.record(f"{self.mode}/total_coverage_answers", len(self.cumulative_coverage_answers) / self.eval_env.envs[0].data.num_answer_synonyms)
+            self.logger.record(f"{self.mode}/epoch_overage_answers", self.synonym_coverage_answers[-1])
             self.logger.record(f"{self.mode}/actioncount_skips_invalid", self.actioncount_skips_invalid[-1])
             self.logger.record(f"{self.mode}/actioncount_ask_variable_irrelevant", self.actioncount_ask_variable_irrelevant[-1])
             self.logger.record(f"{self.mode}/actioncount_ask_question_irrelevant", self.actioncount_ask_question_irrelevant[-1])

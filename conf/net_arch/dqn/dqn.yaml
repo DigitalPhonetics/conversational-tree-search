@@ -1,4 +1,4 @@
-net_cls: algorithm.dqn.dqn.CustomQNetwork
+net_cls: algorithm.dqn.architecture.CustomQNetwork
 hidden_layer_sizes: [4096, 4096, 2048, 2048, 1024]
 dropout_rate: 0.1
 normalization_layers: false

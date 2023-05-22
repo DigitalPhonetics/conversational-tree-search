@@ -1,452 +1,230 @@
 
-from copy import deepcopy
-from typing import List, Tuple, Union, Dict, Optional, Type, Any
+from typing import List, Tuple, TypeVar, Union, Dict, Optional, Type, Any
+from stable_baselines3 import DQN
 
 import torch as th
-import torch.nn as nn
 import torch.nn.functional as F
-from torch.nn.utils.weight_norm import weight_norm
 
 from gymnasium import spaces
-from stable_baselines3.common.torch_layers import BaseFeaturesExtractor, FlattenExtractor
 from stable_baselines3.dqn.policies import DQNPolicy, QNetwork, BasePolicy
 from stable_baselines3.common.type_aliases import Schedule
 
+import warnings
+from typing import Any, Dict, List, Optional, Tuple, Type, Union
 
-from encoding.state import StateDims
+import numpy as np
+import torch as th
+from gymnasium import spaces
+from torch.nn import functional as F
+
+from stable_baselines3.common.buffers import ReplayBuffer
+from stable_baselines3.common.policies import BasePolicy
+from stable_baselines3.common.type_aliases import GymEnv, MaybeCallback, Schedule
+from stable_baselines3.common.utils import get_linear_fn, get_parameters_by_name, polyak_update
+from stable_baselines3.dqn.policies import CnnPolicy, DQNPolicy, MlpPolicy, MultiInputPolicy, QNetwork
+
+from algorithm.dqn.policy import CustomDQNPolicy
+from chatbot.adviser.app.rl.utils import EnvInfo
 
 
-def add_weight_normalization(layer: nn.Module):
-    return weight_norm(layer, dim=None)
+SelfDQN = TypeVar("SelfDQN", bound="CustomDQN")
 
 
-def mask_output(input: th.Tensor, mask: th.Tensor):
-    if th.is_tensor(mask):
-        return input * mask
-    return input
-
-
-class CustomQNetwork(BasePolicy):
+class CustomDQN(DQN):
     """
-    Action-Value (Q-Value) network for DQN
+    Deep Q-Network (DQN)
 
-    :param observation_space: Observation space
-    :param action_space: Action space
-    :param activation_fn: Activation function
+    Paper: https://arxiv.org/abs/1312.5602, https://www.nature.com/articles/nature14236
+    Default hyperparameters are taken from the Nature paper,
+    except for the optimizer and learning rate that were taken from Stable Baselines defaults.
+
+    :param policy: The policy model to use (MlpPolicy, CnnPolicy, ...)
+    :param env: The environment to learn from (if registered in Gym, can be str)
+    :param learning_rate: The learning rate, it can be a function
+        of the current progress remaining (from 1 to 0)
+    :param buffer_size: size of the replay buffer
+    :param learning_starts: how many steps of the model to collect transitions for before learning starts
+    :param batch_size: Minibatch size for each gradient update
+    :param tau: the soft update coefficient ("Polyak update", between 0 and 1) default 1 for hard update
+    :param gamma: the discount factor
+    :param train_freq: Update the model every ``train_freq`` steps. Alternatively pass a tuple of frequency and unit
+        like ``(5, "step")`` or ``(2, "episode")``.
+    :param gradient_steps: How many gradient steps to do after each rollout (see ``train_freq``)
+        Set to ``-1`` means to do as many gradient steps as steps done in the environment
+        during the rollout.
+    :param replay_buffer_class: Replay buffer class to use (for instance ``HerReplayBuffer``).
+        If ``None``, it will be automatically selected.
+    :param replay_buffer_kwargs: Keyword arguments to pass to the replay buffer on creation.
+    :param optimize_memory_usage: Enable a memory efficient variant of the replay buffer
+        at a cost of more complexity.
+        See https://github.com/DLR-RM/stable-baselines3/issues/37#issuecomment-637501195
+    :param target_update_interval: update the target network every ``target_update_interval``
+        environment steps.
+    :param exploration_fraction: fraction of entire training period over which the exploration rate is reduced
+    :param exploration_initial_eps: initial value of random action probability
+    :param exploration_final_eps: final value of random action probability
+    :param max_grad_norm: The maximum value for the gradient clipping
+    :param stats_window_size: Window size for the rollout logging, specifying the number of episodes to average
+        the reported success rate, mean episode length, and mean reward over
+    :param tensorboard_log: the log location for tensorboard (if None, no logging)
+    :param policy_kwargs: additional arguments to be passed to the policy on creation
+    :param verbose: Verbosity level: 0 for no output, 1 for info messages (such as device or wrappers used), 2 for
+        debug messages
+    :param seed: Seed for the pseudo random generators
+    :param device: Device (cpu, cuda, ...) on which the code should be run.
+        Setting it to auto, the code will be run on the GPU if possible.
+    :param _init_setup_model: Whether or not to build the network at the creation of the instance
     """
 
-    action_space: spaces.Discrete
+    # Linear schedule will be defined in `_setup_model()`
+    exploration_schedule: Schedule
+    q_net: QNetwork
+    q_net_target: QNetwork
+    policy: CustomDQNPolicy
 
     def __init__(
         self,
-        observation_space: spaces.Space,
-        action_space: spaces.Discrete,
-        hidden_layer_sizes: List[int],
-        state_dims: StateDims,
-        normalization_layers: bool = False,
-        dropout_rate: float = 0.0,
-        activation_fn: Type[nn.Module] = nn.ReLU,
+        policy: Union[str, Type[CustomDQNPolicy]],
+        env: Union[GymEnv, str],
+        learning_rate: Union[float, Schedule] = 1e-4,
+        buffer_size: int = 1_000_000,  # 1e6
+        learning_starts: int = 50000,
+        batch_size: int = 32,
+        tau: float = 1.0,
+        gamma: float = 0.99,
+        train_freq: Union[int, Tuple[int, str]] = 4,
+        gradient_steps: int = 1,
+        replay_buffer_class: Optional[Type[ReplayBuffer]] = None,
+        replay_buffer_kwargs: Optional[Dict[str, Any]] = None,
+        optimize_memory_usage: bool = False,
+        target_update_interval: int = 10000,
+        exploration_fraction: float = 0.1,
+        exploration_initial_eps: float = 1.0,
+        exploration_final_eps: float = 0.05,
+        max_grad_norm: float = 10,
+        stats_window_size: int = 100,
+        tensorboard_log: Optional[str] = None,
+        policy_kwargs: Optional[Dict[str, Any]] = None,
+        verbose: int = 0,
+        seed: Optional[int] = None,
+        device: Union[th.device, str] = "auto",
+        _init_setup_model: bool = True,
     ) -> None:
         super().__init__(
-            observation_space,
-            action_space,
-            features_extractor=None,
-            normalize_images=False,
+            policy=policy,
+            env=env,
+            learning_rate=learning_rate,
+            buffer_size=buffer_size,
+            learning_starts=learning_starts,
+            batch_size=batch_size,
+            tau=tau,
+            gamma=gamma,
+            train_freq=train_freq,
+            gradient_steps=gradient_steps,
+            replay_buffer_class=replay_buffer_class,
+            replay_buffer_kwargs=replay_buffer_kwargs,
+            optimize_memory_usage=optimize_memory_usage,
+            target_update_interval=target_update_interval,
+            exploration_fraction=exploration_fraction,
+            exploration_initial_eps=exploration_initial_eps,
+            exploration_final_eps=exploration_final_eps,
+            max_grad_norm=max_grad_norm,
+            stats_window_size=stats_window_size,
+            tensorboard_log=tensorboard_log,
+            policy_kwargs=policy_kwargs,
+            verbose=verbose,
+            seed=seed,
+            device=device,
+            _init_setup_model=_init_setup_model
         )
 
-        self.activation_fn = activation_fn
-        self.dropout_rate = dropout_rate
+    def train(self, gradient_steps: int, batch_size: int = 100) -> None:
+        # Switch to train mode (this affects batch norm / dropout)
+        self.policy.set_training_mode(True)
+        # Update learning rate according to schedule
+        self._update_learning_rate(self.policy.optimizer)
 
-        # network architecture
+        td_losses = []
+        intent_losses = []
+        for _ in range(gradient_steps):
+            # Sample replay buffer
+            replay_data = self.replay_buffer.sample(batch_size, env=self._vec_normalize_env)  # type: ignore[union-attr]
 
-        # create layers
-        layers = []
-        current_input_dim = observation_space.shape[-1]
-        self.actions_in_state_space = len(observation_space.shape) > 1
-        self.output_dim = 1 if self.actions_in_state_space else action_space.n
+            with th.no_grad():
+                # Compute the next Q-values using the target network
+                next_q_values = self.q_net_target(replay_data.next_observations)
+                if self.policy.intent_prediction:
+                    # split output of network into q values, ignore intents (position 1)
+                    next_q_values = next_q_values[0]
+                # Follow greedy policy: use the one with the highest value
+                next_q_values, _ = next_q_values.max(dim=1)
+                # Avoid potential broadcast issue
+                next_q_values = next_q_values.reshape(-1, 1)
+                # 1-step TD target
+                target_q_values = replay_data.rewards + (1 - replay_data.dones) * self.gamma * next_q_values
 
-        for layer_size in hidden_layer_sizes:
-            layer = nn.Linear(current_input_dim, layer_size)
-            if normalization_layers:
-                layer = add_weight_normalization(layer)
-            layers.append(layer)
-            activation = activation_fn()
-            layers.append(activation)
-            current_input_dim = layer_size
-        # output layer
-        output_layer = nn.Linear(current_input_dim, self.output_dim)
-        layers.append(output_layer)
+            # Get current Q-values estimates
+            current_q_values = self.q_net(replay_data.observations)
 
-        self.q_net = nn.ModuleList(layers)
-        print("NETWORK", self.q_net)
+            # Handle intent prediction loss
+            loss = 0.0
+            if self.policy.intent_prediction:
+                # split output of network into q values and intents
+                current_q_values, current_intent_logits = current_q_values
+                intent_labels = th.tensor([info[EnvInfo.IS_FAQ] for info in replay_data.infos], dtype=th.float, device=self.device)
+                intent_loss = self.q_net.intent_loss_weight * F.binary_cross_entropy_with_logits(current_intent_logits, intent_labels, reduction="mean")
+                loss += intent_loss
+                intent_losses.append(intent_loss.item())
+            
+            # Retrieve the q-values for the actions from the replay buffer
+            current_q_values = th.gather(current_q_values, dim=1, index=replay_data.actions.long())
 
-    def forward(self, obs: th.Tensor, deterministic: bool = False) -> th.Tensor:
-        """
-        Predict the q-values.
+            # Compute Huber loss (less sensitive to outliers)
+            td_loss = F.smooth_l1_loss(current_q_values, target_q_values)
+            td_losses.append(td_loss.item())
+            loss += td_loss
 
-        :param obs: Observation
-        :return: The estimated Q-Value for each action.
-        """
-        mask = None # mask will be 0.0 for rows that should be masked, so we can multiply with them and eliminate gradient propagation for these
-        q = obs
-        if self.actions_in_state_space:
-            # obs: batch x actions x state
-            mask = (~(obs.abs().sum(-1) == 0.0)).float().unsqueeze(-1) # batch x actions x 1
-        
-        for layer_idx, layer in enumerate(self.q_net):
-            q = layer(q)
-            if (not deterministic) and layer_idx < len(self.q_net) - 1 and self.dropout_rate > 0.0:
-                # no dropout in last layer, or if deterministic output is required
-                q = F.dropout(q, p=self.dropout_rate)
-            q = mask_output(q, mask)
+            # Optimize the policy
+            self.policy.optimizer.zero_grad()
+            loss.backward()
+            # Clip gradient norm
+            th.nn.utils.clip_grad_norm_(self.policy.parameters(), self.max_grad_norm)
+            self.policy.optimizer.step()
 
-        if self.actions_in_state_space:
-            # reshape outputs
-            q = q.view(-1, self.action_space.n)
-        return q
+        # Increase update counter
+        self._n_updates += gradient_steps
 
-    def _predict(self, observation: th.Tensor, deterministic: bool = True) -> th.Tensor:
-        q_values = self(observation, deterministic=deterministic)
-        if self.actions_in_state_space:
-            # obs: batch x actions x state
-            mask = (observation.abs().sum(-1) == 0.0) # batch x actions
-            q_values = th.masked_fill(q_values, mask, float('-inf'))
+        self.logger.record("train/n_updates", self._n_updates, exclude="tensorboard")
+        self.logger.record("train/td_loss", np.mean(td_losses))
+        if self.policy.intent_prediction:
+            self.logger.record("train/intent_loss", np.mean(intent_losses))
 
-        # Greedy action
-        action = q_values.argmax(dim=1).reshape(-1)
-        return action
-
-
-
-class CustomDuelingQNetwork(BasePolicy):
-    action_space: spaces.Discrete
-
-    def __init__(
+    def predict(
         self,
-        observation_space: spaces.Space,
-        action_space: spaces.Discrete,
-        shared_layer_sizes: List[int],
-        value_layer_sizes: List[int],
-        advantage_layer_sizes: List[int],
-        state_dims: StateDims,
-        normalization_layers: bool = False,
-        dropout_rate: float = 0.0,
-        activation_fn: Type[nn.Module] = nn.ReLU,
-    ) -> None:
-        super().__init__(
-            observation_space,
-            action_space,
-            features_extractor=None,
-            normalize_images=False,
-        )
-
-        self.activation_fn = activation_fn
-        self.dropout_rate = dropout_rate
-        self.state_dims = state_dims
-        self.actions_in_state_space = len(observation_space.shape) > 1
-        self.output_dim = 1 if self.actions_in_state_space else action_space.n
-        self.state_input_size = state_dims.state_vector - state_dims.state_action_subvector
-
-        # network architecture
-        shared_layers = []
-        action_inputs = []
-        value_layers = []
-        advantage_layers = []
-
-        # create shared (and optionally, action input) layers
-        shared_layer_dim = self.state_input_size
-        action_layer_dim = state_dims.state_action_subvector if self.actions_in_state_space else 0
-        for layer_size in shared_layer_sizes:
-            shared_layer = nn.Linear(shared_layer_dim, layer_size)
-            if normalization_layers:
-                shared_layer = add_weight_normalization(shared_layer)
-            shared_layers.append(shared_layer)
-            activation = activation_fn()
-            shared_layers.append(activation)
-            shared_layer_dim = layer_size
-
-            if self.actions_in_state_space:
-                action_layer = nn.Linear(action_layer_dim, layer_size)
-                if normalization_layers:
-                    action_layer = add_weight_normalization(action_layer)
-                action_inputs.append(action_layer)
-                activation = activation_fn()
-                action_inputs.append(activation)
-                action_layer_dim = layer_size
-
-        # create value layers: (state_input_dim - action_input_dim) -> 1
-        value_layer_dim = shared_layer_dim
-        for layer_size in value_layer_sizes:
-            value_layer = nn.Linear(value_layer_dim, layer_size)
-            if normalization_layers:
-                value_layer = add_weight_normalization(value_layer)
-            value_layers.append(value_layer)
-            activation = activation_fn()
-            value_layers.append(activation)
-            value_layer_dim = layer_size
-        value_output_layer = nn.Linear(value_layer_dim, 1) # value output layer
-        value_layers.append(value_output_layer)
-
-        # advantage layer: shared_layer_sizes[-1] -> actions
-        advantage_layer_dim = shared_layer_dim + action_layer_dim
-        for layer_size in advantage_layer_sizes:
-            adv_layer = nn.Linear(advantage_layer_dim, layer_size)
-            if normalization_layers:
-                adv_layer = add_weight_normalization(adv_layer)
-            advantage_layers.append(adv_layer)
-            activation = activation_fn()
-            advantage_layers.append(activation)
-            advantage_layer_dim = layer_size
-
-        # advantage output layer: advantage_layer_dim -> actions
-        output_layer = nn.Linear(advantage_layer_dim, self.output_dim)
-        advantage_layers.append(output_layer)
-
-        # connect layers to module
-        self.shared_net = nn.ModuleList(shared_layers)
-        self.action_input_net = nn.ModuleList(action_inputs)
-        self.value_net = nn.ModuleList(value_layers)
-        self.advantage_net = nn.ModuleList(advantage_layers)
-
-
-    def forward(self, obs: th.Tensor, deterministic: bool = False) -> th.Tensor:
+        observation: Union[np.ndarray, Dict[str, np.ndarray]],
+        state: Optional[Tuple[np.ndarray, ...]] = None,
+        episode_start: Optional[np.ndarray] = None,
+        deterministic: bool = False,
+    ) -> Tuple[np.ndarray, Optional[Tuple[np.ndarray, ...]]]:
         """
-        Predict the q-values.
+        Overrides the base_class predict function to include epsilon-greedy exploration.
 
-        :param obs: Observation
-        :return: The estimated Q-Value for each action.
+        :param observation: the input observation
+        :param state: The last states (can be None, used in recurrent policies)
+        :param episode_start: The last masks (can be None, used in recurrent policies)
+        :param deterministic: Whether or not to return deterministic actions.
+        :return: the model's action and the intent instead of the state (we can abuse state return here since we don't have recurrent policies)
         """
-        # preprocess inputs
-        mask = None # mask will be 0.0 for rows that should be masked, so we can multiply with them and eliminate gradient propagation for these
-        num_actions = self.state_dims.num_actions
-        state_input = obs
-        if self.actions_in_state_space:
-            # obs: batch x actions x state
-            mask = (~(obs.abs().sum(-1) == 0.0)).float() # batch x actions
-            num_actions = mask.sum(-1) # batch (contains number of actions per batch)
-            mask = mask.unsqueeze(-1) # batch x actions x 1
-
-            state_input = obs[:, :, :self.state_input_size] # state input portion of input
-            action_input = obs[:, :, self.state_input_size:] # action input portion of input
-
-            action_stream = action_input
-            for layer in self.action_input_net:
-                action_stream = layer(action_stream)
-                if (not deterministic) and self.dropout_rate > 0.0:
-                    action_stream = F.dropout(action_stream, p=self.dropout_rate)
-                action_stream = mask_output(action_stream, mask)
-            
-        # calculate streams
-        shared_stream = state_input
-        for layer in self.shared_net:
-            shared_stream = layer(shared_stream)
-            if (not deterministic) and self.dropout_rate > 0.0:
-                shared_stream = F.dropout(shared_stream, p=self.dropout_rate)
-            shared_stream = mask_output(shared_stream, mask)
-        
-        value_stream = shared_stream
-        for layer_idx, layer in enumerate(self.value_net):
-            value_stream = layer(value_stream)
-            if (not deterministic) and layer_idx < len(self.value_net) - 1 and self.dropout_rate > 0.0:
-                # no dropout in last layer, or if deterministic output is required
-                value_stream = F.dropout(value_stream, p=self.dropout_rate)
-            value_stream = mask_output(value_stream, mask)
-
-        advantage_stream = shared_stream
-        if self.actions_in_state_space:
-            advantage_stream = th.cat((advantage_stream, action_stream), -1)
-        for layer_idx, layer in enumerate(self.advantage_net):
-            advantage_stream = layer(advantage_stream)
-            if (not deterministic) and layer_idx < len(self.advantage_net) - 1 and self.dropout_rate > 0.0:
-                # no dropout in last layer, or if deterministic output is required 
-                advantage_stream = F.dropout(advantage_stream, p=self.dropout_rate)
-            advantage_stream = mask_output(advantage_stream, mask)
-
-        if self.actions_in_state_space:
-            # adapt dimensions
-            value_stream = value_stream.squeeze(-1)
-            advantage_stream = advantage_stream.squeeze(-1) # batch x actions x 1 -> batch x actions (because we only have 1 output here)
-            
-        # calculate advantage mean
-        advantage_stream_mean = advantage_stream.sum(-1) / num_actions
-        # combine value and advantage streams into Q values
-        q = value_stream + advantage_stream - advantage_stream_mean.unsqueeze(-1) # batch x actions
-
-        return q
-       
-    def _predict(self, observation: th.Tensor, deterministic: bool = True) -> th.Tensor:
-        q_values = self(observation, deterministic=deterministic)
-        if self.actions_in_state_space:
-            # obs: batch x actions x state
-            mask = (observation.abs().sum(-1) == 0.0) # batch x actions
-            q_values = th.masked_fill(q_values, mask, float('-inf'))
-
-        # Greedy action
-        action = q_values.argmax(dim=-1).reshape(-1)
-        return action
-    
-
- 
-class CustomDuelingQNetworkWithIntentPrediction(CustomDuelingQNetwork):
-    action_space: spaces.Discrete
-    def __init__(
-        self,
-        observation_space: spaces.Space,
-        action_space: spaces.Discrete,
-        shared_layer_sizes: List[int],
-        value_layer_sizes: List[int],
-        advantage_layer_sizes: List[int],
-        state_dims: StateDims,
-        normalization_layers: bool = False,
-        dropout_rate: float = 0.0,
-        activation_fn: Type[nn.Module] = nn.ReLU,
-    ) -> None:
-        super().__init__(
-            observation_space=observation_space,
-            action_space=action_space,
-            shared_layer_sizes=shared_layer_sizes,
-            value_layer_sizes=value_layer_sizes,
-            advantage_layer_sizes=advantage_layer_sizes,
-            state_dims=state_dims,
-            normalization_layers=normalization_layers,
-            dropout_rate=dropout_rate,
-            activation_fn=activation_fn
-        )
-
-        # intent prediction head
-        self.intent_head = nn.Sequential(
-            nn.Linear(shared_layer_sizes[-1], 256),
-            nn.SELU(),
-            nn.Dropout(p=dropout_rate),
-            nn.Linear(256, 1)
-        )
-
-    def forward(self, obs: th.Tensor) -> th.Tensor:
-        """
-        Predict the q-values.
-
-        :param obs: Observation
-        :return: The estimated Q-Value for each action.
-        """
-        # preprocess inputs
-        mask = None # mask will be 0.0 for rows that should be masked, so we can multiply with them and eliminate gradient propagation for these
-        num_actions = self.state_dims.num_actions
-        state_input = obs
-        if self.actions_in_state_space:
-            # obs: batch x actions x state
-            mask = (~(obs.abs().sum(-1) == 0.0)).float() # batch x actions
-            num_actions = mask.sum(-1) # batch (contains number of actions per batch)
-
-            state_input = obs[:, :, :self.state_input_size] # state input portion of input
-            action_input = obs[:, :, self.state_input_size:] # action input portion of input
-
-            state_input = (state_input, mask.unsqueeze(-1)) # input requires mask now
-            action_input = (action_input, mask.unsqueeze(-1)) # input requires mask now
-            
-            action_stream = self.action_input_net(action_input)
-        
-        # calculate streams
-        shared_stream = self.shared_net(state_input)
-        value_stream = self.value_net(shared_stream)
-        advantage_stream = shared_stream
-        if self.actions_in_state_space:
-            advantage_stream = th.cat((advantage_stream, action_stream), -1)
-        advantage_stream = self.advantage_net(shared_stream)
-
-        if self.actions_in_state_space:
-            # unpack values from (value, mask) tuples and adapt dimensions
-            value_stream = value_stream[0]
-            value_stream = value_stream.squeeze(-1)
-            advantage_stream = advantage_stream[0]
-            advantage_stream = advantage_stream.squeeze(-1) # batch x actions x 1 -> batch x actions (because we only have 1 output here)
-            
-        # calculate advantage mean
-        advantage_stream_mean = advantage_stream.sum(-1) / num_actions
-        # combine value and advantage streams into Q values
-        q = value_stream + advantage_stream - advantage_stream_mean.unsqueeze(1) # batch x actions
-
-        # intent prediction
-        intent_logits = shared_stream.mean(dim=1) if self.actions_in_state_space else shared_stream  # batch x shared_dim
-        intent_logits = self.intent_head(intent_logits) # batch x 1
-        
-        return q, intent_logits
-       
-    def _predict(self, observation: th.Tensor, deterministic: bool = True) -> th.Tensor:
-        q_values, intent_logits = self(observation)
-        if self.actions_in_state_space:
-            # obs: batch x actions x state
-            mask = (observation.abs().sum(-1) == 0.0) # batch x actions
-            q_values = th.masked_fill(q_values, mask, float('-inf'))
-
-        # Greedy action
-        action = q_values.argmax(dim=1).reshape(-1)
-        return action, intent_logits
-    
-
-
-def to_class(path:str):
-    from pydoc import locate
-    class_instance = locate(path)
-    return class_instance
-
-
-class CustomDQNPolicy(DQNPolicy):
-    """
-    Policy class with Q-Value Net and target net for DQN
-
-    :param observation_space: Observation space
-    :param action_space: Action space
-    :param lr_schedule: Learning rate schedule (could be constant)
-    :param net_arch: The specification of the policy and value networks.
-    :param activation_fn: Activation function
-    :param features_extractor_class: Features extractor to use.
-    :param features_extractor_kwargs: Keyword arguments
-        to pass to the features extractor.
-    :param normalize_images: Whether to normalize images or not,
-         dividing by 255.0 (True by default)
-    :param optimizer_class: The optimizer to use,
-        ``th.optim.Adam`` by default
-    :param optimizer_kwargs: Additional keyword arguments,
-        excluding the learning rate, to pass to the optimizer
-    """
-    def __init__(
-        self,
-        observation_space: spaces.Space,
-        action_space: spaces.Discrete,
-        lr_schedule: Schedule,
-        net_arch,
-        normalization_layers: bool = False,
-        activation_fn: Type[nn.Module] = nn.ReLU,
-        features_extractor_class: Type[BaseFeaturesExtractor] = FlattenExtractor,
-        features_extractor_kwargs: Optional[Dict[str, Any]] = None,
-        normalize_images: bool = True,
-        optimizer_class: Type[th.optim.Optimizer] = th.optim.Adam,
-        optimizer_kwargs: Optional[Dict[str, Any]] = None,
-    ) -> None:
-        self.normalization_layers = normalization_layers
-
-        super().__init__(
-            observation_space,
-            action_space,
-            lr_schedule,
-            net_arch, # net_arch -> replaced here by hidden_layer_sizes
-            activation_fn,
-            features_extractor_class,
-            features_extractor_kwargs,
-            optimizer_class=optimizer_class,
-            optimizer_kwargs=optimizer_kwargs,
-            normalize_images=normalize_images,
-        )
-
-    def make_q_net(self) -> QNetwork:
-        # Make sure we always have separate networks for features extractors etc
-        net_args = deepcopy(self._update_features_extractor(self.net_args, features_extractor=None))
-        del net_args['normalize_images']
-        del net_args['features_extractor']
-        del net_args['features_dim']
-        del net_args['activation_fn']
-        
-        arch = net_args.pop('net_arch')
-        net_cls = to_class(arch.pop('net_cls'))
-
-        return th.compile(net_cls(**net_args, **arch).to(self.device))
+        if not deterministic and np.random.rand() < self.exploration_rate:
+            if self.policy.is_vectorized_observation(observation):
+                if isinstance(observation, dict):
+                    n_batch = observation[list(observation.keys())[0]].shape[0]
+                else:
+                    n_batch = observation.shape[0]
+                action = np.array([self.action_space.sample() for _ in range(n_batch)])
+            else:
+                action = np.array(self.action_space.sample())
+        else:
+            action, state, intent_classes = self.policy.predict(observation, state, episode_start, deterministic)
+            return action, intent_classes # abuse state return since we don't have recurrent policies
+        return action, None

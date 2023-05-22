@@ -35,6 +35,7 @@ class CTSEnvironment(gymnasium.Env):
         self.goal_distance_mode = goal_distance_mode
         self.goal_distance_increment = goal_distance_increment
         self.data = dataset
+        self.mode = mode
 
         self.max_reward = 4 * dataset.get_max_tree_depth() if normalize_rewards else 1.0
         self.max_distance = dataset.get_max_tree_depth() + 1  if goal_distance_mode == GoalDistanceMode.FULL_DISTANCE else 2 # set max. or min. distance to start

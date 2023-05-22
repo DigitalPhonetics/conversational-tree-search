@@ -176,16 +176,28 @@ class CustomVecEnv(VecEnv):
         return [self.envs[i] for i in indices]
 
     def stats_asked_goals_free(self):
-        return mean(itertools.chain(*[env.free_env.asked_goals for env in self.envs if hasattr(env, "free_env")]))
+        values = list(itertools.chain(*[env.free_env.asked_goals for env in self.envs if hasattr(env, "free_env")]))
+        if len(values) == 0:
+            return 0.0
+        return mean(values)
 
     def stats_asked_goals_guided(self):
-        return mean(itertools.chain(*[env.guided_env.asked_goals for env in self.envs if hasattr(env, "guided_env")]))
+        values = list(itertools.chain(*[env.guided_env.asked_goals for env in self.envs if hasattr(env, "guided_env")]))
+        if len(values) == 0:
+            return 0.0
+        return mean(values)
 
     def stats_reached_goals_free(self):
-        return mean(itertools.chain(*[env.free_env.reached_goals for env in self.envs if hasattr(env, "free_env")]))
+        values = list(itertools.chain(*[env.free_env.reached_goals for env in self.envs if hasattr(env, "free_env")]))
+        if len(values) == 0:
+            return 0.0
+        return mean(values)
 
     def stats_reached_goals_guided(self):
-        return mean(itertools.chain(*[env.guided_env.reached_goals for env in self.envs if hasattr(env, "guided_env")]))
+        values = list(itertools.chain(*[env.guided_env.reached_goals for env in self.envs if hasattr(env, "guided_env")]))
+        if len(values) == 0:
+            return 0.0
+        return mean(values)
     
     def stats_goal_node_coverage_free(self):
         coverage_dicts = [env.free_env.goal_node_coverage for env in self.envs if hasattr(env, "free_env")]
