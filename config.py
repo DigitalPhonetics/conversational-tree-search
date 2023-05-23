@@ -12,7 +12,12 @@ from encoding.text.base import TextEmbeddingConfig
 from utils.envutils import GoalDistanceMode
 
 
-INSTANCES = {}
+class InstanceArgs(Enum):
+    MAX_DISTANCE = 'max_distance'
+
+INSTANCES = {
+    InstanceArgs.MAX_DISTANCE: 0
+}
 
 
 class WandbLogLevel(Enum):

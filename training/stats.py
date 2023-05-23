@@ -190,6 +190,23 @@ class CustomEvalCallback(EventCallback):
                     timesteps=self.evaluations_timesteps,
                     results=self.evaluations_results,
                     ep_lengths=self.evaluations_length,
+                    goal_asked_free=self.goal_asked_free,
+                    goal_asked_guided=self.goal_asked_guided,
+                    goal_reached_free=self.goal_reached_free,
+                    goal_reached_guided=self.goal_reached_guided,
+                    goal_node_coverage_free=self.goal_node_coverage_free,
+                    goal_node_coverage_guided=self.goal_node_coverage_guided,
+                    node_coverage=self.node_coverage,
+                    synonym_coverage_questions=self.synonym_coverage_questions,
+                    synonym_coverage_answers=self.synonym_coverage_answers,
+                    actioncount_skips_invalid=self.actioncount_skips_invalid,
+                    actioncount_ask_variable_irrelevant=self.actioncount_ask_variable_irrelevant,
+                    actioncount_ask_question_irrelevant=self.actioncount_ask_question_irrelevant,
+                    actioncount_missingvariable=self.actioncount_missingvariable,
+                    intent_accuracies=self.intent_accuracies,
+                    intent_consistencies=self.intent_consistencies,
+                    free_dialogs=self.free_dialogs,
+                    guided_dialogs=self.guided_dialogs,
                     **kwargs,
                 )
 
@@ -229,6 +246,7 @@ class CustomEvalCallback(EventCallback):
                 self.logger.record(f"{self.mode}/intent_accuracy", self.intent_accuracies[-1])
                 self.logger.record(f"{self.mode}/intent_consistency", self.intent_consistencies[-1])
 
+            self.logger.record(f"{self.mode}/max_goal_distance", self.eval_env.envs[0].max_distance)
             self.logger.record(f"{self.mode}/free_dialog_percentage", self.free_dialogs[-1])
             self.logger.record(f"{self.mode}/guided_dialog_percentage", self.guided_dialogs[-1])
             self.logger.record(f"{self.mode}/goal_asked_free", self.goal_asked_free[-1])
@@ -243,7 +261,7 @@ class CustomEvalCallback(EventCallback):
             self.logger.record(f"{self.mode}/total_coverage_questions", len(self.cumulative_coverage_questions) / len(self.eval_env.envs[0].data.question_list))
             self.logger.record(f"{self.mode}/epoch_coverage_questions", self.synonym_coverage_questions[-1])
             self.logger.record(f"{self.mode}/total_coverage_answers", len(self.cumulative_coverage_answers) / self.eval_env.envs[0].data.num_answer_synonyms)
-            self.logger.record(f"{self.mode}/epoch_overage_answers", self.synonym_coverage_answers[-1])
+            self.logger.record(f"{self.mode}/epoch_coverage_answers", self.synonym_coverage_answers[-1])
             self.logger.record(f"{self.mode}/actioncount_skips_invalid", self.actioncount_skips_invalid[-1])
             self.logger.record(f"{self.mode}/actioncount_ask_variable_irrelevant", self.actioncount_ask_variable_irrelevant[-1])
             self.logger.record(f"{self.mode}/actioncount_ask_question_irrelevant", self.actioncount_ask_question_irrelevant[-1])

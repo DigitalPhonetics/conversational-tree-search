@@ -50,7 +50,7 @@ class GuidedEnvironment(BaseEnv):
                 print("VALUE ERROR")
                 continue
 
-        self.coverage_answer_synonyms[self.goal.initial_user_utterance.replace("?", "")] += 1
+        self.coverage_answer_synonyms[self.goal.initial_user_utterance.lower().replace("?", "")] += 1
         
         self.episode_log.append(f'{self.env_id}-{self.current_episode}$ MODE: GUIDED') 
         return self.post_reset()
@@ -124,7 +124,7 @@ class GuidedEnvironment(BaseEnv):
                     else:
                         answer = self.current_node.answer_by_key(response.answer_key)
                         self.current_user_utterance = rand_remove_questionmark(random.choice(self.data.answer_synonyms[answer.text.lower()]))
-                    self.coverage_answer_synonyms[self.current_user_utterance.replace("?", "")] += 1
+                    self.coverage_answer_synonyms[self.current_user_utterance.lower().replace("?", "")] += 1
         return done, reward
 
     def skip(self, answer_index: int) -> Tuple[bool, float]:

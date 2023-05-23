@@ -48,7 +48,7 @@ class FreeEnvironment(BaseEnv):
                 print("VALUE ERROR")
                 continue
 
-        self.coverage_question_synonyms[self.goal.initial_user_utterance.replace("?", "")] += 1
+        self.coverage_question_synonyms[self.goal.initial_user_utterance.lower().replace("?", "")] += 1
 
         self.episode_log.append(f'{self.env_id}-{self.current_episode}$ MODE: Free') 
         return self.post_reset()
@@ -117,7 +117,7 @@ class FreeEnvironment(BaseEnv):
                     else:
                         answer = self.current_node.answer_by_key(response.answer_key)
                         self.current_user_utterance = rand_remove_questionmark(random.choice(self.data.answer_synonyms[answer.text.lower()]))
-                    self.coverage_answer_synonyms[self.current_user_utterance.replace("?", "")] += 1
+                    self.coverage_answer_synonyms[self.current_user_utterance.lower().replace("?", "")] += 1
             # info nodes don't require special handling
 
         return done, reward

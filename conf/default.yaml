@@ -7,7 +7,7 @@ defaults:
   
   # model, algorithm & optimizer
   - optimizer@experiment.optimizer: adam
-  - net_arch@experiment.policy.net_arch: dqn/decoupled_dueling_dqn
+  - net_arch@experiment.policy.net_arch: dqn/decoupled_dueling_dqn_with_intentprediction
   - algorithm@experiment.algorithm: dqn/dqn
 
   # embeddings
@@ -72,8 +72,8 @@ experiment:
     sys_token: "[SYS]"
     usr_token: "[USR]"
     sep_token: ""
-    goal_distance_mode: FULL_DISTANCE # FULL_DISTANCE, INCREMENT_EVERY_N_EPISODES
-    goal_distance_increment: 1000 # increment distance by 1 after N episodes - will be ignored if goal distance mode is different from INCREMENT_EVERY_N_EPISODES
+    goal_distance_mode: INCREMENT_EVERY_N_EPISODES # FULL_DISTANCE, INCREMENT_EVERY_N_EPISODES
+    goal_distance_increment: 100 # increment distance by 1 after N * #TRAIN_ENVS episodes - will be ignored if goal distance mode is different from INCREMENT_EVERY_N_EPISODES
   actions:
     in_state_space: true
     action_masking: true

@@ -13,6 +13,7 @@ from chatbot.adviser.app.rl.utils import AutoSkipMode
 from environment.free import FreeEnvironment
 from environment.guided import GuidedEnvironment
 from utils.envutils import GoalDistanceMode
+import config as cfg
 
 import gymnasium
 
@@ -38,7 +39,8 @@ class CTSEnvironment(gymnasium.Env):
         self.mode = mode
 
         self.max_reward = 4 * dataset.get_max_tree_depth() if normalize_rewards else 1.0
-        self.max_distance = dataset.get_max_tree_depth() + 1  if goal_distance_mode == GoalDistanceMode.FULL_DISTANCE else 2 # set max. or min. distance to start
+        self.max_distance = dataset.get_max_tree_depth() + 1  if goal_distance_mode == GoalDistanceMode.FULL_DISTANCE else 1 # set max. or min. distance to start
+        cfg.INSTANCES[cfg.InstanceArgs.MAX_DISTANCE] = self.max_distance
 
         # text parsers
         answer_parser = AnswerTemplateParser()
@@ -76,8 +78,12 @@ class CTSEnvironment(gymnasium.Env):
 
     def reset(self):
         # adapt max. goald distance
-        if self.goal_distance_mode == GoalDistanceMode.INCREMENT_EVERY_N_EPISODES:
-            self.max_distance = self.current_episode // self.goal_distance_increment
+        if self.mode == "train" and self.goal_distance_mode == GoalDistanceMode.INCREMENT_EVERY_N_EPISODES:
+            # don't adapt in evaluation / testing, because we have less episodes there 
+            self.max_distance = max(self.current_episode // self.goal_distance_increment, 1)
+            cfg.INSTANCES[cfg.InstanceArgs.MAX_DISTANCE] = self.max_distance
+        elif not self.mode == "train":
+            self.max_distance = cfg.INSTANCES[cfg.InstanceArgs.MAX_DISTANCE]
 
         # choose uniformely at random between guided and free env according to ratio
         self.active_env = self.guided_env if random.random() < self.guided_free_ratio else self.free_env
