@@ -74,7 +74,12 @@ class CTSEnvironment(gymnasium.Env):
     
     @property
     def current_episode(self):
-        return self.guided_env.current_episode + self.free_env.current_episode
+        episode = 0
+        if hasattr(self, "guided_env"):
+            episode += self.guided_env.current_episode
+        if hasattr(self, "free_env"):
+            episode += self.free_env.current_episode
+        return episode
 
     def reset(self):
         # adapt max. goald distance
