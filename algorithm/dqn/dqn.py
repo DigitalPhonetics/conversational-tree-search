@@ -25,7 +25,7 @@ from stable_baselines3.dqn.policies import CnnPolicy, DQNPolicy, MlpPolicy, Mult
 
 from algorithm.dqn.policy import CustomDQNPolicy
 from chatbot.adviser.app.rl.utils import EnvInfo
-
+import config as cfg
 
 SelfDQN = TypeVar("SelfDQN", bound="CustomDQN")
 
@@ -196,6 +196,7 @@ class CustomDQN(DQN):
 
         self.logger.record("train/n_updates", self._n_updates, exclude="tensorboard")
         self.logger.record("train/td_loss", np.mean(td_losses))
+        self.logger.record("train/max_goal_distance", cfg.INSTANCES[cfg.InstanceArgs.MAX_DISTANCE])
         if self.policy.intent_prediction:
             self.logger.record("train/intent_loss", np.mean(intent_losses))
 
