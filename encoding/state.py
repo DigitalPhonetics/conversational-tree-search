@@ -47,6 +47,7 @@ class StateEncoding:
     """
     def __init__(self, cache: Cache, state_config: StateConfig, action_config: ActionConfig, data: GraphDataset) -> None:
         self.cache = cache
+        self.data = data
         self.state_config = state_config
         self.action_config = action_config
         self.space_dims = self._get_space_dims(state_config=state_config, action_config=action_config, data=data)
@@ -100,7 +101,7 @@ class StateEncoding:
                                         num_actions(state) x state_dim, else (NOTE num_actions varies with state!)
         """
 
-        node: DialogNode = observation[EnvInfo.DIALOG_NODE]
+        node: DialogNode = self.data.nodes_by_key[observation[EnvInfo.DIALOG_NODE_KEY]]
 
         # encode state
         state_encoding = []
@@ -113,7 +114,7 @@ class StateEncoding:
         if self.state_config.node_type:
             state_encoding.append(self.cache.node_type_encoding.encode(dialog_node=node))
         if self.state_config.node_text and self.state_config.node_text.active:
-            state_encoding.append(self.cache.encode_text(state_input_key=State.NODE_TEXT, text=observation[EnvInfo.DIALOG_NODE].text))
+            state_encoding.append(self.cache.encode_text(state_input_key=State.NODE_TEXT, text=node.text))
         if self.state_config.initial_user_utterance and self.state_config.initial_user_utterance.active:
             state_encoding.append(self.cache.encode_text(state_input_key=State.INITIAL_USER_UTTERANCE, text=observation[EnvInfo.INITIAL_USER_UTTERANCE]))
         if self.state_config.dialog_history and self.state_config.dialog_history.active:
@@ -173,7 +174,7 @@ class StateEncoding:
         return state_encoding.squeeze()
 
     def batch_encode(self, observation: List[Dict[EnvInfo, Any]], sys_token: str, usr_token: str, sep_token: str):
-        nodes: List[DialogNode] = [obs[EnvInfo.DIALOG_NODE] for obs in observation]
+        nodes: List[DialogNode] = [self.data.nodes_by_key[obs[EnvInfo.DIALOG_NODE_KEY]] for obs in observation]
 
         state_encoding = []
         if self.state_config.beliefstate:
@@ -185,7 +186,7 @@ class StateEncoding:
         if self.state_config.node_type:
             state_encoding.append(self.cache.node_type_encoding.batch_encode(dialog_node=nodes))
         if self.state_config.node_text and self.state_config.node_text.active:
-            state_encoding.append(self.cache.batch_encode_text(state_input_key=State.NODE_TEXT, text=[obs[EnvInfo.DIALOG_NODE].text for obs in observation]))
+            state_encoding.append(self.cache.batch_encode_text(state_input_key=State.NODE_TEXT, text=[node.text for node in nodes]))
         if self.state_config.initial_user_utterance and self.state_config.initial_user_utterance.active:
             state_encoding.append(self.cache.batch_encode_text(state_input_key=State.INITIAL_USER_UTTERANCE, text=[obs[EnvInfo.INITIAL_USER_UTTERANCE] for obs in observation]))
         if self.state_config.dialog_history and self.state_config.dialog_history.active:

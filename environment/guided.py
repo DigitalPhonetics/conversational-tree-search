@@ -2,7 +2,7 @@ from copy import deepcopy
 import random
 from typing import Tuple, Union
 
-from chatbot.adviser.app.rl.goal import ImpossibleGoalError, UserGoalGenerator
+from chatbot.adviser.app.rl.goal import DummyGoal, ImpossibleGoalError, UserGoalGenerator
 from chatbot.adviser.app.rl.utils import rand_remove_questionmark
 from chatbot.adviser.app.systemTemplateParser import SystemTemplateParser
 from config import ActionType
@@ -22,7 +22,7 @@ class GuidedEnvironment(BaseEnv):
     def __init__(self,dataset: GraphDataset, 
             sys_token: str, usr_token: str, sep_token: str,
             max_steps: int, max_reward: float, user_patience: int,
-            stop_when_reaching_goal: bool,
+            stop_when_reaching_goal: bool, stop_on_invalid_skip: bool,
             answer_parser: AnswerTemplateParser, system_parser: SystemTemplateParser, logic_parser: LogicTemplateParser,
             value_backend: RealValueBackend,
             auto_skip: AutoSkipMode) -> None:
@@ -30,16 +30,16 @@ class GuidedEnvironment(BaseEnv):
             sys_token=sys_token, usr_token=usr_token, sep_token=sep_token,
             max_steps=max_steps, max_reward=max_reward, user_patience=user_patience,
             answer_parser=answer_parser, logic_parser=logic_parser, value_backend=value_backend,
-            auto_skip=auto_skip)
+            auto_skip=auto_skip, stop_on_invalid_skip=stop_on_invalid_skip)
         self.goal_gen = UserGoalGenerator(graph=dataset, answer_parser=answer_parser,
             system_parser=system_parser, value_backend=value_backend)
         self.stop_when_reaching_goal = stop_when_reaching_goal
 
 
-    def reset(self, current_episode: int, max_distance: int):
+    def reset(self, current_episode: int, max_distance: int, replayed_goal: DummyGoal = None):
         self.pre_reset()
 
-        self.goal = None
+        self.goal = replayed_goal
         while not self.goal:
             try:
                 self.goal = self.goal_gen.draw_goal_guided(max_distance)
@@ -50,7 +50,7 @@ class GuidedEnvironment(BaseEnv):
                 print("VALUE ERROR")
                 continue
 
-        self.coverage_answer_synonyms[self.goal.initial_user_utterance.lower().replace("?", "")] += 1
+        self.coverage_answer_synonyms[self.goal.delexicalised_initial_user_utterance.lower().replace("?", "")] += 1
         
         self.episode_log.append(f'{self.env_id}-{self.current_episode}$ MODE: GUIDED') 
         return self.post_reset()
@@ -87,17 +87,30 @@ class GuidedEnvironment(BaseEnv):
 
             if self.current_node.node_type == NodeType.VARIABLE:
                 # get variable name and value
-                answer = self.current_node.answers[0]
-                var = self.answerParser.find_variable(answer.text)
+                var = self.answerParser.find_variable(self.current_node.answer_by_index(0).text)
 
                 # check if variable was already asked
                 if var.name in self.bst:
-                    reward -= 4 # variable value already known
-                    self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> VARIABLE ALREADY KNOWN')
-                else:
-                    # draw random variable
-                    self.bst[var.name] = VariableValue(var_name=var.name, var_type=var.type).draw_value(self.data) # variable is asked for the 1st time
-                self.current_user_utterance = str(deepcopy(self.bst[var.name]))
+                    reward -= 1 # variable value already known
+                
+                # get user reply and save to bst
+                var_instance = self.goal.get_user_input(self.current_node, self.bst, self.data, self.answerParser)
+                self.bst[var.name] = var_instance.var_value
+                self.current_user_utterance = str(deepcopy(var_instance.var_value))
+
+                if not var_instance.relevant:
+                    # asking for irrelevant variable is bad
+                    reward -= 2
+                    self.actioncount_ask_variable_irrelevant += 1
+                    self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> IRRELEVANT VAR: {var.name} ')
+                self.coverage_variables[var.name][self.bst[var.name]] += 1
+                self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> VAR NAME: {var.name}, VALUE: {self.bst[var.name]}')
+
+                if not var_instance.relevant:
+                    # asking for irrelevant variable is bad
+                    reward -= 2
+                    self.actioncount_ask_variable_irrelevant += 1
+                    self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> IRRELEVANT VAR: {var.name} ')
                 self.coverage_variables[var.name][self.bst[var.name]] += 1
                 self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> VAR NAME: {var.name}, VALUE: {self.bst[var.name]}')
             elif self.current_node.node_type == NodeType.QUESTION:
@@ -126,22 +139,28 @@ class GuidedEnvironment(BaseEnv):
                         self.current_user_utterance = rand_remove_questionmark(random.choice(self.data.answer_synonyms[answer.text.lower()]))
                     self.coverage_answer_synonyms[self.current_user_utterance.lower().replace("?", "")] += 1
         return done, reward
+    
+    @property
+    def reward_reached_goal(self) -> int:
+        return 15
 
     def skip(self, answer_index: int) -> Tuple[bool, float]:
         done = False
         reward = 0.0
 
         next_node = self.get_transition(answer_index)
-        if (not next_node) or next_node.key not in self.goal.path.visited_ids:
+        if (not next_node) or((next_node.node_type != NodeType.LOGIC) and (next_node.key not in self.goal.visited_ids)):
             # skipping is good after ask, but followup-node is wrong!
             # -> terminate episode here
             reward -= self.max_reward / 4
             self.actioncount_skip_invalid += 1
             self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> INVALID SKIP OR WRONG FOLLOWUP NODE')
-            done = True
-        else:
+            # done = True
+        if next_node:
+            self.current_node = next_node
+
             if self.goal.has_reached_goal_node(self.current_node):
-                reward += 5 # assign a reward for reaching the goal (but not asked yet, because this was a skip)
+                reward += self.reward_reached_goal # assign a reward for reaching the goal (but not asked yet, because this was a skip)
                 self.reached_goal_once = True
                 self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> REACHED GOAL')
 
@@ -164,9 +183,6 @@ class GuidedEnvironment(BaseEnv):
             else: 
                 reward += 3 # skipping is good after ask, and we chose next node correctly
                 self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> SKIPPED TO CORRECT NODE')
-        # progress to next node, if possible, and update goal
-        if next_node:
-            self.current_node = next_node
         return done, reward
 
     def reached_goal(self) -> bool:

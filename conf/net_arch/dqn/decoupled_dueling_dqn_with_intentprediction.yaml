@@ -1,7 +1,7 @@
 net_cls: algorithm.dqn.architecture.CustomDuelingQNetworkWithIntentPrediction
-shared_layer_sizes: [8096, 4096, 4096]
-value_layer_sizes: [2048, 1024]
-advantage_layer_sizes: [128]
+shared_layer_sizes: [8096, 8096, 4096, 4096]
+value_layer_sizes: [2048, 1024, 512]
+advantage_layer_sizes: [2048, 1024, 512]
 dropout_rate: 0.25
 normalization_layers: false
 intent_loss_weight: 0.1

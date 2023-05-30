@@ -9,31 +9,60 @@ from statistics import mean
 from typing import Dict, List
 import torch
 
-from chatbot.adviser.app.encoding.text import FinetunedGBertEmbeddings, GBertEmbeddings, SentenceEmbeddings
+from encoding.text.gbert import FinetunedGBertEmbeddings, GBertEmbeddings
+from encoding.text.sbert import SentenceEmbeddings
 
 resource_dir = Path(".", 'chatbot', 'static', 'chatbot', 'nlu_resources')
 
-class StateEntry(Enum):
-    DIALOG_NODE = 'dialog_node'
-    DIALOG_NODE_KEY = "dialog_node_key"
-    ORIGINAL_USER_UTTERANCE = "original_user_utterance"
-    CURRENT_USER_UTTERANCE = "current_user_utterance"
-    SYSTEM_UTTERANCE_HISTORY = "system_utterance_history"
-    USER_UTTERANCE_HISTORY = 'user_utterance_history'
-    BST = 'bst'
-    LAST_SYSACT = "last_sysact"
+
+
+
+
+class State(Enum):
+    # embeddable state
+    LAST_SYSACT = "last_system_action"
+    BELIEFSTATE = 'beliefstate'
+    NODE_POSITION = 'node_positions' # position in tree 
+    NODE_TYPE = 'node_type'
+    NODE_TEXT = 'node_text'
+    INITIAL_USER_UTTERANCE = "initial_user_utterance"
     DIALOG_HISTORY = 'dialog_history'
-    NOISE = "noise"
+
+    # embeddable action state
+    ACTION_TEXT = "action_text"
+    ACTION_POSITION = 'action_position' # position in tree
+
+    # always embedded
+    CURRENT_USER_UTTERANCE = "current_user_utterance"
+
 
 class EnvInfo(Enum):
-    NODE_KEY = "node_key"
-    PREV_NODE_KEY = 'prev_node_key'
+    # STATE INFO
+    DIALOG_NODE_KEY = 'dialog_node'
+    # PREV_NODE_KEY = 'prev_node'
+    BELIEFSTATE = 'beliefstate'
+    
+    # STEP INFO
     EPISODE_REWARD = "episode_reward"
     EPISODE_LENGTH = "current_step"
     EPISODE = "current_episode"
+    LAST_SYSTEM_ACT = "last_system_act"
+    LAST_VALID_SKIP_TRANSITION_IDX = "last_valid_skip_transition_idx"
+    
+    # GOAL INFO
     REACHED_GOAL_ONCE = "reached_goal_once"
     ASKED_GOAL = "asked_goal"
-    IS_FAQ = "is_faq_mode"
+    GOAL = "goal"
+    
+    # ENV INFO
+    ENV_MODE = "env_mode"
+    IS_FAQ = "is_faq"
+    
+    # TEXTS
+    INITIAL_USER_UTTERANCE = "initial_user_utterance"
+    CURRENT_USER_UTTERANCE = "current_user_utterance"
+    USER_UTTERANCE_HISTORY = 'user_utterance_history'
+    SYSTEM_UTTERANCE_HISTORY = "system_utterance_history"
 
 
 class AutoSkipMode(Enum):

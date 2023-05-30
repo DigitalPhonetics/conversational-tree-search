@@ -81,7 +81,7 @@ class CustomVecEnv(VecEnv):
                 obs = self.envs[env_idx].reset()
             self._save_obs(env_idx, obs)
 
-        # TODO here: batch encode!
+        # batch encode!
         return (self._obs_from_buf(), np.copy(self.buf_rews), np.copy(self.buf_dones), deepcopy(self.buf_infos))
 
 

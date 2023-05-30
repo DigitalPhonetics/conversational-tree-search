@@ -5,6 +5,8 @@ from hydra.utils import instantiate
 from omegaconf import OmegaConf
 from algorithm.dqn.buffer import CustomReplayBuffer
 from algorithm.dqn.dqn import CustomDQN
+from algorithm.dqn.her import HindsightExperienceReplayWrapper
+from chatbot.adviser.app.rl.utils import AutoSkipMode
 
 from config import INSTANCES, ActionConfig, InstanceType, StateConfig, WandbLogLevel, register_configs, EnvironmentConfig, DatasetConfig
 from data.cache import Cache
@@ -138,6 +140,7 @@ def load_cfg(cfg):
                         n_eval_episodes=cfg.experiment.testing.dialogs))
     
     # trainer = instantiate(cfg.experiment)
+    INSTANCES[InstanceType.STATE_ENCODING] = state_encoding
 
     from stable_baselines3 import HerReplayBuffer
     # check_env(train_env)
@@ -151,7 +154,27 @@ def load_cfg(cfg):
         "activation_fn": to_class(cfg.experiment.policy.activation_fn),   
         "net_arch": net_arch
     }
+    # TODO load from file
+    replay_buffer_kwargs = {
+        "num_train_envs": cfg.experiment.environment.num_train_envs,
+        "batch_size": cfg.experiment.algorithm.dqn.batch_size,
+        "dataset": train_data,
+        "append_ask_action": False,
+        # "state_encoding": state_encoding,
+        "auto_skip": AutoSkipMode.NONE,
+        "normalize_rewards": True,
+        "stop_when_reaching_goal": cfg.experiment.environment.stop_when_reaching_goal,
+        "stop_on_invalid_skip": cfg.experiment.environment.stop_on_invalid_skip,
+        "max_steps": cfg.experiment.environment.max_steps,
+        "user_patience": cfg.experiment.environment.user_patience,
+        "sys_token": cfg.experiment.environment.sys_token,
+        "usr_token": cfg.experiment.environment.usr_token,
+        "sep_token": cfg.experiment.environment.sep_token
+    }
+    replay_buffer_class = HindsightExperienceReplayWrapper
+    # replay_buffer_class = CustomReplayBuffer
     model = CustomDQN(policy=to_class(cfg.experiment.policy._target_), policy_kwargs=policy_kwargs,
+                seed=cfg.experiment.seed,
                 env=train_env, 
                 batch_size=cfg.experiment.algorithm.dqn.batch_size,
                 verbose=1, device=cfg.experiment.device,  
@@ -160,12 +183,15 @@ def load_cfg(cfg):
                 buffer_size=cfg.experiment.algorithm.dqn.buffer.backend.buffer_size, 
                 learning_starts=cfg.experiment.algorithm.dqn.warmup_turns,
                 gamma=cfg.experiment.algorithm.dqn.gamma,
-                train_freq=cfg.experiment.algorithm.dqn.train_frequency,
+                train_freq=max(cfg.experiment.training.every_steps // cfg.experiment.environment.num_train_envs, 1),
                 target_update_interval=cfg.experiment.algorithm.dqn.target_network_update_frequency * cfg.experiment.environment.num_train_envs,
                 max_grad_norm=cfg.experiment.algorithm.dqn.max_grad_norm,
                 tensorboard_log=f"runs/{run_id}",
-                replay_buffer_class=CustomReplayBuffer,
+                replay_buffer_class=replay_buffer_class,
                 optimize_memory_usage=False,
+                replay_buffer_kwargs=replay_buffer_kwargs,
+                action_masking=cfg.experiment.actions.action_masking,
+                actions_in_state_space=cfg.experiment.actions.in_state_space
             ) # TODO configure replay buffer class!
     
     model.learn(total_timesteps=cfg.experiment.algorithm.dqn.timesteps_per_reset, log_interval=cfg.experiment.logging.log_interval, progress_bar=False,

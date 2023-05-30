@@ -3,5 +3,5 @@ embedding_dim: 768
 cache_db_index: 2
 pooling: NONE
 noise_std: 0.0
-caching: true
+caching: false
 _target_: encoding.text.sbert.SentenceEmbeddings

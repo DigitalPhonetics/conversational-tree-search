@@ -34,12 +34,11 @@ experiment:
   training:
     noise: 0.3
     every_steps: 128
-    steps: 1000000
     dataset:
       use_answer_synonyms: true
   validation:
     noise: 0.0
-    every_steps: 10000
+    every_steps: 25000
     dialogs: 500
     dataset:
       use_answer_synonyms: true
@@ -58,7 +57,8 @@ experiment:
   # model:
   #   hidden_layer_sizes: [1024, 1024]
   algorithm:
-    blubb: 0.1
+    dqn:
+      timesteps_per_reset: 2500000
   environment:
     guided_free_ratio: 0.5
     auto_skip: NONE
@@ -66,13 +66,14 @@ experiment:
     max_steps: 50
     user_patience: 3
     stop_when_reaching_goal: true # stop after goal node was both reached + presented (ASK)
+    stop_on_invalid_skip: false # stop when taking a wrong path
     num_train_envs: 128
     num_val_envs: 100
     num_test_envs: 100
     sys_token: "[SYS]"
     usr_token: "[USR]"
     sep_token: ""
-    goal_distance_mode: INCREMENT_EVERY_N_EPISODES # FULL_DISTANCE, INCREMENT_EVERY_N_EPISODES
+    goal_distance_mode: FULL_DISTANCE # FULL_DISTANCE, INCREMENT_EVERY_N_EPISODES
     goal_distance_increment: 100 # increment distance by 1 after N * #TRAIN_ENVS episodes - will be ignored if goal distance mode is different from INCREMENT_EVERY_N_EPISODES
   actions:
     in_state_space: true

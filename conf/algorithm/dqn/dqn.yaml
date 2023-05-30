@@ -12,7 +12,6 @@ dqn:
   exploration_fraction: 0.99
   eps_start: 0.6
   eps_end: 0.0
-  train_frequency: 1
   warmup_turns: 1280
   target_network_update_frequency: 15
   q_value_clipping: 10.0

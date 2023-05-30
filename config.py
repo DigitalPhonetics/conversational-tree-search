@@ -39,6 +39,7 @@ class InstanceType(Enum):
     CACHE = 'cache'
     CONFIG = 'config'
     BUFFER = 'buffer'
+    STATE_ENCODING = 'state_encoding'
 
 @dataclass
 class CacheConfig:
@@ -58,7 +59,7 @@ class TrainingStageConfig:
 @dataclass
 class EvalStageConfig:
     dataset: DatasetConfig
-    every_steps: int
+    every_steps: int 
     noise: float
     dialogs: int
 
@@ -94,6 +95,7 @@ class EnvironmentConfig:
     max_steps: int
     user_patience: int
     stop_when_reaching_goal: bool 
+    stop_on_invalid_skip: bool
     num_train_envs: int 
     num_val_envs: int
     num_test_envs: int

@@ -22,6 +22,7 @@ from stable_baselines3.common.policies import BasePolicy
 from stable_baselines3.common.type_aliases import GymEnv, MaybeCallback, Schedule
 from stable_baselines3.common.utils import get_linear_fn, get_parameters_by_name, polyak_update
 from stable_baselines3.dqn.policies import CnnPolicy, DQNPolicy, MlpPolicy, MultiInputPolicy, QNetwork
+from algorithm.dqn.her import HindsightExperienceReplayWrapper
 
 from algorithm.dqn.policy import CustomDQNPolicy
 from chatbot.adviser.app.rl.utils import EnvInfo
@@ -109,6 +110,8 @@ class CustomDQN(DQN):
         seed: Optional[int] = None,
         device: Union[th.device, str] = "auto",
         _init_setup_model: bool = True,
+        action_masking: bool = False,
+        actions_in_state_space: bool = False
     ) -> None:
         super().__init__(
             policy=policy,
@@ -137,6 +140,8 @@ class CustomDQN(DQN):
             device=device,
             _init_setup_model=_init_setup_model
         )
+        self.action_masking = action_masking
+        self.actions_in_state_space = actions_in_state_space
 
     def train(self, gradient_steps: int, batch_size: int = 100) -> None:
         # Switch to train mode (this affects batch norm / dropout)
@@ -199,6 +204,26 @@ class CustomDQN(DQN):
         self.logger.record("train/max_goal_distance", cfg.INSTANCES[cfg.InstanceArgs.MAX_DISTANCE])
         if self.policy.intent_prediction:
             self.logger.record("train/intent_loss", np.mean(intent_losses))
+        if self.replay_buffer_class == HindsightExperienceReplayWrapper:
+            self.logger.record("rollout/total_aritificial_episodes", self.replay_buffer.artificial_episodes)
+            self.logger.record("rollout/her_mean_reward_free", self.replay_buffer.artificial_mean_episode_reward_free)
+            self.logger.record("rollout/hear_mean_reward_guided", self.replay_buffer.artificial_mean_episode_reward_guided)
+            self.logger.record("rollout/her_mean_success_free", self.replay_buffer.replay_success_mean_free)
+            self.logger.record("rollout/her_mean_success_guided", self.replay_buffer.replay_success_mean_guided)
+ 
+    def _draw_random_actions(self, observation: th.Tensor) -> np.ndarray:
+        if self.policy.is_vectorized_observation(observation):
+            if isinstance(observation, dict):
+                n_batch = observation[list(observation.keys())[0]].shape[0]
+            else:
+                n_batch = observation.shape[0]
+            mask = None
+            if self.actions_in_state_space:
+                mask = (~(observation.abs().sum(-1) == 0.0)).to(th.int8).numpy() # batch x actions
+            action = np.array([self.action_space.sample(mask=mask[batch_idx]) for batch_idx in range(n_batch)])
+        else:
+            action = np.array(self.action_space.sample())
+        return action
 
     def predict(
         self,
@@ -216,16 +241,61 @@ class CustomDQN(DQN):
         :param deterministic: Whether or not to return deterministic actions.
         :return: the model's action and the intent instead of the state (we can abuse state return here since we don't have recurrent policies)
         """
+        # TODO action masking for actions not in state space
         if not deterministic and np.random.rand() < self.exploration_rate:
-            if self.policy.is_vectorized_observation(observation):
-                if isinstance(observation, dict):
-                    n_batch = observation[list(observation.keys())[0]].shape[0]
-                else:
-                    n_batch = observation.shape[0]
-                action = np.array([self.action_space.sample() for _ in range(n_batch)])
-            else:
-                action = np.array(self.action_space.sample())
+            # exploration
+            action = self._draw_random_actions(observation)
         else:
+            # exploitation
+            # NOTE: masking is already built-in if actions_in_state_space = True
             action, state, intent_classes = self.policy.predict(observation, state, episode_start, deterministic)
             return action, intent_classes # abuse state return since we don't have recurrent policies
         return action, None
+
+    def _sample_action(
+        self,
+        learning_starts: int,
+        action_noise = None,
+        n_envs: int = 1,
+    ) -> Tuple[np.ndarray, np.ndarray]:
+        """
+        Sample an action according to the exploration policy.
+        This is either done by sampling the probability distribution of the policy,
+        or sampling a random action (from a uniform distribution over the action space)
+        or by adding noise to the deterministic output.
+
+        :param action_noise: Action noise that will be used for exploration
+            Required for deterministic policy (e.g. TD3). This can also be used
+            in addition to the stochastic policy for SAC.
+        :param learning_starts: Number of steps before learning for the warm-up phase.
+        :param n_envs:
+        :return: action to take in the environment
+            and scaled action that will be stored in the replay buffer.
+            The two differs when the action space is not normalized (bounds are not [-1, 1]).
+        """
+        # Select action randomly or according to policy
+        if self.num_timesteps < learning_starts and not (self.use_sde and self.use_sde_at_warmup):
+            # Warmup phase
+            unscaled_action = self._draw_random_actions(self._last_obs) # FIX to use our masks
+        else:
+            # Note: when using continuous actions,
+            # we assume that the policy uses tanh to scale the action
+            # We use non-deterministic action in the case of SAC, for TD3, it does not matter
+            unscaled_action, _ = self.predict(self._last_obs, deterministic=False)
+
+        # Rescale the action from [low, high] to [-1, 1]
+        if isinstance(self.action_space, spaces.Box):
+            scaled_action = self.policy.scale_action(unscaled_action)
+
+            # Add noise to the action (improve exploration)
+            if action_noise is not None:
+                scaled_action = np.clip(scaled_action + action_noise(), -1, 1)
+
+            # We store the scaled action in the buffer
+            buffer_action = scaled_action
+            action = self.policy.unscale_action(scaled_action)
+        else:
+            # Discrete case, no need to normalize or clip
+            buffer_action = unscaled_action
+            action = buffer_action
+        return action, buffer_action

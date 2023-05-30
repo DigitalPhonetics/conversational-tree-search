@@ -7,6 +7,7 @@ import random
 from typing import Dict, List, Set, Tuple
 
 import pandas as pd
+import torch 
 
 
 class NodeType(Enum):
@@ -102,6 +103,8 @@ class GraphDataset:
         self.num_answer_synonyms = sum([len(self.answer_synonyms[answer]) for answer in self.answer_synonyms])
         self._max_tree_depth = None
         self._max_node_degree = None
+
+        self.action_masks = self._calculate_action_masks()
 
         print("===== Dataset Statistics =====")
         print("- files: ", graph_path, answer_path)
@@ -224,6 +227,26 @@ class GraphDataset:
             self.cities = {city.lower(): city for city in city_synonyms.keys() if city != '$REST'}
             self.cities.update({city_syn.lower(): city for city, city_syns in city_synonyms.items()
                                 for city_syn in city_syns})
+       
+    def _calculate_action_masks(self) -> Dict[int, torch.IntTensor]:
+        """ Pre-calculate action mask per node s.t. it is usable without database lookups """
+        masks = {}
+        for node in self.node_list:
+            mask = torch.zeros(self.get_max_node_degree() + 1, dtype=torch.int8) # add ASK action
+            if node.node_type == NodeType.QUESTION:
+                skip_answer_count = len(node.answers)
+                if skip_answer_count > 0:
+                    mask[:skip_answer_count+1] = 1 # no invalid SKIP actions (0: ASK, 1,...N: SKIP)
+                elif skip_answer_count == 0:
+                    mask[0] = 1 # ASK, no skips because we have no answers
+            elif node.node_type in [NodeType.INFO, NodeType.VARIABLE]:
+                mask[:2] = 1 # no invalid SKIP actions (ASK and only 1 default SKIP possible)
+            else:
+                # don't care about startNode and logicNode, they are automatically processed without agent
+                continue
+            masks[node.key] = mask
+        return masks
+
 
     def _get_max_tree_depth(self) -> int:
         """ Return maximum tree depth (max. number of steps to leave node) in whole graph """

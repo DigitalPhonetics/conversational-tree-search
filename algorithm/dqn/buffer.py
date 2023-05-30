@@ -10,6 +10,7 @@ import numpy as np
 import torch as th
 
 from chatbot.adviser.app.rl.utils import EnvInfo
+from encoding.state import StateDims
 
 
 class CustomReplayBufferSamples(NamedTuple):
@@ -21,7 +22,7 @@ class CustomReplayBufferSamples(NamedTuple):
     infos: List[Dict[EnvInfo, Any]]
 
 
-class CustomReplayBuffer(ReplayBuffer):
+class CustomReplayBuffer:
     """
     Replay buffer used in off-policy algorithms like SAC/TD3.
 
@@ -44,56 +45,111 @@ class CustomReplayBuffer(ReplayBuffer):
     def __init__(
         self,
         buffer_size: int,
-        observation_space: spaces.Space,
-        action_space: spaces.Space,
-        device: Union[th.device, str] = "auto",
-        n_envs: int = 1,
-        optimize_memory_usage: bool = False,
-        handle_timeout_termination: bool = True,
-    ):
-        super().__init__(buffer_size=buffer_size,
-            observation_space=observation_space,
-            action_space=action_space,
-            device=device,
-            n_envs=n_envs,
-            optimize_memory_usage=optimize_memory_usage,
-            handle_timeout_termination=handle_timeout_termination)
-        self.infos = np.empty(shape=(buffer_size, n_envs), dtype=object)
- 
+        observation_space,
+        action_space,
+        device: Union[th.device, str] = "cpu",
+        **kwargs
+    ):  
+        # self.device = device
+        self.device = device
+
+        # buffers
+        self.obs = th.zeros(buffer_size, *observation_space.shape)
+        self.next_obs = th.zeros(buffer_size, *observation_space.shape)
+        self.action = th.zeros(buffer_size, dtype=th.int32)
+        self.done = th.zeros(buffer_size, dtype=th.float32)
+        self.reward = th.zeros(buffer_size, dtype=th.float32)
+        self.infos = np.empty(shape=(buffer_size,), dtype=object)
+        self.artificial_transition = th.zeros(buffer_size, dtype=th.int32) # can stay on CPU
+
+        # pointers / counters
+        self.capacity = buffer_size
+        self.pos = 0
+        self.full = False
+
+    def clear(self):
+        self.full = False
+        self.pos = 0
+
+    def __len__(self):
+        if self.full:
+            return self.capacity
+        return self.pos
+
+    def add_single_transition(self,
+        obs: th.Tensor,
+        next_obs: th.Tensor,
+        action: np.ndarray,
+        reward: np.ndarray,
+        done: np.ndarray,
+        infos: Dict[str, Any],
+        is_artificial: bool = False # for HER generated replay episodes
+    ) -> None:
+        self.obs[self.pos] = obs.clone().detach()
+        self.next_obs[self.pos] = next_obs.clone().detach()
+        self.action[self.pos] = action.item()
+        self.reward[self.pos] = reward.item()
+        self.done[self.pos] = done.item()
+        self.infos[self.pos] = deepcopy(infos)
+        self.artificial_transition[self.pos] = int(is_artificial)
+
+        self.pos += 1
+        if self.pos == self.capacity:
+            self.full = True
+            self.pos = 0
+
     def add(
         self,
-        obs: np.ndarray,
-        next_obs: np.ndarray,
+        obs: th.Tensor,
+        next_obs: th.Tensor,
         action: np.ndarray,
         reward: np.ndarray,
         done: np.ndarray,
         infos: List[Dict[str, Any]],
+        is_aritificial: bool = False,
     ) -> None:
-        # Copy to avoid mutation by reference
-        for batch_idx, info in enumerate(infos):
-            self.infos[self.pos][batch_idx] = deepcopy(info)
-        super().add(obs=obs, next_obs=next_obs, action=action, reward=reward, done=done, infos=infos)
-
-    def _get_samples(self, batch_inds: np.ndarray, env: Optional[VecNormalize] = None) -> CustomReplayBufferSamples:
-        # Sample randomly the env idx
-        env_indices = np.random.randint(0, high=self.n_envs, size=(len(batch_inds),))
-
-        if self.optimize_memory_usage:
-            next_obs = self._normalize_obs(self.observations[(batch_inds + 1) % self.buffer_size, env_indices, :], env)
+        batch_size = len(infos)
+        end_pos = self.pos + batch_size
+        if end_pos >= self.capacity:
+            # doesn't fit completely - split batch
+            for batch_idx, info in enumerate(infos):
+                self.add_single_transition(obs[batch_idx], next_obs[batch_idx],
+                                            action[batch_idx], reward[batch_idx],
+                                            done[batch_idx], info, is_aritificial)
         else:
-            next_obs = self._normalize_obs(self.next_observations[batch_inds, env_indices, :], env)
+            # does fit - add batch
+            self.obs[self.pos:end_pos] = obs.clone().detach()
+            self.next_obs[self.pos:end_pos] = next_obs.clone().detach()
+            self.action[self.pos:end_pos] = th.from_numpy(action)
+            self.reward[self.pos:end_pos] = th.from_numpy(reward)
+            self.done[self.pos:end_pos] = th.from_numpy(done)
+            self.artificial_transition[self.pos:end_pos] = int(is_aritificial)
+            # Copy to avoid mutation by reference
+            for batch_idx, info in enumerate(infos):
+                self.infos[self.pos+batch_idx] = deepcopy(info)
+            self.pos = end_pos
+            if end_pos == self.capacity:
+                self.full = True
+                self.pos = 0
+            
+    def sample(self, batch_size: int, env: Optional[VecNormalize] = None) -> CustomReplayBufferSamples:
+        """
+        Sample elements from the replay buffer.
 
-        data = (
-            self._normalize_obs(self.observations[batch_inds, env_indices, :], env),
-            self.actions[batch_inds, env_indices, :],
-            next_obs,
-            # Only use dones that are not due to timeouts
-            # deactivated by default (timeouts is initialized as an array of False)
-            (self.dones[batch_inds, env_indices] * (1 - self.timeouts[batch_inds, env_indices])).reshape(-1, 1),
-            self._normalize_reward(self.rewards[batch_inds, env_indices].reshape(-1, 1), env),
+        :param batch_size: Number of element to sample
+        :param env: associated gym VecEnv
+            to normalize the observations/rewards when sampling
+        :return:
+        """
+        upper_bound = self.capacity if self.full else self.pos
+        batch_inds = th.randint(low=0, high=upper_bound, size=(batch_size,))
+       
+        # Sample randomly the env idx
+        return CustomReplayBufferSamples(
+            self.obs[batch_inds].clone().detach().to(self.device),
+            self.action[batch_inds].clone().detach().to(self.device).view(-1, 1),
+            self.next_obs[batch_inds].clone().detach().to(self.device),
+            self.done[batch_inds].clone().detach().to(self.device).view(-1, 1),
+            self.reward[batch_inds].clone().detach().to(self.device).view(-1, 1),
+            [self.infos[batch_idx] for batch_idx in batch_inds.tolist()]
         )
-
-        # Get infos 
-        infos = [self.infos[batch_idx, env_idx] for batch_idx, env_idx in zip(batch_inds.tolist(), env_indices.tolist())]
-
-        return CustomReplayBufferSamples(*tuple(map(self.to_torch, data)), infos)

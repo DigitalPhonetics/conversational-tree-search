@@ -1,3 +1,4 @@
+from collections import defaultdict
 from dataclasses import dataclass
 import os
 import random
@@ -5,6 +6,7 @@ import string
 from typing import Any, Dict, List, Set, Tuple, Union
 from chatbot.adviser.app.answerTemplateParser import AnswerTemplateParser
 from chatbot.adviser.app.parserValueProvider import RealValueBackend
+from chatbot.adviser.app.rl.utils import rand_remove_questionmark
 from chatbot.adviser.app.systemTemplateParser import SystemTemplateParser
 from copy import deepcopy
 from data.dataset import GraphDataset, NodeType, Answer, DialogNode
@@ -210,20 +212,22 @@ class SearchPath:
     variables: Dict[str, VariableValue]
     chosen_response_pks: Dict[str, str]
 
+
+
+
 class UserGoal:
-    def __init__(self, data: GraphDataset, start_node: DialogNode, goal_node: DialogNode, faq_key: int, initial_user_utterance: str, 
+    def __init__(self, data: GraphDataset, start_node: DialogNode, goal_node: DialogNode, initial_user_utterance: str, 
                  answer_parser: AnswerTemplateParser, system_parser: SystemTemplateParser,
                  value_backend: RealValueBackend) -> None:
-        self.goal_node = goal_node
-        self.faq_key = faq_key
-        self.answerParser = answer_parser
+        self.goal_node_key = goal_node.key
 
-        paths = self.expand_path(start_node ,SearchPath(path=[], visited_ids=set([]), variables={}, chosen_response_pks={}))
+        paths = self.expand_path(start_node ,SearchPath(path=[], visited_ids=set([]), variables={}, chosen_response_pks={}), answerParser=answer_parser)
         if len(paths) == 0:
             raise ImpossibleGoalError
         self.path = random.choice(paths) # choose random path
         self.variables = self._fill_variables(self.path.variables, data) # choose variable values
         self.answer_pks = self.path.chosen_response_pks
+        self.visited_ids = self.path.visited_ids
 
         # substitute values for delexicalised faq questions (not in bst)
         substitution_vars = {}
@@ -239,10 +243,12 @@ class UserGoal:
                 substitution_vars[var] = value
             else:
                 substitution_vars[var] = self.variables[var]
+        self.constraints = self.path.variables
+        self.delexicalised_initial_user_utterance = initial_user_utterance
         self.initial_user_utterance = system_parser.parse_template(initial_user_utterance, value_backend, substitution_vars)
 
     # depth first serach
-    def expand_path(self, current_node: DialogNode, currentPath: SearchPath) -> List[SearchPath]:
+    def expand_path(self, current_node: DialogNode, currentPath: SearchPath, answerParser: AnswerTemplateParser) -> List[SearchPath]:
         if current_node.key in currentPath.visited_ids:
             # break cycles
             return [] 
@@ -252,7 +258,7 @@ class UserGoal:
         path = currentPath.path + [current_node]
 
         # check for goal
-        if current_node.key == self.goal_node.key:
+        if current_node.key == self.goal_node_key:
             # successful path -> return
             return [SearchPath(path, visited_ids, currentPath.variables, currentPath.chosen_response_pks)]
 
@@ -261,7 +267,7 @@ class UserGoal:
             # get variable name and type
             assert len(current_node.answers) == 1, "Should have exactly 1 answer"
             var_answer = current_node.answer_by_index(0)
-            var = self.answerParser.find_variable(var_answer.text)
+            var = answerParser.find_variable(var_answer.text)
             new_variables = deepcopy(currentPath.variables)
             if not var.name in currentPath.variables:
                 new_variables[var.name] = VariableValue(var.name, var.type)
@@ -271,14 +277,17 @@ class UserGoal:
                                         SearchPath(path=path,
                                                     visited_ids=visited_ids,
                                                     variables=new_variables,
-                                                    chosen_response_pks=currentPath.chosen_response_pks))
+                                                    chosen_response_pks=currentPath.chosen_response_pks),
+                                        answerParser=answerParser)
         elif current_node.node_type in [NodeType.INFO, NodeType.START]:
             if current_node.connected_node:
                 return self.expand_path(current_node.connected_node,
                                         SearchPath(path=path,
                                                     visited_ids=visited_ids,
                                                     variables=currentPath.variables,
-                                                    chosen_response_pks=currentPath.chosen_response_pks))
+                                                    chosen_response_pks=currentPath.chosen_response_pks),
+                                        answerParser=answerParser)
+                                                    
         elif current_node.node_type == NodeType.QUESTION:
             paths = []
             for answer in current_node.answers:
@@ -290,7 +299,8 @@ class UserGoal:
                                                 SearchPath(path=path,
                                                             visited_ids=visited_ids,
                                                             variables=currentPath.variables,
-                                                            chosen_response_pks=new_chosen_response_pks))
+                                                            chosen_response_pks=new_chosen_response_pks),
+                                                answerParser=answerParser)
             return paths
         elif current_node.node_type == NodeType.LOGIC:
             # generating fitting values is hard:
@@ -330,21 +340,23 @@ class UserGoal:
                                                 SearchPath(path=path,
                                                             visited_ids=visited_ids,
                                                             variables=new_variables,
-                                                            chosen_response_pks=currentPath.chosen_response_pks))
+                                                            chosen_response_pks=currentPath.chosen_response_pks),
+                                                answerParser=answerParser)
             return paths
+        return []
      
     def __len__(self):
         return len(self.path.path)
 
     def has_reached_goal_node(self, candidate: DialogNode) -> bool:
         """ Returns True, if the candidate node is equal to the goal node, else False """
-        return candidate.key == self.goal_node.key
+        return candidate.key == self.goal_node_key
 
     def _fill_variables(self, variables: Dict[str, VariableValue], data: GraphDataset) -> Dict[str, Any]:
         """ Realizes a dict of VariableValue entries into a dict of randomly drawn values, according to the restrictions """
         return {var_name: variables[var_name].draw_value(data) for var_name in variables}
 
-    def get_user_response(self, current_node: DialogNode) -> Tuple[UserResponse, None]:
+    def get_user_response(self, current_node: DialogNode) -> Union[UserResponse, None]:
         assert current_node.node_type == NodeType.QUESTION
 
         # return answer leading to correct branch
@@ -354,13 +366,13 @@ class UserGoal:
         else:
             # answer is not relevant to user goal -> pick one at random -> diminishes reward
             # if current_node.answers.count() > 0:
-            if current_node.answer_count() > 0:
+            if len(current_node.answers) > 0:
                 # answer_key = random.choice(current_node.answers.values_list("key", flat=True))
                 answer_key = current_node.random_answer().key
                 return UserResponse(relevant=False, answer_key=answer_key)
         return None
 
-    def get_user_input(self, current_node: DialogNode, bst: Dict[str, any], data: GraphDataset) -> UserInput:
+    def get_user_input(self, current_node: DialogNode, bst: Dict[str, any], data: GraphDataset, answerParser: AnswerTemplateParser) -> UserInput:
         assert current_node.node_type == NodeType.VARIABLE
         # assert current_node.answers.count() == 1
         assert len(current_node.answers) == 1
@@ -369,7 +381,7 @@ class UserGoal:
         # get variable value for node
         # var_answer: DialogAnswer = current_node.answers.first() # should have exactly 1 answer
         var_answer = current_node.answer_by_index(0) # should have exactly 1 answer
-        var = self.answerParser.find_variable(var_answer.text)
+        var = answerParser.find_variable(var_answer.text)
         if var.name in self.variables:
             # variable is relevant to user goal -> return it
             return UserInput(relevant=True, var_name=var.name, var_value=self.variables[var.name])
@@ -384,72 +396,132 @@ class UserGoal:
 class UserGoalGenerator:
     def __init__(self, graph: GraphDataset, 
             answer_parser: AnswerTemplateParser, system_parser: SystemTemplateParser,
-            value_backend: RealValueBackend, paraphrase_fraction: float = 0.0, generate_fraction: bool = 0.0) -> None:
-        assert 0 <= paraphrase_fraction <= 1
-        assert 0 <= generate_fraction <= 1
-        assert 0 <= paraphrase_fraction + generate_fraction <= 1
+            value_backend: RealValueBackend) -> None:
 
         self.graph = graph
-        self.paraphrase_fraction = paraphrase_fraction
-        self.generate_fraction = generate_fraction
-        self.original_fraction = 1.0 - paraphrase_fraction - generate_fraction
         self.value_backend = value_backend
 
-        self.start_node = graph.start_node.connected_node # get first "real" dialog node (start node doesn't contain any information)
+        self._goal_nodes_by_distance() # sets self._guided_goal_candidates, self._free_goal_candidates
+
         self.answer_parser = answer_parser
         self.system_parser = system_parser
 
-        # setup or load cache
-        # TODO delete cache on save after serializer
-        # TODO add code from google colab 
-        if not os.path.isfile("resources/translations.txt"):
-            # TODO translate node texts ( and answer texts ?)
-            pass
-        if not os.path.isfile("resources/generated.txt"):
-            # TODO generate new questions
-            pass
-        if not os.path.isfile("resources/paraphrased.txt"):
-            # TODO paraphrase questions
-            pass
+    def _is_first_node(self, node: DialogNode) -> bool:
+        # first node should not be a goal candidate, since system starts there
+        return node.key == self.graph.start_node.connected_node.key
 
-    def _generate_questions(self):
-        pass
+    def _is_free_goal_candidate(self, node: DialogNode) -> bool:
+        return len(node.questions) > 0 and not self._is_first_node(node)
 
-    def _paraphrase_questions(self):
-        pass
+    def _is_guided_goal_candidate(self, node: DialogNode) -> bool:
+        return node.node_type in [NodeType.INFO, NodeType.QUESTION, NodeType.VARIABLE] and not self._is_first_node(node)
 
-    def draw_goal(self) -> UserGoal:
-        # TODO add paraphrasing / generation
+    def _goal_nodes_by_distance(self):
+        # 1. create a list of all nodes that are goal node candidates for
+        # a) guided mode
+        # b) free mode
+        self._guided_goal_candidates: Dict[int, List[DialogNode]] = defaultdict(list)
+        self._free_goal_candidates: Dict[int, List[DialogNode]] = defaultdict(list)
 
-        # for now, just draw random node with faq text as goal node
-        free_candidate = self.graph.random_question()
-        goal_node: DialogNode = free_candidate.parent
-        initial_user_utterance = free_candidate.text
+        # 2. try to find the shortest path to each goal node candidate (-> trivial, if we search goal node candidates by breadth-first search)
+        # 3. create a dict that contains a list of nodes with distance(start, goal) <= dict key
+        # (meaning, key + 1 is a superset of key)
+        level = 0
+        current_level_nodes = [self.graph.start_node.connected_node]
+        visited_node_ids = set() # cycle breaking
+        while len(current_level_nodes) > 0:
+            # include all nodes from previous level, s.t. current level is superset of previous level
+            self._guided_goal_candidates[level].extend(self._guided_goal_candidates[level-1])
+            self._free_goal_candidates[level].extend(self._free_goal_candidates[level-1])
 
-        # create a trajectory and variable values for reaching goal node
-        return UserGoal(self.graph, self.start_node, goal_node, free_candidate.key, initial_user_utterance, self.answer_parser, self.system_parser, self.value_backend)
+            # traverse current node level, append all children to next level nodes
+            next_level_nodes = []
+            for current_node in current_level_nodes:
+                if current_node.key in visited_node_ids:
+                    continue
+                visited_node_ids.add(current_node.key)
+
+                # check if current node is a candidate for a free or guided goal
+                if self._is_free_goal_candidate(current_node):
+                    # node is candidate for free mode
+                    self._free_goal_candidates[level].append(current_node)
+                if self._is_guided_goal_candidate(current_node):
+                    # node is candidate for guided mode (neither start nor logic node)
+                    self._guided_goal_candidates[level].append(current_node)
+                
+                # add children of node to next level nodes
+                if current_node.connected_node:
+                    next_level_nodes.append(current_node.connected_node)
+                    assert len(current_node.answers) == 0
+                elif len(current_node.answers) > 0:
+                    next_level_nodes += [answer.connected_node for answer in current_node.answers]
+            # continue with next level breadth search
+            current_level_nodes = next_level_nodes
+            level += 1
+
+    def _get_distance_free(self, max_distance: int):
+        assert self.graph.get_max_tree_depth() >= max(self._guided_goal_candidates.keys())
+        assert self.graph.get_max_tree_depth() >= max(self._free_goal_candidates.keys())
+        # choose max. distance
+        return min(max_distance, max(self._free_goal_candidates.keys())) if max_distance > 0 else max(self._free_goal_candidates.keys())
+
+    def _get_distance_guided(self, max_distance: int):
+        assert self.graph.get_max_tree_depth() >= max(self._guided_goal_candidates.keys())
+        assert self.graph.get_max_tree_depth() >= max(self._free_goal_candidates.keys())
+        # choose max. distance
+        return min(max_distance, max(self._guided_goal_candidates.keys())) if max_distance > 0 else max(self._guided_goal_candidates.keys())
+
+    def draw_goal_guided(self, max_distance: int) -> UserGoal:
+        """
+        Draw a guided goal with maximum specified distance from the start node.
+        If max_distance = 0, all distances will be used.
+        """
+        # sample node from range [1, max_distance]
+        candidate = random.choice(self._guided_goal_candidates[self._get_distance_guided(max_distance)])
+        # construct user goal
+        goal = UserGoal(data=self.graph, start_node=self.graph.start_node.connected_node, goal_node=candidate,
+                        initial_user_utterance="", 
+                        answer_parser=self.answer_parser, system_parser=self.system_parser, value_backend=self.value_backend)
+        # get initial user utterance from first transition
+        initial_answer: Answer = self.graph.answers_by_key[goal.get_user_response(self.graph.start_node.connected_node).answer_key]
+        goal.delexicalised_initial_user_utterance = rand_remove_questionmark(random.choice(self.graph.answer_synonyms[initial_answer.text.lower()]))
+        goal.initial_user_utterance = deepcopy(goal.delexicalised_initial_user_utterance)
+        return goal
+
+    def draw_goal_free(self, max_distance: int) -> UserGoal:
+        """
+        Draw a free goal with maximum specified distance from the start node.
+        If max_distance = 0, all distances will be used.
+        """
+        # sample node from range [1, max_distance]
+        assert len(self._free_goal_candidates[self._get_distance_free(max_distance)]) > 0, f"no questions associated with nodes for distance {len(self._free_goal_candidates[self._get_distance_free(max_distance)])}"
+        candidate = random.choice(self._free_goal_candidates[self._get_distance_free(max_distance)])
+        # construct user goal
+        question = candidate.random_question()
+        return UserGoal(data=self.graph, start_node=self.graph.start_node.connected_node, goal_node=candidate,
+                        initial_user_utterance=question.text,
+                        answer_parser=self.answer_parser, system_parser=self.system_parser, value_backend=self.value_backend)
 
 
 @dataclass
 class DummyGoal:
-    goal_idx: int
-    goal_node: DialogNode
-    faq_key: int
+    goal_node_key: str
     initial_user_utterance: str
-    variables: Dict[str, any]
+    delexicalised_initial_user_utterance: str
+    constraints: Dict[str, any]
     answer_pks: Dict[int, int]
-    answer_parser: AnswerTemplateParser
+    visited_ids: Set[int]
 
     def has_reached_goal_node(self, node: DialogNode) -> bool:
-        return node.key == self.goal_node.key
+        return node.key == self.goal_node_key
     
     def get_user_response(self, current_node: DialogNode) -> Union[UserResponse, None]:
         assert current_node.node_type == NodeType.QUESTION
 
         # return answer leading to correct branch
-        return UserResponse(relevant=True, answer_key=self.answer_pks[current_node.key].answer_key)
+        return UserResponse(relevant=True, answer_key=self.answer_pks[current_node.key])
 
-    def get_user_input(self, current_node: DialogNode, bst: Dict[str, any], data: GraphDataset) -> UserInput:
+    def get_user_input(self, current_node: DialogNode, bst: Dict[str, any], data: GraphDataset, answerParser: AnswerTemplateParser) -> UserInput:
         assert current_node.node_type == NodeType.VARIABLE
         # assert current_node.answers.count() == 1
         assert len(current_node.answers) == 1
@@ -458,10 +530,10 @@ class DummyGoal:
         # get variable value for node
         # var_answer: DialogAnswer = current_node.answers.first() # should have exactly 1 answer
         var_answer = current_node.answer_by_index(0) # should have exactly 1 answer
-        var = self.answer_parser.find_variable(var_answer.text)
+        var = answerParser.find_variable(var_answer.text)
         # if var.name in self.variables:
             # variable is relevant to user goal -> return it
-        return UserInput(relevant=True, var_name=var.name, var_value=self.variables[var.name])
+        return UserInput(relevant=True, var_name=var.name, var_value=self.constraints[var.name])
         # else:
         #     # variable is not relevant to user goal -> make one up and return it
         #     if var.name in bst:

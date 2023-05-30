@@ -17,7 +17,7 @@ from environment.base import BaseEnv
 @dataclass
 class RealUserGoal:
     initial_user_utterance: str
-    goal_node: DialogNode
+    goal_node_key: str
     constraints: Dict[str, Any]
 
 class RealUserEnvironment(BaseEnv):
@@ -38,13 +38,13 @@ class RealUserEnvironment(BaseEnv):
         self.pre_reset()
 
         # Mock a goal node that we can never reach to keep the conversation alive
-        goal_node = DialogNode(key="syntheticGoalNode", text="Synthetic Goal Node", node_type=NodeType.INFO, answers=[], questions=[], connected_node=None)
+        # goal_node = DialogNode(key="syntheticGoalNode", text="Synthetic Goal Node", node_type=NodeType.INFO, answers=[], questions=[], connected_node=None)
 
         # Output first node
         print(self.current_node.text)
         # Ask for initial user input
         initial_user_utterance = deepcopy(input(">>"))
-        self.goal = RealUserGoal(initial_user_utterance=initial_user_utterance, goal_node=goal_node, constraints={})
+        self.goal = RealUserGoal(initial_user_utterance=initial_user_utterance, goal_node_key=self.data.start_node.key, constraints={})
 
         return self.post_reset()
 
