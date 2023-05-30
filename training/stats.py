@@ -75,6 +75,7 @@ class CustomEvalCallback(EventCallback):
         if log_path is not None:
             log_path = os.path.join(log_path, "evaluations")
         self.log_path = log_path
+        print("LOG PATH:", self.log_path)
         self.evaluations_results = []
         self.evaluations_timesteps = []
         self.evaluations_length = []
@@ -163,7 +164,7 @@ class CustomEvalCallback(EventCallback):
                 if hasattr(env, 'free_env'):
                     env.free_env.reset_stats()
 
-            episode_rewards, episode_lengths, intent_accuracy, intent_consistency, free_dialogs, guided_dialogs = evaluate_policy(
+            episode_rewards, episode_lengths, intent_accuracy, intent_consistency, free_dialogs, guided_dialogs, dialog_log = evaluate_policy(
                 self.model,
                 self.eval_env,
                 n_eval_episodes=self.n_eval_episodes,
@@ -209,6 +210,13 @@ class CustomEvalCallback(EventCallback):
                     guided_dialogs=self.guided_dialogs,
                     **kwargs,
                 )
+
+                # log dialogs
+                dialog_log_path = "/".join(self.log_path.split("/")[:-1])
+                with open(f"{dialog_log_path}/dialogs_{self.n_calls // self.eval_freq}.txt", "w") as f:
+                    f.write(f"#LAST EPISODE: {self.eval_env.current_episode}")
+                    f.write(dialog_log)
+
 
             mean_reward, std_reward = np.mean(episode_rewards), np.std(episode_rewards)
             mean_ep_length, std_ep_length = np.mean(episode_lengths), np.std(episode_lengths)

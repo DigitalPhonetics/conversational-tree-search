@@ -165,16 +165,16 @@ class VariableValue:
         elif self.var_type == "NUMBER":
             return self._draw_number()
         elif self.var_type == "LOCATION":
-            if "land" in self.var_name.lower():
-                land = random.choice(list(data.countries.keys()))
-                while land.lower() in set([val.lower() for val in self.neq_condition]):
-                    land = random.choice(list(data.countries.keys()))
-                return land
+            if "country" in self.var_name.lower():
+                country = random.choice(list(data.countries.keys()))
+                while country.lower() in set([val.lower() for val in self.neq_condition]):
+                    country = random.choice(list(data.countries.keys()))
+                return country
             else:
-                stadt = random.choice(list(data.cities.keys()))
-                while stadt.lower() in [val.lower() for val in self.neq_condition]:
-                    stadt = random.choice(list(data.stadt.keys()))
-                return stadt
+                city = random.choice(list(data.cities.keys()))
+                while city.lower() in [val.lower() for val in self.neq_condition]:
+                    city = random.choice(list(data.stadt.keys()))
+                return city
         elif self.var_type == "TIMESPAN":
             # TODO implement
             return self._draw_number()
@@ -236,9 +236,9 @@ class UserGoal:
             if not var in self.variables:
                 # draw random value
                 value = None
-                if var == "LAND":
+                if var == "COUNTRY":
                     value = data.countries[random.choice(data.country_keys)]
-                elif var == "STADT":
+                elif var == "CITY":
                     value = data.cities[random.choice(data.city_keys)]
                 substitution_vars[var] = value
             else:

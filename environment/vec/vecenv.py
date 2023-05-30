@@ -143,6 +143,9 @@ class CustomVecEnv(VecEnv):
             self.buf_infos[env_idx]['terminal_observation'] = batch_encoding[env_idx].detach().clone()
         return batch_encoding
     
+    def current_episode(self) -> int:
+        return sum([env.current_episode for env in self.envs])
+
     def get_attr(self, attr_name: str, indices: VecEnvIndices = None) -> List[Any]:
         """Return attribute from vectorized environment (see base class)."""
         target_envs = self._get_target_envs(indices)

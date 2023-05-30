@@ -140,8 +140,8 @@ class BaseEnv:
     
     def get_coverage_variables(self):
         return {
-            "STADT": len(self.coverage_variables["STADT"]) / len(self.data.city_list),
-            "LAND": len(self.coverage_variables["LAND"]) / len(self.data.country_list)
+            "CITY": len(self.coverage_variables["CITY"]) / len(self.data.city_list),
+            "COUNTRY": len(self.coverage_variables["COUNTRY"]) / len(self.data.country_list)
         }
 
     def get_obs(self) -> Dict[EnvInfo, Any]:

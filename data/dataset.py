@@ -81,9 +81,9 @@ class DialogNode:
 
 @dataclass
 class Tagegeld:
-    land: str
-    stadt: str
-    tagegeldsatz: float
+    country: str
+    city: str
+    daily_allowance: float
 
 # TODO load a1 countries
 # TODO load uebernachtungsgeld 
@@ -208,8 +208,8 @@ class GraphDataset:
             city = row['Stadt']
             country_list.add(country)
             city_list.add(city)
-            tagegeld = row['Tagegeld LRKG']
-            hotel_costs[country][city] = Tagegeld(land=country, stadt=city, tagegeldsatz=tagegeld)
+            daily_allowance = row['Tagegeld LRKG']
+            hotel_costs[country][city] = Tagegeld(country=country, city=city, daily_allowance=daily_allowance)
         return hotel_costs, country_list, city_list
     
     def _load_country_synonyms(self):

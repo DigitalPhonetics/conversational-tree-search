@@ -94,6 +94,10 @@ class CTSEnvironment(gymnasium.Env):
         # choose uniformely at random between guided and free env according to ratio
         self.active_env = self.guided_env if random.random() < self.guided_free_ratio else self.free_env
         return self.active_env.reset(current_episode=self.current_episode, max_distance=self.max_distance)
+    
+    @property
+    def episode_log(self):
+        return self.active_env.episode_log
 
     def step(self, action: int, replayed_user_utterance: Tuple[str, None] = None) -> Tuple[dict, float, bool, dict]:
         obs, reward, done = self.active_env.step(action, replayed_user_utterance)

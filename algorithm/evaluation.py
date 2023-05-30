@@ -77,6 +77,7 @@ def custom_evaluate_policy(
         )
 
     n_envs = env.num_envs
+    dialog_log = []
     episode_rewards = []
     episode_lengths = []
 
@@ -133,6 +134,7 @@ def custom_evaluate_policy(
                 if dones[i]:
                     # record env mode: free or guided
                     total_dialogs += 1
+                    dialog_log.extend(env.envs[i].episode_log)
                     if info[EnvInfo.IS_FAQ]:
                         free_dialogs += 1
                     else:
@@ -178,5 +180,5 @@ def custom_evaluate_policy(
     if reward_threshold is not None:
         assert mean_reward > reward_threshold, "Mean reward below threshold: " f"{mean_reward:.2f} < {reward_threshold:.2f}"
     if return_episode_rewards:
-        return episode_rewards, episode_lengths, intent_accuracies, intent_consistencies, free_dialogs, guided_dialogs
-    return mean_reward, std_reward, intent_accuracies, intent_consistencies, free_dialogs, guided_dialogs
+        return episode_rewards, episode_lengths, intent_accuracies, intent_consistencies, free_dialogs, guided_dialogs, dialog_log
+    return mean_reward, std_reward, intent_accuracies, intent_consistencies, free_dialogs, guided_dialogs, dialog_log
