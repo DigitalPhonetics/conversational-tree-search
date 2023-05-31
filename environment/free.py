@@ -3,7 +3,7 @@ from copy import deepcopy
 import random
 from typing import Tuple, Union
 
-from chatbot.adviser.app.rl.goal import DummyGoal, ImpossibleGoalError, UserGoalGenerator
+from environment.goal import DummyGoal, UserGoalGenerator
 from chatbot.adviser.app.rl.utils import rand_remove_questionmark
 
 from data.dataset import GraphDataset, NodeType
@@ -41,17 +41,7 @@ class FreeEnvironment(BaseEnv):
     def reset(self, current_episode: int, max_distance: int, replayed_goal: DummyGoal = None):
         self.pre_reset()
 
-        self.goal = replayed_goal
-        while not self.goal:
-            try:
-                self.goal = self.goal_gen.draw_goal_free(max_distance)
-            except ImpossibleGoalError:
-                print("IMPOSSIBLE GOAL")
-                continue
-            except ValueError:
-                print("VALUE ERROR")
-                continue
-
+        self.goal = self.goal_gen.draw_goal_free(max_distance) if isinstance(replayed_goal, type(None)) else replayed_goal
         self.coverage_question_synonyms[self.goal.delexicalised_initial_user_utterance.lower().replace("?", "")] += 1
 
         self.episode_log.append(f'{self.env_id}-{self.current_episode}$ MODE: Free') 

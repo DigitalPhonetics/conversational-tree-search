@@ -1017,8 +1017,8 @@
                     {
                         "id": "16363753123480094",
                         "nodeId": "16363753123487784",
-                        "markup": "{{COUNTRY=LOCATION}}",
-                        "raw_text": "{{COUNTRY=LOCATION}}"
+                        "markup": "{{CITY=LOCATION}}",
+                        "raw_text": "{{CITY=LOCATION}}"
                     }
                 ],
                 "questions": []

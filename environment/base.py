@@ -3,7 +3,7 @@ from copy import deepcopy
 from typing import Any, Tuple, Union, Dict
 
 import torch
-from chatbot.adviser.app.rl.goal import DummyGoal
+from environment.goal import DummyGoal
 
 from chatbot.adviser.app.rl.utils import EnvInfo
 from config import ActionType

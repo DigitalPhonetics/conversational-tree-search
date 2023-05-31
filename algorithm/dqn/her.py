@@ -1,5 +1,4 @@
 import copy
-from dataclasses import dataclass
 from collections import deque
 from statistics import mean
 from typing import Any, Dict, List, NamedTuple, Tuple, Union
@@ -7,14 +6,12 @@ from typing import Any, Dict, List, NamedTuple, Tuple, Union
 import numpy as np
 import torch as th
 from algorithm.dqn.buffer import CustomReplayBuffer
-from chatbot.adviser.app.answerTemplateParser import AnswerTemplateParser
-from chatbot.adviser.app.rl.goal import DummyGoal, UserInput, UserResponse
+from environment.goal import DummyGoal
 
 from chatbot.adviser.app.rl.utils import AutoSkipMode, EnvInfo
 from chatbot.adviser.app.systemTemplateParser import SystemTemplateParser
 from config import ActionType, InstanceType, INSTANCES
-from data.dataset import DialogNode, GraphDataset, NodeType
-from encoding.state import StateDims, StateEncoding
+from data.dataset import GraphDataset
 from environment.her import CTSHEREnvironment
 from chatbot.adviser.app.rl.utils import rand_remove_questionmark
 
@@ -262,13 +259,7 @@ class HindsightExperienceReplayWrapper(object):
             question = goal_node.random_question()
             # create dummy goal
             goal.delexicalised_initial_user_utterance = rand_remove_questionmark(question.text)
-            try:
-                goal.initial_user_utterance = self.system_parser.parse_template(goal.delexicalised_initial_user_utterance, self.env.free_env.value_backend, goal.constraints)
-            except:
-                print('missing bst value for HER first utterance')
-                self.replay_success_guided.append(0)
-                return
-
+            goal.initial_user_utterance = self.system_parser.parse_template(goal.delexicalised_initial_user_utterance, self.env.free_env.value_backend, goal.constraints)
         # otherwise, we can keep the same goal
 
         # replay

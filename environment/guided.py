@@ -2,7 +2,7 @@ from copy import deepcopy
 import random
 from typing import Tuple, Union
 
-from chatbot.adviser.app.rl.goal import DummyGoal, ImpossibleGoalError, UserGoalGenerator
+from environment.goal import DummyGoal, UserGoalGenerator
 from chatbot.adviser.app.rl.utils import rand_remove_questionmark
 from chatbot.adviser.app.systemTemplateParser import SystemTemplateParser
 from config import ActionType
@@ -12,7 +12,6 @@ from data.dataset import GraphDataset, NodeType
 from chatbot.adviser.app.answerTemplateParser import AnswerTemplateParser
 from chatbot.adviser.app.logicParser import LogicTemplateParser
 from chatbot.adviser.app.parserValueProvider import RealValueBackend
-from chatbot.adviser.app.rl.goal import VariableValue
 from chatbot.adviser.app.rl.utils import AutoSkipMode
 from environment.base import BaseEnv
 
@@ -39,17 +38,7 @@ class GuidedEnvironment(BaseEnv):
     def reset(self, current_episode: int, max_distance: int, replayed_goal: DummyGoal = None):
         self.pre_reset()
 
-        self.goal = replayed_goal
-        while not self.goal:
-            try:
-                self.goal = self.goal_gen.draw_goal_guided(max_distance)
-            except ImpossibleGoalError:
-                print("IMPOSSIBLE GOAL")
-                continue
-            except ValueError:
-                print("VALUE ERROR")
-                continue
-
+        self.goal = self.goal_gen.draw_goal_guided(max_distance) if isinstance(replayed_goal, type(None)) else replayed_goal
         self.coverage_answer_synonyms[self.goal.delexicalised_initial_user_utterance.lower().replace("?", "")] += 1
         
         self.episode_log.append(f'{self.env_id}-{self.current_episode}$ MODE: GUIDED') 

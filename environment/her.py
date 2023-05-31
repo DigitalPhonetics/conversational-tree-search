@@ -1,6 +1,6 @@
 import random
 from typing import Tuple
-from chatbot.adviser.app.rl.goal import DummyGoal
+from environment.goal import DummyGoal
 
 from chatbot.adviser.app.rl.utils import EnvInfo
 
@@ -13,10 +13,8 @@ from chatbot.adviser.app.parserValueProvider import RealValueBackend
 from chatbot.adviser.app.rl.utils import AutoSkipMode
 from environment.free import FreeEnvironment
 from environment.guided import GuidedEnvironment
-from utils.envutils import GoalDistanceMode
 import config as cfg
 
-import gymnasium
 
 class CTSHEREnvironment:
     """

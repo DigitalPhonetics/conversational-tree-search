@@ -215,7 +215,7 @@ class CustomEvalCallback(EventCallback):
                 dialog_log_path = "/".join(self.log_path.split("/")[:-1])
                 with open(f"{dialog_log_path}/dialogs_{self.n_calls // self.eval_freq}.txt", "w") as f:
                     f.write(f"#LAST EPISODE: {self.eval_env.current_episode}")
-                    f.write(dialog_log)
+                    f.writelines([log_line + "\n" for log_line in dialog_log])
 
 
             mean_reward, std_reward = np.mean(episode_rewards), np.std(episode_rewards)
