@@ -199,9 +199,11 @@ class CustomDQN(DQN):
         # Increase update counter
         self._n_updates += gradient_steps
 
-        self.logger.record("train/n_updates", self._n_updates, exclude="tensorboard")
+        self.logger.record("train/n_updates", self._n_updates)
         self.logger.record("train/td_loss", np.mean(td_losses))
         self.logger.record("train/max_goal_distance", cfg.INSTANCES[cfg.InstanceArgs.MAX_DISTANCE])
+        self.logger.record("train/buffer_size", len(self.replay_buffer))
+        self.logger.record("train/total_episodes", self.env.current_episode)
         if self.policy.intent_prediction:
             self.logger.record("train/intent_loss", np.mean(intent_losses))
         if self.replay_buffer_class == HindsightExperienceReplayWrapper:
