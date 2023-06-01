@@ -74,7 +74,6 @@ class HindsightExperienceReplayWrapper(object):
         self.episode_transitions: List[List[HERReplaySample]] = [list() for _ in range(num_train_envs)]
         # Buffer for storing artificial transitions until we have enough to process a full batch
         self.artificial_transition_buffer: List[HERReplaySample] = []
-        self.staging_transitions: List[HERReplaySample] = []
 
         # stats
         self.artifical_rewards_free = deque([], maxlen=AVERAGE_WINDOW) # reward over last n episodes
@@ -135,8 +134,6 @@ class HindsightExperienceReplayWrapper(object):
         return len(self.replay_buffer)
 
     def _staging_complete(self):
-        self.artificial_transition_buffer.extend(self.staging_transitions)
-
         # trigger batch encoding when full (>= batch_size elements)
         while len(self.artificial_transition_buffer) >= self.batch_size:
             # encode states
@@ -154,14 +151,8 @@ class HindsightExperienceReplayWrapper(object):
             # reset buffer
             self.artificial_transition_buffer = self.artificial_transition_buffer[self.batch_size:]
         
-        # reset staging area
-        self.staging_transitions.clear()
-
-    
     def _store_aritificial_transition(self, obs, next_obs, action, reward, done, infos):
-        self.staging_transitions.append(HERReplaySample(obs, next_obs, action, reward, done, infos))
-
-        
+        self.artificial_transition_buffer.append(HERReplaySample(obs, next_obs, action, reward, done, infos))
     
     def _draw_artificial_goal(self, original_transitions: List[HERReplaySample], goal_candidate_indicator_method) -> Union[Tuple[DummyGoal, int], None]:
         # walk backwards until we find a suitable goal candidate
@@ -211,21 +202,18 @@ class HindsightExperienceReplayWrapper(object):
             self._store_aritificial_transition(obs, next_obs, original_action, reward, done, info)
             episode_reward += reward
             transition_idx += 1
-        
-        if info[EnvInfo.REACHED_GOAL_ONCE] == True:
-            if self.append_ask_action and not (original_action == ActionType.ASK):
-                # append an artificial ASK action as last action, if replayed episode didn't end in one
-                next_obs, reward, done, info = self.env.step(ActionType.ASK) 
-                self._store_aritificial_transition(obs, next_obs, original_action, reward, done, info)
-                episode_reward += reward
-                transition_idx += 1
-                assert info[EnvInfo.ASKED_GOAL] == True, "replay did not ask goal node"
-            # integrate artificial experiences
-            self._staging_complete()
-            return episode_reward
-        # not successful - reset staging transitions
-        self.staging_transitions = []
-        return None 
+
+        assert info[EnvInfo.REACHED_GOAL_ONCE] == True
+        if self.append_ask_action and not (original_action == ActionType.ASK):
+            # append an artificial ASK action as last action, if replayed episode didn't end in one
+            next_obs, reward, done, info = self.env.step(ActionType.ASK) 
+            self._store_aritificial_transition(obs, next_obs, original_action, reward, done, info)
+            episode_reward += reward
+            transition_idx += 1
+            assert info[EnvInfo.ASKED_GOAL] == True, "replay did not ask goal node"
+        # integrate artificial experiences
+        self._staging_complete()
+        return episode_reward
     
     def _replay_guided(self, original_transitions: List[HERReplaySample]):
         goal = self._draw_artificial_goal(original_transitions, self.env.guided_env.goal_gen._is_guided_goal_candidate)
@@ -237,11 +225,8 @@ class HindsightExperienceReplayWrapper(object):
         # replay
         goal, final_transition_idx = goal
         total_reward = self._replay_episode(mode='guided', original_transitions=original_transitions, artificial_goal=goal, final_transition_idx=final_transition_idx)
-        if isinstance(total_reward, type(None)):
-            self.replay_success_guided.append(0)
-        else:
-            self.artifical_rewards_guided.append(total_reward)
-            self.replay_success_guided.append(1.0)
+        self.artifical_rewards_guided.append(total_reward)
+        self.replay_success_guided.append(1.0)
 
     def _replay_free(self, original_transitions: List[HERReplaySample]):
         goal = self._draw_artificial_goal(original_transitions, self.env.free_env.goal_gen._is_free_goal_candidate)
@@ -259,16 +244,16 @@ class HindsightExperienceReplayWrapper(object):
             question = goal_node.random_question()
             # create dummy goal
             goal.delexicalised_initial_user_utterance = rand_remove_questionmark(question.text)
-            goal.initial_user_utterance = self.system_parser.parse_template(goal.delexicalised_initial_user_utterance, self.env.free_env.value_backend, goal.constraints)
+            try:
+                goal.initial_user_utterance = self.system_parser.parse_template(goal.delexicalised_initial_user_utterance, self.env.free_env.value_backend, goal.constraints)
+            except:
+                print("HER ERROR: parser", goal.delexicalised_initial_user_utterance, goal.constraints)
         # otherwise, we can keep the same goal
 
         # replay
         total_reward = self._replay_episode(mode='free', original_transitions=original_transitions, artificial_goal=goal, final_transition_idx=final_transition_idx)
-        if isinstance(total_reward, type(None)):
-            self.replay_success_guided.append(0)
-        else:
-            self.artifical_rewards_free.append(total_reward)
-            self.replay_success_free.append(1.0)
+        self.artifical_rewards_free.append(total_reward)
+        self.replay_success_free.append(1.0)
 
     def _generate_aritificial_transitions(self, env_idx: int):
         """
