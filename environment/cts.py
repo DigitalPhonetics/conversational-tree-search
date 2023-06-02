@@ -101,7 +101,7 @@ class CTSEnvironment(gymnasium.Env):
 
     def step(self, action: int, replayed_user_utterance: Tuple[str, None] = None) -> Tuple[dict, float, bool, dict]:
         obs, reward, done = self.active_env.step(action, replayed_user_utterance)
-        obs[EnvInfo.IS_FAQ] = self.active_env == self.free_env
+        obs[EnvInfo.IS_FAQ] = hasattr(self, 'free_env') and (self.active_env == self.free_env)
         obs["is_success"] = obs[EnvInfo.ASKED_GOAL]
         return obs, reward, done, False, obs # truncated, info = obs before encoding
     

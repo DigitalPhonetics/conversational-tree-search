@@ -164,7 +164,7 @@ class BaseEnv:
                                         initial_user_utterance=deepcopy(self.goal.initial_user_utterance),
                                         delexicalised_initial_user_utterance=deepcopy(self.goal.delexicalised_initial_user_utterance),
                                         constraints=deepcopy(self.goal.constraints),
-                                        answer_pks=deepcopy(self.goal.answer_pks),
+                                        answer_pks=deepcopy(self.user_answer_keys),
                                         visited_ids=deepcopy(self.goal.visited_ids)
                                     )
         }

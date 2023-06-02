@@ -156,36 +156,36 @@ class HindsightExperienceReplayWrapper(object):
     
     def _draw_artificial_goal(self, original_transitions: List[HERReplaySample], goal_candidate_indicator_method) -> Union[Tuple[DummyGoal, int], None]:
         # walk backwards until we find a suitable goal candidate
-        if original_transitions[-1].info[EnvInfo.LAST_VALID_SKIP_TRANSITION_IDX] < 0:
-            # No single valid SKIP in episode - don't replay, otherwise it will include invalid jump mappings
-            return None 
-        goal = None
-        final_transition_idx = original_transitions[-1].info[EnvInfo.LAST_VALID_SKIP_TRANSITION_IDX]
-        
+        final_transition_idx = len(original_transitions) - 1
+        while final_transition_idx >= 0:
+            node = self.data.nodes_by_key[original_transitions[final_transition_idx].info[EnvInfo.DIALOG_NODE_KEY]]
+            if goal_candidate_indicator_method(node):
+                # we found a goal candidate!
+                break
+            final_transition_idx -= 1  
+        if final_transition_idx < 0:
+            # we didn't find a goal candidate - break
+            return None
+
         if final_transition_idx + 1 < len(original_transitions):
             # check if last action is ASK - if so, keep it 
             if original_transitions[final_transition_idx + 1].action == ActionType.ASK:
                 final_transition_idx += 1
-            
-        for transition in reversed(original_transitions[:final_transition_idx+1]):
-            node = self.data.nodes_by_key[transition.info[EnvInfo.DIALOG_NODE_KEY]]
-            if not goal_candidate_indicator_method(node):
-                continue
-            # we found a goal node candidate
-            goal = copy.deepcopy(transition.info[EnvInfo.GOAL])
-            goal.goal_node_key = node.key
+        
+        # assemble artificial goal 
+        goal_node = self.data.nodes_by_key[original_transitions[final_transition_idx].info[EnvInfo.DIALOG_NODE_KEY]]
+        goal = copy.deepcopy(original_transitions[final_transition_idx].info[EnvInfo.GOAL])
+        goal.goal_node_key = goal_node.key
+        goal.constraints = original_transitions[final_transition_idx].info[EnvInfo.BELIEFSTATE]
+        # change visited_ids to reflect new correct path
+        path_ids = set()
+        for i in range(final_transition_idx):
+            path_ids.add(original_transitions[i].info[EnvInfo.DIALOG_NODE_KEY])
+        goal.visited_ids = path_ids
 
-            # change visited_ids to reflect new correct path
-            path_ids = set()
-            for i in range(final_transition_idx):
-                path_ids.add(original_transitions[i].info[EnvInfo.DIALOG_NODE_KEY])
-            goal.visited_ids = path_ids
-            goal.constraints = original_transitions[final_transition_idx].info[EnvInfo.BELIEFSTATE]
-
-            return goal, final_transition_idx
-        return None
+        return goal, final_transition_idx
     
-    def _replay_episode(self, mode: str, original_transitions: List[HERReplaySample], artificial_goal: Tuple[DummyGoal, int], final_transition_idx: int) -> float:
+    def _replay_episode(self, mode: str, original_transitions: List[HERReplaySample], artificial_goal: DummyGoal, final_transition_idx: int) -> float:
         # replay episode with new goal
         episode_reward = 0.0
         obs = self.env.reset(mode=mode, replayed_goal=artificial_goal)
@@ -197,7 +197,7 @@ class HindsightExperienceReplayWrapper(object):
             # recover original action
             original_action = original_transition.action
             # replay action
-            next_obs, reward, done, info = self.env.step(original_action, replayed_user_utterance=original_transition.info[EnvInfo.CURRENT_USER_UTTERANCE])
+            next_obs, reward, done, info = self.env.step(original_action, replayed_user_utterance=original_transition.info[EnvInfo.CURRENT_USER_UTTERANCE] if transition_idx > 0 else artificial_goal.initial_user_utterance)
             # record new observations
             self._store_aritificial_transition(obs, next_obs, original_action, reward, done, info)
             episode_reward += reward
