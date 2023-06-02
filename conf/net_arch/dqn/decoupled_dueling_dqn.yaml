@@ -1,5 +1,5 @@
 net_cls: algorithm.dqn.architecture.CustomDuelingQNetwork
-shared_layer_sizes: [8096, 4096, 4096]
+shared_layer_sizes: [4188, 4188, 4188]
 value_layer_sizes: [2048, 1024]
 advantage_layer_sizes: [128]
 dropout_rate: 0.25

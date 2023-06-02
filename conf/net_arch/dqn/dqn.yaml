@@ -1,5 +1,5 @@
 net_cls: algorithm.dqn.architecture.CustomQNetwork
-hidden_layer_sizes: [4096, 4096, 2048, 2048, 1024]
+hidden_layer_sizes: [4188, 4188, 2048, 2048, 1024]
 dropout_rate: 0.1
 normalization_layers: false
 activation_fn: torch.nn.SELU

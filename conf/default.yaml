@@ -11,11 +11,11 @@ defaults:
   - algorithm@experiment.algorithm: dqn/dqn
 
   # embeddings
-  - embeddings/text/model@experiment.state.node_text: roberta_sentencesim
-  - embeddings/text/model@experiment.state.initial_user_utterance: roberta_sentencesim
-  - embeddings/text/model@experiment.state.current_user_utterance: roberta_sentencesim
-  - embeddings/text/model@experiment.state.action_text: roberta_sentencesim
-  - embeddings/text/model@experiment.state.dialog_history: roberta_sentencesim
+  - embeddings/text/model@experiment.state.node_text: mpnet_base
+  - embeddings/text/model@experiment.state.initial_user_utterance: mpnet_base
+  - embeddings/text/model@experiment.state.current_user_utterance: mpnet_base
+  - embeddings/text/model@experiment.state.action_text: mpnet_base
+  - embeddings/text/model@experiment.state.dialog_history: mpnet_base
 
   - cache@experiment.cache: kapweihe
 
@@ -43,8 +43,8 @@ experiment:
     dataset:
       use_answer_synonyms: true
   testing:
-    noise: 0.0
-    every_steps: 1000000
+    noise: 0.5
+    every_steps: 999999
     dialogs: 500
     dataset:
       use_answer_synonyms: true
@@ -58,9 +58,11 @@ experiment:
   #   hidden_layer_sizes: [1024, 1024]
   algorithm:
     dqn:
-      timesteps_per_reset: 2500000
+      timesteps_per_reset: 1000000
+      batch_size: 128
+      target_network_update_frequency: 1920
   environment:
-    guided_free_ratio: 0.5
+    guided_free_ratio: 0.0
     auto_skip: NONE
     normalize_rewards: true
     max_steps: 50
@@ -70,8 +72,8 @@ experiment:
     num_train_envs: 128
     num_val_envs: 100
     num_test_envs: 100
-    sys_token: "[SYS]"
-    usr_token: "[USR]"
+    sys_token: "SYSTEM:"
+    usr_token: "USER:"
     sep_token: ""
     goal_distance_mode: FULL_DISTANCE # FULL_DISTANCE, INCREMENT_EVERY_N_EPISODES
     goal_distance_increment: 100 # increment distance by 1 after N * #TRAIN_ENVS episodes - will be ignored if goal distance mode is different from INCREMENT_EVERY_N_EPISODES
