@@ -1,7 +1,0 @@
-bcrypt
-# python-socketio
-# fastapi==0.52.0
-pyjwt
-passlib
-# pydantic
-tornado=5.1.1

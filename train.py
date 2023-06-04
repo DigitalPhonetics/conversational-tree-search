@@ -6,7 +6,7 @@ from omegaconf import OmegaConf
 from algorithm.dqn.buffer import CustomReplayBuffer
 from algorithm.dqn.dqn import CustomDQN
 from algorithm.dqn.her import HindsightExperienceReplayWrapper
-from chatbot.adviser.app.rl.utils import AutoSkipMode
+from utils.utils import AutoSkipMode
 
 from config import INSTANCES, ActionConfig, InstanceType, StateConfig, WandbLogLevel, register_configs, EnvironmentConfig, DatasetConfig
 from data.cache import Cache

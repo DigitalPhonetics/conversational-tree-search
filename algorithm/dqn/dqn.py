@@ -25,7 +25,7 @@ from stable_baselines3.dqn.policies import CnnPolicy, DQNPolicy, MlpPolicy, Mult
 from algorithm.dqn.her import HindsightExperienceReplayWrapper
 
 from algorithm.dqn.policy import CustomDQNPolicy
-from chatbot.adviser.app.rl.utils import EnvInfo
+from utils.utils import EnvInfo
 import config as cfg
 
 SelfDQN = TypeVar("SelfDQN", bound="CustomDQN")

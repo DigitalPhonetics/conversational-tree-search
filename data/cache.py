@@ -1,7 +1,7 @@
 from copy import deepcopy
 import importlib
 from typing import Any, Dict, List, Union
-from chatbot.adviser.app.rl.utils import State
+from utils.utils import State
 from config import INSTANCES, InstanceType, StateConfig, ActionType
 import redis
 import redisai as rai

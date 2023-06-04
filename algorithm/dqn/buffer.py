@@ -9,7 +9,7 @@ import gymnasium.spaces as spaces
 import numpy as np
 import torch as th
 
-from chatbot.adviser.app.rl.utils import EnvInfo
+from utils.utils import EnvInfo
 from encoding.state import StateDims
 
 

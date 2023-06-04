@@ -1,8 +1,7 @@
 from typing import List, Tuple
 import torch
-from chatbot.adviser.app.rl.dialogtree import DialogTree
-from chatbot.adviser.app.rl.utils import EMBEDDINGS
-from chatbot.adviser.app.rl.dataset import DialogNode
+from data.dataset import GraphDataset, DialogNode
+from utils.utils import EMBEDDINGS
 import redisai as rai
 import redis
 from sentence_transformers import SentenceTransformer
@@ -11,7 +10,7 @@ from torch.nn.utils.rnn import pad_sequence
 
 
 class AnswerSimilarityEncoding:
-    def __init__(self, device: str, model_name: str, dialog_tree: DialogTree, caching: bool) -> None:
+    def __init__(self, device: str, model_name: str, dialog_tree: GraphDataset, caching: bool) -> None:
         self.device = device
         self.encoding_dim = dialog_tree.get_max_node_degree()
         self.similarity_model = SentenceTransformer(model_name, device=device, cache_folder = '.models')

@@ -5,7 +5,7 @@ from typing import Any, Dict, List, Tuple
 import torch
 import torch.nn.functional as F
 
-from chatbot.adviser.app.rl.utils import EnvInfo, State
+from utils.utils import EnvInfo, State
 from config import ActionConfig, StateConfig, ActionType
 from data.cache import Cache
 from data.dataset import DialogNode, GraphDataset, NodeType

@@ -1,6 +1,6 @@
 from typing import Any, Dict, List
 import torch
-from chatbot.adviser.app.answerTemplateParser import AnswerTemplateParser
+from data.parsers.answerTemplateParser import AnswerTemplateParser
 from data.dataset import GraphDataset, NodeType
 
 from encoding.base import Encoding

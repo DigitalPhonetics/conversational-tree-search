@@ -6,10 +6,10 @@ from typing import Any, Dict, Tuple, Union
 from data.dataset import DialogNode, GraphDataset, NodeType
 from data.cache import Cache
 
-from chatbot.adviser.app.answerTemplateParser import AnswerTemplateParser
-from chatbot.adviser.app.logicParser import LogicTemplateParser
-from chatbot.adviser.app.parserValueProvider import RealValueBackend
-from chatbot.adviser.app.rl.utils import AutoSkipMode
+from data.parsers.answerTemplateParser import AnswerTemplateParser
+from data.parsers.logicParser import LogicTemplateParser
+from data.parsers.parserValueProvider import RealValueBackend
+from utils.utils import AutoSkipMode
 from encoding.state import StateEncoding
 from environment.base import BaseEnv
 

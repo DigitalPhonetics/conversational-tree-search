@@ -10,7 +10,7 @@ import torch as th
 from stable_baselines3.common import type_aliases
 from stable_baselines3.common.vec_env import DummyVecEnv, VecEnv, VecMonitor, is_vecenv_wrapped
 
-from chatbot.adviser.app.rl.utils import EnvInfo
+from utils.utils import EnvInfo
 
 
 def custom_evaluate_policy(

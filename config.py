@@ -5,7 +5,7 @@ from typing import Any, Optional, Type
 from hydra.core.config_store import ConfigStore
 import torch
 import torch.nn as nn
-from chatbot.adviser.app.rl.utils import AutoSkipMode
+from utils.utils import AutoSkipMode
 
 from data.dataset import DatasetConfig
 from encoding.text.base import TextEmbeddingConfig

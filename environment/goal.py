@@ -1,12 +1,12 @@
-from chatbot.adviser.app.parserValueProvider import RealValueBackend
-from chatbot.adviser.app.answerTemplateParser import AnswerTemplateParser
-from chatbot.adviser.app.systemTemplateParser import SystemTemplateParser
+from data.parsers.parserValueProvider import RealValueBackend
+from data.parsers.answerTemplateParser import AnswerTemplateParser
+from data.parsers.systemTemplateParser import SystemTemplateParser
 from collections import defaultdict
 from dataclasses import dataclass
 import random
 import string
 from typing import Any, Dict, List, Set, Tuple, Union
-from chatbot.adviser.app.rl.utils import rand_remove_questionmark
+from utils.utils import rand_remove_questionmark
 from copy import deepcopy
 from data.dataset import GraphDataset, NodeType, Answer, DialogNode
 

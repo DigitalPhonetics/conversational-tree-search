@@ -5,15 +5,15 @@ from typing import Any, Tuple, Union, Dict
 import torch
 from environment.goal import DummyGoal
 
-from chatbot.adviser.app.rl.utils import EnvInfo
+from utils.utils import EnvInfo
 from config import ActionType
 
 from data.dataset import DialogNode, GraphDataset, NodeType
 
-from chatbot.adviser.app.answerTemplateParser import AnswerTemplateParser
-from chatbot.adviser.app.logicParser import LogicTemplateParser
-from chatbot.adviser.app.parserValueProvider import RealValueBackend
-from chatbot.adviser.app.rl.utils import AutoSkipMode
+from data.parsers.answerTemplateParser import AnswerTemplateParser
+from data.parsers.logicParser import LogicTemplateParser
+from data.parsers.parserValueProvider import RealValueBackend
+from utils.utils import AutoSkipMode
 
 # from gymnasium import Env
 import random

@@ -8,12 +8,12 @@ import torch as th
 from algorithm.dqn.buffer import CustomReplayBuffer
 from environment.goal import DummyGoal
 
-from chatbot.adviser.app.rl.utils import AutoSkipMode, EnvInfo
-from chatbot.adviser.app.systemTemplateParser import SystemTemplateParser
+from utils.utils import AutoSkipMode, EnvInfo
+from data.parsers.systemTemplateParser import SystemTemplateParser
 from config import ActionType, InstanceType, INSTANCES
 from data.dataset import GraphDataset
 from environment.her import CTSHEREnvironment
-from chatbot.adviser.app.rl.utils import rand_remove_questionmark
+from utils.utils import rand_remove_questionmark
 
 
 class HERReplaySample(NamedTuple):

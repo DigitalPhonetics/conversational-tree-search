@@ -4,15 +4,15 @@ import random
 from typing import Tuple, Union
 
 from environment.goal import DummyGoal, UserGoalGenerator
-from chatbot.adviser.app.rl.utils import rand_remove_questionmark
+from utils.utils import rand_remove_questionmark
 
 from data.dataset import GraphDataset, NodeType
 
-from chatbot.adviser.app.answerTemplateParser import AnswerTemplateParser
-from chatbot.adviser.app.logicParser import LogicTemplateParser
-from chatbot.adviser.app.systemTemplateParser import SystemTemplateParser
-from chatbot.adviser.app.parserValueProvider import RealValueBackend
-from chatbot.adviser.app.rl.utils import AutoSkipMode
+from data.parsers.answerTemplateParser import AnswerTemplateParser
+from data.parsers.logicParser import LogicTemplateParser
+from data.parsers.systemTemplateParser import SystemTemplateParser
+from data.parsers.parserValueProvider import RealValueBackend
+from utils.utils import AutoSkipMode
 from environment.base import BaseEnv
 
 

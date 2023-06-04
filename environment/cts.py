@@ -1,15 +1,15 @@
 import random
 from typing import Tuple
 
-from chatbot.adviser.app.rl.utils import EnvInfo
+from utils.utils import EnvInfo
 
 from data.dataset import GraphDataset
 
-from chatbot.adviser.app.answerTemplateParser import AnswerTemplateParser
-from chatbot.adviser.app.logicParser import LogicTemplateParser
-from chatbot.adviser.app.systemTemplateParser import SystemTemplateParser
-from chatbot.adviser.app.parserValueProvider import RealValueBackend
-from chatbot.adviser.app.rl.utils import AutoSkipMode
+from data.parsers.answerTemplateParser import AnswerTemplateParser
+from data.parsers.logicParser import LogicTemplateParser
+from data.parsers.systemTemplateParser import SystemTemplateParser
+from data.parsers.parserValueProvider import RealValueBackend
+from utils.utils import AutoSkipMode
 from environment.free import FreeEnvironment
 from environment.guided import GuidedEnvironment
 from utils.envutils import GoalDistanceMode

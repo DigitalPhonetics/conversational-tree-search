@@ -1,5 +1,5 @@
-from chatbot.adviser.app.answerTemplateParser import AnswerTemplateParser
-from chatbot.adviser.app.encoding.text import SentenceEmbeddings
+from data.parsers.answerTemplateParser import AnswerTemplateParser
+from encoding.text.text import SentenceEmbeddings
 from dashboard.models import Tagegeld
 from chatbot.adviser.app.rl.dataset import DialogNode
 from typing import List

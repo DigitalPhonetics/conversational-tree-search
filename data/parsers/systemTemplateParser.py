@@ -2,7 +2,7 @@ from lark import Lark
 from lark import Visitor
 from lark import Transformer
 from lark.visitors import v_args
-from chatbot.adviser.app.parserValueProvider import MockDB, ValueBackend
+from data.parsers.parserValueProvider import MockDB, ValueBackend
 
 
 
