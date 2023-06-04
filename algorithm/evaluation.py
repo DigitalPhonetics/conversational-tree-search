@@ -78,8 +78,10 @@ def custom_evaluate_policy(
 
     n_envs = env.num_envs
     dialog_log = []
-    episode_rewards = []
-    episode_lengths = []
+    episode_rewards_free = []
+    episode_rewards_guided = []
+    episode_lengths_free = []
+    episode_lengths_guided = []
 
     total_dialogs = 0
     free_dialogs = 0
@@ -148,13 +150,21 @@ def custom_evaluate_policy(
                             # Do not trust "done" with episode endings.
                             # Monitor wrapper includes "episode" key in info if environment
                             # has been wrapped with it. Use those rewards instead.
-                            episode_rewards.append(info["episode"]["r"])
-                            episode_lengths.append(info["episode"]["l"])
+                            if info[EnvInfo.IS_FAQ]:
+                                episode_rewards_free.append(info["episode"]["r"])
+                                episode_lengths_free.append(info["episode"]["l"])
+                            else:
+                                episode_rewards_guided.append(info["episode"]["r"])
+                                episode_lengths_guided.append(info["episode"]["l"])
                             # Only increment at the real end of an episode
                             episode_counts[i] += 1
                     else:
-                        episode_rewards.append(current_rewards[i])
-                        episode_lengths.append(current_lengths[i])
+                        if info[EnvInfo.IS_FAQ]:
+                            episode_rewards_free.append(current_rewards[i])
+                            episode_lengths_free.append(current_lengths[i])
+                        else:
+                            episode_rewards_guided.append(current_rewards[i])
+                            episode_lengths_guided.append(current_lengths[i])
                         episode_counts[i] += 1
                     current_rewards[i] = 0
                     current_lengths[i] = 0
@@ -163,9 +173,6 @@ def custom_evaluate_policy(
 
         if render:
             env.render()
-
-    mean_reward = np.mean(episode_rewards)
-    std_reward = np.std(episode_rewards)
 
     free_dialogs = free_dialogs / total_dialogs
     guided_dialogs = guided_dialogs / total_dialogs
@@ -177,8 +184,4 @@ def custom_evaluate_policy(
         intent_accuracies = None
         intent_consistencies = None
 
-    if reward_threshold is not None:
-        assert mean_reward > reward_threshold, "Mean reward below threshold: " f"{mean_reward:.2f} < {reward_threshold:.2f}"
-    if return_episode_rewards:
-        return episode_rewards, episode_lengths, intent_accuracies, intent_consistencies, free_dialogs, guided_dialogs, dialog_log
-    return mean_reward, std_reward, intent_accuracies, intent_consistencies, free_dialogs, guided_dialogs, dialog_log
+    return episode_rewards_free, episode_rewards_guided, episode_lengths_free, episode_lengths_guided, intent_accuracies, intent_consistencies, free_dialogs, guided_dialogs, dialog_log

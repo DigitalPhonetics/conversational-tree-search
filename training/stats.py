@@ -1,3 +1,4 @@
+from statistics import mean
 from typing import Any, Dict, Union, Optional
 import os 
 import numpy as np
@@ -76,9 +77,11 @@ class CustomEvalCallback(EventCallback):
             log_path = os.path.join(log_path, "evaluations")
         self.log_path = log_path
         print("LOG PATH:", self.log_path)
-        self.evaluations_results = []
+        self.evaluations_results_free = []
+        self.evaluations_results_guided = []
         self.evaluations_timesteps = []
-        self.evaluations_length = []
+        self.evaluations_length_free = []
+        self.evaluations_length_guided = []
         # For computing success rate
         self._is_success_buffer = []
         self.evaluations_successes = []
@@ -164,7 +167,7 @@ class CustomEvalCallback(EventCallback):
                 if hasattr(env, 'free_env'):
                     env.free_env.reset_stats()
 
-            episode_rewards, episode_lengths, intent_accuracy, intent_consistency, free_dialogs, guided_dialogs, dialog_log = evaluate_policy(
+            episode_rewards_free, episode_rewards_guided, episode_lengths_free, episode_lengths_guided, intent_accuracy, intent_consistency, free_dialogs, guided_dialogs, dialog_log = evaluate_policy(
                 self.model,
                 self.eval_env,
                 n_eval_episodes=self.n_eval_episodes,
@@ -177,8 +180,10 @@ class CustomEvalCallback(EventCallback):
 
             if self.log_path is not None:
                 self.evaluations_timesteps.append(self.num_timesteps)
-                self.evaluations_results.append(episode_rewards)
-                self.evaluations_length.append(episode_lengths)
+                self.evaluations_results_free.append(episode_rewards_free)
+                self.evaluations_results_guided.append(episode_rewards_guided)
+                self.evaluations_length_free.append(episode_lengths_free)
+                self.evaluations_length_guided.append(episode_lengths_guided)
 
                 kwargs = {}
                 # Save success log if present
@@ -186,30 +191,33 @@ class CustomEvalCallback(EventCallback):
                     self.evaluations_successes.append(self._is_success_buffer)
                     kwargs = dict(successes=self.evaluations_successes)
 
-                np.savez(
-                    self.log_path,
-                    timesteps=self.evaluations_timesteps,
-                    results=self.evaluations_results,
-                    ep_lengths=self.evaluations_length,
-                    goal_asked_free=self.goal_asked_free,
-                    goal_asked_guided=self.goal_asked_guided,
-                    goal_reached_free=self.goal_reached_free,
-                    goal_reached_guided=self.goal_reached_guided,
-                    goal_node_coverage_free=self.goal_node_coverage_free,
-                    goal_node_coverage_guided=self.goal_node_coverage_guided,
-                    node_coverage=self.node_coverage,
-                    synonym_coverage_questions=self.synonym_coverage_questions,
-                    synonym_coverage_answers=self.synonym_coverage_answers,
-                    actioncount_skips_invalid=self.actioncount_skips_invalid,
-                    actioncount_ask_variable_irrelevant=self.actioncount_ask_variable_irrelevant,
-                    actioncount_ask_question_irrelevant=self.actioncount_ask_question_irrelevant,
-                    actioncount_missingvariable=self.actioncount_missingvariable,
-                    intent_accuracies=self.intent_accuracies,
-                    intent_consistencies=self.intent_consistencies,
-                    free_dialogs=self.free_dialogs,
-                    guided_dialogs=self.guided_dialogs,
-                    **kwargs,
-                )
+                # TODO re-enable
+                # np.savez(
+                #     self.log_path,
+                #     timesteps=self.evaluations_timesteps,
+                #     results_free=self.evaluations_results_free,
+                #     results_guided=self.evaluations_results_guided,
+                #     ep_lengths_free=self.evaluations_length_free,
+                #     ep_lengths_guided=self.evaluations_length_guided,
+                #     goal_asked_free=self.goal_asked_free,
+                #     goal_asked_guided=self.goal_asked_guided,
+                #     goal_reached_free=self.goal_reached_free,
+                #     goal_reached_guided=self.goal_reached_guided,
+                #     goal_node_coverage_free=self.goal_node_coverage_free,
+                #     goal_node_coverage_guided=self.goal_node_coverage_guided,
+                #     node_coverage=self.node_coverage,
+                #     synonym_coverage_questions=self.synonym_coverage_questions,
+                #     synonym_coverage_answers=self.synonym_coverage_answers,
+                #     actioncount_skips_invalid=self.actioncount_skips_invalid,
+                #     actioncount_ask_variable_irrelevant=self.actioncount_ask_variable_irrelevant,
+                #     actioncount_ask_question_irrelevant=self.actioncount_ask_question_irrelevant,
+                #     actioncount_missingvariable=self.actioncount_missingvariable,
+                #     intent_accuracies=self.intent_accuracies,
+                #     intent_consistencies=self.intent_consistencies,
+                #     free_dialogs=self.free_dialogs,
+                #     guided_dialogs=self.guided_dialogs,
+                #     **kwargs,
+                # )
 
                 # log dialogs
                 dialog_log_path = "/".join(self.log_path.split("/")[:-1])
@@ -218,8 +226,8 @@ class CustomEvalCallback(EventCallback):
                     f.writelines([log_line + "\n" for log_line in dialog_log])
 
 
-            mean_reward, std_reward = np.mean(episode_rewards), np.std(episode_rewards)
-            mean_ep_length, std_ep_length = np.mean(episode_lengths), np.std(episode_lengths)
+            mean_reward, std_reward = np.mean(episode_rewards_free + episode_rewards_guided), np.std(episode_rewards_free + episode_rewards_guided)
+            mean_ep_length, std_ep_length = np.mean(episode_lengths_free + episode_lengths_guided), np.std(episode_lengths_free + episode_lengths_guided)
             self.last_mean_reward = mean_reward
 
             # create aggregate data in vec env, log here
@@ -281,6 +289,12 @@ class CustomEvalCallback(EventCallback):
             # Add to current Logger
             self.logger.record(f"{self.mode}/mean_reward", float(mean_reward))
             self.logger.record(f"{self.mode}/mean_ep_length", mean_ep_length)
+            if len(episode_lengths_free) > 0:
+                self.logger.record(f"{self.mode}/ep_reward_free", mean(episode_rewards_free))
+                self.logger.record(f"{self.mode}/ep_length_free", mean(episode_lengths_free))
+            if len(episode_rewards_guided) > 0:
+                self.logger.record(f"{self.mode}/ep_reward_guided", mean(episode_rewards_guided))
+                self.logger.record(f"{self.mode}/ep_length_guided", mean(episode_lengths_guided))
 
             if len(self._is_success_buffer) > 0:
                 success_rate = np.mean(self._is_success_buffer)
