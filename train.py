@@ -31,17 +31,13 @@ cs = ConfigStore.instance()
 register_configs()
 
 
-CACHE_HOST = "localhost"
-CACHE_PORT = 64123
-
-
 def to_class(path:str):
     from pydoc import locate
     class_instance = locate(path)
     return class_instance
 
 def setup_cache_and_encoding(device: str, data: GraphDataset, state_config: StateConfig, action_config: ActionConfig,) -> Tuple[Cache, StateEncoding]:
-    cache = Cache(device=device, data=data, host=CACHE_HOST, port=CACHE_PORT, state_config=state_config)
+    cache = Cache(device=device, data=data, state_config=state_config)
     encoding = StateEncoding(cache=cache, state_config=state_config, action_config=action_config, data=data)
     return cache, encoding
 

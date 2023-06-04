@@ -16,8 +16,6 @@ defaults:
   - embeddings/text/model@experiment.state.action_text: roberta_sentencesim
   - embeddings/text/model@experiment.state.dialog_history: roberta_sentencesim
 
-  - cache@experiment.cache: kapweihe
-
   # overwrite defaults loaded above with the following content from this file
   - _self_
 
@@ -32,13 +30,13 @@ experiment:
     log_interval: 1000
   training:
     noise: 0.3
-    every_steps: 10
-    steps: 1000
+    every_steps: 2
+    steps: 10000
     dataset:
       use_answer_synonyms: true
   validation:
     noise: 0.0
-    every_steps: 5
+    every_steps: 10000
     dialogs: 5
     dataset:
       use_answer_synonyms: true
@@ -51,16 +49,17 @@ experiment:
   #   hidden_layer_sizes: [1024, 1024]
   algorithm:
     dqn:
-      batch_size: 10
-      warmup_turns: 25
+      batch_size: 2
+      warmup_turns: 0
   environment:
-    guided_free_ratio: 0.5
+    guided_free_ratio: 1.0
     auto_skip: NONE
     normalize_rewards: true
     max_steps: 50
     user_patience: 3
     stop_when_reaching_goal: true # stop after goal node was both reached + presented (ASK)
-    num_train_envs: 10
+    stop_on_invalid_skip: false # stop when taking a wrong path
+    num_train_envs: 1
     num_val_envs: 5
     num_test_envs: 0
     sys_token: "[SYS]"

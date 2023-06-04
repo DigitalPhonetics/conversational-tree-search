@@ -1,6 +1,5 @@
 ckpt_name: 'deepset/gbert-large'
 embedding_dim: 1024
-cache_db_index: 0
 pooling: CLS
 noise_std: 0.0
 caching: false

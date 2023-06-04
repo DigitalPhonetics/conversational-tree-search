@@ -25,7 +25,6 @@ class TextEmbeddingConfig:
     caching: bool
     ckpt_name: str
     embedding_dim: int
-    cache_db_index: int
     _target_: str
 
 

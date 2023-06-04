@@ -36,18 +36,9 @@ class ActionType(IntEnum):
 
 class InstanceType(Enum):
     ALGORITHM = 'algorithm'
-    CACHE = 'cache'
     CONFIG = 'config'
     BUFFER = 'buffer'
     STATE_ENCODING = 'state_encoding'
-
-@dataclass
-class CacheConfig:
-    _target_: str
-    active: bool
-    host: str = "localhost"
-    port: int = 64123
-
 
 @dataclass
 class TrainingStageConfig:
@@ -122,7 +113,6 @@ class LoggingConfig:
 class Experiment:
     _target_: str
     device: str
-    cache: CacheConfig
     seed: int
     cudnn_deterministic: bool
     optimizer: OptimizerConfig

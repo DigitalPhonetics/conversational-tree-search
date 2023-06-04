@@ -1,15 +1,11 @@
-from copy import deepcopy
 import importlib
 from typing import Any, Dict, List, Union
 from utils.utils import State
-from config import INSTANCES, InstanceType, StateConfig, ActionType
-import redis
-import redisai as rai
+from config import StateConfig, ActionType
 import torch
 from data.dataset import DialogNode, GraphDataset
 from encoding.action import ActionTypeEncoding
 from encoding.bst import BSTEncoding
-from encoding.intent import IntentEncoding
 from encoding.nodeinfo.nodetype import NodeTypeEncoding
 from encoding.nodeinfo.position import TreePositionEncoding, AnswerPositionEncoding
 
@@ -21,7 +17,7 @@ def requires_text_embedding(obj):
 
 
 class Cache:
-    def __init__(self, device: str, data: GraphDataset, host: str, port: int, state_config: StateConfig) -> None:
+    def __init__(self, device: str, data: GraphDataset, state_config: StateConfig) -> None:
         self.device = device
         self.text_embeddings: Dict[str, TextEmbeddings] = {}
         self.other_embeddings = {}
@@ -30,7 +26,6 @@ class Cache:
         # (make sure to only load one instance of each different embedding type)
         text_embedding_keys = filter(lambda x: requires_text_embedding(state_config[x]), state_config)
         self.state_embedding_cfg: Dict[State, TextEmbeddingConfig] = {}
-        self.cache_connections = {}
         for state_input_key in text_embedding_keys:
             # save each configuration individually, but share the embeddings instance
             embedding_cfg: TextEmbeddingConfig = state_config[state_input_key]
@@ -41,8 +36,6 @@ class Cache:
                 embedding_cls: TextEmbeddings = getattr(importlib.import_module(".".join(cls_name_components[:-1])), cls_name_components[-1])
                 embedding_instance = embedding_cls(device=device, ckpt_name=embedding_cfg.ckpt_name, embedding_dim=embedding_cfg.embedding_dim)
                 self.text_embeddings[embedding_cfg._target_] = embedding_instance
-                if embedding_cfg.caching:
-                    self.cache_connections[embedding_cfg._target_] = rai.Client(host=host, port=port, db=embedding_cfg.cache_db_index)
 
         # extract all state input keys that require positional embeddings (use DialogNode inputs)
         if state_config.node_position:
@@ -77,25 +70,8 @@ class Cache:
 
     @torch.no_grad()
     def _encode(self, state_input_key: State, text_embedding_name: str, caching: bool, cache_key: str, encode_fn: Any, value: Union[str, List[str]]):
-        final_caching = caching and self.state_embedding_cfg[state_input_key].caching
         pooling = self.state_embedding_cfg[state_input_key].pooling
-
-        embeddings = None
-        if final_caching:
-            # don't cache empty text
-            # don't cache numbers (because they can be drawn randomly and explode memory)
-            # don't cache if caching is turned off (e.g. for attention)
-            try:
-                embeddings = torch.tensor(self.cache_connections[text_embedding_name].tensorget(cache_key)) # 1 x tokens x encoding_dim
-            except redis.exceptions.ResponseError:
-                # key does not exist (yet) -> do nothing to trigger embedding from model
-                pass
-        if not torch.is_tensor(embeddings):
-            # key did not exist in cache
-            embeddings = encode_fn(value).detach().cpu()
-            if final_caching:
-                self.cache_connections[text_embedding_name].tensorset(cache_key, embeddings.numpy())
-
+        embeddings = encode_fn(value).detach().cpu()
         embeddings = self._apply_noise(state_input_key=state_input_key, embeddings=embeddings)
         embeddings = self._apply_pooling(embeddings, pooling)
         return embeddings
@@ -114,9 +90,6 @@ class Cache:
     
     @torch.no_grad()
     def batch_encode_text(self, state_input_key: State, text: List[str]):
-        """
-        IMPORTANT: DOES NOT CACHE!
-        """
         text_embedding_name = self.state_embedding_cfg[state_input_key]._target_
         text_embedding: TextEmbeddings = self.text_embeddings[text_embedding_name]
 
@@ -141,15 +114,13 @@ class Cache:
         return self._encode(state_input_key=State.ACTION_TEXT,
                             text_embedding_name=text_embedding_name,
                             caching=len(node.answers) > 0,
-                            cache_key=f"actions_{node.key}",
+                        cache_key=f"actions_{node.key}",
                             encode_fn=text_embedding.batch_encode, # returns: num_actions x max_length x embedding_size
                             value=[node.answer_by_index(i).text for i in range(len(node.answers))])
     
     @torch.no_grad()
     def batch_encode_answer_text(self, node: List[DialogNode], action_space_dim: int):
         """
-        IMPORTANT: DOES NOT CACHE!
-
         Returns:
             Padded tensor: len(node) x action_space_dim x 2 + embedding_dim (+2: includes action type encoding)
         """

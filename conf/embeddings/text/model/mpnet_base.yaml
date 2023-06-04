@@ -1,6 +1,5 @@
 ckpt_name: 'sentence-transformers/all-mpnet-base-v2'
 embedding_dim: 768
-cache_db_index: 3
 pooling: NONE
 noise_std: 0.0
 caching: false

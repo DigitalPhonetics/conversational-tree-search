@@ -9,32 +9,6 @@ from statistics import mean
 from typing import Dict, List
 import torch
 
-from encoding.text.gbert import FinetunedGBertEmbeddings, GBertEmbeddings
-from encoding.text.sbert import SentenceEmbeddings
-
-resource_dir = Path(".", 'chatbot', 'static', 'chatbot', 'nlu_resources')
-
-
-
-
-
-class State(Enum):
-    # embeddable state
-    LAST_SYSACT = "last_system_action"
-    BELIEFSTATE = 'beliefstate'
-    NODE_POSITION = 'node_positions' # position in tree 
-    NODE_TYPE = 'node_type'
-    NODE_TEXT = 'node_text'
-    INITIAL_USER_UTTERANCE = "initial_user_utterance"
-    DIALOG_HISTORY = 'dialog_history'
-
-    # embeddable action state
-    ACTION_TEXT = "action_text"
-    ACTION_POSITION = 'action_position' # position in tree
-
-    # always embedded
-    CURRENT_USER_UTTERANCE = "current_user_utterance"
-
 
 class EnvInfo(Enum):
     # STATE INFO
@@ -126,63 +100,6 @@ def _munchausen_stable_softmax(q: torch.FloatTensor, tau: float) -> torch.FloatT
     return torch.softmax((q-q.max(-1, keepdim=True)[0])/tau, -1) # batch
 
 
-def _del_checkpoint(filename: str):
-    os.remove(filename)
-
-
-def _save_checkpoint(global_step: int, episode_counter: int, train_counter: int, run_name: str, model_state_dict: dict, optimizer_state_dict: dict, epsilon: float,
-                     torch_rng, numpy_rng, rand_rng):
-    
-    torch.save({
-        "model": model_state_dict,
-        # "config": self.args,
-        "global_step": global_step,
-        "optimizer": optimizer_state_dict,
-        "epsilon": epsilon,
-        "episode_counter": episode_counter,
-        "train_counter": train_counter,
-        "torch_rng": torch_rng,
-        "numpy_rng": numpy_rng,
-        "rand_rng": rand_rng
-    }, f"/mount/arbeitsdaten/asr-2/vaethdk/adviser_reisekosten/newruns/{run_name}/ckpt_{global_step}.pt")
-
-
-
-EMBEDDINGS = {
-    'gbert-large': {
-        'class': GBertEmbeddings,
-        'args': {
-            'pretrained_name': 'deepset/gbert-large',
-            'embedding_dim': 1024,
-            'cache_db_index': 0
-        }
-    },
-    'finetuned-gbert-large': {
-        'class': FinetunedGBertEmbeddings,
-        'args': {
-            'pretrained_name': 'gbert-finetuned',
-            'embedding_dim': 1024,
-            'cache_db_index': 1
-        }
-    },
-    'cross-en-de-roberta-sentence-transformer': {
-        'class': SentenceEmbeddings,
-        'args': {
-            'pretrained_name': 'T-Systems-onsite/cross-en-de-roberta-sentence-transformer',
-            'embedding_dim': 768,
-            'cache_db_index': 2
-        }
-    },
-    'distiluse-base-multilingual-cased-v2': {
-        'class': SentenceEmbeddings,
-        'args': {
-            'pretrained_name': 'distiluse-base-multilingual-cased-v2',
-            'embedding_dim': 512,
-            'cache_db_index': 3
-        }
-    },
-}
-
 
 class ExperimentLogging(Enum):
     NONE = "none"
@@ -201,29 +118,6 @@ class EnvironmentMode(Enum):
     TRAIN = 0,
     EVAL = 1
     TEST = 2
-
-
-def _load_answer_synonyms(mode: EnvironmentMode, use_synonyms: bool, use_joint_dataset: bool = False) -> Dict[str, List[str]]:
-    if use_joint_dataset:
-        path = "traintest_answers.json"
-    else:
-        if mode in [EnvironmentMode.TRAIN, EnvironmentMode.EVAL]:
-            path = "train_answers.json"
-        else:
-            path = "test_answers.json"
-    answers = None
-    with open(path, "r") as f:
-        answers = json.load(f)
-    if not use_synonyms:
-        # choose key to have same data for train and test set
-        answers = {answer: [answer] for answer in answers}
-    return answers
-
-def _load_a1_laenderliste():
-    a1_laenderliste = None
-    with open(resource_dir / "a1_countries.json", "r") as f:
-        a1_laenderliste = json.load(f)
-    return a1_laenderliste
 
 
 class NodeType(Enum):
