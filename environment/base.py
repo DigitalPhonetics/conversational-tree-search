@@ -47,6 +47,7 @@ class BaseEnv:
         self.value_backend = value_backend
 
         # stats
+        self.episode_log = []
         self.reset_stats()
 
     def reset_stats(self):
@@ -79,7 +80,6 @@ class BaseEnv:
         self.current_step = 0
         self.user_answer_keys = defaultdict(int)
         self.visited_node_keys = defaultdict(int)
-        self.episode_log = []
         self.bst = {}
        
         self.initial_user_utterance = "" 
@@ -340,8 +340,10 @@ class BaseEnv:
         if done:
             self.reached_goals.append(float(self.reached_goal_once))
             self.asked_goals.append(float(self.asked_goal_once))
-            self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> TURN REWARD: {reward}')
-            self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> FINAL REWARD: {self.episode_reward}')
+            # self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> TURN REWARD: {reward}')
+            self.episode_log.append(f'{self.env_id}-{self.current_episode}$=> REACHED GOAL ONCE: {self.reached_goal_once}')
+            self.episode_log.append(f'{self.env_id}-{self.current_episode}$=> ASKED GOAL ONCE: {self.asked_goal_once}')
+            self.episode_log.append(f'{self.env_id}-{self.current_episode}$=> FINAL REWARD: {self.episode_reward}')
 
         obs = self.get_obs()
         reward /= self.max_reward 

@@ -9,7 +9,6 @@ defaults:
   - optimizer@experiment.optimizer: adam
   - net_arch@experiment.policy.net_arch: dqn/decoupled_dueling_dqn_with_intentprediction
   - algorithm@experiment.algorithm: dqn/dqn
-  - algorithm/dqn/targets@experiment.algorithm.dqn.targets: muenchausen
 
   # embeddings
   - embeddings/text/model@experiment.state.node_text: mpnet_base
@@ -38,7 +37,7 @@ experiment:
       use_answer_synonyms: true
   validation:
     noise: 0.0
-    every_steps: 25000
+    every_steps: 50000
     dialogs: 500
     dataset:
       use_answer_synonyms: true
@@ -68,7 +67,7 @@ experiment:
     dqn:
       timesteps_per_reset: 1000000 # single timesteps (across all vec envs)
       batch_size: 128
-      target_network_update_frequency: 2 # times per batch
+      target_network_update_frequency: 1 # times per batch
       max_grad_norm: 1.0
       gamma: 0.99
   environment:

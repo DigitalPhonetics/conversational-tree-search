@@ -12,12 +12,14 @@ import torch
 class SentenceEmbeddings(TextEmbeddings):
     SIMILARITY_THRESHOLD = 0.01 # TODO find acceptable threshold
 
-    def __init__(self, device: str, ckpt_name: str, embedding_dim: int) -> None:
+    def __init__(self, device: str, ckpt_name: str, embedding_dim: int, torch_compile: bool) -> None:
         from sentence_transformers import SentenceTransformer
-        super().__init__(device, ckpt_name, embedding_dim)
+        super().__init__(device, ckpt_name, embedding_dim, torch_compile)
         path = f".models/{ckpt_name.replace('/', '_')}"
         name_or_path = path if os.path.exists(path) else ckpt_name
-        self.bert_sentence_embedder = torch.compile(SentenceTransformer(path, device=device, cache_folder = '.models').to(device))
+        self.bert_sentence_embedder = SentenceTransformer(path, device=device, cache_folder = '.models').to(device)
+        if torch_compile:
+            self.bert_sentence_embedder = torch.compile(self.bert_sentence_embedder)
 
     @torch.no_grad()
     def _encode(self, text: Union[str, None]) -> torch.FloatTensor:

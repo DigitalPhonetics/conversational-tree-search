@@ -43,6 +43,7 @@ class CustomQNetwork(BasePolicy):
         normalization_layers: bool = False,
         dropout_rate: float = 0.0,
         activation_fn: Type[nn.Module] = nn.ReLU,
+        q_value_clipping: int = 0.0
     ) -> None:
         super().__init__(
             observation_space,
@@ -51,6 +52,7 @@ class CustomQNetwork(BasePolicy):
             normalize_images=False,
         )
 
+        self.q_value_clipping = q_value_clipping
         self.intent_prediction = False
         self.activation_fn = activation_fn
         self.dropout_rate = dropout_rate
@@ -101,6 +103,9 @@ class CustomQNetwork(BasePolicy):
         if self.actions_in_state_space:
             # reshape outputs
             q = q.view(-1, self.action_space.n)
+
+        if self.q_value_clipping > 0.0:
+            q = q.clip(min=None, max=self.q_value_clipping) # don't mask min because of "inf" masking
         return q
 
     def _predict(self, observation: th.Tensor, deterministic: bool = True) -> th.Tensor:
@@ -129,6 +134,7 @@ class CustomDuelingQNetwork(BasePolicy):
         normalization_layers: bool = False,
         dropout_rate: float = 0.0,
         activation_fn: Type[nn.Module] = nn.ReLU,
+        q_value_clipping: int = 0.0
     ) -> None:
         super().__init__(
             observation_space,
@@ -137,6 +143,7 @@ class CustomDuelingQNetwork(BasePolicy):
             normalize_images=False,
         )
 
+        self.q_value_clipping = q_value_clipping
         self.intent_prediction = False
         self.activation_fn = activation_fn
         self.dropout_rate = dropout_rate
@@ -289,6 +296,9 @@ class CustomDuelingQNetwork(BasePolicy):
 
         # Fuse streams into q-values
         q = self.fuse_streams(value_stream, advantage_stream, num_actions)
+
+        if self.q_value_clipping > 0.0:
+            q = q.clip(min=None, max=self.q_value_clipping) # don't mask min because of "inf" masking
         return q
        
     def _predict(self, observation: th.Tensor, deterministic: bool = True) -> th.Tensor:
@@ -316,7 +326,8 @@ class CustomDuelingQNetworkWithIntentPrediction(CustomDuelingQNetwork):
         normalization_layers: bool = False,
         dropout_rate: float = 0.0,
         activation_fn: Type[nn.Module] = nn.ReLU,
-        intent_loss_weight: float = 0.0
+        intent_loss_weight: float = 0.0,
+        q_value_clipping: int = 0.0
     ) -> None:
         assert intent_loss_weight > 0.0
         super().__init__(
@@ -328,7 +339,8 @@ class CustomDuelingQNetworkWithIntentPrediction(CustomDuelingQNetwork):
             state_dims=state_dims,
             normalization_layers=normalization_layers,
             dropout_rate=dropout_rate,
-            activation_fn=activation_fn
+            activation_fn=activation_fn,
+            q_value_clipping=q_value_clipping
         )
 
         # intent prediction head
@@ -375,6 +387,9 @@ class CustomDuelingQNetworkWithIntentPrediction(CustomDuelingQNetwork):
         
         # Fuse streams into q-values
         q = self.fuse_streams(value_stream, advantage_stream, num_actions)
+
+        if self.q_value_clipping > 0.0:
+            q = q.clip(min=None, max=self.q_value_clipping) # don't mask min because of "inf" masking
 
         return q, intent_logits
        

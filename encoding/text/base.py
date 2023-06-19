@@ -30,7 +30,7 @@ class TextEmbeddingConfig:
 
 
 class TextEmbeddings(Encoding):
-    def __init__(self, device: str, ckpt_name: str, embedding_dim: int) -> None:
+    def __init__(self, device: str, ckpt_name: str, embedding_dim: int, torch_compile: bool) -> None:
         super().__init__(device)
         self.device = device
         self.embedding_dim = embedding_dim

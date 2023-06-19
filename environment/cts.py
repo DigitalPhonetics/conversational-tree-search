@@ -47,7 +47,7 @@ class CTSEnvironment(gymnasium.Env):
         answer_parser = AnswerTemplateParser()
         logic_parser = LogicTemplateParser()
         system_parser = SystemTemplateParser()
-        value_backend = RealValueBackend(dataset.a1_countries)
+        value_backend = RealValueBackend(dataset.a1_countries, dataset)
 
         # initialize task-specific environments
         self.guided_free_ratio = guided_free_ratio
@@ -81,6 +81,10 @@ class CTSEnvironment(gymnasium.Env):
         if hasattr(self, "free_env"):
             episode += self.free_env.current_episode
         return episode
+    
+    @property
+    def current_step(self):
+        return self.active_env.current_step 
 
     def reset(self):
         # adapt max. goald distance
@@ -97,7 +101,18 @@ class CTSEnvironment(gymnasium.Env):
     
     @property
     def episode_log(self):
-        return self.active_env.episode_log
+        log = []
+        if hasattr(self, "guided_env"):
+            log.extend(self.guided_env.episode_log)
+        if hasattr(self, "free_env"):
+            log.extend(self.free_env.episode_log)
+        return log
+    
+    def reset_episode_log(self):
+        if hasattr(self, "guided_env"):
+            self.guided_env.episode_log = []
+        if hasattr(self, "free_env"):
+            self.free_env.episode_log = []
 
     def step(self, action: int, replayed_user_utterance: Tuple[str, None] = None) -> Tuple[dict, float, bool, dict]:
         obs, reward, done = self.active_env.step(action, replayed_user_utterance)

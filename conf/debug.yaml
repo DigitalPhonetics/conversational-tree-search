@@ -8,13 +8,14 @@ defaults:
   - optimizer@experiment.optimizer: adam
   - net_arch@experiment.policy.net_arch: dqn/decoupled_dueling_dqn_with_intentprediction
   - algorithm@experiment.algorithm: dqn/dqn
+  - algorithm/dqn/targets@experiment.algorithm.dqn.targets: muenchausen
 
   # embeddings
-  - embeddings/text/model@experiment.state.node_text: roberta_sentencesim
-  - embeddings/text/model@experiment.state.initial_user_utterance: roberta_sentencesim
-  - embeddings/text/model@experiment.state.current_user_utterance: roberta_sentencesim
-  - embeddings/text/model@experiment.state.action_text: roberta_sentencesim
-  - embeddings/text/model@experiment.state.dialog_history: roberta_sentencesim
+  - embeddings/text/model@experiment.state.node_text: mpnet_base
+  - embeddings/text/model@experiment.state.initial_user_utterance: mpnet_base
+  - embeddings/text/model@experiment.state.current_user_utterance: mpnet_base
+  - embeddings/text/model@experiment.state.action_text: mpnet_base
+  - embeddings/text/model@experiment.state.dialog_history: mpnet_base
 
   # overwrite defaults loaded above with the following content from this file
   - _self_
@@ -23,6 +24,7 @@ experiment:
   device: cuda:0
   seed: 12345678
   cudnn_deterministic: false
+  torch_compile: false
   logging:
     # keep_checkpoints: 5
     wandb_log: NONE
@@ -31,13 +33,13 @@ experiment:
   training:
     noise: 0.3
     every_steps: 2
-    steps: 10000
+    steps: 4
     dataset:
       use_answer_synonyms: true
   validation:
     noise: 0.0
-    every_steps: 10000
-    dialogs: 5
+    every_steps: 2 
+    dialogs: 4
     dataset:
       use_answer_synonyms: true
   policy:
@@ -49,10 +51,10 @@ experiment:
   #   hidden_layer_sizes: [1024, 1024]
   algorithm:
     dqn:
-      batch_size: 2
+      batch_size: 1
       warmup_turns: 0
   environment:
-    guided_free_ratio: 1.0
+    guided_free_ratio: 0.5
     auto_skip: NONE
     normalize_rewards: true
     max_steps: 50
@@ -60,7 +62,7 @@ experiment:
     stop_when_reaching_goal: true # stop after goal node was both reached + presented (ASK)
     stop_on_invalid_skip: false # stop when taking a wrong path
     num_train_envs: 1
-    num_val_envs: 5
+    num_val_envs: 1
     num_test_envs: 0
     sys_token: "[SYS]"
     usr_token: "[USR]"

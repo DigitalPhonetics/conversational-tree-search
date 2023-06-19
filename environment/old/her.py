@@ -1,34 +1,79 @@
-import copy
 from collections import deque
+import copy
+import random
 from statistics import mean
-from typing import Any, Dict, List, NamedTuple, Tuple, Union
-
-import numpy as np
-import torch as th
+from typing import Any, Dict, List, Tuple, Union
 from algorithm.dqn.buffer import CustomReplayBuffer
+from algorithm.dqn.her import AVERAGE_WINDOW, HERReplaySample
 from environment.goal import DummyGoal
+from environment.old.cts import OldCTSEnv
 
-from utils.utils import AutoSkipMode, EnvInfo
-from data.parsers.systemTemplateParser import SystemTemplateParser
-from config import ActionType, InstanceType, INSTANCES
+from utils.utils import EnvInfo, rand_remove_questionmark
+
 from data.dataset import GraphDataset
-from environment.her import CTSHEREnvironment
-from utils.utils import rand_remove_questionmark
+
+from data.parsers.systemTemplateParser import SystemTemplateParser
+from utils.utils import AutoSkipMode
+import config as cfg
+from utils.envutils import GoalDistanceMode
 
 
-class HERReplaySample(NamedTuple):
-    observations: np.ndarray
-    next_observations: np.ndarray
-    action: np.ndarray
-    reward: np.ndarray
-    done: np.ndarray
-    info: List[Dict[EnvInfo, Any]]
+import torch as th
+import numpy as np
+
+class OldCTSHEREnvironment:
+    """
+    Extra environment for HER Replay (very similar to CTSEnvironment, but does not mess up the statistics there)
+    """
+    def __init__(self, 
+                # env_id: int,
+                dataset: GraphDataset,
+                auto_skip: AutoSkipMode,
+                normalize_rewards: bool,
+                max_steps: int,
+                user_patience: int,
+                stop_when_reaching_goal: bool,
+                stop_on_invalid_skip: bool,
+                sys_token: str, usr_token: str, sep_token: str,
+                **kwargs):
+        # self.env_id = env_id
+        self.data = dataset
+        self.sys_token = sys_token
+        self.usr_token = usr_token
+        self.sep_token = sep_token
+
+        self.max_reward = 4 * dataset.get_max_tree_depth() if normalize_rewards else 1.0
+        self.max_distance = dataset.get_max_tree_depth() + 1
+        cfg.INSTANCES[cfg.InstanceArgs.MAX_DISTANCE] = self.max_distance
+
+        self.free_env = OldCTSEnv('train', dataset, 0.0, auto_skip, normalize_rewards, max_steps, user_patience,
+                                            stop_when_reaching_goal, stop_on_invalid_skip, sys_token, usr_token, sep_token, GoalDistanceMode.FULL_DISTANCE, 100, **kwargs)
+        print("OLD HER ENV!!", "TOKENS:", sys_token, usr_token, sep_token)
+    
+    @property
+    def current_episode(self):
+        return self.free_env.current_episode
+
+    def reset(self, mode: str, replayed_goal: DummyGoal): 
+        """
+        Args:
+            mode: "free" or "guided"
+        """
+        self.active_env = self.free_env
+       
+        # choose uniformely at random between guided and free env according to ratio
+        if mode == 'free':
+            return self.active_env._her_faq_reset(replayed_goal)
+
+    def step(self, action: int, replayed_user_utterance: Tuple[str, None] = None) -> Tuple[dict, float, bool, dict]:
+        obs, reward, done, truncated, info = self.active_env.step(action, replayed_user_utterance)
+        obs[EnvInfo.IS_FAQ] = True
+        obs["is_success"] = obs[EnvInfo.ASKED_GOAL]
+        return obs, reward, done, obs # info = obs before encoding
 
 
 
-AVERAGE_WINDOW = 1000
-
-class HindsightExperienceReplayWrapper(object):
+class OldHindsightExperienceReplayWrapper(object):
     """
     Wrapper around a replay buffer in order to use HER.
     This implementation is inspired by to the one found in https://github.com/NervanaSystems/coach/.
@@ -64,7 +109,7 @@ class HindsightExperienceReplayWrapper(object):
         self.batch_size = batch_size
         self.data = dataset
         self.system_parser = SystemTemplateParser()
-        self.env = CTSHEREnvironment(dataset=dataset, auto_skip=auto_skip,
+        self.env = OldCTSHEREnvironment(dataset=dataset, auto_skip=auto_skip,
                                     normalize_rewards=normalize_rewards,
                                     max_steps=max_steps, user_patience=user_patience,
                                     stop_when_reaching_goal=stop_when_reaching_goal, stop_on_invalid_skip=stop_on_invalid_skip,
@@ -137,8 +182,8 @@ class HindsightExperienceReplayWrapper(object):
         # trigger batch encoding when full (>= batch_size elements)
         while len(self.artificial_transition_buffer) >= self.batch_size:
             # encode states
-            batch_obs = INSTANCES[InstanceType.STATE_ENCODING].batch_encode([transition.observations for transition in self.artificial_transition_buffer[:self.batch_size]], sys_token=self.env.sys_token, usr_token=self.env.usr_token, sep_token=self.env.sep_token)
-            batch_next_obs = INSTANCES[InstanceType.STATE_ENCODING].batch_encode([transition.next_observations for transition in self.artificial_transition_buffer[:self.batch_size]], sys_token=self.env.sys_token, usr_token=self.env.usr_token, sep_token=self.env.sep_token)
+            batch_obs = cfg.INSTANCES[cfg.InstanceType.STATE_ENCODING].batch_encode([transition.observations for transition in self.artificial_transition_buffer[:self.batch_size]], sys_token=self.env.sys_token, usr_token=self.env.usr_token, sep_token=self.env.sep_token)
+            batch_next_obs = cfg.INSTANCES[cfg.InstanceType.STATE_ENCODING].batch_encode([transition.next_observations for transition in self.artificial_transition_buffer[:self.batch_size]], sys_token=self.env.sys_token, usr_token=self.env.usr_token, sep_token=self.env.sep_token)
             # encode actions, dones, infos, rewards
             batch_actions = np.array([transition.action for transition in self.artificial_transition_buffer[:self.batch_size]], dtype=np.int16)
             batch_dones = np.array([transition.done for transition in self.artificial_transition_buffer[:self.batch_size]], dtype=np.int8)
@@ -169,7 +214,7 @@ class HindsightExperienceReplayWrapper(object):
 
         if final_transition_idx + 1 < len(original_transitions):
             # check if last action is ASK - if so, keep it 
-            if original_transitions[final_transition_idx + 1].action == ActionType.ASK:
+            if original_transitions[final_transition_idx + 1].action == cfg.ActionType.ASK:
                 final_transition_idx += 1
         
         # assemble artificial goal 
@@ -204,9 +249,9 @@ class HindsightExperienceReplayWrapper(object):
             transition_idx += 1
 
         assert info[EnvInfo.REACHED_GOAL_ONCE] == True
-        if self.append_ask_action and not (original_action == ActionType.ASK):
+        if self.append_ask_action and not (original_action == cfg.ActionType.ASK):
             # append an artificial ASK action as last action, if replayed episode didn't end in one
-            next_obs, reward, done, info = self.env.step(ActionType.ASK) 
+            next_obs, reward, done, info = self.env.step(cfg.ActionType.ASK) 
             self._store_aritificial_transition(obs, next_obs, original_action, reward, done, info)
             episode_reward += reward
             transition_idx += 1
@@ -215,20 +260,7 @@ class HindsightExperienceReplayWrapper(object):
         self._staging_complete()
         return episode_reward
     
-    def _replay_guided(self, original_transitions: List[HERReplaySample]):
-        goal = self._draw_artificial_goal(original_transitions, self.env.guided_env.goal_gen._is_guided_goal_candidate)
-        if isinstance(goal, type(None)): 
-            # we didn't find a goal candidate - return 
-            self.replay_success_guided.append(0.0)
-            return
-           
-        # replay
-        goal, final_transition_idx = goal
-        total_reward = self._replay_episode(mode='guided', original_transitions=original_transitions, artificial_goal=goal, final_transition_idx=final_transition_idx)
-        self.artifical_rewards_guided.append(total_reward)
-        self.replay_success_guided.append(1.0)
-
-    def _replay_free(self, original_transitions: List[HERReplaySample], retry: int = 0):
+    def _replay_free(self, original_transitions: List[HERReplaySample]):
         goal = self._draw_artificial_goal(original_transitions, self.env.free_env.goal_gen._is_free_goal_candidate)
         if isinstance(goal, type(None)): 
             # we didn't find a goal candidate - return 
@@ -247,16 +279,8 @@ class HindsightExperienceReplayWrapper(object):
             try:
                 goal.initial_user_utterance = self.system_parser.parse_template(goal.delexicalised_initial_user_utterance, self.env.free_env.value_backend, goal.constraints)
             except:
-                print(f"HER ERROR: parser on retry {retry}", goal.delexicalised_initial_user_utterance, goal.constraints)
-                offset = 1
-                if original_transitions[final_transition_idx].action == ActionType.ASK:
-                    # have to backward to previous node
-                    offset += 1
-                if final_transition_idx - offset > 1:
-                    self._replay_free(original_transitions[:final_transition_idx-1], retry=retry+1)
-                else:
-                    self.replay_success_free.append(0.0)
-                    return
+                print("HER ERROR: parser", goal.delexicalised_initial_user_utterance, goal.constraints)
+        # otherwise, we can keep the same goal
 
         # replay
         total_reward = self._replay_episode(mode='free', original_transitions=original_transitions, artificial_goal=goal, final_transition_idx=final_transition_idx)
@@ -276,10 +300,7 @@ class HindsightExperienceReplayWrapper(object):
         # episode was not successful: replay
         if original_transitions[0].info[EnvInfo.IS_FAQ]:
             self._replay_free(original_transitions)
-        else:
-            self._replay_guided(original_transitions)
         
-
 
 
 

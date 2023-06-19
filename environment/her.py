@@ -45,7 +45,7 @@ class CTSHEREnvironment:
         answer_parser = AnswerTemplateParser()
         logic_parser = LogicTemplateParser()
         system_parser = SystemTemplateParser()
-        value_backend = RealValueBackend(dataset.a1_countries)
+        value_backend = RealValueBackend(dataset.a1_countries, dataset)
 
         # initialize task-specific environments
         self.guided_env = GuidedEnvironment(dataset=dataset,
@@ -81,6 +81,7 @@ class CTSHEREnvironment:
             self.active_env = self.guided_env
 
         # choose uniformely at random between guided and free env according to ratio
+        self.active_env.episode_log = []
         return self.active_env.reset(current_episode=self.current_episode, max_distance=self.max_distance, replayed_goal=replayed_goal)
 
     def step(self, action: int, replayed_user_utterance: Tuple[str, None] = None) -> Tuple[dict, float, bool, dict]:

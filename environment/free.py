@@ -136,8 +136,11 @@ class FreeEnvironment(BaseEnv):
                 reward += self.reward_reached_goal # assign a reward for reaching the goal (but not asked yet, because this was a skip)
                 self.reached_goal_once = True
                 self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> REACHED GOAL')
+            else:
+                self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> SKIP (answer index: {answer_index}) to {next_node.key}')
         else:
             # invalid transition -> punish
+            self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> INVALID SKIP (answer index: {answer_index} for {len(self.current_node.answers)})')
             reward -= 3
             self.actioncount_skip_invalid += 1
         return done, reward

@@ -10,6 +10,26 @@ from typing import Dict, List
 import torch
 
 
+
+
+class State(Enum):
+    # embeddable state
+    LAST_SYSACT = "last_system_action"
+    BELIEFSTATE = 'beliefstate'
+    NODE_POSITION = 'node_positions' # position in tree 
+    NODE_TYPE = 'node_type'
+    NODE_TEXT = 'node_text'
+    INITIAL_USER_UTTERANCE = "initial_user_utterance"
+    DIALOG_HISTORY = 'dialog_history'
+
+    # embeddable action state
+    ACTION_TEXT = "action_text"
+    ACTION_POSITION = 'action_position' # position in tree
+
+    # always embedded
+    CURRENT_USER_UTTERANCE = "current_user_utterance"
+
+
 class EnvInfo(Enum):
     # STATE INFO
     DIALOG_NODE_KEY = 'dialog_node'

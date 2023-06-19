@@ -1,7 +1,8 @@
 from typing import Dict
 import locale
+
+from data.dataset import GraphDataset
 locale.setlocale(locale.LC_ALL, 'de_DE.UTF-8') 
-import chatbot.adviser.app.rl.dataset as Data
 
 class ValueBackend:
     def get_nlu_val(self, bst: dict, var_name: str):
@@ -29,8 +30,9 @@ class MockDB(ValueBackend):
 
 
 class RealValueBackend(ValueBackend):
-    def __init__(self, a1_laender: Dict[str, bool]) -> None:
+    def __init__(self, a1_laender: Dict[str, bool], data: GraphDataset) -> None:
         self.a1_laender = a1_laender
+        self.data = data
 
     def get_nlu_val(self, bst: dict, var_name: str):
         return bst[var_name]
@@ -43,7 +45,7 @@ class RealValueBackend(ValueBackend):
                 land = values[0]
                 stadt = values[1]
                 # result = Tagegeld.objects.get(land=land, stadt=stadt).tagegeldsatz
-                result = Data.objects[0].tagegeld(land, stadt)
+                result = self.data.hotel_costs[land][stadt]
                 return f"{result:g}"
             else:
                 return f"ERROR in Template: In Tabelle {table_name} konnte Spalte {func_name} nicht gefunden werden."

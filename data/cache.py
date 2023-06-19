@@ -17,7 +17,7 @@ def requires_text_embedding(obj):
 
 
 class Cache:
-    def __init__(self, device: str, data: GraphDataset, state_config: StateConfig) -> None:
+    def __init__(self, device: str, data: GraphDataset, state_config: StateConfig, torch_compile: bool) -> None:
         self.device = device
         self.text_embeddings: Dict[str, TextEmbeddings] = {}
         self.other_embeddings = {}
@@ -34,7 +34,7 @@ class Cache:
             if not embedding_cfg._target_ in self.text_embeddings:
                 print(f"Loading Embedding (caching: {embedding_cfg.caching}) {embedding_cfg._target_} ...")
                 embedding_cls: TextEmbeddings = getattr(importlib.import_module(".".join(cls_name_components[:-1])), cls_name_components[-1])
-                embedding_instance = embedding_cls(device=device, ckpt_name=embedding_cfg.ckpt_name, embedding_dim=embedding_cfg.embedding_dim)
+                embedding_instance = embedding_cls(device=device, ckpt_name=embedding_cfg.ckpt_name, embedding_dim=embedding_cfg.embedding_dim, torch_compile=torch_compile)
                 self.text_embeddings[embedding_cfg._target_] = embedding_instance
 
         # extract all state input keys that require positional embeddings (use DialogNode inputs)

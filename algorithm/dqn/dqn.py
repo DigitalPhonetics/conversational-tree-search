@@ -1,16 +1,16 @@
 
-from typing import List, Tuple, TypeVar, Union, Dict, Optional, Type, Any
+from statistics import mean
+from typing import Tuple, TypeVar, Union, Dict, Optional, Type, Any
 from stable_baselines3 import DQN
 
 import torch as th
 import torch.nn.functional as F
 
 from gymnasium import spaces
-from stable_baselines3.dqn.policies import DQNPolicy, QNetwork, BasePolicy
+from stable_baselines3.dqn.policies import QNetwork
 from stable_baselines3.common.type_aliases import Schedule
 
-import warnings
-from typing import Any, Dict, List, Optional, Tuple, Type, Union
+from typing import Any, Dict, Optional, Tuple, Type, Union
 
 import numpy as np
 import torch as th
@@ -18,13 +18,13 @@ from gymnasium import spaces
 from torch.nn import functional as F
 
 from stable_baselines3.common.buffers import ReplayBuffer
-from stable_baselines3.common.policies import BasePolicy
-from stable_baselines3.common.type_aliases import GymEnv, MaybeCallback, Schedule
-from stable_baselines3.common.utils import get_linear_fn, get_parameters_by_name, polyak_update
-from stable_baselines3.dqn.policies import CnnPolicy, DQNPolicy, MlpPolicy, MultiInputPolicy, QNetwork
+from stable_baselines3.common.type_aliases import GymEnv, Schedule
+from stable_baselines3.dqn.policies import QNetwork
 from algorithm.dqn.her import HindsightExperienceReplayWrapper
 
 from algorithm.dqn.policy import CustomDQNPolicy
+from algorithm.dqn.targets import DQNTarget, StandardTarget
+from environment.old.her import OldHindsightExperienceReplayWrapper
 from utils.utils import EnvInfo
 import config as cfg
 
@@ -87,6 +87,7 @@ class CustomDQN(DQN):
         self,
         policy: Union[str, Type[CustomDQNPolicy]],
         env: Union[GymEnv, str],
+        target: DQNTarget,
         learning_rate: Union[float, Schedule] = 1e-4,
         buffer_size: int = 1_000_000,  # 1e6
         learning_starts: int = 50000,
@@ -111,7 +112,7 @@ class CustomDQN(DQN):
         device: Union[th.device, str] = "auto",
         _init_setup_model: bool = True,
         action_masking: bool = False,
-        actions_in_state_space: bool = False
+        actions_in_state_space: bool = False,
     ) -> None:
         super().__init__(
             policy=policy,
@@ -142,35 +143,27 @@ class CustomDQN(DQN):
         )
         self.action_masking = action_masking
         self.actions_in_state_space = actions_in_state_space
+        self.target = target
 
     def train(self, gradient_steps: int, batch_size: int = 100) -> None:
+        for env in self.env.envs:
+            env.reset_episode_log()
+        
         # Switch to train mode (this affects batch norm / dropout)
         self.policy.set_training_mode(True)
         # Update learning rate according to schedule
         self._update_learning_rate(self.policy.optimizer)
 
+        
         td_losses = []
         intent_losses = []
+        q_values = []
         for _ in range(gradient_steps):
             # Sample replay buffer
             replay_data = self.replay_buffer.sample(batch_size, env=self._vec_normalize_env)  # type: ignore[union-attr]
 
-            with th.no_grad():
-                # Compute the next Q-values using the target network
-                next_q_values = self.q_net_target(replay_data.next_observations)
-                if self.policy.intent_prediction:
-                    # split output of network into q values, ignore intents (position 1)
-                    next_q_values = next_q_values[0]
-                # Follow greedy policy: use the one with the highest value
-                next_q_values, _ = next_q_values.max(dim=1)
-                # Avoid potential broadcast issue
-                next_q_values = next_q_values.reshape(-1, 1)
-                # 1-step TD target
-                target_q_values = replay_data.rewards + (1 - replay_data.dones) * self.gamma * next_q_values
-
             # Get current Q-values estimates
             current_q_values = self.q_net(replay_data.observations)
-
             # Handle intent prediction loss
             loss = 0.0
             if self.policy.intent_prediction:
@@ -180,12 +173,23 @@ class CustomDQN(DQN):
                 intent_loss = self.q_net.intent_loss_weight * F.binary_cross_entropy_with_logits(current_intent_logits, intent_labels, reduction="mean")
                 loss += intent_loss
                 intent_losses.append(intent_loss.item())
+
+            with th.no_grad():
+                # Compute the next Q-values using the target network
+                next_q_values = self.q_net_target(replay_data.next_observations)
+                if self.policy.intent_prediction:
+                    # split output of network into q values, ignore intents (position 1)
+                    next_q_values = next_q_values[0]
+                target_q_values = self.target.target(next_q_values=next_q_values, data=replay_data, q_old=current_q_values)
+
             
             # Retrieve the q-values for the actions from the replay buffer
             current_q_values = th.gather(current_q_values, dim=1, index=replay_data.actions.long())
+            q_values.extend(current_q_values.view(-1).tolist())
 
             # Compute Huber loss (less sensitive to outliers)
-            td_loss = F.smooth_l1_loss(current_q_values, target_q_values)
+            # td_loss = F.smooth_l1_loss(current_q_values, target_q_values)
+            td_loss = F.huber_loss(current_q_values, target_q_values)
             td_losses.append(td_loss.item())
             loss += td_loss
 
@@ -204,9 +208,10 @@ class CustomDQN(DQN):
         self.logger.record("train/max_goal_distance", cfg.INSTANCES[cfg.InstanceArgs.MAX_DISTANCE])
         self.logger.record("train/buffer_size", len(self.replay_buffer))
         self.logger.record("train/total_episodes", self.env.current_episode)
+        self.logger.record("train/q_values", mean(q_values))
         if self.policy.intent_prediction:
             self.logger.record("train/intent_loss", np.mean(intent_losses))
-        if self.replay_buffer_class == HindsightExperienceReplayWrapper:
+        if self.replay_buffer_class in [HindsightExperienceReplayWrapper, OldHindsightExperienceReplayWrapper]:
             self.logger.record("rollout/total_aritificial_episodes", self.replay_buffer.artificial_episodes)
             self.logger.record("rollout/her_mean_reward_free", self.replay_buffer.artificial_mean_episode_reward_free)
             self.logger.record("rollout/hear_mean_reward_guided", self.replay_buffer.artificial_mean_episode_reward_guided)

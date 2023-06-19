@@ -136,7 +136,6 @@ def custom_evaluate_policy(
                 if dones[i]:
                     # record env mode: free or guided
                     total_dialogs += 1
-                    dialog_log.extend(env.envs[i].episode_log)
                     if info[EnvInfo.IS_FAQ]:
                         free_dialogs += 1
                     else:
@@ -170,9 +169,12 @@ def custom_evaluate_policy(
                     current_lengths[i] = 0
 
         observations = new_observations
-
         if render:
             env.render()
+    
+    for sub_env in env.envs:
+        dialog_log.extend(sub_env.episode_log)
+        sub_env.reset_episode_log()
 
     free_dialogs = free_dialogs / total_dialogs
     guided_dialogs = guided_dialogs / total_dialogs

@@ -50,8 +50,10 @@ class CustomDQNPolicy(DQNPolicy):
         normalize_images: bool = True,
         optimizer_class: Type[th.optim.Optimizer] = th.optim.Adam,
         optimizer_kwargs: Optional[Dict[str, Any]] = None,
+        torch_compile: bool = True
     ) -> None:
         self.normalization_layers = normalization_layers
+        self.torch_compile = torch_compile
 
         super().__init__(
             observation_space,
@@ -76,8 +78,10 @@ class CustomDQNPolicy(DQNPolicy):
         
         arch = net_args.pop('net_arch')
         net_cls = to_class(arch.pop('net_cls'))
-
-        model = th.compile(net_cls(**net_args, **arch).to(self.device))
+        
+        model = net_cls(**net_args, **arch).to(self.device)
+        if self.torch_compile:
+            model = th.compile(model)
         self.intent_prediction = model.intent_prediction
         return model
     

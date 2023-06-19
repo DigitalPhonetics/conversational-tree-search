@@ -56,11 +56,11 @@ class CustomReplayBuffer:
         # buffers
         self.obs = th.zeros(buffer_size, *observation_space.shape)
         self.next_obs = th.zeros(buffer_size, *observation_space.shape)
-        self.action = th.zeros(buffer_size, dtype=th.int32)
+        self.action = th.zeros(buffer_size, dtype=th.int64)
         self.done = th.zeros(buffer_size, dtype=th.float32)
         self.reward = th.zeros(buffer_size, dtype=th.float32)
         self.infos = np.empty(shape=(buffer_size,), dtype=object)
-        self.artificial_transition = th.zeros(buffer_size, dtype=th.int32) # can stay on CPU
+        self.artificial_transition = th.zeros(buffer_size, dtype=th.int64) # can stay on CPU
 
         # pointers / counters
         self.capacity = buffer_size

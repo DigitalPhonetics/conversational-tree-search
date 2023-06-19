@@ -114,6 +114,7 @@ class Experiment:
     _target_: str
     device: str
     seed: int
+    torch_compile: bool
     cudnn_deterministic: bool
     optimizer: OptimizerConfig
     policy: PolicyConfig

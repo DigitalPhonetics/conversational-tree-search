@@ -30,8 +30,3 @@ class Trainer:
         print("CACHE", cache)
         print("TRAINING", training)
         
-
-
-        # Model setup
-        model = model.to(device)
-        model = torch.compile(model)

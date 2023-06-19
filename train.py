@@ -6,6 +6,8 @@ from omegaconf import OmegaConf
 from algorithm.dqn.buffer import CustomReplayBuffer
 from algorithm.dqn.dqn import CustomDQN
 from algorithm.dqn.her import HindsightExperienceReplayWrapper
+from environment.old.cts import OldCTSEnv, OldCustomVecEnv
+from environment.old.her import OldHindsightExperienceReplayWrapper
 from utils.utils import AutoSkipMode
 
 from config import INSTANCES, ActionConfig, InstanceType, StateConfig, WandbLogLevel, register_configs, EnvironmentConfig, DatasetConfig
@@ -36,24 +38,34 @@ def to_class(path:str):
     class_instance = locate(path)
     return class_instance
 
-def setup_cache_and_encoding(device: str, data: GraphDataset, state_config: StateConfig, action_config: ActionConfig,) -> Tuple[Cache, StateEncoding]:
-    cache = Cache(device=device, data=data, state_config=state_config)
+def setup_cache_and_encoding(device: str, data: GraphDataset, state_config: StateConfig, action_config: ActionConfig, torch_compile: bool) -> Tuple[Cache, StateEncoding]:
+    cache = Cache(device=device, data=data, state_config=state_config, torch_compile=torch_compile)
     encoding = StateEncoding(cache=cache, state_config=state_config, action_config=action_config, data=data)
     return cache, encoding
 
 def setup_data_and_vecenv(device: str, dataset_cfg: DatasetConfig, environment_cfg: EnvironmentConfig, 
                          mode: str, n_envs: int, log_dir: str,
                          cache: Cache, encoding: StateEncoding,
-                         state_config: StateConfig, action_config: ActionConfig) -> Tuple[GraphDataset, Cache, StateEncoding, CustomVecEnv]:
+                         state_config: StateConfig, action_config: ActionConfig,
+                         torch_compile: bool) -> Tuple[GraphDataset, Cache, StateEncoding, CustomVecEnv]:
     data = instantiate(dataset_cfg, _target_='data.dataset.GraphDataset')
     if isinstance(cache, type(None)):
-        cache, encoding = setup_cache_and_encoding(device=device, data=data, state_config=state_config, action_config=action_config)
+        cache, encoding = setup_cache_and_encoding(device=device, data=data, state_config=state_config, action_config=action_config, torch_compile=torch_compile)
     kwargs = {
         # "env_id": env_id,
         "mode": mode,
         "dataset": data,
         **environment_cfg
     }
+    # TODO temporary change to old env - change back!
+    # vec_env = make_vec_env(env_id=OldCTSEnv, 
+    #                         n_envs=n_envs, env_kwargs=kwargs, 
+    #                         vec_env_cls=OldCustomVecEnv, vec_env_kwargs={
+    #                             "state_encoding": encoding,
+    #                             "sys_token": environment_cfg.sys_token,
+    #                             "usr_token": environment_cfg.usr_token,
+    #                             "sep_token": environment_cfg.sep_token
+    #                         }) 
     vec_env = make_vec_env(env_id=CTSEnvironment, 
                                 n_envs=n_envs, env_kwargs=kwargs, 
                                 vec_env_cls=CustomVecEnv, vec_env_kwargs={
@@ -107,14 +119,16 @@ def load_cfg(cfg):
         train_data, cache, state_encoding, train_env = setup_data_and_vecenv(device=cfg.experiment.device, dataset_cfg=cfg.experiment.training.dataset, environment_cfg=cfg.experiment.environment,
                                                                         mode="train", n_envs=cfg.experiment.environment.num_train_envs, log_dir=None,
                                                                         cache=cache, encoding=state_encoding,
-                                                                        state_config=cfg.experiment.state, action_config=cfg.experiment.actions)
+                                                                        state_config=cfg.experiment.state, action_config=cfg.experiment.actions,
+                                                                        torch_compile=cfg.experiment.torch_compile)
 
         train_env = VecMonitor(train_env)
     if "validation" in cfg.experiment and not isinstance(cfg.experiment.validation, type(None)): 
         val_data, cache, state_encoding, val_env = setup_data_and_vecenv(device=cfg.experiment.device, dataset_cfg=cfg.experiment.validation.dataset, environment_cfg=cfg.experiment.environment,
                                                                         mode="val", n_envs=cfg.experiment.environment.num_val_envs, log_dir=f"/mount/arbeitsdaten/asr-2/vaethdk/tmp_debugging_weights/{run_id}/best_eval/monitor_logs",
                                                                         cache=cache, encoding=state_encoding,
-                                                                        state_config=cfg.experiment.state, action_config=cfg.experiment.actions)
+                                                                        state_config=cfg.experiment.state, action_config=cfg.experiment.actions,
+                                                                        torch_compile=cfg.experiment.torch_compile)
         callbacks.append(CustomEvalCallback(eval_env=val_env, mode='eval',
                              best_model_save_path=f"/mount/arbeitsdaten/asr-2/vaethdk/tmp_debugging_weights/{run_id}/best_eval/weights",
                              log_path=f"/mount/arbeitsdaten/asr-2/vaethdk/tmp_debugging_weights/{run_id}/best_eval/logs",
@@ -126,7 +140,8 @@ def load_cfg(cfg):
         test_data, cache, state_encoding, test_env = setup_data_and_vecenv(device=cfg.experiment.device, dataset_cfg=cfg.experiment.testing.dataset, environment_cfg=cfg.experiment.environment,
                                                                         mode="test", n_envs=cfg.experiment.environment.num_test_envs, log_dir=f"/mount/arbeitsdaten/asr-2/vaethdk/tmp_debugging_weights/{run_id}/best_test/monitor_logs",
                                                                         cache=cache, encoding=state_encoding,
-                                                                        state_config=cfg.experiment.state, action_config=cfg.experiment.actions)
+                                                                        state_config=cfg.experiment.state, action_config=cfg.experiment.actions,
+                                                                        torch_compile=cfg.experiment.torch_compile)
         callbacks.append(CustomEvalCallback(eval_env=test_env, mode='test',
                         best_model_save_path=f"/mount/arbeitsdaten/asr-2/vaethdk/tmp_debugging_weights/{run_id}/best_test/weights",
                         log_path=f"/mount/arbeitsdaten/asr-2/vaethdk/tmp_debugging_weights/{run_id}/best_test/logs",
@@ -148,7 +163,8 @@ def load_cfg(cfg):
     net_arch['state_dims'] = state_encoding.space_dims # patch arguments
     policy_kwargs = {
         "activation_fn": to_class(cfg.experiment.policy.activation_fn),   
-        "net_arch": net_arch
+        "net_arch": net_arch,
+        "torch_compile": cfg.experiment.torch_compile
     }
     # TODO load from file
     replay_buffer_kwargs = {
@@ -167,9 +183,15 @@ def load_cfg(cfg):
         "usr_token": cfg.experiment.environment.usr_token,
         "sep_token": cfg.experiment.environment.sep_token
     }
+    # TODO change back!
     replay_buffer_class = HindsightExperienceReplayWrapper
+    # replay_buffer_class = OldHindsightExperienceReplayWrapper
     # replay_buffer_class = CustomReplayBuffer
+    dqn_target_cls =  to_class(cfg.experiment.algorithm.dqn.targets._target_)
+    dqn_target_args = {'gamma': cfg.experiment.algorithm.dqn.gamma}
+    dqn_target_args.update(cfg.experiment.algorithm.dqn.targets) 
     model = CustomDQN(policy=to_class(cfg.experiment.policy._target_), policy_kwargs=policy_kwargs,
+                target=dqn_target_cls(**dqn_target_args),
                 seed=cfg.experiment.seed,
                 env=train_env, 
                 batch_size=cfg.experiment.algorithm.dqn.batch_size,
@@ -179,7 +201,8 @@ def load_cfg(cfg):
                 buffer_size=cfg.experiment.algorithm.dqn.buffer.backend.buffer_size, 
                 learning_starts=cfg.experiment.algorithm.dqn.warmup_turns,
                 gamma=cfg.experiment.algorithm.dqn.gamma,
-                train_freq=max(cfg.experiment.training.every_steps // cfg.experiment.environment.num_train_envs, 1),
+                train_freq=1, # how many rollouts to perform before training once (one rollout = num_train_envs steps)
+                gradient_steps=max(cfg.experiment.environment.num_train_envs // cfg.experiment.training.every_steps, 1),
                 target_update_interval=cfg.experiment.algorithm.dqn.target_network_update_frequency * cfg.experiment.environment.num_train_envs,
                 max_grad_norm=cfg.experiment.algorithm.dqn.max_grad_norm,
                 tensorboard_log=f"runs/{run_id}",
