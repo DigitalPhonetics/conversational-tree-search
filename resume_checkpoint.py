@@ -3,7 +3,6 @@ from statistics import mean
 from typing import Any, Dict, List
 import wandb
 from functools import reduce
-import redisai as rai
 from multiprocessing import Process
 
 import os
@@ -275,7 +274,7 @@ class Trainer:
         if EXPERIMENT_LOGGING != ExperimentLogging.NONE:
             # write code 
             wandb.init(project="adviser-reisekosten", config=(spaceadapter_json | args), save_code=True, name=self.exp_name, settings=wandb.Settings(code_dir="/fs/scratch/users/vaethdk/adviser_reisekosten/chatbot/management/commands"))
-            wandb.config.update({'datasetversion': _get_file_hash('train_graph.json')}) # log dataset version hash
+            wandb.config.update({'datasetversion': _get_file_hash('resources/en/train_graph.json')}) # log dataset version hash
 
         #
         # network setup
@@ -853,8 +852,8 @@ def load_ckpt(trainer: Trainer):
 if __name__ == "__main__":
     os.environ["TOKENIZERS_PARALLELISM"] = "true"
 
-    Data.objects[0] = Data.Dataset.fromJSON('train_graph.json', version=0)
-    Data.objects[1] = Data.Dataset.fromJSON('test_graph.json', version=1)
+    Data.objects[0] = Data.Dataset.fromJSON('resources/en/train_graph.json', version=0)
+    Data.objects[1] = Data.Dataset.fromJSON('resources/en/test_graph.json', version=1)
 
     trainer = Trainer()
     trainer.setUp()

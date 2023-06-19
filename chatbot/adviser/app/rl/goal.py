@@ -13,8 +13,8 @@ from copy import deepcopy
 import json
 import chatbot.adviser.app.rl.dataset as Data
 
-resource_dir = Path(".", 'chatbot', 'static', 'chatbot', 'faq_cache')
-nlu_resource_dir = Path(".", 'chatbot', 'static', 'chatbot', 'nlu_resources')
+resource_dir = Path(".", 'resources', 'en')
+nlu_resource_dir = Path(".", 'resources', 'en')
 
 # TODO load location values once and then cache instead of reloading every time a new goal is drawn
 class LocationValues:
@@ -360,6 +360,8 @@ class UserGoal:
                                                             variables=new_variables,
                                                             chosen_response_pks=currentPath.chosen_response_pks))
             return paths
+
+        return []
      
     def __len__(self):
         return len(self.path.path)

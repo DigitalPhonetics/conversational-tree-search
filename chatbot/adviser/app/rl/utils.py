@@ -11,7 +11,7 @@ import torch
 
 from chatbot.adviser.app.encoding.text import FinetunedGBertEmbeddings, GBertEmbeddings, SentenceEmbeddings
 
-resource_dir = Path(".", 'chatbot', 'static', 'chatbot', 'nlu_resources')
+resource_dir = Path(".", 'resources', 'en')
 
 class StateEntry(Enum):
     DIALOG_NODE = 'dialog_node'
@@ -115,7 +115,7 @@ def _save_checkpoint(global_step: int, episode_counter: int, train_counter: int,
         "torch_rng": torch_rng,
         "numpy_rng": numpy_rng,
         "rand_rng": rand_rng
-    }, f"/mount/arbeitsdaten/asr-2/vaethdk/adviser_reisekosten/newruns/{run_name}/ckpt_{global_step}.pt")
+    }, f"/mount/arbeitsdaten/asr-2/vaethdk/tmp_debugging_weights/{run_name}/ckpt_{global_step}.pt")
 
 
 
@@ -125,7 +125,6 @@ EMBEDDINGS = {
         'args': {
             'pretrained_name': 'deepset/gbert-large',
             'embedding_dim': 1024,
-            'cache_db_index': 0
         }
     },
     'finetuned-gbert-large': {
@@ -133,7 +132,6 @@ EMBEDDINGS = {
         'args': {
             'pretrained_name': 'gbert-finetuned',
             'embedding_dim': 1024,
-            'cache_db_index': 1
         }
     },
     'cross-en-de-roberta-sentence-transformer': {
@@ -141,7 +139,6 @@ EMBEDDINGS = {
         'args': {
             'pretrained_name': 'T-Systems-onsite/cross-en-de-roberta-sentence-transformer',
             'embedding_dim': 768,
-            'cache_db_index': 2
         }
     },
     'distiluse-base-multilingual-cased-v2': {
@@ -149,7 +146,6 @@ EMBEDDINGS = {
         'args': {
             'pretrained_name': 'distiluse-base-multilingual-cased-v2',
             'embedding_dim': 512,
-            'cache_db_index': 3
         }
     },
 }
@@ -176,12 +172,12 @@ class EnvironmentMode(Enum):
 
 def _load_answer_synonyms(mode: EnvironmentMode, use_synonyms: bool, use_joint_dataset: bool = False) -> Dict[str, List[str]]:
     if use_joint_dataset:
-        path = "traintest_answers.json"
+        path = "resources/en/traintest_answers.json"
     else:
         if mode in [EnvironmentMode.TRAIN, EnvironmentMode.EVAL]:
-            path = "train_answers.json"
+            path = "resources/en/train_answers.json"
         else:
-            path = "test_answers.json"
+            path = "resources/en/test_answers.json"
     answers = None
     with open(path, "r") as f:
         answers = json.load(f)

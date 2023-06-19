@@ -4,7 +4,6 @@ from statistics import mean
 from typing import Any, Dict, List
 import wandb
 from functools import reduce
-import redisai as rai
 from multiprocessing import Process
 
 import json
@@ -66,22 +65,22 @@ class Trainer:
                     answer_similarity_embedding=AnswerSimilarityEmbeddingConfig(
                         active=False,
                         model_name='distiluse-base-multilingual-cased-v2',
-                        caching=True,
+                        caching=False,
                     ),
                     dialog_node_text=TextEmbeddingConfig(
                         active=False,
                         pooling=TextEmbeddingPooling.MEAN,
-                        caching=True,
+                        caching=False,
                     ),
                     original_user_utterance=TextEmbeddingConfig(
                         active=True,
                         pooling=TextEmbeddingPooling.MEAN,
-                        caching=True,
+                        caching=False,
                     ),
                     current_user_utterance=TextEmbeddingConfig(
                         active=True,
                         pooling=TextEmbeddingPooling.MEAN,
-                        caching=True,
+                        caching=False,
                     ),
                     dialog_history=TextEmbeddingConfig(
                         active=True,
@@ -91,7 +90,7 @@ class Trainer:
                     action_text=TextEmbeddingConfig(
                         active=False,
                         pooling=TextEmbeddingPooling.MEAN,
-                        caching=True,
+                        caching=False,
                     ),
                     action_position=True
                 ),
@@ -104,7 +103,7 @@ class Trainer:
                                     'original_user_utterance'],
                             pooling=TextEmbeddingPooling.CLS,
                             aggregation=AttentionVectorAggregation.SUM,
-                            caching=True,
+                            caching=False,
                             allow_noise=True
                         ),
                         matrix="dialog_node_text",
@@ -121,7 +120,7 @@ class Trainer:
                                     'original_user_utterance'],
                             pooling=TextEmbeddingPooling.CLS,
                             aggregation=AttentionVectorAggregation.MAX,
-                            caching=True,
+                            caching=False,
                             allow_noise=True
                         ),
                         matrix="dialog_history",
@@ -213,7 +212,7 @@ class Trainer:
 
         # load text embedding
         text_embedding_name = self.args['spaceadapter']['configuration'].text_embedding
-        self.cache_conn = rai.Client(host='localhost', port=64123, db=EMBEDDINGS[text_embedding_name]['args'].pop('cache_db_index'))
+        self.cache_conn = None
         self.text_enc = EMBEDDINGS[text_embedding_name]['class'](device=self.device, **EMBEDDINGS[text_embedding_name]['args'])
 
         # post-init spaceadapter 
@@ -237,10 +236,10 @@ class Trainer:
                     if not spaceadapter_json['state'][key]['active']:
                         self.exp_name += f"_no{key}"
             self.run_name = f"{self.exp_name}__{seed}__{int(time.time())}"
-            os.makedirs(f"/mount/arbeitsdaten/asr-2/vaethdk/adviser_reisekosten/newruns/{self.run_name}")
-            os.makedirs(f"/fs/scratch/users/vaethdk/adviser_reisekosten/newruns/{self.run_name}")
-            log_to_file_test = f"/fs/scratch/users/vaethdk/adviser_reisekosten/newruns/{self.run_name}/test_dialogs.txt"
-            log_to_file_eval = f"/fs/scratch/users/vaethdk/adviser_reisekosten/newruns/{self.run_name}/eval_dialogs.txt"
+            os.makedirs(f"/mount/arbeitsdaten/asr-2/vaethdk/tmp_debugging_weights/{self.run_name}")
+            os.makedirs(f"/fs/scratch/users/vaethdk/tmp_debugging_weights/{self.run_name}")
+            log_to_file_test = f"/fs/scratch/users/vaethdk/tmp_debugging_weights/{self.run_name}/test_dialogs.txt"
+            log_to_file_eval = f"/fs/scratch/users/vaethdk/tmp_debugging_weights/{self.run_name}/eval_dialogs.txt"
         else:
             log_to_file_test = None
             log_to_file_eval = None
@@ -262,7 +261,7 @@ class Trainer:
             if not isinstance(self.adapter.stateinput.answer_similarity_embedding, type(None)):
                 similarity_model = self.adapter.stateinput.encoders['action_answer_similarity_embedding']
             else:
-                similarity_model = AnswerSimilarityEncoding(model_name="distiluse-base-multilingual-cased-v2", dialog_tree=self.tree, device=self.device, caching=True)
+                similarity_model = AnswerSimilarityEncoding(model_name="distiluse-base-multilingual-cased-v2", dialog_tree=self.tree, device=self.device, caching=False)
        
         dialog_faq_ratio = self.args['simulation'].pop('dialog_faq_ratio')
 
@@ -277,8 +276,8 @@ class Trainer:
         args = {key: self.args[key] for key in self.args if key != 'spaceadapter'}
         if EXPERIMENT_LOGGING != ExperimentLogging.NONE:
             # write code 
-            wandb.init(project="adviser-reisekosten", config=(spaceadapter_json | args), save_code=True, name=self.exp_name, settings=wandb.Settings(code_dir="/fs/scratch/users/vaethdk/adviser_reisekosten/chatbot/management/commands"))
-            wandb.config.update({'datasetversion': _get_file_hash('train_graph.json')}) # log dataset version hash
+            wandb.init(project="cts_en_backport", config=(spaceadapter_json | args), save_code=True, name=self.exp_name, settings=wandb.Settings(code_dir="/mount/arbeitsdaten/asr-2/vaethdk/cts_en"))
+            wandb.config.update({'datasetversion': _get_file_hash('resources/en/train_graph.json')}) # log dataset version hash
 
         #
         # network setup
@@ -324,7 +323,7 @@ class Trainer:
                                                     similarity_model=similarity_model)
         # write experiment config file
         if EXPERIMENT_LOGGING != ExperimentLogging.NONE:
-            with open(f"/mount/arbeitsdaten/asr-2/vaethdk/adviser_reisekosten/newruns/{self.run_name}/config.json", "w") as f:
+            with open(f"/mount/arbeitsdaten/asr-2/vaethdk/tmp_debugging_weights/{self.run_name}/config.json", "w") as f:
                 json.dump({'spaceadapter': spaceadapter_json} | args, f)
 
 
@@ -417,7 +416,7 @@ class Trainer:
                         counter += 1
                         if p.exitcode == 0:
                             success = True
-                            self.savefile_goal_asked_score[f"/mount/arbeitsdaten/asr-2/vaethdk/adviser_reisekosten/newruns/{self.run_name}/ckpt_{global_step}.pt"] = goal_asked_score
+                            self.savefile_goal_asked_score[f"/mount/arbeitsdaten/asr-2/vaethdk/tmp_debugging_weights{self.run_name}/ckpt_{global_step}.pt"] = goal_asked_score
                     if not success:
                         print(f"FAILED SAVING 5 times for checkpoint at step {global_step}")
                 else:
@@ -428,7 +427,7 @@ class Trainer:
                                                                     torch.get_rng_state().clone().detach().cpu(),
                                                                     np.random.get_state(),
                                                                     random.getstate())
-                    self.savefile_goal_asked_score[f"/mount/arbeitsdaten/asr-2/vaethdk/adviser_reisekosten/newruns/{self.run_name}/ckpt_{global_step}.pt"] = goal_asked_score
+                    self.savefile_goal_asked_score[f"/mount/arbeitsdaten/asr-2/vaethdk/tmp_debugging_weights/{self.run_name}/ckpt_{global_step}.pt"] = goal_asked_score
     
 
     def _parse_activation_fn(self, activation_fn_name: str):
@@ -832,8 +831,8 @@ class Trainer:
 if __name__ == "__main__":
     os.environ["TOKENIZERS_PARALLELISM"] = "true"
 
-    Data.objects[0] = Data.Dataset.fromJSON('train_graph.json', version=0)
-    Data.objects[1] = Data.Dataset.fromJSON('test_graph.json', version=1)
+    Data.objects[0] = Data.Dataset.fromJSON('resources/en/train_graph.json', version=0)
+    Data.objects[1] = Data.Dataset.fromJSON('resources/en/test_graph.json', version=1)
 
     trainer = Trainer()
     trainer.setUp()

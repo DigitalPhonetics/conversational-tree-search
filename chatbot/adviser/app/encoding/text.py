@@ -5,6 +5,7 @@ transformers.logging.set_verbosity_error()
 import torch
 from chatbot.adviser.app.encoding.encoding import Encoding
 from chatbot.adviser.app.rl.dataset import  DialogNode
+import os
 
 
 class TextEmbeddingPooling(Enum):
@@ -69,8 +70,9 @@ class SentenceEmbeddings(TextEmbeddings):
     def __init__(self, device: str, pretrained_name: str = 'distiluse-base-multilingual-cased', embedding_dim: int = 512) -> None:
         from sentence_transformers import SentenceTransformer
         super().__init__(device, embedding_dim)
-        self.pretrained_name = pretrained_name
-        self.bert_sentence_embedder = SentenceTransformer(pretrained_name, device=device, cache_folder = '.models')
+        path = f".models/{pretrained_name.replace('/', '_')}"
+        name_or_path = path if os.path.exists(path) else pretrained_name
+        self.bert_sentence_embedder = SentenceTransformer(pretrained_name, device=device, cache_folder = '.models').to(device)
 
     @torch.no_grad()
     def _encode(self, text: Union[str, None]) -> torch.FloatTensor:
@@ -80,7 +82,7 @@ class SentenceEmbeddings(TextEmbeddings):
             * distiluse-base-multilingual-cased: (1, 512)
         """
         if text:
-            return self.bert_sentence_embedder.encode(text, convert_to_numpy=False, convert_to_tensor=True, show_progress_bar=False).unsqueeze(0).unsqueeze(1)
+            return self.bert_sentence_embedder.encode(text, convert_to_numpy=False, convert_to_tensor=True, show_progress_bar=False, device=self.device).unsqueeze(0).unsqueeze(1)
         else:
             return torch.zeros(1, 1, self.embedding_dim, dtype=torch.float, device=self.device)
 
@@ -91,7 +93,7 @@ class SentenceEmbeddings(TextEmbeddings):
             encodings: batch x 512
             mask: None (we don't need masks here since output is already pooled)
         """
-        return self.bert_sentence_embedder.encode(text, convert_to_numpy=False, convert_to_tensor=True, show_progress_bar=False), None
+        return self.bert_sentence_embedder.encode(text, convert_to_numpy=False, convert_to_tensor=True, show_progress_bar=False, device=self.device), None
 
 
 # TODO clear after DB change

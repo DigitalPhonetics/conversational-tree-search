@@ -3,8 +3,6 @@ import torch
 from chatbot.adviser.app.rl.dialogtree import DialogTree
 from chatbot.adviser.app.rl.utils import EMBEDDINGS
 from chatbot.adviser.app.rl.dataset import DialogNode
-import redisai as rai
-import redis
 from sentence_transformers import SentenceTransformer
 from sentence_transformers.util import cos_sim
 from torch.nn.utils.rnn import pad_sequence
@@ -15,7 +13,7 @@ class AnswerSimilarityEncoding:
         self.device = device
         self.encoding_dim = dialog_tree.get_max_node_degree()
         self.caching = caching
-        self.cache_connection = rai.Client(host='localhost', port=64123, db=3) if caching else None
+        self.cache_connection = None
         self.similarity_model = SentenceTransformer(model_name, device=device, cache_folder = '.models')
 
     def get_encoding_dim(self) -> int:
@@ -64,21 +62,13 @@ class AnswerSimilarityEncoding:
     # PREFIXES: a_ for action text
     @torch.no_grad()
     def _embed_text(self, text: str, cache_prefix=""):
-        embeddings = None
         cache_key = f"{cache_prefix}{text}"
 
         # encoding and caching
+        # key did not exist
+        embeddings = self.similarity_model.encode(text if text else "", convert_to_tensor=True, show_progress_bar=False).unsqueeze(0).unsqueeze(1)
         if self.caching and text and (not text.isnumeric()):
-            try:
-                embeddings = torch.tensor(self.cache_connection.tensorget(cache_key)).to(self.device) # 1 x tokens x encoding_dim
-            except redis.exceptions.ResponseError:
-                # key does not exist
-                pass
-        if not torch.is_tensor(embeddings):
-            # key did not exist
-            embeddings = self.similarity_model.encode(text if text else "", convert_to_tensor=True, show_progress_bar=False).unsqueeze(0).unsqueeze(1)
-            if self.caching and text and (not text.isnumeric()):
-                self.cache_connection.tensorset(cache_key, embeddings.clone().detach().cpu().numpy())
+            self.cache_connection.tensorset(cache_key, embeddings.clone().detach().cpu().numpy())
             
         # result
         return embeddings.squeeze(0)

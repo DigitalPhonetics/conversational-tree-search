@@ -1,6 +1,4 @@
 from dataclasses import dataclass
-import redisai as rai
-import redis
 from enum import Enum
 from functools import reduce
 import itertools
@@ -149,7 +147,7 @@ class AnswerSimilarityEmbeddingConfig:
 
 
 class TextEncoderWrapper(Encoding):
-    def __init__(self, text_embedding: TextEmbeddings, pooling: TextEmbeddingPooling, encode_input_key: str, caching: bool, cache_connection: rai.Client = None, allow_noise: bool = True) -> None:
+    def __init__(self, text_embedding: TextEmbeddings, pooling: TextEmbeddingPooling, encode_input_key: str, caching: bool, cache_connection = None, allow_noise: bool = True) -> None:
         super().__init__(device=text_embedding.device)
         self.text_embedding = text_embedding
         self.pooling = pooling
@@ -173,17 +171,9 @@ class TextEncoderWrapper(Encoding):
         embeddings = None
         cache_key = f"{cache_prefix}{text}"
         # encoding and caching
+        embeddings = self.text_embedding.encode(text=text)
         if self.caching and text and (not text.isnumeric()):
-            try:
-                embeddings = torch.tensor(self.cache_connection.tensorget(cache_key), device=self.text_embedding.device) # 1 x tokens x encoding_dim
-            except redis.exceptions.ResponseError:
-                # key does not exist
-                pass
-        if not torch.is_tensor(embeddings):
-            # key did not exist
-            embeddings = self.text_embedding.encode(text=text)
-            if self.caching and text and (not text.isnumeric()):
-                self.cache_connection.tensorset(cache_key, embeddings.clone().detach().cpu().numpy())
+            self.cache_connection.tensorset(cache_key, embeddings.clone().detach().cpu().numpy())
             
         # pooling of 1 x TOKENS x ENCODING_DIM
         if self.pooling == TextEmbeddingPooling.MEAN:
@@ -208,7 +198,7 @@ class TextEncoderWrapper(Encoding):
 
 
 class TextHistoryEncoderWrapper(Encoding):
-    def __init__(self, text_embedding: TextEmbeddings, pooling: TextEmbeddingPooling, encode_input_key: str, caching: bool, cache_connection: rai.Client = None) -> None:
+    def __init__(self, text_embedding: TextEmbeddings, pooling: TextEmbeddingPooling, encode_input_key: str, caching: bool, cache_connection = None) -> None:
         super().__init__(device=text_embedding.device)
         self.pooling = pooling
         if pooling == TextEmbeddingPooling.RNN:
@@ -287,7 +277,7 @@ class SpaceAdapterSpaceInput(SpaceAdapterInput):
     action_text: TextEmbeddingConfig
     action_position: bool
 
-    def post_init(self, device: str, tree: DialogTree, text_embedding: TextEmbeddings, action_config: ActionConfig, stop_action: bool, cache_connection: rai.Client, **kwargs):
+    def post_init(self, device: str, tree: DialogTree, text_embedding: TextEmbeddings, action_config: ActionConfig, stop_action: bool, cache_connection, **kwargs):
         self.encoders = {}
         self.rnn_encoders = {}
         self.action_state_subvec_dim = 0
@@ -429,7 +419,7 @@ class SpaceAdapterAttentionQueryInput(SpaceAdapterInput):
     caching: bool
     allow_noise: bool
 
-    def post_init(self, device: str, tree: DialogTree, text_embedding: TextEmbeddings, action_config: ActionConfig, action_masking: bool, cache_connection: rai.Client = None):
+    def post_init(self, device: str, tree: DialogTree, text_embedding: TextEmbeddings, action_config: ActionConfig, action_masking: bool, cache_connection = None):
         self.state_dim = 0
         self.encoders = {}
         assert self.pooling != TextEmbeddingPooling.NONE, "Need a pooling method for the attention query vectors!"
@@ -489,7 +479,7 @@ class SpaceAdapterAttentionInput(SpaceAdapterInput):
             context.append(model.process_attention(name=name, query=vector, matrix=matrix))
         return context
 
-    def post_init(self, device: str, tree: DialogTree, text_embedding: TextEmbeddings, action_config: ActionConfig, action_masking: bool, cache_connection: rai.Client = None):
+    def post_init(self, device: str, tree: DialogTree, text_embedding: TextEmbeddings, action_config: ActionConfig, action_masking: bool, cache_connection = None):
         self.device = device
         if self.active:
             self.queries.post_init(device, tree, text_embedding, action_config, action_masking, cache_connection)

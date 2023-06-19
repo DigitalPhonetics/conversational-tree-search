@@ -237,7 +237,7 @@ class Dataset:
             node.answers.sort(key=lambda ans: ans.answer_index)
 
         # load tagegeld
-        tagegeld = _preprocess_table("TAGEGELD_AUSLAND.xlsx")
+        tagegeld = _preprocess_table("resources/en/TAGEGELD_AUSLAND.xlsx")
 
         assert start_node
         return cls(nodes_by_key, nodes_by_type, answers_by_key, questions_by_key, question_list, start_node, node_list, tagegeld)

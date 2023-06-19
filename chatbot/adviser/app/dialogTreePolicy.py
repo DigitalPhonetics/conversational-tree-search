@@ -19,12 +19,7 @@ from chatbot.adviser.app.rl.dataset import DialogNode, DialogAnswer
 from dashboard.models import Tagegeld
 
 
-if settings.DEBUG:
-    resource_dir = Path(settings.BASE_DIR, 'chatbot', 'static', 'chatbot', 'nlu_resources')
-else:
-    resource_dir = Path(settings.STATIC_ROOT, 'chatbot', 'nlu_resources')
-print("STATIC DIR", resource_dir)
-
+resource_dir = Path('.', 'resources', 'en')
 
 class DialogTreePolicy(Service):
 	# State variables

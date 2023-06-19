@@ -307,11 +307,11 @@ if __name__ == "__main__":
     os.environ["TOKENIZERS_PARALLELISM"] = "true"
     
     if JOINT_DATA == True:
-        Data.objects[0] = Data.Dataset.fromJSON('traintest_graph.json', version=0)
-        Data.objects[1] = Data.Dataset.fromJSON('traintest_graph.json', version=1)
+        Data.objects[0] = Data.Dataset.fromJSON('resources/en/traintest_graph.json', version=0)
+        Data.objects[1] = Data.Dataset.fromJSON('resources/en/traintest_graph.json', version=1)
     else:
-        Data.objects[0] = Data.Dataset.fromJSON('train_graph.json', version=0)
-        Data.objects[1] = Data.Dataset.fromJSON('test_graph.json', version=1)
+        Data.objects[0] = Data.Dataset.fromJSON('resources/en/train_graph.json', version=0)
+        Data.objects[1] = Data.Dataset.fromJSON('resources/en/test_graph.json', version=1)
 
     evaluator = Evaluator()
     evaluator.setUp()

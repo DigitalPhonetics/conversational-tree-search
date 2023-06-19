@@ -5,12 +5,7 @@ import datetime
 from django.conf import settings
 from pathlib import Path
 
-if settings.DEBUG:
-    resource_dir = Path(settings.BASE_DIR, 'chatbot', 'static', 'chatbot', 'nlu_resources')
-else:
-    resource_dir = Path(settings.STATIC_ROOT, 'chatbot', 'nlu_resources')
-print("STATIC DIR", resource_dir)
-
+resource_dir = Path('.', 'resources', 'en')
 
 with open(resource_dir / 'numbers.json', 'r') as f:
     NUMBERS = json.load(f)
@@ -18,7 +13,7 @@ with open(resource_dir / 'numbers.json', 'r') as f:
 with open(resource_dir / 'months.json', 'r') as f:
     MONTHS = json.load(f)
 
-WEEKDAYS = {'montag': 1, 'dienstag': 2, 'mittwoch': 3, 'donnerstag': 4, 'freitag': 5, 'samstag': 6, 'sonntag': 7}
+WEEKDAYS = {'monday': 1, 'tuesday': 2, 'wednesday': 3, 'thursday': 4, 'friday': 5, 'saturday': 6, 'sunday': 7}
 
 
 class Number:

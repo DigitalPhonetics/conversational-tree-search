@@ -3,7 +3,6 @@ from statistics import mean
 from typing import Any, Dict, List
 import wandb
 from functools import reduce
-import redisai as rai
 from multiprocessing import Process
 
 import json
@@ -31,7 +30,7 @@ from torch.nn.utils.rnn import pack_sequence
 # noise levels: 0.0, 0.1, 0.25, 0.5, 0,75, 1.0, 1.5, 2.0
 
 EXPERIMENT_LOGGING = ExperimentLogging.ONLINE
-CHECKPOINT_LOCATION = "/mount/arbeitsdaten/asr-2/vaethdk/adviser_reisekosten/newruns/V8_JOINTDATA_ROBERTA_10NOISE_25DROPOUT_ACTIONPOS_dqn_50dialog_1_cross-en-de-roberta-sentence-transformer_nouser_intent_prediction__12345678__1666219207/"
+CHECKPOINT_LOCATION = "/mount/arbeitsdaten/asr-2/vaethdk/tmp_debugging_weights/V8_JOINTDATA_ROBERTA_10NOISE_25DROPOUT_ACTIONPOS_dqn_50dialog_1_cross-en-de-roberta-sentence-transformer_nouser_intent_prediction__12345678__1666219207/"
 RUN_SEEDS = [12345678, 89619, 7201944, 398842, 57063456]
 DIALOGS = 500
 
@@ -212,7 +211,7 @@ class Evaluator:
 
         # load text embedding
         text_embedding_name = self.args['spaceadapter']['configuration'].text_embedding
-        self.cache_conn = rai.Client(host='localhost', port=64123, db=EMBEDDINGS[text_embedding_name]['args'].pop('cache_db_index'))
+        self.cache_conn = None
         self.text_enc = EMBEDDINGS[text_embedding_name]['class'](device=self.device, **EMBEDDINGS[text_embedding_name]['args'])
 
         # post-init spaceadapter 
@@ -461,8 +460,8 @@ def load_ckpt(evaluator: Evaluator):
 if __name__ == "__main__":
     os.environ["TOKENIZERS_PARALLELISM"] = "true"
 
-    Data.objects[0] = Data.Dataset.fromJSON('traintest_graph.json', version=0)
-    Data.objects[1] = Data.Dataset.fromJSON('traintest_graph.json', version=1)
+    Data.objects[0] = Data.Dataset.fromJSON('resources/en/traintest_graph.json', version=0)
+    Data.objects[1] = Data.Dataset.fromJSON('resources/en/traintest_graph.json', version=1)
 
     evaluator = Evaluator()
     evaluator.setUp()
