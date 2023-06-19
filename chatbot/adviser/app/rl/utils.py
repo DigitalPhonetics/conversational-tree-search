@@ -183,7 +183,9 @@ def _load_answer_synonyms(mode: EnvironmentMode, use_synonyms: bool, use_joint_d
         answers = json.load(f)
     if not use_synonyms:
         # choose key to have same data for train and test set
-        answers = {answer: [answer] for answer in answers}
+        answers = {answer.lower(): [answer] for answer in answers}
+    else:
+        answers = {answer.lower(): answers[answer] for answer in answers}
     return answers
 
 def _load_a1_laenderliste():

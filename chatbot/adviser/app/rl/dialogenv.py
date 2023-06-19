@@ -494,7 +494,10 @@ class DialogEnvironment(gym.Env):
                 self.goal_node = None # reached end of dialog tree
         elif self.current_node.node_type == NodeType.INFO.value:
             # adapt goal to next node
-            self.goal_node = Data.objects[self.version].node_by_key(self.current_node.connected_node_key)
+            if self.current_node.connected_node_key:
+                self.goal_node = Data.objects[self.version].node_by_key(self.current_node.connected_node_key)
+            else:
+                return False # reached end of tree
         else:
             # logic node: handle and skip to next viable node
             _, done = self._handle_logic_nodes() 

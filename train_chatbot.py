@@ -41,7 +41,7 @@ class Trainer:
         # ADD stop_action ARG TO CONFIGURATION
         # ADD noise ARG TO STATE TEXT INPUTS
         seed = 12345678
-        self.exp_name_prefix = "V9_NEWARCH_NOTEXTS"
+        self.exp_name_prefix = "V9"
    
         self.args = {
             "spaceadapter": {
@@ -68,7 +68,7 @@ class Trainer:
                         caching=False,
                     ),
                     dialog_node_text=TextEmbeddingConfig(
-                        active=False,
+                        active=True,
                         pooling=TextEmbeddingPooling.MEAN,
                         caching=False,
                     ),
@@ -88,7 +88,7 @@ class Trainer:
                         caching=False,
                     ),
                     action_text=TextEmbeddingConfig(
-                        active=False,
+                        active=True,
                         pooling=TextEmbeddingPooling.MEAN,
                         caching=False,
                     ),
