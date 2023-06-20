@@ -1,31 +1,23 @@
-from copy import deepcopy
 from statistics import mean
-from typing import Any, Dict, List
-import wandb
-from functools import reduce
-from multiprocessing import Process
+from typing import List
 
-import json
 import os
-from chatbot.adviser.app.answerTemplateParser import AnswerTemplateParser
 from chatbot.adviser.app.encoding.similiarity import AnswerSimilarityEncoding
 from chatbot.adviser.app.encoding.text import TextEmbeddingPooling
 
 from chatbot.adviser.app.rl.dialogenv import EnvironmentMode, ParallelDialogEnvironment
-from chatbot.adviser.app.rl.dialogtree import DialogTree
-import chatbot.adviser.app.rl.dataset as Data
 from chatbot.adviser.app.rl.layers.attention.attention_factory import AttentionActivationConfig, AttentionMechanismConfig, AttentionVectorAggregation
 from chatbot.adviser.app.rl.spaceAdapter import AnswerSimilarityEmbeddingConfig, IntentEmbeddingConfig, SpaceAdapter, ActionConfig, SpaceAdapterAttentionInput, SpaceAdapterAttentionQueryInput, SpaceAdapterConfiguration, SpaceAdapterSpaceInput, TextEmbeddingConfig
-from chatbot.adviser.app.rl.utils import EMBEDDINGS, AutoSkipMode, AverageMetric, EnvInfo, ExperimentLogging, _del_checkpoint, _get_file_hash, _munchausen_stable_logsoftmax, _munchausen_stable_softmax, _save_checkpoint, safe_division
+from chatbot.adviser.app.rl.utils import EMBEDDINGS, AutoSkipMode, EnvInfo, ExperimentLogging, safe_division
 
 
-import time
 import random
 import numpy as np
 import torch
 import numpy as np
-import torch.nn.functional as F
 from torch.nn.utils.rnn import pack_sequence
+
+from data.dataset import GraphDataset
 
 # noise levels: 0.0, 0.1, 0.25, 0.5, 0,75, 1.0, 1.5, 2.0
 
@@ -206,8 +198,8 @@ class Evaluator:
         torch.backends.cudnn.deterministic = self.args["experiment"]["cudnn_deterministic"]
 
         # load dialog tree
-        self.tree = DialogTree(version=0)
-        self.eval_tree = DialogTree(version=1)
+        self.tree = GraphDataset(graph_path='resources/en/traintest_graph.json', answer_path='resources/en/traintest_answers.json', use_answer_synonyms=self.args['spaceadapter']['configuration'].use_answer_synonyms)
+        self.eval_tree = self.tree
 
         # load text embedding
         text_embedding_name = self.args['spaceadapter']['configuration'].text_embedding
@@ -251,7 +243,7 @@ class Evaluator:
                 similarity_model = AnswerSimilarityEncoding(model_name="distiluse-base-multilingual-cased-v2", dialog_tree=self.tree, device=self.device, caching=True)
        
         dialog_faq_ratio = self.args['simulation'].pop('dialog_faq_ratio')
-        self.eval_env = ParallelDialogEnvironment(dialog_tree=self.tree, adapter=self.adapter, stop_action=self.adapter.configuration.stop_action, use_answer_synonyms=self.adapter.configuration.use_answer_synonyms, mode=EnvironmentMode.TEST, n_envs=self.n_test_envs, auto_skip=self.spaceadapter_config.auto_skip, dialog_faq_ratio=0.5, similarity_model=similarity_model, use_joint_dataset=True, **self.args['simulation'])
+        self.eval_env = ParallelDialogEnvironment(dialog_tree=self.tree, adapter=self.adapter, stop_action=self.adapter.configuration.stop_action, mode=EnvironmentMode.TEST, n_envs=self.n_test_envs, auto_skip=self.spaceadapter_config.auto_skip, dialog_faq_ratio=0.5, similarity_model=similarity_model,  **self.args['simulation'])
     
         #
         # network setup
@@ -459,9 +451,6 @@ def load_ckpt(evaluator: Evaluator):
 
 if __name__ == "__main__":
     os.environ["TOKENIZERS_PARALLELISM"] = "true"
-
-    Data.objects[0] = Data.Dataset.fromJSON('resources/en/traintest_graph.json', version=0)
-    Data.objects[1] = Data.Dataset.fromJSON('resources/en/traintest_graph.json', version=1)
 
     evaluator = Evaluator()
     evaluator.setUp()

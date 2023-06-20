@@ -6,12 +6,10 @@ from typing import Any, Dict, List, Set, Tuple, Union
 from chatbot.adviser.app.answerTemplateParser import AnswerTemplateParser
 from chatbot.adviser.app.logicParser import LogicTemplateParser
 from chatbot.adviser.app.parserValueProvider import RealValueBackend
-from chatbot.adviser.app.rl.dialogtree import DialogTree
 from chatbot.adviser.app.systemTemplateParser import SystemTemplateParser
-from chatbot.adviser.app.rl.dataset import DialogAnswer, DialogNode, FAQQuestion
 from copy import deepcopy
 import json
-import chatbot.adviser.app.rl.dataset as Data
+from data.dataset import GraphDataset, DialogNode, Answer, NodeType, Question
 
 resource_dir = Path(".", 'resources', 'en')
 nlu_resource_dir = Path(".", 'resources', 'en')
@@ -36,6 +34,7 @@ class LocationValues:
 
 locations = LocationValues()
 
+
 class VariableValue:
     def __init__(self, var_name: str, var_type: str) -> None:
         self.var_name = var_name
@@ -48,22 +47,39 @@ class VariableValue:
         self.gt_condition = None
         self.geq_condition = None
 
+    def __str__(self) -> str:
+        return f"""Variable '{self.var_name}': {self.var_type}
+            - < {self.lt_condition}
+            - <= {self.leq_condition}
+            - = {self.eq_condition}
+            - >= {self.geq_condition}
+            - > {self.gt_condition}
+        """
+        
+
     def add_default_condition(self, other_branch_conditions: List[Tuple[str, Any]]) -> bool:
         # invert conditions in same branch statement (DEFAULT is always == condition)
         # TODO: this is not sufficient, e.g. there could be multiple != statements and DEFAULT could trigger one of them
         for other_cond, other_val in other_branch_conditions:
             if other_cond == "==":
-                return self.add_condition("!=", other_val)
+                if not self.add_condition("!=", other_val):
+                    return False
             elif other_cond == "!=":
-                return self.add_condition("==", other_val)
+                if not self.add_condition("==", other_val):
+                    return False
             elif other_cond == "<":
-                return self.add_condition(">=", other_val)
+                if not self.add_condition(">=", other_val):
+                    return False
             elif other_val == "<=":
-                return self.add_condition(">", other_val)
+                if not self.add_condition(">", other_val):
+                    return False
             elif other_val == ">":
-                return self.add_condition("<=", other_val)
+                if not self.add_condition("<=", other_val):
+                    return False
             elif other_val == ">=":
-                return self.add_condition("<", other_val)
+                if not self.add_condition("<", other_val):
+                    return False
+        return True
 
     def add_condition(self, condition: str, value: Any) -> bool:
         """
@@ -75,6 +91,8 @@ class VariableValue:
         """
         
         # TODO falls value = default, müssen die andern conditions ins Gegenteil umgewandelt werden
+        if self.var_type in ["TIMESPAN", "NUMBER"]:
+            value = float(value)
         if condition == "==":
             if self.eq_condition and self.eq_condition != value:
                 return False
@@ -99,9 +117,7 @@ class VariableValue:
             if self.lt_condition:
                 if self.lt_condition > value: # change bounds to lower value
                     self.lt_condition = value
-                    return True
-                else:
-                    return True # keep lower bound
+                # else, keep lower bound
             if self.gt_condition and self.gt_condition >= value:  #  geq < a < lt
                 return False # lower bound can't be greater than higher bound
             if self.geq_condition and self.geq_condition >= value: #  geq <= a < lt
@@ -113,9 +129,7 @@ class VariableValue:
             if self.leq_condition:
                 if self.leq_condition > value: # change bounds to lower value
                     self.leq_condition = value
-                    return True
-                else:
-                    return True # keep lower bound
+            # else, keep lower bound
             if self.gt_condition and self.gt_condition > value:  #  geq < a <= lt
                 return False # lower bound can't be greater than higher bound
             if self.geq_condition and self.geq_condition > value: #  gt <= a <= lt
@@ -127,9 +141,7 @@ class VariableValue:
             if self.gt_condition:
                 if self.gt_condition < value: # change bounds to higher value
                     self.gt_condition = value
-                    return True
-                else:
-                    return True # keep upper bound
+            # else, keep upper bound
             if self.lt_condition and self.lt_condition <= value:  #  gt < a < lt
                 return False # lower bound can't be greater than higher bound
             if self.leq_condition and self.leq_condition <= value: #  gt < a <= lt
@@ -141,9 +153,7 @@ class VariableValue:
             if self.geq_condition:
                 if self.geq_condition < value: # change bounds to upper value
                     self.geq_condition = value
-                    return True
-                else:
-                    return True # keep upper bound
+                # else: keep upper bound
             if self.lt_condition and self.lt_condition <= value:  #  gt <= a < lt
                 return False # lower bound can't be greater than higher bound
             if self.leq_condition and self.leq_condition < value: #  gt <= a <= lt
@@ -160,7 +170,7 @@ class VariableValue:
         if not lower_bound:
             lower_bound = self.geq_condition
         if self.gt_condition and self.geq_condition:
-            lower_bound = max(float(self.gt_condition), float(self.geq_condition) - 1)
+            lower_bound = max(float(self.gt_condition) + 1, float(self.geq_condition))
         if not lower_bound:
             lower_bound = 0
         
@@ -168,13 +178,14 @@ class VariableValue:
         if not upper_bound:
             upper_bound = self.leq_condition
         if self.lt_condition and self.leq_condition:
-            upper_bound = min(float(self.lt_condition), float(self.leq_condition) + 1)
+            upper_bound = min(float(self.lt_condition) - 1, float(self.leq_condition))
         if not upper_bound:
             upper_bound = 10000 if not lower_bound else 100 * float(lower_bound)
 
+        assert lower_bound <= upper_bound
         return random.randint(int(lower_bound), int(upper_bound))
         
-    def draw_value(self):
+    def draw_value(self, data: GraphDataset):
         """ Draw a value respecting the variable type as well as the given (valid) conditions """
         if self.eq_condition:
             return self.eq_condition
@@ -190,16 +201,16 @@ class VariableValue:
         elif self.var_type == "NUMBER":
             return self._draw_number()
         elif self.var_type == "LOCATION":
-            if "land" in self.var_name.lower():
-                land = random.choice(list(locations.countries.keys()))
-                while land.lower() in set([val.lower() for val in self.neq_condition]):
-                    land = random.choice(list(locations.countries.keys()))
-                return land
+            if "country" in self.var_name.lower():
+                country = random.choice(list(data.countries.keys()))
+                while country.lower() in set([val.lower() for val in self.neq_condition]):
+                    country = random.choice(list(data.countries.keys()))
+                return country
             else:
-                stadt = random.choice(list(locations.cities.keys()))
-                while stadt.lower() in [val.lower() for val in self.neq_condition]:
-                    stadt = random.choice(list(locations.stadt.keys()))
-                return stadt
+                city = random.choice(list(data.cities.keys()))
+                while city.lower() in [val.lower() for val in self.neq_condition]:
+                    city = random.choice(list(data.stadt.keys()))
+                return city
         elif self.var_type == "TIMESPAN":
             # TODO implement
             return self._draw_number()
@@ -238,13 +249,14 @@ class SearchPath:
     chosen_response_pks: Dict[str, str]
 
 class UserGoal:
-    def __init__(self, start_node: DialogNode, goal_node: DialogNode, faq_key: int, initial_user_utterance: str, 
+    def __init__(self, data: GraphDataset, start_node: DialogNode, goal_node: DialogNode, faq_key: int, initial_user_utterance: str, 
                  answer_parser: AnswerTemplateParser, logic_parser: LogicTemplateParser, system_parser: SystemTemplateParser,
                  value_backend: RealValueBackend) -> None:
         self.goal_node = goal_node
         self.faq_key = faq_key
         self.answerParser = answer_parser
         self.logicParser = logic_parser
+        self.data = data
 
         paths = self.expand_path(start_node ,SearchPath(path=[], visited_ids=set([]), variables={}, chosen_response_pks={}))
         if len(paths) == 0:
@@ -260,9 +272,9 @@ class UserGoal:
             if not var in self.variables:
                 # draw random value
                 value = None
-                if var == "LAND":
+                if var == "COUNTRY":
                     value = locations.countries[random.choice(locations.country_keys)]
-                elif var == "STADT":
+                elif var == "CITY":
                     value = locations.cities[random.choice(locations.city_keys)]
                 substitution_vars[var] = value
             else:
@@ -285,42 +297,42 @@ class UserGoal:
             return [SearchPath(path, visited_ids, currentPath.variables, currentPath.chosen_response_pks)]
 
         # visit children
-        if current_node.node_type == "userInputNode":
+        if current_node.node_type == NodeType.VARIABLE:
             # get variable name and type
             assert len(current_node.answers) == 1, "Should have exactly 1 answer"
-            var_answer: DialogAnswer = current_node.answers[0]
-            var = self.answerParser.find_variable(var_answer.content.text)
+            var_answer: Answer = current_node.answers[0]
+            var = self.answerParser.find_variable(var_answer.text)
             new_variables = deepcopy(currentPath.variables)
             if not var.name in currentPath.variables:
                 new_variables[var.name] = VariableValue(var.name, var.type)
-            if var_answer.connected_node_key:
+            if var_answer.connected_node:
                 # expand path by following only possible child for userInputNode
-                return self.expand_path(Data.objects[self.goal_node.version].node_by_key(var_answer.connected_node_key),
+                return self.expand_path(var_answer.connected_node,
                                         SearchPath(path=path,
                                                     visited_ids=visited_ids,
                                                     variables=new_variables,
                                                     chosen_response_pks=currentPath.chosen_response_pks))
-        elif current_node.node_type in ["infoNode", "startNode"]:
-            if current_node.connected_node_key:
-                return self.expand_path(Data.objects[self.goal_node.version].node_by_key(current_node.connected_node_key),
+        elif current_node.node_type in [NodeType.INFO, NodeType.START]:
+            if current_node.connected_node:
+                return self.expand_path(current_node.connected_node,
                                         SearchPath(path=path,
                                                     visited_ids=visited_ids,
                                                     variables=currentPath.variables,
                                                     chosen_response_pks=currentPath.chosen_response_pks))
-        elif current_node.node_type in ["userResponseNode"]:
+        elif current_node.node_type == NodeType.QUESTION:
             paths = []
             for answer in current_node.answers:
                 # expand path for each possible answer
-                if answer.connected_node_key:
+                if answer.connected_node:
                     new_chosen_response_pks = deepcopy(currentPath.chosen_response_pks)
                     new_chosen_response_pks[current_node.key] = answer.key
-                    paths += self.expand_path(Data.objects[self.goal_node.version].node_by_key(answer.connected_node_key),
+                    paths += self.expand_path(answer.connected_node,
                                                 SearchPath(path=path,
                                                             visited_ids=visited_ids,
                                                             variables=currentPath.variables,
                                                             chosen_response_pks=new_chosen_response_pks))
             return paths
-        elif current_node.node_type == "logicNode":
+        elif current_node.node_type == NodeType.LOGIC:
             # generating fitting values is hard:
             # there might be two logicNodes on one path conditioned on the same variable, but the conditions can be different and have to satisfy both nodes' statements at the same time.
             # -> SAT-problem
@@ -330,13 +342,13 @@ class UserGoal:
             # variables should already be known since we require a user input node before one can use a variable in a logic node
             # get variable name of condition: LHS is of form {{VAR_NAME
             paths = []
-            var_name = current_node.content.text.replace("{{", "").strip()
+            var_name = current_node.text.replace("{{", "").strip()
             # collect all conditions first to handle default case (if exists)
             condition_branches = []
             for answer in current_node.answers:
                 # get condition and comparison value for current branch
                 # RHS is of form: operator value}}
-                cond_op, cond_val = answer.content.text.replace("}}", "").split()
+                cond_op, cond_val = answer.text.replace("}}", "").split()
                 if not isinstance(cond_val, str):
                     # spaces were inside value, join back together
                     cond_val = " ".join(cond_val)
@@ -353,8 +365,8 @@ class UserGoal:
                 
                 # check if variable conditions are compatible
                 # IF NOT -> abandon branch 
-                if compatible and answer.connected_node_key:
-                    paths += self.expand_path(Data.objects[self.goal_node.version].node_by_key(answer.connected_node_key),
+                if compatible and answer.connected_node:
+                    paths += self.expand_path(answer.connected_node,
                                                 SearchPath(path=path,
                                                             visited_ids=visited_ids,
                                                             variables=new_variables,
@@ -372,10 +384,10 @@ class UserGoal:
 
     def _fill_variables(self, variables: Dict[str, VariableValue]) -> Dict[str, Any]:
         """ Realizes a dict of VariableValue entries into a dict of randomly drawn values, according to the restrictions """
-        return {var_name: variables[var_name].draw_value() for var_name in variables}
+        return {var_name: variables[var_name].draw_value(self.data) for var_name in variables}
 
     def get_user_response(self, current_node: DialogNode) -> Tuple[UserResponse, None]:
-        assert current_node.node_type == "userResponseNode"
+        assert current_node.node_type == NodeType.QUESTION
 
         # return answer leading to correct branch
         if current_node.key in self.answer_pks:
@@ -384,22 +396,20 @@ class UserGoal:
         else:
             # answer is not relevant to user goal -> pick one at random -> diminishes reward
             # if current_node.answers.count() > 0:
-            if current_node.answer_count() > 0:
-                # answer_key = random.choice(current_node.answers.values_list("key", flat=True))
+            if len(current_node.answers) > 0:
                 answer_key = current_node.random_answer().key
                 return UserResponse(relevant=False, answer_key=answer_key)
         return None
 
     def get_user_input(self, current_node: DialogNode, bst: Dict[str, any]) -> UserInput:
-        assert current_node.node_type == 'userInputNode'
+        assert current_node.node_type == NodeType.VARIABLE
         # assert current_node.answers.count() == 1
-        assert current_node.answer_count() == 1
+        assert len(current_node.answers) == 1
         # TODO add generated / paraphrased utterances?
 
         # get variable value for node
-        # var_answer: DialogAnswer = current_node.answers.first() # should have exactly 1 answer
-        var_answer: DialogAnswer = current_node.answers[0] # should have exactly 1 answer
-        var = self.answerParser.find_variable(var_answer.content.text)
+        var_answer: Answer = current_node.answers[0] # should have exactly 1 answer
+        var = self.answerParser.find_variable(var_answer.text)
         if var.name in self.variables:
             # variable is relevant to user goal -> return it
             return UserInput(relevant=True, var_name=var.name, var_value=self.variables[var.name])
@@ -407,12 +417,12 @@ class UserGoal:
             # variable is not relevant to user goal -> make one up and return it
             if var.name in bst:
                 return UserInput(relevant=False, var_name=var.name, var_value=bst[var.name])
-            return UserInput(relevant=False, var_name=var.name, var_value=VariableValue(var_name=var.name, var_type=var.type).draw_value())
+            return UserInput(relevant=False, var_name=var.name, var_value=VariableValue(var_name=var.name, var_type=var.type).draw_value(self.data))
    
 
 
 class UserGoalGenerator:
-    def __init__(self, dialog_tree: DialogTree, value_backend: RealValueBackend, paraphrase_fraction: float = 0.0, generate_fraction: bool = 0.0) -> None:
+    def __init__(self, dialog_tree: GraphDataset, value_backend: RealValueBackend, paraphrase_fraction: float = 0.0, generate_fraction: bool = 0.0) -> None:
         assert 0 <= paraphrase_fraction <= 1
         assert 0 <= generate_fraction <= 1
         assert 0 <= paraphrase_fraction + generate_fraction <= 1
@@ -421,15 +431,12 @@ class UserGoalGenerator:
         self.generate_fraction = generate_fraction
         self.original_fraction = 1.0 - paraphrase_fraction - generate_fraction
         self.value_backend = value_backend
-        self.version = dialog_tree.version
 
-        # self.faq_keys = list(FAQQuestion.objects.filter(version=dialog_tree.version).values_list("key", flat=True))
-        self.faq_keys = Data.objects[dialog_tree.version].faq_keys()
-        
-        self.start_node = Data.objects[self.version].node_by_key(dialog_tree.get_start_node().connected_node_key) # get first "real" dialog node (start node doesn't contain any information)
+        self.start_node = dialog_tree.start_node.connected_node # get first "real" dialog node (start node doesn't contain any information)
         self.answer_parser = AnswerTemplateParser()
         self.logic_parser = LogicTemplateParser()
         self.system_parser = SystemTemplateParser()
+        self.dialogTree = dialog_tree
 
         # setup or load cache
         # TODO delete cache on save after serializer
@@ -454,13 +461,12 @@ class UserGoalGenerator:
         # TODO add paraphrasing / generation
 
         # for now, just draw random node with faq text as goal node
-        # faq_candidate: FAQQuestion = FAQQuestion.objects.get(version=self.version, key=random.choice(self.faq_keys))
-        faq_candidate: FAQQuestion = Data.objects[self.version].random_faq() 
-        goal_node: DialogNode = Data.objects[self.version].node_by_key(faq_candidate.dialog_node_key)
+        faq_candidate: Question = self.dialogTree.random_question()
+        goal_node: DialogNode = faq_candidate.parent
         initial_user_utterance = faq_candidate.text
 
         # create a trajectory and variable values for reaching goal node
-        return UserGoal(self.start_node, goal_node, faq_candidate.key, initial_user_utterance, self.answer_parser, self.logic_parser, self.system_parser, self.value_backend)
+        return UserGoal(self.dialogTree, self.start_node, goal_node, faq_candidate.key, initial_user_utterance, self.answer_parser, self.logic_parser, self.system_parser, self.value_backend)
 
 
 @dataclass
@@ -477,27 +483,19 @@ class DummyGoal:
         return node.key == self.goal_node.key
     
     def get_user_response(self, current_node: DialogNode) -> Union[UserResponse, None]:
-        assert current_node.node_type == "userResponseNode"
+        assert current_node.node_type == NodeType.QUESTION
 
         # return answer leading to correct branch
         return UserResponse(relevant=True, answer_key=self.answer_pks[current_node.key].answer_key)
 
     def get_user_input(self, current_node: DialogNode, bst: Dict[str, any]) -> UserInput:
-        assert current_node.node_type == 'userInputNode'
+        assert current_node.node_type == NodeType.VARIABLE
         # assert current_node.answers.count() == 1
-        assert current_node.answer_count() == 1
+        assert len(current_node.answers) == 1
         # TODO add generated / paraphrased utterances?
 
         # get variable value for node
-        # var_answer: DialogAnswer = current_node.answers.first() # should have exactly 1 answer
-        var_answer: DialogAnswer = current_node.answers[0] # should have exactly 1 answer
-        var = self.answer_parser.find_variable(var_answer.content.text)
-        # if var.name in self.variables:
-            # variable is relevant to user goal -> return it
+        var_answer: Answer = current_node.answers[0] # should have exactly 1 answer
+        var = self.answer_parser.find_variable(var_answer.text)
         return UserInput(relevant=True, var_name=var.name, var_value=self.variables[var.name])
-        # else:
-        #     # variable is not relevant to user goal -> make one up and return it
-        #     if var.name in bst:
-        #         return UserInput(relevant=False, var_name=var.name, var_value=bst[var.name])
-        #     return UserInput(relevant=False, var_name=var.name, var_value=VariableValue(var_name=var.name, var_type=var.type).draw_value())
-   
+       

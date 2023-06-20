@@ -1,10 +1,11 @@
 from enum import Enum
 from typing import Tuple, List, Union
 import transformers
+
+from data.dataset import DialogNode
 transformers.logging.set_verbosity_error()
 import torch
 from chatbot.adviser.app.encoding.encoding import Encoding
-from chatbot.adviser.app.rl.dataset import  DialogNode
 import os
 
 
@@ -59,7 +60,7 @@ class TextEmbeddings(Encoding):
             In case of
             * distiluse-base-multilingual-cased: (1, 512)
         """
-        return self.encode(node.content.text)
+        return self.encode(node.text)
 
 
 
@@ -72,6 +73,7 @@ class SentenceEmbeddings(TextEmbeddings):
         super().__init__(device, embedding_dim)
         path = f".models/{pretrained_name.replace('/', '_')}"
         name_or_path = path if os.path.exists(path) else pretrained_name
+        print("LOADING EMBEDDING FROM ", name_or_path)
         self.bert_sentence_embedder = SentenceTransformer(pretrained_name, device=device, cache_folder = '.models').to(device)
 
     @torch.no_grad()

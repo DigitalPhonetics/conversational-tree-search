@@ -3,22 +3,21 @@ import torch
 from chatbot.adviser.app.answerTemplateParser import AnswerTemplateParser
 
 from chatbot.adviser.app.encoding.encoding import Encoding
-import chatbot.adviser.app.rl.dataset as Data
+from data.dataset import GraphDataset, NodeType
 
 class BSTEncoding(Encoding):
-    def __init__(self, device: str, version: int) -> None:
+    def __init__(self, device: str, data: GraphDataset) -> None:
         super().__init__(device)
-        self.variables = self._extract_variables(version)
+        self.variables = self._extract_variables(data)
         
-    def _extract_variables(self, version: int) -> List[str]:
+    def _extract_variables(self, data: GraphDataset) -> List[str]:
         # extract all available variables by looking at the variable nodes
         answerParser = AnswerTemplateParser()
         variables = set()
-        # for node in DialogNode.objects.filter(version=version, node_type='userInputNode'):
-        for node in Data.objects[version].nodes_by_type('userInputNode'):
+        for node in data.nodes_by_type[NodeType.VARIABLE]:
             # answer = node.answers.all()[0]
             answer = node.answers[0]
-            expected_var = answerParser.find_variable(answer.content.text)
+            expected_var = answerParser.find_variable(answer.text)
             variables.add(expected_var.name)
         return sorted(list(variables)) # sort alphabetically for unique order
 

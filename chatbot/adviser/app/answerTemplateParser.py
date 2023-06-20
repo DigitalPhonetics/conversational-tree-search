@@ -41,14 +41,3 @@ class VariableFinder(Visitor):
     def var(self, tree):
         self.name = tree.children[0].value
         self.type = tree.children[1].value
-
-
-# if __name__ == "__main__":
-#     template_str = '{{ LAND = TEXT }}'
-#     print("original template")
-#     print(template_str)
-#     print("===========")
-#     parser = AnswerTemplateParser()
-
-#     variables = parser.find_variable(template_str)
-#     print("Found variables:", variables.name. variables.type)

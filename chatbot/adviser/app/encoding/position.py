@@ -4,9 +4,7 @@ import torch.nn.functional as F
 from torch.nn.utils.rnn import pad_sequence
 
 from chatbot.adviser.app.encoding.encoding import Encoding
-from chatbot.adviser.app.rl.dialogtree import DialogTree
-from chatbot.adviser.app.rl.dataset import DialogNode
-import chatbot.adviser.app.rl.dataset as Data
+from data.dataset import DialogNode, GraphDataset
 
 """
 IDEA: encode node position in tree in a structured way instead of a random one-hot-encoding
@@ -18,11 +16,11 @@ Here, we encode non-regular trees:
     * but all nodes inside the same level are padded to the same degree
 """
 class TreePositionEncoding(Encoding):
-    def __init__(self, device: str) -> None:
+    def __init__(self, device: str, data: GraphDataset) -> None:
         super().__init__(device)
 
         # build encoding
-        self.node_mapping, self.encodings_length = self._process_node_tree()
+        self.node_mapping, self.encodings_length = self._process_node_tree(data)
         # build encoding vectors
 
     @torch.no_grad()
@@ -45,26 +43,18 @@ class TreePositionEncoding(Encoding):
     def get_encoding_dim(self) -> int:
         return self.encodings_length
     
-    def _get_start_node(self) -> DialogNode:
-        """ Returns the start node in a safe way """
-        startNode = Data.objects[0].node_by_key(Data.objects[0].start_node().connected_node_key)
-        # startNode = DialogNode.objects.get(node_type="startNode", version=0).connected_node
-        assert startNode.node_type != "startNode"
-        return startNode
-
     def _get_max_node_degree_on_current_level(self, current_level_nodes: List[DialogNode]) -> int:
         """ Returns the maximum node degree in the current tree depth """
         max_degree = 0
         for path, node in current_level_nodes:
-            # node_degree = node.answers.count()
-            node_degree = node.answer_count()
+            node_degree = len(node.answers)
             if node_degree > max_degree:
                 max_degree = node_degree
         return max_degree
 
-    def _process_node_tree(self) -> Tuple[Dict[str, str], int]:
+    def _process_node_tree(self, data: GraphDataset) -> Tuple[Dict[str, str], int]:
         print("Building tree embedding for nodes...")
-        current_level_nodes: List[Tuple[str, DialogNode]] = [("", self._get_start_node())] # load start node
+        current_level_nodes: List[Tuple[str, DialogNode]] = [("", data.start_node.connected_node)] # load start node
         encodings_map = {current_level_nodes[0][1].key: ""}
         visited_node_ids = set() # prevent loops
         
@@ -78,23 +68,16 @@ class TreePositionEncoding(Encoding):
                 if node.key in visited_node_ids:
                     continue # break loops
                 visited_node_ids.add(node.key)
-                # for answer in node.answers.all().order_by("answer_index"):
                 for answer in node.answers:
-                    # if answer.connected_node:
-                    if answer.connected_node_key:
+                    if answer.connected_node:
                         # append binary node answer index to path leading to current node, padded to max level degree
-                        new_path = node_path + f"{answer.answer_index:b}".zfill(max_node_degree)
-                        # encodings_map[answer.connected_node.key] = new_path
-                        encodings_map[answer.connected_node_key] = new_path
-                        # next_level_nodes.append((new_path, answer.connected_node))
-                        next_level_nodes.append((new_path, Data.objects[0].node_by_key(answer.connected_node_key)))
-                # if node.connected_node:
-                if node.connected_node_key:
+                        new_path = node_path + f"{answer.index:b}".zfill(max_node_degree)
+                        encodings_map[answer.connected_node.key] = new_path
+                        next_level_nodes.append((new_path, answer.connected_node))
+                if node.connected_node:
                     new_path = node_path + "1".zfill(max_node_degree) # if no answers but connected node -> answer index = 1
-                    # encodings_map[node.connected_node.key] = new_path
-                    encodings_map[node.connected_node_key] = new_path
-                    # next_level_nodes.append((new_path, node.connected_node))
-                    next_level_nodes.append((new_path, Data.objects[0].node_by_key(node.connected_node_key)))
+                    encodings_map[node.connected_node.key] = new_path
+                    next_level_nodes.append((new_path, node.connected_node))
             current_level_nodes = next_level_nodes
 
         print("Done")
@@ -103,11 +86,10 @@ class TreePositionEncoding(Encoding):
 
 class NodeTypeEncoding(Encoding):
     """ one hot encoding for node type """
-    def __init__(self, device: str) -> None:
+    def __init__(self, device: str, data: GraphDataset) -> None:
         # get all possible node types
         super().__init__(device)
-        # self.node_types = [result['node_type'] for result in DialogNode.objects.values('node_type').distinct()]
-        self.node_types = Data.objects[0].node_types()
+        self.node_types = set(data.nodes_by_type.keys())
         self.encoding_size = len(self.node_types)
         # create one-hot encoding for them
         self.encoding = { node_type: str(i) for i, node_type in enumerate(self.node_types) }
@@ -135,9 +117,9 @@ class NodeTypeEncoding(Encoding):
 
 class AnswerPositionEncoding(Encoding):
     """ one hot encoding for answer position inside node """
-    def __init__(self, device: str, dialog_tree: DialogTree) -> None:
+    def __init__(self, device: str, data: GraphDataset) -> None:
         # get maximum node degree
-        self.max_degree = dialog_tree.get_max_node_degree()
+        self.max_degree = data.get_max_node_degree()
         self.device = device
     
     def get_encoding_dim(self) -> int:
@@ -149,12 +131,10 @@ class AnswerPositionEncoding(Encoding):
         Returns:
             # 1 x answers(dialog_node) x max_node_degree
         """
-        # num_answers = dialog_node.answers.count()
-        num_answers = dialog_node.answer_count()
+        num_answers = len(dialog_node.answers)
         if num_answers > 0:
             return F.one_hot(torch.tensor([list(range(num_answers))], dtype=torch.long, device=self.device), num_classes=self.max_degree)
-        # elif dialog_node.connected_node:
-        elif dialog_node.connected_node_key:
+        elif dialog_node.connected_node:
             return F.one_hot(torch.tensor([[0]], dtype=torch.long, device=self.device), num_classes=self.max_degree)
         else:
             return torch.zeros((1, 1, self.max_degree), dtype=torch.float, device=self.device)
@@ -165,6 +145,5 @@ class AnswerPositionEncoding(Encoding):
         Returns:
             # batch x max_answers x max_node_degree, batch (num_answers)
         """
-        # return pad_sequence([self._encode(node) for node in dialog_node], batch_first=True), torch.tensor([node.answers.count() for node in dialog_node], device=self.device)
-        return pad_sequence([self._encode(node) for node in dialog_node], batch_first=True), torch.tensor([node.answer_count() for node in dialog_node], device=self.device)
+        return pad_sequence([self._encode(node) for node in dialog_node], batch_first=True), torch.tensor([len(node.answers) for node in dialog_node], device=self.device)
         

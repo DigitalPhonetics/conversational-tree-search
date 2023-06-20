@@ -6,7 +6,6 @@ from typing import Any, Dict, List, Tuple, Union
 import logging
 import random
 from copy import deepcopy
-import chatbot.adviser.app.rl.dataset as Data
 
 import gym
 from gym import spaces
@@ -15,19 +14,17 @@ from ..answerTemplateParser import AnswerTemplateParser
 
 from chatbot.adviser.app.logicParser import LogicTemplateParser
 from chatbot.adviser.app.parserValueProvider import RealValueBackend
-from chatbot.adviser.app.rl.dialogtree import DialogTree
 from chatbot.adviser.app.rl.goal import DummyGoal, ImpossibleGoalError, UserGoalGenerator, UserResponse, VariableValue
 from chatbot.adviser.app.rl.spaceAdapter import SpaceAdapter
-from chatbot.adviser.app.rl.utils import AutoSkipMode, EnvironmentMode, NodeType, StateEntry, EnvInfo, _load_a1_laenderliste, _load_answer_synonyms, rand_remove_questionmark
-from chatbot.adviser.app.rl.dataset import DialogAnswer, DialogNode
+from chatbot.adviser.app.rl.utils import AutoSkipMode, EnvironmentMode, StateEntry, EnvInfo, rand_remove_questionmark
+from data.dataset import GraphDataset, Answer, DialogNode, NodeType
 
 
 
 
 class DialogEnvironment(gym.Env):
-    def __init__(self, dialog_tree: DialogTree, adapter: SpaceAdapter,
+    def __init__(self, dialog_tree: GraphDataset, adapter: SpaceAdapter,
                     stop_action: bool,
-                    use_answer_synonyms: bool,
                     mode: EnvironmentMode,
                     train_noise: float,
                     eval_noise: float,
@@ -39,14 +36,11 @@ class DialogEnvironment(gym.Env):
                     log_to_file: Union[None, str, logging.Logger] = None,
                     env_id: int = 1,
                     goal_gen: UserGoalGenerator = None,
-                    a1_laenderliste: dict = None,
                     logic_parser: LogicTemplateParser = None,
                     answer_template_parser: AnswerTemplateParser = None,
-                    answer_synonyms: Dict[str, List[str]] = None,
                     return_obs: bool = True,
                     auto_skip: AutoSkipMode = AutoSkipMode.NONE,
-                    similarity_model = None,
-                    use_joint_dataset: bool = False):
+                    similarity_model = None):
         """
         Args:
             stop_when_reaching_goal: If True, environment sets 'done' Flag once goal is reached.
@@ -61,7 +55,6 @@ class DialogEnvironment(gym.Env):
         else:
             self.noise = test_noise
         self.return_obs = return_obs
-        self.version = dialog_tree.version
         self.env_id = env_id
         self.adapter = adapter
         self.stop_action = stop_action
@@ -71,7 +64,6 @@ class DialogEnvironment(gym.Env):
         self.normalize_rewards = normalize_rewards
         self.auto_skip = auto_skip
         self.similarity_model = similarity_model
-        self.use_joint_dataset = use_joint_dataset
 
         self.dialog_faq_ratio = dialog_faq_ratio
         self.num_faqbased_dialogs = 0
@@ -82,11 +74,8 @@ class DialogEnvironment(gym.Env):
         # setup user goal generator
         self.logicParser = LogicTemplateParser() if not logic_parser else logic_parser
         self.answer_template_parser = AnswerTemplateParser() if not answer_template_parser else answer_template_parser
-        self.a1_laenderliste = a1_laenderliste if a1_laenderliste else _load_a1_laenderliste()
-        self.answer_synonyms = answer_synonyms if answer_synonyms else _load_answer_synonyms(mode, use_synonyms=use_answer_synonyms, use_joint_dataset=use_joint_dataset)
-        self._num_answer_synonyms = sum([len(self.answer_synonyms[answer]) for answer in self.answer_synonyms])
-        self.value_backend = RealValueBackend(self.a1_laenderliste)
-        self.goal_gen = UserGoalGenerator(dialog_tree=self.dialogTree, value_backend=self.value_backend) if not goal_gen else goal_gen
+        self.value_backend = RealValueBackend(dialog_tree)
+        self.goal_gen = UserGoalGenerator(dialog_tree=dialog_tree, value_backend=self.value_backend) if not goal_gen else goal_gen
 
         # setup state space
         if adapter:
@@ -134,24 +123,24 @@ class DialogEnvironment(gym.Env):
         self.coverage_variables = defaultdict(lambda: defaultdict(int))
 
     def get_goal_node_coverage_free(self):
-        return len(self.goal_node_coverage_free) / Data.objects[self.version].count_faq_nodes()
-
+        return len(self.goal_node_coverage_free) / self.dialogTree.num_free_goal_nodes
+    
     def get_goal_node_coverage_guided(self):
-        return len(self.goal_node_coverage_guided) / Data.objects[self.version].count_guided_goal_node_candidates()
+        return len(self.goal_node_coverage_guided) / self.dialogTree.num_guided_goal_nodes
 
     def get_node_coverage(self):
-        return len(self.node_coverage) / Data.objects[self.version].count_nodes()
-
+        return len(self.node_coverage) / len(self.dialogTree.node_list)
+    
     def get_coverage_faqs(self):
-        return len(self.coverage_faqs) / Data.objects[self.version].count_faqs()
+        return len(self.coverage_faqs) / len(self.dialogTree.question_list)
 
     def get_coverage_synonyms(self):
-        return len(self.coverage_synonyms) / self._num_answer_synonyms
+        return len(self.coverage_synonyms) / self.dialogTree.num_answer_synonyms
     
     def get_coverage_variables(self):
         return {
-            "STADT": len(self.coverage_variables["STADT"]) / Data.objects[self.version].count_cities(),
-            "LAND": len(self.coverage_variables["LAND"]) / Data.objects[self.version].count_countries()
+            "CITY": len(self.coverage_variables["CITY"]) / len(self.dialogTree.city_keys),
+            "COUNTRY": len(self.coverage_variables["COUNTRY"]) / len(self.dialogTree.country_keys)
         }
 
     def _transform_dialog_history(self):
@@ -182,7 +171,6 @@ class DialogEnvironment(gym.Env):
 
         if self.return_obs:
             obs = {
-                StateEntry.DIALOG_NODE.value: self.current_node,
                 StateEntry.DIALOG_NODE_KEY.value: self.current_node.key,
                 StateEntry.ORIGINAL_USER_UTTERANCE.value: deepcopy(self.initial_user_utterance),
                 StateEntry.CURRENT_USER_UTTERANCE.value: deepcopy(self.current_user_utterance),
@@ -207,7 +195,7 @@ class DialogEnvironment(gym.Env):
         self._increment_episode_count()
         
         self.initial_user_utterance = deepcopy(initial_user_utterance)
-        self.current_node = Data.objects[self.version].node_by_key(self.dialogTree.get_start_node().connected_node_key)
+        self.current_node = self.dialogTree.start_node.connected_node
         self.last_action_idx = 1 # start by asking start node
        
         self.is_faq_mode = False
@@ -218,7 +206,7 @@ class DialogEnvironment(gym.Env):
         
         self.current_user_utterance = deepcopy(self.initial_user_utterance)
         self.user_utterances_history = [deepcopy(self.initial_user_utterance)]
-        self.system_utterances_history = [deepcopy(self.current_node.content.text)]
+        self.system_utterances_history = [deepcopy(self.current_node.text)]
         self.visited_node_keys[self.current_node.key] = 1
 
         # dialog stats
@@ -256,7 +244,7 @@ class DialogEnvironment(gym.Env):
         self.bst = {}
         self._increment_episode_count()
         
-        self.current_node = Data.objects[self.version].node_by_key(self.dialogTree.get_start_node().connected_node_key)
+        self.current_node = self.dialogTree.start_node.connected_node
         self.last_action_idx = 1 # start by asking start node
        
         self.is_faq_mode = True
@@ -269,7 +257,7 @@ class DialogEnvironment(gym.Env):
         
         self.current_user_utterance = deepcopy(self.initial_user_utterance)
         self.user_utterances_history = [deepcopy(self.initial_user_utterance)]
-        self.system_utterances_history = [deepcopy(self.current_node.content.text)]
+        self.system_utterances_history = [deepcopy(self.current_node.text)]
         self.visited_node_keys[self.current_node.key] = 1
 
         # dialog stats
@@ -310,7 +298,7 @@ class DialogEnvironment(gym.Env):
         self.bst = {}
         self._increment_episode_count()
         
-        self.current_node = Data.objects[self.version].node_by_key(self.dialogTree.get_start_node().connected_node_key)
+        self.current_node = self.dialogTree.start_node.connected_node
         self.last_action_idx = 1 # start by asking start node
         self.goal = None
 
@@ -318,7 +306,7 @@ class DialogEnvironment(gym.Env):
             # draw guided goal (turn by turn)
             self.is_faq_mode = False
             first_answer, self.initial_user_utterance = self._draw_random_answer(self.current_node)
-            self.goal_node = Data.objects[self.version].node_by_key(first_answer.connected_node_key)
+            self.goal_node = first_answer.connected_node
             self.reached_goals = []
             self.asked_goals = []
             self.constraints = {}
@@ -347,7 +335,7 @@ class DialogEnvironment(gym.Env):
         
         self.current_user_utterance = deepcopy(self.initial_user_utterance)
         self.user_utterances_history = [deepcopy(self.initial_user_utterance)]
-        self.system_utterances_history = [deepcopy(self.current_node.content.text)]
+        self.system_utterances_history = [deepcopy(self.current_node.text)]
         self.visited_node_keys[self.current_node.key] = 1
 
         # coverage stats
@@ -381,20 +369,17 @@ class DialogEnvironment(gym.Env):
 
         # Logging
         self.episode_log.append(f'{self.env_id}-{self.current_episode}$ ======== RESET =========')
-        self.episode_log.append(f'{self.env_id}-{self.current_episode}$ GOAL: ({"FREE" if self.is_faq_mode else "GUIDED"}): {self.goal_node.key} {self.goal_node.content.text[:75]}') 
+        self.episode_log.append(f'{self.env_id}-{self.current_episode}$ GOAL: ({"FREE" if self.is_faq_mode else "GUIDED"}): {self.goal_node.key} {self.goal_node.text[:75]}') 
         self.episode_log.append(f'{self.env_id}-{self.current_episode}$ CONSTRAINTS: {self.constraints}')
         self.episode_log.append(f'{self.env_id}-{self.current_episode}$ INITIAL UTTERANCE: {self.initial_user_utterance}') 
         return self._get_obs()
 
-    def _draw_random_answer(self, node: DialogNode) -> Tuple[DialogAnswer, str]:
+    def _draw_random_answer(self, node: DialogNode) -> Tuple[Answer, str]:
         if not node.key in self.user_answer_keys:
             # answer for this node is requested for the 1st time -> draw new goal for next turn
-            # answer_keys = node.answers.values_list("key", flat=True)
-            # self.user_answer_keys[node.key] = random.choice(answer_keys)
             self.user_answer_keys[node.key] = UserResponse(relevant=True, answer_key=node.random_answer().key)
-        # answer = DialogAnswer.objects.get(version=self.version, key=self.user_answer_keys[node.key])
-        answer = Data.objects[self.version].answer_by_key(self.user_answer_keys[node.key].answer_key)
-        user_utterance = rand_remove_questionmark(random.choice(self.answer_synonyms[answer.content.text.lower()]))
+        answer = self.dialogTree.answers_by_key[self.user_answer_keys[node.key].answer_key]
+        user_utterance = rand_remove_questionmark(random.choice(self.dialogTree.answer_synonyms[answer.text.lower()]))
         return answer, user_utterance
 
     def _check_user_patience_reached(self) -> bool:
@@ -406,21 +391,21 @@ class DialogEnvironment(gym.Env):
     def _update_action_counters(self, action: int):
         if action >= 2 and self.last_action_idx >= 2: # it's only a REAL skip if we didn't ask before
             # update counters
-            if self.current_node.node_type == NodeType.INFO.value:
+            if self.current_node.node_type == NodeType.INFO:
                 self.actioncount_skip_info += 1
-            elif self.current_node.node_type == NodeType.VARIABLE.value:
+            elif self.current_node.node_type == NodeType.VARIABLE:
                 self.actioncount_skip_variable += 1
-            elif self.current_node.node_type == NodeType.QUESTION.value:
+            elif self.current_node.node_type == NodeType.QUESTION:
                 self.actioncount_skip_question += 1
             self.skipped_nodes += 1
 
     def _update_node_counters(self):
         if self.current_node:
-            if self.current_node.node_type == NodeType.INFO.value:
+            if self.current_node.node_type == NodeType.INFO:
                 self.nodecount_info += 1
-            elif self.current_node.node_type == NodeType.VARIABLE.value:
+            elif self.current_node.node_type == NodeType.VARIABLE:
                 self.nodecount_variable += 1
-            elif self.current_node.node_type == NodeType.QUESTION.value:
+            elif self.current_node.node_type == NodeType.QUESTION:
                 self.nodecount_question += 1
 
     def _handle_logic_nodes(self) -> Tuple[float, bool]:
@@ -428,10 +413,10 @@ class DialogEnvironment(gym.Env):
         done = False
 
         did_handle_logic_node = False
-        while self.current_node and self.current_node.node_type == NodeType.LOGIC.value:
+        while self.current_node and self.current_node.node_type == NodeType.LOGIC:
             did_handle_logic_node = True
             self.nodecount_logic += 1
-            lhs = self.current_node.content.text
+            lhs = self.current_node.text
             var_name = lhs.lstrip("{{").strip() # form: {{ VAR_NAME
             if var_name in self.bst:
                 # don't assign reward, is automatic transition without agent interaction
@@ -440,7 +425,7 @@ class DialogEnvironment(gym.Env):
                 # for idx, answer in enumerate(self.current_node.answers.all()):
                 for idx, answer in enumerate(self.current_node.answers):
                     # check if full statement {{{lhs rhs}}} evaluates to True
-                    rhs = answer.content.text
+                    rhs = answer.text
                     if not "DEFAULT" in rhs: # handle DEFAULT case last!
                         if self._fillLogicTemplate(f"{lhs} {rhs}"):
                             # evaluates to True, follow this path!
@@ -449,7 +434,7 @@ class DialogEnvironment(gym.Env):
                     else:
                         default_answer = answer
                 self.prev_node = self.current_node
-                self.current_node = Data.objects[self.version].node_by_key(default_answer.connected_node_key)
+                self.current_node = default_answer.connected_node
                 if self.goal_node.key == self.current_node.key:
                     self.reached_goal_once = True
                     self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> REACHED GOAL (via logic node skip)')
@@ -473,35 +458,34 @@ class DialogEnvironment(gym.Env):
 
     def _choose_next_goal_node_guided(self) -> bool:
         done = False
-        if self.current_node.node_type in [NodeType.QUESTION.value, NodeType.VARIABLE.value]:
+        if self.current_node.node_type in [NodeType.QUESTION, NodeType.VARIABLE]:
             # draw next-turn goal
             # if self.current_node.answers.count() > 0:
-            if self.current_node.answer_count() > 0:
+            if len(self.current_node.answers) > 0:
                 # make list of all follow up nodes
                 #  - remove all visited nodes
                 #  - draw random follow up node from remaining candidates
                 #   - if none available, return None -> end dialog
-                goal_candidates = set([answer.connected_node_key for answer in self.current_node.answers if answer.connected_node_key])
+                goal_candidates = set([answer.connected_node.key for answer in self.current_node.answers if answer.connected_node])
                 goal_candidates = goal_candidates.difference(self.visited_node_keys.keys())
                 if len(goal_candidates) == 0:
                     # no viable followup node (all already visited) -> break dialog
                     self.goal_node = None
                 else:
                     # draw radnom followup node from list of viable nodes
-                    self.goal_node = Data.objects[self.version].node_by_key(random.choice(list(goal_candidates)))
-                    # answer, _ = self._set_answer(self.current_node, self.goal_node) # can't set user utterance here, because we're not ASKing here
+                    self.goal_node = self.dialogTree.nodes_by_key[random.choice(list(goal_candidates))]
             else:
                 self.goal_node = None # reached end of dialog tree
-        elif self.current_node.node_type == NodeType.INFO.value:
+        elif self.current_node.node_type == NodeType.INFO:
             # adapt goal to next node
-            if self.current_node.connected_node_key:
-                self.goal_node = Data.objects[self.version].node_by_key(self.current_node.connected_node_key)
+            if self.current_node.connected_node:
+                self.goal_node = self.current_node.connected_node
             else:
                 return False # reached end of tree
         else:
             # logic node: handle and skip to next viable node
             _, done = self._handle_logic_nodes() 
-        self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> NEXT GOAL: ({self.goal_node.key if self.goal_node else "NONE"}) {self.goal_node.content.text[:50] if self.goal_node else ""} ')
+        self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> NEXT GOAL: ({self.goal_node.key if self.goal_node else "NONE"}) {self.goal_node.text[:50] if self.goal_node else ""} ')
         if done or isinstance(self.goal_node, type(None)):
             self.episode_log.append(f'{self.env_id}-{self.current_episode} NO NEXT GOAL - LOGIC NODE WITHOUT REQUIRED BST VARIABLE$')
             return False
@@ -511,7 +495,7 @@ class DialogEnvironment(gym.Env):
     def step(self, action: int, _replayed_user_utterance: Union[str, None] = "") -> Tuple[Dict[StateEntry, Any], float, bool, Dict[EnvInfo, Any]]:
         self.episode_log.append(f'{self.env_id}-{self.current_episode}$ - --- Turn {self.current_step}')
         if self.current_node:
-            self.episode_log.append(f'{self.env_id}-{self.current_episode}$ FROM NODE: {self.current_node.node_type} - {self.current_node.key} - {self.current_node.content.text[:75]}')
+            self.episode_log.append(f'{self.env_id}-{self.current_episode}$ FROM NODE: {self.current_node.node_type} - {self.current_node.key} - {self.current_node.text[:75]}')
         prev_node_key = self.current_node.key
         done = False
         reward = 0.0
@@ -541,12 +525,12 @@ class DialogEnvironment(gym.Env):
             reward, done = self._step_free(real_action, _replayed_user_utterance) if self.is_faq_mode else self._step_guided(real_action)
             
             self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> USER UTTERANCE: {self.current_user_utterance}')
-            self.episode_log.append(f'{self.env_id}-{self.current_episode}$ TO NODE: {self.current_node.node_type} - {self.current_node.key} - {self.current_node.content.text[:75]}')
+            self.episode_log.append(f'{self.env_id}-{self.current_episode}$ TO NODE: {self.current_node.node_type} - {self.current_node.key} - {self.current_node.text[:75]}')
 
             # update history
             self.last_action_idx = real_action
             self.user_utterances_history.append(str(deepcopy(self.current_user_utterance)))
-            self.system_utterances_history.append(deepcopy(self.current_node.content.text))
+            self.system_utterances_history.append(deepcopy(self.current_node.text))
 
             # update counters
             self.visited_node_keys[self.current_node.key] += 1
@@ -554,27 +538,23 @@ class DialogEnvironment(gym.Env):
             # auto-skipping
             if (not done) and self.goal_node and self.auto_skip != AutoSkipMode.NONE and self.last_action_idx == 1:
                 # auto-skipping after asking
-                if self.current_node.node_type in [NodeType.QUESTION.value, NodeType.INFO.value, NodeType.VARIABLE.value]:
-                    if self.current_node.answer_count() > 0:
+                if self.current_node.node_type in [NodeType.QUESTION, NodeType.INFO, NodeType.VARIABLE]:
+                    if len(self.current_node.answers) > 0:
                         # check that current node has answers!
                         # if so, choose best fitting one (w.r.t. user text)
-                        # similarities = self.similarity_model.encode(current_user_utterance=self.current_user_utterance, dialog_node=self.current_node) # 1 x answers
-                        # skip_action_idx = similarities.view(-1).argmax()
-                        # skip_action = self.current_node.answer_by_index(skip_action_idx)
-                        
                         if self.is_faq_mode:
-                            if self.current_node.node_type == NodeType.QUESTION.value:
+                            if self.current_node.node_type == NodeType.QUESTION:
                                 if self.auto_skip == AutoSkipMode.ORACLE:
                                     # semantic level: choose correct answer to jump to (assume perfect NLU)
                                     response: UserResponse = self.user_answer_keys[self.current_node.key]
-                                    skip_action = Data.objects[self.version].answer_by_key(response.answer_key)
+                                    skip_action = self.dialogTree.answers_by_key[response.answer_key]
                                 else:
                                     # utterance level: choose answer to jump to by similarity
                                     similarities = self.similarity_model.encode(current_user_utterance=self.current_user_utterance, dialog_node=self.current_node, noise=self.noise) # 1 x actions x 1
                                     skip_action_idx = similarities.view(-1).argmax(-1).item()
                                     skip_action = self.current_node.answer_by_index(skip_action_idx)
                             else:
-                                assert self.current_node.answer_count() == 1
+                                assert len(self.current_node.answers) == 1
                                 skip_action = self.current_node.answers[0]
                         else:
                             if self.auto_skip == AutoSkipMode.ORACLE:
@@ -582,24 +562,24 @@ class DialogEnvironment(gym.Env):
                                 skip_action = self.current_node.answer_by_goalnode_key(self.goal_node.key)
                             else:
                                 # utterance level: choose answer to jump to by similarity
-                                if self.current_node.node_type == NodeType.QUESTION.value:
+                                if self.current_node.node_type == NodeType.QUESTION:
                                     similarities = self.similarity_model.encode(current_user_utterance=self.current_user_utterance, dialog_node=self.current_node, noise=self.noise) # 1 x actions x 1
                                     skip_action_idx = similarities.view(-1).argmax(-1).item()
                                     skip_action = self.current_node.answer_by_index(skip_action_idx)
                                 else:
-                                    assert self.current_node.answer_count() == 1
+                                    assert len(self.current_node.answers) == 1
                                     skip_action = self.current_node.answers[0]
 
 
                         # jump to connected node
-                        self.current_node = Data.objects[self.version].node_by_key(skip_action.connected_node_key)
+                        self.current_node = skip_action.connected_node
                         self.user_utterances_history.append("")
-                        self.system_utterances_history.append(deepcopy(self.current_node.content.text))
-                    elif self.current_node.connected_node_key:
+                        self.system_utterances_history.append(deepcopy(self.current_node.text))
+                    elif self.current_node.connected_node:
                         # no answers, but connected node -> skip to that node
-                        self.current_node = Data.objects[self.version].node_by_key(self.current_node.connected_node_key)
+                        self.current_node = self.current_node.connected_node
                         self.user_utterances_history.append("")
-                        self.system_utterances_history.append(deepcopy(self.current_node.content.text))
+                        self.system_utterances_history.append(deepcopy(self.current_node.text))
                     if self.current_node.key == self.goal_node.key:
                         # check if skipped-to node is goal node
                         if self.is_faq_mode:
@@ -608,7 +588,7 @@ class DialogEnvironment(gym.Env):
                             self.reached_goals.append(1.0)
 
                     # update history
-                    self.episode_log.append(f'{self.env_id}-{self.current_episode}$ AUTOSKIP TO NODE: {self.current_node.node_type} - {self.current_node.key} - {self.current_node.content.text[:75]}')
+                    self.episode_log.append(f'{self.env_id}-{self.current_episode}$ AUTOSKIP TO NODE: {self.current_node.node_type} - {self.current_node.key} - {self.current_node.text[:75]}')
                     self.last_action_idx = real_action
                     # update counters
                     self._update_node_counters()
@@ -643,25 +623,20 @@ class DialogEnvironment(gym.Env):
 
         return self._get_obs(), reward/self.max_reward, done, info
 
-    def _get_node_answers(self, node: DialogNode) -> List[DialogAnswer]:
-        return node.answers.order_by('answer_index')
-
     def _get_transition(self, action: int) -> Tuple[DialogNode, None]:
-        # num_answers = self.current_node.answers.count()
-        num_answers = self.current_node.answer_count()
+        num_answers = len(self.current_node.answers)
         answer_idx = action - 2 # subtract STOP and ASK actions
-        if num_answers == 0 and self.current_node.connected_node_key:
+        if num_answers == 0 and self.current_node.connected_node:
             if answer_idx == 0:
-                return Data.objects[self.version].node_by_key(self.current_node.connected_node_key)
+                return self.current_node.connected_node
             else:
                 self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> INVALID TRANSITION TO CONNECTED_NODE {answer_idx}')
                 return None
         if answer_idx >= num_answers:
             self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> INVALID TRANSITION TO ANSWER {answer_idx}, HAS ONLY {num_answers}')
             return None # invalid action: stay at current node
-        # return self.current_node.answers.get(answer_index=answer_idx).connected_node
         
-        next_node = Data.objects[self.version].node_by_key(self.current_node.answer_by_index(answer_idx).connected_node_key)
+        next_node = self.current_node.answer_by_index(answer_idx).connected_node
         self.node_coverage[next_node.key] += 1
         return next_node
 
@@ -675,7 +650,7 @@ class DialogEnvironment(gym.Env):
             done = True
             self.actioncount_stop_prematurely += 1
         elif action == 1:
-            assert self.current_node.node_type != NodeType.LOGIC.value
+            assert self.current_node.node_type != NodeType.LOGIC
 
             # ASK
             if self.last_action_idx == 1:
@@ -696,11 +671,11 @@ class DialogEnvironment(gym.Env):
                     if not self._choose_next_goal_node_guided():
                         done = True
 
-            if self.current_node.node_type == NodeType.VARIABLE.value:
+            if self.current_node.node_type == NodeType.VARIABLE:
                 # get variable name and value
                 # answer = self.current_node.answers.first()
                 answer = self.current_node.answers[0]
-                var = self.answer_template_parser.find_variable(answer.content.text)
+                var = self.answer_template_parser.find_variable(answer.text)
 
                 # check if variable was already asked
                 if var.name in self.bst:
@@ -708,19 +683,19 @@ class DialogEnvironment(gym.Env):
                     self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> VARIABLE ALREADY KNOWN')
                 else:
                     # draw random variable
-                    self.bst[var.name] = VariableValue(var_name=var.name, var_type=var.type).draw_value() # variable is asked for the 1st time
+                    self.bst[var.name] = VariableValue(var_name=var.name, var_type=var.type).draw_value(self.dialogTree) # variable is asked for the 1st time
                 self.current_user_utterance = str(deepcopy(self.bst[var.name]))
                 self.actioncount_ask_variable += 1
                 self.coverage_variables[var.name][self.bst[var.name]] += 1
                 self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> VAR NAME: {var.name}, VALUE: {self.bst[var.name]}')
-            elif self.current_node.node_type == NodeType.QUESTION.value:
+            elif self.current_node.node_type == NodeType.QUESTION:
                 # get user reply
                 if not self.goal_node:
                     # there are no more options to visit new nodes from current node -> stop dialog
                     done = True
                 else:
-                    answer = self.current_node.answer_by_goalnode_key(self.goal_node.key)
-                    self.current_user_utterance = rand_remove_questionmark(random.choice(self.answer_synonyms[answer.content.text.lower()]))
+                    answer = self.current_node.answer_by_connected_node(self.goal_node)
+                    self.current_user_utterance = rand_remove_questionmark(random.choice(self.dialogTree.answer_synonyms[answer.text.lower()]))
                     self.coverage_synonyms[self.current_user_utterance.replace("?", "")] += 1
         else:
             # SKIP
@@ -732,10 +707,10 @@ class DialogEnvironment(gym.Env):
                 self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> INVALID SKIP OR WRONG FOLLOWUP NODE')
             else:
                 if self.last_action_idx >= 2:
-                    if self.current_node.node_type == NodeType.VARIABLE.value:
+                    if self.current_node.node_type == NodeType.VARIABLE:
                         # double skip: check if we are skipping a known variable
                         answer = self.current_node.answers[0]
-                        var = self.answer_template_parser.find_variable(answer.content.text)
+                        var = self.answer_template_parser.find_variable(answer.text)
                         # check if variable was already asked
                         if var.name in self.bst:    
                             # it is good to skip this node since variable is already known!
@@ -796,10 +771,9 @@ class DialogEnvironment(gym.Env):
                 if self.auto_skip != AutoSkipMode.NONE:
                     reward -= 1 # because it is 2 actions
 
-                if self.current_node.node_type == NodeType.VARIABLE.value:
+                if self.current_node.node_type == NodeType.VARIABLE:
                     # get variable name and value
-                    # var = self.answer_template_parser.find_variable(self.current_node.answers.first().content.text)
-                    var = self.answer_template_parser.find_variable(self.current_node.answers[0].content.text)
+                    var = self.answer_template_parser.find_variable(self.current_node.answers[0].text)
 
                     # check if variable was already asked
                     if var.name in self.bst:
@@ -818,7 +792,7 @@ class DialogEnvironment(gym.Env):
                     self.actioncount_ask_variable += 1
                     self.coverage_variables[var.name][self.bst[var.name]] += 1
                     self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> VAR NAME: {var.name}, VALUE: {self.bst[var.name]}')
-                elif self.current_node.node_type == NodeType.QUESTION.value:
+                elif self.current_node.node_type == NodeType.QUESTION:
                     response = None
                     if self.current_node.key in self.user_answer_keys:
                         response = self.user_answer_keys[self.current_node.key]
@@ -840,7 +814,7 @@ class DialogEnvironment(gym.Env):
                             self.current_user_utterance = _replayed_user_utterance
                         else:
                             answer = self.current_node.answer_by_key(response.answer_key)
-                            self.current_user_utterance = rand_remove_questionmark(random.choice(self.answer_synonyms[answer.content.text.lower()]))
+                            self.current_user_utterance = rand_remove_questionmark(random.choice(self.dialogTree.answer_synonyms[answer.text.lower()]))
                         self.coverage_synonyms[self.current_user_utterance.replace("?", "")] += 1
                     self.actioncount_ask_question += 1
                 # info nodes don't require special handling
@@ -875,8 +849,8 @@ class DialogEnvironment(gym.Env):
         # text output
         print(f"Step: {self.current_step}")
         print(f"Episode reward: {self.episode_reward}")
-        print(f"Current node: {self.current_node.key}: {self.current_node.content.text}")
-        print(f"Goal: {self.goal_node.goal_node.key}: {self.goal_node.goal_node.content.text}")
+        print(f"Current node: {self.current_node.key}: {self.current_node.text}")
+        print(f"Goal: {self.goal_node.goal_node.key}: {self.goal_node.goal_node.text}")
 
 
     @classmethod 
@@ -894,9 +868,8 @@ class DialogEnvironment(gym.Env):
 
 
 class ParallelDialogEnvironment(gym.Env):
-    def __init__(self, dialog_tree: DialogTree, adapter: SpaceAdapter,
+    def __init__(self, dialog_tree: GraphDataset, adapter: SpaceAdapter,
                     stop_action: bool,
-                    use_answer_synonyms: bool,
                     mode: EnvironmentMode,
                     train_noise: float,
                     eval_noise: float,
@@ -908,8 +881,7 @@ class ParallelDialogEnvironment(gym.Env):
                     log_to_file: str = None,
                     n_envs: int = 1,
                     auto_skip: AutoSkipMode = AutoSkipMode.NONE,
-                    similarity_model=None,
-                    use_joint_dataset: bool = False) -> None:
+                    similarity_model=None) -> None:
         
         self.adapter = adapter
         self.log_to_file = log_to_file
@@ -928,23 +900,18 @@ class ParallelDialogEnvironment(gym.Env):
 
         # # load dialog tree info
         self.dialogTree = dialog_tree
-        self.version = dialog_tree.version
         self.logicParser = LogicTemplateParser()
-        self.a1_laenderliste = _load_a1_laenderliste()
-        self.answer_synonyms = _load_answer_synonyms(mode, use_answer_synonyms, use_joint_dataset=use_joint_dataset)
-        self.value_backend = RealValueBackend(self.a1_laenderliste)
+        self.value_backend = RealValueBackend(dialog_tree)
         self.goal_gen = UserGoalGenerator(dialog_tree=self.dialogTree, value_backend=self.value_backend)
         self.answer_template_parser = AnswerTemplateParser()
-        self._num_answer_synonyms = sum([len(self.answer_synonyms[answer]) for answer in self.answer_synonyms])
         self.envs = [DialogEnvironment(dialog_tree=dialog_tree, adapter=adapter,
-                                        stop_action=stop_action, use_answer_synonyms=use_answer_synonyms, mode=mode, 
+                                        stop_action=stop_action, mode=mode, 
                                         train_noise=train_noise, eval_noise=eval_noise, test_noise=test_noise,
                                         max_steps=max_steps, user_patience=user_patience,
                                         normalize_rewards=normalize_rewards, stop_when_reaching_goal=stop_when_reaching_goal,
                                         dialog_faq_ratio=dialog_faq_ratio, log_to_file=self.logger,
                                         env_id=env_id, goal_gen=self.goal_gen,
-                                        logic_parser=self.logicParser, a1_laenderliste=self.a1_laenderliste,
-                                        answer_synonyms=self.answer_synonyms, answer_template_parser=self.answer_template_parser,
+                                        logic_parser=self.logicParser, answer_template_parser=self.answer_template_parser,
                                         auto_skip=auto_skip, similarity_model=similarity_model) for env_id in range(n_envs)
                         ]
         self.max_steps = max_steps if max_steps else 2 * dialog_tree.get_max_tree_depth() # if no max step is set, choose automatically 2*tree depth
@@ -1040,22 +1007,22 @@ class ParallelDialogEnvironment(gym.Env):
             env.close()
 
     def get_goal_node_coverage_free(self):
-        return len(reduce(lambda d1, d2: set(d1).union(d2), [env.goal_node_coverage_free.keys() for env in self.envs])) / Data.objects[self.version].count_faq_nodes()
+        return len(reduce(lambda d1, d2: set(d1).union(d2), [env.goal_node_coverage_free.keys() for env in self.envs])) / self.dialogTree.num_free_goal_nodes
 
     def get_goal_node_coverage_guided(self):
-        return len(reduce(lambda d1, d2: set(d1).union(d2), [env.goal_node_coverage_guided.keys() for env in self.envs])) / Data.objects[self.version].count_guided_goal_node_candidates()
+        return len(reduce(lambda d1, d2: set(d1).union(d2), [env.goal_node_coverage_guided.keys() for env in self.envs])) / self.dialogTree.num_guided_goal_nodes
 
     def get_node_coverage(self):
-        return len(reduce(lambda d1, d2: set(d1).union(d2), [env.node_coverage.keys() for env in self.envs])) / Data.objects[self.version].count_nodes()
+        return len(reduce(lambda d1, d2: set(d1).union(d2), [env.node_coverage.keys() for env in self.envs])) / len(self.dialogTree.node_list)
 
     def get_coverage_faqs(self):
-        return len(reduce(lambda d1, d2: set(d1).union(d2), [env.coverage_faqs.keys() for env in self.envs])) / Data.objects[self.version].count_faqs()
+        return len(reduce(lambda d1, d2: set(d1).union(d2), [env.coverage_faqs.keys() for env in self.envs])) / len(self.dialogTree.question_list)
 
     def get_coverage_synonyms(self):
-        return len(reduce(lambda d1, d2: set(d1).union(d2), [env.coverage_synonyms.keys() for env in self.envs])) / self._num_answer_synonyms
+        return len(reduce(lambda d1, d2: set(d1).union(d2), [env.coverage_synonyms.keys() for env in self.envs])) / self.dialogTree.num_answer_synonyms
     
     def get_coverage_variables(self):
         return {
-            "STADT": len(reduce(lambda d1, d2: set(d1).union(d2), [env.coverage_variables["STADT"].keys() for env in self.envs])) / Data.objects[self.version].count_cities(),
-            "LAND": len(reduce(lambda d1, d2: set(d1).union(d2), [env.coverage_variables["LAND"].keys() for env in self.envs])) / Data.objects[self.version].count_countries()
+            "CITY": len(reduce(lambda d1, d2: set(d1).union(d2), [env.coverage_variables["CITY"].keys() for env in self.envs])) / len(self.dialogTree.city_keys),
+            "COUNTRY": len(reduce(lambda d1, d2: set(d1).union(d2), [env.coverage_variables["COUNTRY"].keys() for env in self.envs])) / len(self.dialogTree.country_keys)
         }

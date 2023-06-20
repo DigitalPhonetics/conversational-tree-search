@@ -1,8 +1,7 @@
 from copy import deepcopy
 from typing import Any, Dict, List, Union, NamedTuple
 import torch
-from chatbot.adviser.app.rl.spaceAdapter import SpaceAdapter, ActionConfig
-from torch.nn.utils.rnn import pack_sequence
+from chatbot.adviser.app.rl.spaceAdapter import SpaceAdapter
 
 from chatbot.adviser.app.rl.utils import EnvInfo, StateEntry
 
@@ -96,8 +95,8 @@ class UniformReplayBuffer:
         """
         batch_inds = torch.randint(low=0, high=len(self), size=(batch_size,)).tolist()
 
-        obs = { key: [deepcopy(self.observations[key][index]) for index in batch_inds] for key in StateEntry }
-        next_obs = { key: [deepcopy(self.next_observations[key][index]) for index in batch_inds] for key in StateEntry }
+        obs = { key: [deepcopy(self.observations[key.value][index]) for index in batch_inds] for key in StateEntry }
+        next_obs = { key: [deepcopy(self.next_observations[key.value][index]) for index in batch_inds] for key in StateEntry }
 
         actions = torch.tensor([self.actions[idx] for idx in batch_inds], dtype=torch.long, device=self.device).unsqueeze(1)
         dones = torch.tensor([self.dones[idx] for idx in batch_inds], dtype=torch.float, device=self.device).unsqueeze(1)

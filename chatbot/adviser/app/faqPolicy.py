@@ -3,7 +3,6 @@ from dataclasses import dataclass
 from enum import Enum
 from typing import List
 from chatbot.adviser.app.encoding.similiarity import AnswerSimilarityEncoding
-import chatbot.adviser.app.rl.dataset as Data
 
 import torch
 from sentence_transformers import SentenceTransformer
@@ -11,9 +10,8 @@ from sentence_transformers.util import cos_sim
 from transformers import AutoTokenizer
 from transformers import AutoModelForSequenceClassification
 
-from chatbot.adviser.app.rl.dialogtree import DialogTree
-from chatbot.adviser.app.rl.dataset import DialogNode
 from chatbot.adviser.app.rl.utils import AutoSkipMode
+from data.dataset import GraphDataset, DialogNode, NodeType
 
 
 class Intent(Enum):
@@ -31,7 +29,7 @@ class IntentTracker:
         self.guided_counter = 0
 
     def get_intent(self, dialog_node: DialogNode, gen_user_utterance: str) -> Intent:
-        tok = self.tokenizer(text=dialog_node.content.text, text_pair=gen_user_utterance, truncation=True, return_tensors="pt")
+        tok = self.tokenizer(text=dialog_node.text, text_pair=gen_user_utterance, truncation=True, return_tensors="pt")
         tok = {key: tok[key].to(self.device) for key in tok}
         class_idx = self.model(**tok).logits.argmax(-1).item()
         return Intent(class_idx)
@@ -46,7 +44,7 @@ class FAQSearchResult:
 
 
 class FAQPolicy:
-    def __init__(self, dialog_tree: DialogTree, similarity_model: SentenceTransformer, top_k: int, noise: float) -> None:
+    def __init__(self, dialog_tree: GraphDataset, similarity_model: SentenceTransformer, top_k: int, noise: float) -> None:
         self.similarityModel = similarity_model
         self.corpus_keys = []
         self.corpus_texts = []
@@ -54,11 +52,11 @@ class FAQPolicy:
         self.noise = noise
 
         node_keys = set()
-        for faq in Data.objects[dialog_tree.version].faq_list():
-            if not faq.dialog_node_key in node_keys:
-                node_keys.add(faq.dialog_node_key)
-                self.corpus_keys.append(faq.dialog_node_key)
-                self.corpus_texts.append(Data.objects[dialog_tree.version].node_by_key(faq.dialog_node_key).content.text)
+        for faq in dialog_tree.question_list:
+            if not faq.dialog_node.key in node_keys:
+                node_keys.add(faq.dialog_node.key)
+                self.corpus_keys.append(faq.dialog_node.key)
+                self.corpus_texts.append(faq.dialog_node.text)
 
         self.copus_embedding = self.similarityModel.encode(self.corpus_texts, convert_to_tensor=True)
 
@@ -93,17 +91,17 @@ class GuidedPolicy:
     def get_action(self, dialog_node: DialogNode, user_utterance: str, last_sys_act):
         self.turns += 1
         
-        if dialog_node.node_type == "infoNode":
+        if dialog_node.node_type == NodeType.INFO:
             if last_sys_act == 1:
                 action = 2 # skip to connected node, since info node was already asked
             else:
                 action = 1 # ASK info node
-        elif dialog_node.node_type == "userInputNode":
+        elif dialog_node.node_type == NodeType.VARIABLE:
             if last_sys_act == 1:
                 action = 2 # skip to 1st answer
             else:
                 action = 1 # ASK variable
-        elif dialog_node.node_type == "userResponseNode":
+        elif dialog_node.node_type == NodeType.QUESTION:
             if last_sys_act == 1:
                 # skip
                 if self.auto_skip == AutoSkipMode.SIMILARITY:

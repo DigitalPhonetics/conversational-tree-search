@@ -14,7 +14,6 @@ from chatbot.adviser.app.encoding.text import FinetunedGBertEmbeddings, GBertEmb
 resource_dir = Path(".", 'resources', 'en')
 
 class StateEntry(Enum):
-    DIALOG_NODE = 'dialog_node'
     DIALOG_NODE_KEY = "dialog_node_key"
     ORIGINAL_USER_UTTERANCE = "original_user_utterance"
     CURRENT_USER_UTTERANCE = "current_user_utterance"
@@ -176,34 +175,3 @@ class EnvironmentMode(Enum):
     EVAL = 1
     TEST = 2
 
-
-def _load_answer_synonyms(mode: EnvironmentMode, use_synonyms: bool, use_joint_dataset: bool = False) -> Dict[str, List[str]]:
-    if use_joint_dataset:
-        path = "resources/en/traintest_answers.json"
-    else:
-        if mode in [EnvironmentMode.TRAIN, EnvironmentMode.EVAL]:
-            path = "resources/en/train_answers.json"
-        else:
-            path = "resources/en/test_answers.json"
-    answers = None
-    with open(path, "r") as f:
-        answers = json.load(f)
-    if not use_synonyms:
-        # choose key to have same data for train and test set
-        answers = {answer.lower(): [answer] for answer in answers}
-    else:
-        answers = {answer.lower(): answers[answer] for answer in answers}
-    return answers
-
-def _load_a1_laenderliste():
-    a1_laenderliste = None
-    with open(resource_dir / "a1_countries.json", "r") as f:
-        a1_laenderliste = json.load(f)
-    return a1_laenderliste
-
-
-class NodeType(Enum):
-    INFO = "infoNode"
-    VARIABLE = "userInputNode"
-    QUESTION = "userResponseNode"
-    LOGIC = "logicNode"

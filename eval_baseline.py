@@ -37,19 +37,18 @@ Necessary switches:
 from dataclasses import dataclass
 from statistics import mean
 import os
-from tqdm import tqdm
 from chatbot.adviser.app.encoding.similiarity import AnswerSimilarityEncoding
 from chatbot.adviser.app.faqPolicy import FAQPolicy, GuidedPolicy, IntentTracker, Intent
 
 from chatbot.adviser.app.rl.dialogenv import DialogEnvironment, EnvironmentMode
-from chatbot.adviser.app.rl.dialogtree import DialogTree
-import chatbot.adviser.app.rl.dataset as Data
 from chatbot.adviser.app.rl.utils import EMBEDDINGS, AutoSkipMode, EnvInfo, safe_division
 
 import random
 import numpy as np
 import torch
 import numpy as np
+
+from data.dataset import GraphDataset
 
 JOINT_DATA = False
 RUN_SEEDS = [12345678, 89619, 7201944, 398842, 57063456]
@@ -124,7 +123,10 @@ class Evaluator:
         dialog_logfile = f"/fs/scratch/users/vaethdk/adviser_reisekosten/newruns/{self.exp_name}/dialogs.txt"
         # TODO save config file to this directory
 
-        self.tree = DialogTree(version=0 if config.mode in [EnvironmentMode.TRAIN, EnvironmentMode.EVAL] else 1)
+        if JOINT_DATA:
+            self.tree = GraphDataset(graph_path='resources/en/traintest_graph.json', answer_path='resources/en/traintest_answers.json', use_answer_synonyms=config.use_answer_synonyms)
+        else:    
+            self.tree = GraphDataset(graph_path='resources/en/train_graph.json', answer_path='resources/en/train_answers.json', use_answer_synonyms=config.use_answer_synonyms) if config.mode in [EnvironmentMode.TRAIN, EnvironmentMode.EVAL] else GraphDataset(graph_path='resources/en/test_graph.json', answer_path='resources/en/test_answers.json', use_answer_synonyms=config.use_answer_synonyms)
 
         # load models
         self.sentence_embeddings = AnswerSimilarityEncoding(model_name="distiluse-base-multilingual-cased-v2", dialog_tree=self.tree, device=self.device, caching=False)
@@ -140,7 +142,7 @@ class Evaluator:
 
         # load  env
         self.eval_env = DialogEnvironment(dialog_tree=self.tree, adapter=None, stop_action=config.stop_action, 
-                                         use_answer_synonyms=config.use_answer_synonyms, mode=config.mode,
+                                         mode=config.mode,
                                          train_noise=config.train_noise, eval_noise=config.eval_noise, test_noise=config.test_noise,
                                          max_steps=config.max_steps, user_patience=config.user_patience,
                                           auto_skip=AutoSkipMode.NONE, dialog_faq_ratio=config.dialog_faq_ratio,
@@ -305,13 +307,6 @@ class Evaluator:
 
 if __name__ == "__main__":
     os.environ["TOKENIZERS_PARALLELISM"] = "true"
-    
-    if JOINT_DATA == True:
-        Data.objects[0] = Data.Dataset.fromJSON('resources/en/traintest_graph.json', version=0)
-        Data.objects[1] = Data.Dataset.fromJSON('resources/en/traintest_graph.json', version=1)
-    else:
-        Data.objects[0] = Data.Dataset.fromJSON('resources/en/train_graph.json', version=0)
-        Data.objects[1] = Data.Dataset.fromJSON('resources/en/test_graph.json', version=1)
 
     evaluator = Evaluator()
     evaluator.setUp()

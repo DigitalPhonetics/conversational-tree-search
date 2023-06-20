@@ -1,5 +1,4 @@
 from copy import deepcopy
-from operator import countOf
 from statistics import mean
 from typing import Any, Dict, List
 import wandb
@@ -13,11 +12,9 @@ from chatbot.adviser.app.encoding.similiarity import AnswerSimilarityEncoding
 from chatbot.adviser.app.encoding.text import TextEmbeddingPooling
 
 from chatbot.adviser.app.rl.dialogenv import EnvironmentMode, ParallelDialogEnvironment
-from chatbot.adviser.app.rl.dialogtree import DialogTree
-import chatbot.adviser.app.rl.dataset as Data
 from chatbot.adviser.app.rl.layers.attention.attention_factory import AttentionActivationConfig, AttentionMechanismConfig, AttentionVectorAggregation
 from chatbot.adviser.app.rl.spaceAdapter import AnswerSimilarityEmbeddingConfig, IntentEmbeddingConfig, SpaceAdapter, ActionConfig, SpaceAdapterAttentionInput, SpaceAdapterAttentionQueryInput, SpaceAdapterConfiguration, SpaceAdapterSpaceInput, TextEmbeddingConfig
-from chatbot.adviser.app.rl.utils import EMBEDDINGS, AutoSkipMode, AverageMetric, EnvInfo, ExperimentLogging, _del_checkpoint, _get_file_hash, _munchausen_stable_logsoftmax, _munchausen_stable_softmax, _save_checkpoint, safe_division
+from chatbot.adviser.app.rl.utils import EMBEDDINGS, AutoSkipMode, AverageMetric, EnvInfo, ExperimentLogging, _del_checkpoint, _get_file_hash, _munchausen_stable_logsoftmax, _save_checkpoint, safe_division
 
 
 import time
@@ -27,6 +24,8 @@ import torch
 import numpy as np
 import torch.nn.functional as F
 from torch.nn.utils.rnn import pack_sequence
+
+from data.dataset import GraphDataset
 
 
 
@@ -41,7 +40,7 @@ class Trainer:
         # ADD stop_action ARG TO CONFIGURATION
         # ADD noise ARG TO STATE TEXT INPUTS
         seed = 12345678
-        self.exp_name_prefix = "V9_fixed_muenchausen"
+        self.exp_name_prefix = "V9_fixed_qvalues_newdatasetstructure"
    
         self.args = {
             "spaceadapter": {
@@ -207,8 +206,8 @@ class Trainer:
         torch.backends.cudnn.deterministic = self.args["experiment"]["cudnn_deterministic"]
 
         # load dialog tree
-        self.tree = DialogTree(version=0)
-        self.eval_tree = DialogTree(version=1)
+        self.tree = GraphDataset(graph_path='resources/en/train_graph.json', answer_path='resources/en/train_answers.json', use_answer_synonyms=self.args['spaceadapter']['configuration'].use_answer_synonyms)
+        self.eval_tree = GraphDataset(graph_path='resources/en/test_graph.json', answer_path='resources/en/test_answers.json', use_answer_synonyms=self.args['spaceadapter']['configuration'].use_answer_synonyms)
 
         # load text embedding
         text_embedding_name = self.args['spaceadapter']['configuration'].text_embedding
@@ -220,7 +219,7 @@ class Trainer:
         self.spaceadapter_state: SpaceAdapterSpaceInput = self.args['spaceadapter']['state']
         self.spaceadapter_attention: List[SpaceAdapterAttentionInput] = self.args['spaceadapter']['attention']
         self.spaceadapter_config.post_init(tree=self.tree)
-        self.spaceadapter_state.post_init(device=self.device, tree=self.tree, text_embedding=self.text_enc, action_config=self.spaceadapter_config.action_config, action_masking=self.spaceadapter_config.action_masking, stop_action=self.spaceadapter_config.stop_action, cache_connection=self.cache_conn)
+        self.spaceadapter_state.post_init(device=self.device, data=self.tree, text_embedding=self.text_enc, action_config=self.spaceadapter_config.action_config, action_masking=self.spaceadapter_config.action_masking, stop_action=self.spaceadapter_config.stop_action, cache_connection=self.cache_conn)
         for attn in self.spaceadapter_attention:
             attn.post_init(device=self.device, tree=self.tree, text_embedding=self.text_enc, action_config=self.spaceadapter_config.action_config, action_masking=self.spaceadapter_config.action_masking, cache_connection=self.cache_conn)
 
@@ -265,9 +264,9 @@ class Trainer:
        
         dialog_faq_ratio = self.args['simulation'].pop('dialog_faq_ratio')
 
-        self.train_env = ParallelDialogEnvironment(dialog_tree=self.tree, adapter=self.adapter, stop_action=self.adapter.configuration.stop_action, use_answer_synonyms=self.adapter.configuration.use_answer_synonyms, mode=EnvironmentMode.TRAIN, n_envs=self.n_train_envs, auto_skip=self.spaceadapter_config.auto_skip, dialog_faq_ratio=dialog_faq_ratio, similarity_model=similarity_model, log_to_file=None, **self.args['simulation'])
-        self.eval_env = ParallelDialogEnvironment(dialog_tree=self.tree, adapter=self.adapter, stop_action=self.adapter.configuration.stop_action, use_answer_synonyms=self.adapter.configuration.use_answer_synonyms, mode=EnvironmentMode.EVAL, n_envs=self.n_test_envs, auto_skip=self.spaceadapter_config.auto_skip, dialog_faq_ratio=0.5, similarity_model=similarity_model, log_to_file=log_to_file_eval, **self.args['simulation'])
-        self.test_env = ParallelDialogEnvironment(dialog_tree=self.eval_tree, adapter=self.adapter, stop_action=self.adapter.configuration.stop_action, use_answer_synonyms=self.adapter.configuration.use_answer_synonyms, mode=EnvironmentMode.TEST, n_envs=self.n_test_envs, auto_skip=self.spaceadapter_config.auto_skip, dialog_faq_ratio=0.5, similarity_model=similarity_model, log_to_file=log_to_file_test, **self.args['simulation'])
+        self.train_env = ParallelDialogEnvironment(dialog_tree=self.tree, adapter=self.adapter, stop_action=self.adapter.configuration.stop_action, mode=EnvironmentMode.TRAIN, n_envs=self.n_train_envs, auto_skip=self.spaceadapter_config.auto_skip, dialog_faq_ratio=dialog_faq_ratio, similarity_model=similarity_model, log_to_file=None, **self.args['simulation'])
+        self.eval_env = ParallelDialogEnvironment(dialog_tree=self.tree, adapter=self.adapter, stop_action=self.adapter.configuration.stop_action,mode=EnvironmentMode.EVAL, n_envs=self.n_test_envs, auto_skip=self.spaceadapter_config.auto_skip, dialog_faq_ratio=0.5, similarity_model=similarity_model, log_to_file=log_to_file_eval, **self.args['simulation'])
+        self.test_env = ParallelDialogEnvironment(dialog_tree=self.eval_tree, adapter=self.adapter, stop_action=self.adapter.configuration.stop_action,mode=EnvironmentMode.TEST, n_envs=self.n_test_envs, auto_skip=self.spaceadapter_config.auto_skip, dialog_faq_ratio=0.5, similarity_model=similarity_model, log_to_file=log_to_file_test, **self.args['simulation'])
         
         if EXPERIMENT_LOGGING == ExperimentLogging.OFFLINE:
             # TODO set wandb api key in env variable: "WANDB_API_KEY"
@@ -830,9 +829,6 @@ class Trainer:
 
 if __name__ == "__main__":
     os.environ["TOKENIZERS_PARALLELISM"] = "true"
-
-    Data.objects[0] = Data.Dataset.fromJSON('resources/en/train_graph.json', version=0)
-    Data.objects[1] = Data.Dataset.fromJSON('resources/en/test_graph.json', version=1)
 
     trainer = Trainer()
     trainer.setUp()

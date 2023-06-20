@@ -348,8 +348,8 @@ class NLU:
         found_cities = re.findall(city_regex, user_utterance)
 
         return {
-            'STADT': [self.cities[city] for city in found_cities],  # list of city names
-            'LAND': [self.countries[country] for country in found_countries]  # list of country names
+            'CITY': [self.cities[city] for city in found_cities],  # list of city names
+            'COUNTRY': [self.countries[country] for country in found_countries]  # list of country names
         }
 
     def extract_time(self, user_utterance: str):
@@ -551,18 +551,3 @@ class NLU:
         time_numbers.extend(add_time_numbers)
         time_numbers = list(set(time_numbers) - set(remove_time_numbers))
         return time_numbers, time_spans
-
-# if __name__ == '__main__':
-#     # examples, should be recognized correctly (probably incomplete)
-#     nlu = NLU()
-#     print(nlu.extract_places('Ich war in deutschland, Österreich, und in der Schweiz.'))
-#     print(nlu.extract_time('Es war am 19.05. um 10 Uhr'))
-#     print(nlu.extract_time('Die Konferenz dauerte siebzehn Tage.'))
-#     #print(nlu.extract_time('Es waren zwischen sieben und achtzehn Tage'))
-#     print(nlu.extract_time('Vom ersten bis fünften März'))
-#     print(nlu.extract_time('Es fand am 10. Oktober 2020 statt'))
-#     print(nlu.extract_time('Ich glaube sie startete um 10 Uhr 34, wenn ich mich nicht irre'))
-#     print(nlu.extract_time('Oder war es doch um 10:35?'))
-#     print(nlu.extract_time('Ich bin seit dem 5.10.21 auf der Tagung.'))
-#     print(nlu.extract_time('Ich denke es war um 10.30 Uhr'))
-#     print(nlu.extract_time('Der Workshop war 10-12 Uhr.'))

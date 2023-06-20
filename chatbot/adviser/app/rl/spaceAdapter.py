@@ -5,18 +5,18 @@ import itertools
 from typing import Any, Dict, List 
 from chatbot.adviser.app.encoding.encoding import Encoding
 from chatbot.adviser.app.encoding.intent import IntentEncoding
-from chatbot.adviser.app.rl.dialogtree import DialogTree
 from chatbot.adviser.app.encoding.text import RNN_OUTPUT_SIZE, TextEmbeddingPooling, TextEmbeddings
 from chatbot.adviser.app.encoding.position import TreePositionEncoding, NodeTypeEncoding, AnswerPositionEncoding
 from chatbot.adviser.app.encoding.bst import BSTEncoding
 from chatbot.adviser.app.encoding.similiarity import AnswerSimilarityEncoding
 from chatbot.adviser.app.rl.layers.attention.attention_factory import AttentionActivationConfig, AttentionMechanismConfig, AttentionVectorAggregation
 from chatbot.adviser.app.rl.utils import AutoSkipMode, StateEntry
+from data.dataset import GraphDataset, NodeType
 from torch.nn.utils.rnn import pack_sequence
-import chatbot.adviser.app.rl.dataset as Data
 
 import torch
 import torch.nn.functional as F
+
 
 
 class ActionConfig(Enum):
@@ -59,7 +59,7 @@ class SpaceAdapterConfiguration(SpaceAdapterInput):
     auto_skip: AutoSkipMode
     use_answer_synonyms: bool
 
-    def post_init(self, tree: DialogTree, **kwargs):
+    def post_init(self, tree: GraphDataset, **kwargs):
         self.tree = tree
 
     def get_state_dim(self) -> int:
@@ -159,7 +159,7 @@ class TextEncoderWrapper(Encoding):
 
     def encode(self, model: torch.nn.Module, noise: float, **kwargs) -> torch.FloatTensor:
         if self.encode_input_key == 'action_text':
-            return torch.cat([self._embed_text(answer.content.text, cache_prefix="a_", model=model, noise=noise) for answer in kwargs['dialog_node'].answers], dim=0).unsqueeze(0)
+            return torch.cat([self._embed_text(answer.text, cache_prefix="a_", model=model, noise=noise) for answer in kwargs['dialog_node'].answers], dim=0).unsqueeze(0)
         else:
             return self._embed_text(text=kwargs[self.encode_input_key], model=model, noise=noise)
 
@@ -168,12 +168,8 @@ class TextEncoderWrapper(Encoding):
 
 
     def _embed_text(self, text: str, cache_prefix="", model: torch.nn.Module = None, noise: float = 0.0):
-        embeddings = None
-        cache_key = f"{cache_prefix}{text}"
         # encoding and caching
         embeddings = self.text_embedding.encode(text=text)
-        if self.caching and text and (not text.isnumeric()):
-            self.cache_connection.tensorset(cache_key, embeddings.clone().detach().cpu().numpy())
             
         # pooling of 1 x TOKENS x ENCODING_DIM
         if self.pooling == TextEmbeddingPooling.MEAN:
@@ -249,7 +245,7 @@ class TextHistoryEncoderWrapper(Encoding):
 
 
 class SysActEncoder(Encoding):
-    def __init__(self, device: str, tree: DialogTree, stop_action: bool):
+    def __init__(self, device: str, tree: GraphDataset, stop_action: bool):
         super().__init__(device=device)
         self.num_actions = 2 if stop_action else 1 
         self.num_actions += tree.get_max_node_degree()
@@ -277,7 +273,7 @@ class SpaceAdapterSpaceInput(SpaceAdapterInput):
     action_text: TextEmbeddingConfig
     action_position: bool
 
-    def post_init(self, device: str, tree: DialogTree, text_embedding: TextEmbeddings, action_config: ActionConfig, stop_action: bool, cache_connection, **kwargs):
+    def post_init(self, device: str, data: GraphDataset, text_embedding: TextEmbeddings, action_config: ActionConfig, stop_action: bool, cache_connection, **kwargs):
         self.encoders = {}
         self.rnn_encoders = {}
         self.action_state_subvec_dim = 0
@@ -288,7 +284,7 @@ class SpaceAdapterSpaceInput(SpaceAdapterInput):
 
         if action_config == ActionConfig.ACTIONS_IN_ACTION_SPACE:
             self.action_dim += 2 if stop_action else 1 # STOP, ASK
-            self.action_dim += tree.get_max_node_degree() # 1 Q-value per action STOP, ASK, SKIP_1, ..., SKIP_N 
+            self.action_dim +=  data.get_max_node_degree() # 1 Q-value per action STOP, ASK, SKIP_1, ..., SKIP_N 
         elif action_config == ActionConfig.ACTIONS_IN_STATE_SPACE:
             self.state_dim += 3 if stop_action else 2 # one-hot encoding for action type (STOP, ASK, SKIP)
             self.action_state_subvec_dim = 3 if stop_action else 2 # one-hot encoding for action type (STOP, ASK, SKIP)
@@ -298,17 +294,17 @@ class SpaceAdapterSpaceInput(SpaceAdapterInput):
         if action_config == ActionConfig.ACTIONS_IN_ACTION_SPACE and self.action_position:
             raise f"Can't have action position in ACTION_SPACE configuration"
         if self.last_system_action:
-            self.encoders['last_system_action'] = SysActEncoder(device=device, tree=tree, stop_action=stop_action)
+            self.encoders['last_system_action'] = SysActEncoder(device=device, tree=data, stop_action=stop_action)
         if self.beliefstate:
-            self.encoders['beliefstate'] = BSTEncoding(device=device, version=0)
+            self.encoders['beliefstate'] = BSTEncoding(device=device, data=data)
         if self.current_node_position:
-            self.encoders['current_node_position'] = TreePositionEncoding(device=device)
+            self.encoders['current_node_position'] = TreePositionEncoding(device=device, data=data)
         if self.current_node_type:
-            self.encoders['current_node_type'] = NodeTypeEncoding(device=device)
+            self.encoders['current_node_type'] = NodeTypeEncoding(device=device, data=data)
         if self.user_intent_prediction.active:
             self.encoders['user_intent_prediction'] = IntentEncoding(device=device, ckpt_dir=self.user_intent_prediction.ckpt_dir)
         if self.answer_similarity_embedding.active:
-            self.encoders['action_answer_similarity_embedding'] = AnswerSimilarityEncoding(device=device, dialog_tree=tree, model_name=self.answer_similarity_embedding.model_name, caching=self.answer_similarity_embedding.caching)
+            self.encoders['action_answer_similarity_embedding'] = AnswerSimilarityEncoding(device=device, dialog_tree=data, model_name=self.answer_similarity_embedding.model_name, caching=self.answer_similarity_embedding.caching)
             self.action_state_subvec_dim += 1
         else:
             print("NO ANSWER SIMILARITY EMBEDDING")
@@ -348,10 +344,11 @@ class SpaceAdapterSpaceInput(SpaceAdapterInput):
         if self.action_position:
             if action_config == ActionConfig.ACTIONS_IN_ACTION_SPACE:
                 raise "Can't have action position encoding in action space"
-            self.encoders['action_position'] = AnswerPositionEncoding(device=device, dialog_tree=tree)
+            self.encoders['action_position'] = AnswerPositionEncoding(device=device, data=data)
             self.action_state_subvec_dim += self.encoders['action_position'].get_encoding_dim()
 
         self.state_dim += sum(map(lambda enc: enc.get_encoding_dim(), list(self.encoders.values()) + list(self.rnn_encoders.values())))
+        print("STATE DIM: ", self.state_dim)
         
     def get_text_encoding_dim(self) -> int:
         return self.text_encoding_dim
@@ -371,7 +368,7 @@ class SpaceAdapterSpaceInput(SpaceAdapterInput):
             encoding_key: self.encoders[encoding_key].encode(**kwargs) for encoding_key in self.encoders if not "action_text" in encoding_key
         }
         if 'action_text' in self.encoders:
-            if kwargs['dialog_node'].answer_count() > 0:
+            if len(kwargs['dialog_node'].answers) > 0:
                 enc['action_text'] = self.encoders['action_text'].encode(**kwargs)
             else:
                 enc['action_text'] = None
@@ -419,7 +416,7 @@ class SpaceAdapterAttentionQueryInput(SpaceAdapterInput):
     caching: bool
     allow_noise: bool
 
-    def post_init(self, device: str, tree: DialogTree, text_embedding: TextEmbeddings, action_config: ActionConfig, action_masking: bool, cache_connection = None):
+    def post_init(self, device: str, tree: GraphDataset, text_embedding: TextEmbeddings, action_config: ActionConfig, action_masking: bool, cache_connection = None):
         self.state_dim = 0
         self.encoders = {}
         assert self.pooling != TextEmbeddingPooling.NONE, "Need a pooling method for the attention query vectors!"
@@ -479,7 +476,7 @@ class SpaceAdapterAttentionInput(SpaceAdapterInput):
             context.append(model.process_attention(name=name, query=vector, matrix=matrix))
         return context
 
-    def post_init(self, device: str, tree: DialogTree, text_embedding: TextEmbeddings, action_config: ActionConfig, action_masking: bool, cache_connection = None):
+    def post_init(self, device: str, tree: GraphDataset, text_embedding: TextEmbeddings, action_config: ActionConfig, action_masking: bool, cache_connection = None):
         self.device = device
         if self.active:
             self.queries.post_init(device, tree, text_embedding, action_config, action_masking, cache_connection)
@@ -549,7 +546,7 @@ class SpaceAdapterAttentionInput(SpaceAdapterInput):
 
 
 class SpaceAdapter:
-    def __init__(self, device: str, dialog_tree: DialogTree,
+    def __init__(self, device: str, dialog_tree: GraphDataset,
                     configuration: SpaceAdapterConfiguration,
                     state: SpaceAdapterSpaceInput,
                     attention: List[SpaceAdapterAttentionInput]) -> None:
@@ -623,11 +620,11 @@ class SpaceAdapter:
         assert not isinstance(self.model, type(None)), "requires call to set_model() before using state_vector()"
 
         # encode the state space
-        node = state[StateEntry.DIALOG_NODE.value]
+        node = self.dialog_tree.nodes_by_key[state[StateEntry.DIALOG_NODE_KEY.value]]
         all_encodings = self.stateinput.encode(
             model=self.model,
             dialog_node=node,
-            dialog_node_text=node.content.text,
+            dialog_node_text=node.text,
             original_user_utterance=state[StateEntry.ORIGINAL_USER_UTTERANCE.value],
             current_user_utterance=state[StateEntry.CURRENT_USER_UTTERANCE.value],
             system_utterance_history=state[StateEntry.SYSTEM_UTTERANCE_HISTORY.value],
@@ -657,7 +654,7 @@ class SpaceAdapter:
             # NOTE: we don't have to concatenate with a seperate 0-tensor for the similarity embedding, since it's value will be zero anyways
             action_encodings.append(ask_enc.unsqueeze(1)) 
            
-            if node.connected_node_key is not None:
+            if node.connected_node is not None:
                 # infoNode, logicNode, userInputNode -> don't have action text / position to embed
                 # add 1 SKIP action
                 num_actions += 1
@@ -667,7 +664,7 @@ class SpaceAdapter:
             else:
                 # add SKIP actions for all answers
                 # num_answers = node.answers.count()
-                num_answers = node.answer_count()
+                num_answers = len(node.answers)
                 if num_answers > 0:
                     num_actions += num_answers
                     skip_action_enc = F.one_hot(torch.tensor([2+action_idx_decrement] * num_answers, dtype=torch.long, device=self.device), num_classes=3+action_idx_decrement).unsqueeze(0) # [0,0,1] * #answers -> SKIP action code
@@ -710,10 +707,10 @@ class SpaceAdapter:
             if attn.active:
                 new_state[f"ENCODED_attn_{attn.name}"] = [None] * batch_size
                 for idx in range(batch_size):
-                    dialog_node = state[StateEntry.DIALOG_NODE.value][idx]
+                    dialog_node = self.dialog_tree.nodes_by_key[state[StateEntry.DIALOG_NODE_KEY.value][idx]]
                     attn_enc = attn.encode(model=self.model, 
                         dialog_node=dialog_node,
-                        dialog_node_text=dialog_node.content.text,
+                        dialog_node_text=dialog_node.text,
                         original_user_utterance=state[StateEntry.ORIGINAL_USER_UTTERANCE.value][idx],
                         current_user_utterance=state[StateEntry.CURRENT_USER_UTTERANCE.value][idx],
                         system_utterance_history=state[StateEntry.SYSTEM_UTTERANCE_HISTORY.value][idx],
@@ -735,8 +732,9 @@ class SpaceAdapter:
                                                                         ))]
             else:
                 for idx in range(len(batch_size)):
-                    new_state[f"ENCODED_{rnn_encoder}"] = self.stateinput.rnn_encoders[rnn_encoder].encode(model=self.model, dialog_node=state[StateEntry.DIALOG_NODE.value][idx],
-                                                                            dialog_node_text=state[StateEntry.DIALOG_NODE.value][idx].content.text,
+                    dialog_node = self.dialog_tree.nodes_by_key[state[StateEntry.DIALOG_NODE_KEY.value][idx]]
+                    new_state[f"ENCODED_{rnn_encoder}"] = self.stateinput.rnn_encoders[rnn_encoder].encode(model=self.model, dialog_node=dialog_node,
+                                                                            dialog_node_text=dialog_node.text,
                                                                             original_user_utterance=state[StateEntry.ORIGINAL_USER_UTTERANCE.value][idx],
                                                                             current_user_utterance=state[StateEntry.CURRENT_USER_UTTERANCE.value][idx],
                                                                             system_utterance_history=state[StateEntry.SYSTEM_UTTERANCE_HISTORY.value][idx],
@@ -755,10 +753,10 @@ class SpaceAdapter:
             if attn.active:
                 new_state[f"ENCODED_attn_{attn.name}"] = [None] * batch_size
                 for idx in range(batch_size):
-                    dialog_node = state[idx][StateEntry.DIALOG_NODE.value]
+                    dialog_node = self.dialog_tree.nodes_by_key[state[idx][StateEntry.DIALOG_NODE_KEY.value]]
                     attn_enc = attn.encode(model=self.model, 
                         dialog_node=dialog_node,
-                        dialog_node_text=dialog_node.content.text,
+                        dialog_node_text=dialog_node.text,
                         original_user_utterance=state[idx][StateEntry.ORIGINAL_USER_UTTERANCE.value],
                         current_user_utterance=state[idx][StateEntry.CURRENT_USER_UTTERANCE.value],
                         system_utterance_history=state[idx][StateEntry.SYSTEM_UTTERANCE_HISTORY.value],
@@ -780,8 +778,9 @@ class SpaceAdapter:
                                                                         ))]
             else:
                 for idx in range(batch_size):
-                    new_state[f"ENCODED_{rnn_encoder}"] = self.stateinput.rnn_encoders[rnn_encoder].encode(model=self.model, dialog_node=state[idx][StateEntry.DIALOG_NODE.value],
-                                                                            dialog_node_text=state[idx][StateEntry.DIALOG_NODE.value].content.text,
+                    dialog_node = self.dialog_tree.nodes_by_key[state[idx][StateEntry.DIALOG_NODE_KEY.value]]
+                    new_state[f"ENCODED_{rnn_encoder}"] = self.stateinput.rnn_encoders[rnn_encoder].encode(model=self.model, dialog_node=dialog_node,
+                                                                            dialog_node_text=dialog_node.text,
                                                                             original_user_utterance=state[idx][StateEntry.ORIGINAL_USER_UTTERANCE.value],
                                                                             current_user_utterance=state[idx][StateEntry.CURRENT_USER_UTTERANCE.value],
                                                                             system_utterance_history=state[idx][StateEntry.SYSTEM_UTTERANCE_HISTORY.value],
@@ -796,12 +795,12 @@ class SpaceAdapter:
     def state_vector(self, state: Dict[str, Any]) -> torch.FloatTensor:
         # re-calculate attention
         new_state = {key: state[key] for key in state if torch.is_tensor(state[key])}
-        dialog_node = state[StateEntry.DIALOG_NODE.value]
+        dialog_node = self.dialog_tree.nodes_by_key[state[StateEntry.DIALOG_NODE_KEY.value]]
         for attn in self.attentioninput:
             if attn.active:
                 attn_enc = attn.encode(model=self.model, 
                     dialog_node=dialog_node,
-                    dialog_node_text=dialog_node.content.text,
+                    dialog_node_text=dialog_node.text,
                     original_user_utterance=state[StateEntry.ORIGINAL_USER_UTTERANCE.value],
                     current_user_utterance=state[StateEntry.CURRENT_USER_UTTERANCE.value],
                     system_utterance_history=state[StateEntry.SYSTEM_UTTERANCE_HISTORY.value],
@@ -815,7 +814,7 @@ class SpaceAdapter:
         # re-calculdate RNNs
         for rnn_encoder in self.stateinput.rnn_encoders:
             new_state[f"ENCODED_{rnn_encoder}"] = self.stateinput.rnn_encoders[rnn_encoder].encode(model=self.model, dialog_node=dialog_node,
-                                                                        dialog_node_text=dialog_node.content.text,
+                                                                        dialog_node_text=dialog_node.text,
                                                                         original_user_utterance=state[StateEntry.ORIGINAL_USER_UTTERANCE.value],
                                                                         current_user_utterance=state[StateEntry.CURRENT_USER_UTTERANCE.value],
                                                                         system_utterance_history=state[StateEntry.SYSTEM_UTTERANCE_HISTORY.value],
