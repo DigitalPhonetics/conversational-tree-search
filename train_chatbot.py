@@ -661,8 +661,8 @@ class Trainer:
         sum_term = _munchausen_stable_softmax(q_next, tau) * (q_next - _munchausen_stable_logsoftmax(q_next, tau)) # batch x actions
         log_policy = _munchausen_stable_logsoftmax(q_prev, tau).gather(-1, data.actions).view(-1) # batch x actions -> batch
         if self.args['dqn']['munchausen_clipping'] != 0:
-            log_policy = torch.clip(log_policy, min=self.args['dqn']['munchausen_clipping'], max=1)
-        return data.rewards.flatten() + self.args['dqn']['munchausen_alpha']*log_policy + self.args['algorithm']["gamma"] * sum_term.masked_fill(~mask, 0.0).sum(-1) * (1.0 - data.dones.flatten()*torch.tensor(data.infos[EnvInfo.IS_FAQ], dtype=torch.float, device=self.device))
+            log_policy = torch.clip(log_policy, min=self.args['dqn']['munchausen_clipping'], max=0)
+        return data.rewards.flatten() + self.args['dqn']['munchausen_alpha']*log_policy + self.args['algorithm']["gamma"] * sum_term.masked_fill(~mask, 0.0).sum(-1) * (1.0 - data.dones.flatten(), dtype=torch.float, device=self.device)
 
     @torch.no_grad()
     def _td_target(self, next_observations, data):
