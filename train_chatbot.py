@@ -658,7 +658,7 @@ class Trainer:
         tau = self.args['dqn']['munchausen_tau']
         q_next = self.target_network(next_observations)[0] # batch x actions
         mask = q_next > float('-inf')
-        sum_term = _munchausen_stable_softmax(q_next, tau) * (q_next - _munchausen_stable_logsoftmax(q_next, tau)) # batch x actions
+        sum_term =  F.softmax(q_next / tau, dim=-1) (q_next, tau) * (q_next - _munchausen_stable_logsoftmax(q_next, tau)) # batch x actions
         log_policy = _munchausen_stable_logsoftmax(q_prev, tau).gather(-1, data.actions).view(-1) # batch x actions -> batch
         if self.args['dqn']['munchausen_clipping'] != 0:
             log_policy = torch.clip(log_policy, min=self.args['dqn']['munchausen_clipping'], max=0)
