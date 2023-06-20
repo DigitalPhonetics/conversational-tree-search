@@ -40,7 +40,7 @@ class Trainer:
         # ADD stop_action ARG TO CONFIGURATION
         # ADD noise ARG TO STATE TEXT INPUTS
         seed = 12345678
-        self.exp_name_prefix = "V9_fixed_qvalues_newdatasetstructure"
+        self.exp_name_prefix = "V9_fixed_positional_encodings"
    
         self.args = {
             "spaceadapter": {
@@ -149,7 +149,7 @@ class Trainer:
             },
             "model": {
                 "architecture": "new_dueling", # 'dueling', 'vanilla', "new_dueling"
-                "shared_layer_sizes": [8096, 4096, 4096],
+                "shared_layer_sizes": [4096, 4096, 4096],
                 "value_layer_sizes": [2048, 1024],
                 "advantage_layer_sizes": [4096, 2048, 1024],
                 "hidden_layer_sizes": [4096, 2048, 1024],
@@ -415,7 +415,7 @@ class Trainer:
                         counter += 1
                         if p.exitcode == 0:
                             success = True
-                            self.savefile_goal_asked_score[f"/mount/arbeitsdaten/asr-2/vaethdk/tmp_debugging_weights{self.run_name}/ckpt_{global_step}.pt"] = goal_asked_score
+                            self.savefile_goal_asked_score[f"/mount/arbeitsdaten/asr-2/vaethdk/tmp_debugging_weights/{self.run_name}/ckpt_{global_step}.pt"] = goal_asked_score
                     if not success:
                         print(f"FAILED SAVING 5 times for checkpoint at step {global_step}")
                 else:
