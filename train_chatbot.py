@@ -41,7 +41,7 @@ class Trainer:
         # ADD stop_action ARG TO CONFIGURATION
         # ADD noise ARG TO STATE TEXT INPUTS
         seed = 12345678
-        self.exp_name_prefix = "V9_mpnet"
+        self.exp_name_prefix = "V9_fixed_muenchausen"
    
         self.args = {
             "spaceadapter": {
@@ -662,13 +662,13 @@ class Trainer:
         log_policy = _munchausen_stable_logsoftmax(q_prev, tau).gather(-1, data.actions).view(-1) # batch x actions -> batch
         if self.args['dqn']['munchausen_clipping'] != 0:
             log_policy = torch.clip(log_policy, min=self.args['dqn']['munchausen_clipping'], max=0)
-        return data.rewards.flatten() + self.args['dqn']['munchausen_alpha']*log_policy + self.args['algorithm']["gamma"] * sum_term.masked_fill(~mask, 0.0).sum(-1) * (1.0 - data.dones.flatten(), dtype=torch.float, device=self.device)
+        return data.rewards.flatten() + self.args['dqn']['munchausen_alpha']*log_policy + self.args['algorithm']["gamma"] * sum_term.masked_fill(~mask, 0.0).sum(-1) * (1.0 - data.dones.flatten())
 
     @torch.no_grad()
     def _td_target(self, next_observations, data):
         target_pred, _ = self.target_network(next_observations)
         target_max, _ = target_pred.max(dim=1) # output[1] would be predicted intent classes
-        return data.rewards.flatten() + self.args['algorithm']["gamma"] * target_max * (1 - data.dones.flatten()*torch.tensor(data.infos[EnvInfo.IS_FAQ], dtype=torch.float, device=self.device))
+        return data.rewards.flatten() + self.args['algorithm']["gamma"] * target_max * (1 - data.dones.flatten())
 
 
     def train_step_dqn(self, global_step: int, train_counter: int):
