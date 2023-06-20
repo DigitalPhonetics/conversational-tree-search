@@ -141,6 +141,13 @@ EMBEDDINGS = {
             'embedding_dim': 768,
         }
     },
+    'mpnet-base': {
+        'class': SentenceEmbeddings,
+        'args': {
+            'pretrained_name': 'sentence-transformers/all-mpnet-base-v2',
+            'embedding_dim': 768,
+        }
+    },
     'distiluse-base-multilingual-cased-v2': {
         'class': SentenceEmbeddings,
         'args': {

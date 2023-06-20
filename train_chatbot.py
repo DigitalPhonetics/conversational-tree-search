@@ -30,7 +30,7 @@ from torch.nn.utils.rnn import pack_sequence
 
 
 
-EXPERIMENT_LOGGING = ExperimentLogging.ONLINE
+EXPERIMENT_LOGGING = ExperimentLogging.OFFLINE
 
 
 class Trainer:
@@ -41,12 +41,12 @@ class Trainer:
         # ADD stop_action ARG TO CONFIGURATION
         # ADD noise ARG TO STATE TEXT INPUTS
         seed = 12345678
-        self.exp_name_prefix = "V9"
+        self.exp_name_prefix = "V9_mpnet"
    
         self.args = {
             "spaceadapter": {
                 "configuration": SpaceAdapterConfiguration(
-                    text_embedding="cross-en-de-roberta-sentence-transformer", #'distiluse-base-multilingual-cased-v2', # 'gbert-large' # 'cross-en-de-roberta-sentence-transformer',
+                    text_embedding="mpnet-base", #'distiluse-base-multilingual-cased-v2', # 'gbert-large' # 'cross-en-de-roberta-sentence-transformer',
                     action_config=ActionConfig.ACTIONS_IN_STATE_SPACE,
                     action_masking=True,
                     stop_action=False,
