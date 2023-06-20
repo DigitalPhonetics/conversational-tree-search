@@ -5,7 +5,11 @@ from chatbot.adviser.app.answerTemplateParser import AnswerTemplateParser
 from chatbot.adviser.app.encoding.encoding import Encoding
 from data.dataset import GraphDataset, NodeType
 
+
 class BSTEncoding(Encoding):
+    """
+    Binary indicator vector for BST (variable value is in history or not) - but doesn't contain the actual values
+    """
     def __init__(self, device: str, data: GraphDataset) -> None:
         super().__init__(device)
         self.variables = self._extract_variables(data)
@@ -15,8 +19,7 @@ class BSTEncoding(Encoding):
         answerParser = AnswerTemplateParser()
         variables = set()
         for node in data.nodes_by_type[NodeType.VARIABLE]:
-            # answer = node.answers.all()[0]
-            answer = node.answers[0]
+            answer = node.answer_by_index(0)
             expected_var = answerParser.find_variable(answer.text)
             variables.add(expected_var.name)
         return sorted(list(variables)) # sort alphabetically for unique order
