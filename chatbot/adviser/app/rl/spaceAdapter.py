@@ -576,27 +576,31 @@ class SpaceAdapter:
     def set_model(self, model: torch.nn.Module):
         self.model = model
 
-    def _calculate_action_masks(self, dialog_tree: DialogTree) -> Dict[int, torch.FloatTensor]:
+    def _calculate_action_masks(self, dialog_tree: GraphDataset) -> Dict[int, torch.FloatTensor]:
         """ Pre-calculate action mask per node s.t. it is usable without database lookups """
         masks = {}
         idx_decrement = 0 if self.configuration.stop_action else -1
-        # for node in DialogNode.objects.filter(version=self.dialog_tree.version):
-        for node in Data.objects[self.dialog_tree.version].nodes():
+        for node in dialog_tree.node_list:
             mask = torch.zeros(self.num_actions, dtype=torch.bool, device=self.device)
-            if node.node_type == 'userResponseNode':
-                # skip_answer_count = node.answers.count()
-                skip_answer_count = node.answer_count()
+            if node.node_type == NodeType.QUESTION:
+                skip_answer_count = len(node.answers)
                 assert skip_answer_count <= dialog_tree.get_max_node_degree()
                 if skip_answer_count > 0:
                     mask[skip_answer_count+2+idx_decrement:] = True # no invalid SKIP actions (0: STOP, 1: ASk, 2,...N: SKIP)
                 elif skip_answer_count == 0:
                     mask[2+idx_decrement:] = True # no SKIP actions because node has no answers
-            elif node.node_type == 'infoNode':
-                mask[3+idx_decrement:] = True # no invalid SKIP actions (only 1 skip possible)
-            elif node.node_type == 'userInputNode':
+            elif node.node_type == NodeType.INFO:
+                if node.connected_node:
+                    mask[3+idx_decrement:] = True # no invalid SKIP actions (only 1 skip possible)
+                else:
+                    mask[2+idx_decrement:] = True # no follow-up node -> no SKIP action
+            elif node.node_type == NodeType.VARIABLE:
                 if self.configuration.stop_action:
                     mask[0] = True # no STOP action
-                mask[3+idx_decrement:] = True # no invalid SKIP actions (only 1 skip possible)
+                if node.connected_node:
+                    mask[3+idx_decrement:] = True # no invalid SKIP actions (only 1 skip possible)
+                else:
+                    mask[2+idx_decrement:] = True # no follow-up node -> no SKIP action
             else:
                 # don't care about startNode and logicNode, they are automatically processed without agent
                 continue
