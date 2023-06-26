@@ -1,0 +1,7 @@
+net_cls: rl.dqn.dqn.NewDuelingDQNWithIntentPredictionHead
+shared_layer_sizes: [4096, 4096, 4096]
+value_layer_sizes: [2048, 1024]
+advantage_layer_sizes: [4096, 2048, 1024]
+dropout_rate: 0.25
+normalization_layers: false
+intent_loss_weight: 1.0

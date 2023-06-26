@@ -2,7 +2,7 @@ from copy import deepcopy
 from dataclasses import dataclass
 from enum import Enum
 from typing import List
-from chatbot.adviser.app.encoding.similiarity import AnswerSimilarityEncoding
+from encoding.similiarity import AnswerSimilarityEncoding
 
 import torch
 from sentence_transformers import SentenceTransformer
@@ -10,7 +10,7 @@ from sentence_transformers.util import cos_sim
 from transformers import AutoTokenizer
 from transformers import AutoModelForSequenceClassification
 
-from chatbot.adviser.app.rl.utils import AutoSkipMode
+from rl.utils import AutoSkipMode
 from data.dataset import GraphDataset, DialogNode, NodeType
 
 
@@ -78,9 +78,8 @@ class FAQPolicy:
 
 
 class GuidedPolicy:
-    def __init__(self, similarity_model: AnswerSimilarityEncoding, stop_action: bool, auto_skip: AutoSkipMode, noise: float) -> None:
+    def __init__(self, similarity_model: AnswerSimilarityEncoding, auto_skip: AutoSkipMode, noise: float) -> None:
         self.similarity_model = similarity_model
-        self.stop_action_decrement = 1 - int(stop_action)
         self.noise = noise
         self.auto_skip = auto_skip
         # assert auto_skip != AutoSkipMode.NONE, "need an auto-skip mode other than NONE for baseline"
@@ -92,28 +91,28 @@ class GuidedPolicy:
         self.turns += 1
         
         if dialog_node.node_type == NodeType.INFO:
-            if last_sys_act == 1:
-                action = 2 # skip to connected node, since info node was already asked
+            if last_sys_act == 0:
+                action = 1 # skip to connected node, since info node was already asked
             else:
-                action = 1 # ASK info node
+                action = 0 # ASK info node
         elif dialog_node.node_type == NodeType.VARIABLE:
-            if last_sys_act == 1:
-                action = 2 # skip to 1st answer
+            if last_sys_act == 0:
+                action = 1 # skip to 1st answer
             else:
-                action = 1 # ASK variable
+                action = 0 # ASK variable
         elif dialog_node.node_type == NodeType.QUESTION:
-            if last_sys_act == 1:
+            if last_sys_act == 0:
                 # skip
                 if self.auto_skip == AutoSkipMode.SIMILARITY:
                     cos_scores = self.similarity_model.encode(current_user_utterance=user_utterance if user_utterance else "", dialog_node=dialog_node, noise=self.noise)
                     most_similar_answer_idx = cos_scores.view(-1).argmax(-1).item()
-                    action = most_similar_answer_idx + 2 # add 2 because of STOP and ASK
+                    action = most_similar_answer_idx + 1 # add 1 because of ASK
                 else:
                     # TODO implement oracle auto skip mode
                     raise NotImplementedError
             else:
-                action = 1 # ASK response node
+                action = 0 # ASK response node
         else:
             raise f"Node type not handled by policy: {dialog_node.node_type}"
         
-        return action - self.stop_action_decrement
+        return action

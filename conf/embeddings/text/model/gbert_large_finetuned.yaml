@@ -1,0 +1,5 @@
+ckpt_name: 'gbert-finetuned'
+embedding_dim: 1024
+pooling: CLS
+noise_std: 0.0
+_target_: encoding.text.gbert.FinetunedGBertEmbeddings

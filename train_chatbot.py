@@ -1,330 +1,103 @@
+from omegaconf import OmegaConf
+import wandb
+
 from copy import deepcopy
 from statistics import mean
 from typing import Any, Dict, List
-import wandb
 from functools import reduce
 from multiprocessing import Process
-
-import json
 import os
-from chatbot.adviser.app.answerTemplateParser import AnswerTemplateParser
-from chatbot.adviser.app.encoding.similiarity import AnswerSimilarityEncoding
-from chatbot.adviser.app.encoding.text import TextEmbeddingPooling
-
-from chatbot.adviser.app.rl.dialogenv import EnvironmentMode, ParallelDialogEnvironment
-from chatbot.adviser.app.rl.layers.attention.attention_factory import AttentionActivationConfig, AttentionMechanismConfig, AttentionVectorAggregation
-from chatbot.adviser.app.rl.spaceAdapter import AnswerSimilarityEmbeddingConfig, IntentEmbeddingConfig, SpaceAdapter, ActionConfig, SpaceAdapterAttentionInput, SpaceAdapterAttentionQueryInput, SpaceAdapterConfiguration, SpaceAdapterSpaceInput, TextEmbeddingConfig
-from chatbot.adviser.app.rl.utils import EMBEDDINGS, AutoSkipMode, AverageMetric, EnvInfo, ExperimentLogging, _del_checkpoint, _get_file_hash, _munchausen_stable_logsoftmax, _save_checkpoint, safe_division
-
-
 import time
 import random
+
+import hydra
+from hydra.core.config_store import ConfigStore
+
 import numpy as np
 import torch
 import numpy as np
 import torch.nn.functional as F
 from torch.nn.utils.rnn import pack_sequence
 
+from config import ActionConfig, ConfigEntrypoint, DialogLogLevel, Experiment, WandbLogLevel, register_configs
+from data.cache import Cache
 from data.dataset import GraphDataset
+from encoding.state import StateEncoding
+from rl.utils import AutoSkipMode, AverageMetric, EnvInfo, EnvironmentMode, ExperimentLogging, _del_checkpoint, _get_file_hash, _munchausen_stable_logsoftmax, _save_checkpoint, safe_division
+from simulation.dialogenv import ParallelDialogEnvironment
 
 
+cs = ConfigStore.instance()
+register_configs()
 
-EXPERIMENT_LOGGING = ExperimentLogging.ONLINE
+
+def to_class(path:str):
+    from pydoc import locate
+    class_instance = locate(path)
+    return class_instance
 
 
 class Trainer:
-    def setUp(self) -> None:
-        self.device = "cuda:0" if len(os.environ["CUDA_VISIBLE_DEVICES"].strip()) > 0 else "cpu"
-
-        # REMOVE AUTOSKIP ARG FROM SIMULATION
-        # ADD stop_action ARG TO CONFIGURATION
-        # ADD noise ARG TO STATE TEXT INPUTS
-        seed = 12345678
-        self.exp_name_prefix = "V9_fixed_positional_encodings"
+    def __init__(self, cfg: ConfigEntrypoint) -> None:
+        self.cfg = cfg
+        self.exp_name_prefix = "V9_stateencoding_newconfig"
    
-        self.args = {
-            "spaceadapter": {
-                "configuration": SpaceAdapterConfiguration(
-                    text_embedding="mpnet-base", #'distiluse-base-multilingual-cased-v2', # 'gbert-large' # 'cross-en-de-roberta-sentence-transformer',
-                    action_config=ActionConfig.ACTIONS_IN_STATE_SPACE,
-                    action_masking=True,
-                    stop_action=False,
-                    auto_skip=AutoSkipMode.NONE,
-                    use_answer_synonyms=True
-                ),
-                "state": SpaceAdapterSpaceInput(
-                    last_system_action=True,
-                    beliefstate=True,
-                    current_node_position=True,
-                    current_node_type=True,
-                    user_intent_prediction=IntentEmbeddingConfig(
-                        active=False,
-                        ckpt_dir='./.models/intentpredictor'
-                    ),
-                    answer_similarity_embedding=AnswerSimilarityEmbeddingConfig(
-                        active=False,
-                        model_name='distiluse-base-multilingual-cased-v2',
-                        caching=False,
-                    ),
-                    dialog_node_text=TextEmbeddingConfig(
-                        active=True,
-                        pooling=TextEmbeddingPooling.MEAN,
-                        caching=False,
-                    ),
-                    original_user_utterance=TextEmbeddingConfig(
-                        active=True,
-                        pooling=TextEmbeddingPooling.MEAN,
-                        caching=False,
-                    ),
-                    current_user_utterance=TextEmbeddingConfig(
-                        active=True,
-                        pooling=TextEmbeddingPooling.MEAN,
-                        caching=False,
-                    ),
-                    dialog_history=TextEmbeddingConfig(
-                        active=True,
-                        pooling=TextEmbeddingPooling.MEAN,
-                        caching=False,
-                    ),
-                    action_text=TextEmbeddingConfig(
-                        active=True,
-                        pooling=TextEmbeddingPooling.MEAN,
-                        caching=False,
-                    ),
-                    action_position=True
-                ),
-                "attention": [
-                    SpaceAdapterAttentionInput(
-                        active=False,
-                        name="utterance_nodetext_attn",
-                        queries=SpaceAdapterAttentionQueryInput(
-                            input=['current_user_utterance',
-                                    'original_user_utterance'],
-                            pooling=TextEmbeddingPooling.CLS,
-                            aggregation=AttentionVectorAggregation.SUM,
-                            caching=False,
-                            allow_noise=True
-                        ),
-                        matrix="dialog_node_text",
-                        activation=AttentionActivationConfig.NONE,
-                        attention_mechanism=AttentionMechanismConfig.ADDITIVE,
-                        caching=False,
-                        allow_noise=False
-                    ),
-                    SpaceAdapterAttentionInput(
-                        active=False,
-                        name="utterance_history_attn",
-                        queries=SpaceAdapterAttentionQueryInput(
-                            input=['current_user_utterance',
-                                    'original_user_utterance'],
-                            pooling=TextEmbeddingPooling.CLS,
-                            aggregation=AttentionVectorAggregation.MAX,
-                            caching=False,
-                            allow_noise=True
-                        ),
-                        matrix="dialog_history",
-                        activation=AttentionActivationConfig.NONE,
-                        attention_mechanism=AttentionMechanismConfig.ADDITIVE,
-                        caching=False,
-                        allow_noise=False
-                    )
-                ]
-            },
-            "simulation": {
-                "normalize_rewards": True,
-                "max_steps": 50,
-                "user_patience": 3,
-                "stop_when_reaching_goal": True,
-                "dialog_faq_ratio": 0.5,
-                "parallel_train_envs": 128,
-                "parallel_test_envs": 128,
-                "train_noise": 0.1,
-                "eval_noise": 0.0,
-                "test_noise": 0.0
-            },
-            "experiment": {
-                "seed": seed,
-                "cudnn_deterministic": False,
-                "keep": 5
-            },
-            "model": {
-                "architecture": "new_dueling", # 'dueling', 'vanilla', "new_dueling"
-                "shared_layer_sizes": [4096, 4096, 4096],
-                "value_layer_sizes": [2048, 1024],
-                "advantage_layer_sizes": [4096, 2048, 1024],
-                "hidden_layer_sizes": [4096, 2048, 1024],
-                "dropout": 0.25,
-                "activation_fn": "SELU",
-                "normalization_layers": False,
-                "intentprediction": True # True # False
-            },
-            "optimizer": {
-                "name": "Adam",
-                "lr": 0.0001
-            },
-            "algorithm": {
-                "timesteps_per_reset": 1000000,
-                "reset_exploration_times": 0,
-                "max_grad_norm": 1.0,
-                "batch_size": 128,
-                "gamma": 0.99,
-                "algorithm": "dqn", # "ppo", "dqn"
-            },
-            "ppo": {
-                "T": 4, # timesteps per actor (<< episode length) included in one minibatch => parallel actors = batch_size // T2,
-                'update_epochs': 10,
-                'minibatch_size': 64
-            },
-            "dqn": {
-                "buffer_size": 100000,
-                "buffer_type": "HER", # "prioritized", "LAP", # "uniform", # "HER"
-                "priority_replay_alpha": 0.6,
-                "priority_replay_beta": 0.4,
-                "exploration_fraction": 0.99,
-                "eps_start": 0.6,
-                "eps_end": 0.0,
-                "train_frequency": 3,
-                "learning_starts": 1280,
-                "target_network_frequency": 15,
-                "q_value_clipping": 10.0,
-                "munchausen_targets": True,
-                "munchausen_tau": 0.03,
-                "munchausen_alpha": 0.9,
-                "munchausen_clipping": -1
-            },
-            "evaluation": {
-                "evaluation": True,
-                "every_train_timesteps": 10000,
-                "dialogs": 500
-            }
-        }
-
         # set random seed
-        random.seed(self.args["experiment"]["seed"])
-        np.random.seed(self.args["experiment"]["seed"])
-        torch.manual_seed(self.args["experiment"]["seed"])
-        torch.backends.cudnn.deterministic = self.args["experiment"]["cudnn_deterministic"]
+        random.seed(cfg.experiment.seed)
+        np.random.seed(cfg.experiment.seed)
+        torch.manual_seed(cfg.experiment.seed)
+        torch.backends.cudnn.deterministic = cfg.experiment.cudnn_deterministic
 
         # load dialog tree
-        self.tree = GraphDataset(graph_path='resources/en/train_graph.json', answer_path='resources/en/train_answers.json', use_answer_synonyms=self.args['spaceadapter']['configuration'].use_answer_synonyms)
-        self.eval_tree = GraphDataset(graph_path='resources/en/test_graph.json', answer_path='resources/en/test_answers.json', use_answer_synonyms=self.args['spaceadapter']['configuration'].use_answer_synonyms)
-
-        # load text embedding
-        text_embedding_name = self.args['spaceadapter']['configuration'].text_embedding
-        self.cache_conn = None
-        self.text_enc = EMBEDDINGS[text_embedding_name]['class'](device=self.device, **EMBEDDINGS[text_embedding_name]['args'])
-
-        # post-init spaceadapter 
-        self.spaceadapter_config: SpaceAdapterConfiguration = self.args['spaceadapter']['configuration']
-        self.spaceadapter_state: SpaceAdapterSpaceInput = self.args['spaceadapter']['state']
-        self.spaceadapter_attention: List[SpaceAdapterAttentionInput] = self.args['spaceadapter']['attention']
-        self.spaceadapter_config.post_init(tree=self.tree)
-        self.spaceadapter_state.post_init(device=self.device, data=self.tree, text_embedding=self.text_enc, action_config=self.spaceadapter_config.action_config, action_masking=self.spaceadapter_config.action_masking, stop_action=self.spaceadapter_config.stop_action, cache_connection=self.cache_conn)
-        for attn in self.spaceadapter_attention:
-            attn.post_init(device=self.device, tree=self.tree, text_embedding=self.text_enc, action_config=self.spaceadapter_config.action_config, action_masking=self.spaceadapter_config.action_masking, cache_connection=self.cache_conn)
-
+        self.train_data = GraphDataset(graph_path=cfg.experiment.training.dataset.graph_path, answer_path=cfg.experiment.training.dataset.answer_path, use_answer_synonyms=cfg.experiment.training.dataset.use_answer_synonyms)
+        if cfg.experiment.validation:
+            self.val_data = GraphDataset(graph_path=cfg.experiment.validation.dataset.graph_path, answer_path=cfg.experiment.validation.dataset.answer_path, use_answer_synonyms=cfg.experiment.validation.dataset.use_answer_synonyms)
+        if cfg.experiment.testing:
+            self.test_data = GraphDataset(graph_path=cfg.experiment.testing.dataset.graph_path, answer_path=cfg.experiment.testing.dataset.answer_path, use_answer_synonyms=cfg.experiment.testing.dataset.use_answer_synonyms)
+        
         # prepare directories
-        spaceadapter_json = self.spaceadapter_config.toJson() | self.spaceadapter_state.toJson() | {"attention": [attn.toJson() for attn in self.spaceadapter_attention]}
-        if EXPERIMENT_LOGGING != ExperimentLogging.NONE:
-            self.exp_name = f"{self.exp_name_prefix}_{self.args['algorithm']['algorithm']}_{str(int(100 * self.args['simulation']['dialog_faq_ratio']))}dialog_{self.spaceadapter_config.action_config.value}_{self.spaceadapter_config.text_embedding}"
-            for key in spaceadapter_json['state']:
-                if isinstance(spaceadapter_json['state'][key], bool):
-                    if not spaceadapter_json['state'][key]:
-                        self.exp_name += f"_no{key}"
-                else:
-                    if not spaceadapter_json['state'][key]['active']:
-                        self.exp_name += f"_no{key}"
-            self.run_name = f"{self.exp_name}__{seed}__{int(time.time())}"
+        if cfg.experiment.logging.dialog_log == DialogLogLevel.FULL:
+            self.exp_name = f"{self.exp_name_prefix}_{str(int(100 * cfg.experiment.environment.guided_free_ratio))}dialog_{'actionsinstatespace' if cfg.experiment.actions.in_state_space else 'actionsinactionspace'}"
+            self.run_name = f"{self.exp_name}__{cfg.experiment.seed}__{int(time.time())}"
             os.makedirs(f"/mount/arbeitsdaten/asr-2/vaethdk/tmp_debugging_weights/{self.run_name}")
-            os.makedirs(f"/fs/scratch/users/vaethdk/tmp_debugging_weights/{self.run_name}")
-            log_to_file_test = f"/fs/scratch/users/vaethdk/tmp_debugging_weights/{self.run_name}/test_dialogs.txt"
-            log_to_file_eval = f"/fs/scratch/users/vaethdk/tmp_debugging_weights/{self.run_name}/eval_dialogs.txt"
+            log_to_file_test = f"/mount/arbeitsdaten/asr-2/vaethdk/tmp_debugging_weights/{self.run_name}/test_dialogs.txt"
+            log_to_file_eval = f"/mount/arbeitsdaten/asr-2/vaethdk/tmp_debugging_weights/{self.run_name}/eval_dialogs.txt"
         else:
             log_to_file_test = None
             log_to_file_eval = None
+            self.exp_name = self.exp_name_prefix
 
-        # init spaceadapter
-        self.adapter = SpaceAdapter(device=self.device, dialog_tree=self.tree, **self.args["spaceadapter"])
-        self.algorithm = self.args['algorithm']['algorithm']
+        self.cache = Cache(device=cfg.experiment.device, data=self.train_data, state_config=cfg.experiment.state, torch_compile=cfg.experiment.torch_compile)
+        self.state_enc = StateEncoding(cache=self.cache, state_config=cfg.experiment.state, action_config=cfg.experiment.actions, data=self.train_data)
 
-        if self.algorithm == 'dqn':
-            self.n_train_envs = self.args['simulation'].pop('parallel_train_envs')
-            self.n_test_envs = self.args['simulation'].pop('parallel_test_envs')
-            # assert self.args['algorithm']['batch_size'] > self.args['dqn']['train_frequency'], "Training batch size should be larger than the train frequency to avoid bias to most recent transitions only"
-        else:
-            assert False, f"Unknown algorithm: {self.algorithm}"
-
-        # init auto-skip model
-        similarity_model = None
-        if self.spaceadapter_config.auto_skip != AutoSkipMode.NONE:
-            if not isinstance(self.adapter.stateinput.answer_similarity_embedding, type(None)):
-                similarity_model = self.adapter.stateinput.encoders['action_answer_similarity_embedding']
-            else:
-                similarity_model = AnswerSimilarityEncoding(model_name="distiluse-base-multilingual-cased-v2", dialog_tree=self.tree, device=self.device, caching=False)
+        self.train_env = ParallelDialogEnvironment(dialog_tree=self.train_data, state_enc=self.state_enc,mode=EnvironmentMode.TRAIN, max_steps=cfg.experiment.environment.max_steps, user_patience=cfg.experiment.environment.user_patience, normalize_rewards=cfg.experiment.environment.normalize_rewards, stop_when_reaching_goal=cfg.experiment.environment.stop_when_reaching_goal, dialog_faq_ratio=cfg.experiment.environment.guided_free_ratio, log_to_file=None,n_envs=cfg.experiment.environment.num_train_envs,auto_skip=cfg.experiment.environment.auto_skip, similarity_model=None)
+        if cfg.experiment.validation:
+            self.eval_env = ParallelDialogEnvironment(dialog_tree=self.val_data, state_enc=self.state_enc, mode=EnvironmentMode.EVAL, max_steps=cfg.experiment.environment.max_steps, user_patience=cfg.experiment.environment.user_patience, normalize_rewards=cfg.experiment.environment.normalize_rewards, stop_when_reaching_goal=cfg.experiment.environment.stop_when_reaching_goal, dialog_faq_ratio=cfg.experiment.environment.guided_free_ratio, log_to_file=log_to_file_eval,n_envs=cfg.experiment.environment.num_val_envs,auto_skip=cfg.experiment.environment.auto_skip, similarity_model=None)
+        if cfg.experiment.testing:
+            self.test_env = ParallelDialogEnvironment(dialog_tree=self.test_data, state_enc=self.state_enc, mode=EnvironmentMode.TEST, max_steps=cfg.experiment.environment.max_steps, user_patience=cfg.experiment.environment.user_patience, normalize_rewards=cfg.experiment.environment.normalize_rewards, stop_when_reaching_goal=cfg.experiment.environment.stop_when_reaching_goal, dialog_faq_ratio=cfg.experiment.environment.guided_free_ratio, log_to_file=log_to_file_test,n_envs=cfg.experiment.environment.num_test_envs,auto_skip=cfg.experiment.environment.auto_skip, similarity_model=None)
+        
        
-        dialog_faq_ratio = self.args['simulation'].pop('dialog_faq_ratio')
-
-        self.train_env = ParallelDialogEnvironment(dialog_tree=self.tree, adapter=self.adapter, stop_action=self.adapter.configuration.stop_action, mode=EnvironmentMode.TRAIN, n_envs=self.n_train_envs, auto_skip=self.spaceadapter_config.auto_skip, dialog_faq_ratio=dialog_faq_ratio, similarity_model=similarity_model, log_to_file=None, **self.args['simulation'])
-        self.eval_env = ParallelDialogEnvironment(dialog_tree=self.tree, adapter=self.adapter, stop_action=self.adapter.configuration.stop_action,mode=EnvironmentMode.EVAL, n_envs=self.n_test_envs, auto_skip=self.spaceadapter_config.auto_skip, dialog_faq_ratio=0.5, similarity_model=similarity_model, log_to_file=log_to_file_eval, **self.args['simulation'])
-        self.test_env = ParallelDialogEnvironment(dialog_tree=self.eval_tree, adapter=self.adapter, stop_action=self.adapter.configuration.stop_action,mode=EnvironmentMode.TEST, n_envs=self.n_test_envs, auto_skip=self.spaceadapter_config.auto_skip, dialog_faq_ratio=0.5, similarity_model=similarity_model, log_to_file=log_to_file_test, **self.args['simulation'])
-        
-        if EXPERIMENT_LOGGING == ExperimentLogging.OFFLINE:
-            # TODO set wandb api key in env variable: "WANDB_API_KEY"
-            os.environ["WANDB_MODE"] = "offline"
-        
-        args = {key: self.args[key] for key in self.args if key != 'spaceadapter'}
-        if EXPERIMENT_LOGGING != ExperimentLogging.NONE:
+        if cfg.experiment.logging.wandb_log != WandbLogLevel.NONE:
+            if cfg.experiment.logging.wandb_log == WandbLogLevel.OFFLINE:
+                # TODO set wandb api key in env variable: "WANDB_API_KEY"
+                os.environ["WANDB_MODE"] = "offline"
             # write code 
-            wandb.init(project="cts_en_backport", config=(spaceadapter_json | args), save_code=True, name=self.exp_name, settings=wandb.Settings(code_dir="/mount/arbeitsdaten/asr-2/vaethdk/cts_en"))
-            wandb.config.update({'datasetversion': _get_file_hash('resources/en/train_graph.json')}) # log dataset version hash
+            wandb.init(project="cts_en_backport", config=cfg, save_code=True, name=self.exp_name, settings=wandb.Settings(code_dir="/mount/arbeitsdaten/asr-2/vaethdk/cts_en"))
+            wandb.config.update({'datasetversion': _get_file_hash(cfg.experiment.training.dataset.graph_path)}) # log dataset version hash
+            wandb.watch(self.model, log_freq=cfg.experiment.logging.log_interval)
 
         #
         # network setup
         #
-        if self.algorithm == 'dqn':
-            self.model = self._dqn_model_from_args(self.args).to(self.device)
-            self.target_network = self._dqn_model_from_args(self.args).to(self.device)
-            self.target_network.load_state_dict(self.model.state_dict())
-            # self.experiment.set_model_graph(str(self.model))
-        self.optimizer = self._optimizer_from_args(self.args, self.model)
-        self.adapter.set_model(self.model)
-
-        if EXPERIMENT_LOGGING != ExperimentLogging.NONE:
-            wandb.watch(self.model, log_freq=100)
+        self.model = self._dqn_model_from_args(cfg.experiment)
+        self.target_network = self._dqn_model_from_args(cfg.experiment)
+        self.target_network.load_state_dict(self.model.state_dict())
+        self.optimizer = self._optimizer_from_args(cfg.experiment, self.model)
 
         #
         # buffer setup
         #
-        if self.algorithm == "dqn":
-            if not "buffer_type" in self.args['dqn'] or self.args['dqn']['buffer_type'] == 'uniform':
-                from chatbot.adviser.app.rl.dqn.replay_uniform import UniformReplayBuffer
-                self.rb = UniformReplayBuffer(self.args['dqn']['buffer_size'], self.adapter, device=self.device)
-            elif self.args['dqn']['buffer_type'] == 'prioritized':
-                from chatbot.adviser.app.rl.dqn.replay_prioritized import PrioritizedReplayBuffer
-                self.rb = PrioritizedReplayBuffer(
-                    buffer_size=self.args['dqn']['buffer_size'], adapter=self.adapter, device=self.device,
-                        alpha=self.args['dqn']['priority_replay_alpha'], beta=self.args['dqn']['priority_replay_beta']
-                )
-            elif self.args['dqn']['buffer_type'] == 'LAP':
-                from chatbot.adviser.app.rl.dqn.replay_prioritized import PrioritizedLAPReplayBuffer
-                self.rb = PrioritizedLAPReplayBuffer( buffer_size=self.args['dqn']['buffer_size'], adapter=self.adapter, device=self.device,
-                        alpha=self.args['dqn']['priority_replay_alpha'], beta=self.args['dqn']['priority_replay_beta']
-                )
-            elif self.args['dqn']['buffer_type'] == 'HER':
-                from chatbot.adviser.app.rl.dqn.replay_her import HindsightExperienceReplay
-                self.rb = HindsightExperienceReplay(envs=self.train_env, buffer_size=self.args['dqn']['buffer_size'], adapter=self.adapter,
-                                                    train_noise=self.args['simulation']['train_noise'],
-                                                    dialog_tree=self.tree, answerParser=AnswerTemplateParser(), logicParser=self.train_env.logicParser,
-                                                    dialog_faq_ratio=0.0, max_reward=self.train_env.max_reward,
-                                                    alpha=self.args['dqn']['priority_replay_alpha'], beta=self.args['dqn']['priority_replay_beta'],
-                                                    device=self.device, experiment_logging=EXPERIMENT_LOGGING, auto_skip=self.spaceadapter_config.auto_skip,
-                                                    stop_when_reaching_goal=self.args['simulation']['stop_when_reaching_goal'],
-                                                    similarity_model=similarity_model)
-        # write experiment config file
-        if EXPERIMENT_LOGGING != ExperimentLogging.NONE:
-            with open(f"/mount/arbeitsdaten/asr-2/vaethdk/tmp_debugging_weights/{self.run_name}/config.json", "w") as f:
-                json.dump({'spaceadapter': spaceadapter_json} | args, f)
-
+        self.rb = self._buffer_from_args(args=cfg.experiment, state_enc=self.state_enc, train_data=self.train_data)
 
         # Setup train metrics
         self.train_episodic_return = AverageMetric(name='train/episodic_return', running_avg=25)
@@ -343,16 +116,6 @@ class Trainer:
         slope = (1.0 - start_b) / duration
         return min(slope * t + start_b, 1.0)
 
-    def _flattened_args_dict(self, args: dict, outer_key: str = ""):
-        flattened = {}
-        for key in args:
-            new_outer_key = f"{outer_key}_{key}" if len(outer_key) > 0 else key
-            if isinstance(args[key], dict):
-                flattened = flattened | self._flattened_args_dict(args[key], new_outer_key)
-            else:
-                flattened[new_outer_key] = args[key]
-        return flattened
-
     def _recurse_dict_to_cpu(self, state_dict: dict):
         copied = {}
         for key in state_dict:
@@ -365,13 +128,12 @@ class Trainer:
         return copied
 
     def _save_checkpoint_with_timeout(self, goal_asked_score: float, global_step: int, episode_counter: int, train_counter: int, epsilon: float, timeout=None):
-        keep_checkpoints = self.args['experiment']['keep'] if "keep" in self.args['experiment'] else 5
-        if EXPERIMENT_LOGGING != ExperimentLogging.NONE:
+        if self.cfg.experiment.logging.keep_checkpoints > 0:
             self.last_save_step = global_step
 
             # find worst checkpoint
             worst_score_file = None
-            if len(self.savefile_goal_asked_score) >= keep_checkpoints:
+            if len(self.savefile_goal_asked_score) >= self.cfg.experiment.logging.keep_checkpoints:
                 for filename in self.savefile_goal_asked_score:
                     if not worst_score_file:
                         worst_score_file = filename
@@ -397,7 +159,7 @@ class Trainer:
                         del self.savefile_goal_asked_score[worst_score_file] 
 
             # save new checkpoint
-            if len(self.savefile_goal_asked_score) < keep_checkpoints:
+            if len(self.savefile_goal_asked_score) < self.cfg.experiment.logging.keep_checkpoints:
                 if timeout:
                     success = False
                     counter = 0
@@ -429,57 +191,55 @@ class Trainer:
                     self.savefile_goal_asked_score[f"/mount/arbeitsdaten/asr-2/vaethdk/tmp_debugging_weights/{self.run_name}/ckpt_{global_step}.pt"] = goal_asked_score
     
 
-    def _parse_activation_fn(self, activation_fn_name: str):
-        if activation_fn_name == "ReLU":
-            return torch.nn.ReLU
-        elif activation_fn_name  == "tanh":
-            return torch.nn.Tanh
-        elif activation_fn_name == "SELU":
-            return torch.nn.SELU
-        else:
-            assert False, f"unknown activation function name: {activation_fn_name}"
-   
-    def _dqn_model_from_args(self, args: dict):
-        q_value_clipping = args['dqn']['q_value_clipping'] if 'q_value_clipping' in args['dqn'] else 0
-
+    def _dqn_model_from_args(self, args: Experiment):
         kwargs = {
-            "adapter": self.adapter,
-            "dropout_rate": args['model']['dropout'],
-            "activation_fn": self._parse_activation_fn(args['model']['activation_fn']),
-            "normalization_layers": args['model']['normalization_layers'],
-            "q_value_clipping": q_value_clipping,
+            "state_enc": self.state_enc,
+            "dropout_rate": args.policy.net_arch.dropout_rate,
+            "activation_fn": to_class(args.policy.activation_fn),
+            "normalization_layers": args.policy.net_arch.normalization_layers,
+            "q_value_clipping": args.algorithm.dqn.q_value_clipping,
         }
-        if 'dueling' in args['model']['architecture']:
+        model_cls = to_class(args.policy.net_arch.net_cls)
+        if 'dueling' in args.policy.net_arch.net_cls.lower():
             kwargs |= {
-                "shared_layer_sizes": args['model']['shared_layer_sizes'],
-                "advantage_layer_sizes": args["model"]["advantage_layer_sizes"],
-                "value_layer_sizes": args['model']['value_layer_sizes'],
+                "shared_layer_sizes": args.policy.net_arch.shared_layer_sizes,
+                "advantage_layer_sizes": args.policy.net_arch.advantage_layer_sizes,
+                "value_layer_sizes": args.policy.net_arch.value_layer_sizes,
             }
-            if args['model']['intentprediction'] == False:
-                from chatbot.adviser.app.rl.dqn.dqn import DuelingDQN
-                model = DuelingDQN(**kwargs)
-            else:
-                if args['model']['architecture'] == "dueling":
-                    from chatbot.adviser.app.rl.dqn.dqn import DuelingDQNWithIntentPredictionHead
-                    model = DuelingDQNWithIntentPredictionHead(**kwargs)
-                elif args['model']['architecture'] == "new_dueling":
-                    from chatbot.adviser.app.rl.dqn.dqn import NewDuelingDQNWithIntentPredictionHead
-                    model = NewDuelingDQNWithIntentPredictionHead(**kwargs)
-        elif args['model']['architecture'] == 'vanilla':
-            from chatbot.adviser.app.rl.dqn.dqn import DQN
-            model = DQN(hidden_layer_sizes=args["model"]["hidden_layer_sizes"], **kwargs)
-        assert model, f"unknown model architecture {args['model']['architecture']}"
-
+        else:
+            kwargs |= {
+                "hidden_layer_sizes": args.policy.net_arch.hidden_layer_sizes
+            }
+        model = model_cls(**kwargs).to(args.device)
+        if args.torch_compile:
+            model = torch.compile(model)
         return model
 
-    def _optimizer_from_args(self, args: dict, model: torch.nn.Module):
-        if args['optimizer']['name'] == "Adam":
-            optim = torch.optim.Adam(model.parameters(), lr=args['optimizer']['lr'])
-        elif args['optimizer']['name'] == "AdamW":
-            optim = torch.optim.AdamW(model.parameters(), lr=args['optimizer']['lr'])
-        assert optim, "unknown optimizer"
-
-        return optim
+    def _optimizer_from_args(self, args: Experiment, model: torch.nn.Module):
+        optim = to_class(args.optimizer.class_path)
+        return optim(params=model.parameters(), lr=args.optimizer.lr)
+    
+    def _buffer_from_args(self, args: Experiment, state_enc: StateEncoding, train_data: GraphDataset):
+        buffer_args = OmegaConf.to_container(args.algorithm.dqn.buffer)
+        buffer_cls = to_class(buffer_args.pop('_target_'))
+        kwargs = {
+            "state_enc": state_enc
+        } | buffer_args
+        if args.algorithm.dqn.buffer._target_.endswith("HindsightExperienceReplay"):
+            # HER buffer
+            her_env = ParallelDialogEnvironment(dialog_tree=train_data, state_enc=state_enc,mode=EnvironmentMode.TRAIN, max_steps=args.environment.max_steps, user_patience=args.environment.user_patience, normalize_rewards=args.environment.normalize_rewards, stop_when_reaching_goal=args.environment.stop_when_reaching_goal, dialog_faq_ratio=args.environment.guided_free_ratio, log_to_file=None,n_envs=1,auto_skip=args.environment.auto_skip, similarity_model=None)
+            kwargs |= {
+                "envs": her_env,
+                "dialog_tree": train_data,
+                "answerParser": her_env.answer_template_parser,
+                "logicParser": her_env.logicParser,
+                "max_reward": her_env.max_reward,
+                "experiment_logging": ExperimentLogging.NONE,
+                "auto_skip": AutoSkipMode.NONE,
+                "stop_when_reaching_goal": her_env.stop_when_reaching_goal,
+                "similarity_model": None
+            }
+        return buffer_cls(**kwargs)
 
     @torch.no_grad()
     def eval(self, env: ParallelDialogEnvironment, eval_dialogs: int, eval_phase: int, prefix: str) -> float:
@@ -489,7 +249,7 @@ class Trainer:
         """
         self.model.eval()
 
-        if EXPERIMENT_LOGGING != ExperimentLogging.NONE and env.log_to_file:
+        if self.cfg.experiment.logging.dialog_log != ExperimentLogging.NONE and env.log_to_file:
             env.logger.info(f"=========== EVAL AT STEP {eval_dialogs}, PHASE {eval_phase} ============")
         
         eval_metrics = {
@@ -508,9 +268,7 @@ class Trainer:
             "skipped_variable_ratio": [],
             "skipped_info_ratio": [],
             "skipped_invalid_ratio": [],
-            "stop_prematurely_ratio": [],
             "faq_dialog_ratio": [],
-            "episode_stop_ratio": [],
             "ask_variable_irrelevant_ratio": [],
             "ask_question_irrelevant_ratio": [],
             "episode_missing_variable_ratio": [],
@@ -518,22 +276,22 @@ class Trainer:
             "max_history_wordcount": [0],
             "intentprediction_consistency": []
         }
-        if self.args['model']['intentprediction'] == True:
+        if 'intent' in self.cfg.experiment.policy.net_arch.net_cls.lower():
             intentprediction_tp = 0
             intentprediction_tn = 0
             intentprediction_fp = 0
             intentprediction_fn = 0
           
-        batch_size = self.args['algorithm']["batch_size"]
+        batch_size = self.cfg.experiment.algorithm.dqn.batch_size
         num_dialogs = 0
         obs = env.reset()
         intent_history = [[] for _ in range(batch_size)]
         while num_dialogs < eval_dialogs:
             # state = [self.adapter.state_vector(env_obs) for env_obs in obs]
-            state = self.adapter.batch_state_vector_from_obs(obs, batch_size)
+            state = self.state_enc.batch_state_vector_from_obs(obs, batch_size)
             node_keys = env.current_nodes_keys
             if self.algorithm == 'dqn':
-                if self.adapter.configuration.action_config == ActionConfig.ACTIONS_IN_ACTION_SPACE:
+                if self.state_enc.action_config.in_state_space:
                     actions, intent_classes = self.model.select_actions_eps_greedy(node_keys=node_keys, state_vectors=torch.cat(state, dim=0), epsilon=0.0)
                 else:
                     actions, intent_classes = self.model.select_actions_eps_greedy(node_keys=node_keys, state_vectors=pack_sequence(state, enforce_sorted=False), epsilon=0.0)
@@ -564,9 +322,7 @@ class Trainer:
                     eval_metrics["skipped_variable_ratio"].append(safe_division(env_instance.actioncount_skip_variable, env_instance.nodecount_variable))
                     eval_metrics["skipped_info_ratio"].append(safe_division(env_instance.actioncount_skip_info, env_instance.nodecount_info))
                     eval_metrics["skipped_invalid_ratio"].append(safe_division(env_instance.actioncount_skip_invalid, env_instance.actioncount_skip))
-                    eval_metrics["stop_prematurely_ratio"].append(env_instance.actioncount_stop_prematurely)
                     eval_metrics["faq_dialog_ratio"].append(1.0 if env_instance.is_faq_mode else 0.0)
-                    eval_metrics["episode_stop_ratio"].append(env_instance.actioncount_stop)
                     eval_metrics["ask_variable_irrelevant_ratio"].append(safe_division(env_instance.actioncount_ask_variable_irrelevant, env_instance.actioncount_ask_variable))
                     eval_metrics["ask_question_irrelevant_ratio"].append(safe_division(env_instance.actioncount_ask_question_irrelevant, env_instance.actioncount_ask_question))
                     eval_metrics["episode_missing_variable_ratio"].append(env_instance.actioncount_missingvariable)
@@ -596,7 +352,7 @@ class Trainer:
                         elif info[EnvInfo.IS_FAQ] == True and majority_class == 0:
                             intentprediction_fn += 1
                             
-                    if EXPERIMENT_LOGGING != ExperimentLogging.NONE and env_instance.log_to_file:
+                    if self.cfg.experiment.logging.dialog_log != ExperimentLogging.NONE and env_instance.log_to_file:
                         env_instance.logger.info("\n".join(env_instance.episode_log))
                     
                     intent_history[done_idx] = [] # reset intent history
@@ -611,7 +367,7 @@ class Trainer:
             f"{prefix}/coverage_goal_nodes_guided": env.get_goal_node_coverage_guided(),
             f"{prefix}/coverage_nodes": env.get_node_coverage(),
         }
-        if self.args['model']['intentprediction'] == True:
+        if 'intent' in self.cfg.experiment.policy.net_arch.net_cls.lower():
             eval_metrics["intentprediction_f1"] = [safe_division(intentprediction_tp, intentprediction_tp + 0.5 * (intentprediction_fp + intentprediction_fn))]
             eval_metrics["intentprediction_recall"] = [safe_division(intentprediction_tp, intentprediction_tp + intentprediction_fn)]
             eval_metrics["intentprediction_precision"] = [safe_division(intentprediction_tp, intentprediction_tp + intentprediction_fp)]
@@ -621,14 +377,14 @@ class Trainer:
             if len(numerical_entries) == 0:
                 numerical_entries = [0.0]
             log_dict[f"{prefix}/{metric}"] = mean(numerical_entries)
-        if EXPERIMENT_LOGGING != ExperimentLogging.NONE:
+        if self.cfg.experiment.logging.wandb_log != WandbLogLevel.NONE:
             wandb.log(log_dict, step=eval_phase)
 
         self.model.train()
         return mean(eval_metrics["goal_asked"])
 
     def log_train_step(self, global_step: int, train_step: int, epsilon: float, timesteps_per_reset: int, beta: float):
-        if train_step % 50 == 0 and EXPERIMENT_LOGGING != ExperimentLogging.NONE:
+        if train_step % 50 == 0 and self.cfg.experiment.logging.wandb_log != WandbLogLevel.NONE:
             log_dict = {
                 "train/learning_phase": global_step // timesteps_per_reset,
                 "train/coverage_faqs": self.train_env.get_coverage_faqs(),
@@ -640,12 +396,12 @@ class Trainer:
             }
             if self.algorithm == "dqn":
                 log_dict["train/epsilon"] = epsilon
-                if 'buffer_type' in self.args['dqn'] and self.args['dqn']['buffer_type'] == 'prioritized':
+                
+                if 'prioritized' in self.cfg.experiment.algorithm.dqn.buffer._target_.lower() or 'hindsight' in self.cfg.experiment.algorithm.dqn.buffer._target_.lower():
                     log_dict["train/priority_beta"] = beta
                 log_dict["train/buffer_size"] = len(self.rb)
             if self.train_env.current_episode > 0:
                 log_dict["train/faq_dialog_ratio"] = self.train_env.num_faqbased_dialogs / self.train_env.current_episode
-            log_dict["train/actioncount_stop_prematurely"] = self.train_env.actioncount_stop_prematurely
             wandb.log(log_dict, step=global_step, commit=(global_step % 250) == 0)
 
     def store_dqn(self, observations: List[torch.FloatTensor], next_observations: List[torch.FloatTensor], actions: List[int], rewards: List[float], dones: List[bool], infos: List[dict], global_step: int):
@@ -654,31 +410,31 @@ class Trainer:
 
     @torch.no_grad()
     def _munchausen_target(self, next_observations, data, q_prev: torch.FloatTensor):
-        tau = self.args['dqn']['munchausen_tau']
+        tau = self.cfg.experiment.algorithm.dqn.targets.tau
         q_next = self.target_network(next_observations)[0] # batch x actions
         mask = q_next > float('-inf')
         sum_term =  F.softmax(q_next / tau, dim=-1) * (q_next - _munchausen_stable_logsoftmax(q_next, tau)) # batch x actions
         log_policy = _munchausen_stable_logsoftmax(q_prev, tau).gather(-1, data.actions).view(-1) # batch x actions -> batch
-        if self.args['dqn']['munchausen_clipping'] != 0:
-            log_policy = torch.clip(log_policy, min=self.args['dqn']['munchausen_clipping'], max=0)
-        return data.rewards.flatten() + self.args['dqn']['munchausen_alpha']*log_policy + self.args['algorithm']["gamma"] * sum_term.masked_fill(~mask, 0.0).sum(-1) * (1.0 - data.dones.flatten())
+        if self.cfg.experiment.algorithm.dqn.targets.clipping != 0:
+            log_policy = torch.clip(log_policy, min=self.cfg.experiment.algorithm.dqn.targets.clipping, max=0)
+        return data.rewards.flatten() + self.cfg.experiment.algorithm.dqn.targets.alpha*log_policy + self.cfg.experiment.algorithm.dqn.gamma * sum_term.masked_fill(~mask, 0.0).sum(-1) * (1.0 - data.dones.flatten())
 
     @torch.no_grad()
     def _td_target(self, next_observations, data):
         target_pred, _ = self.target_network(next_observations)
         target_max, _ = target_pred.max(dim=1) # output[1] would be predicted intent classes
-        return data.rewards.flatten() + self.args['algorithm']["gamma"] * target_max * (1 - data.dones.flatten())
+        return data.rewards.flatten() + self.cfg.experiment.algorithm.dqn.gamma * target_max * (1 - data.dones.flatten())
 
 
     def train_step_dqn(self, global_step: int, train_counter: int):
-        data = self.rb.sample(self.args['algorithm']["batch_size"])
+        data = self.rb.sample(self.cfg.experiment.algorithm.dqn.batch_size)
 
         # observations = [self.adapter.state_vector({ key: data.observations[key][index] for key in data.observations}) for index in range(self.args['algorithm']["batch_size"])]
         # next_observations = [self.adapter.state_vector({ key: data.next_observations[key][index] for key in data.next_observations}) for index in range(self.args['algorithm']["batch_size"])]
-        observations = self.adapter.batch_state_vector(data.observations, self.args['algorithm']["batch_size"])
-        next_observations = self.adapter.batch_state_vector(data.next_observations, self.args['algorithm']["batch_size"])
+        observations = self.state_enc.batch_state_vector(data.observations, self.cfg.experiment.algorithm.dqn.batch_size)
+        next_observations = self.state_enc.batch_state_vector(data.next_observations, self.cfg.experiment.algorithm.dqn.batch_size)
         
-        if self.adapter.configuration.action_config == ActionConfig.ACTIONS_IN_ACTION_SPACE:
+        if self.state_enc.action_config.in_state_space:
             observations = torch.cat(observations, dim=0)
             next_observations = torch.cat(next_observations, dim=0)
         else:
@@ -686,7 +442,7 @@ class Trainer:
             next_observations = pack_sequence(next_observations, enforce_sorted=False)
 
         old_val, intent_logits = self.model(observations)
-        if 'munchausen_targets' in self.args['dqn'] and self.args['dqn']['munchausen_targets'] == True:
+        if "MuenchausenTarget" in self.cfg.experiment.algorithm.dqn.targets._target_:
             td_target = self._munchausen_target(next_observations, data, old_val)
         else:
             td_target = self._td_target(next_observations, data)
@@ -694,8 +450,8 @@ class Trainer:
 
         # loss
         loss = F.huber_loss(td_target, old_val, reduction="none")
-        intent_loss = 0 if not torch.is_tensor(intent_logits) else F.binary_cross_entropy_with_logits(intent_logits.view(-1), torch.tensor(data.infos[EnvInfo.IS_FAQ], dtype=torch.float, device=self.device), reduction="none")
-        if 'buffer_type' in self.args['dqn'] and self.args['dqn']['buffer_type'] == 'prioritized':
+        intent_loss = 0 if not torch.is_tensor(intent_logits) else F.binary_cross_entropy_with_logits(intent_logits.view(-1), torch.tensor(data.infos[EnvInfo.IS_FAQ], dtype=torch.float, device=self.cfg.experiment.device), reduction="none")
+        if 'prioritized' in self.cfg.experiment.algorithm.dqn.buffer._target_.lower() or 'hindsight' in self.cfg.experiment.algorithm.dqn.buffer._target_.lower():
             loss = loss * data.weights
             if not isinstance(intent_logits, type(None)):
                 intent_loss = intent_loss * data.weights
@@ -708,12 +464,12 @@ class Trainer:
         if not isinstance(intent_logits, type(None)):
             intent_loss = intent_loss.mean(-1) # reduce loss
         
-        if EXPERIMENT_LOGGING != ExperimentLogging.NONE:
+        if self.cfg.experiment.logging.wandb_log != WandbLogLevel.NONE:
             log_dict = {"train/loss": loss.item(),
                         "train/q_values": old_val.mean().item()}
             if not isinstance(intent_logits, type(None)):
                 log_dict['train/intent_loss'] = intent_loss.item()
-            if 'buffer_type' in self.args['dqn'] and self.args['dqn']['buffer_type'] == 'prioritized':
+            if 'prioritized' in self.cfg.experiment.algorithm.dqn.buffer._target_.lower() or 'hindsight' in self.cfg.experiment.algorithm.dqn.buffer._target_.lower():
                 log_dict['train/priorization_weights'] = data.weights.mean().item()
             wandb.log(log_dict, step=global_step, commit=(train_counter % 250 == 0))
 
@@ -722,25 +478,25 @@ class Trainer:
         self.optimizer.zero_grad()
         loss.backward()
 
-        if self.args['algorithm']["max_grad_norm"] > 0:
-            torch.nn.utils.clip_grad_value_(self.model.parameters(), self.args['algorithm']["max_grad_norm"])
+        if self.cfg.experiment.algorithm.dqn.max_grad_norm:
+            torch.nn.utils.clip_grad_value_(self.model.parameters(), self.cfg.experiment.algorithm.dqn.max_grad_norm)
         self.optimizer.step()
 
         # update the target network
-        if train_counter % self.args['dqn']["target_network_frequency"] == 0:
+        if train_counter % self.cfg.experiment.algorithm.dqn.target_network_update_frequency == 0:
             self.target_network.load_state_dict(self.model.state_dict())
 
 
-    def train_loop(self):
-        evaluation = self.args['evaluation']["evaluation"]
-        eval_every_train_timesteps = self.args["evaluation"]["every_train_timesteps"]
-        eval_dialogs = self.args['evaluation']['dialogs']
+    def train_loop_dqn(self):
+        evaluation = not isinstance(self.cfg.experiment.validation, type(None))
+        eval_every_train_timesteps = self.cfg.experiment.validation.every_steps
+        eval_dialogs = self.cfg.experiment.validation.dialogs
 
         #
         # agent environment loop
         #
-        timesteps_per_reset = self.args['algorithm']['timesteps_per_reset']
-        learning_phases = self.args['algorithm']['reset_exploration_times'] + 1 # 0 resets = 1 run
+        timesteps_per_reset = self.cfg.experiment.algorithm.dqn.target_network_update_frequency
+        learning_phases = self.cfg.experiment.algorithm.dqn.reset_exploration_times + 1 # 0 resets = 1 run
         total_timesteps = timesteps_per_reset * learning_phases
 
         self.model.train()
@@ -754,14 +510,14 @@ class Trainer:
         # self.eval(self.eval_env, eval_dialogs, global_step, prefix="eval")
         
         while global_step < total_timesteps:
-            epsilon = self._linear_schedule(self.args['dqn']['eps_start'], self.args['dqn']['eps_end'], self.args['dqn']['exploration_fraction'] * timesteps_per_reset, global_step % timesteps_per_reset)
-            beta = self._beta_schedule(self.args['dqn']['priority_replay_beta'], self.args['dqn']['exploration_fraction'] * timesteps_per_reset, global_step % timesteps_per_reset)
+            epsilon = self._linear_schedule(self.cfg.experiment.algorithm.dqn.eps_start,self.cfg.experiment.algorithm.dqn.eps_end, self.cfg.experiment.algorithm.dqn.exploration_fraction * timesteps_per_reset, global_step % timesteps_per_reset)
+            beta = self._beta_schedule(self.cfg.experiment.algorithm.dqn.buffer.beta, self.cfg.experiment.algorithm.dqn.exploration_fraction * timesteps_per_reset, global_step % timesteps_per_reset)
 
             # state = [self.adapter.state_vector(env_obs) for env_obs in obs]
-            state = self.adapter.batch_state_vector_from_obs(obs, self.args['algorithm']["batch_size"])
+            state = self.state_enc.batch_state_vector_from_obs(obs, self.cfg.experiment.algorithm.dqn.batch_size)
             # choose and perform next action
             # state = [[env_obs[key] for key in env_obs if torch.is_tensor(env_obs[key])] for env_obs in obs]
-            if self.adapter.configuration.action_config == ActionConfig.ACTIONS_IN_ACTION_SPACE:
+            if self.state_enc.action_config.in_state_space:
                 actions, _ = self.model.select_actions_eps_greedy(self.train_env.current_nodes_keys, torch.cat(state, dim=0), epsilon)
             else:
                 actions, _ = self.model.select_actions_eps_greedy(self.train_env.current_nodes_keys, pack_sequence(state, enforce_sorted=False), epsilon)
@@ -783,7 +539,7 @@ class Trainer:
                     self.train_success.log(float(info[EnvInfo.REACHED_GOAL_ONCE]))
                     self.train_goal_asked.log(float(info[EnvInfo.ASKED_GOAL]))
 
-                    if EXPERIMENT_LOGGING != ExperimentLogging.NONE and episode_counter % self.train_episodic_return.running_avg == 0:
+                    if self.cfg.experiment.logging.wandb_log != WandbLogLevel.NONE and episode_counter % self.train_episodic_return.running_avg == 0:
                         wandb.log({
                             self.train_episodic_return.name: self.train_episodic_return.eval(),
                             self.train_episode_length.name: self.train_episode_length.eval(),
@@ -797,8 +553,8 @@ class Trainer:
                 # Train
                 #
              
-                if self.algorithm == 'dqn' and len(self.rb) >= self.args['dqn']['learning_starts'] and global_step % self.args['dqn']["train_frequency"] == 0:
-                    if self.args['dqn']['buffer_type'] == 'prioritized':
+                if len(self.rb) >= self.cfg.experiment.algorithm.dqn.learning_starts and global_step % self.cfg.experiment.training.every_steps == 0:
+                    if 'prioritized' in self.cfg.experiment.algorithm.dqn.buffer._target_.lower() or 'hindsight' in self.cfg.experiment.algorithm.dqn.buffer._target_.lower():
                         self.rb.update_beta(beta)
                     self.train_step_dqn(global_step, train_counter)
                     train_counter += 1
@@ -816,9 +572,9 @@ class Trainer:
 
     def _concat_tensors(self, tensors: List[torch.Tensor]):
         if self.spaceadapter_config.action_config == ActionConfig.ACTIONS_IN_ACTION_SPACE:
-            return torch.cat(tensors, dim=0).to(self.device)
+            return torch.cat(tensors, dim=0).to(self.cfg.experiment.device)
         else:
-            return pack_sequence([tensor.to(self.device) for tensor in tensors], enforce_sorted=False)
+            return pack_sequence([tensor.to(self.cfg.experiment.device) for tensor in tensors], enforce_sorted=False)
 
     def _flatten_list(self, multidim_list):
         return reduce(lambda sublist1, sublist2: sublist1 + sublist2, multidim_list)
@@ -826,12 +582,13 @@ class Trainer:
 
 
 
+@hydra.main(version_base=None, config_path="conf", config_name="default")
+def load_cfg(cfg) -> None:
+    trainer = Trainer(cfg)
+    trainer.train_loop_dqn()
+
 
 if __name__ == "__main__":
     os.environ["TOKENIZERS_PARALLELISM"] = "true"
-
-    trainer = Trainer()
-    trainer.setUp()
-    if trainer.algorithm == "dqn":
-        trainer.train_loop()
+    trainer = load_cfg()
     

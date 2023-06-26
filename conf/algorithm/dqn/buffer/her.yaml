@@ -1,0 +1,6 @@
+_target_: rl.dqn.replay_her.HindsightExperienceReplay
+guided_free_ratio: 0.0
+buffer_size: 100000
+device: cpu
+alpha: 0.6
+beta: 0.4

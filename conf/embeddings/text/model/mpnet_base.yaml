@@ -1,0 +1,5 @@
+ckpt_name: 'sentence-transformers/all-mpnet-base-v2'
+embedding_dim: 768
+pooling: NONE
+noise_std: 0.0
+_target_: encoding.text.sbert.SentenceEmbeddings

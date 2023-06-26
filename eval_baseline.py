@@ -37,11 +37,11 @@ Necessary switches:
 from dataclasses import dataclass
 from statistics import mean
 import os
-from chatbot.adviser.app.encoding.similiarity import AnswerSimilarityEncoding
+from encoding.similiarity import AnswerSimilarityEncoding
 from chatbot.adviser.app.faqPolicy import FAQPolicy, GuidedPolicy, IntentTracker, Intent
 
-from chatbot.adviser.app.rl.dialogenv import DialogEnvironment, EnvironmentMode
-from chatbot.adviser.app.rl.utils import EMBEDDINGS, AutoSkipMode, EnvInfo, safe_division
+from simulation.dialogenv import DialogEnvironment, EnvironmentMode
+from rl.utils import EMBEDDINGS, AutoSkipMode, EnvInfo, safe_division
 
 import random
 import numpy as np
@@ -129,7 +129,7 @@ class Evaluator:
             self.tree = GraphDataset(graph_path='resources/en/train_graph.json', answer_path='resources/en/train_answers.json', use_answer_synonyms=config.use_answer_synonyms) if config.mode in [EnvironmentMode.TRAIN, EnvironmentMode.EVAL] else GraphDataset(graph_path='resources/en/test_graph.json', answer_path='resources/en/test_answers.json', use_answer_synonyms=config.use_answer_synonyms)
 
         # load models
-        self.sentence_embeddings = AnswerSimilarityEncoding(model_name="distiluse-base-multilingual-cased-v2", dialog_tree=self.tree, device=self.device, caching=False)
+        self.sentence_embeddings = AnswerSimilarityEncoding(model_name="distiluse-base-multilingual-cased-v2", dialog_tree=self.tree, device=self.device)
         self.similarity_model = self.sentence_embeddings.similarity_model
         self.intent_tracker = IntentTracker(device=self.device, ckpt_dir='./.models/intentpredictor')
 
