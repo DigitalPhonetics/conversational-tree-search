@@ -14,6 +14,7 @@ from chatbot.adviser.app.rl.layers.attention.attention_factory import AttentionA
 from chatbot.adviser.app.rl.utils import AutoSkipMode, StateEntry
 from torch.nn.utils.rnn import pack_sequence
 import chatbot.adviser.app.rl.dataset as Data
+from chatbot.adviser.app.rl.dataset import NodeType
 
 import torch
 import torch.nn.functional as F
@@ -576,28 +577,28 @@ class SpaceAdapter:
     def set_model(self, model: torch.nn.Module):
         self.model = model
 
-    def _calculate_action_masks(self, dialog_tree: GraphDataset) -> Dict[int, torch.FloatTensor]:
+    def _calculate_action_masks(self, dialog_tree: DialogTree) -> Dict[int, torch.FloatTensor]:
         """ Pre-calculate action mask per node s.t. it is usable without database lookups """
         masks = {}
         idx_decrement = 0 if self.configuration.stop_action else -1
-        for node in dialog_tree.node_list:
+        for node in Data.objects[0].nodes():
             mask = torch.zeros(self.num_actions, dtype=torch.bool, device=self.device)
-            if node.node_type == NodeType.QUESTION:
+            if node.node_type == NodeType.QUESTION.value:
                 skip_answer_count = len(node.answers)
                 assert skip_answer_count <= dialog_tree.get_max_node_degree()
                 if skip_answer_count > 0:
                     mask[skip_answer_count+2+idx_decrement:] = True # no invalid SKIP actions (0: STOP, 1: ASk, 2,...N: SKIP)
                 elif skip_answer_count == 0:
                     mask[2+idx_decrement:] = True # no SKIP actions because node has no answers
-            elif node.node_type == NodeType.INFO:
-                if node.connected_node:
+            elif node.node_type == NodeType.INFO.value:
+                if node.connected_node_key:
                     mask[3+idx_decrement:] = True # no invalid SKIP actions (only 1 skip possible)
                 else:
                     mask[2+idx_decrement:] = True # no follow-up node -> no SKIP action
-            elif node.node_type == NodeType.VARIABLE:
+            elif node.node_type == NodeType.VARIABLE.value:
                 if self.configuration.stop_action:
                     mask[0] = True # no STOP action
-                if node.connected_node:
+                if node.connected_node_key:
                     mask[3+idx_decrement:] = True # no invalid SKIP actions (only 1 skip possible)
                 else:
                     mask[2+idx_decrement:] = True # no follow-up node -> no SKIP action
