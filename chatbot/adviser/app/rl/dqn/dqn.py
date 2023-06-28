@@ -340,6 +340,7 @@ class DuelingDQNWithIntentPredictionHead(DuelingDQN):
         self.intent_head = nn.Sequential(
             nn.Linear(shared_hidden_dim, 256),
             nn.Dropout(p=dropout_rate),
+            nn.ReLU(),
             nn.Linear(256, 1)
         )
 
@@ -468,6 +469,7 @@ class NewDuelingDQNWithIntentPredictionHead(DQNNetwork):
         self.intent_head = nn.Sequential(
             nn.Linear(shared_hidden_dim, 256),
             nn.Dropout(p=dropout_rate),
+            nn.ReLU(),
             nn.Linear(256, 1)
         )
 

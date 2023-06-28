@@ -47,11 +47,11 @@ class Trainer:
         # ADD stop_action ARG TO CONFIGURATION
         # ADD noise ARG TO STATE TEXT INPUTS
         seed = 12345678
-        self.exp_name_prefix = "COMBINED_AUGMENTATION_RESET_2bea615_fixed_muenchausen_VARIALBE_NAME_TRANSLATION"
+        self.exp_name_prefix = "NONE_AUGMENTATION_RESET_2bea615_fixed_muenchausen_VARIALBE_NAME_TRANSLATION_INTENTHEADRELU"
    
         self.args = {
             "data": {
-               "augmentation": AugmentationMode.COMBINED
+               "augmentation": AugmentationMode.NONE
             },
             "spaceadapter": {
                 "configuration": SpaceAdapterConfiguration(
