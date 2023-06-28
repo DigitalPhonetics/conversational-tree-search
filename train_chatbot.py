@@ -1,4 +1,5 @@
 from copy import deepcopy
+from enum import Enum
 from operator import countOf
 from statistics import mean
 from typing import Any, Dict, List
@@ -33,6 +34,11 @@ from torch.nn.utils.rnn import pack_sequence
 EXPERIMENT_LOGGING = ExperimentLogging.ONLINE
 
 
+class AugmentationMode(Enum):
+    NO_AUGMENTATION="NONE"
+    ONLY_AUGMENTATION="ONLY"
+    COMBINED="COMBINED"
+
 class Trainer:
     def setUp(self) -> None:
         self.device = "cuda:0" if len(os.environ["CUDA_VISIBLE_DEVICES"].strip()) > 0 else "cpu"
@@ -41,9 +47,12 @@ class Trainer:
         # ADD stop_action ARG TO CONFIGURATION
         # ADD noise ARG TO STATE TEXT INPUTS
         seed = 12345678
-        self.exp_name_prefix = "RESET_2bea615_fixed_muenchausen"
+        self.exp_name_prefix = "COMBINED_AUGMENTATION_RESET_2bea615_fixed_muenchausen_VARIALBE_NAME_TRANSLATION"
    
         self.args = {
+            "data": {
+               "augmentation": AugmentationMode.COMBINED
+            },
             "spaceadapter": {
                 "configuration": SpaceAdapterConfiguration(
                     text_embedding="mpnet-base", #'distiluse-base-multilingual-cased-v2', # 'gbert-large' # 'cross-en-de-roberta-sentence-transformer',
@@ -206,6 +215,48 @@ class Trainer:
         torch.manual_seed(self.args["experiment"]["seed"])
         torch.backends.cudnn.deterministic = self.args["experiment"]["cudnn_deterministic"]
 
+        # load augmentation data
+        augmentation_mode = self.args['data']['augmentation']
+        if augmentation_mode == AugmentationMode.NO_AUGMENTATION:
+            print("DATA AUGMENTATION: NONE")
+        elif augmentation_mode in [AugmentationMode.ONLY_AUGMENTATION, AugmentationMode.COMBINED]:
+            printed_mode = False
+            # response nodes
+            current_key = 1
+            for filename in ['resources/en/augmentation/augmentation_dialog_nodes_with_synonyms.json', 'resources/en/augmentation/augmentation_info_nodes_filtered.json']:
+                with open(filename, "r") as f:
+                    data = json.load(f)
+                    for key in data:
+                        # locate node object
+                        node_entry = data[key]
+                        node_key = node_entry["dialog_node_key"]
+                        node_obj: Data.DialogNode = Data.objects[0].node_by_key(node_key)
+                        if augmentation_mode == AugmentationMode.ONLY_AUGMENTATION:
+                            if not printed_mode:
+                                print("DATA AUGMENTATION: ONLY AUGMENTATION")
+                                printed_mode = True
+                            # remove existing questions
+                            for question in node_obj.faq_questions:
+                                Data.objects[0]._faq_list.remove(question)
+                                del Data.objects[0]._faq_by_key[question.key]
+                            node_obj.faq_questions = []
+                        elif augmentation_mode == AugmentationMode.COMBINED and not printed_mode:
+                            print("DATA AUGMENTATION: COMBINED")
+                            printed_mode = True
+                        # add new questions
+                        new_questions: List[str] = [node_entry['text']] + node_entry['synonyms']
+                        for new_question_text in new_questions:
+                            # draw new key
+                            while current_key in set(Data.objects[0]._faq_by_key.keys()):
+                                current_key += 1
+                            # create and link question object
+                            new_question = Data.FAQQuestion(key=current_key, text=new_question_text, dialog_node_key=node_key, version=0)
+                            node_obj.faq_questions.append(new_question)
+                            Data.objects[0]._faq_list.append(new_question)
+                            Data.objects[0]._faq_by_key[new_question.key] = new_question
+                        
+
+
         # load dialog tree
         self.tree = DialogTree(version=0)
         self.eval_tree = DialogTree(version=1)
@@ -273,7 +324,8 @@ class Trainer:
             # TODO set wandb api key in env variable: "WANDB_API_KEY"
             os.environ["WANDB_MODE"] = "offline"
         
-        args = {key: self.args[key] for key in self.args if key != 'spaceadapter'}
+        args = {key: self.args[key] for key in self.args if key != 'spaceadapter' and key != 'data'}
+        args['data'] = {"augmentation": self.args['data']['augmentation'].value}
         if EXPERIMENT_LOGGING != ExperimentLogging.NONE:
             # write code 
             wandb.init(project="cts_en_backport", config=(spaceadapter_json | args), save_code=True, name=self.exp_name, settings=wandb.Settings(code_dir="/mount/arbeitsdaten/asr-2/vaethdk/cts_en"))
