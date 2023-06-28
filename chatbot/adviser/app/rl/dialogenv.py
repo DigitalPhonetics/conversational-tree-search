@@ -150,8 +150,8 @@ class DialogEnvironment(gym.Env):
     
     def get_coverage_variables(self):
         return {
-            "STADT": len(self.coverage_variables["STADT"]) / Data.objects[self.version].count_cities(),
-            "LAND": len(self.coverage_variables["LAND"]) / Data.objects[self.version].count_countries()
+            "CITY": len(self.coverage_variables["CITY"]) / Data.objects[self.version].count_cities(),
+            "COUNTRY": len(self.coverage_variables["COUNTRY"]) / Data.objects[self.version].count_countries()
         }
 
     def _transform_dialog_history(self):
@@ -1056,6 +1056,6 @@ class ParallelDialogEnvironment(gym.Env):
     
     def get_coverage_variables(self):
         return {
-            "STADT": len(reduce(lambda d1, d2: set(d1).union(d2), [env.coverage_variables["STADT"].keys() for env in self.envs])) / Data.objects[self.version].count_cities(),
-            "LAND": len(reduce(lambda d1, d2: set(d1).union(d2), [env.coverage_variables["LAND"].keys() for env in self.envs])) / Data.objects[self.version].count_countries()
+            "CITY": len(reduce(lambda d1, d2: set(d1).union(d2), [env.coverage_variables["CITY"].keys() for env in self.envs])) / Data.objects[self.version].count_cities(),
+            "COUNTRY": len(reduce(lambda d1, d2: set(d1).union(d2), [env.coverage_variables["COUNTRY"].keys() for env in self.envs])) / Data.objects[self.version].count_countries()
         }

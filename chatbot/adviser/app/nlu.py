@@ -348,8 +348,8 @@ class NLU:
         found_cities = re.findall(city_regex, user_utterance)
 
         return {
-            'STADT': [self.cities[city] for city in found_cities],  # list of city names
-            'LAND': [self.countries[country] for country in found_countries]  # list of country names
+            'CITY': [self.cities[city] for city in found_cities],  # list of city names
+            'COUNTRY': [self.countries[country] for country in found_countries]  # list of country names
         }
 
     def extract_time(self, user_utterance: str):

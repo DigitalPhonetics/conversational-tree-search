@@ -260,9 +260,9 @@ class UserGoal:
             if not var in self.variables:
                 # draw random value
                 value = None
-                if var == "LAND":
+                if var == "COUNTRY":
                     value = locations.countries[random.choice(locations.country_keys)]
-                elif var == "STADT":
+                elif var == "CITY":
                     value = locations.cities[random.choice(locations.city_keys)]
                 substitution_vars[var] = value
             else:
