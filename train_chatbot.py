@@ -45,7 +45,7 @@ class Trainer:
         # ADD stop_action ARG TO CONFIGURATION
         # ADD noise ARG TO STATE TEXT INPUTSAi
         seed = 9546370
-        self.exp_name_prefix = "EN_RESET_NOCACHE"
+        self.exp_name_prefix = "EN_FIXED_MUENCHAUSEN"
    
         self.args = {
             "language": LANGAUGE,
@@ -680,11 +680,11 @@ class Trainer:
         tau = self.args['dqn']['munchausen_tau']
         q_next = self.target_network(next_observations)[0] # batch x actions
         mask = q_next > float('-inf')
-        sum_term = _munchausen_stable_softmax(q_next, tau) * (q_next - _munchausen_stable_logsoftmax(q_next, tau)) # batch x actions
+        sum_term = F.softmax(q_next / tau) * (q_next - _munchausen_stable_logsoftmax(q_next, tau)) # batch x actions
         log_policy = _munchausen_stable_logsoftmax(q_prev, tau).gather(-1, data.actions).view(-1) # batch x actions -> batch
         if self.args['dqn']['munchausen_clipping'] != 0:
             log_policy = torch.clip(log_policy, min=self.args['dqn']['munchausen_clipping'], max=1)
-        return data.rewards.flatten() + self.args['dqn']['munchausen_alpha']*log_policy + self.args['algorithm']["gamma"] * sum_term.masked_fill(~mask, 0.0).sum(-1) * (1.0 - data.dones.flatten()*torch.tensor(data.infos[EnvInfo.IS_FAQ], dtype=torch.float, device=self.device))
+        return data.rewards.flatten() + self.args['dqn']['munchausen_alpha']*log_policy + self.args['algorithm']["gamma"] * sum_term.masked_fill(~mask, 0.0).sum(-1) * (1.0 - data.dones.flatten())
 
     @torch.no_grad()
     def _td_target(self, next_observations, data):
