@@ -145,7 +145,7 @@ class Trainer:
             },
             "model": {
                 "architecture": "new_dueling", # 'dueling', 'vanilla', "new_dueling"
-                "shared_layer_sizes": [8096, 4096, 4096],
+                "shared_layer_sizes": [4096, 4096, 4096],
                 "value_layer_sizes": [2048, 1024],
                 "advantage_layer_sizes": [4096, 2048, 1024],
                 "hidden_layer_sizes": [4096, 2048, 1024],
