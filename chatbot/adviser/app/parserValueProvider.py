@@ -14,8 +14,8 @@ class ValueBackend:
 class MockDB(ValueBackend):
     def get_nlu_val(self, var_name: str):
         if var_name == "COUNTRY":
-            return "Deutschland"
-        elif var_name == 'START':
+            return "Germany"
+        elif var_name == 'CITY':
             return "Berlin"
         return var_name + "VAR"
 

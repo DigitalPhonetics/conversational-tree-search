@@ -93,20 +93,3 @@ class ValueTransformer(Transformer):
 
     def template(self, *args):
         return " ".join([str(arg).strip() for arg in args])
-
-
-# if __name__ == "__main__":
-#     # template_str = 'Test {{ myvar? }} and {{ myfunc( myfunc2(  myvar2?, "myconst",   "myconst2") ) }} as well as empty func {{func3()}}'
-#     # template_str = 'Bei einer Abwesenheit von 24 Stunden am Kalendertag beträgt das Tagegeld in {{LAND}} {{TAGEGELD.satz(LAND, "24", "24")}} €.'
-#     template_str = 'Bei einer {{ LAND }} Abwesenheit {{ (2 + 2) * 3 }} und {{ 3.0 * TAGEGELD.satz(2+3, "dasd", TAGEGELD.satz(STADT)) }}'
-#     print("original template")
-#     print(template_str)
-#     print("===========")
-#     parser = SystemTemplateParser()
-
-#     variables = parser.find_variables(template_str)
-#     print("Found varialbes:", variables)
-
-#     print("Filled Template")
-#     db = MockDB()
-#     print(parser.parse_template(template_str, db))
