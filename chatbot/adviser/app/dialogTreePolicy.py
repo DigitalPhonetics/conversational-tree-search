@@ -19,12 +19,8 @@ from chatbot.adviser.app.rl.dataset import DialogNode, DialogAnswer
 from dashboard.models import Tagegeld
 
 
-if settings.DEBUG:
-    resource_dir = Path(settings.BASE_DIR, 'chatbot', 'static', 'chatbot', 'nlu_resources')
-else:
-    resource_dir = Path(settings.STATIC_ROOT, 'chatbot', 'nlu_resources')
-print("STATIC DIR", resource_dir)
-
+import chatbot.adviser.app.rl.dataset as Data
+resource_dir = Path(".", 'resources')
 
 class DialogTreePolicy(Service):
 	# State variables
@@ -37,7 +33,7 @@ class DialogTreePolicy(Service):
 		self.templateParser = SystemTemplateParser()
 		self.answerParser = AnswerTemplateParser()
 		self.logicParser = LogicTemplateParser()
-		with open(resource_dir / "a1_countries.json", "r") as f:
+		with open(resource_dir / Data.LANGUAGE / "a1_countries.json", "r") as f:
 			self.a1_laenderliste = json.load(f)
 
 	def get_first_node(self, version: int) -> DialogNode:
@@ -66,12 +62,12 @@ class DialogTreePolicy(Service):
 				if var.name:
 					# if answer is template, fill in example values
 					example_bst = {}
-					if var.name == "LAND" and var.name not in beliefstate:
+					if var.name == "COUNTRY" and var.name not in beliefstate:
 						for land in ["Deutschland", "USA", "England", "Frankreich", "Spanien", "Italien", "..."] :
 							candidates.append(land)
-					elif var.name == "STADT" and var.name not in beliefstate and "LAND" in beliefstate:
+					elif var.name == "CITY" and var.name not in beliefstate and "COUNTRY" in beliefstate:
 						# return all known cities for country in beliefstate
-						for stadt in [tagegeld.stadt for tagegeld in Tagegeld.objects.filter(land=beliefstate["LAND"]).all() if tagegeld.stadt != "$REST"]:
+						for stadt in [tagegeld.stadt for tagegeld in Tagegeld.objects.filter(land=beliefstate["COUNTRY"]).all() if tagegeld.stadt != "$REST"]:
 							candidates.append(stadt)
 						candidates.append("Andere Stadt")
 					elif var.type == "BOOLEAN":

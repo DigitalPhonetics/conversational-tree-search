@@ -13,7 +13,7 @@ class ValueBackend:
 
 class MockDB(ValueBackend):
     def get_nlu_val(self, var_name: str):
-        if var_name == 'LAND':
+        if var_name == "COUNTRY":
             return "Deutschland"
         elif var_name == 'START':
             return "Berlin"
@@ -22,7 +22,7 @@ class MockDB(ValueBackend):
     def get_table_val(self, table_name, func_name, values):
         # print("TABLE NAME", table_name, "FUNC", func_name)
         # print("VALUES", values)
-        if table_name == 'TAGEGELD':
+        if table_name == 'PERDIEM':
            return 24
         else:
             return f"ERROR in Template: Tabelle {table_name} konnte nicht gefunden werden."
@@ -36,8 +36,8 @@ class RealValueBackend(ValueBackend):
         return bst[var_name]
 
     def get_table_val(self, table_name, func_name, values):
-        if table_name == 'TAGEGELD':
-            if func_name.upper() == "TAGEGELDSATZ":
+        if table_name == 'PERDIEM':
+            if func_name.upper() == "AMOUNT":
                 # FORM: TAGEGELD.tagegeldsatz(LAND, STADT)
                 # TODO make this more generic? e.g. return list of possible cities for one country? or list of country that have this city
                 land = values[0]

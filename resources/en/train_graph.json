@@ -85,21 +85,6 @@
                         "id": "16584061492122995",
                         "nodeId": "16348058588084537",
                         "text": "Is there anything I need to do before I am allowed to travel?"
-                    },
-                    {
-                        "id": "16584058734914067",
-                        "nodeId": "16348058588084537",
-                        "text": "How do I book a trip?"
-                    },
-                    {
-                        "id": "16584060562573508",
-                        "nodeId": "16348058588084537",
-                        "text": "Do I need permission?"
-                    },
-                    {
-                        "id": "16584059240690077",
-                        "nodeId": "16348058588084537",
-                        "text": "I'm planning to travel"
                     }
                 ]
             }
@@ -192,8 +177,8 @@
                     {
                         "id": "16348064372891051",
                         "nodeId": "16348064261907944",
-                        "markup": "<p>ja</p>",
-                        "raw_text": "ja"
+                        "markup": "<p>yes</p>",
+                        "raw_text": "yes"
                     }
                 ],
                 "questions": []
@@ -456,7 +441,7 @@
                     {
                         "id": "16585070922342189",
                         "nodeId": "16351700401033947",
-                        "text": "Are flights reimbursable?"
+                        "text": "Are flights reimbursable??"
                     },
                     {
                         "id": "16585070681905638",
@@ -467,16 +452,6 @@
                         "id": "16433857142874912",
                         "nodeId": "16351700401033947",
                         "text": "Can I book a flight, or do I have to take the train?"
-                    },
-                    {
-                        "id": "16433857473374217",
-                        "nodeId": "16351700401033947",
-                        "text": "When are flights allowed?"
-                    },
-                    {
-                        "id": "16433857072532850",
-                        "nodeId": "16351700401033947",
-                        "text": "Am I allowed to book an airplane?"
                     }
                 ]
             }
@@ -517,16 +492,6 @@
                         "id": "16433770676335485",
                         "nodeId": "16351710117855351",
                         "text": "Where can I book?"
-                    },
-                    {
-                        "id": "16433765320215757",
-                        "nodeId": "16351710117855351",
-                        "text": "Do I have to use the travel agency to book a flight?"
-                    },
-                    {
-                        "id": "16433769719642079",
-                        "nodeId": "16351710117855351",
-                        "text": "Where can I book my flight?"
                     }
                 ]
             }
@@ -577,21 +542,6 @@
                         "id": "16436175423602267",
                         "nodeId": "16351719713796576",
                         "text": "What flight classes am I allowed to book?"
-                    },
-                    {
-                        "id": "16585072769119419",
-                        "nodeId": "16351719713796576",
-                        "text": "Are higher class tickets also reimbursable for longer flights?"
-                    },
-                    {
-                        "id": "16436192197941689",
-                        "nodeId": "16351719713796576",
-                        "text": "Which flight classes will be reimbursed?"
-                    },
-                    {
-                        "id": "16436174999454414",
-                        "nodeId": "16351719713796576",
-                        "text": "Which classes am allowed to book for my flight?"
                     }
                 ]
             }
@@ -652,21 +602,6 @@
                         "id": "16432879567871806",
                         "nodeId": "16351756063145903",
                         "text": "How can I book train tickets?"
-                    },
-                    {
-                        "id": "16433769534976953",
-                        "nodeId": "16351756063145903",
-                        "text": "Where can I book train tickets?"
-                    },
-                    {
-                        "id": "16432879784782347",
-                        "nodeId": "16351756063145903",
-                        "text": "What do I need to do to book a train ticket?"
-                    },
-                    {
-                        "id": "16433770012973707",
-                        "nodeId": "16351756063145903",
-                        "text": "What is the process for buying a train ticket?"
                     }
                 ]
             }
@@ -857,8 +792,8 @@
                     {
                         "id": "16354040816169298",
                         "nodeId": "16354038874355911",
-                        "markup": "<p>Emergency during a business trip</p>",
-                        "raw_text": "Emergency during a business trip"
+                        "markup": "<p>Problem/Emergency during a business trip</p>",
+                        "raw_text": "Problem/Emergency during a business trip"
                     },
                     {
                         "id": "16354040846379592",
@@ -907,16 +842,6 @@
                         "id": "16585080312320521",
                         "nodeId": "16354903154347892",
                         "text": "What is counted as an ancillary cost?"
-                    },
-                    {
-                        "id": "16433856092367254",
-                        "nodeId": "16354903154347892",
-                        "text": "What does incidental cost mean?"
-                    },
-                    {
-                        "id": "16433856199874335",
-                        "nodeId": "16354903154347892",
-                        "text": "Which expenses qualify as ancillary expenses?"
                     }
                 ]
             }
@@ -956,16 +881,6 @@
                         "id": "16438151520160029",
                         "nodeId": "16354905244322603",
                         "text": "Are there any trainings opportunities to learn about risk management?"
-                    },
-                    {
-                        "id": "16585206560443564",
-                        "nodeId": "16354905244322603",
-                        "text": "How can I inform myself about risk management?"
-                    },
-                    {
-                        "id": "16585206285217515",
-                        "nodeId": "16354905244322603",
-                        "text": "Where can I learn more about travel risk management?"
                     }
                 ]
             }
@@ -1011,16 +926,6 @@
                         "id": "16584063185482237",
                         "nodeId": "16363751039893796",
                         "text": "What do I need to do to prepare for an intracity business trip?"
-                    },
-                    {
-                        "id": "16433854909261125",
-                        "nodeId": "16363751039893796",
-                        "text": "Is there anything I need to do before I go on an intracity business trip?"
-                    },
-                    {
-                        "id": "16433773400463004",
-                        "nodeId": "16363751039893796",
-                        "text": "Do I need permission to go on an intracity business trip?"
                     }
                 ]
             }
@@ -1076,21 +981,6 @@
                         "id": "16433855141090848",
                         "nodeId": "16363751447148919",
                         "text": "Do I have to do anything before starting my business trip?"
-                    },
-                    {
-                        "id": "16584059773923260",
-                        "nodeId": "16363751447148919",
-                        "text": "Do I need permission to go on a business trip?"
-                    },
-                    {
-                        "id": "16584921311266568",
-                        "nodeId": "16363751447148919",
-                        "text": "Do I need travel authorization?"
-                    },
-                    {
-                        "id": "16584063405494981",
-                        "nodeId": "16363751447148919",
-                        "text": "What type of authorization is required for a business trip?"
                     }
                 ]
             }
@@ -1132,16 +1022,6 @@
                         "id": "16585081096175596",
                         "nodeId": "16363751845458600",
                         "text": "Up to what distance of travel is a trip considered an intracity business trip?"
-                    },
-                    {
-                        "id": "16584945825712664",
-                        "nodeId": "16363751845458600",
-                        "text": "How are business trips and intercity business trips different?"
-                    },
-                    {
-                        "id": "16585081041571473",
-                        "nodeId": "16363751845458600",
-                        "text": "At what point is a trip considered a business trip?"
                     }
                 ]
             }
@@ -1178,11 +1058,6 @@
                         "id": "16584946244619798",
                         "nodeId": "16363752201349915",
                         "text": "What is the definition of an intracity business trip?"
-                    },
-                    {
-                        "id": "16585081360337908",
-                        "nodeId": "16363752201349915",
-                        "text": "If I am traveling within the city, is this a business trip or an intracity business trip?"
                     }
                 ]
             }
@@ -1286,21 +1161,6 @@
                         "id": "16433777476343192",
                         "nodeId": "16363753477187975",
                         "text": "Am I allowed to travel during Corona?"
-                    },
-                    {
-                        "id": "16433777893036747",
-                        "nodeId": "16363753477187975",
-                        "text": "What do I have to consider because of Corona?"
-                    },
-                    {
-                        "id": "16584064744586281",
-                        "nodeId": "16363753477187975",
-                        "text": "What rules are there for Covid-19?"
-                    },
-                    {
-                        "id": "16433777893036748",
-                        "nodeId": "16363753477187975",
-                        "text": "Is travel still allowed during Corona?"
                     }
                 ]
             }
@@ -1371,16 +1231,6 @@
                         "id": "16433854652275718",
                         "nodeId": "16363754793760356",
                         "text": "Can I attach vacation to a business trip?"
-                    },
-                    {
-                        "id": "16584065738309957",
-                        "nodeId": "16363754793760356",
-                        "text": "How long of a vacation can I append to a business trip?"
-                    },
-                    {
-                        "id": "16584066804338454",
-                        "nodeId": "16363754793760356",
-                        "text": "Can I extend my stay privately?"
                     }
                 ]
             }
@@ -1431,21 +1281,6 @@
                         "id": "16433856701860026",
                         "nodeId": "16363755463439219",
                         "text": "What do I need to worry about when booking if I'm extending my trip privately?"
-                    },
-                    {
-                        "id": "16585069869851147",
-                        "nodeId": "16363755463439219",
-                        "text": "How does flight booking work when combined with private travel?"
-                    },
-                    {
-                        "id": "16585068979121965",
-                        "nodeId": "16363755463439219",
-                        "text": "What portion of my flight will be reimbursed if I attach vacation to the end of my trip?"
-                    },
-                    {
-                        "id": "16585069656031754",
-                        "nodeId": "16363755463439219",
-                        "text": "Do I need to get a comparison offer?"
                     }
                 ]
             }
@@ -1491,16 +1326,6 @@
                         "id": "16432879648288618",
                         "nodeId": "16363756081293233",
                         "text": "How can I book a public transit pass?"
-                    },
-                    {
-                        "id": "16584952078623119",
-                        "nodeId": "16363756081293233",
-                        "text": "Can I also take the bus?"
-                    },
-                    {
-                        "id": "16584834913001949",
-                        "nodeId": "16363756081293233",
-                        "text": "Where do I buy tram tickets?"
                     }
                 ]
             }
@@ -1541,16 +1366,6 @@
                         "id": "16432888793264016",
                         "nodeId": "16363756478730906",
                         "text": "What options do I have when booking a train?"
-                    },
-                    {
-                        "id": "16432888793264018",
-                        "nodeId": "16363756478730906",
-                        "text": "What options do I have when taking the train?"
-                    },
-                    {
-                        "id": "16436249403564236",
-                        "nodeId": "16363756478730906",
-                        "text": "Is it allowed to reserve a seat on the train?"
                     }
                 ]
             }
@@ -1602,21 +1417,6 @@
                         "id": "16436271747244924",
                         "nodeId": "16363810595542638",
                         "text": "When is it okay to book a more expensive hotel?"
-                    },
-                    {
-                        "id": "16436271609585008",
-                        "nodeId": "16363810595542638",
-                        "text": "Who is responsible for the costs if my hotel is too expensive?"
-                    },
-                    {
-                        "id": "16584081190389650",
-                        "nodeId": "16363810595542638",
-                        "text": "In which cases can my hotel be more expensive than the accommodation allowance would allow?"
-                    },
-                    {
-                        "id": "16584082440551575",
-                        "nodeId": "16363810595542638",
-                        "text": "What happens if my hotel costs more than the accommodation allowance allows for?"
                     }
                 ]
             }
@@ -1663,21 +1463,6 @@
                         "id": "16438916254330113",
                         "nodeId": "16363811629822245",
                         "text": "Is there anything I need to consider for the hotel invoice?"
-                    },
-                    {
-                        "id": "16584942523195008",
-                        "nodeId": "16363811629822245",
-                        "text": "Who should the hotel bill be addressed to?"
-                    },
-                    {
-                        "id": "16584077940786203",
-                        "nodeId": "16363811629822245",
-                        "text": "Can I have the hotel bill addressed to my employer?"
-                    },
-                    {
-                        "id": "16584077366046106",
-                        "nodeId": "16363811629822245",
-                        "text": "Who should pay the hotel invoice?"
                     }
                 ]
             }
@@ -1724,21 +1509,6 @@
                         "id": "16432891759949442",
                         "nodeId": "16363812426270449",
                         "text": "Can I book any hotel I want?"
-                    },
-                    {
-                        "id": "16433737749145118",
-                        "nodeId": "16363812426270449",
-                        "text": "Do I have free choice for booking a hotel?"
-                    },
-                    {
-                        "id": "16433737895981671",
-                        "nodeId": "16363812426270449",
-                        "text": "Do I also have to book my hotel through the travel agency?"
-                    },
-                    {
-                        "id": "16432871355269887",
-                        "nodeId": "16363812426270449",
-                        "text": "Book a hotel"
                     }
                 ]
             }
@@ -1780,16 +1550,6 @@
                         "id": "16436274165771119",
                         "nodeId": "16363834594338823",
                         "text": "Can I book a room to myself?"
-                    },
-                    {
-                        "id": "16436274313611880",
-                        "nodeId": "16363834594338823",
-                        "text": "Is it okay to book separate rooms even when traveling with others?"
-                    },
-                    {
-                        "id": "16584082816374778",
-                        "nodeId": "16363834594338823",
-                        "text": "Do I have to share a room with colleagues?"
                     }
                 ]
             }
@@ -1841,21 +1601,6 @@
                         "id": "16584944408623093",
                         "nodeId": "16363834981763431",
                         "text": "Are business trips taxable?"
-                    },
-                    {
-                        "id": "16584086728755458",
-                        "nodeId": "16363834981763431",
-                        "text": "Is it possible that my trip will be taxed if it is in Germany?"
-                    },
-                    {
-                        "id": "16436323611092759",
-                        "nodeId": "16363834981763431",
-                        "text": "What do I need to do about resort taxes within Germany?"
-                    },
-                    {
-                        "id": "16584086898406633",
-                        "nodeId": "16363834981763431",
-                        "text": "Are overnight stays in Germany tax exempt if they are purely for business reasons?"
                     }
                 ]
             }
@@ -1897,16 +1642,6 @@
                         "id": "16584088036871925",
                         "nodeId": "16363835964385427",
                         "text": "How does reimbursement for resort taxes work?"
-                    },
-                    {
-                        "id": "16436326345816028",
-                        "nodeId": "16363835964385427",
-                        "text": "Is my employer responsible for paying the resort tax?"
-                    },
-                    {
-                        "id": "16584087915356539",
-                        "nodeId": "16363835964385427",
-                        "text": "Are resort taxes reimbursable?"
                     }
                 ]
             }
@@ -1948,16 +1683,6 @@
                         "id": "16584943313214832",
                         "nodeId": "16365520936325006",
                         "text": "How much money can I get for accommodations within Germany?"
-                    },
-                    {
-                        "id": "16433755642000848",
-                        "nodeId": "16365520936325006",
-                        "text": "What is the maximum provision for accommodations in Germany?"
-                    },
-                    {
-                        "id": "16584943015305558",
-                        "nodeId": "16365520936325006",
-                        "text": "What is my budget for a hotel in Germany?"
                     }
                 ]
             }
@@ -2004,16 +1729,6 @@
                         "id": "16584943605735604",
                         "nodeId": "16365521324065600",
                         "text": "How much money can I spend on a hotel in {{COUNTRY}} ?"
-                    },
-                    {
-                        "id": "16584080617352140",
-                        "nodeId": "16365521324065600",
-                        "text": "What is the maximum budget for accommodations in {{COUNTRY}}?"
-                    },
-                    {
-                        "id": "16436271414418780",
-                        "nodeId": "16365521324065600",
-                        "text": "How much am I allowed to pay for a hotel in {{COUNTRY}}?"
                     }
                 ]
             }
@@ -2059,16 +1774,6 @@
                         "id": "16436420728789592",
                         "nodeId": "16365524053616136",
                         "text": "Can I get reimbursed for a rented car?"
-                    },
-                    {
-                        "id": "16584955697815474",
-                        "nodeId": "16365524053616136",
-                        "text": "Can I hire a vehicle?"
-                    },
-                    {
-                        "id": "16436251017196369",
-                        "nodeId": "16365524053616136",
-                        "text": "Under what circumstances can I rent a car?"
                     }
                 ]
             }
@@ -2109,16 +1814,6 @@
                         "id": "16436251453537903",
                         "nodeId": "16365525056464242",
                         "text": "Can I book my own rental car, or do I need to use the travel agency?"
-                    },
-                    {
-                        "id": "16433766226993219",
-                        "nodeId": "16365525056464242",
-                        "text": "Do rental cars need to be booked through the travel agency?"
-                    },
-                    {
-                        "id": "16433770106451385",
-                        "nodeId": "16365525056464242",
-                        "text": "How can I rent a car?"
                     }
                 ]
             }
@@ -2159,16 +1854,6 @@
                         "id": "16436252123709535",
                         "nodeId": "16365525829145685",
                         "text": "What reasons are there for using a taxi?"
-                    },
-                    {
-                        "id": "16432880358123008",
-                        "nodeId": "16365525829145685",
-                        "text": "Will costs for taxis be refunded?"
-                    },
-                    {
-                        "id": "16584954493671166",
-                        "nodeId": "16365525829145685",
-                        "text": "Am I allowed to take a taxi?"
                     }
                 ]
             }
@@ -2209,16 +1894,6 @@
                         "id": "16432871878939422",
                         "nodeId": "16365527610579139",
                         "text": "Ist die 1. Klasse im Train erstattbar?"
-                    },
-                    {
-                        "id": "16432888487563284",
-                        "nodeId": "16365527610579139",
-                        "text": "When is it okay to book a first class train ticket?"
-                    },
-                    {
-                        "id": "16432888350534230",
-                        "nodeId": "16365527610579139",
-                        "text": "What classes am I allowed to book for train travel?"
                     }
                 ]
             }
@@ -2275,26 +1950,6 @@
                         "id": "16436279085818731",
                         "nodeId": "16365623179506925",
                         "text": "What do I do about a resort tax in {{COUNTRY}}?"
-                    },
-                    {
-                        "id": "16584087097495128",
-                        "nodeId": "16365623179506925",
-                        "text": "Is business travel outside of Germany still tax exempt?"
-                    },
-                    {
-                        "id": "16584085390455644",
-                        "nodeId": "16365623179506925",
-                        "text": "Will I have to pay resort taxes in {{COUNTRY}}?"
-                    },
-                    {
-                        "id": "16584085091616199",
-                        "nodeId": "16365623179506925",
-                        "text": "Is my travel outside of Germany tax exempt if it is part of a business trip?"
-                    },
-                    {
-                        "id": "16584943818275881",
-                        "nodeId": "16365623179506925",
-                        "text": "Am I obligated to pay resort taxes in {{COUNTRY}}?"
                     }
                 ]
             }
@@ -2336,7 +1991,7 @@
                         "id": "16366217733967352",
                         "nodeId": "16366214877516370",
                         "markup": "<p>Conferences</p>",
-                        "raw_text": "Conference"
+                        "raw_text": "Conferences"
                     },
                     {
                         "id": "16366216038846358",
@@ -2470,11 +2125,6 @@
                         "id": "16585192436417464",
                         "nodeId": "16369653367436420",
                         "text": "Are currency exchange fees for credit card purchases refundable?"
-                    },
-                    {
-                        "id": "16436399899486183",
-                        "nodeId": "16369653367436420",
-                        "text": "Can I get reimbursed for credit card fees?"
                     }
                 ]
             }
@@ -2515,16 +2165,6 @@
                         "id": "16436401269551345",
                         "nodeId": "16369654237579351",
                         "text": "Will I get the costs for having my luggage watched reimbursed?"
-                    },
-                    {
-                        "id": "16436403328145831",
-                        "nodeId": "16369654237579351",
-                        "text": "Are costs associated with coat check refundable?"
-                    },
-                    {
-                        "id": "16585193105751083",
-                        "nodeId": "16369654237579351",
-                        "text": "What if I need to have my bag watched?"
                     }
                 ]
             }
@@ -2565,16 +2205,6 @@
                         "id": "16436404133788809",
                         "nodeId": "16369654648166968",
                         "text": "Will entrance costs be covered?"
-                    },
-                    {
-                        "id": "16436403858125693",
-                        "nodeId": "16369654648166968",
-                        "text": "Can I get the entrance fee reimbursed?"
-                    },
-                    {
-                        "id": "16585193460192947",
-                        "nodeId": "16369654648166968",
-                        "text": "I had to pay an entrance fee, can I get this refunded?"
                     }
                 ]
             }
@@ -2620,16 +2250,6 @@
                         "id": "16585193718104222",
                         "nodeId": "16369662459644892",
                         "text": "Will the university pay the costs for stamps on business-related mail?"
-                    },
-                    {
-                        "id": "16436404310115816",
-                        "nodeId": "16369662459644892",
-                        "text": "Are postage costs refundable?"
-                    },
-                    {
-                        "id": "16585193718104223",
-                        "nodeId": "16369662459644892",
-                        "text": "Will I get money for postage stamps reimbursed?"
                     }
                 ]
             }
@@ -2670,16 +2290,6 @@
                         "id": "16436406516026143",
                         "nodeId": "16369666626028975",
                         "text": "Do I have to pay for conference meals myself?"
-                    },
-                    {
-                        "id": "16436406516026145",
-                        "nodeId": "16369666626028975",
-                        "text": "Will I get refunded for meals at a conference?"
-                    },
-                    {
-                        "id": "16585194687923365",
-                        "nodeId": "16369666626028975",
-                        "text": "I had to pay for dinner at a conference, can I get this refunded?"
                     }
                 ]
             }
@@ -2720,16 +2330,6 @@
                         "id": "16436407490822855",
                         "nodeId": "16369666644048691",
                         "text": "I need a vaccine to travel to {{COUNTRY}}, will my employer pay for this?"
-                    },
-                    {
-                        "id": "16585195352800377",
-                        "nodeId": "16369666644048691",
-                        "text": "I need a vaccine to enter the country for my trip, will the costs for this be reimbursed?"
-                    },
-                    {
-                        "id": "16585195149794698",
-                        "nodeId": "16369666644048691",
-                        "text": "In what cases are vaccines paid for?"
                     }
                 ]
             }
@@ -2770,16 +2370,6 @@
                         "id": "16585194186636684",
                         "nodeId": "16369666664574541",
                         "text": "Who is responsible for costs associated with passports and visas?"
-                    },
-                    {
-                        "id": "16436404905756187",
-                        "nodeId": "16369666664574541",
-                        "text": "Can I get the costs for my passport reimbursed?"
-                    },
-                    {
-                        "id": "16585194482394586",
-                        "nodeId": "16369666664574541",
-                        "text": "Will the university refund my entrance visa fees?"
                     }
                 ]
             }
@@ -2820,16 +2410,6 @@
                         "id": "16436409914739416",
                         "nodeId": "16369666762318746",
                         "text": "What percent of my parking fees will be covered by the university?"
-                    },
-                    {
-                        "id": "16585196260018466",
-                        "nodeId": "16369666762318746",
-                        "text": "I used my car for a business trip, can I get the money for parking costs back?"
-                    },
-                    {
-                        "id": "16436410043085854",
-                        "nodeId": "16369666762318746",
-                        "text": "Are parking fees reimbursable?"
                     }
                 ]
             }
@@ -2880,21 +2460,6 @@
                         "id": "16436394908862032",
                         "nodeId": "16369793221368112",
                         "text": "Do I need any insurances?"
-                    },
-                    {
-                        "id": "16436395752004599",
-                        "nodeId": "16369793221368112",
-                        "text": "Should I book any insurance for the trip?"
-                    },
-                    {
-                        "id": "16436395334851017",
-                        "nodeId": "16369793221368112",
-                        "text": "Is it a good idea to add travel insurance?"
-                    },
-                    {
-                        "id": "16585190523244093",
-                        "nodeId": "16369793221368112",
-                        "text": "Will costs for any insurances be covered?"
                     }
                 ]
             }
@@ -2940,16 +2505,6 @@
                         "id": "16436395968512126",
                         "nodeId": "16369794097104001",
                         "text": "What happens with oversized luggage?"
-                    },
-                    {
-                        "id": "16436398389730467",
-                        "nodeId": "16369794097104001",
-                        "text": "Can I get the costs for overweight baggage reimbursed?"
-                    },
-                    {
-                        "id": "16436398593390460",
-                        "nodeId": "16369794097104001",
-                        "text": "What happens if I have to transport something very heavy?"
                     }
                 ]
             }
@@ -3142,16 +2697,6 @@
                         "id": "16458074934288663",
                         "nodeId": "16370471520840317",
                         "text": "When will the per diem in {{COUNTRY}} be reduced?"
-                    },
-                    {
-                        "id": "16432889969028444",
-                        "nodeId": "16370471520840317",
-                        "text": "How many days can I travel outside of Germany before the per diem is reduced?"
-                    },
-                    {
-                        "id": "16585078580952981",
-                        "nodeId": "16370471520840317",
-                        "text": "At what point will the food stipend  in {{COUNTRY}} be reduced?"
                     }
                 ]
             }
@@ -3316,21 +2861,6 @@
                         "id": "16584069618725863",
                         "nodeId": "16370471522263677",
                         "text": "How do I book an overnight stay?"
-                    },
-                    {
-                        "id": "16584070339286143",
-                        "nodeId": "16370471522263677",
-                        "text": "Can I book my own accommodations?"
-                    },
-                    {
-                        "id": "16584070171780238",
-                        "nodeId": "16370471522263677",
-                        "text": "Do I need to book accommodations through the travel agency?"
-                    },
-                    {
-                        "id": "16584078923012675",
-                        "nodeId": "16370471522263677",
-                        "text": "How much can an overnight stay cost?"
                     }
                 ]
             }
@@ -3367,11 +2897,6 @@
                         "id": "16458072823950159",
                         "nodeId": "16370471522950468",
                         "text": "How high is the per diem in {{COUNTRY}}?"
-                    },
-                    {
-                        "id": "16433762842817670",
-                        "nodeId": "16370471522950468",
-                        "text": "What is the per diem in {{COUNTRY}}?"
                     }
                 ]
             }
@@ -3474,16 +2999,6 @@
                         "id": "16585077481759606",
                         "nodeId": "16370471523750267",
                         "text": "How long will the per diem be paid within Germany?"
-                    },
-                    {
-                        "id": "16432890095903734",
-                        "nodeId": "16370471523750267",
-                        "text": "When will the meal stipend be reduced for travel within the country?"
-                    },
-                    {
-                        "id": "16585077770207931",
-                        "nodeId": "16370471523750267",
-                        "text": "Is there a maximum amount of time for which the per diem will be paid if my trip is still within the country?"
                     }
                 ]
             }
@@ -3528,16 +3043,6 @@
                         "id": "16585201987060200",
                         "nodeId": "16370481846790432",
                         "text": "Does my office stay the same during a research semester or is it moved to my new city?"
-                    },
-                    {
-                        "id": "16585204229661400",
-                        "nodeId": "16370481846790432",
-                        "text": "Is CITY still considered the location of my office during a research semester?"
-                    },
-                    {
-                        "id": "16437076055323285",
-                        "nodeId": "16370481846790432",
-                        "text": "What does \"reallocation\" mean?"
                     }
                 ]
             }
@@ -3577,16 +3082,6 @@
                         "id": "16437233575410325",
                         "nodeId": "16370483534787100",
                         "text": "What costs will be reimbursed for my family if they accompany me on a research semester?"
-                    },
-                    {
-                        "id": "16585205605621468",
-                        "nodeId": "16370483534787100",
-                        "text": "Will moving costs for my family be reimbursed?"
-                    },
-                    {
-                        "id": "16437233952423353",
-                        "nodeId": "16370483534787100",
-                        "text": "What do I need to consider in order to bring my family with me on my research semester?"
                     }
                 ]
             }
@@ -3674,11 +3169,6 @@
                         "id": "16585202790650136",
                         "nodeId": "16370501863636503",
                         "text": "If there isn't a reallocation, does that make a research semester a business trip?"
-                    },
-                    {
-                        "id": "16437076777337181",
-                        "nodeId": "16370501863636503",
-                        "text": "When does a research semester count as a business trip?"
                     }
                 ]
             }
@@ -3718,16 +3208,6 @@
                         "id": "16438133873021416",
                         "nodeId": "16370678190615289",
                         "text": "Can I still take my trip if the destination is classified as a risk area?"
-                    },
-                    {
-                        "id": "16585212086421105",
-                        "nodeId": "16370678190615289",
-                        "text": "I'm traveling to a risk area, which forms do I need to fill out?"
-                    },
-                    {
-                        "id": "16585212348109419",
-                        "nodeId": "16370678190615289",
-                        "text": "What do I have to do if I need to travel to a risk area?"
                     }
                 ]
             }
@@ -3772,26 +3252,6 @@
                         "id": "16585213128989876",
                         "nodeId": "16370678856758681",
                         "text": "Where can I find an overview of current dangers for {{COUNTRY}}?"
-                    },
-                    {
-                        "id": "16585212891572297",
-                        "nodeId": "16370678856758681",
-                        "text": "Is the country database also available in English?"
-                    },
-                    {
-                        "id": "16585213128989878",
-                        "nodeId": "16370678856758681",
-                        "text": "How do I find out what risk category my destination has?"
-                    },
-                    {
-                        "id": "16438134436852043",
-                        "nodeId": "16370678856758681",
-                        "text": "How do I understand the country database?"
-                    },
-                    {
-                        "id": "16585213287256225",
-                        "nodeId": "16370678856758681",
-                        "text": "Is it dangerous to travel to {{COUNTRY}}?"
                     }
                 ]
             }
@@ -3846,26 +3306,6 @@
                         "id": "16585208143144470",
                         "nodeId": "16370679473901470",
                         "text": "My passport was stolen, how do I get help?"
-                    },
-                    {
-                        "id": "16585207951147395",
-                        "nodeId": "16370679473901470",
-                        "text": "I had to leave my hotel because of a fire, who can I contact for help?"
-                    },
-                    {
-                        "id": "16585207876684320",
-                        "nodeId": "16370679473901470",
-                        "text": "My bag was stolen, who can help me figure out what to do next?"
-                    },
-                    {
-                        "id": "16585208060957645",
-                        "nodeId": "16370679473901470",
-                        "text": "I've injured myself while on a business trip, what should I do?"
-                    },
-                    {
-                        "id": "16585208143144471",
-                        "nodeId": "16370679473901470",
-                        "text": "What do I do if I get sick during my business trip?"
                     }
                 ]
             }
@@ -3991,21 +3431,6 @@
                         "id": "16584944724548759",
                         "nodeId": "16378344233411490",
                         "text": "How much money do I get for trips within Germany if I stay with family?"
-                    },
-                    {
-                        "id": "16436272734923548",
-                        "nodeId": "16378344233411490",
-                        "text": "How much money do I get reimbursed for travel within the country if I overnight at a friend's place?"
-                    },
-                    {
-                        "id": "16436272818767007",
-                        "nodeId": "16378344233411490",
-                        "text": "How much money do I get reimbursed for travel in Germany if I stay the night with family?"
-                    },
-                    {
-                        "id": "16433779838736138",
-                        "nodeId": "16378344233411490",
-                        "text": "How much money do I get reimbursed if I stay the night with family on a trip in Germany?"
                     }
                 ]
             }
@@ -4095,21 +3520,6 @@
                         "id": "16436272221750944",
                         "nodeId": "16378349334755637",
                         "text": "How much money can I get reimbursed for staying with family when traveling to {{COUNTRY}}?"
-                    },
-                    {
-                        "id": "16436272966609366",
-                        "nodeId": "16378349334755637",
-                        "text": "How much do I get for sleeping over at a friend's place when traveling out of the country?"
-                    },
-                    {
-                        "id": "16584944810300796",
-                        "nodeId": "16378349334755637",
-                        "text": "How much money do I get for trips out of the country if I stay the night with family?"
-                    },
-                    {
-                        "id": "16584088874380975",
-                        "nodeId": "16378349334755637",
-                        "text": "Can I also sleep at a friend's place in {{COUNTRY}}? "
                     }
                 ]
             }
@@ -4161,16 +3571,6 @@
                         "id": "16584067471309094",
                         "nodeId": "16378350683837525",
                         "text": "What do I need to consider when applying for reimbursement for accommodations?"
-                    },
-                    {
-                        "id": "16584075314899943",
-                        "nodeId": "16378350683837525",
-                        "text": "In which cases am I entitled to reimbursement for my accommodations?"
-                    },
-                    {
-                        "id": "16436252667706924",
-                        "nodeId": "16378350683837525",
-                        "text": "How does it work if I have external funding?"
                     }
                 ]
             }
@@ -4212,16 +3612,6 @@
                         "id": "16584084117469654",
                         "nodeId": "16378355894189764",
                         "text": "When can I book a room with two beds?"
-                    },
-                    {
-                        "id": "16584833593185419",
-                        "nodeId": "16378355894189764",
-                        "text": "Do I have to choose a single bed room when booking a hotel?"
-                    },
-                    {
-                        "id": "16436278442835916",
-                        "nodeId": "16378355894189764",
-                        "text": "Can I also book a double room?"
                     }
                 ]
             }
@@ -4301,16 +3691,6 @@
                         "id": "16436399182717203",
                         "nodeId": "16384329210117153",
                         "text": "My conference also requires a membership fee, will this be reimbursed?"
-                    },
-                    {
-                        "id": "16436399413870784",
-                        "nodeId": "16384329210117153",
-                        "text": "Who is responsible for the costs of conference membership fees?"
-                    },
-                    {
-                        "id": "16585191917651269",
-                        "nodeId": "16384329210117153",
-                        "text": "Can I get the costs for a conference refunded?"
                     }
                 ]
             }
@@ -4378,16 +3758,6 @@
                         "id": "16585208695005407",
                         "nodeId": "16389550594484927",
                         "text": "What type of emergencies can the university help me with?"
-                    },
-                    {
-                        "id": "16585208469821699",
-                        "nodeId": "16389550594484927",
-                        "text": "In what cases should I contact emergency help services?"
-                    },
-                    {
-                        "id": "16585207432188595",
-                        "nodeId": "16389550594484927",
-                        "text": "What counts as an emergency?"
                     }
                 ]
             }
@@ -4427,16 +3797,6 @@
                         "id": "16585211270364242",
                         "nodeId": "16389562608833278",
                         "text": "How can I find out if my destination is a risk area"
-                    },
-                    {
-                        "id": "16438132215516037",
-                        "nodeId": "16389562608833278",
-                        "text": "Which countries can I visit despite travel warnings?"
-                    },
-                    {
-                        "id": "16585211403487853",
-                        "nodeId": "16389562608833278",
-                        "text": "Where can I find a list of risk areas?"
                     }
                 ]
             }
@@ -4478,16 +3838,6 @@
                         "id": "16584076037215547",
                         "nodeId": "16389574258367592",
                         "text": "What is my customer number with the travel agency?"
-                    },
-                    {
-                        "id": "16584934145006954",
-                        "nodeId": "16389574258367592",
-                        "text": "What do I need to think about when booking something with the travel agency?"
-                    },
-                    {
-                        "id": "16436254389729977",
-                        "nodeId": "16389574258367592",
-                        "text": "Where can I find my client number for the travel agency?"
                     }
                 ]
             }
@@ -4552,16 +3902,6 @@
                         "id": "16584064022324075",
                         "nodeId": "16389695846089108",
                         "text": "Is an A1 form required for a trip to {{COUNTRY}}?"
-                    },
-                    {
-                        "id": "16584932432645255",
-                        "nodeId": "16389695846089108",
-                        "text": "For which countries is it necessary to get an A1 form?"
-                    },
-                    {
-                        "id": "16584063882478194",
-                        "nodeId": "16389695846089108",
-                        "text": "Do I need an A1 form?"
                     }
                 ]
             }
@@ -4648,21 +3988,6 @@
                         "id": "16585218422551234",
                         "nodeId": "16391241972677029",
                         "text": "Where do I find the application for financial help for business travel?"
-                    },
-                    {
-                        "id": "16437241009335953",
-                        "nodeId": "16391241972677029",
-                        "text": "What paperwork do I need to go on a business trip?"
-                    },
-                    {
-                        "id": "16585218056042746",
-                        "nodeId": "16391241972677029",
-                        "text": "I'm looking for the application form for financial help"
-                    },
-                    {
-                        "id": "16585218533568164",
-                        "nodeId": "16391241972677029",
-                        "text": "Where do I find the form I need to get permission to go on a business trip?"
                     }
                 ]
             }
@@ -4712,26 +4037,6 @@
                         "id": "16433714868923515",
                         "nodeId": "16391245479319732",
                         "text": "Is there a form for reimbursing my Bahn-Card?"
-                    },
-                    {
-                        "id": "16585219438880498",
-                        "nodeId": "16391245479319732",
-                        "text": "How can I apply for a Bahn-Card?"
-                    },
-                    {
-                        "id": "16585219266735590",
-                        "nodeId": "16391245479319732",
-                        "text": "Where is the form for reimbursing car use?"
-                    },
-                    {
-                        "id": "16432875217839366",
-                        "nodeId": "16391245479319732",
-                        "text": "Application for travel reimbursement"
-                    },
-                    {
-                        "id": "16433714868923517",
-                        "nodeId": "16391245479319732",
-                        "text": "What forms do I need to get my travel costs reimbursed?"
                     }
                 ]
             }
@@ -4745,8 +4050,8 @@
             },
             "data": {
                 "id": "16391250907662288",
-                "markup": "<p>Here is the hotel list:</p>\n<p><a title=\"Hotel list COUNTRY 2021\" href=\"https://www.redacted.xlsx\" target=\"_blank\" rel=\"noopener\">Hotel list COUNTRY 2021</a>",
-                "raw_text": "Here is the hotel list: Hotel list Germany 2021",
+                "markup": "<p>Hier finden SIe die Hotel list:</p>\n<p><a title=\"Hotel list COUNTRY  2021\" href=\"https://www.redacted.xlsx\" target=\"_blank\" rel=\"noopener\">Hotel list COUNTRY  2021</a></p>\n<p>&nbsp;</p>",
+                "raw_text": "Hier finden SIe die Hotel list:Hotel list COUNTRY  2021 ",
                 "position": {
                     "x": -4351,
                     "y": 6522
@@ -4771,16 +4076,6 @@
                         "id": "16585220174168824",
                         "nodeId": "16391250907662288",
                         "text": "Does the university have an list of recommended hotels and their prices?"
-                    },
-                    {
-                        "id": "16437241915343088",
-                        "nodeId": "16391250907662288",
-                        "text": "Where do I find a price list for acceptable hotels?"
-                    },
-                    {
-                        "id": "16437241541179638",
-                        "nodeId": "16391250907662288",
-                        "text": "What hotels can I book?"
                     }
                 ]
             }
@@ -4894,16 +4189,6 @@
                         "id": "16458045538288144",
                         "nodeId": "16430174900099207",
                         "text": "How do I apply for an advance?"
-                    },
-                    {
-                        "id": "16458045404950037",
-                        "nodeId": "16430174900099207",
-                        "text": "Can I get an advance for my travel costs?"
-                    },
-                    {
-                        "id": "16458045538288146",
-                        "nodeId": "16430174900099207",
-                        "text": "Do I have to cover all of the costs for my trip in advance?"
                     }
                 ]
             }
@@ -5021,16 +4306,6 @@
                         "id": "16585221011593832",
                         "nodeId": "16430181901118602",
                         "text": "Where can I find my employee identification number?"
-                    },
-                    {
-                        "id": "16585221011593834",
-                        "nodeId": "16430181901118602",
-                        "text": "What is my employee number?"
-                    },
-                    {
-                        "id": "16585221011593835",
-                        "nodeId": "16430181901118602",
-                        "text": "Who can I contact to find out what my employee number is?"
                     }
                 ]
             }
@@ -5070,16 +4345,6 @@
                         "id": "16585203505550183",
                         "nodeId": "16437227645843044",
                         "text": "What is reimbursed in the case of a delegation?"
-                    },
-                    {
-                        "id": "16585203505550185",
-                        "nodeId": "16437227645843044",
-                        "text": "I just got news I am being reallocated, and I want to know what costs will be reimbursed for this"
-                    },
-                    {
-                        "id": "16585203505550186",
-                        "nodeId": "16437227645843044",
-                        "text": "Will the car travel be reimbursed for a reallocation?"
                     }
                 ]
             }
@@ -5124,16 +4389,6 @@
                         "id": "16585221697160279",
                         "nodeId": "16457017855826480",
                         "text": "Can I submit my reimbursement application per e-mail?"
-                    },
-                    {
-                        "id": "16458040037272900",
-                        "nodeId": "16457017855826480",
-                        "text": "Where do I submit my travel reimbursement form?"
-                    },
-                    {
-                        "id": "16585221531199704",
-                        "nodeId": "16457017855826480",
-                        "text": "Should I submit my reimbursement application per mail?"
                     }
                 ]
             }
@@ -5213,16 +4468,6 @@
                         "id": "16458057091035771",
                         "nodeId": "16457021337304621",
                         "text": "What is the per diem for travel within Germany?"
-                    },
-                    {
-                        "id": "16585076141824025",
-                        "nodeId": "16457021337304621",
-                        "text": "What is the minimum length of travel for trips within the country to get meals reimbursed?"
-                    },
-                    {
-                        "id": "16585075890929020",
-                        "nodeId": "16457021337304621",
-                        "text": "How high is the per diem in Germany?"
                     }
                 ]
             }
@@ -5264,16 +4509,6 @@
                         "id": "16458054560818551",
                         "nodeId": "16457022377469579",
                         "text": "What is the per diem for travel within Germany?"
-                    },
-                    {
-                        "id": "16458055044834264",
-                        "nodeId": "16457022377469579",
-                        "text": "What is the minimum length of travel for trips within the country to get meals reimbursed?"
-                    },
-                    {
-                        "id": "16458055241163274",
-                        "nodeId": "16457022377469579",
-                        "text": "How much money do I get for a 9 hour long business trip?"
                     }
                 ]
             }
@@ -5313,16 +4548,6 @@
                         "id": "16585222471014348",
                         "nodeId": "16457028994518300",
                         "text": "What time frame do I have to submit my travel reimbursement application?"
-                    },
-                    {
-                        "id": "16585221976737219",
-                        "nodeId": "16457028994518300",
-                        "text": "Is there a maximum amount of time I have to submit my reimbursement form?"
-                    },
-                    {
-                        "id": "16585222224783877",
-                        "nodeId": "16457028994518300",
-                        "text": "How much time do I have to submit my travel reimbursement form?"
                     }
                 ]
             }
@@ -5367,21 +4592,6 @@
                         "id": "16458058453063446",
                         "nodeId": "16457053159041482",
                         "text": "What do I need to do to cancel a trip?"
-                    },
-                    {
-                        "id": "16585082478155267",
-                        "nodeId": "16457053159041482",
-                        "text": "I am no longer able to take a planned trip, can I still get my expenses reimbursed?"
-                    },
-                    {
-                        "id": "16585081701073696",
-                        "nodeId": "16457053159041482",
-                        "text": "Can I cancel a business trip?"
-                    },
-                    {
-                        "id": "16585082312337217",
-                        "nodeId": "16457053159041482",
-                        "text": "Does the university cover cancellation costs?"
                     }
                 ]
             }
@@ -5427,21 +4637,6 @@
                         "id": "16584953127160976",
                         "nodeId": "16460325754790153",
                         "text": "I had to use my car because there were no public transport connections, will the university reimburse my gas costs?"
-                    },
-                    {
-                        "id": "16584952836757330",
-                        "nodeId": "16460325754790153",
-                        "text": "Can I get travel with my personal vehicle reimbursed?"
-                    },
-                    {
-                        "id": "16584952974084653",
-                        "nodeId": "16460325754790153",
-                        "text": "How much money can I get per kilometer for driving?"
-                    },
-                    {
-                        "id": "16584952665120508",
-                        "nodeId": "16460325754790153",
-                        "text": "Can I get reimbursed for taking my car?"
                     }
                 ]
             }
@@ -5506,16 +4701,6 @@
                         "id": "16585067015806076",
                         "nodeId": "16460328708250870",
                         "text": "Do I get a reimbursement if I used my car to transport business related equipment?"
-                    },
-                    {
-                        "id": "16585067643011089",
-                        "nodeId": "16460328708250870",
-                        "text": "How much money do I get per kilometer if I let a coworker carpool with me?"
-                    },
-                    {
-                        "id": "16584953900748674",
-                        "nodeId": "16460328708250870",
-                        "text": "What is the reimbursement if I transport other coworkers with me in my car?"
                     }
                 ]
             }
@@ -5556,16 +4741,6 @@
                         "id": "16585197143540862",
                         "nodeId": "16460405343775029",
                         "text": "How can I get reimbursed for telephone fees?"
-                    },
-                    {
-                        "id": "16585197312087079",
-                        "nodeId": "16460405343775029",
-                        "text": "I needed to buy mobile internet, is this reimbursable?"
-                    },
-                    {
-                        "id": "16585196629328663",
-                        "nodeId": "16460405343775029",
-                        "text": "I had to make some business calls, will these be reimbursed?"
                     }
                 ]
             }
@@ -5606,16 +4781,6 @@
                         "id": "16585197764041776",
                         "nodeId": "16460411976259488",
                         "text": "Will the university pay for an antigen test?"
-                    },
-                    {
-                        "id": "16585197965297480",
-                        "nodeId": "16460411976259488",
-                        "text": "I was traveling abroad, will the university cover the costs for me to take a PCR test? "
-                    },
-                    {
-                        "id": "16585198353030361",
-                        "nodeId": "16460411976259488",
-                        "text": "Are costs for a PRC test refundable?"
                     }
                 ]
             }
@@ -5655,16 +4820,6 @@
                         "id": "16585201186246114",
                         "nodeId": "16460422136134149",
                         "text": "What do I need to keep in mind if looking for an apartment during my research semester?"
-                    },
-                    {
-                        "id": "16585200851707779",
-                        "nodeId": "16460422136134149",
-                        "text": "I am about to go on a research semester, where should I stay?"
-                    },
-                    {
-                        "id": "16585201345373674",
-                        "nodeId": "16460422136134149",
-                        "text": "How do I find somewhere to stay during my research semester?"
                     }
                 ]
             }
@@ -5803,16 +4958,6 @@
                         "id": "16585200470677152",
                         "nodeId": "16460439966919842",
                         "text": "Who has to pay for it if I miss my train connection?"
-                    },
-                    {
-                        "id": "16585199836708113",
-                        "nodeId": "16460439966919842",
-                        "text": "I missed my train and had to buy new tickets, will the university reimburse both tickets?"
-                    },
-                    {
-                        "id": "16585199938958221",
-                        "nodeId": "16460439966919842",
-                        "text": "I missed my plane because the train had a two hour delay, who is responsible for the cost of re-booking?"
                     }
                 ]
             }
@@ -5943,16 +5088,6 @@
                         "id": "16585076845475988",
                         "nodeId": "16572908886396643",
                         "text": "How high is the per diem for travel within Germany if I am gone for more than 24 hours?"
-                    },
-                    {
-                        "id": "16585076932174719",
-                        "nodeId": "16572908886396643",
-                        "text": "How much money do I get for meals fort trips within Germany?"
-                    },
-                    {
-                        "id": "16585077138809068",
-                        "nodeId": "16572908886396643",
-                        "text": "How high is the per diem in German when I am gone for an entire day?"
                     }
                 ]
             }

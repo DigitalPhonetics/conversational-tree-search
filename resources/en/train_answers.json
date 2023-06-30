@@ -1,13 +1,10 @@
 {
-    "where can I find my employee identification number?": [
+    "Where can I find my employee identification number?": [
         "Where can I find my employee number?",
         "Where can I find my employee identification number?",
         "What is my employee identification number?",
-        "Employee Identification Number",
-        "Employee number",
-        "What is the number for my employee identification?",
-        "What is of my employee number?",
-        "How can I found my employee identification number?"
+        "Employee identification number",
+        "Employee number"
     ],
     "rental car": [
         "I want to rent a car",
@@ -15,10 +12,7 @@
         "Rent a car",
         "Hire a car",
         "Rental car",
-        "Hired car",
-        "Rented vehicle",
-        "A hired vehicle",
-        "Rental vehicle service"
+        "Hired car"
     ],
     "internal emergency team": [
         "Contact emergency team",
@@ -26,44 +20,31 @@
         "Contact the emergency team",
         "Emergency team",
         "Contact for emergencies",
-        "Internal emergency team",
-        "Emergency response team",
-        "Emergency response department",
-        "Emergency response group"
+        "Internal emergency team"
     ],
     "telephone and/or internet fees": [
-        "Charges for telephone use",
+        "Charges for Telephone use",
         "Online fees",
         "Cell phone costs",
         "Internet connection",
         "Cell phone fees",
         "Telephone fees",
         "Costs for WIFI use",
-        "WIFI fees",
-        "Costs for phone usage",
-        "Telephone",
-        "Internet",
-        "Telephone and internet fees"
+        "WIFI fees"
     ],
     "entrance fees": [
         "Entrance fees",
         "Admission",
         "Costs for admission",
         "Fees for entrance",
-        "Cost of entrance cards",
-        "Admission tickets",
-        "Entrance costs",
-        "Admission fees"
+        "Cost of entrance cards"
     ],
     "vaccinations": [
         "Costs for vaccination",
         "Vaccinations",
         "Required shots",
         "Vaccine",
-        "Recommended vaccines",
-        "Vaccination costs",
-        "Shots",
-        "Needed shots"
+        "Recommended vaccines"
     ],
     "service offers": [
         "Which services are available?",
@@ -73,11 +54,7 @@
         "Service offer",
         "Services",
         "Which services are offered?",
-        "Service",
-        "List of offered services",
-        "Provided services",
-        "Service catalog",
-        "Information about services"
+        "Service"
     ],
     "relatives": [
         "My mother",
@@ -86,10 +63,7 @@
         "With my brother",
         "Family",
         "My parents",
-        "With family",
-        "Father",
-        "Family members",
-        "Cousin"
+        "With family"
     ],
     "public transit": [
         "Public transit",
@@ -100,10 +74,7 @@
         "A bus",
         "Light rail",
         "Metro train",
-        "Subway",
-        "Commuter rail",
-        "Metro bus",
-        "Tram"
+        "Subway"
     ],
     "information about countries' risk categories": [
         "Info about risk categories",
@@ -111,24 +82,17 @@
         "Danger level",
         "Country risk level",
         "Information about dangers",
-        "Information about risks in different countries",
-        "Travel risk information",
-        "Risk level",
-        "Threats"
+        "Information about risks in different countries"
     ],
     "business trip": [
         "For business",
         "A business trip",
-        "Travelling for business",
-        "It's business travel",
-        "Business travel"
+        "Travelling for business"
     ],
     "book a trip": [
         "Book a trip",
         "Plan business travel",
-        "Business trip",
-        "Travel",
-        "I'm planning to travel"
+        "Business trip"
     ],
     "accommodation": [
         "Living space",
@@ -136,63 +100,45 @@
         "Quarters",
         "Room",
         "Overnight accommodation",
-        "Hotel",
-        "Accommodation",
-        "For a place to stay",
-        "What options are there for overnight accommodations?"
+        "Hotel"
     ],
     "train": [
         "Subway",
         "Train",
-        "Take the train",
-        "Express train",
-        "Regional train"
+        "Take the train"
     ],
     "i want to book different transportation": [
         "Additional transport option",
         "Other transportation",
         "Book a flight",
-        "I still need a rental car",
-        "Book a train",
-        "I want to book other transportation"
+        "I still need a rental car"
     ],
     "what is a reallocation/delegation?": [
         "What is a reallocation?",
         "When does it count as a reallocation?",
         "Which cases are treated as a delegation?",
-        "I don't know what a reallocation is",
-        "What is a delegation?",
-        "Define a delegation",
-        "What is a reallocation/delegation?"
+        "I don't know what a reallocation is"
     ],
     "alone": [
         "by myself",
         "alone",
-        "I'm traveling without accompaniment",
-        "Only me",
-        "Without family"
+        "I'm traveling without accompaniment"
     ],
     "with family": [
         "With family",
         "Together with my wife",
-        "With my husband and children",
-        "Myself and my dependents",
-        "With my daughter and son"
+        "With my husband and children"
     ],
     "training opportunities": [
         "Training opportunities",
-        "Training forr Travel Risk Management",
+        "Training for Travel Risk Management",
         "What trainings are offered?",
-        "Courses",
-        "Overview of courses offered",
-        "Information about additional training"
+        "Courses"
     ],
     "before the start of a business trip": [
         "Before beginning travel",
         "Before leaving",
         "Info about starting a trip",
-        "Info before setting off",
-        "What do I need to know before I go?",
         "Before the start of a business trip"
     ],
     "travel risk country database": [
@@ -202,19 +148,13 @@
         "Info about risk categories",
         "Travel risk information",
         "Countries database",
-        "Information about dangers",
-        "Database",
-        "Country risk level",
-        "Risk level",
-        "Threats"
+        "Information about dangers"
     ],
     "insurance": [
         "Expense for travel cancellation insurance",
         "I had to pay for travel insurance",
         "Insurance costs",
-        "Insurance fees",
-        "Travel insurance",
-        "Travel health insurance"
+        "Insurance fees"
     ],
     "hotel": [
         "Roadside hotel",
@@ -222,337 +162,235 @@
         "Hotel",
         "In a bed and breakfast",
         "Motel",
-        "Hostel",
-        "Lodge",
-        "Holiday cottage",
-        "In an Airbnb",
-        "Self catering cottage"
+        "Hostel"
     ],
     "can I book a room for just myself?": [
         "Can I sleep by myself?",
-        "Single room",
-        "Ist it allowed to book a room to myself?",
-        "Can I book a room for just myself?",
-        "Can I have my own room?"
+        "Single room", 
+        "Ist it allowed to book a room to myself?"
     ],
     "apply for a business trip": [
         "Permission",
         "Apply to go on a business trip",
-        "Form for travel approval",
-        "Application for travel approval",
-        "Permission from a manager for a business trip"
+        "Form for travel approval"
     ],
     "find a form": [
         "Search",
         "Find",
-        "Find a form",
-        "Where can I find a form?",
-        "I'm looking for a document"
+        "Find a form"
     ],
     "transportation": [
         "Information on ground transportation",
         "Book a flight",
-        "Bus",
-        "Buy a train ticket",
-        "Transportation"
+        "Bus"
     ],
     "no": [
         "I don't have",
         "Nah",
         "Never",
-        "Nope",
-        "None",
-        "Nada",
-        "no"
+        "Nope"
     ],
     "yes": [
         "Correct",
         "Yes",
-        "Of course",
-        "I have",
-        "Exactly"
+        "Of course"
     ],
     "safety emergency": [
         "There's been a safety emergency",
-        "Safety emergency",
-        "I have a safety issue",
-        "There's a security problem"
+        "Safety emergency"
     ],
     "intracity business trip": [
-        "Intracity business trip",
-        "I'm traveling within the city"
+        "Intracity business trip"
     ],
     "what do I need to consider?": [
         "What do I need to watch out for?",
-        "Is there anything I need to be careful about?",
-        "What do I need to consider?",
-        "What should I keep in mind?"
+        "Is there anything I need to be careful about?"
     ],
     "emergency on a business trip": [
         "There's been an emergency",
-        "Emergency",
-        "Emergency on a business trip",
-        "Travel emergency"
+        "Emergency"
     ],
     "emergency-app": [
         "What is the emergency app?",
-        "More information about the app",
-        "Emergency-app",
-        "What can the app do?"
+        "More information about the app"
     ],
     "oversized/overweight baggage": [
         "My bag is too heavy",
         "My suitcase weighs too much",
         "Extra luggage",
         "Additional bag",
-        "Oversized baggage",
-        "What if I need an extra suitcase?",
         "Oversized/overweight baggage"
     ],
-    "friends": [
+    "with friends": [
         "Staying with friends",
-        "At a friend's place",
-        "With a friend",
-        "Friends"
+        "At a friend's place"
     ],
     "I would like information on other options for accommodation": [
         "Information on other hotel options",
         "I would like information on other options for accommodation",
-        "I changed my mind about where I want to stay",
-        "Info about hotels",
-        "Alternative accommodations"
+        "I changed my mind about where I want to stay"
     ],
     "business trip reimbursement": [
         "Form for cost reimbursement",
-        "Business trip reimbursement",
-        "How do I get reimbursed for my trip?",
-        "Reimbursement"
+        "Business trip reimbursement"
     ],
     "research semester": [
         "Exchange Semester",
-        "Research sabbatical",
-        "Research semester",
-        "Foreign exchange semester"
+        "Research sabbatical"
     ],
     "what are incidental costs?": [
         "What are incidental costs?",
-        "Example of incidental costs",
-        "I don't know what incidental costs are",
-        "Which costs count as incidental costs?",
-        "What is included by incidental costs?"
+        "Examples of incidental costs",
+        "I don't know what ancillary costs are"
     ],
     "help filling out a form": [
         "Assistance filling out a form",
         "Filling out",
-        "I need help filling out a form",
-        "Help filling out a form",
-        "Help with a form"
+        "I need help filling out a form"
     ],
     "Transport missed or cancelled": [
         "I missed my train",
         "My flight was cancelled ",
-        "Transport missed or cancelled",
-        "My train was cancelled",
-        "I missed my connection"
+        "Transportation missed oder cancelled"
     ],
     "what is the difference between an intracity business trip and a business trip?": [
         "What is the definition of a business trip?",
-        "How are these different?",
-        "What is the difference between an intracity business trip and a business trip?",
-        "What is an intracity business trip?"
+        "How are these different?"
     ],
     "travel risk management": [
         "Travel safety",
-        "Travel Risk Management",
-        "Information about managing travel safety",
-        "What is travel risk management?"
+        "Travel Risk Management"
     ],
     "personal car": [
         "Personal car",
         "Auto",
-        "My vehicle",
-        "My own car",
-        "Personal vehicle"
+        "My vehicle"
     ],
     "emergency help": [
         "Emergency help",
         "Emergency on a business trip",
         "There's been an emergency",
-        "I need help",
-        "Emergency aid",
-        "Aid",
-        "Help"
+        "I need help"
     ],
     "incidental costs": [
         "Ancillary costs",
         "Additional expenses",
-        "Incidental expenses",
-        "Other fees",
-        "Incidental costs"
+        "Incidental expenses"
     ],
     "conferences": [
         "Conference expenses",
         "Conference member entrance fee",
         "Congress",
-        "Expo costs",
-        "Conference",
-        "Expo"
+        "Expo costs"
     ],
     "do I have to pay a resort tax?": [
         "Do resort taxes also apply to business travel?",
         "Do I need to pay a resort tax?",
-        "Are resort taxes reimbursable ?",
-        "Am I required to pay taxes for the trip?",
-        "Do I have to pay a resort tax?"
+        "Are resort taxes reimbursable ?"
     ],
     "hotel list": [
         "Which hotels should I book from?",
         "Recommended hotels",
-        "List of suggested hotels",
-        "Official hotel recommendations",
-        "Hotel list"
+        "List of suggested hotels"
     ],
     "how long do I have to submit my trip reimbursement request?": [
         "What is the time window to submit my trip reimbursement request?",
         "When is the deadline for a reimbursement request?",
-        "Time window for submitting reimbursement",
-        "How much time to I have to submit a reimbursement request for my business trip?",
-        "How long do I have to submit my trip reimbursement request?"
+        "Time window for submitting reimbursement"
     ],
     "medical emergency": [
         "Health emergency",
         "Medical problem",
-        "I need immediate medical help",
-        "Medical emergency",
-        "I need a doctor"
+        "I need immediate medical help"
     ],
     "problem/emergency during a business trip": [
         "There's been an emergency",
         "Travel emergency",
-        "Emergency",
-        "Problem/emergency during a business trip",
-        "Emergency on a business trip"
+        "Emergency"
     ],
     "per diem": [
         "Food allowance",
-        "Budget for food",
-        "Per diem",
-        "Money for food"
+        "Budget for food"
     ],
     "general information": [
         "General information",
-        "General",
-        "Information",
-        "More information about travel risk management"
+        "General"
     ],
     "md medicus": [
-        "Medicus",
-        "MD Medicus"
+        "Medicus"
     ],
     "credit card fees": [
         "Credit card fees",
-        "Costs for a credit card",
-        "Exchange fees for a visa card",
-        "Costs for using my credit card"
+        "Costs for a credit card"
     ],
     "self-catering house": [
-        "Self-catering house",
-        "Staying in a self-catering house"
+        "Self-catering house"
     ],
     "can I book a double bed room even if I'm traveling alone?": [
         "Are double bed rooms allowed?",
-        "Can I book a double bed room even if I'm traveling alone?",
-        "Can I book a double bed room?",
-        "Double bed room"
+        "Can I book a double bed room even if I'm traveling alone?"
     ],
     "where can I submit my travel reimbursement request": [
         "Where can I submit my travel reimbursement request?",
-        "Who do I send my travel reimbursement to?",
-        "Where do I submit the travel reimbursement form?",
-        "How can I submit my reimbursement request?"
+        "Who do I send my travel reimbursement to?"
     ],
     "forms, deadlines, and procedures": [
         "Where do I find the forms?",
         "Information about procedures",
-        "Forms, deadlines, and procedures",
-        "Which forms do I need?",
-        "What deadlines are there?"
+        "Forms, deadlines, and procedures"
     ],
     "request an advance": [
         "Request an advance of funds",
         "Request an advance",
-        "I need money in advance",
-        "I need money before the trip",
-        "Advance"
+        "I need money in advance"
     ],
     "taxi": [
-        "Taxi",
-        "Uber or taxi"
+        "Taxi"
     ],
     "cloakroom fees": [
         "Costs for use of a cloakroom",
-        "Costs for luggage supervision",
-        "Fees storing a jacket",
-        "Cloakroom fees"
+        "Costs for luggage supervision"
     ],
     "camper": [
         "Camping van",
-        "In a camper",
-        "Mobile home",
-        "Camper van"
+        "In a camper"
     ],
     "campsite": [
         "Campsite",
-        "Campground",
-        "Tent camping site",
-        "At a campsite"
+        "Campground"
     ],
     "cancel a trip": [
         "Cancel a trip",
         "Cancel",
-        "What do I need to do to cancel?",
-        "Travel cancellation",
-        "Cancellation fees"
+        "What do I need to do to cancel?"
     ],
     "flight": [
         "Plane",
         "Am I allowed to fly?",
         "Are flights okay?",
-        "Flight",
-        "I want to fly",
-        "Airplane"
+        "Flight"
     ],
     "mail fees": [
         "Mail fees",
         "Send a package",
-        "Post a letter",
-        "Shipping fees",
-        "Cost for stamps"
+        "Post a letter"
     ],
     "visa fees": [
         "Entrance visa",
-        "Costs for a visa",
-        "Visa application",
-        "Visa fees"
+        "Costs for a visa"
     ],
     "conference meals ": [
         "Conference dinner",
-        "Conference meals",
-        "Lunch at a conference",
-        "Costs for a business meal"
+        "Conference meals"
     ],
     "parking fees": [
         "Parking costs",
         "Parking garage ticket",
         "Parking fees",
-        "Metred parking fees",
-        "Costs for parking a car",
-        "Parking ticket"
+        "Metred parking fees"
     ],
     "corona tests (prc or antigen tests)": [
         "PRC Test",
-        "corona tests (prc or antigen tests)",
-        "Covid Test",
-        "Antigen test"
+        "corona tests (prc or antigen tests)"
     ]
 }

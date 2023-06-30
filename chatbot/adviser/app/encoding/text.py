@@ -70,7 +70,7 @@ class SentenceEmbeddings(TextEmbeddings):
         from sentence_transformers import SentenceTransformer
         super().__init__(device, embedding_dim)
         self.pretrained_name = pretrained_name
-        self.bert_sentence_embedder = SentenceTransformer(pretrained_name, device=device, cache_folder = '.models')
+        self.bert_sentence_embedder = torch.compile(SentenceTransformer(pretrained_name, device=device, cache_folder = '.models').to(device))
 
     @torch.no_grad()
     def _encode(self, text: Union[str, None]) -> torch.FloatTensor:
@@ -91,7 +91,7 @@ class SentenceEmbeddings(TextEmbeddings):
             encodings: batch x 512
             mask: None (we don't need masks here since output is already pooled)
         """
-        return self.bert_sentence_embedder.encode(text, convert_to_numpy=False, convert_to_tensor=True, show_progress_bar=False), None
+        return self.bert_sentence_embedder.encode(text, convert_to_numpy=False, convert_to_tensor=True, show_progress_bar=False, device=self.device), None
 
 
 # TODO clear after DB change
@@ -104,7 +104,7 @@ class GBertEmbeddings(TextEmbeddings):
         super().__init__(device, embedding_dim)
         self.pretrained_name = pretrained_name
         self.tokenizer = AutoTokenizer.from_pretrained(pretrained_name, use_fast=True, cache_dir=".models/gbert", truncation_side='left')
-        self.bert = AutoModelForMaskedLM.from_pretrained(pretrained_name, cache_dir=".models/gbert-tokenizer", output_hidden_states = True).to(device)
+        self.bert = torch.compile(AutoModelForMaskedLM.from_pretrained(pretrained_name, cache_dir=".models/gbert-tokenizer", output_hidden_states = True).to(device))
 
 
     @torch.no_grad()
@@ -141,7 +141,7 @@ class FinetunedGBertEmbeddings(TextEmbeddings):
         super().__init__(device, embedding_dim)
         self.pretrained_name = pretrained_name
         self.tokenizer = AutoTokenizer.from_pretrained('deepset/gbert-large', use_fast=True, cache_dir=".models/gbert", truncation_side='left')
-        self.bert = AutoModelForMaskedLM.from_pretrained('.models/' + pretrained_name, output_hidden_states = True).to(device)
+        self.bert = torch.compile(AutoModelForMaskedLM.from_pretrained('.models/' + pretrained_name, output_hidden_states = True).to(device))
 
 
     @torch.no_grad()

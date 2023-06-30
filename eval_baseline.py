@@ -87,6 +87,7 @@ class Evaluator:
         self.exp_name_prefix = "TOP1_JOINTDATA_test_10noise_synonyms_intentpredictor_similarity"
    
         self.args = {
+            "language": "en", # "de"
             "configuration": SimulatorConfig(
                 mode = EnvironmentMode.TEST, # For eval: EnvironmentMode.TRAIN
                 action_masking = True,
@@ -113,10 +114,16 @@ class Evaluator:
         config : SimulatorConfig = self.args['configuration']
         print("MODE", config.mode.name) 
 
+        Data.LANGUAGE = self.args['language']
+        if JOINT_DATA == True:
+            Data.objects[0] = Data.Dataset.fromJSON(f"resources/{self.args['langauge']}/traintest_graph.json", version=0)
+            Data.objects[1] = Data.Dataset.fromJSON(f"resources/{self.args['langauge']}/traintest_graph.json", version=1)
+        else:
+            Data.objects[0] = Data.Dataset.fromJSON(f"resources/{self.args['langauge']}/train_graph.json", version=0)
+            Data.objects[1] = Data.Dataset.fromJSON(f"resources/{self.args['langauge']}/test_graph.json", version=1)
 
         # load text embedding
         text_embedding_name = "distiluse-base-multilingual-cased-v2"
-        EMBEDDINGS[text_embedding_name]['args'].pop('cache_db_index')
         self.text_enc = EMBEDDINGS[text_embedding_name]['class'](device=self.device, **EMBEDDINGS[text_embedding_name]['args'])
 
         self.exp_name = f"BASELINE_{self.exp_name_prefix}"
@@ -127,7 +134,7 @@ class Evaluator:
         self.tree = DialogTree(version=0 if config.mode in [EnvironmentMode.TRAIN, EnvironmentMode.EVAL] else 1)
 
         # load models
-        self.sentence_embeddings = AnswerSimilarityEncoding(model_name="distiluse-base-multilingual-cased-v2", dialog_tree=self.tree, device=self.device, caching=False)
+        self.sentence_embeddings = AnswerSimilarityEncoding(model_name="distiluse-base-multilingual-cased-v2", dialog_tree=self.tree, device=self.device)
         self.similarity_model = self.sentence_embeddings.similarity_model
         self.intent_tracker = IntentTracker(device=self.device, ckpt_dir='./.models/intentpredictor')
 
@@ -306,13 +313,6 @@ class Evaluator:
 if __name__ == "__main__":
     os.environ["TOKENIZERS_PARALLELISM"] = "true"
     
-    if JOINT_DATA == True:
-        Data.objects[0] = Data.Dataset.fromJSON('traintest_graph.json', version=0)
-        Data.objects[1] = Data.Dataset.fromJSON('traintest_graph.json', version=1)
-    else:
-        Data.objects[0] = Data.Dataset.fromJSON('train_graph.json', version=0)
-        Data.objects[1] = Data.Dataset.fromJSON('test_graph.json', version=1)
-
     evaluator = Evaluator()
     evaluator.setUp()
 

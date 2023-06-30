@@ -1,6 +1,4 @@
 from dataclasses import dataclass
-import redisai as rai
-import redis
 from enum import Enum
 from functools import reduce
 import itertools
@@ -96,13 +94,11 @@ class SpaceAdapterConfiguration(SpaceAdapterInput):
 class TextEmbeddingConfig:
     active: bool
     pooling: TextEmbeddingPooling
-    caching: bool
 
     def toJson(self):
         return {
             "active": self.active,
             "pooling": self.pooling.value,
-            "caching": self.caching,
         }
     
     @classmethod
@@ -131,13 +127,11 @@ class IntentEmbeddingConfig:
 class AnswerSimilarityEmbeddingConfig:
     active: bool
     model_name: str
-    caching: bool
 
     def toJson(self):
         return {
             "active": self.active,
             "model_name": self.model_name,
-            "caching": self.caching
         }
     
     @classmethod
@@ -149,19 +143,16 @@ class AnswerSimilarityEmbeddingConfig:
 
 
 class TextEncoderWrapper(Encoding):
-    def __init__(self, text_embedding: TextEmbeddings, pooling: TextEmbeddingPooling, encode_input_key: str, caching: bool, cache_connection: rai.Client = None, allow_noise: bool = True) -> None:
+    def __init__(self, text_embedding: TextEmbeddings, pooling: TextEmbeddingPooling, encode_input_key: str, allow_noise: bool = True) -> None:
         super().__init__(device=text_embedding.device)
         self.text_embedding = text_embedding
         self.pooling = pooling
         self.encode_input_key = encode_input_key 
-        self.caching = caching
         self.allow_noise = allow_noise
-        if caching:
-            self.cache_connection = cache_connection
 
     def encode(self, model: torch.nn.Module, noise: float, **kwargs) -> torch.FloatTensor:
         if self.encode_input_key == 'action_text':
-            return torch.cat([self._embed_text(answer.content.text, cache_prefix="a_", model=model, noise=noise) for answer in kwargs['dialog_node'].answers], dim=0).unsqueeze(0)
+            return torch.cat([self._embed_text(answer.content.text, model=model, noise=noise) for answer in kwargs['dialog_node'].answers], dim=0).unsqueeze(0)
         else:
             return self._embed_text(text=kwargs[self.encode_input_key], model=model, noise=noise)
 
@@ -169,21 +160,10 @@ class TextEncoderWrapper(Encoding):
         raise NotImplementedError
 
 
-    def _embed_text(self, text: str, cache_prefix="", model: torch.nn.Module = None, noise: float = 0.0):
+    def _embed_text(self, text: str, model: torch.nn.Module = None, noise: float = 0.0):
         embeddings = None
-        cache_key = f"{cache_prefix}{text}"
-        # encoding and caching
-        if self.caching and text and (not text.isnumeric()):
-            try:
-                embeddings = torch.tensor(self.cache_connection.tensorget(cache_key), device=self.text_embedding.device) # 1 x tokens x encoding_dim
-            except redis.exceptions.ResponseError:
-                # key does not exist
-                pass
-        if not torch.is_tensor(embeddings):
-            # key did not exist
-            embeddings = self.text_embedding.encode(text=text)
-            if self.caching and text and (not text.isnumeric()):
-                self.cache_connection.tensorset(cache_key, embeddings.clone().detach().cpu().numpy())
+        # encoding
+        embeddings = self.text_embedding.encode(text=text)
             
         # pooling of 1 x TOKENS x ENCODING_DIM
         if self.pooling == TextEmbeddingPooling.MEAN:
@@ -208,15 +188,15 @@ class TextEncoderWrapper(Encoding):
 
 
 class TextHistoryEncoderWrapper(Encoding):
-    def __init__(self, text_embedding: TextEmbeddings, pooling: TextEmbeddingPooling, encode_input_key: str, caching: bool, cache_connection: rai.Client = None) -> None:
+    def __init__(self, text_embedding: TextEmbeddings, pooling: TextEmbeddingPooling, encode_input_key: str) -> None:
         super().__init__(device=text_embedding.device)
         self.pooling = pooling
         if pooling == TextEmbeddingPooling.RNN:
-            self.sys_text_enc_wrapper = TextEncoderWrapper(text_embedding=text_embedding, pooling=TextEmbeddingPooling.MEAN, allow_noise=False, encode_input_key='dialog_node_text', caching=True, cache_connection=cache_connection)
-            self.usr_text_enc_wrapper = TextEncoderWrapper(text_embedding=text_embedding, pooling=TextEmbeddingPooling.MEAN, allow_noise=True, encode_input_key='current_user_utterance', caching=True, cache_connection=cache_connection)
+            self.sys_text_enc_wrapper = TextEncoderWrapper(text_embedding=text_embedding, pooling=TextEmbeddingPooling.MEAN, allow_noise=False, encode_input_key='dialog_node_text')
+            self.usr_text_enc_wrapper = TextEncoderWrapper(text_embedding=text_embedding, pooling=TextEmbeddingPooling.MEAN, allow_noise=True, encode_input_key='current_user_utterance')
         else:
             self.text_embedding = text_embedding
-            self.combined_text_enc_wrapper = TextEncoderWrapper(text_embedding=text_embedding, pooling=pooling, allow_noise=True, encode_input_key='dialog_history', caching=False, cache_connection=cache_connection)
+            self.combined_text_enc_wrapper = TextEncoderWrapper(text_embedding=text_embedding, pooling=pooling, allow_noise=True, encode_input_key='dialog_history')
     
     def encode(self, model: torch.nn.Module, dialog_history: str, noise: float, **kwargs) -> torch.FloatTensor:
         if self.pooling == TextEmbeddingPooling.RNN:
@@ -287,7 +267,7 @@ class SpaceAdapterSpaceInput(SpaceAdapterInput):
     action_text: TextEmbeddingConfig
     action_position: bool
 
-    def post_init(self, device: str, tree: DialogTree, text_embedding: TextEmbeddings, action_config: ActionConfig, stop_action: bool, cache_connection: rai.Client, **kwargs):
+    def post_init(self, device: str, tree: DialogTree, text_embedding: TextEmbeddings, action_config: ActionConfig, stop_action: bool, **kwargs):
         self.encoders = {}
         self.rnn_encoders = {}
         self.action_state_subvec_dim = 0
@@ -318,30 +298,30 @@ class SpaceAdapterSpaceInput(SpaceAdapterInput):
         if self.user_intent_prediction.active:
             self.encoders['user_intent_prediction'] = IntentEncoding(device=device, ckpt_dir=self.user_intent_prediction.ckpt_dir)
         if self.answer_similarity_embedding.active:
-            self.encoders['action_answer_similarity_embedding'] = AnswerSimilarityEncoding(device=device, dialog_tree=tree, model_name=self.answer_similarity_embedding.model_name, caching=self.answer_similarity_embedding.caching)
+            self.encoders['action_answer_similarity_embedding'] = AnswerSimilarityEncoding(device=device, dialog_tree=tree, model_name=self.answer_similarity_embedding.model_name)
             self.action_state_subvec_dim += 1
         else:
             print("NO ANSWER SIMILARITY EMBEDDING")
         if self.dialog_node_text.active:
-            text_enc = TextEncoderWrapper(text_embedding=text_embedding, pooling=self.dialog_node_text.pooling, allow_noise=False, encode_input_key='dialog_node_text', caching=self.dialog_node_text.caching, cache_connection=cache_connection)
+            text_enc = TextEncoderWrapper(text_embedding=text_embedding, pooling=self.dialog_node_text.pooling, allow_noise=False, encode_input_key='dialog_node_text')
             if self.dialog_node_text.pooling == TextEmbeddingPooling.RNN:
                 self.rnn_encoders['dialog_node_text'] = text_enc
             else:
                 self.encoders['dialog_node_text'] = text_enc
         if self.original_user_utterance.active:
-            text_enc = TextEncoderWrapper(text_embedding=text_embedding, pooling=self.original_user_utterance.pooling, allow_noise=True, encode_input_key='original_user_utterance', caching=self.original_user_utterance.caching, cache_connection=cache_connection)
+            text_enc = TextEncoderWrapper(text_embedding=text_embedding, pooling=self.original_user_utterance.pooling, allow_noise=True, encode_input_key='original_user_utterance')
             if self.original_user_utterance.pooling == TextEmbeddingPooling.RNN:
                 self.rnn_encoders['original_user_utterance'] = text_enc
             else:
                 self.encoders['original_user_utterance'] = text_enc
         if self.current_user_utterance.active:
-            text_enc = TextEncoderWrapper(text_embedding=text_embedding, pooling=self.current_user_utterance.pooling, allow_noise=True, encode_input_key='current_user_utterance', caching=self.current_user_utterance.caching, cache_connection=cache_connection)
+            text_enc = TextEncoderWrapper(text_embedding=text_embedding, pooling=self.current_user_utterance.pooling, allow_noise=True, encode_input_key='current_user_utterance')
             if self.current_user_utterance.pooling == TextEmbeddingPooling.RNN:
                 self.rnn_encoders['current_user_utterance'] = text_enc
             else:
                 self.encoders['current_user_utterance'] = text_enc
         if self.dialog_history.active:
-            text_enc = TextHistoryEncoderWrapper(text_embedding=text_embedding, pooling=self.dialog_history.pooling, encode_input_key='dialog_history', caching=self.dialog_history.caching, cache_connection=cache_connection)
+            text_enc = TextHistoryEncoderWrapper(text_embedding=text_embedding, pooling=self.dialog_history.pooling, encode_input_key='dialog_history')
             if self.dialog_history.pooling == TextEmbeddingPooling.RNN:
                 self.rnn_encoders['dialog_history'] = text_enc
             else:
@@ -349,7 +329,7 @@ class SpaceAdapterSpaceInput(SpaceAdapterInput):
         if self.action_text.active:
             if action_config == ActionConfig.ACTIONS_IN_ACTION_SPACE:
                 raise "Can't have action text embedding in action space"
-            text_enc = TextEncoderWrapper(text_embedding=text_embedding, pooling=self.action_text.pooling, allow_noise=False, encode_input_key='action_text', caching=self.action_text.caching, cache_connection=cache_connection)
+            text_enc = TextEncoderWrapper(text_embedding=text_embedding, pooling=self.action_text.pooling, allow_noise=False, encode_input_key='action_text')
             if self.action_text.pooling == TextEmbeddingPooling.RNN:
                 self.rnn_encoders['action_text'] = text_enc
             else:
@@ -426,15 +406,14 @@ class SpaceAdapterAttentionQueryInput(SpaceAdapterInput):
     input: List[str]
     aggregation: AttentionVectorAggregation
     pooling: TextEmbeddingPooling
-    caching: bool
     allow_noise: bool
 
-    def post_init(self, device: str, tree: DialogTree, text_embedding: TextEmbeddings, action_config: ActionConfig, action_masking: bool, cache_connection: rai.Client = None):
+    def post_init(self, device: str, tree: DialogTree, text_embedding: TextEmbeddings, action_config: ActionConfig, action_masking: bool):
         self.state_dim = 0
         self.encoders = {}
         assert self.pooling != TextEmbeddingPooling.NONE, "Need a pooling method for the attention query vectors!"
         for input_vector in self.input:
-            self.encoders[input_vector] = TextEncoderWrapper(text_embedding=text_embedding, allow_noise=self.allow_noise, pooling=self.pooling, encode_input_key=input_vector, caching=self.caching, cache_connection=cache_connection)
+            self.encoders[input_vector] = TextEncoderWrapper(text_embedding=text_embedding, allow_noise=self.allow_noise, pooling=self.pooling, encode_input_key=input_vector)
 
         if self.aggregation == AttentionVectorAggregation.CONCATENATE:
             self.state_dim += len(self.input) * text_embedding.get_encoding_dim()
@@ -461,7 +440,6 @@ class SpaceAdapterAttentionQueryInput(SpaceAdapterInput):
                 "input": self.input,
                 "aggregation": self.aggregation.value,
                 "pooling": self.pooling.value,
-                "caching": self.caching
             }
         }
 
@@ -480,7 +458,6 @@ class SpaceAdapterAttentionInput(SpaceAdapterInput):
     matrix: str
     activation: AttentionActivationConfig
     attention_mechanism: AttentionMechanismConfig
-    caching: bool
     allow_noise: bool
 
     def _encode_attention(self, model: torch.nn.Module, name: str, vectors: List[torch.FloatTensor], matrix: torch.FloatTensor, **kwargs) -> torch.FloatTensor:
@@ -489,15 +466,15 @@ class SpaceAdapterAttentionInput(SpaceAdapterInput):
             context.append(model.process_attention(name=name, query=vector, matrix=matrix))
         return context
 
-    def post_init(self, device: str, tree: DialogTree, text_embedding: TextEmbeddings, action_config: ActionConfig, action_masking: bool, cache_connection: rai.Client = None):
+    def post_init(self, device: str, tree: DialogTree, text_embedding: TextEmbeddings, action_config: ActionConfig, action_masking: bool):
         self.device = device
         if self.active:
-            self.queries.post_init(device, tree, text_embedding, action_config, action_masking, cache_connection)
+            self.queries.post_init(device, tree, text_embedding, action_config, action_masking)
             self.state_dim = self.queries.get_state_dim()
             if self.matrix == 'dialog_history':
-                self.matrix_enc = TextHistoryEncoderWrapper(text_embedding=text_embedding, pooling=TextEmbeddingPooling.NONE, encode_input_key=self.matrix, caching=self.caching, cache_connection=cache_connection)
+                self.matrix_enc = TextHistoryEncoderWrapper(text_embedding=text_embedding, pooling=TextEmbeddingPooling.NONE, encode_input_key=self.matrix)
             else:
-                self.matrix_enc = TextEncoderWrapper(text_embedding=text_embedding, pooling=TextEmbeddingPooling.NONE, allow_noise=self.allow_noise, encode_input_key=self.matrix, caching=self.caching, cache_connection=cache_connection)
+                self.matrix_enc = TextEncoderWrapper(text_embedding=text_embedding, pooling=TextEmbeddingPooling.NONE, allow_noise=self.allow_noise, encode_input_key=self.matrix)
         else:
             self.state_dim = 0
 
@@ -546,7 +523,6 @@ class SpaceAdapterAttentionInput(SpaceAdapterInput):
             "matrix": self.matrix,
             "activation": self.activation.value,
             "attention_mechanism": self.attention_mechanism.value,
-            "caching": self.caching
         }
     
     @classmethod

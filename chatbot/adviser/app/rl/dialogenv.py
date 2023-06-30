@@ -98,20 +98,12 @@ class DialogEnvironment(gym.Env):
 
         # auto-skipping (text level)
         # if auto_skip:
-        #   self.similarity_model = AnswerSimilarityEncoding(device=adapter.device, model_name='distiluse-base-multilingual-cased-v2', dialog_tree=dialog_tree, caching=True)
+        #   self.similarity_model = AnswerSimilarityEncoding(device=adapter.device, model_name='distiluse-base-multilingual-cased-v2', dialog_tree=dialog_tree)
 
         self.episode_log = []
-        self.log_to_file = log_to_file
         if not isinstance(log_to_file, type(None)):
+            self.logger = log_to_file
             print("Single Env: Logging to file", log_to_file)
-            if not isinstance(log_to_file, logging.Logger):
-                print("No log handler - Creating one ")
-                self.logger = logging.getLogger("env" + mode.name)
-                file_handler = logging.FileHandler(log_to_file, mode='w')
-                file_handler.setLevel(logging.INFO)
-                self.logger.addHandler(file_handler)
-            else:
-                self.logger = log_to_file
         else:
             print("Single env - no logger - logging to console for mode: ", mode.name)
             self.logger = logging.getLogger("env" + mode.name)
@@ -150,8 +142,8 @@ class DialogEnvironment(gym.Env):
     
     def get_coverage_variables(self):
         return {
-            "STADT": len(self.coverage_variables["STADT"]) / Data.objects[self.version].count_cities(),
-            "LAND": len(self.coverage_variables["LAND"]) / Data.objects[self.version].count_countries()
+            "CITY": len(self.coverage_variables["CITY"]) / Data.objects[self.version].count_cities(),
+            "COUNTRY": len(self.coverage_variables["COUNTRY"]) / Data.objects[self.version].count_countries()
         }
 
     def _transform_dialog_history(self):
@@ -909,19 +901,9 @@ class ParallelDialogEnvironment(gym.Env):
                     use_joint_dataset: bool = False) -> None:
         
         self.adapter = adapter
-        self.log_to_file = log_to_file
 
         # logging
-        if log_to_file:
-            self.logger = logging.getLogger("env" + mode.name)
-            self.logger.setLevel(logging.INFO)
-            print("ParallelEnv: Logging to file", log_to_file)
-            print("ParallelEnv: No log handler - creating one")
-            file_handler = logging.FileHandler(log_to_file, mode='w')
-            file_handler.setLevel(logging.INFO)
-            self.logger.addHandler(file_handler)
-        else:
-            self.logger = None
+        self.logger = log_to_file
 
         # # load dialog tree info
         self.dialogTree = dialog_tree
@@ -1053,6 +1035,6 @@ class ParallelDialogEnvironment(gym.Env):
     
     def get_coverage_variables(self):
         return {
-            "STADT": len(reduce(lambda d1, d2: set(d1).union(d2), [env.coverage_variables["STADT"].keys() for env in self.envs])) / Data.objects[self.version].count_cities(),
-            "LAND": len(reduce(lambda d1, d2: set(d1).union(d2), [env.coverage_variables["LAND"].keys() for env in self.envs])) / Data.objects[self.version].count_countries()
+            "CITY": len(reduce(lambda d1, d2: set(d1).union(d2), [env.coverage_variables["CITY"].keys() for env in self.envs])) / Data.objects[self.version].count_cities(),
+            "COUNTRY": len(reduce(lambda d1, d2: set(d1).union(d2), [env.coverage_variables["COUNTRY"].keys() for env in self.envs])) / Data.objects[self.version].count_countries()
         }

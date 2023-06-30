@@ -13,21 +13,21 @@ from copy import deepcopy
 import json
 import chatbot.adviser.app.rl.dataset as Data
 
-resource_dir = Path(".", 'chatbot', 'static', 'chatbot', 'faq_cache')
-nlu_resource_dir = Path(".", 'chatbot', 'static', 'chatbot', 'nlu_resources')
+
+resource_dir = Path(".", 'resources')
 
 # TODO load location values once and then cache instead of reloading every time a new goal is drawn
 class LocationValues:
     def __init__(self) -> None:
         # class for recognizing country and city names as well as time expressions in text
-        with open(nlu_resource_dir / 'country_synonyms.json', 'r') as f:
+        with open(resource_dir / Data.LANGUAGE / 'country_synonyms.json', 'r') as f:
             country_synonyms = json.load(f)
             self.country_keys = [country.lower() for country in country_synonyms.keys()]
             self.countries = {country.lower(): country for country in country_synonyms.keys()}
             self.countries.update({country_syn.lower(): country for country, country_syns in country_synonyms.items()
                                     for country_syn in country_syns})
 
-        with open(nlu_resource_dir / 'city_synonyms.json', 'r') as f:
+        with open(resource_dir / Data.LANGUAGE /'city_synonyms.json', 'r') as f:
             city_synonyms = json.load(f)
             self.city_keys = [city.lower() for city in city_synonyms.keys()]
             self.cities = {city.lower(): city for city in city_synonyms.keys() if city != '$REST'}
@@ -190,7 +190,7 @@ class VariableValue:
         elif self.var_type == "NUMBER":
             return self._draw_number()
         elif self.var_type == "LOCATION":
-            if "land" in self.var_name.lower():
+            if "COUNTRY" in self.var_name.upper():
                 land = random.choice(list(locations.countries.keys()))
                 while land.lower() in set([val.lower() for val in self.neq_condition]):
                     land = random.choice(list(locations.countries.keys()))
@@ -260,9 +260,9 @@ class UserGoal:
             if not var in self.variables:
                 # draw random value
                 value = None
-                if var == "LAND":
+                if var == "COUNTRY":
                     value = locations.countries[random.choice(locations.country_keys)]
-                elif var == "STADT":
+                elif var == "CITY":
                     value = locations.cities[random.choice(locations.city_keys)]
                 substitution_vars[var] = value
             else:
@@ -432,13 +432,13 @@ class UserGoalGenerator:
         # setup or load cache
         # TODO delete cache on save after serializer
         # TODO add code from google colab 
-        if not (resource_dir / "translations.txt").exists():
+        if not (resource_dir / Data.LANGUAGE / "translations.txt").exists():
             # TODO translate node texts ( and answer texts ?)
             pass
-        if not (resource_dir / "generated.txt").exists():
+        if not (resource_dir / Data.LANGUAGE / "generated.txt").exists():
             # TODO generate new questions
             pass
-        if not (resource_dir / "paraphrased.txt").exists():
+        if not (resource_dir / Data.LANGUAGE / "paraphrased.txt").exists():
             # TODO paraphrase questions
             pass
 

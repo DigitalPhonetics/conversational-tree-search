@@ -44,14 +44,14 @@ class SimilarityMatchingNLU(Service):
 		# Check that mentioned locations are valid. If so, add to beliefstate
 		for slot in locations: 
 			location_value = locations[slot][0]
-			if slot == "LAND":
+			if slot == "COUNTRY":
 				# check that country is known to our database
 				if Tagegeld.objects.filter(land__iexact=location_value).exists():
 					beliefstate[slot] = Tagegeld.objects.filter(land__iexact=location_value).first().land
 					self.set_state(user_id, "beliefstate", beliefstate)
 				else:
 					acts.append(UserAct(act_type=UserActionType.UnrecognizedValue, slot=slot, value=location_value))
-			elif slot == "STADT":
+			elif slot == "CITY":
 				# check that the city is (hopefully) not an emty expression
 				if len(location_value) >= 2:
 					if Tagegeld.objects.filter(stadt__iexact=location_value).exists():
@@ -131,19 +131,19 @@ class SimilarityMatchingNLU(Service):
 				if len(locations[slot]) > 1:
 					acts.append(UserAct(act_type=UserActionType.TooManyValues, slot=slot, value=f'"{", ".join(locations[slot])}"'))
 			# Check that mentioned locations are valid. If so, add to beliefstate
-			if expected_var.name == "LAND" and not locations:
+			if expected_var.name == "COUNTRY" and not locations:
 				# only check for invalid countries; for cities, we don't have an exhaustive list
 				acts.append(UserAct(act_type=UserActionType.UnrecognizedValue, slot=expected_var.name, value=user_utterance))
 			for slot in locations:
 				location_value = locations[slot][0]
-				if slot == "LAND":
+				if slot == "COUNTRY":
 					# check that country is known to our database
 					if Tagegeld.objects.filter(land__iexact=location_value).exists():
 						beliefstate[expected_var.name] = Tagegeld.objects.filter(land__iexact=location_value).first().land
 						self.set_state(user_id, "beliefstate", beliefstate)
 					else:
 						acts.append(UserAct(act_type=UserActionType.UnrecognizedValue, slot=slot, value=location_value))
-				elif slot == "STADT":
+				elif slot == "CITY":
 					# check that the city is (hopefully) not an emty expression
 					if Tagegeld.objects.filter(stadt__iexact=location_value).exists():
 						beliefstate[expected_var.name] = location_value
@@ -151,7 +151,7 @@ class SimilarityMatchingNLU(Service):
 					else:
 						beliefstate[expected_var.name] = "$REST" # city unkown -> no special rules
 						self.set_state(user_id, "beliefstate", beliefstate)
-			if expected_var.name == "STADT" and "STADT" not in locations:
+			if expected_var.name == "CITY" and "CITY" not in locations:
 				# City that we don't know from table
 				location_value = user_utterance.strip()
 				if len(location_value) >= 2:

@@ -5,12 +5,8 @@ import datetime
 from django.conf import settings
 from pathlib import Path
 
-if settings.DEBUG:
-    resource_dir = Path(settings.BASE_DIR, 'chatbot', 'static', 'chatbot', 'nlu_resources')
-else:
-    resource_dir = Path(settings.STATIC_ROOT, 'chatbot', 'nlu_resources')
-print("STATIC DIR", resource_dir)
-
+import chatbot.adviser.app.rl.dataset as Data
+resource_dir = Path(".", 'resources', Data.LANGUAGE)
 
 with open(resource_dir / 'numbers.json', 'r') as f:
     NUMBERS = json.load(f)
@@ -353,8 +349,8 @@ class NLU:
         found_cities = re.findall(city_regex, user_utterance)
 
         return {
-            'STADT': [self.cities[city] for city in found_cities],  # list of city names
-            'LAND': [self.countries[country] for country in found_countries]  # list of country names
+            "CITY": [self.cities[city] for city in found_cities],  # list of city names
+            "COUNTRY": [self.countries[country] for country in found_countries]  # list of country names
         }
 
     def extract_time(self, user_utterance: str):

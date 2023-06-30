@@ -11,7 +11,8 @@ import torch
 
 from chatbot.adviser.app.encoding.text import FinetunedGBertEmbeddings, GBertEmbeddings, SentenceEmbeddings
 
-resource_dir = Path(".", 'chatbot', 'static', 'chatbot', 'nlu_resources')
+import chatbot.adviser.app.rl.dataset as Data
+resource_dir = Path(".", 'resources')
 
 class StateEntry(Enum):
     DIALOG_NODE = 'dialog_node'
@@ -115,7 +116,7 @@ def _save_checkpoint(global_step: int, episode_counter: int, train_counter: int,
         "torch_rng": torch_rng,
         "numpy_rng": numpy_rng,
         "rand_rng": rand_rng
-    }, f"/mount/arbeitsdaten/asr-2/vaethdk/adviser_reisekosten/newruns/{run_name}/ckpt_{global_step}.pt")
+    }, f"/mount/arbeitsdaten/asr-2/vaethdk/adviser_reisekosten/newruns_en/{run_name}/ckpt_{global_step}.pt")
 
 
 
@@ -125,7 +126,6 @@ EMBEDDINGS = {
         'args': {
             'pretrained_name': 'deepset/gbert-large',
             'embedding_dim': 1024,
-            'cache_db_index': 0
         }
     },
     'finetuned-gbert-large': {
@@ -133,7 +133,6 @@ EMBEDDINGS = {
         'args': {
             'pretrained_name': 'gbert-finetuned',
             'embedding_dim': 1024,
-            'cache_db_index': 1
         }
     },
     'cross-en-de-roberta-sentence-transformer': {
@@ -141,7 +140,6 @@ EMBEDDINGS = {
         'args': {
             'pretrained_name': 'T-Systems-onsite/cross-en-de-roberta-sentence-transformer',
             'embedding_dim': 768,
-            'cache_db_index': 2
         }
     },
     'distiluse-base-multilingual-cased-v2': {
@@ -149,9 +147,22 @@ EMBEDDINGS = {
         'args': {
             'pretrained_name': 'distiluse-base-multilingual-cased-v2',
             'embedding_dim': 512,
-            'cache_db_index': 3
         }
     },
+    'all-mpnet-base-v2': {
+        'class': SentenceEmbeddings,
+        'args': {
+            'pretrained_name': 'all-mpnet-base-v2',
+            'embedding_dim': 768,
+        }
+    },
+    'all-distilroberta-v1': {
+        'class': SentenceEmbeddings,
+        'args': {
+            'pretrained_name': 'all-distilroberta-v1',
+            'embedding_dim': 768,
+        }
+    }
 }
 
 
@@ -183,16 +194,18 @@ def _load_answer_synonyms(mode: EnvironmentMode, use_synonyms: bool, use_joint_d
         else:
             path = "test_answers.json"
     answers = None
-    with open(path, "r") as f:
+    with open(resource_dir / Data.LANGUAGE / path, "r") as f:
         answers = json.load(f)
+        # lowercase keys
+        answers = {answer.lower(): answers[answer] for answer in answers}
     if not use_synonyms:
         # choose key to have same data for train and test set
-        answers = {answer: [answer] for answer in answers}
+        answers = {answer.lower(): [answer] for answer in answers}
     return answers
 
 def _load_a1_laenderliste():
     a1_laenderliste = None
-    with open(resource_dir / "a1_countries.json", "r") as f:
+    with open(resource_dir /  Data.LANGUAGE / "a1_countries.json", "r") as f:
         a1_laenderliste = json.load(f)
     return a1_laenderliste
 

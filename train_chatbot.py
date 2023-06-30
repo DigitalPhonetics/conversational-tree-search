@@ -1,10 +1,12 @@
+LANGAUGE = "en" # "de"
+import chatbot.adviser.app.rl.dataset as Data
+Data.LANGUAGE = LANGAUGE
+
 from copy import deepcopy
-from operator import countOf
+import logging
 from statistics import mean
 from typing import Any, Dict, List
-import wandb
 from functools import reduce
-import redisai as rai
 from multiprocessing import Process
 
 import json
@@ -15,7 +17,7 @@ from chatbot.adviser.app.encoding.text import TextEmbeddingPooling
 
 from chatbot.adviser.app.rl.dialogenv import EnvironmentMode, ParallelDialogEnvironment
 from chatbot.adviser.app.rl.dialogtree import DialogTree
-import chatbot.adviser.app.rl.dataset as Data
+
 from chatbot.adviser.app.rl.layers.attention.attention_factory import AttentionActivationConfig, AttentionMechanismConfig, AttentionVectorAggregation
 from chatbot.adviser.app.rl.spaceAdapter import AnswerSimilarityEmbeddingConfig, IntentEmbeddingConfig, SpaceAdapter, ActionConfig, SpaceAdapterAttentionInput, SpaceAdapterAttentionQueryInput, SpaceAdapterConfiguration, SpaceAdapterSpaceInput, TextEmbeddingConfig
 from chatbot.adviser.app.rl.utils import EMBEDDINGS, AutoSkipMode, AverageMetric, EnvInfo, ExperimentLogging, _del_checkpoint, _get_file_hash, _munchausen_stable_logsoftmax, _munchausen_stable_softmax, _save_checkpoint, safe_division
@@ -29,6 +31,7 @@ import numpy as np
 import torch.nn.functional as F
 from torch.nn.utils.rnn import pack_sequence
 
+import wandb
 
 
 EXPERIMENT_LOGGING = ExperimentLogging.ONLINE
@@ -40,14 +43,15 @@ class Trainer:
 
         # REMOVE AUTOSKIP ARG FROM SIMULATION
         # ADD stop_action ARG TO CONFIGURATION
-        # ADD noise ARG TO STATE TEXT INPUTS
-        seed = 12345678
-        self.exp_name_prefix = "V9_NEWARCH_NOTEXTS"
+        # ADD noise ARG TO STATE TEXT INPUTSAi
+        seed = 9546370
+        self.exp_name_prefix = "EN_RESET_NOCACHE"
    
         self.args = {
+            "language": LANGAUGE,
             "spaceadapter": {
                 "configuration": SpaceAdapterConfiguration(
-                    text_embedding="cross-en-de-roberta-sentence-transformer", #'distiluse-base-multilingual-cased-v2', # 'gbert-large' # 'cross-en-de-roberta-sentence-transformer',
+                    text_embedding="all-mpnet-base-v2", #'distiluse-base-multilingual-cased-v2', # 'gbert-large' # 'cross-en-de-roberta-sentence-transformer', 'all-mpnet-base-v2'
                     action_config=ActionConfig.ACTIONS_IN_STATE_SPACE,
                     action_masking=True,
                     stop_action=False,
@@ -65,33 +69,27 @@ class Trainer:
                     ),
                     answer_similarity_embedding=AnswerSimilarityEmbeddingConfig(
                         active=False,
-                        model_name='distiluse-base-multilingual-cased-v2',
-                        caching=True,
+                        model_name='all-mpnet-base-v2',
                     ),
                     dialog_node_text=TextEmbeddingConfig(
-                        active=False,
+                        active=True,
                         pooling=TextEmbeddingPooling.MEAN,
-                        caching=True,
                     ),
                     original_user_utterance=TextEmbeddingConfig(
                         active=True,
                         pooling=TextEmbeddingPooling.MEAN,
-                        caching=True,
                     ),
                     current_user_utterance=TextEmbeddingConfig(
                         active=True,
                         pooling=TextEmbeddingPooling.MEAN,
-                        caching=True,
                     ),
                     dialog_history=TextEmbeddingConfig(
                         active=True,
                         pooling=TextEmbeddingPooling.MEAN,
-                        caching=False,
                     ),
                     action_text=TextEmbeddingConfig(
-                        active=False,
+                        active=True,
                         pooling=TextEmbeddingPooling.MEAN,
-                        caching=True,
                     ),
                     action_position=True
                 ),
@@ -104,13 +102,11 @@ class Trainer:
                                     'original_user_utterance'],
                             pooling=TextEmbeddingPooling.CLS,
                             aggregation=AttentionVectorAggregation.SUM,
-                            caching=True,
                             allow_noise=True
                         ),
                         matrix="dialog_node_text",
                         activation=AttentionActivationConfig.NONE,
                         attention_mechanism=AttentionMechanismConfig.ADDITIVE,
-                        caching=False,
                         allow_noise=False
                     ),
                     SpaceAdapterAttentionInput(
@@ -121,13 +117,11 @@ class Trainer:
                                     'original_user_utterance'],
                             pooling=TextEmbeddingPooling.CLS,
                             aggregation=AttentionVectorAggregation.MAX,
-                            caching=True,
                             allow_noise=True
                         ),
                         matrix="dialog_history",
                         activation=AttentionActivationConfig.NONE,
                         attention_mechanism=AttentionMechanismConfig.ADDITIVE,
-                        caching=False,
                         allow_noise=False
                     )
                 ]
@@ -209,6 +203,11 @@ class Trainer:
         torch.manual_seed(self.args["experiment"]["seed"])
         torch.backends.cudnn.deterministic = self.args["experiment"]["cudnn_deterministic"]
 
+        # Load data
+        Data.LANGUAGE = self.args['language']
+        Data.objects[0] = Data.Dataset.fromJSON(f"resources/{self.args['language']}/train_graph.json", version=0)
+        Data.objects[1] = Data.Dataset.fromJSON(f"resources/{self.args['language']}/test_graph.json", version=1)
+
         # load dialog tree
         print("Loading data...")
         self.tree = DialogTree(version=0)
@@ -217,7 +216,6 @@ class Trainer:
         # load text embedding
         print("Loading embeddings...")
         text_embedding_name = self.args['spaceadapter']['configuration'].text_embedding
-        self.cache_conn = rai.Client(host='localhost', port=64123, db=EMBEDDINGS[text_embedding_name]['args'].pop('cache_db_index'))
         self.text_enc = EMBEDDINGS[text_embedding_name]['class'](device=self.device, **EMBEDDINGS[text_embedding_name]['args'])
 
         # post-init spaceadapter 
@@ -226,9 +224,9 @@ class Trainer:
         self.spaceadapter_state: SpaceAdapterSpaceInput = self.args['spaceadapter']['state']
         self.spaceadapter_attention: List[SpaceAdapterAttentionInput] = self.args['spaceadapter']['attention']
         self.spaceadapter_config.post_init(tree=self.tree)
-        self.spaceadapter_state.post_init(device=self.device, tree=self.tree, text_embedding=self.text_enc, action_config=self.spaceadapter_config.action_config, action_masking=self.spaceadapter_config.action_masking, stop_action=self.spaceadapter_config.stop_action, cache_connection=self.cache_conn)
+        self.spaceadapter_state.post_init(device=self.device, tree=self.tree, text_embedding=self.text_enc, action_config=self.spaceadapter_config.action_config, action_masking=self.spaceadapter_config.action_masking, stop_action=self.spaceadapter_config.stop_action)
         for attn in self.spaceadapter_attention:
-            attn.post_init(device=self.device, tree=self.tree, text_embedding=self.text_enc, action_config=self.spaceadapter_config.action_config, action_masking=self.spaceadapter_config.action_masking, cache_connection=self.cache_conn)
+            attn.post_init(device=self.device, tree=self.tree, text_embedding=self.text_enc, action_config=self.spaceadapter_config.action_config, action_masking=self.spaceadapter_config.action_masking)
 
         # prepare directories
         spaceadapter_json = self.spaceadapter_config.toJson() | self.spaceadapter_state.toJson() | {"attention": [attn.toJson() for attn in self.spaceadapter_attention]}
@@ -245,7 +243,9 @@ class Trainer:
             os.makedirs(f"/mount/arbeitsdaten/asr-2/vaethdk/adviser_reisekosten/newruns_en/{self.run_name}")
             os.makedirs(f"/fs/scratch/users/vaethdk/adviser_reisekosten/newruns_en/{self.run_name}")
             log_to_file_eval = f"/fs/scratch/users/vaethdk/adviser_reisekosten/newruns_en/{self.run_name}/eval_dialogs.txt"
+            print("Logging EVAL dialogs to file", log_to_file_eval)
             log_to_file_test = f"/fs/scratch/users/vaethdk/adviser_reisekosten/newruns_en/{self.run_name}/test_dialogs.txt"
+            print("Logging TEST dialogs to file", log_to_file_test)
             
             eval_logger = logging.getLogger("env" + "EVAL")
             eval_file_handler = logging.FileHandler(log_to_file_eval, mode='w')
@@ -277,7 +277,7 @@ class Trainer:
             if not isinstance(self.adapter.stateinput.answer_similarity_embedding, type(None)):
                 similarity_model = self.adapter.stateinput.encoders['action_answer_similarity_embedding']
             else:
-                similarity_model = AnswerSimilarityEncoding(model_name="distiluse-base-multilingual-cased-v2", dialog_tree=self.tree, device=self.device, caching=True)
+                similarity_model = AnswerSimilarityEncoding(model_name="distiluse-base-multilingual-cased-v2", dialog_tree=self.tree, device=self.device)
        
         dialog_faq_ratio = self.args['simulation'].pop('dialog_faq_ratio')
 
@@ -296,7 +296,7 @@ class Trainer:
         if EXPERIMENT_LOGGING != ExperimentLogging.NONE:
             # write code 
             wandb.init(project="cts_en", config=(spaceadapter_json | args), save_code=True, name=self.exp_name, settings=wandb.Settings(code_dir="/fs/scratch/users/vaethdk/cts_english/chatbot/management/commands"))
-            wandb.config.update({'datasetversion': _get_file_hash('train_graph.json')}) # log dataset version hash
+            wandb.config.update({'datasetversion': _get_file_hash(f'resources/{Data.LANGUAGE}/train_graph.json')}) # log dataset version hash
 
         #
         # network setup
@@ -512,7 +512,7 @@ class Trainer:
         """
         self.model.eval()
 
-        if EXPERIMENT_LOGGING != ExperimentLogging.NONE and env.log_to_file:
+        if EXPERIMENT_LOGGING != ExperimentLogging.NONE and env.logger:
             env.logger.info(f"=========== EVAL AT STEP {eval_dialogs}, PHASE {eval_phase} ============")
         
         eval_metrics = {
@@ -852,9 +852,6 @@ class Trainer:
 
 if __name__ == "__main__":
     os.environ["TOKENIZERS_PARALLELISM"] = "true"
-
-    Data.objects[0] = Data.Dataset.fromJSON('train_graph.json', version=0)
-    Data.objects[1] = Data.Dataset.fromJSON('test_graph.json', version=1)
 
     trainer = Trainer()
     trainer.setUp()
