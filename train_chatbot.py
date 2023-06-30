@@ -45,7 +45,7 @@ class Trainer:
         # ADD stop_action ARG TO CONFIGURATION
         # ADD noise ARG TO STATE TEXT INPUTSAi
         seed = 9546370
-        self.exp_name_prefix = "EN_FIXED_MUENCHAUSEN"
+        self.exp_name_prefix = "EN_FIXED_POSITIONAL_EMBEDDING"
    
         self.args = {
             "language": LANGAUGE,

@@ -31,7 +31,7 @@ class TreePositionEncoding(Encoding):
         Returns:
             torch.FloatTensor (1 x encoding_dim)
         """
-        return torch.tensor([[int(bit) for bit in self.node_mapping[dialog_node.key].zfill(self.encodings_length)]], dtype=torch.float, device=self.device)
+        return torch.tensor([self.node_mapping[dialog_node.key]], dtype=torch.float, device=self.device)
 
     @torch.no_grad()
     def batch_encode(self, dialog_node: List[DialogNode], **kwargs) -> torch.FloatTensor:
@@ -39,7 +39,7 @@ class TreePositionEncoding(Encoding):
         Returns:
             torch.FloatTensor (batch x encoding_dim)
         """
-        return torch.tensor([[int(bit) for bit in self.node_mapping[node.key].zfill(self.encodings_length)] for node in dialog_node], dtype=torch.float, device=self.device)
+        return torch.tensor([self.node_mapping[node.key] for node in dialog_node], dtype=torch.float, device=self.device)
 
 
     def get_encoding_dim(self) -> int:
@@ -48,7 +48,6 @@ class TreePositionEncoding(Encoding):
     def _get_start_node(self) -> DialogNode:
         """ Returns the start node in a safe way """
         startNode = Data.objects[0].node_by_key(Data.objects[0].start_node().connected_node_key)
-        # startNode = DialogNode.objects.get(node_type="startNode", version=0).connected_node
         assert startNode.node_type != "startNode"
         return startNode
 
@@ -78,27 +77,25 @@ class TreePositionEncoding(Encoding):
                 if node.key in visited_node_ids:
                     continue # break loops
                 visited_node_ids.add(node.key)
-                # for answer in node.answers.all().order_by("answer_index"):
-                for answer in node.answers:
-                    # if answer.connected_node:
-                    if answer.connected_node_key:
-                        # append binary node answer index to path leading to current node, padded to max level degree
-                        new_path = node_path + f"{answer.answer_index:b}".zfill(max_node_degree)
-                        # encodings_map[answer.connected_node.key] = new_path
-                        encodings_map[answer.connected_node_key] = new_path
-                        # next_level_nodes.append((new_path, answer.connected_node))
-                        next_level_nodes.append((new_path, Data.objects[0].node_by_key(answer.connected_node_key)))
-                # if node.connected_node:
-                if node.connected_node_key:
-                    new_path = node_path + "1".zfill(max_node_degree) # if no answers but connected node -> answer index = 1
-                    # encodings_map[node.connected_node.key] = new_path
+                
+                if node.connected_node_key and not node.connected_node_key in visited_node_ids:
+                    new_path = "1".rjust(max_node_degree, "0") + node_path # if no answers but connected node -> answer index = 1
                     encodings_map[node.connected_node_key] = new_path
-                    # next_level_nodes.append((new_path, node.connected_node))
-                    next_level_nodes.append((new_path, Data.objects[0].node_by_key(node.connected_node_key)))
+                    next_level_nodes.append((new_path, Data.objects[0].node_by_key(node.connected_node)))
+                else:
+                    for answer in node.answers:
+                        if answer.connected_node_key and not answer.connected_node_key in visited_node_ids:
+                            # append binary node answer index to path leading to current node, padded to max level degree
+                            new_path = "".join(str(i) for i in F.one_hot(torch.tensor([answer.answer_index]), num_classes=max_node_degree).squeeze(0).tolist()) + node_path
+                            encodings_map[answer.connected_node_key] = new_path
+                            next_level_nodes.append((new_path, Data.objects[0].node_by_key(answer.connected_node_key)))
             current_level_nodes = next_level_nodes
 
         print("Done")
-        return encodings_map, encoding_length
+        # pad all encodings to final length
+        return {key: [int(char) for char in encodings_map[key].rjust(encoding_length, '0')] for key in encodings_map}, encoding_length
+
+
 
 
 class NodeTypeEncoding(Encoding):
