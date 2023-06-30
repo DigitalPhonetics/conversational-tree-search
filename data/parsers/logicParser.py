@@ -120,16 +120,3 @@ class LogicTransformer(Transformer):
     def template(self, *args) -> bool:
         return args[0] # there is only 1 arg (final truth value)
 
-
-# if __name__ == "__main__":
-#     # template_str = '{{ True == False }}'
-#     template_str = '{{ 2*TAGEGELD.satz(2+3, "dasd", TAGEGELD.satz(STADT)) > 30  OR (10 > 20 AND 10 > 20) }}'
-#     # template_str = '{{ 300-100 DEFAULT }}'
-#     print("original template")
-#     print(template_str)
-#     print("===========")
-#     parser = LogicTemplateParser()
-
-#     print("Filled Template")
-#     db = MockDB()
-#     print(parser.parse_template(template_str, db))

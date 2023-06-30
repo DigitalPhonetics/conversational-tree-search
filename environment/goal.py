@@ -185,7 +185,7 @@ class VariableValue:
             else:
                 city = random.choice(list(data.cities.keys()))
                 while city.lower() in [val.lower() for val in self.neq_condition]:
-                    city = random.choice(list(data.stadt.keys()))
+                    city = random.choice(list(data.cities.keys()))
                 return city
         elif self.var_type == "TIMESPAN":
             # TODO implement
@@ -264,9 +264,9 @@ class UserGoal:
                 # draw random value
                 value = None
                 if var == "COUNTRY":
-                    value = data.countries[random.choice(data.country_keys)]
+                    value = data.countries[random.choice(list(data.countries.keys()))]
                 elif var == "CITY":
-                    value = data.cities[random.choice(data.city_keys)]
+                    value = data.cities[random.choice(list(data.cities.keys()))]
                 substitution_vars[var] = value
             else:
                 substitution_vars[var] = self.variables[var]

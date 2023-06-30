@@ -108,7 +108,7 @@ def load_cfg(cfg):
         )
         run_id = run.id
         callbacks.append(WandbCallback(
-            model_save_path=f"/mount/arbeitsdaten/asr-2/vaethdk/tmp_debugging_weights/{run_id}",
+            model_save_path=f"/mount/arbeitsdaten/asr-2/vaethdk/tmp_debugging_weights_improvements/{run_id}",
             verbose=2)
         )
     else:
@@ -125,26 +125,26 @@ def load_cfg(cfg):
         train_env = VecMonitor(train_env)
     if "validation" in cfg.experiment and not isinstance(cfg.experiment.validation, type(None)): 
         val_data, cache, state_encoding, val_env = setup_data_and_vecenv(device=cfg.experiment.device, dataset_cfg=cfg.experiment.validation.dataset, environment_cfg=cfg.experiment.environment,
-                                                                        mode="val", n_envs=cfg.experiment.environment.num_val_envs, log_dir=f"/mount/arbeitsdaten/asr-2/vaethdk/tmp_debugging_weights/{run_id}/best_eval/monitor_logs",
+                                                                        mode="val", n_envs=cfg.experiment.environment.num_val_envs, log_dir=f"/mount/arbeitsdaten/asr-2/vaethdk/tmp_debugging_weights_improvements/{run_id}/best_eval/monitor_logs",
                                                                         cache=cache, encoding=state_encoding,
                                                                         state_config=cfg.experiment.state, action_config=cfg.experiment.actions,
                                                                         torch_compile=cfg.experiment.torch_compile)
         callbacks.append(CustomEvalCallback(eval_env=val_env, mode='eval',
-                             best_model_save_path=f"/mount/arbeitsdaten/asr-2/vaethdk/tmp_debugging_weights/{run_id}/best_eval/weights",
-                             log_path=f"/mount/arbeitsdaten/asr-2/vaethdk/tmp_debugging_weights/{run_id}/best_eval/logs",
+                             best_model_save_path=f"/mount/arbeitsdaten/asr-2/vaethdk/tmp_debugging_weights_improvements/{run_id}/best_eval/weights",
+                             log_path=f"/mount/arbeitsdaten/asr-2/vaethdk/tmp_debugging_weights_improvements/{run_id}/best_eval/logs",
                              eval_freq=max(cfg.experiment.validation.every_steps // cfg.experiment.environment.num_val_envs, 1),
                              deterministic=True, 
                              render=False,
                              n_eval_episodes=cfg.experiment.validation.dialogs))
     if "testing" in cfg.experiment and not isinstance(cfg.experiment.testing, type(None)):
         test_data, cache, state_encoding, test_env = setup_data_and_vecenv(device=cfg.experiment.device, dataset_cfg=cfg.experiment.testing.dataset, environment_cfg=cfg.experiment.environment,
-                                                                        mode="test", n_envs=cfg.experiment.environment.num_test_envs, log_dir=f"/mount/arbeitsdaten/asr-2/vaethdk/tmp_debugging_weights/{run_id}/best_test/monitor_logs",
+                                                                        mode="test", n_envs=cfg.experiment.environment.num_test_envs, log_dir=f"/mount/arbeitsdaten/asr-2/vaethdk/tmp_debugging_weights_improvements/{run_id}/best_test/monitor_logs",
                                                                         cache=cache, encoding=state_encoding,
                                                                         state_config=cfg.experiment.state, action_config=cfg.experiment.actions,
                                                                         torch_compile=cfg.experiment.torch_compile)
         callbacks.append(CustomEvalCallback(eval_env=test_env, mode='test',
-                        best_model_save_path=f"/mount/arbeitsdaten/asr-2/vaethdk/tmp_debugging_weights/{run_id}/best_test/weights",
-                        log_path=f"/mount/arbeitsdaten/asr-2/vaethdk/tmp_debugging_weights/{run_id}/best_test/logs",
+                        best_model_save_path=f"/mount/arbeitsdaten/asr-2/vaethdk/tmp_debugging_weights_improvements/{run_id}/best_test/weights",
+                        log_path=f"/mount/arbeitsdaten/asr-2/vaethdk/tmp_debugging_weights_improvements/{run_id}/best_test/logs",
                         eval_freq=max(cfg.experiment.testing.every_steps // cfg.experiment.environment.num_test_envs, 1),
                         deterministic=True,
                         render=False,
