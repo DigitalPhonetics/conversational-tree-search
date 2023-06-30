@@ -81,7 +81,7 @@ class TreePositionEncoding(Encoding):
                 if node.connected_node_key and not node.connected_node_key in visited_node_ids:
                     new_path = "1".rjust(max_node_degree, "0") + node_path # if no answers but connected node -> answer index = 1
                     encodings_map[node.connected_node_key] = new_path
-                    next_level_nodes.append((new_path, Data.objects[0].node_by_key(node.connected_node)))
+                    next_level_nodes.append((new_path, Data.objects[0].node_by_key(node.connected_node_key)))
                 else:
                     for answer in node.answers:
                         if answer.connected_node_key and not answer.connected_node_key in visited_node_ids:
