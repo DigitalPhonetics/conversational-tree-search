@@ -724,9 +724,8 @@ class Trainer:
             if not isinstance(intent_logits, type(None)):
                 intent_loss = intent_loss * data.weights
             # update priorities
-            with torch.no_grad():
-                td_error = torch.abs(td_target - old_val)
-                self.rb.update_weights(data.indices, td_error)
+            td_error = torch.abs(td_target - old_val)
+            self.rb.update_weights(data.indices, td_error)
             # scale gradients by priority weights
         loss = loss.mean(-1) # reduce loss
         if not isinstance(intent_logits, type(None)):
@@ -835,7 +834,7 @@ class Trainer:
                     eval_goal_asked_score = self.eval(self.eval_env, eval_dialogs, global_step, prefix="eval")
                     self.eval(self.test_env, eval_dialogs, global_step, prefix="test")
                     self._save_checkpoint_with_timeout(goal_asked_score=eval_goal_asked_score, global_step=global_step, episode_counter=episode_counter, train_counter=train_counter, epsilon=epsilon, timeout=300)
-          
+
         self.train_env.close()
 
     def _concat_tensors(self, tensors: List[torch.Tensor]):
