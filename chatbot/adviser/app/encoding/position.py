@@ -25,7 +25,6 @@ class TreePositionEncoding(Encoding):
         self.node_mapping, self.encodings_length = self._process_node_tree()
         # build encoding vectors
 
-    @torch.no_grad()
     def encode(self, dialog_node: DialogNode, **kwargs) -> torch.FloatTensor:
         """
         Returns:
@@ -33,7 +32,6 @@ class TreePositionEncoding(Encoding):
         """
         return torch.tensor([self.node_mapping[dialog_node.key]], dtype=torch.float, device=self.device)
 
-    @torch.no_grad()
     def batch_encode(self, dialog_node: List[DialogNode], **kwargs) -> torch.FloatTensor:
         """
         Returns:
@@ -111,7 +109,6 @@ class NodeTypeEncoding(Encoding):
     def get_encoding_dim(self) -> int:
         return self.encoding_size
 
-    @torch.no_grad()
     def encode(self, dialog_node: DialogNode, **kwargs) -> torch.FloatTensor:
         """
         Returns:
@@ -119,7 +116,6 @@ class NodeTypeEncoding(Encoding):
         """
         return torch.tensor([list(int(bit) for bit in self.encoding[dialog_node.node_type].zfill(self.encoding_size))], dtype=torch.float, device=self.device)
 
-    @torch.no_grad()
     def batch_encode(self, dialog_node: DialogNode, **kwargs) -> torch.FloatTensor:
         """
         Returns:
@@ -139,7 +135,6 @@ class AnswerPositionEncoding(Encoding):
     def get_encoding_dim(self) -> int:
         return self.max_degree
     
-    @torch.no_grad()
     def encode(self, dialog_node: DialogNode, **kwargs):
         """
         Returns:
@@ -155,7 +150,6 @@ class AnswerPositionEncoding(Encoding):
         else:
             return torch.zeros((1, 1, self.max_degree), dtype=torch.float, device=self.device)
 
-    @torch.no_grad()
     def batch_encode(self, dialog_node: List[DialogNode], **kwargs) -> Tuple[torch.FloatTensor, torch.FloatTensor]:
         """
         Returns:

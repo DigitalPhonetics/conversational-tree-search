@@ -27,16 +27,13 @@ class TextEmbeddings(Encoding):
     def get_encoding_dim(self):
         return self.embedding_dim
 
-    @torch.no_grad()
     def _encode(self, text: str) -> torch.FloatTensor:
         raise NotImplementedError
 
-    @torch.no_grad()
     def _batch_encode(self, text: List[str]) -> Tuple[torch.FloatTensor, torch.FloatTensor]:
         raise NotImplementedError
 
     
-    @torch.no_grad()
     def batch_encode(self, text: List[str]) -> Tuple[torch.FloatTensor, torch.FloatTensor]:
         """
         Returns:
@@ -47,11 +44,9 @@ class TextEmbeddings(Encoding):
         
 
 
-    @torch.no_grad()
     def encode(self, text: Union[str, None]) -> torch.FloatTensor:
         return self._encode(text=text).detach()
 
-    @torch.no_grad()
     def embed_node_text(self, node: DialogNode) -> torch.FloatTensor:
         """
         Returns:
@@ -72,7 +67,6 @@ class SentenceEmbeddings(TextEmbeddings):
         self.pretrained_name = pretrained_name
         self.bert_sentence_embedder = torch.compile(SentenceTransformer(pretrained_name, device=device, cache_folder = '.models').to(device))
 
-    @torch.no_grad()
     def _encode(self, text: Union[str, None]) -> torch.FloatTensor:
         """
         Returns:
@@ -84,7 +78,6 @@ class SentenceEmbeddings(TextEmbeddings):
         else:
             return torch.zeros(1, 1, self.embedding_dim, dtype=torch.float, device=self.device)
 
-    @torch.no_grad()
     def _batch_encode(self, text: List[str]) -> Tuple[torch.FloatTensor, torch.FloatTensor]:
         """
         Returns:
@@ -107,7 +100,6 @@ class GBertEmbeddings(TextEmbeddings):
         self.bert = torch.compile(AutoModelForMaskedLM.from_pretrained(pretrained_name, cache_dir=".models/gbert-tokenizer", output_hidden_states = True).to(device))
 
 
-    @torch.no_grad()
     def _encode(self, text: Union[str, None]) -> torch.FloatTensor:
         """
         Returns:
@@ -120,7 +112,6 @@ class GBertEmbeddings(TextEmbeddings):
         else:
             return torch.zeros(1, 1, self.embedding_dim, dtype=torch.float, device=self.device)
 
-    @torch.no_grad()
     def _batch_encode(self, text: List[str]) -> Tuple[torch.FloatTensor, torch.FloatTensor]:
         """
         Returns:
@@ -144,7 +135,6 @@ class FinetunedGBertEmbeddings(TextEmbeddings):
         self.bert = torch.compile(AutoModelForMaskedLM.from_pretrained('.models/' + pretrained_name, output_hidden_states = True).to(device))
 
 
-    @torch.no_grad()
     def _encode(self, text: Union[str, None]) -> torch.FloatTensor:
         """
         Returns:
@@ -157,7 +147,6 @@ class FinetunedGBertEmbeddings(TextEmbeddings):
         else:
             return torch.zeros(1, 1, self.embedding_dim, dtype=torch.float, device=self.device)
 
-    @torch.no_grad()
     def _batch_encode(self, text: List[str]) -> Tuple[torch.FloatTensor, torch.FloatTensor]:
         """
         Returns:

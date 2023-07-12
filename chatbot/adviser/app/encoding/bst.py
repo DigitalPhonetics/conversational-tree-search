@@ -25,11 +25,9 @@ class BSTEncoding(Encoding):
     def get_encoding_dim(self) -> int:
         return len(self.variables)
 
-    @torch.no_grad()
     def encode(self, bst: Dict[str, Any], **kwargs) -> torch.FloatTensor:
         return torch.tensor([1.0 if var_name in bst else 0.0 for var_name in self.variables], device=self.device).unsqueeze(dim=0)
 
-    @torch.no_grad()
     def batch_encode(self, bst: List[Dict[str, Any]], **kwargs) -> torch.FloatTensor:
         """
         Returns:

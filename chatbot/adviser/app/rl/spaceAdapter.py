@@ -600,7 +600,8 @@ class SpaceAdapter:
 
     def get_text_encoding_dim(self) -> int:
         return self.stateinput.get_text_encoding_dim()
-
+    
+    @torch.no_grad()
     def encode(self, state: Dict[StateEntry, Any]) -> Dict[str, Any]:
         assert not isinstance(self.model, type(None)), "requires call to set_model() before using state_vector()"
 
