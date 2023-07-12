@@ -45,7 +45,7 @@ class Trainer:
         # ADD stop_action ARG TO CONFIGURATION
         # ADD noise ARG TO STATE TEXT INPUTSAi
         seed = 9546370
-        self.exp_name_prefix = "EN_FIXED_POSITIONAL_EMBEDDING"
+        self.exp_name_prefix = "EN_BIGGERBATCH_HIGHEXPLORATION_WEIGHTED_LOSS"
    
         self.args = {
             "language": LANGAUGE,
@@ -132,8 +132,8 @@ class Trainer:
                 "user_patience": 3,
                 "stop_when_reaching_goal": True,
                 "dialog_faq_ratio": 0.5,
-                "parallel_train_envs": 128,
-                "parallel_test_envs": 128,
+                "parallel_train_envs": 256,
+                "parallel_test_envs": 256,
                 "train_noise": 0.1,
                 "eval_noise": 0.0,
                 "test_noise": 0.0
@@ -156,13 +156,14 @@ class Trainer:
             },
             "optimizer": {
                 "name": "Adam",
-                "lr": 0.0001
+                "lr": 0.0001,
+                "intent_loss_weighting": 0.1
             },
             "algorithm": {
                 "timesteps_per_reset": 1000000,
                 "reset_exploration_times": 0,
                 "max_grad_norm": 1.0,
-                "batch_size": 128,
+                "batch_size": 256,
                 "gamma": 0.99,
                 "algorithm": "dqn", # "ppo", "dqn"
             },
@@ -177,10 +178,10 @@ class Trainer:
                 "priority_replay_alpha": 0.6,
                 "priority_replay_beta": 0.4,
                 "exploration_fraction": 0.99,
-                "eps_start": 0.6,
+                "eps_start": 0.9,
                 "eps_end": 0.0,
                 "train_frequency": 3,
-                "learning_starts": 1280,
+                "learning_starts": 2560,
                 "target_network_frequency": 15,
                 "q_value_clipping": 10.0,
                 "munchausen_targets": True,
@@ -741,7 +742,7 @@ class Trainer:
             wandb.log(log_dict, step=global_step, commit=(train_counter % 250 == 0))
 
         # optimize the model
-        loss += intent_loss
+        loss += intent_loss * self.args['optimizer']['intent_loss_weighting']
         self.optimizer.zero_grad()
         loss.backward()
 
