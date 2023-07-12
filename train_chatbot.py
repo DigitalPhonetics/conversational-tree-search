@@ -398,6 +398,12 @@ class Trainer:
         if EXPERIMENT_LOGGING != ExperimentLogging.NONE:
             self.last_save_step = global_step
 
+            # check if we should save at all (or if the current checkpoint is worse than all others that we have already)
+            worst_score_so_far = min(self.savefile_goal_asked_score.values()) if len(self.savefile_goal_asked_score) > 0 else -1.0
+            if worst_score_so_far > goal_asked_score:
+                # new checkpoint is worse than all the ones we have so far - don't save it
+                return
+
             # find worst checkpoint
             worst_score_file = None
             if len(self.savefile_goal_asked_score) >= keep_checkpoints:
