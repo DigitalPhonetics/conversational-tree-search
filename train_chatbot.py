@@ -33,8 +33,9 @@ from torch.nn.utils.rnn import pack_sequence
 
 import wandb
 
+torch.set_num_threads(16) # default on server: 32
+torch.set_num_interop_threads(16) # default on server: 32
 
-EXPERIMENT_LOGGING = ExperimentLogging.ONLINE
 
 
 class Trainer:
