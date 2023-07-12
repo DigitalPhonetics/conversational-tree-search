@@ -102,11 +102,10 @@ class DialogEnvironment(gym.Env):
 
         self.episode_log = []
         if not isinstance(log_to_file, type(None)):
-            self.logger = log_to_file
             print("Single Env: Logging to file", log_to_file)
         else:
-            print("Single env - no logger - logging to console for mode: ", mode.name)
-            self.logger = logging.getLogger("env" + mode.name)
+            print("Single env - no logger - logging to console for mode: ", mode.value)
+        self.logger = logging.getLogger("env" + mode.name)
 
         # logging.basicConfig(filename=log_to_file, encoding='utf-8', filemode='w', level=logging.DEBUG)
         if adapter:

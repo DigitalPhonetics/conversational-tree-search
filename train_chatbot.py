@@ -243,21 +243,25 @@ class Trainer:
                         self.exp_name += f"_no{key}"
             self.run_name = f"{self.exp_name}__{seed}__{int(time.time())}"
             os.makedirs(f"/mount/arbeitsdaten/asr-2/vaethdk/adviser_reisekosten/newruns_en/{self.run_name}")
-            os.makedirs(f"/fs/scratch/users/vaethdk/adviser_reisekosten/newruns_en/{self.run_name}")
-            log_to_file_eval = f"/fs/scratch/users/vaethdk/adviser_reisekosten/newruns_en/{self.run_name}/eval_dialogs.txt"
+            os.makedirs(f"/fs/scratch/users/vaethdk/cts_english/newruns_en/{self.run_name}")
+            log_to_file_eval = f"/fs/scratch/users/vaethdk/cts_english/newruns_en/{self.run_name}/eval_dialogs.txt"
             print("Logging EVAL dialogs to file", log_to_file_eval)
-            log_to_file_test = f"/fs/scratch/users/vaethdk/adviser_reisekosten/newruns_en/{self.run_name}/test_dialogs.txt"
+            log_to_file_test = f"/fs/scratch/users/vaethdk/cts_english/newruns_en/{self.run_name}/test_dialogs.txt"
             print("Logging TEST dialogs to file", log_to_file_test)
             
-            eval_logger = logging.getLogger("env" + "EVAL")
+            eval_logger = logging.getLogger("env" + EnvironmentMode.EVAL.name)
+            eval_logger.setLevel(logging.DEBUG)
             eval_file_handler = logging.FileHandler(log_to_file_eval, mode='w')
-            eval_file_handler.setLevel(logging.INFO)
+            eval_file_handler.setLevel(logging.DEBUG)
             eval_logger.addHandler(eval_file_handler)
+            eval_logger.info("EVAL LOGGER")
 
-            test_logger = logging.getLogger("env" + "TEST")
+            test_logger = logging.getLogger("env" + EnvironmentMode.TEST.name)
+            test_logger.setLevel(logging.DEBUG)
             test_file_handler = logging.FileHandler(log_to_file_test, mode='w')
-            test_file_handler.setLevel(logging.INFO)
+            test_file_handler.setLevel(logging.DEBUG)
             test_logger.addHandler(test_file_handler)
+            test_logger.info("TEST LOGGER")
         else:
             eval_logger = None
             test_logger = None
