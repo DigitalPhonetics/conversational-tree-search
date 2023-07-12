@@ -53,12 +53,11 @@ class TreePositionEncoding(Encoding):
 
     def _get_max_node_degree_on_current_level(self, current_level_nodes: List[DialogNode]) -> int:
         """ Returns the maximum node degree in the current tree depth """
-        max_degree = 0
+        max_degree = 1
         for path, node in current_level_nodes:
             # node_degree = node.answers.count()
             node_degree = node.answer_count()
-            if node_degree > max_degree:
-                max_degree = node_degree
+            max_degree = max(node_degree, max_degree)
         return max_degree
 
     def _process_node_tree(self) -> Tuple[Dict[str, str], int]:
