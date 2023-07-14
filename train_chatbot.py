@@ -8,9 +8,18 @@ from statistics import mean
 from typing import Any, Dict, List
 from functools import reduce
 from multiprocessing import Process
-
 import json
 import os
+from enum import Enum
+import time
+import random
+
+import torch
+import numpy as np
+import torch.nn.functional as F
+from torch.nn.utils.rnn import pack_sequence
+import wandb
+
 from chatbot.adviser.app.answerTemplateParser import AnswerTemplateParser
 from chatbot.adviser.app.encoding.similiarity import AnswerSimilarityEncoding
 from chatbot.adviser.app.encoding.text import TextEmbeddingPooling
@@ -39,6 +48,12 @@ torch.set_num_interop_threads(16) # default on server: 32
 
 EXPERIMENT_LOGGING = ExperimentLogging.ONLINE
 
+
+class AugmentationMode(Enum):
+    NO_AUGMENTATION="NONE"
+    ONLY_AUGMENTATION="ONLY"
+    COMBINED="COMBINED"
+
 class Trainer:
     def setUp(self) -> None:
         self.device = "cuda:0" if len(os.environ["CUDA_VISIBLE_DEVICES"].strip()) > 0 else "cpu"
@@ -51,6 +66,9 @@ class Trainer:
    
         self.args = {
             "language": LANGAUGE,
+            "data": {
+               "augmentation": AugmentationMode.NONE
+            },
             "spaceadapter": {
                 "configuration": SpaceAdapterConfiguration(
                     text_embedding="all-mpnet-base-v2", #'distiluse-base-multilingual-cased-v2', # 'gbert-large' # 'cross-en-de-roberta-sentence-transformer', 'all-mpnet-base-v2'
@@ -211,6 +229,47 @@ class Trainer:
         Data.objects[0] = Data.Dataset.fromJSON(f"resources/{self.args['language']}/train_graph.json", version=0)
         Data.objects[1] = Data.Dataset.fromJSON(f"resources/{self.args['language']}/test_graph.json", version=1)
 
+        # load augmentation data
+        augmentation_mode = self.args['data']['augmentation']
+        if augmentation_mode == AugmentationMode.NO_AUGMENTATION:
+            print("DATA AUGMENTATION: NONE")
+        elif augmentation_mode in [AugmentationMode.ONLY_AUGMENTATION, AugmentationMode.COMBINED]:
+            printed_mode = False
+            # response nodes
+            current_key = 1
+            for filename in [f'resources/{LANGAUGE}/augmentation/augmentation_dialog_nodes_with_synonyms.json', f'resources/{LANGAUGE}/augmentation/augmentation_info_nodes_filtered.json']:
+                with open(filename, "r") as f:
+                    data = json.load(f)
+                    for key in data:
+                        # locate node object
+                        node_entry = data[key]
+                        node_key = node_entry["dialog_node_key"]
+                        node_obj: Data.DialogNode = Data.objects[0].node_by_key(node_key)
+                        if augmentation_mode == AugmentationMode.ONLY_AUGMENTATION:
+                            if not printed_mode:
+                                print("DATA AUGMENTATION: ONLY AUGMENTATION")
+                                printed_mode = True
+                            # remove existing questions
+                            for question in node_obj.faq_questions:
+                                Data.objects[0]._faq_list.remove(question)
+                                del Data.objects[0]._faq_by_key[question.key]
+                            node_obj.faq_questions = []
+                        elif augmentation_mode == AugmentationMode.COMBINED and not printed_mode:
+                            print("DATA AUGMENTATION: COMBINED")
+                            printed_mode = True
+                        # add new questions
+                        new_questions: List[str] = [node_entry['text']] + node_entry['synonyms']
+                        for new_question_text in new_questions:
+                            # draw new key
+                            while current_key in set(Data.objects[0]._faq_by_key.keys()):
+                                current_key += 1
+                            # create and link question object
+                            new_question = Data.FAQQuestion(key=current_key, text=new_question_text, dialog_node_key=node_key, version=0)
+                            node_obj.faq_questions.append(new_question)
+                            Data.objects[0]._faq_list.append(new_question)
+                            Data.objects[0]._faq_by_key[new_question.key] = new_question
+
+
         # load dialog tree
         print("Loading data...")
         self.tree = DialogTree(version=0)
@@ -300,6 +359,7 @@ class Trainer:
             os.environ["WANDB_MODE"] = "offline"
         
         args = {key: self.args[key] for key in self.args if key != 'spaceadapter'}
+        args['data'] = {"augmentation": self.args['data']['augmentation'].value}
         if EXPERIMENT_LOGGING != ExperimentLogging.NONE:
             # write code 
             wandb.init(project="cts_en", config=(spaceadapter_json | args), save_code=True, name=self.exp_name, settings=wandb.Settings(code_dir="/fs/scratch/users/vaethdk/cts_english/chatbot/management/commands"))
