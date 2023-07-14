@@ -37,6 +37,7 @@ torch.set_num_threads(16) # default on server: 32
 torch.set_num_interop_threads(16) # default on server: 32
 
 
+EXPERIMENT_LOGGING = ExperimentLogging.ONLINE
 
 class Trainer:
     def setUp(self) -> None:
@@ -642,6 +643,8 @@ class Trainer:
             f"{prefix}/coverage_faqs": env.get_coverage_faqs(),
             f"{prefix}/coverage_synonyms": env.get_coverage_synonyms(),
             f"{prefix}/coverage_variables": env.get_coverage_variables(),
+            f"{prefix}/count_seen_countries": env.count_seen_countries(),
+            f"{prefix}/count_seen_cities": env.count_seen_cities(),
             f"{prefix}/coverage_goal_nodes_free": env.get_goal_node_coverage_free(),
             f"{prefix}/coverage_goal_nodes_guided": env.get_goal_node_coverage_guided(),
             f"{prefix}/coverage_nodes": env.get_node_coverage(),
@@ -669,6 +672,8 @@ class Trainer:
                 "train/coverage_faqs": self.train_env.get_coverage_faqs(),
                 "train/coverage_synonyms": self.train_env.get_coverage_synonyms(),
                 "train/coverage_variables": self.train_env.get_coverage_variables(),
+                "train/count_seen_countries": self.train_env.count_seen_countries(),
+                "train/count_seen_cities": self.train_env.count_seen_cities(),
                 "train/coverage_goal_nodes_free": self.train_env.get_goal_node_coverage_free(),
                 "train/coverage_goal_nodes_guided": self.train_env.get_goal_node_coverage_guided(),
                 "train/coverage_nodes": self.train_env.get_node_coverage(),
