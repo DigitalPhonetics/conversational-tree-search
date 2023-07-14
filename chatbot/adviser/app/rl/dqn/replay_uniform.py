@@ -48,7 +48,7 @@ class UniformReplayBuffer:
         action: int,
         reward: float,
         done: bool,
-        infos: Dict[EnvInfo, Any],
+        info: Dict[EnvInfo, Any],
         global_step: int
     ):
 
@@ -75,7 +75,7 @@ class UniformReplayBuffer:
         self.rewards[self.pos] = reward
         self.dones[self.pos] = done
         for key in EnvInfo:
-            self.infos[key][self.pos] = deepcopy(infos[key])
+            self.infos[key][self.pos] = deepcopy(info[key])
 
         self.pos += 1
         if self.pos == self.buffer_size:
@@ -96,8 +96,8 @@ class UniformReplayBuffer:
         """
         batch_inds = torch.randint(low=0, high=len(self), size=(batch_size,)).tolist()
 
-        obs = { key: [deepcopy(self.observations[key][index]) for index in batch_inds] for key in StateEntry }
-        next_obs = { key: [deepcopy(self.next_observations[key][index]) for index in batch_inds] for key in StateEntry }
+        obs = { key: [deepcopy(self.observations[key][index]) for index in batch_inds] for key in self.observations.keys() }
+        next_obs = { key: [deepcopy(self.next_observations[key][index]) for index in batch_inds] for key in self.next_observations.keys() }
 
         actions = torch.tensor([self.actions[idx] for idx in batch_inds], dtype=torch.long, device=self.device).unsqueeze(1)
         dones = torch.tensor([self.dones[idx] for idx in batch_inds], dtype=torch.float, device=self.device).unsqueeze(1)
