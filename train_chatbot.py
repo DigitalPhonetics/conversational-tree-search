@@ -32,18 +32,9 @@ from chatbot.adviser.app.rl.spaceAdapter import AnswerSimilarityEmbeddingConfig,
 from chatbot.adviser.app.rl.utils import EMBEDDINGS, AutoSkipMode, AverageMetric, EnvInfo, ExperimentLogging, _del_checkpoint, _get_file_hash, _munchausen_stable_logsoftmax, _munchausen_stable_softmax, _save_checkpoint, safe_division
 
 
-import time
-import random
-import numpy as np
-import torch
-import numpy as np
-import torch.nn.functional as F
-from torch.nn.utils.rnn import pack_sequence
 
-import wandb
-
-torch.set_num_threads(16) # default on server: 32
-torch.set_num_interop_threads(16) # default on server: 32
+torch.set_num_threads(8) # default on server: 32
+torch.set_num_interop_threads(8) # default on server: 32
 
 
 EXPERIMENT_LOGGING = ExperimentLogging.ONLINE

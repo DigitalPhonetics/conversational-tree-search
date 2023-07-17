@@ -16,7 +16,7 @@ from ..answerTemplateParser import AnswerTemplateParser
 from chatbot.adviser.app.logicParser import LogicTemplateParser
 from chatbot.adviser.app.parserValueProvider import RealValueBackend
 from chatbot.adviser.app.rl.dialogtree import DialogTree
-from chatbot.adviser.app.rl.goal import DummyGoal, ImpossibleGoalError, UserGoalGenerator, UserResponse, VariableValue
+from chatbot.adviser.app.rl.goal import DummyGoal, ImpossibleGoalError, UserGoalGenerator, UserResponse, VariableValue, locations
 from chatbot.adviser.app.rl.spaceAdapter import SpaceAdapter
 from chatbot.adviser.app.rl.utils import AutoSkipMode, EnvironmentMode, NodeType, StateEntry, EnvInfo, _load_a1_laenderliste, _load_answer_synonyms, rand_remove_questionmark
 from chatbot.adviser.app.rl.dataset import DialogAnswer, DialogNode

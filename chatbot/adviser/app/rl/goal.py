@@ -23,15 +23,15 @@ class LocationValues:
         with open(resource_dir / Data.LANGUAGE / 'country_synonyms.json', 'r') as f:
             country_synonyms = json.load(f)
             self.country_keys = [country.lower() for country in country_synonyms.keys()]
-            self.countries = {country.lower(): country for country in country_synonyms.keys()}
-            self.countries.update({country_syn.lower(): country for country, country_syns in country_synonyms.items()
+            self.country_synonyms = {country.lower(): country for country in country_synonyms.keys()}
+            self.country_synonyms.update({country_syn.lower(): country for country, country_syns in country_synonyms.items()
                                     for country_syn in country_syns})
 
         with open(resource_dir / Data.LANGUAGE /'city_synonyms.json', 'r') as f:
             city_synonyms = json.load(f)
             self.city_keys = [city.lower() for city in city_synonyms.keys()]
-            self.cities = {city.lower(): city for city in city_synonyms.keys() if city != '$REST'}
-            self.cities.update({city_syn.lower(): city for city, city_syns in city_synonyms.items()
+            self.city_synonyms = {city.lower(): city for city in city_synonyms.keys() if city != '$REST'}
+            self.city_synonyms.update({city_syn.lower(): city for city, city_syns in city_synonyms.items()
                                 for city_syn in city_syns})
 
 locations = LocationValues()
@@ -191,14 +191,14 @@ class VariableValue:
             return self._draw_number()
         elif self.var_type == "LOCATION":
             if "COUNTRY" in self.var_name.upper():
-                land = random.choice(list(locations.countries.keys()))
+                land = random.choice(locations.country_keys)
                 while land.lower() in set([val.lower() for val in self.neq_condition]):
-                    land = random.choice(list(locations.countries.keys()))
+                    land = random.choice(locations.country_keys)
                 return land
             else:
-                stadt = random.choice(list(locations.cities.keys()))
+                stadt = random.choice(locations.city_keys)
                 while stadt.lower() in [val.lower() for val in self.neq_condition]:
-                    stadt = random.choice(list(locations.stadt.keys()))
+                    stadt = random.choice(locations.city_keys)
                 return stadt
         elif self.var_type == "TIMESPAN":
             # TODO implement
@@ -261,9 +261,9 @@ class UserGoal:
                 # draw random value
                 value = None
                 if var == "COUNTRY":
-                    value = locations.countries[random.choice(locations.country_keys)]
+                    value = random.choice(locations.country_keys)
                 elif var == "CITY":
-                    value = locations.cities[random.choice(locations.city_keys)]
+                    value = random.choice(locations.city_keys)
                 substitution_vars[var] = value
             else:
                 substitution_vars[var] = self.variables[var]
