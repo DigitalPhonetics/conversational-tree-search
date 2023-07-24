@@ -51,7 +51,7 @@ experiment:
   #   hidden_layer_sizes: [1024, 1024]
   algorithm:
     dqn:
-      batch_size: 1
+      batch_size: 3
       warmup_turns: 0
   environment:
     guided_free_ratio: 0.5

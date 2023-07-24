@@ -180,16 +180,23 @@ class CustomDQN(DQN):
                 if self.policy.intent_prediction:
                     # split output of network into q values, ignore intents (position 1)
                     next_q_values = next_q_values[0]
-                target_q_values = self.target.target(next_q_values=next_q_values, data=replay_data, q_old=current_q_values)
+                target_q_values = self.target.target(next_q_values=next_q_values, data=replay_data, q_old=current_q_values).squeeze()
 
             
             # Retrieve the q-values for the actions from the replay buffer
-            current_q_values = th.gather(current_q_values, dim=1, index=replay_data.actions.long())
+            current_q_values = th.gather(current_q_values, dim=1, index=replay_data.actions.long()).squeeze()
             q_values.extend(current_q_values.view(-1).tolist())
 
             # Compute Huber loss (less sensitive to outliers)
             # td_loss = F.smooth_l1_loss(current_q_values, target_q_values)
-            td_loss = F.huber_loss(current_q_values, target_q_values)
+            td_loss = F.huber_loss(current_q_values, target_q_values, reduction='none')
+            if "prioritized" in self.replay_buffer.__class__.__name__.lower():
+                # weight loss by priority
+                loss = loss * replay_data.weights
+                # update priorities
+                td_error = th.abs(target_q_values - current_q_values)
+                self.replay_buffer.update_weights(replay_data.indices, td_error)
+            td_loss = td_loss.mean(-1) # reduce loss
             td_losses.append(td_loss.item())
             loss += td_loss
 

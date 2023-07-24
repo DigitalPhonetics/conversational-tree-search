@@ -1,6 +1,6 @@
 defaults:
 - dqn/targets/standard
-- dqn/buffer/backend/uniform
+- dqn/buffer/backend/prioritized
 
 dqn:
   _target_: algorithm.dqn.dqn.DQNAlgorithm

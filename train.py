@@ -17,6 +17,7 @@ from encoding.state import StateEncoding
 from stable_baselines3.common.vec_env import VecMonitor
 from stable_baselines3.common.callbacks import CallbackList, CheckpointCallback, EvalCallback
 from stable_baselines3.common.env_util import make_vec_env
+import torch as th
 
 import wandb
 from wandb.integration.sb3 import WandbCallback
@@ -25,6 +26,9 @@ from environment.vec.vecenv import CustomVecEnv
 from environment.cts import CTSEnvironment
 
 import os
+
+th.set_num_threads(8) # default on server: 32
+th.set_num_interop_threads(8) # default on server: 32
 
 from training.stats import CustomEvalCallback
 os.environ['TOKENIZERS_PARALLELISM'] = "True"
@@ -181,7 +185,10 @@ def load_cfg(cfg):
         "user_patience": cfg.experiment.environment.user_patience,
         "sys_token": cfg.experiment.environment.sys_token,
         "usr_token": cfg.experiment.environment.usr_token,
-        "sep_token": cfg.experiment.environment.sep_token
+        "sep_token": cfg.experiment.environment.sep_token,
+        "alpha": cfg.experiment.algorithm.dqn.buffer.backend.alpha,
+        "beta": cfg.experiment.algorithm.dqn.buffer.backend.beta,
+        "use_lap": cfg.experiment.algorithm.dqn.buffer.backend.use_lap 
     }
     # TODO change back!
     replay_buffer_class = HindsightExperienceReplayWrapper

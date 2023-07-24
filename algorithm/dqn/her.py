@@ -5,7 +5,7 @@ from typing import Any, Dict, List, NamedTuple, Tuple, Union
 
 import numpy as np
 import torch as th
-from algorithm.dqn.buffer import CustomReplayBuffer
+from algorithm.dqn.buffer import PrioritizedLAPReplayBuffer
 from environment.goal import DummyGoal
 
 from utils.utils import AutoSkipMode, EnvInfo
@@ -56,11 +56,13 @@ class HindsightExperienceReplayWrapper(object):
                     sys_token: str, usr_token: str, sep_token: str,
                     stop_when_reaching_goal: bool,
                     stop_on_invalid_skip: bool,
+                    alpha: float,
+                    beta: float,
                     device: Union[th.device, str] = "cpu",
                     **kwargs):
         
         self.append_ask_action = append_ask_action
-        self.replay_buffer = CustomReplayBuffer(buffer_size=buffer_size, observation_space=observation_space, action_space=action_space, device=device, **kwargs)
+        self.replay_buffer = PrioritizedLAPReplayBuffer(buffer_size=buffer_size, observation_space=observation_space, action_space=action_space, alpha=alpha, beta=beta, device=device, **kwargs)
         self.batch_size = batch_size
         self.data = dataset
         self.system_parser = SystemTemplateParser()
