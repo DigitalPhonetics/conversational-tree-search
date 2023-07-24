@@ -29,7 +29,7 @@ experiment:
   logging:
     # keep_checkpoints: 5
     wandb_log: ONLINE
-    dialog_log: NONE
+    dialog_log: FULL
     log_interval: 1000
   training:
     noise: 0.1
@@ -66,8 +66,8 @@ experiment:
   #   hidden_layer_sizes: [1024, 1024]
   algorithm:
     dqn:
-      timesteps_per_reset: 1000000 # single timesteps (across all vec envs)
-      batch_size: 128
+      timesteps_per_reset: 2000000 # single timesteps (across all vec envs)
+      batch_size: 256
       target_network_update_frequency: 2 # times per batch
       max_grad_norm: 1.0
       gamma: 0.99
@@ -79,7 +79,7 @@ experiment:
     user_patience: 3
     stop_when_reaching_goal: true # stop after goal node was both reached + presented (ASK)
     stop_on_invalid_skip: false # stop when taking a wrong path
-    num_train_envs: 128
+    num_train_envs: 256
     num_val_envs: 100
     num_test_envs: 100
     sys_token: "SYSTEM:"
