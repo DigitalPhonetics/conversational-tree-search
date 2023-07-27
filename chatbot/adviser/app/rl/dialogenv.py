@@ -101,10 +101,10 @@ class DialogEnvironment(gym.Env):
         #   self.similarity_model = AnswerSimilarityEncoding(device=adapter.device, model_name='distiluse-base-multilingual-cased-v2', dialog_tree=dialog_tree)
 
         self.episode_log = []
-        if not isinstance(log_to_file, type(None)):
-            print("Single Env: Logging to file", log_to_file)
-        else:
-            print("Single env - no logger - logging to console for mode: ", mode.value)
+        # if not isinstance(log_to_file, type(None)):
+        #     print("Single Env: Logging to file", log_to_file)
+        # else:
+        #     print("Single env - no logger - logging to console for mode: ", mode.value)
         self.logger = logging.getLogger("env" + mode.name)
 
         # logging.basicConfig(filename=log_to_file, encoding='utf-8', filemode='w', level=logging.DEBUG)
@@ -908,7 +908,11 @@ class ParallelDialogEnvironment(gym.Env):
         self.adapter = adapter
 
         # logging
-        self.logger = log_to_file
+        if not isinstance(log_to_file, type(None)):
+            print("Parallel Env: Logging to file", log_to_file)
+        else:
+            print("Parallel env - no logger - logging to console for mode: ", mode.value)
+        self.logger = logging.getLogger("env" + mode.name)
 
         # # load dialog tree info
         self.dialogTree = dialog_tree

@@ -300,22 +300,22 @@ class Trainer:
             log_to_file_test = f"/fs/scratch/users/vaethdk/cts_english/newruns_en/{self.run_name}/test_dialogs.txt"
             print("Logging TEST dialogs to file", log_to_file_test)
             
-            eval_logger = logging.getLogger("env" + EnvironmentMode.EVAL.name)
-            eval_logger.setLevel(logging.DEBUG)
-            eval_file_handler = logging.FileHandler(log_to_file_eval, mode='w')
-            eval_file_handler.setLevel(logging.DEBUG)
-            eval_logger.addHandler(eval_file_handler)
-            eval_logger.info("EVAL LOGGER")
+            self.eval_logger = logging.getLogger("env" + EnvironmentMode.EVAL.name)
+            self.eval_logger.setLevel(logging.INFO)
+            self.eval_file_handler = logging.FileHandler(log_to_file_eval, mode='w')
+            self.eval_file_handler.setLevel(logging.INFO)
+            self.eval_logger.addHandler(self.eval_file_handler)
+            self.eval_logger.info("EVAL LOGGER")
 
-            test_logger = logging.getLogger("env" + EnvironmentMode.TEST.name)
-            test_logger.setLevel(logging.DEBUG)
+            self.test_logger = logging.getLogger("env" + EnvironmentMode.TEST.name)
+            self.test_logger.setLevel(logging.INFO)
             test_file_handler = logging.FileHandler(log_to_file_test, mode='w')
-            test_file_handler.setLevel(logging.DEBUG)
-            test_logger.addHandler(test_file_handler)
-            test_logger.info("TEST LOGGER")
+            test_file_handler.setLevel(logging.INFO)
+            self.test_logger.addHandler(test_file_handler)
+            self.test_logger.info("TEST LOGGER")
         else:
-            eval_logger = None
-            test_logger = None
+            self.eval_logger = None
+            self.test_logger = None
 
         # init spaceadapter
         self.adapter = SpaceAdapter(device=self.device, dialog_tree=self.tree, **self.args["spaceadapter"])
@@ -575,9 +575,12 @@ class Trainer:
             goal_asked score (float)
         """
         self.model.eval()
+        
+        
 
-        if EXPERIMENT_LOGGING != ExperimentLogging.NONE and env.logger:
-            env.logger.info(f"=========== EVAL AT STEP {eval_dialogs}, PHASE {eval_phase} ============")
+        if EXPERIMENT_LOGGING != ExperimentLogging.NONE:
+            f = open(f"/fs/scratch/users/vaethdk/cts_english/newruns_en/{self.run_name}/{prefix}_dialogs_{eval_phase}.txt", "w")
+            f.write(f"=========== EVAL AT STEP {eval_dialogs}, PHASE {eval_phase} ============\n")
         
         eval_metrics = {
             "episode_return": [],
@@ -684,7 +687,7 @@ class Trainer:
                             intentprediction_fn += 1
                             
                     if EXPERIMENT_LOGGING != ExperimentLogging.NONE and not isinstance(env_instance.logger, type(None)):
-                        env_instance.logger.info("\n".join(env_instance.episode_log))
+                        f.writelines("\n".join(env_instance.episode_log))
                     
                     intent_history[done_idx] = [] # reset intent history
                     obs[done_idx] = env_instance.reset()
@@ -712,6 +715,7 @@ class Trainer:
             log_dict[f"{prefix}/{metric}"] = mean(numerical_entries)
         if EXPERIMENT_LOGGING != ExperimentLogging.NONE:
             wandb.log(log_dict, step=eval_phase)
+            f.close()
 
         self.model.train()
         return mean(eval_metrics["goal_asked"])
