@@ -784,7 +784,7 @@ class Trainer:
         old_val = old_val.gather(1, data.actions).squeeze()
 
         # loss
-        loss = F.huber_loss(td_target, old_val, reduction="none")
+        loss = F.huber_loss(old_val, td_target, reduction="none")
         intent_loss = 0 if not torch.is_tensor(intent_logits) else F.binary_cross_entropy_with_logits(intent_logits.view(-1), torch.tensor(data.infos[EnvInfo.IS_FAQ], dtype=torch.float, device=self.device), reduction="none")
         if 'buffer_type' in self.args['dqn'] and self.args['dqn']['buffer_type'] == 'prioritized':
             loss = loss * data.weights
