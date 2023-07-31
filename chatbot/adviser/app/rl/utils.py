@@ -185,24 +185,6 @@ class EnvironmentMode(Enum):
     TEST = 2
 
 
-def _load_answer_synonyms(mode: EnvironmentMode, use_synonyms: bool, use_joint_dataset: bool = False) -> Dict[str, List[str]]:
-    if use_joint_dataset:
-        path = "traintest_answers.json"
-    else:
-        if mode in [EnvironmentMode.TRAIN, EnvironmentMode.EVAL]:
-            path = "train_answers.json"
-        else:
-            path = "test_answers.json"
-    answers = None
-    with open(resource_dir / Data.LANGUAGE / path, "r") as f:
-        answers = json.load(f)
-        # lowercase keys
-        answers = {answer.lower(): answers[answer] for answer in answers}
-    if not use_synonyms:
-        # choose key to have same data for train and test set
-        answers = {answer.lower(): [answer] for answer in answers}
-    return answers
-
 def _load_a1_laenderliste():
     a1_laenderliste = None
     with open(resource_dir /  Data.LANGUAGE / "a1_countries.json", "r") as f:

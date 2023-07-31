@@ -112,10 +112,11 @@ class NodeType(Enum):
 
 
 class Dataset:
-    def __init__(self, nodes_by_key, nodes_by_type, answers_by_key, faq_by_key, faq_list, start_node, node_list, tagegeld_by_land) -> None:
+    def __init__(self, nodes_by_key, nodes_by_type, answers_by_key, faq_by_key, faq_list, start_node, node_list, tagegeld_by_land, answer_synonyms) -> None:
         self._node_by_key = nodes_by_key
         self._node_by_type = nodes_by_type
         self._answer_by_key = answers_by_key
+        self.answer_synonyms = answer_synonyms
         self._faq_by_key = faq_by_key
         self._faq_list = faq_list
         self._start_node = start_node
@@ -125,6 +126,7 @@ class Dataset:
         self._city_list = reduce(lambda l1, l2: set(l1).union(l2), [list(cities.keys()) for cities in tagegeld_by_land.values()])
         self._num_faq_nodes = sum([1 for node in node_list if len(node.faq_questions) > 0])
         self._num_guided_goal_nodes = sum([1 for node in node_list if (node.node_type in [NodeType.QUESTION.value, NodeType.VARIABLE.value] and node.answer_count() > 0) or (node.node_type == NodeType.INFO.value)])
+        self._num_answer_synonyms = sum([len(self.answer_synonyms[answer]) for answer in self.answer_synonyms])
 
     def count_faqs(self) -> int:
         return len(self._faq_by_key)
@@ -179,9 +181,9 @@ class Dataset:
 
     def tagegeld(self, land: str, stadt: str) -> float:
         return self._tagegeld_by_land[land][stadt].tagegeldsatz
-
+    
     @classmethod
-    def fromJSON(cls, json_str: str, version: int):
+    def fromJSON(cls, json_str: str, answer_synonyms: bool, version: int):
         with open(json_str) as f:
             data = json.load(f)
 
@@ -241,8 +243,25 @@ class Dataset:
         # load tagegeld
         tagegeld = _preprocess_table(f"resources/{LANGUAGE}/TAGEGELD_AUSLAND.xlsx")
 
+        # load answer synonyms
+        if "traintest" in json_str:
+            path = "traintest_answers.json"
+        else:
+            if version == 0:
+                path = "train_answers.json"
+            else:
+                path = "test_answers.json"
+        answer_synonyms = None
+        with open(f"resources/{LANGUAGE}/{path}", "r") as f:
+            answer_synonyms = json.load(f)
+            # lowercase keys
+            answer_synonyms = {answer.lower(): answer_synonyms[answer] for answer in answer_synonyms}
+        if not answer_synonyms:
+            # choose key to have same data for train and test set
+            answer_synonyms = {answer.lower(): [answer] for answer in answer_synonyms}
+
         assert start_node
-        return cls(nodes_by_key, nodes_by_type, answers_by_key, questions_by_key, question_list, start_node, node_list, tagegeld)
+        return cls(nodes_by_key, nodes_by_type, answers_by_key, questions_by_key, question_list, start_node, node_list, tagegeld, answer_synonyms)
 
 objects: Dict[int, Dataset] = {
     0: None,

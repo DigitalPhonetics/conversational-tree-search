@@ -4,7 +4,7 @@ import torch
 from chatbot.adviser.app.answerTemplateParser import AnswerTemplateParser
 from chatbot.adviser.app.logicParser import LogicTemplateParser
 from chatbot.adviser.app.parserValueProvider import RealValueBackend
-from chatbot.adviser.app.rl.dialogenv import DialogEnvironment, EnvironmentMode, ParallelDialogEnvironment, _load_a1_laenderliste, _load_answer_synonyms
+from chatbot.adviser.app.rl.dialogenv import DialogEnvironment, EnvironmentMode, ParallelDialogEnvironment, _load_a1_laenderliste
 from chatbot.adviser.app.rl.dialogtree import DialogTree
 from chatbot.adviser.app.rl.dqn.replay_prioritized import PrioritizedLAPReplayBuffer
 from chatbot.adviser.app.rl.goal import DummyGoal, UserResponse
@@ -51,7 +51,6 @@ class HindsightExperienceReplay(PrioritizedLAPReplayBuffer):
         self.logicParser = logicParser
         self.system_parser = SystemTemplateParser()
         self.a1_laenderliste = _load_a1_laenderliste()
-        self.answer_synonyms = _load_answer_synonyms(EnvironmentMode.EVAL, adapter.configuration.use_answer_synonyms,use_joint_dataset=envs.envs[0].use_joint_dataset)
         self.value_backend = RealValueBackend(self.a1_laenderliste)
         self.adapter = adapter
         self.max_reward = max_reward
@@ -62,12 +61,12 @@ class HindsightExperienceReplay(PrioritizedLAPReplayBuffer):
         self.call_counter = 0
         self.envs = envs
         self.her_env = DialogEnvironment(dialog_tree=dialog_tree, adapter=adapter, mode=EnvironmentMode.TRAIN,
-                                            stop_action=adapter.configuration.stop_action, use_answer_synonyms=adapter.configuration.use_answer_synonyms,
+                                            stop_action=adapter.configuration.stop_action,
                                             train_noise=train_noise, eval_noise=0.0, test_noise=0.0,
                                             max_steps=self.envs.envs[0].max_steps, user_patience=self.envs.envs[0].user_patience,
                                             normalize_rewards=self.envs.envs[0].normalize_rewards, stop_when_reaching_goal=stop_when_reaching_goal,
                                             dialog_faq_ratio=dialog_faq_ratio, log_to_file=None, env_id=1, goal_gen=self.envs.envs[0].goal_gen, a1_laenderliste=self.a1_laenderliste,
-                                            logic_parser=self.logicParser, answer_template_parser=self.envs.envs[0].answer_template_parser, answer_synonyms=self.answer_synonyms, 
+                                            logic_parser=self.logicParser, answer_template_parser=self.envs.envs[0].answer_template_parser, 
                                             return_obs=True, auto_skip=auto_skip, similarity_model=similarity_model,
                                             use_joint_dataset=envs.envs[0].use_joint_dataset)
 

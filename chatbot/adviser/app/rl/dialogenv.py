@@ -18,7 +18,7 @@ from chatbot.adviser.app.parserValueProvider import RealValueBackend
 from chatbot.adviser.app.rl.dialogtree import DialogTree
 from chatbot.adviser.app.rl.goal import DummyGoal, ImpossibleGoalError, UserGoalGenerator, UserResponse, VariableValue, locations
 from chatbot.adviser.app.rl.spaceAdapter import SpaceAdapter
-from chatbot.adviser.app.rl.utils import AutoSkipMode, EnvironmentMode, NodeType, StateEntry, EnvInfo, _load_a1_laenderliste, _load_answer_synonyms, rand_remove_questionmark
+from chatbot.adviser.app.rl.utils import AutoSkipMode, EnvironmentMode, NodeType, StateEntry, EnvInfo, _load_a1_laenderliste, rand_remove_questionmark
 from chatbot.adviser.app.rl.dataset import DialogAnswer, DialogNode
 
 
@@ -27,7 +27,6 @@ from chatbot.adviser.app.rl.dataset import DialogAnswer, DialogNode
 class DialogEnvironment(gym.Env):
     def __init__(self, dialog_tree: DialogTree, adapter: SpaceAdapter,
                     stop_action: bool,
-                    use_answer_synonyms: bool,
                     mode: EnvironmentMode,
                     train_noise: float,
                     eval_noise: float,
@@ -42,7 +41,6 @@ class DialogEnvironment(gym.Env):
                     a1_laenderliste: dict = None,
                     logic_parser: LogicTemplateParser = None,
                     answer_template_parser: AnswerTemplateParser = None,
-                    answer_synonyms: Dict[str, List[str]] = None,
                     return_obs: bool = True,
                     auto_skip: AutoSkipMode = AutoSkipMode.NONE,
                     similarity_model = None,
@@ -83,8 +81,6 @@ class DialogEnvironment(gym.Env):
         self.logicParser = LogicTemplateParser() if not logic_parser else logic_parser
         self.answer_template_parser = AnswerTemplateParser() if not answer_template_parser else answer_template_parser
         self.a1_laenderliste = a1_laenderliste if a1_laenderliste else _load_a1_laenderliste()
-        self.answer_synonyms = answer_synonyms if answer_synonyms else _load_answer_synonyms(mode, use_synonyms=use_answer_synonyms, use_joint_dataset=use_joint_dataset)
-        self._num_answer_synonyms = sum([len(self.answer_synonyms[answer]) for answer in self.answer_synonyms])
         self.value_backend = RealValueBackend(self.a1_laenderliste)
         self.goal_gen = UserGoalGenerator(dialog_tree=self.dialogTree, value_backend=self.value_backend) if not goal_gen else goal_gen
 
@@ -137,7 +133,7 @@ class DialogEnvironment(gym.Env):
         return len(self.coverage_faqs) / Data.objects[self.version].count_faqs()
 
     def get_coverage_synonyms(self):
-        return len(self.coverage_synonyms) / self._num_answer_synonyms
+        return len(self.coverage_synonyms) / Data.objects[self.version]._num_answer_synonyms
     
     def get_coverage_variables(self):
         return {
@@ -391,7 +387,7 @@ class DialogEnvironment(gym.Env):
             self.user_answer_keys[node.key] = UserResponse(relevant=True, answer_key=node.random_answer().key)
         # answer = DialogAnswer.objects.get(version=self.version, key=self.user_answer_keys[node.key])
         answer = Data.objects[self.version].answer_by_key(self.user_answer_keys[node.key].answer_key)
-        user_utterance = rand_remove_questionmark(random.choice(self.answer_synonyms[answer.content.text.lower()]))
+        user_utterance = rand_remove_questionmark(random.choice(Data.objects[self.version].answer_synonyms[answer.content.text.lower()]))
         return answer, user_utterance
 
     def _check_user_patience_reached(self) -> bool:
@@ -714,7 +710,7 @@ class DialogEnvironment(gym.Env):
                     done = True
                 else:
                     answer = self.current_node.answer_by_goalnode_key(self.goal_node.key)
-                    self.current_user_utterance = rand_remove_questionmark(random.choice(self.answer_synonyms[answer.content.text.lower()]))
+                    self.current_user_utterance = rand_remove_questionmark(random.choice(Data.objects[self.version].answer_synonyms[answer.content.text.lower()]))
                     self.coverage_synonyms[self.current_user_utterance.replace("?", "")] += 1
         else:
             # SKIP
@@ -834,7 +830,7 @@ class DialogEnvironment(gym.Env):
                             self.current_user_utterance = _replayed_user_utterance
                         else:
                             answer = self.current_node.answer_by_key(response.answer_key)
-                            self.current_user_utterance = rand_remove_questionmark(random.choice(self.answer_synonyms[answer.content.text.lower()]))
+                            self.current_user_utterance = rand_remove_questionmark(random.choice(Data.objects[self.version].answer_synonyms[answer.content.text.lower()]))
                         self.coverage_synonyms[self.current_user_utterance.replace("?", "")] += 1
                     self.actioncount_ask_question += 1
                 # info nodes don't require special handling
@@ -890,7 +886,6 @@ class DialogEnvironment(gym.Env):
 class ParallelDialogEnvironment(gym.Env):
     def __init__(self, dialog_tree: DialogTree, adapter: SpaceAdapter,
                     stop_action: bool,
-                    use_answer_synonyms: bool,
                     mode: EnvironmentMode,
                     train_noise: float,
                     eval_noise: float,
@@ -919,20 +914,18 @@ class ParallelDialogEnvironment(gym.Env):
         self.version = dialog_tree.version
         self.logicParser = LogicTemplateParser()
         self.a1_laenderliste = _load_a1_laenderliste()
-        self.answer_synonyms = _load_answer_synonyms(mode, use_answer_synonyms, use_joint_dataset=use_joint_dataset)
         self.value_backend = RealValueBackend(self.a1_laenderliste)
         self.goal_gen = UserGoalGenerator(dialog_tree=self.dialogTree, value_backend=self.value_backend)
         self.answer_template_parser = AnswerTemplateParser()
-        self._num_answer_synonyms = sum([len(self.answer_synonyms[answer]) for answer in self.answer_synonyms])
         self.envs = [DialogEnvironment(dialog_tree=dialog_tree, adapter=adapter,
-                                        stop_action=stop_action, use_answer_synonyms=use_answer_synonyms, mode=mode, 
+                                        stop_action=stop_action, mode=mode, 
                                         train_noise=train_noise, eval_noise=eval_noise, test_noise=test_noise,
                                         max_steps=max_steps, user_patience=user_patience,
                                         normalize_rewards=normalize_rewards, stop_when_reaching_goal=stop_when_reaching_goal,
                                         dialog_faq_ratio=dialog_faq_ratio, log_to_file=self.logger,
                                         env_id=env_id, goal_gen=self.goal_gen,
                                         logic_parser=self.logicParser, a1_laenderliste=self.a1_laenderliste,
-                                        answer_synonyms=self.answer_synonyms, answer_template_parser=self.answer_template_parser,
+                                        answer_template_parser=self.answer_template_parser,
                                         auto_skip=auto_skip, similarity_model=similarity_model) for env_id in range(n_envs)
                         ]
         self.max_steps = max_steps if max_steps else 2 * dialog_tree.get_max_tree_depth() # if no max step is set, choose automatically 2*tree depth
@@ -1040,7 +1033,7 @@ class ParallelDialogEnvironment(gym.Env):
         return len(reduce(lambda d1, d2: set(d1).union(d2), [env.coverage_faqs.keys() for env in self.envs])) / Data.objects[self.version].count_faqs()
 
     def get_coverage_synonyms(self):
-        return len(reduce(lambda d1, d2: set(d1).union(d2), [env.coverage_synonyms.keys() for env in self.envs])) / self._num_answer_synonyms
+        return len(reduce(lambda d1, d2: set(d1).union(d2), [env.coverage_synonyms.keys() for env in self.envs])) / Data.objects[self.version]._num_answer_synonyms
     
     def get_coverage_variables(self):
         return {

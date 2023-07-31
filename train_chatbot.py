@@ -217,8 +217,8 @@ class Trainer:
 
         # Load data
         Data.LANGUAGE = self.args['language']
-        Data.objects[0] = Data.Dataset.fromJSON(f"resources/{self.args['language']}/train_graph.json", version=0)
-        Data.objects[1] = Data.Dataset.fromJSON(f"resources/{self.args['language']}/test_graph.json", version=1)
+        Data.objects[0] = Data.Dataset.fromJSON(f"resources/{self.args['language']}/train_graph.json", answer_synonyms=self.args["spaceadapter"]['configuration'].use_answer_synonyms, version=0)
+        Data.objects[1] = Data.Dataset.fromJSON(f"resources/{self.args['language']}/test_graph.json", answer_synonyms=self.args["spaceadapter"]['configuration'].use_answer_synonyms, version=1)
 
         # load augmentation data
         augmentation_mode = self.args['data']['augmentation']
@@ -226,40 +226,38 @@ class Trainer:
             print("DATA AUGMENTATION: NONE")
         elif augmentation_mode in [AugmentationMode.ONLY_AUGMENTATION, AugmentationMode.COMBINED]:
             printed_mode = False
-            # response nodes
-            current_key = 1
-            for filename in [f'resources/{LANGAUGE}/augmentation/augmentation_dialog_nodes_with_synonyms.json', f'resources/{LANGAUGE}/augmentation/augmentation_info_nodes_filtered.json']:
-                with open(filename, "r") as f:
-                    data = json.load(f)
-                    for key in data:
-                        # locate node object
-                        node_entry = data[key]
-                        node_key = node_entry["dialog_node_key"]
-                        node_obj: Data.DialogNode = Data.objects[0].node_by_key(node_key)
-                        if augmentation_mode == AugmentationMode.ONLY_AUGMENTATION:
-                            if not printed_mode:
-                                print("DATA AUGMENTATION: ONLY AUGMENTATION")
-                                printed_mode = True
-                            # remove existing questions
-                            for question in node_obj.faq_questions:
-                                Data.objects[0]._faq_list.remove(question)
-                                del Data.objects[0]._faq_by_key[question.key]
-                            node_obj.faq_questions = []
-                        elif augmentation_mode == AugmentationMode.COMBINED and not printed_mode:
-                            print("DATA AUGMENTATION: COMBINED")
+            # nodes
+            with open(f'resources/{LANGAUGE}/augmentation/train_questions.json', "r") as f:
+                data = json.load(f)
+                for key in data:
+                    # locate node object
+                    node_entry = data[key]
+                    node_key = node_entry["dialog_node_key"]
+                    node_obj: Data.DialogNode = Data.objects[0].node_by_key(node_key)
+                    if augmentation_mode == AugmentationMode.ONLY_AUGMENTATION:
+                        if not printed_mode:
+                            print("DATA AUGMENTATION: ONLY AUGMENTATION")
                             printed_mode = True
-                        # add new questions
-                        new_questions: List[str] = [node_entry['text']] + node_entry['synonyms']
-                        for new_question_text in new_questions:
-                            # draw new key
-                            while current_key in set(Data.objects[0]._faq_by_key.keys()):
-                                current_key += 1
-                            # create and link question object
-                            new_question = Data.FAQQuestion(key=current_key, text=new_question_text, dialog_node_key=node_key, version=0)
-                            node_obj.faq_questions.append(new_question)
-                            Data.objects[0]._faq_list.append(new_question)
-                            Data.objects[0]._faq_by_key[new_question.key] = new_question
-
+                        # remove existing questions
+                        for question in node_obj.faq_questions:
+                            Data.objects[0]._faq_list.remove(question)
+                            del Data.objects[0]._faq_by_key[question.key]
+                        node_obj.faq_questions = []
+                    elif augmentation_mode == AugmentationMode.COMBINED and not printed_mode:
+                        print("DATA AUGMENTATION: COMBINED")
+                        printed_mode = True
+                    # add new question
+                    new_question = Data.FAQQuestion(key=key, text=node_entry['text'], dialog_node_key=node_key, version=0)
+                    node_obj.faq_questions.append(new_question)
+                    Data.objects[0]._faq_list.append(new_question)
+                    Data.objects[0]._faq_by_key[new_question.key] = new_question
+                Data.objects[0]._num_faq_nodes = sum([1 for node in Data.objects[0]._node_list if len(node.faq_questions) > 0])
+            # answer canadidates
+            if self.args["spaceadapter"]['configuration'].use_answer_synonyms:
+                Data.objects[0].answer_synonyms = {}
+                with open(f'resources/{LANGAUGE}/augmentation/train_answers.json', 'r') as f:
+                    Data.objects[0].answer_synonyms = json.load(f)
+                Data.objects[0]._num_answer_synonyms = sum([len(Data.objects[0].answer_synonyms[answer]) for answer in Data.objects[0].answer_synonyms])
 
         # load dialog tree
         print("Loading data...")
@@ -339,9 +337,9 @@ class Trainer:
         dialog_faq_ratio = self.args['simulation'].pop('dialog_faq_ratio')
 
         print("Starting environments...")
-        self.train_env = ParallelDialogEnvironment(dialog_tree=self.tree, adapter=self.adapter, stop_action=self.adapter.configuration.stop_action, use_answer_synonyms=self.adapter.configuration.use_answer_synonyms, mode=EnvironmentMode.TRAIN, n_envs=self.n_train_envs, auto_skip=self.spaceadapter_config.auto_skip, dialog_faq_ratio=dialog_faq_ratio, similarity_model=similarity_model, log_to_file=None, **self.args['simulation'])
-        self.eval_env = ParallelDialogEnvironment(dialog_tree=self.tree, adapter=self.adapter, stop_action=self.adapter.configuration.stop_action, use_answer_synonyms=self.adapter.configuration.use_answer_synonyms, mode=EnvironmentMode.EVAL, n_envs=self.n_test_envs, auto_skip=self.spaceadapter_config.auto_skip, dialog_faq_ratio=0.5, similarity_model=similarity_model, log_to_file=eval_logger, **self.args['simulation'])
-        self.test_env = ParallelDialogEnvironment(dialog_tree=self.eval_tree, adapter=self.adapter, stop_action=self.adapter.configuration.stop_action, use_answer_synonyms=self.adapter.configuration.use_answer_synonyms, mode=EnvironmentMode.TEST, n_envs=self.n_test_envs, auto_skip=self.spaceadapter_config.auto_skip, dialog_faq_ratio=0.5, similarity_model=similarity_model, log_to_file=test_logger, **self.args['simulation'])
+        self.train_env = ParallelDialogEnvironment(dialog_tree=self.tree, adapter=self.adapter, stop_action=self.adapter.configuration.stop_action, mode=EnvironmentMode.TRAIN, n_envs=self.n_train_envs, auto_skip=self.spaceadapter_config.auto_skip, dialog_faq_ratio=dialog_faq_ratio, similarity_model=similarity_model, log_to_file=None, **self.args['simulation'])
+        self.eval_env = ParallelDialogEnvironment(dialog_tree=self.tree, adapter=self.adapter, stop_action=self.adapter.configuration.stop_action, mode=EnvironmentMode.EVAL, n_envs=self.n_test_envs, auto_skip=self.spaceadapter_config.auto_skip, dialog_faq_ratio=0.5, similarity_model=similarity_model, log_to_file=self.eval_logger, **self.args['simulation'])
+        self.test_env = ParallelDialogEnvironment(dialog_tree=self.eval_tree, adapter=self.adapter, stop_action=self.adapter.configuration.stop_action, mode=EnvironmentMode.TEST, n_envs=self.n_test_envs, auto_skip=self.spaceadapter_config.auto_skip, dialog_faq_ratio=0.5, similarity_model=similarity_model, log_to_file=self.test_logger, **self.args['simulation'])
         
         print("Setup logging...")
 
