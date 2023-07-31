@@ -114,6 +114,7 @@ class BaseEnv:
         # task stats
         self.reached_goal_once = False
         self.asked_goal_once = False
+        self.percieved_length = 1 # only ASK actions (actions visible to the user) - starts with 1 because reset turn is ASK as well
 
         # Logging
         self.episode_log.append(f'{self.env_id}-{self.current_episode}$ ======== RESET =========')
@@ -152,6 +153,7 @@ class BaseEnv:
                 EnvInfo.BELIEFSTATE: deepcopy(self.bst),
                 EnvInfo.EPISODE_REWARD: self.episode_reward,
                 EnvInfo.EPISODE_LENGTH: self.current_step,
+                EnvInfo.PERCIEVED_LENGTH: self.percieved_length,
                 EnvInfo.EPISODE: self.current_episode,
                 EnvInfo.REACHED_GOAL_ONCE: self.reached_goal(),
                 EnvInfo.ASKED_GOAL: self.asked_goal(),
@@ -289,8 +291,11 @@ class BaseEnv:
         else:
             assert self.current_node.node_type != NodeType.LOGIC
             if action == ActionType.ASK:
+                self.percieved_length += 1
+                self.actioncount_asks[self.current_node.node_type] += 1
                 done, reward = self.ask(replayed_user_utterance)
             else:
+                self.actioncount_skips[self.current_node.node_type] += 1
                 done, reward = self.skip(action-1) # get answer index by shifting actions to the left
 
                 # handle logic node auto-transitioning here
@@ -344,6 +349,8 @@ class BaseEnv:
             self.episode_log.append(f'{self.env_id}-{self.current_episode}$=> REACHED GOAL ONCE: {self.reached_goal_once}')
             self.episode_log.append(f'{self.env_id}-{self.current_episode}$=> ASKED GOAL ONCE: {self.asked_goal_once}')
             self.episode_log.append(f'{self.env_id}-{self.current_episode}$=> FINAL REWARD: {self.episode_reward}')
+            self.episode_log.append(f'{self.env_id}-{self.current_episode}$=> PERCIEVED LENGTH: {self.percieved_length}')
+            self.episode_log.append(f'{self.env_id}-{self.current_episode}$=> TOTAL LENGTH: {self.current_step}')
 
         obs = self.get_obs()
         reward /= self.max_reward 

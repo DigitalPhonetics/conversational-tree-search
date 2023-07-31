@@ -82,6 +82,8 @@ def custom_evaluate_policy(
     episode_rewards_guided = []
     episode_lengths_free = []
     episode_lengths_guided = []
+    percieved_lengths_free = []
+    percieved_lengths_guided = []
 
     total_dialogs = 0
     free_dialogs = 0
@@ -136,35 +138,18 @@ def custom_evaluate_policy(
                 if dones[i]:
                     # record env mode: free or guided
                     total_dialogs += 1
+
                     if info[EnvInfo.IS_FAQ]:
                         free_dialogs += 1
+                        episode_rewards_free.append(current_rewards[i])
+                        episode_lengths_free.append(current_lengths[i])
+                        percieved_lengths_free.append(info[EnvInfo.PERCIEVED_LENGTH])
                     else:
                         guided_dialogs += 1
-
-                    if is_monitor_wrapped:
-                        # Atari wrapper can send a "done" signal when
-                        # the agent loses a life, but it does not correspond
-                        # to the true end of episode
-                        if "episode" in info.keys():
-                            # Do not trust "done" with episode endings.
-                            # Monitor wrapper includes "episode" key in info if environment
-                            # has been wrapped with it. Use those rewards instead.
-                            if info[EnvInfo.IS_FAQ]:
-                                episode_rewards_free.append(info["episode"]["r"])
-                                episode_lengths_free.append(info["episode"]["l"])
-                            else:
-                                episode_rewards_guided.append(info["episode"]["r"])
-                                episode_lengths_guided.append(info["episode"]["l"])
-                            # Only increment at the real end of an episode
-                            episode_counts[i] += 1
-                    else:
-                        if info[EnvInfo.IS_FAQ]:
-                            episode_rewards_free.append(current_rewards[i])
-                            episode_lengths_free.append(current_lengths[i])
-                        else:
-                            episode_rewards_guided.append(current_rewards[i])
-                            episode_lengths_guided.append(current_lengths[i])
-                        episode_counts[i] += 1
+                        episode_rewards_guided.append(current_rewards[i])
+                        episode_lengths_guided.append(current_lengths[i])
+                        percieved_lengths_guided.append(info[EnvInfo.PERCIEVED_LENGTH])
+                    episode_counts[i] += 1
                     current_rewards[i] = 0
                     current_lengths[i] = 0
 
@@ -186,4 +171,4 @@ def custom_evaluate_policy(
         intent_accuracies = None
         intent_consistencies = None
 
-    return episode_rewards_free, episode_rewards_guided, episode_lengths_free, episode_lengths_guided, intent_accuracies, intent_consistencies, free_dialogs, guided_dialogs, dialog_log
+    return episode_rewards_free, episode_rewards_guided, episode_lengths_free, episode_lengths_guided, percieved_lengths_free, percieved_lengths_guided, intent_accuracies, intent_consistencies, free_dialogs, guided_dialogs, dialog_log

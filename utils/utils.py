@@ -39,6 +39,7 @@ class EnvInfo(Enum):
     # STEP INFO
     EPISODE_REWARD = "episode_reward"
     EPISODE_LENGTH = "current_step"
+    PERCIEVED_LENGTH = "percieved_length"
     EPISODE = "current_episode"
     LAST_SYSTEM_ACT = "last_system_act"
     LAST_VALID_SKIP_TRANSITION_IDX = "last_valid_skip_transition_idx"

@@ -82,6 +82,8 @@ class CustomEvalCallback(EventCallback):
         self.evaluations_timesteps = []
         self.evaluations_length_free = []
         self.evaluations_length_guided = []
+        self.evaluations_percieved_length_free = []
+        self.evaluations_percieved_length_guided = []
         # For computing success rate
         self._is_success_buffer = []
         self.evaluations_successes = []
@@ -167,7 +169,7 @@ class CustomEvalCallback(EventCallback):
                 if hasattr(env, 'free_env'):
                     env.free_env.reset_stats()
 
-            episode_rewards_free, episode_rewards_guided, episode_lengths_free, episode_lengths_guided, intent_accuracy, intent_consistency, free_dialogs, guided_dialogs, dialog_log = evaluate_policy(
+            episode_rewards_free, episode_rewards_guided, episode_lengths_free, episode_lengths_guided, percieved_lengths_free, percieved_lengths_guided, intent_accuracy, intent_consistency, free_dialogs, guided_dialogs, dialog_log = evaluate_policy(
                 self.model,
                 self.eval_env,
                 n_eval_episodes=self.n_eval_episodes,
@@ -184,6 +186,8 @@ class CustomEvalCallback(EventCallback):
                 self.evaluations_results_guided.append(episode_rewards_guided)
                 self.evaluations_length_free.append(episode_lengths_free)
                 self.evaluations_length_guided.append(episode_lengths_guided)
+                self.evaluations_percieved_length_free.append(episode_lengths_free)
+                self.evaluations_percieved_length_guided.append(episode_lengths_guided)
 
                 kwargs = {}
                 # Save success log if present
@@ -292,9 +296,11 @@ class CustomEvalCallback(EventCallback):
             if len(episode_lengths_free) > 0:
                 self.logger.record(f"{self.mode}/ep_reward_free", mean(episode_rewards_free))
                 self.logger.record(f"{self.mode}/ep_length_free", mean(episode_lengths_free))
+                self.logger.record(f"{self.mode}/perceived_length_free", mean(percieved_lengths_free))
             if len(episode_rewards_guided) > 0:
                 self.logger.record(f"{self.mode}/ep_reward_guided", mean(episode_rewards_guided))
                 self.logger.record(f"{self.mode}/ep_length_guided", mean(episode_lengths_guided))
+                self.logger.record(f"{self.mode}/perceived_length_guided", mean(percieved_lengths_guided))
 
             if len(self._is_success_buffer) > 0:
                 success_rate = np.mean(self._is_success_buffer)
