@@ -8,6 +8,7 @@ import random
 from copy import deepcopy
 
 import gymnasium as gym
+from config import ActionType
 from data.dataset import Answer, DialogNode, GraphDataset, NodeType
 from data.parsers.answerTemplateParser import AnswerTemplateParser
 from data.parsers.logicParser import LogicTemplateParser
@@ -289,6 +290,34 @@ class OldCTSEnv(gym.Env):
         self.episode_log.append(f'{self.env_id}-{self.current_episode}$ CONSTRAINTS: {self.constraints}')
         self.episode_log.append(f'{self.env_id}-{self.current_episode}$ INITIAL UTTERANCE: {self.initial_user_utterance}') 
         return self._get_obs()
+    
+    def reset_episode_log(self):
+        self.episode_log = []
+
+    def reset_stats(self):
+        self.reached_goals = []
+        self.asked_goals = []
+
+        # coverage stats
+        self.goal_node_coverage = defaultdict(int)
+        self.node_coverage = defaultdict(int)
+        self.coverage_answer_synonyms = defaultdict(int)
+        self.coverage_variables = defaultdict(lambda: defaultdict(int))
+        # self.reached_dialog_tree_end = 0 # TODO add
+        self.current_episode = 0
+
+        # node stats
+        self.node_count = {node_type: 0 for node_type in NodeType}
+
+        # action stats
+        self.actioncount = {action_type: 0 for action_type in ActionType} # counts all ask- and skip-events
+        self.actioncount_skips = {node_type: 0 for node_type in NodeType} # counts skip events per node type
+        self.actioncount_skip_invalid = 0
+        self.actioncount_asks = {node_type: 0 for node_type in NodeType}  # counts ask events per node type
+        self.actioncount_ask_variable_irrelevant = 0
+        self.actioncount_ask_question_irrelevant = 0
+        self.actioncount_missingvariable = 0
+
 
     def _draw_random_answer(self, node: DialogNode) -> Tuple[Answer, str]:
         if not node.key in self.user_answer_keys:
