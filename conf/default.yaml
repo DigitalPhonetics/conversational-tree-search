@@ -36,15 +36,17 @@ experiment:
     every_steps: 3
     dataset:
       use_answer_synonyms: true
+      augmentation: ARTIFICIAL_ONLY
   validation:
     noise: 0.0
-    every_steps: 25000
+    every_steps: 15000
     dialogs: 500
     dataset:
       use_answer_synonyms: true
+      augmentation: ARTIFICIAL_ONLY
   testing:
     noise: 0.0
-    every_steps: 999999
+    every_steps: 15000
     dialogs: 500
     dataset:
       use_answer_synonyms: true

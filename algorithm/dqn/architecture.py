@@ -4,7 +4,6 @@ from typing import List, Type, Union
 import torch as th
 import torch.nn as nn
 import torch.nn.functional as F
-from torch.nn.utils.weight_norm import weight_norm
 
 from gymnasium import spaces
 from stable_baselines3.dqn.policies import BasePolicy
@@ -13,8 +12,9 @@ from encoding.state import StateDims
 
 
 
-def add_weight_normalization(layer: nn.Module):
-    return weight_norm(layer, dim=None)
+def add_weight_normalization(layers: List[nn.Module], input_dim: int, normalize: bool):
+    if normalize:
+        layers.append(nn.LayerNorm(normalized_shape=input_dim))
 
 
 def mask_output(input: th.Tensor, mask: th.Tensor):
@@ -67,9 +67,8 @@ class CustomQNetwork(BasePolicy):
 
         for layer_size in hidden_layer_sizes:
             layer = nn.Linear(current_input_dim, layer_size)
-            if normalization_layers:
-                layer = add_weight_normalization(layer)
             layers.append(layer)
+            add_weight_normalization(layers, layer_size, normalization_layers)
             activation = activation_fn()
             layers.append(activation)
             current_input_dim = layer_size
@@ -163,18 +162,16 @@ class CustomDuelingQNetwork(BasePolicy):
         action_layer_dim = state_dims.state_action_subvector if self.actions_in_state_space else 0
         for layer_size in shared_layer_sizes:
             shared_layer = nn.Linear(shared_layer_dim, layer_size)
-            if normalization_layers:
-                shared_layer = add_weight_normalization(shared_layer)
             shared_layers.append(shared_layer)
+            add_weight_normalization(shared_layers, layer_size, normalization_layers)
             activation = activation_fn()
             shared_layers.append(activation)
             shared_layer_dim = layer_size
 
             if self.actions_in_state_space:
                 action_layer = nn.Linear(action_layer_dim, layer_size)
-                if normalization_layers:
-                    action_layer = add_weight_normalization(action_layer)
                 action_inputs.append(action_layer)
+                add_weight_normalization(action_inputs, layer_size, normalization_layers)
                 activation = activation_fn()
                 action_inputs.append(activation)
                 action_layer_dim = layer_size
@@ -183,9 +180,8 @@ class CustomDuelingQNetwork(BasePolicy):
         value_layer_dim = shared_layer_dim
         for layer_size in value_layer_sizes:
             value_layer = nn.Linear(value_layer_dim, layer_size)
-            if normalization_layers:
-                value_layer = add_weight_normalization(value_layer)
             value_layers.append(value_layer)
+            add_weight_normalization(value_layers, layer_size, normalization_layers)
             activation = activation_fn()
             value_layers.append(activation)
             value_layer_dim = layer_size
@@ -196,9 +192,8 @@ class CustomDuelingQNetwork(BasePolicy):
         advantage_layer_dim = shared_layer_dim + action_layer_dim
         for layer_size in advantage_layer_sizes:
             adv_layer = nn.Linear(advantage_layer_dim, layer_size)
-            if normalization_layers:
-                adv_layer = add_weight_normalization(adv_layer)
             advantage_layers.append(adv_layer)
+            add_weight_normalization(advantage_layers, layer_size, normalization_layers)
             activation = activation_fn()
             advantage_layers.append(activation)
             advantage_layer_dim = layer_size

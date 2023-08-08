@@ -1,2 +1,3 @@
 graph_path: resources/en/train_graph.json
 answer_path: resources/en/train_answers.json
+augmentation: NONE
