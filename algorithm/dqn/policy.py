@@ -83,6 +83,7 @@ class CustomDQNPolicy(DQNPolicy):
         if self.torch_compile:
             model = th.compile(model)
         self.intent_prediction = model.intent_prediction
+        print("ARCHITECUTRE", model)
         return model
     
     def predict(

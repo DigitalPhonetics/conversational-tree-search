@@ -70,6 +70,7 @@ class CTSEnvironment(gymnasium.Env):
 
         # TODO add logger
         # TODO forward coverage stats
+        self.turn_counter = 0
 
         print("ENV!!", mode, "TOKENS:", sys_token, usr_token, sep_token)
     
@@ -118,7 +119,8 @@ class CTSEnvironment(gymnasium.Env):
         obs, reward, done = self.active_env.step(action, replayed_user_utterance)
         obs[EnvInfo.IS_FAQ] = hasattr(self, 'free_env') and (self.active_env == self.free_env)
         obs["is_success"] = obs[EnvInfo.ASKED_GOAL]
-        return obs, reward, done, False, obs # truncated, info = obs before encoding
+        self.turn_counter += 1
+        return obs, reward, done, False, obs # trunated, info = obs before encoding
     
 
     def get_goal_node_coverage_free(self):

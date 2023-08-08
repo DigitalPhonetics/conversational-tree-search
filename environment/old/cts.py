@@ -86,6 +86,7 @@ class OldCTSEnv(gym.Env):
         self.reached_goals_free = []
         self.asked_goals_guided = []
         self.asked_goals_free = []
+        self.turn_counter = 0
 
         # coverage stats
         self.goal_node_coverage_free = defaultdict(int)
@@ -126,6 +127,7 @@ class OldCTSEnv(gym.Env):
                 EnvInfo.EPISODE_LENGTH: self.current_step,
                 EnvInfo.EPISODE: self.current_episode,
                 EnvInfo.REACHED_GOAL_ONCE: self.reached_goal(),
+                EnvInfo.PERCIEVED_LENGTH: self.percieved_length,
                 EnvInfo.ASKED_GOAL: self.asked_goal,
                 EnvInfo.INITIAL_USER_UTTERANCE: deepcopy(self.initial_user_utterance),
                 EnvInfo.CURRENT_USER_UTTERANCE: deepcopy(self.current_user_utterance),
@@ -261,6 +263,7 @@ class OldCTSEnv(gym.Env):
         self.current_step = 0
         self.episode_reward = 0.0
         self.skipped_nodes = 0
+        self.percieved_length = 0
 
         # node stats
         self.nodecount_info = 0
@@ -297,6 +300,7 @@ class OldCTSEnv(gym.Env):
     def reset_stats(self):
         self.reached_goals = []
         self.asked_goals = []
+        self.percieved_length = 0
 
         # coverage stats
         self.goal_node_coverage = defaultdict(int)
@@ -305,6 +309,7 @@ class OldCTSEnv(gym.Env):
         self.coverage_variables = defaultdict(lambda: defaultdict(int))
         # self.reached_dialog_tree_end = 0 # TODO add
         self.current_episode = 0
+
 
         # node stats
         self.node_count = {node_type: 0 for node_type in NodeType}
@@ -470,6 +475,9 @@ class OldCTSEnv(gym.Env):
             self.episode_log.append(f'{self.env_id}-{self.current_episode}$ REACHED MAX LENGTH')
         else:
             # step
+            if action == 0: # ASK
+                self.percieved_length += 1
+
             reward, done = self._step_free(real_action, _replayed_user_utterance) if self.is_faq_mode else self._step_guided(real_action)
             
             self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> USER UTTERANCE: {self.current_user_utterance}')
@@ -564,6 +572,7 @@ class OldCTSEnv(gym.Env):
             self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> FINAL REWARD: {self.episode_reward}')
            
         obs = self._get_obs()
+        self.turn_counter += 1
         return obs, reward/self.max_reward, done, False, obs
 
     def _get_node_answers(self, node: DialogNode) -> List[Answer]:
@@ -934,6 +943,11 @@ class OldCustomVecEnv(VecEnv):
     @property 
     def current_episode(self) -> int:
         return sum([env.current_episode for env in self.envs])
+    
+    @property
+    def turn_counter(self) -> int:
+        return sum([env.turn_counter for env in self.envs])
+
 
     def get_attr(self, attr_name: str, indices: VecEnvIndices = None) -> List[Any]:
         """Return attribute from vectorized environment (see base class)."""

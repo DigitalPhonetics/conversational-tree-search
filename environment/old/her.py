@@ -62,6 +62,7 @@ class OldCTSHEREnvironment:
         self.active_env = self.free_env
        
         # choose uniformely at random between guided and free env according to ratio
+        self.active_env.reset_stats()
         if mode == 'free':
             return self.active_env._her_faq_reset(replayed_goal)
 

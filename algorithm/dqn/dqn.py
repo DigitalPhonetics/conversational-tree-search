@@ -145,6 +145,8 @@ class CustomDQN(DQN):
         self.actions_in_state_space = actions_in_state_space
         self.target = target
 
+        self.global_step = 0
+
     def train(self, gradient_steps: int, batch_size: int = 100) -> None:
         for env in self.env.envs:
             env.reset_episode_log()
@@ -154,7 +156,6 @@ class CustomDQN(DQN):
         # Update learning rate according to schedule
         self._update_learning_rate(self.policy.optimizer)
 
-        
         td_losses = []
         intent_losses = []
         q_values = []
@@ -207,14 +208,20 @@ class CustomDQN(DQN):
             th.nn.utils.clip_grad_norm_(self.policy.parameters(), self.max_grad_norm)
             self.policy.optimizer.step()
 
+            self.global_step += 1
+        # Reset last transition indices
+        self.replay_buffer.reset_last_transition_indices()
+
         # Increase update counter
         self._n_updates += gradient_steps
 
-        self.logger.record("train/n_updates", self._n_updates)
+        self.logger.record("train/train_counter", self._n_updates)
+        self.logger.record("train/episode_counter", self.env.current_episode)
+        self.logger.record("train/global_step", self.global_step)
+        self.logger.record("train/turn_counter", self.env.turn_counter)
         self.logger.record("train/td_loss", np.mean(td_losses))
         self.logger.record("train/max_goal_distance", cfg.INSTANCES[cfg.InstanceArgs.MAX_DISTANCE])
         self.logger.record("train/buffer_size", len(self.replay_buffer))
-        self.logger.record("train/total_episodes", self.env.current_episode)
         self.logger.record("train/q_values", mean(q_values))
         if self.policy.intent_prediction:
             self.logger.record("train/intent_loss", np.mean(intent_losses))

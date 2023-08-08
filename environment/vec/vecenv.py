@@ -146,6 +146,10 @@ class CustomVecEnv(VecEnv):
     @property 
     def current_episode(self) -> int:
         return sum([env.current_episode for env in self.envs])
+    
+    @property
+    def turn_counter(self) -> int:
+        return sum([env.turn_counter for env in self.envs])
 
     def get_attr(self, attr_name: str, indices: VecEnvIndices = None) -> List[Any]:
         """Return attribute from vectorized environment (see base class)."""
