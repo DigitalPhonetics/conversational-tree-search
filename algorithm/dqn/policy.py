@@ -48,7 +48,7 @@ class CustomDQNPolicy(DQNPolicy):
         features_extractor_class: Type[BaseFeaturesExtractor] = FlattenExtractor,
         features_extractor_kwargs: Optional[Dict[str, Any]] = None,
         normalize_images: bool = True,
-        optimizer_class: Type[th.optim.Optimizer] = th.optim.Adam,
+        optimizer_class: Type[th.optim.Optimizer] = None,
         optimizer_kwargs: Optional[Dict[str, Any]] = None,
         torch_compile: bool = True
     ) -> None:

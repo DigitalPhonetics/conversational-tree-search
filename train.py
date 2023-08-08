@@ -157,7 +157,7 @@ def load_cfg(cfg):
     # trainer = instantiate(cfg.experiment)
     INSTANCES[InstanceType.STATE_ENCODING] = state_encoding
 
-    from stable_baselines3 import HerReplayBuffer
+    # from stable_baselines3 import HerReplayBuffer
     # check_env(train_env)
 
     # TODO missing parameters in our config:
@@ -165,10 +165,16 @@ def load_cfg(cfg):
     # - gradient_steps
     net_arch = OmegaConf.to_container(cfg.experiment.policy.net_arch)
     net_arch['state_dims'] = state_encoding.space_dims # patch arguments
+    optim = OmegaConf.to_container(cfg.experiment.optimizer)
+    optim_class = to_class(optim.pop('class_path'))
+    lr = optim.pop('lr')
+    print("Optim ARGS:", optim_class, lr, optim)
     policy_kwargs = {
         "activation_fn": to_class(cfg.experiment.policy.activation_fn),   
         "net_arch": net_arch,
-        "torch_compile": cfg.experiment.torch_compile
+        "torch_compile": cfg.experiment.torch_compile,
+        "optimizer_class": optim_class,
+        "optimizer_kwargs": optim
     }
     # TODO load from file
     replay_buffer_kwargs = {
@@ -203,7 +209,7 @@ def load_cfg(cfg):
                 env=train_env, 
                 batch_size=cfg.experiment.algorithm.dqn.batch_size,
                 verbose=1, device=cfg.experiment.device,  
-                learning_rate=cfg.experiment.optimizer.lr, 
+                learning_rate=lr, 
                 exploration_initial_eps=cfg.experiment.algorithm.dqn.eps_start, exploration_final_eps=cfg.experiment.algorithm.dqn.eps_end, exploration_fraction=cfg.experiment.algorithm.dqn.exploration_fraction,
                 buffer_size=cfg.experiment.algorithm.dqn.buffer.backend.buffer_size, 
                 learning_starts=cfg.experiment.algorithm.dqn.warmup_turns,

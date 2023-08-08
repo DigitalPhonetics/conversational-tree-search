@@ -1,7 +1,7 @@
 
 from dataclasses import dataclass
 from enum import Enum, IntEnum
-from typing import Any, Optional, Type 
+from typing import Any, Dict, Optional, Type 
 from hydra.core.config_store import ConfigStore
 import torch
 import torch.nn as nn
@@ -33,12 +33,12 @@ class ActionType(IntEnum):
     ASK = 0
     SKIP = 1
 
-
 class InstanceType(Enum):
     ALGORITHM = 'algorithm'
     CONFIG = 'config'
     BUFFER = 'buffer'
     STATE_ENCODING = 'state_encoding'
+
 
 @dataclass
 class TrainingStageConfig:
@@ -54,10 +54,6 @@ class EvalStageConfig:
     noise: float
     dialogs: int
 
-@dataclass
-class OptimizerConfig:
-    lr: float
-    class_path: str
 
 @dataclass
 class ActionConfig:
@@ -116,7 +112,7 @@ class Experiment:
     seed: int
     torch_compile: bool
     cudnn_deterministic: bool
-    optimizer: OptimizerConfig
+    optimizer: Dict[str, Any]
     policy: PolicyConfig
     algorithm: Any
     logging: LoggingConfig
