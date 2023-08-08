@@ -24,7 +24,6 @@ import random
 import torch
 import torch.nn as nn
 from torch.nn.utils.rnn import pad_packed_sequence
-from torch.nn.utils.weight_norm import weight_norm
 from chatbot.adviser.app.encoding.text import RNN_OUTPUT_SIZE
 from chatbot.adviser.app.rl.layers.attention.attention_factory import get_attention_module_instance
 from chatbot.adviser.app.rl.spaceAdapter import ActionConfig, SpaceAdapter
@@ -143,10 +142,9 @@ class DQNNetwork(nn.Module):
         return padded_sequence, num_actions, mask
     
 
-def _add_weight_normalization(layer: torch.nn.Module, normalize: bool):
+def _add_weight_normalization(layers: nn.ModuleList, input_dim: int, normalize: bool):
     if normalize:
-        return weight_norm(layer, dim=None)
-    return layer
+        layers.append(nn.LayerNorm(normalized_shape=input_dim))
 
 
 class DQN(DQNNetwork):
@@ -168,7 +166,8 @@ class DQN(DQNNetwork):
         self.layers = nn.ModuleList()
         current_input_dim = adapter.get_state_dim()
         for layer_size in hidden_layer_sizes:
-            self.layers.append(_add_weight_normalization(nn.Linear(current_input_dim, layer_size), normalization_layers))
+            self.layers.append(nn.Linear(current_input_dim, layer_size))
+            _add_weight_normalization(self.layers, layer_size, normalization_layers)
             self.layers.append(activation_fn())
             if dropout_rate > 0.0:
                 self.layers.append(nn.Dropout(p=dropout_rate))
@@ -242,7 +241,8 @@ class DuelingDQN(DQNNetwork):
         # shared layer: state_dim -> shared_layer_sizes[-1]
         shared_layer_dim = adapter.get_state_dim()
         for layer_size in shared_layer_sizes:
-            self.shared_layers.append(_add_weight_normalization(nn.Linear(shared_layer_dim, layer_size), normalization_layers))
+            self.shared_layers.append(nn.Linear(shared_layer_dim, layer_size))
+            _add_weight_normalization(self.shared_layers, layer_size, normalization_layers)
             self.shared_layers.append(activation_fn())
             if dropout_rate > 0.0:
                 self.shared_layers.append(nn.Dropout(p=dropout_rate))
@@ -250,7 +250,8 @@ class DuelingDQN(DQNNetwork):
         # value layer: shared_layer_sizes[-1] -> 1
         value_layer_dim = shared_layer_dim
         for layer_size in value_layer_sizes:
-            self.value_layers.append(_add_weight_normalization(nn.Linear(value_layer_dim, layer_size), normalization_layers))
+            self.value_layers.append(nn.Linear(value_layer_dim, layer_size))
+            _add_weight_normalization(self.value_layers, layer_size, normalization_layers)
             self.value_layers.append(activation_fn())
             if dropout_rate > 0.0:
                 self.value_layers.append(nn.Dropout(p=dropout_rate))
@@ -259,7 +260,8 @@ class DuelingDQN(DQNNetwork):
         # advantage layer: shared_layer_sizes[-1] -> actions
         advantage_layer_dim = shared_layer_dim
         for layer_size in advantage_layer_sizes:
-            self.advantage_layers.append(_add_weight_normalization(nn.Linear(advantage_layer_dim, layer_size), normalization_layers))
+            self.advantage_layers.append(nn.Linear(advantage_layer_dim, layer_size))
+            _add_weight_normalization(self.advantage_layers, layer_size, normalization_layers)
             self.advantage_layers.append(activation_fn())
             if dropout_rate > 0.0:
                 self.advantage_layers.append(nn.Dropout(p=dropout_rate))
@@ -434,9 +436,11 @@ class NewDuelingDQNWithIntentPredictionHead(DQNNetwork):
         shared_layer_dim = adapter.get_state_dim() - adapter.get_actionstatesubvector_dim() # shared layer without action inputs
         action_layer_dim = adapter.get_actionstatesubvector_dim()
         for layer_size in shared_layer_sizes:
-            self.shared_layers.append(_add_weight_normalization(nn.Linear(shared_layer_dim, layer_size), normalization_layers))
+            self.shared_layers.append(nn.Linear(shared_layer_dim, layer_size))
+            _add_weight_normalization(self.shared_layers, layer_size, normalization_layers)
             self.shared_layers.append(activation_fn())
-            self.action_inputs.append(_add_weight_normalization(nn.Linear(action_layer_dim, layer_size), normalization_layers))
+            self.action_inputs.append(nn.Linear(action_layer_dim, layer_size))
+            _add_weight_normalization(self.action_inputs, layer_size, normalization_layers)
             self.action_inputs.append(activation_fn())
             if dropout_rate > 0.0:
                 self.shared_layers.append(nn.Dropout(p=dropout_rate))
@@ -446,7 +450,8 @@ class NewDuelingDQNWithIntentPredictionHead(DQNNetwork):
         # value layer: shared_layer_sizes[-1] -> 1
         value_layer_dim = shared_layer_dim
         for layer_size in value_layer_sizes:
-            self.value_layers.append(_add_weight_normalization(nn.Linear(value_layer_dim, layer_size), normalization_layers))
+            self.value_layers.append(nn.Linear(value_layer_dim, layer_size))
+            _add_weight_normalization(self.value_layers, layer_size, normalization_layers)
             self.value_layers.append(activation_fn())
             if dropout_rate > 0.0:
                 self.value_layers.append(nn.Dropout(p=dropout_rate))
@@ -455,7 +460,8 @@ class NewDuelingDQNWithIntentPredictionHead(DQNNetwork):
         # advantage layer: shared_layer_sizes[-1] -> actions
         advantage_layer_dim = 2 * shared_layer_dim # shared layer output + action inputs
         for layer_size in advantage_layer_sizes:
-            self.advantage_layers.append(_add_weight_normalization(nn.Linear(advantage_layer_dim, layer_size), normalization_layers))
+            self.advantage_layers.append(nn.Linear(advantage_layer_dim, layer_size))
+            _add_weight_normalization(self.advantage_layers, layer_size, normalization_layers)
             self.advantage_layers.append(activation_fn())
             if dropout_rate > 0.0:
                 self.advantage_layers.append(nn.Dropout(p=dropout_rate))
