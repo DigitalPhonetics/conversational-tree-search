@@ -53,12 +53,13 @@ class Trainer:
         # ADD stop_action ARG TO CONFIGURATION
         # ADD noise ARG TO STATE TEXT INPUTSAi
         seed = 9546370
-        self.exp_name_prefix = "EN_BIGGERBATCH_HIGHEXPLORATION_WEIGHTED_LOSS"
+        self.exp_name_prefix = "V3_GENERATEDONLY"
    
         self.args = {
             "language": LANGAUGE,
             "data": {
-               "augmentation": AugmentationMode.NONE
+               "augmentation": AugmentationMode.ONLY_AUGMENTATION,
+               "augmentation_version": 2
             },
             "spaceadapter": {
                 "configuration": SpaceAdapterConfiguration(
@@ -207,7 +208,6 @@ class Trainer:
             }
         }
 
-
         # set random seed
         print("Setting random seeds...")
         random.seed(self.args["experiment"]["seed"])
@@ -224,40 +224,46 @@ class Trainer:
         augmentation_mode = self.args['data']['augmentation']
         if augmentation_mode == AugmentationMode.NO_AUGMENTATION:
             print("DATA AUGMENTATION: NONE")
-        elif augmentation_mode in [AugmentationMode.ONLY_AUGMENTATION, AugmentationMode.COMBINED]:
-            printed_mode = False
-            # nodes
-            with open(f'resources/{LANGAUGE}/augmentation/train_questions.json', "r") as f:
+        elif augmentation_mode.ONLY_AUGMENTATION:
+            print("ONLY AUGMENTATION")
+            # remove all existing questions
+            for node in Data.objects[0].nodes_by_type(Data.NodeType.INFO.value):
+                # remove existing questions
+                for question in node.faq_questions:
+                    Data.objects[0]._faq_list.remove(question)
+                    del Data.objects[0]._faq_by_key[question.key]
+                node.faq_questions = []
+            # remove all existing answer synonyms
+            Data.objects[0].answer_synonyms = {}
+        else:
+            print("MIXED AUGMENTATION")
+        if augmentation_mode in [AugmentationMode.ONLY_AUGMENTATION, AugmentationMode.COMBINED]:
+            # add generated questions 
+            with open(f'resources/{LANGAUGE}/augmentation/train_questions_v{self.args["data"]["augmentation_version"]}.json', "r") as f:
                 data = json.load(f)
                 for key in data:
                     # locate node object
                     node_entry = data[key]
                     node_key = node_entry["dialog_node_key"]
                     node_obj: Data.DialogNode = Data.objects[0].node_by_key(node_key)
-                    if augmentation_mode == AugmentationMode.ONLY_AUGMENTATION:
-                        if not printed_mode:
-                            print("DATA AUGMENTATION: ONLY AUGMENTATION")
-                            printed_mode = True
-                        # remove existing questions
-                        for question in node_obj.faq_questions:
-                            Data.objects[0]._faq_list.remove(question)
-                            del Data.objects[0]._faq_by_key[question.key]
-                        node_obj.faq_questions = []
-                    elif augmentation_mode == AugmentationMode.COMBINED and not printed_mode:
-                        print("DATA AUGMENTATION: COMBINED")
-                        printed_mode = True
-                    # add new question
-                    new_question = Data.FAQQuestion(key=key, text=node_entry['text'], dialog_node_key=node_key, version=0)
-                    node_obj.faq_questions.append(new_question)
-                    Data.objects[0]._faq_list.append(new_question)
-                    Data.objects[0]._faq_by_key[new_question.key] = new_question
+                    # add new question (only if info node)
+                    if node_obj.node_type == Data.NodeType.INFO.value:
+                        new_question = Data.FAQQuestion(key=key, text=node_entry['text'], dialog_node_key=node_key, version=0)
+                        node_obj.faq_questions.append(new_question)
+                        Data.objects[0]._faq_list.append(new_question)
+                        Data.objects[0]._faq_by_key[new_question.key] = new_question
+                # update number of questions
                 Data.objects[0]._num_faq_nodes = sum([1 for node in Data.objects[0]._node_list if len(node.faq_questions) > 0])
             # answer canadidates
             if self.args["spaceadapter"]['configuration'].use_answer_synonyms:
-                Data.objects[0].answer_synonyms = {}
                 with open(f'resources/{LANGAUGE}/augmentation/train_answers.json', 'r') as f:
-                    Data.objects[0].answer_synonyms = json.load(f)
-                Data.objects[0]._num_answer_synonyms = sum([len(Data.objects[0].answer_synonyms[answer]) for answer in Data.objects[0].answer_synonyms])
+                    new_answer_synonyms = json.load(f)
+                    for key in new_answer_synonyms:
+                        if augmentation_mode == AugmentationMode.ONLY_AUGMENTATION:
+                            Data.objects[0].answer_synonyms[key] = []
+                        Data.objects[0].answer_synonyms[key].extend(new_answer_synonyms[key])
+                    # update number of answers
+                    Data.objects[0]._num_answer_synonyms = sum([len(Data.objects[0].answer_synonyms[answer]) for answer in Data.objects[0].answer_synonyms])
 
         # load dialog tree
         print("Loading data...")
@@ -558,8 +564,8 @@ class Trainer:
         return model
 
     def _optimizer_from_args(self, args: dict, model: torch.nn.Module):
-        if args['optimizer']['name'] == "Adam":
-            optim = torch.optim.Adam(model.parameters(), lr=args['optimizer']['lr'])
+        if args['optimizer']['name'] in ["Adam", "AMSGrad"]:
+            optim = torch.optim.Adam(model.parameters(), lr=args['optimizer']['lr'], amsgrad=args['optimizer']['name'] == "AMSGrad")
         elif args['optimizer']['name'] == "AdamW":
             optim = torch.optim.AdamW(model.parameters(), lr=args['optimizer']['lr'])
         assert optim, "unknown optimizer"
@@ -718,10 +724,14 @@ class Trainer:
         self.model.train()
         return mean(eval_metrics["goal_asked"])
 
-    def log_train_step(self, global_step: int, train_step: int, epsilon: float, timesteps_per_reset: int, beta: float):
+    def log_train_step(self, global_step: int, train_step: int, episode_counter: int, turn_counter: int,epsilon: float, timesteps_per_reset: int, beta: float):
         if train_step % 50 == 0 and EXPERIMENT_LOGGING != ExperimentLogging.NONE:
             log_dict = {
                 "train/learning_phase": global_step // timesteps_per_reset,
+                "train/global_step": global_step,
+                "train/train_counter": train_step,
+                "train/episode_counter": episode_counter,
+                "train/turn_counter": turn_counter,
                 "train/coverage_faqs": self.train_env.get_coverage_faqs(),
                 "train/coverage_synonyms": self.train_env.get_coverage_synonyms(),
                 "train/coverage_variables": self.train_env.get_coverage_variables(),
@@ -841,6 +851,7 @@ class Trainer:
         global_step = 0
         train_counter = 0
         episode_counter = 0
+        turn_counter = 0
 
         # initial evaluation
         # self.eval(self.eval_env, eval_dialogs, global_step, prefix="eval")
@@ -859,6 +870,7 @@ class Trainer:
                 actions, _ = self.model.select_actions_eps_greedy(self.train_env.current_nodes_keys, pack_sequence(state, enforce_sorted=False), epsilon)
                 
             next_obs, rewards, dones, infos = self.train_env.step(actions)
+            turn_counter += len(actions)
 
             # update buffer and logs
             self.store_dqn(obs, next_obs, actions, rewards, dones, infos, global_step)
@@ -894,7 +906,7 @@ class Trainer:
                         self.rb.update_beta(beta)
                     self.train_step_dqn(global_step, train_counter)
                     train_counter += 1
-                self.log_train_step(global_step=global_step, train_step=train_counter, epsilon=epsilon, timesteps_per_reset=timesteps_per_reset, beta=beta)
+                self.log_train_step(global_step=global_step, train_step=train_counter, episode_counter=episode_counter, turn_counter=turn_counter, epsilon=epsilon, timesteps_per_reset=timesteps_per_reset, beta=beta)
 
                 #
                 # Eval
