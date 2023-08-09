@@ -171,9 +171,9 @@ class CustomDQN(DQN):
                 # split output of network into q values and intents
                 current_q_values, current_intent_logits = current_q_values
                 intent_labels = th.tensor([info[EnvInfo.IS_FAQ] for info in replay_data.infos], dtype=th.float, device=self.device)
-                intent_loss = self.q_net.intent_loss_weight * F.binary_cross_entropy_with_logits(current_intent_logits, intent_labels, reduction="mean")
+                intent_loss = self.q_net.intent_loss_weight * F.binary_cross_entropy_with_logits(current_intent_logits, intent_labels, reduction="none")
                 loss += intent_loss
-                intent_losses.append(intent_loss.item())
+                intent_losses.append(intent_loss.mean(-1).item())
 
             with th.no_grad():
                 # Compute the next Q-values using the target network
@@ -191,15 +191,15 @@ class CustomDQN(DQN):
             # Compute Huber loss (less sensitive to outliers)
             # td_loss = F.smooth_l1_loss(current_q_values, target_q_values)
             td_loss = F.huber_loss(current_q_values, target_q_values, reduction='none')
-            if "prioritized" in self.replay_buffer.__class__.__name__.lower():
+            td_losses.append(td_loss.mean(-1).item())
+            loss += td_loss
+            if "prioritized" in self.replay_buffer.__class__.__name__.lower() or "hindsight" in self.replay_buffer.__class__.__name__.lower():
                 # weight loss by priority
                 loss = loss * replay_data.weights
                 # update priorities
                 td_error = th.abs(target_q_values - current_q_values)
                 self.replay_buffer.update_weights(replay_data.indices, td_error)
-            td_loss = td_loss.mean(-1) # reduce loss
-            td_losses.append(td_loss.item())
-            loss += td_loss
+            loss = loss.mean(-1) # reduce loss
 
             # Optimize the policy
             self.policy.optimizer.zero_grad()
