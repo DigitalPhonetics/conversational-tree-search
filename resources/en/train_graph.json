@@ -4050,8 +4050,8 @@
             },
             "data": {
                 "id": "16391250907662288",
-                "markup": "<p>Hier finden SIe die Hotel list:</p>\n<p><a title=\"Hotel list COUNTRY  2021\" href=\"https://www.redacted.xlsx\" target=\"_blank\" rel=\"noopener\">Hotel list COUNTRY  2021</a></p>\n<p>&nbsp;</p>",
-                "raw_text": "Hier finden SIe die Hotel list:Hotel list COUNTRY  2021 ",
+                "markup": "<p>You can find the list of hotels here:</p>\n<p><a title=\"Hotel list COUNTRY  2021\" href=\"https://www.redacted.xlsx\" target=\"_blank\" rel=\"noopener\">Hotel list COUNTRY  2021</a></p>\n<p>&nbsp;</p>",
+                "raw_text": "You can find the list of hotels here: Hotel list COUNTRY  2021 ",
                 "position": {
                     "x": -4351,
                     "y": 6522
