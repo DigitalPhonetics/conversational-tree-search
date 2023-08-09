@@ -63,6 +63,7 @@ class HindsightExperienceReplayWrapper(object):
         
         self.append_ask_action = append_ask_action
         self.replay_buffer = PrioritizedLAPReplayBuffer(buffer_size=buffer_size, observation_space=observation_space, action_space=action_space, alpha=alpha, beta=beta, device=device, **kwargs)
+        print("HER BUFFER BACKEND", self.replay_buffer.__class__.__name__)
         self.batch_size = batch_size
         self.data = dataset
         self.system_parser = SystemTemplateParser()
@@ -127,7 +128,10 @@ class HindsightExperienceReplayWrapper(object):
                 self._generate_aritificial_transitions(env_idx)
                 # reset episode buffer
                 self.episode_transitions[env_idx].clear()
-               
+
+    def update_weights(self, batch_inds: np.ndarray, weights: np.ndarray):
+        self.replay_buffer.update_weights(batch_inds=batch_inds, weights=weights)
+
 
     def sample(self, *args, **kwargs):
         return self.replay_buffer.sample(*args, **kwargs)
