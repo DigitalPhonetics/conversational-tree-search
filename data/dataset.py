@@ -5,7 +5,7 @@ from enum import Enum
 import json
 import os
 import random
-from typing import Dict, List, Set, Tuple
+from typing import Dict, List, Set, Tuple, Optional
 
 import pandas as pd
 import torch 
@@ -34,6 +34,7 @@ class DatasetConfig:
     answer_path: str
     use_answer_synonyms: bool
     augmentation: DataAugmentationLevel
+    augmentation_version: Optional[int]
 
 @dataclass
 class Answer:

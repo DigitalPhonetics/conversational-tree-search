@@ -37,6 +37,7 @@ experiment:
     dataset:
       use_answer_synonyms: true
       augmentation: ARTIFICIAL_ONLY
+      augmentation_version: 2
   validation:
     noise: 0.0
     every_steps: 15000
@@ -44,6 +45,7 @@ experiment:
     dataset:
       use_answer_synonyms: true
       augmentation: ARTIFICIAL_ONLY
+      augmentation_version: 2
   testing:
     noise: 0.0
     every_steps: 15000
