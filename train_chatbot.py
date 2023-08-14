@@ -368,6 +368,7 @@ class Trainer:
             self.model = torch.compile(self._dqn_model_from_args(self.args).to(self.device))
             self.target_network = torch.compile(self._dqn_model_from_args(self.args).to(self.device))
             self.target_network.load_state_dict(self.model.state_dict())
+            self.target_network.eval()
             # self.experiment.set_model_graph(str(self.model))
         self.optimizer = self._optimizer_from_args(self.args, self.model)
         self.adapter.set_model(self.model)
