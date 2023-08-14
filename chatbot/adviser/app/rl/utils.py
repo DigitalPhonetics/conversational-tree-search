@@ -116,7 +116,7 @@ def _save_checkpoint(global_step: int, episode_counter: int, train_counter: int,
         "torch_rng": torch_rng,
         "numpy_rng": numpy_rng,
         "rand_rng": rand_rng
-    }, f"/mount/arbeitsdaten/asr-2/vaethdk/adviser_reisekosten/newruns_en/{run_name}/ckpt_{global_step}.pt")
+    }, f"/mount/arbeitsdaten/asr-2/vaethdk/cts_oldcodebase_weights/{run_name}/ckpt_{global_step}.pt")
 
 
 
@@ -152,7 +152,7 @@ EMBEDDINGS = {
     'all-mpnet-base-v2': {
         'class': SentenceEmbeddings,
         'args': {
-            'pretrained_name': 'all-mpnet-base-v2',
+            'pretrained_name': 'sentence-transformers/all-mpnet-base-v2',
             'embedding_dim': 768,
         }
     },

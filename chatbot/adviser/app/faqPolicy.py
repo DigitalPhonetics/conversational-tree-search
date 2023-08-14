@@ -24,7 +24,7 @@ class Intent(Enum):
 class IntentTracker:
     def __init__(self, device: str = "cpu", ckpt_dir='./.models/intentpredictor') -> None:
         self.device = device
-        self.tokenizer = AutoTokenizer.from_pretrained('deepset/gbert-large', use_fast=True, cache_dir=".models/gbert", truncation_side='left')
+        self.tokenizer = AutoTokenizer.from_pretrained('deepset/gbert-large', use_fast=True, cache_dir="/mount/arbeitsdaten/asr-2/vaethdk/resources/weights", truncation_side='left')
         self.model = AutoModelForSequenceClassification.from_pretrained(ckpt_dir, output_hidden_states = True).to(device)
         self.model.eval()
         self.free_counter = 0

@@ -53,7 +53,7 @@ class Trainer:
         # ADD stop_action ARG TO CONFIGURATION
         # ADD noise ARG TO STATE TEXT INPUTSAi
         seed = 9546370
-        self.exp_name_prefix = "V3_GENERATEDONLY"
+        self.exp_name_prefix = "GENERATEDONLY_DATA_V4_FIXED_PRIORITIES"
    
         self.args = {
             "language": LANGAUGE,
@@ -296,30 +296,8 @@ class Trainer:
                 else:
                     if not spaceadapter_json['state'][key]['active']:
                         self.exp_name += f"_no{key}"
-            self.run_name = f"{self.exp_name}__{seed}__{int(time.time())}"
-            os.makedirs(f"/mount/arbeitsdaten/asr-2/vaethdk/adviser_reisekosten/newruns_en/{self.run_name}")
-            os.makedirs(f"/fs/scratch/users/vaethdk/cts_english/newruns_en/{self.run_name}")
-            log_to_file_eval = f"/fs/scratch/users/vaethdk/cts_english/newruns_en/{self.run_name}/eval_dialogs.txt"
-            print("Logging EVAL dialogs to file", log_to_file_eval)
-            log_to_file_test = f"/fs/scratch/users/vaethdk/cts_english/newruns_en/{self.run_name}/test_dialogs.txt"
-            print("Logging TEST dialogs to file", log_to_file_test)
-            
-            self.eval_logger = logging.getLogger("env" + EnvironmentMode.EVAL.name)
-            self.eval_logger.setLevel(logging.INFO)
-            self.eval_file_handler = logging.FileHandler(log_to_file_eval, mode='w')
-            self.eval_file_handler.setLevel(logging.INFO)
-            self.eval_logger.addHandler(self.eval_file_handler)
-            self.eval_logger.info("EVAL LOGGER")
-
-            self.test_logger = logging.getLogger("env" + EnvironmentMode.TEST.name)
-            self.test_logger.setLevel(logging.INFO)
-            test_file_handler = logging.FileHandler(log_to_file_test, mode='w')
-            test_file_handler.setLevel(logging.INFO)
-            self.test_logger.addHandler(test_file_handler)
-            self.test_logger.info("TEST LOGGER")
-        else:
-            self.eval_logger = None
-            self.test_logger = None
+            self.run_name = f"{self.exp_name}__{int(time.time())}"
+            os.makedirs(f"/mount/arbeitsdaten/asr-2/vaethdk/cts_oldcodebase_weights/{self.run_name}")
 
         # init spaceadapter
         self.adapter = SpaceAdapter(device=self.device, dialog_tree=self.tree, **self.args["spaceadapter"])
@@ -343,9 +321,9 @@ class Trainer:
         dialog_faq_ratio = self.args['simulation'].pop('dialog_faq_ratio')
 
         print("Starting environments...")
-        self.train_env = ParallelDialogEnvironment(dialog_tree=self.tree, adapter=self.adapter, stop_action=self.adapter.configuration.stop_action, mode=EnvironmentMode.TRAIN, n_envs=self.n_train_envs, auto_skip=self.spaceadapter_config.auto_skip, dialog_faq_ratio=dialog_faq_ratio, similarity_model=similarity_model, log_to_file=None, **self.args['simulation'])
-        self.eval_env = ParallelDialogEnvironment(dialog_tree=self.tree, adapter=self.adapter, stop_action=self.adapter.configuration.stop_action, mode=EnvironmentMode.EVAL, n_envs=self.n_test_envs, auto_skip=self.spaceadapter_config.auto_skip, dialog_faq_ratio=0.5, similarity_model=similarity_model, log_to_file=self.eval_logger, **self.args['simulation'])
-        self.test_env = ParallelDialogEnvironment(dialog_tree=self.eval_tree, adapter=self.adapter, stop_action=self.adapter.configuration.stop_action, mode=EnvironmentMode.TEST, n_envs=self.n_test_envs, auto_skip=self.spaceadapter_config.auto_skip, dialog_faq_ratio=0.5, similarity_model=similarity_model, log_to_file=self.test_logger, **self.args['simulation'])
+        self.train_env = ParallelDialogEnvironment(dialog_tree=self.tree, adapter=self.adapter, stop_action=self.adapter.configuration.stop_action, mode=EnvironmentMode.TRAIN, n_envs=self.n_train_envs, auto_skip=self.spaceadapter_config.auto_skip, dialog_faq_ratio=dialog_faq_ratio, similarity_model=similarity_model, **self.args['simulation'])
+        self.eval_env = ParallelDialogEnvironment(dialog_tree=self.tree, adapter=self.adapter, stop_action=self.adapter.configuration.stop_action, mode=EnvironmentMode.EVAL, n_envs=self.n_test_envs, auto_skip=self.spaceadapter_config.auto_skip, dialog_faq_ratio=0.5, similarity_model=similarity_model, **self.args['simulation'])
+        self.test_env = ParallelDialogEnvironment(dialog_tree=self.eval_tree, adapter=self.adapter, stop_action=self.adapter.configuration.stop_action, mode=EnvironmentMode.TEST, n_envs=self.n_test_envs, auto_skip=self.spaceadapter_config.auto_skip, dialog_faq_ratio=0.5, similarity_model=similarity_model, **self.args['simulation'])
         
         print("Setup logging...")
 
@@ -357,7 +335,9 @@ class Trainer:
         args['data'] = {"augmentation": self.args['data']['augmentation'].value}
         if EXPERIMENT_LOGGING != ExperimentLogging.NONE:
             # write code 
-            wandb.init(project="cts_en", config=(spaceadapter_json | args), save_code=True, name=self.exp_name, settings=wandb.Settings(code_dir="/fs/scratch/users/vaethdk/cts_english/chatbot/management/commands"))
+            wandb.init(project="cts_en", config=(spaceadapter_json | args), 
+                        save_code=True, name=self.run_name,
+                        dir=f"/mount/arbeitsdaten/asr-2/vaethdk/cts_oldcodebase_weights/{self.run_name}/wandb")
             wandb.config.update({'datasetversion': _get_file_hash(f'resources/{Data.LANGUAGE}/train_graph.json')}) # log dataset version hash
 
         #
@@ -407,7 +387,7 @@ class Trainer:
                                                     similarity_model=similarity_model)
         # write experiment config file
         if EXPERIMENT_LOGGING != ExperimentLogging.NONE:
-            with open(f"/mount/arbeitsdaten/asr-2/vaethdk/adviser_reisekosten/newruns_en/{self.run_name}/config.json", "w") as f:
+            with open(f"/mount/arbeitsdaten/asr-2/vaethdk/cts_oldcodebase_weights/{self.run_name}/config.json", "w") as f:
                 json.dump({'spaceadapter': spaceadapter_json} | args, f)
 
 
@@ -507,7 +487,7 @@ class Trainer:
                         counter += 1
                         if p.exitcode == 0:
                             success = True
-                            self.savefile_goal_asked_score[f"/mount/arbeitsdaten/asr-2/vaethdk/adviser_reisekosten/newruns_en/{self.run_name}/ckpt_{global_step}.pt"] = goal_asked_score
+                            self.savefile_goal_asked_score[f"/mount/arbeitsdaten/asr-2/vaethdk/cts_oldcodebase_weights/{self.run_name}/ckpt_{global_step}.pt"] = goal_asked_score
                     if not success:
                         print(f"FAILED SAVING 5 times for checkpoint at step {global_step}")
                 else:
@@ -518,7 +498,7 @@ class Trainer:
                                                                     torch.get_rng_state().clone().detach().cpu(),
                                                                     np.random.get_state(),
                                                                     random.getstate())
-                    self.savefile_goal_asked_score[f"/mount/arbeitsdaten/asr-2/vaethdk/adviser_reisekosten/newruns_en/{self.run_name}/ckpt_{global_step}.pt"] = goal_asked_score
+                    self.savefile_goal_asked_score[f"/mount/arbeitsdaten/asr-2/vaethdk/cts_oldcodebase_weights/{self.run_name}/ckpt_{global_step}.pt"] = goal_asked_score
     
 
     def _parse_activation_fn(self, activation_fn_name: str):
@@ -584,7 +564,7 @@ class Trainer:
         
 
         if EXPERIMENT_LOGGING != ExperimentLogging.NONE:
-            f = open(f"/fs/scratch/users/vaethdk/cts_english/newruns_en/{self.run_name}/{prefix}_dialogs_{eval_phase}.txt", "w")
+            f = open(f"/mount/arbeitsdaten/asr-2/vaethdk/cts_oldcodebase_weights/{self.run_name}/{prefix}_dialogs_{eval_phase}.txt", "w")
             f.write(f"=========== EVAL AT STEP {eval_dialogs}, PHASE {eval_phase} ============\n")
         
         eval_metrics = {
@@ -915,7 +895,7 @@ class Trainer:
                 if evaluation and global_step % eval_every_train_timesteps == 0:
                     eval_goal_asked_score = self.eval(self.eval_env, eval_dialogs, global_step, prefix="eval")
                     self.eval(self.test_env, eval_dialogs, global_step, prefix="test")
-                    self._save_checkpoint_with_timeout(goal_asked_score=eval_goal_asked_score, global_step=global_step, episode_counter=episode_counter, train_counter=train_counter, epsilon=epsilon, timeout=300)
+                    self._save_checkpoint_with_timeout(goal_asked_score=eval_goal_asked_score, global_step=global_step, episode_counter=episode_counter, train_counter=train_counter, epsilon=epsilon, timeout=None)
 
         self.train_env.close()
 
