@@ -744,7 +744,7 @@ class Trainer:
             }
             if self.algorithm == "dqn":
                 log_dict["train/epsilon"] = epsilon
-                if 'buffer_type' in self.args['dqn'] and self.args['dqn']['buffer_type'] == 'prioritized':
+                if 'buffer_type' in self.args['dqn'] and self.args['dqn']['buffer_type'].lower() in ['prioritized', 'her']:
                     log_dict["train/priority_beta"] = beta
                 log_dict["train/buffer_size"] = len(self.rb)
             if self.train_env.current_episode > 0:
@@ -799,7 +799,7 @@ class Trainer:
         # loss
         loss = F.huber_loss(old_val, td_target, reduction="none")
         intent_loss = 0 if not torch.is_tensor(intent_logits) else F.binary_cross_entropy_with_logits(intent_logits.view(-1), torch.tensor(data.infos[EnvInfo.IS_FAQ], dtype=torch.float, device=self.device), reduction="none")
-        if 'buffer_type' in self.args['dqn'] and self.args['dqn']['buffer_type'] == 'prioritized':
+        if 'buffer_type' in self.args['dqn'] and self.args['dqn']['buffer_type'].lower() in ['prioritized', 'her']:
             loss = loss * data.weights
             if not isinstance(intent_logits, type(None)):
                 intent_loss = intent_loss * data.weights
@@ -816,7 +816,7 @@ class Trainer:
                         "train/q_values": old_val.mean().item()}
             if not isinstance(intent_logits, type(None)):
                 log_dict['train/intent_loss'] = intent_loss.item()
-            if 'buffer_type' in self.args['dqn'] and self.args['dqn']['buffer_type'] == 'prioritized':
+            if 'buffer_type' in self.args['dqn'] and self.args['dqn']['buffer_type'].lower() in ['prioritized', 'her']:
                 log_dict['train/priorization_weights'] = data.weights.mean().item()
             wandb.log(log_dict, step=global_step, commit=(train_counter % 250 == 0))
 
@@ -903,7 +903,7 @@ class Trainer:
                 #
              
                 if self.algorithm == 'dqn' and len(self.rb) >= self.args['dqn']['learning_starts'] and global_step % self.args['dqn']["train_frequency"] == 0:
-                    if self.args['dqn']['buffer_type'] == 'prioritized':
+                    if self.args['dqn']['buffer_type'].lower() in ['prioritized', 'her']:
                         self.rb.update_beta(beta)
                     self.train_step_dqn(global_step, train_counter)
                     train_counter += 1
