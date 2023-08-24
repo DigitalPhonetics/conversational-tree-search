@@ -80,6 +80,7 @@ class GuidedEnvironment(BaseEnv):
 
                 # check if variable was already asked
                 if var.name in self.bst:
+                    self.episode_log.append(f"{self.env_id}-{self.current_episode}$ -> VAR NAME: {var.name} already in BST -> reward -1")
                     reward -= 1 # variable value already known
                 
                 # get user reply and save to bst

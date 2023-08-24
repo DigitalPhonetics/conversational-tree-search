@@ -14,6 +14,7 @@ from environment.free import FreeEnvironment
 from environment.guided import GuidedEnvironment
 from utils.envutils import GoalDistanceMode
 import config as cfg
+from encoding.state import StateEncoding
 
 import gymnasium
 
@@ -32,12 +33,21 @@ class CTSEnvironment(gymnasium.Env):
                 sys_token: str, usr_token: str, sep_token: str,
                 goal_distance_mode: GoalDistanceMode,
                 goal_distance_increment: int,
+                state_encoding: StateEncoding,
                 **kwargs):
         # self.env_id = env_id
         self.goal_distance_mode = goal_distance_mode
         self.goal_distance_increment = goal_distance_increment
         self.data = dataset
         self.mode = mode
+
+        self.action_space = gymnasium.spaces.Discrete(state_encoding.space_dims.num_actions)
+        if state_encoding.action_config.in_state_space == True:
+            # state space: max. node degree (#actions) x state dim
+            self.observation_space = gymnasium.spaces.Box(low=float('-inf'), high=float('inf'), shape=(state_encoding.space_dims.num_actions, state_encoding.space_dims.state_vector,)) #, dtype=np.float32)
+        else:
+            self.observation_space = gymnasium.spaces.Box(low=float('-inf'), high=float('inf'), shape=(state_encoding.space_dims.state_vector,)) #, dtype=np.float32)
+
 
         self.max_reward = 4 * dataset.get_max_tree_depth() if normalize_rewards else 1.0
         self.max_distance = dataset.get_max_tree_depth() + 1  if goal_distance_mode == GoalDistanceMode.FULL_DISTANCE else 1 # set max. or min. distance to start

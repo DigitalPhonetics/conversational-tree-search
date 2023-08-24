@@ -59,6 +59,7 @@ def setup_data_and_vecenv(device: str, dataset_cfg: DatasetConfig, environment_c
         # "env_id": env_id,
         "mode": mode,
         "dataset": data,
+        "state_encoding": encoding,
         **environment_cfg
     }
     # TODO temporary change to old env - change back!
@@ -105,14 +106,15 @@ def load_cfg(cfg):
             os.environ['WANDB_MODE'] = 'offline'
         run = wandb.init(
             project="cts_en_stablebaselines",
-            config=cfg,
+            config=OmegaConf.to_container(cfg, resolve=True),
             sync_tensorboard=True,  # auto-upload sb3's tensorboard metrics
             # monitor_gym=True,  # auto-upload the videos of agents playing the game
-            # save_code=True,  # optional
+            save_code=True,  # optional
+            dir="/mount/arbeitsdaten/asr-2/vaethdk/cts_newcodebase_weights/{run_id}/wandb"
         )
         run_id = run.id
         callbacks.append(WandbCallback(
-            model_save_path=f"/mount/arbeitsdaten/asr-2/vaethdk/tmp_debugging_weights_improvements/{run_id}",
+            model_save_path=f"/mount/arbeitsdaten/asr-2/vaethdk/cts_newcodebase_weights/{run_id}",
             verbose=2)
         )
     else:
@@ -129,26 +131,26 @@ def load_cfg(cfg):
         train_env = VecMonitor(train_env)
     if "validation" in cfg.experiment and not isinstance(cfg.experiment.validation, type(None)): 
         val_data, cache, state_encoding, val_env = setup_data_and_vecenv(device=cfg.experiment.device, dataset_cfg=cfg.experiment.validation.dataset, environment_cfg=cfg.experiment.environment,
-                                                                        mode="val", n_envs=cfg.experiment.environment.num_val_envs, log_dir=f"/mount/arbeitsdaten/asr-2/vaethdk/tmp_debugging_weights_improvements/{run_id}/best_eval/monitor_logs",
+                                                                        mode="val", n_envs=cfg.experiment.environment.num_val_envs, log_dir=f"/mount/arbeitsdaten/asr-2/vaethdk/cts_newcodebase_weights/{run_id}/best_eval/monitor_logs",
                                                                         cache=cache, encoding=state_encoding,
                                                                         state_config=cfg.experiment.state, action_config=cfg.experiment.actions,
                                                                         torch_compile=cfg.experiment.torch_compile)
         callbacks.append(CustomEvalCallback(eval_env=val_env, mode='eval',
-                             best_model_save_path=f"/mount/arbeitsdaten/asr-2/vaethdk/tmp_debugging_weights_improvements/{run_id}/best_eval/weights",
-                             log_path=f"/mount/arbeitsdaten/asr-2/vaethdk/tmp_debugging_weights_improvements/{run_id}/best_eval/logs",
+                             best_model_save_path=f"/mount/arbeitsdaten/asr-2/vaethdk/cts_newcodebase_weights/{run_id}/best_eval/weights",
+                             log_path=f"/mount/arbeitsdaten/asr-2/vaethdk/cts_newcodebase_weights/{run_id}/best_eval/logs",
                              eval_freq=max(cfg.experiment.validation.every_steps // cfg.experiment.environment.num_val_envs, 1),
                              deterministic=True, 
                              render=False,
                              n_eval_episodes=cfg.experiment.validation.dialogs))
     if "testing" in cfg.experiment and not isinstance(cfg.experiment.testing, type(None)):
         test_data, cache, state_encoding, test_env = setup_data_and_vecenv(device=cfg.experiment.device, dataset_cfg=cfg.experiment.testing.dataset, environment_cfg=cfg.experiment.environment,
-                                                                        mode="test", n_envs=cfg.experiment.environment.num_test_envs, log_dir=f"/mount/arbeitsdaten/asr-2/vaethdk/tmp_debugging_weights_improvements/{run_id}/best_test/monitor_logs",
+                                                                        mode="test", n_envs=cfg.experiment.environment.num_test_envs, log_dir=f"/mount/arbeitsdaten/asr-2/vaethdk/cts_newcodebase_weights/{run_id}/best_test/monitor_logs",
                                                                         cache=cache, encoding=state_encoding,
                                                                         state_config=cfg.experiment.state, action_config=cfg.experiment.actions,
                                                                         torch_compile=cfg.experiment.torch_compile)
         callbacks.append(CustomEvalCallback(eval_env=test_env, mode='test',
-                        best_model_save_path=f"/mount/arbeitsdaten/asr-2/vaethdk/tmp_debugging_weights_improvements/{run_id}/best_test/weights",
-                        log_path=f"/mount/arbeitsdaten/asr-2/vaethdk/tmp_debugging_weights_improvements/{run_id}/best_test/logs",
+                        best_model_save_path=f"/mount/arbeitsdaten/asr-2/vaethdk/cts_newcodebase_weights/{run_id}/best_test/weights",
+                        log_path=f"/mount/arbeitsdaten/asr-2/vaethdk/cts_newcodebase_weights/{run_id}/best_test/logs",
                         eval_freq=max(cfg.experiment.testing.every_steps // cfg.experiment.environment.num_test_envs, 1),
                         deterministic=True,
                         render=False,
@@ -200,6 +202,8 @@ def load_cfg(cfg):
     replay_buffer_class = HindsightExperienceReplayWrapper
     # replay_buffer_class = OldHindsightExperienceReplayWrapper
     # replay_buffer_class = CustomReplayBuffer
+    # from algorithm.dqn.buffer import PrioritizedLAPReplayBuffer
+    # replay_buffer_class = PrioritizedLAPReplayBuffer
     dqn_target_cls =  to_class(cfg.experiment.algorithm.dqn.targets._target_)
     dqn_target_args = {'gamma': cfg.experiment.algorithm.dqn.gamma}
     dqn_target_args.update(cfg.experiment.algorithm.dqn.targets) 
