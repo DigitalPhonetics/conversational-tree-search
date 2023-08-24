@@ -1,0 +1,4 @@
+class_path: torch.optim.SGD
+weight_decay: 0
+momentum: 0.9
+dampening: 0
