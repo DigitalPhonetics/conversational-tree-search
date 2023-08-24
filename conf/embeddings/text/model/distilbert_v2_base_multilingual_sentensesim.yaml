@@ -1,4 +1,4 @@
-ckpt_name: 'distiluse-base-multilingual-cased-v2'
+ckpt_name: 'sentence-transformers/distiluse-base-multilingual-cased-v2'
 embedding_dim: 512
 pooling: NONE
 noise_std: 0.0
