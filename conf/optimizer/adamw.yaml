@@ -1,1 +1,1 @@
-class_path: torch.optim.Adam
+class_path: torch.optim.AdamW
