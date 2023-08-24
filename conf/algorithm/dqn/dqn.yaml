@@ -6,6 +6,7 @@ dqn:
   _target_: algorithm.dqn.dqn.DQNAlgorithm
   timesteps_per_reset: 1000000
   reset_exploration_times: 0
+  clear_buffer_on_reset: true
   max_grad_norm: 1.0
   batch_size: 128
   gamma: 0.99

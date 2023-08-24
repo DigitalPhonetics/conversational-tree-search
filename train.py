@@ -226,7 +226,9 @@ def load_cfg(cfg):
                 actions_in_state_space=cfg.experiment.actions.in_state_space
             ) # TODO configure replay buffer class!
     
-    model.learn(total_timesteps=cfg.experiment.algorithm.dqn.timesteps_per_reset, log_interval=cfg.experiment.logging.log_interval, progress_bar=False,
+    model.learn(total_timesteps=cfg.experiment.algorithm.dqn.timesteps_per_reset, reset_exploration_times=cfg.experiment.algorithm.dqn.reset_exploration_times, 
+                    clear_buffer_on_reset=cfg.experiment.algorithm.dqn.clear_buffer_on_reset,
+                    log_interval=cfg.experiment.logging.log_interval, progress_bar=False,
                     callback=CallbackList(callbacks)
         )
     run.finish()

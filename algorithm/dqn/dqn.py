@@ -146,6 +146,7 @@ class CustomDQN(DQN):
         self.target = target
 
         self.global_step = 0
+        self.current_resets = 0
 
     def train(self, gradient_steps: int, batch_size: int = 100) -> None:
         for env in self.env.envs:
@@ -223,6 +224,8 @@ class CustomDQN(DQN):
         self.logger.record("train/max_goal_distance", cfg.INSTANCES[cfg.InstanceArgs.MAX_DISTANCE])
         self.logger.record("train/buffer_size", len(self.replay_buffer))
         self.logger.record("train/q_values", mean(q_values))
+        self.logger.record("train/epsilon", self.exploration_rate)
+        self.logger.record("train/resets", self.current_resets)
         if self.policy.intent_prediction:
             self.logger.record("train/intent_loss", np.mean(intent_losses))
         if self.replay_buffer_class in [HindsightExperienceReplayWrapper, OldHindsightExperienceReplayWrapper]:
@@ -320,3 +323,23 @@ class CustomDQN(DQN):
             buffer_action = unscaled_action
             action = buffer_action
         return action, buffer_action
+
+    def learn(self,
+        total_timesteps: int,
+        reset_exploration_times: int = 1,
+        clear_buffer_on_reset: bool = False,
+        callback = None,
+        log_interval: int = 4,
+        tb_log_name: str = "DQN",
+        progress_bar: bool = False):
+
+
+        for reset_idx in range(reset_exploration_times):
+            self.current_resets = reset_idx
+            if clear_buffer_on_reset:
+                # clear replay buffer
+                self.replay_buffer.reset()
+            
+            super().learn(total_timesteps=total_timesteps, callback=callback, log_interval=log_interval,tb_log_name=tb_log_name,
+                            reset_num_timesteps=True,
+                            progress_bar=progress_bar)

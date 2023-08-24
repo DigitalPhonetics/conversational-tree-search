@@ -50,6 +50,7 @@ class CustomReplayBuffer:
     ):  
         # self.device = device
         self.device = device
+        self.buffer_size = buffer_size
 
         # buffers
         self.obs = th.zeros(buffer_size, *observation_space.shape)
@@ -151,7 +152,9 @@ class CustomReplayBuffer:
             self.reward[batch_inds].clone().detach().to(self.device).view(-1, 1),
             [self.infos[batch_idx] for batch_idx in batch_inds.tolist()]
         )
-    
+
+    def reset_last_transition_indices(self):
+        pass 
 
 
 class PrioritizedReplayBufferSamples(NamedTuple):
@@ -244,6 +247,12 @@ class PrioritizedReplayBuffer(CustomReplayBuffer):
         self.alpha = alpha
         self.beta = beta
         self.e = (1.0/buffer_size)
+
+    def clear(self):
+        super().clear()
+        self.tree = SumTree(self.buffer_size)
+        self.max_priority = 1.0
+
 
     def add_single_transition(self,
         obs: th.Tensor,

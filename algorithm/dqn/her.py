@@ -84,6 +84,15 @@ class HindsightExperienceReplayWrapper(object):
         self.replay_success_free = deque([], maxlen=AVERAGE_WINDOW) # successful replays over last n episodes
         self.replay_success_guided = deque([], maxlen=AVERAGE_WINDOW) # successful replays over last n episodes
 
+    def clear(self):
+        self.replay_buffer.clear()
+        self.episode_transitions.clear()
+        self.artificial_transition_buffer = []
+        self.artifical_rewards_free.clear()
+        self.artifical_rewards_guided.clear()
+        self.replay_success_free.clear()
+        self.replay_success_guided.clear()
+
     @property
     def artificial_episodes(self):
         return self.env.current_episode
@@ -132,6 +141,8 @@ class HindsightExperienceReplayWrapper(object):
     def update_weights(self, batch_inds: np.ndarray, weights: np.ndarray):
         self.replay_buffer.update_weights(batch_inds=batch_inds, weights=weights)
 
+    def reset_last_transition_indices(self):
+        self.replay_buffer.reset_last_transition_indices()
 
     def sample(self, *args, **kwargs):
         return self.replay_buffer.sample(*args, **kwargs)
