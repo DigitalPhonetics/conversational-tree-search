@@ -316,6 +316,7 @@ class BaseEnv:
                         # we're not at the end of the tree, but we took a wrong skip
                         done = True
                         reward = -self.max_reward
+                        self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> STOPPED BECAUSE OF INVALID SKIP')
                 if self.on_path:
                     # transition is on goal path! -> update index
                     self.last_valid_skip_transition_idx = self.current_step
