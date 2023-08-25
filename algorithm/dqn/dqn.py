@@ -1,4 +1,5 @@
 
+from collections import deque
 from statistics import mean
 from typing import Tuple, TypeVar, Union, Dict, Optional, Type, Any
 from stable_baselines3 import DQN
@@ -323,23 +324,73 @@ class CustomDQN(DQN):
             buffer_action = unscaled_action
             action = buffer_action
         return action, buffer_action
+    
+    def _update_current_progress_remaining(self, num_timesteps: int, total_timesteps: int) -> None:
+        """
+        Compute current progress remaining (starts from 1 and ends to 0)
+
+        :param num_timesteps: current number of timesteps
+        :param total_timesteps:
+        """
+        self._current_progress_remaining = 1.0 - float(num_timesteps % total_timesteps ) / float(total_timesteps)
+
+    def reset_exploration(self, reset_idx: int, clear_buffer: bool):
+        self.current_resets = reset_idx
+        if reset_idx == 0:
+            # first exploration round, don't need to reset anything
+            return
+        # second or later exploration round, reset things:
+        # reset info + success buffers
+        self.ep_info_buffer = deque(maxlen=self._stats_window_size)
+        self.ep_success_buffer = deque(maxlen=self._stats_window_size)
+        if clear_buffer:
+            self.replay_buffer.clear()
+        # trigger environment reset
+        self._last_obs = None
 
     def learn(self,
         total_timesteps: int,
-        reset_exploration_times: int = 1,
+        reset_exploration_times: int = 0,
         clear_buffer_on_reset: bool = False,
         callback = None,
         log_interval: int = 4,
-        tb_log_name: str = "DQN",
         progress_bar: bool = False):
 
 
-        for reset_idx in range(reset_exploration_times):
-            self.current_resets = reset_idx
-            if clear_buffer_on_reset:
-                # clear replay buffer
-                self.replay_buffer.reset()
-            
-            super().learn(total_timesteps=total_timesteps, callback=callback, log_interval=log_interval,tb_log_name=tb_log_name,
-                            reset_num_timesteps=True,
-                            progress_bar=progress_bar)
+        for reset_idx in range(reset_exploration_times+1):
+            self.reset_exploration(reset_idx, clear_buffer_on_reset)
+            end_timestep_of_reset = (reset_idx + 1) * total_timesteps
+
+            total_timesteps, callback = self._setup_learn(
+                end_timestep_of_reset,
+                callback,
+                reset_num_timesteps=False,
+                tb_log_name="DQN",
+                progress_bar=progress_bar,
+            )
+
+            callback.on_training_start(locals(), globals())
+
+            while self.num_timesteps < end_timestep_of_reset:
+                rollout = self.collect_rollouts(
+                    self.env,
+                    train_freq=self.train_freq,
+                    action_noise=self.action_noise,
+                    callback=callback,
+                    learning_starts=self.learning_starts,
+                    replay_buffer=self.replay_buffer,
+                    log_interval=log_interval,
+                )
+
+                if rollout.continue_training is False:
+                    break
+
+                if self.num_timesteps > 0 and self.num_timesteps > self.learning_starts:
+                    # If no `gradient_steps` is specified,
+                    # do as many gradients steps as steps performed during the rollout
+                    gradient_steps = self.gradient_steps if self.gradient_steps >= 0 else rollout.episode_timesteps
+                    # Special case when the user passes `gradient_steps=0`
+                    if gradient_steps > 0:
+                        self.train(batch_size=self.batch_size, gradient_steps=gradient_steps)
+
+            callback.on_training_end()

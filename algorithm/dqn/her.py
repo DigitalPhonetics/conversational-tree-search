@@ -74,6 +74,7 @@ class HindsightExperienceReplayWrapper(object):
                                     sys_token=sys_token, usr_token=usr_token, sep_token=sep_token)
 
         # Buffer for storing transitions of the current episode, for vectorized environment
+        self.num_train_envs = num_train_envs
         self.episode_transitions: List[List[HERReplaySample]] = [list() for _ in range(num_train_envs)]
         # Buffer for storing artificial transitions until we have enough to process a full batch
         self.artificial_transition_buffer: List[HERReplaySample] = []
@@ -86,7 +87,7 @@ class HindsightExperienceReplayWrapper(object):
 
     def clear(self):
         self.replay_buffer.clear()
-        self.episode_transitions.clear()
+        self.episode_transitions = [list() for _ in range(self.num_train_envs)]
         self.artificial_transition_buffer = []
         self.artifical_rewards_free.clear()
         self.artifical_rewards_guided.clear()
