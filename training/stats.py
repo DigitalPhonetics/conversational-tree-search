@@ -49,6 +49,7 @@ class CustomEvalCallback(EventCallback):
         eval_freq: int = 10000,
         log_path: Optional[str] = None,
         best_model_save_path: Optional[str] = None,
+        keep_checkpoints: int = 1,
         deterministic: bool = True,
         render: bool = False,
         verbose: int = 1,
@@ -69,6 +70,8 @@ class CustomEvalCallback(EventCallback):
         self.render = render
         self.warn = warn
         self.mode = mode
+        self.keep_checkpoints = keep_checkpoints
+        self.checkpoint_handles = {} # map checkpoint scores to paths
 
         self.eval_env = eval_env
         self.best_model_save_path = best_model_save_path
@@ -309,15 +312,74 @@ class CustomEvalCallback(EventCallback):
             self.logger.record(f"{self.mode}/time/total_timesteps", self.num_timesteps, exclude="tensorboard")
             self.logger.dump(self.num_timesteps)
 
+          
+            lowest_checkpoint_reward = 1000000000
+            if len(self.checkpoint_handles) >= self.keep_checkpoints:
+                # reached max. number of checkpoints to keep
+                # -> find lowest currently stored checkpoint reward value
+                for checkpoint_reward in self.checkpoint_handles:
+                    if checkpoint_reward < lowest_checkpoint_reward:
+                        lowest_checkpoint_reward = checkpoint_reward
+            else:
+                # we don't have reached the max. amount of checkpoints possible -> don't have to delete any other checkpoints
+                lowest_checkpoint_reward = None
+            if isinstance(lowest_checkpoint_reward, type(None)) or lowest_checkpoint_reward <= mean_reward:
+                # current reward is better than lowest saved checkpoint (or we have stored less than we can)
+                # -> delete lowest checkoint, then save current checkpoint
+                if not isinstance(lowest_checkpoint_reward, type(None)):
+                    os.remove(os.path.join(self.best_model_save_path, f"ckpt_{self.checkpoint_handles[lowest_checkpoint_reward]}.pt"))
+                    os.remove(os.path.join(self.best_model_save_path, f"stats_{self.checkpoint_handles[lowest_checkpoint_reward]}.txt"))
+                    del self.checkpoint_handles[lowest_checkpoint_reward]
+                # save model and stats
+                self.checkpoint_handles[mean_reward] = self.n_calls // self.eval_freq
+                self.model.save(os.path.join(self.best_model_save_path, f"ckpt_{self.n_calls // self.eval_freq}.pt"))
+                with open(os.path.join(self.best_model_save_path, f"stats_{self.n_calls // self.eval_freq}.txt"), "w") as f:
+                    lines = [f"Eval num_timesteps={self.num_timesteps}\n",
+                             f"{self.mode}/max_goal_distance: {self.eval_env.envs[0].max_distance}\n",
+                             f"{self.mode}/free_dialog_percentage: {self.free_dialogs[-1]}\n",
+                             f"{self.mode}/guided_dialog_percentage: {self.guided_dialogs[-1]}\n",
+                             f"{self.mode}/goal_asked_free: {self.goal_asked_free[-1]}\n",
+                             f"{self.mode}/goal_asked_guided: {self.goal_asked_guided[-1]}\n",
+                             f"{self.mode}/goal_reached_free: {self.goal_reached_free[-1]}\n",
+                             f"{self.mode}/goal_reached_guided: {self.goal_reached_guided[-1]}\n",
+                             f"{self.mode}/goal_node_coverage_free: {self.goal_node_coverage_free[-1]}\n",
+                             f"{self.mode}/goal_node_coverage_guided: {self.goal_node_coverage_guided[-1]}\n",
+                             f"{self.mode}/epoch_node_coverage: {self.node_coverage[-1]}\n",
+                             f"{self.mode}/total_node_coverage: {len(self.cumulative_coverage_nodes) / len(self.eval_env.envs[0].data.node_list)}\n",
+                             f"{self.mode}/epoch_node_coverage: {self.node_coverage[-1]}\n",
+                             f"{self.mode}/total_coverage_questions: {len(self.cumulative_coverage_questions) / len(self.eval_env.envs[0].data.question_list)}\n",
+                             f"{self.mode}/epoch_coverage_question: { self.synonym_coverage_questions[-1]}\n",
+                             f"{self.mode}/total_coverage_answers: {len(self.cumulative_coverage_answers) / self.eval_env.envs[0].data.num_answer_synonyms}\n",
+                             f"{self.mode}/epoch_coverage_answers: {self.synonym_coverage_answers[-1]}\n",
+                             f"{self.mode}/actioncount_skips_invalid: {self.actioncount_skips_invalid[-1]}\n",
+                             f"{self.mode}/actioncount_ask_variable_irrelevant: {self.actioncount_ask_variable_irrelevant[-1]}\n",
+                             f"{self.mode}/actioncount_ask_question_irrelevant: {self.actioncount_ask_question_irrelevant[-1]}\n",
+                             f"{self.mode}/actioncount_missingvariable: {self.actioncount_missingvariable[-1]}\n",
+                             f"Mean episode reward={mean_reward:.2f} +/- {std_reward:.2f}\n",
+                             f"Mean episode length: {mean_ep_length:.2f} +/- {std_ep_length:.2f}\n"
+                    ]
+                    if not isinstance(intent_accuracy, type(None)):
+                        lines += [f"{self.mode}/intent_accuracy: {self.intent_accuracies[-1]}\n",
+                                  f"{self.mode}/intent_consistency: {self.intent_consistencies[-1]}\n"]
+                    if len(episode_lengths_free) > 0:
+                        lines += [f"{self.mode}/ep_reward_free: {mean(episode_rewards_free)}\n",
+                                  f"{self.mode}/ep_length_free: {mean(episode_lengths_free)}\n",
+                        ]
+                    if len(episode_rewards_guided) > 0:
+                        lines += [f"{self.mode}/ep_reward_guided: {mean(episode_rewards_guided)}\n",
+                                  f"{self.mode}/ep_length_guided: {mean(episode_lengths_guided)}\n",
+                                  f"{self.mode}/perceived_length_guided: {mean(percieved_lengths_guided)}\n"
+                        ]
+                    f.writelines(lines)
+               
             if mean_reward > self.best_mean_reward:
                 if self.verbose >= 1:
                     print("New best mean reward!")
-                if self.best_model_save_path is not None:
-                    self.model.save(os.path.join(self.best_model_save_path, "best_model"))
                 self.best_mean_reward = mean_reward
                 # Trigger callback on new best model, if needed
                 if self.callback_on_new_best is not None:
                     continue_training = self.callback_on_new_best.on_step()
+
 
             # Trigger callback after every evaluation, if needed
             if self.callback is not None:

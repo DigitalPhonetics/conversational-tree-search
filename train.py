@@ -141,7 +141,8 @@ def load_cfg(cfg):
                              eval_freq=max(cfg.experiment.validation.every_steps // cfg.experiment.environment.num_val_envs, 1),
                              deterministic=True, 
                              render=False,
-                             n_eval_episodes=cfg.experiment.validation.dialogs))
+                             n_eval_episodes=cfg.experiment.validation.dialogs,
+                             keep_checkpoints=cfg.experiment.logging.keep_checkpoints))
     if "testing" in cfg.experiment and not isinstance(cfg.experiment.testing, type(None)):
         test_data, cache, state_encoding, test_env = setup_data_and_vecenv(device=cfg.experiment.device, dataset_cfg=cfg.experiment.testing.dataset, environment_cfg=cfg.experiment.environment,
                                                                         mode="test", n_envs=cfg.experiment.environment.num_test_envs, log_dir=f"/mount/arbeitsdaten/asr-2/vaethdk/cts_newcodebase_weights/{run_id}/best_test/monitor_logs",
@@ -154,7 +155,8 @@ def load_cfg(cfg):
                         eval_freq=max(cfg.experiment.testing.every_steps // cfg.experiment.environment.num_test_envs, 1),
                         deterministic=True,
                         render=False,
-                        n_eval_episodes=cfg.experiment.testing.dialogs))
+                        n_eval_episodes=cfg.experiment.testing.dialogs,
+                        keep_checkpoints=cfg.experiment.logging.keep_checkpoints))
     
     # trainer = instantiate(cfg.experiment)
     INSTANCES[InstanceType.STATE_ENCODING] = state_encoding
