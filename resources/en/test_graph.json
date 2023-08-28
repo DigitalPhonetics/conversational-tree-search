@@ -2083,8 +2083,8 @@
             },
             "data": {
                 "id": "16369666664574541",
-                "markup": "<p>Passport and Vis fees are <strong>reimbursable</strong> if they are required to fulfill business interests.</p>",
-                "raw_text": "Passport and Vis fees are reimbursable if they are required to fulfill business interests.",
+                "markup": "<p>Passport and Visa fees are <strong>reimbursable</strong> if they are required to fulfill business interests.</p>",
+                "raw_text": "Passport and Visa fees are reimbursable if they are required to fulfill business interests.",
                 "position": {
                     "x": 3990,
                     "y": 2694
@@ -3859,8 +3859,8 @@
             },
             "data": {
                 "id": "16437227645843044",
-                "markup": "<p>If there was a reallocation/delegation, only the travel travel to the new location and the return trip can be reimbursed</p>",
-                "raw_text": "If there was a reallocation/delegation, only the travel travel to the new location and the return trip can be reimbursed",
+                "markup": "<p>If there was a reallocation/delegation, only the travel to the new location and the return trip can be reimbursed</p>",
+                "raw_text": "If there was a reallocation/delegation, only the travel to the new location and the return trip can be reimbursed",
                 "position": {
                     "x": 2911,
                     "y": 5524
