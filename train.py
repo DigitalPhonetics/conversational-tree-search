@@ -209,7 +209,8 @@ def load_cfg(cfg):
     dqn_target_cls =  to_class(cfg.experiment.algorithm.dqn.targets._target_)
     dqn_target_args = {'gamma': cfg.experiment.algorithm.dqn.gamma}
     dqn_target_args.update(cfg.experiment.algorithm.dqn.targets) 
-    model = CustomDQN(policy=to_class(cfg.experiment.policy._target_), policy_kwargs=policy_kwargs,
+    model = CustomDQN(configuration=cfg,
+                policy=to_class(cfg.experiment.policy._target_), policy_kwargs=policy_kwargs,
                 target=dqn_target_cls(**dqn_target_args),
                 seed=cfg.experiment.seed,
                 env=train_env, 

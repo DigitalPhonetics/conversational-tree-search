@@ -2,6 +2,7 @@
 from collections import deque
 from statistics import mean
 from typing import Tuple, TypeVar, Union, Dict, Optional, Type, Any
+from omegaconf import DictConfig
 from stable_baselines3 import DQN
 
 import torch as th
@@ -86,6 +87,7 @@ class CustomDQN(DQN):
 
     def __init__(
         self,
+        configuration: DictConfig,
         policy: Union[str, Type[CustomDQNPolicy]],
         env: Union[GymEnv, str],
         target: DQNTarget,
@@ -145,6 +147,7 @@ class CustomDQN(DQN):
         self.action_masking = action_masking
         self.actions_in_state_space = actions_in_state_space
         self.target = target
+        self.configuration = configuration
 
         self.global_step = 0
         self.current_resets = 0
