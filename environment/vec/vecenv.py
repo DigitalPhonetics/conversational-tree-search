@@ -64,10 +64,9 @@ class CustomVecEnv(VecEnv):
 
     def step_wait(self) -> VecEnvStepReturn:
         for env_idx in range(self.num_envs):
-            obs, self.buf_rews[env_idx], terminated, truncated, info = self.envs[env_idx].step(
+            obs, self.buf_rews[env_idx], terminated, truncated, self.buf_infos[env_idx] = self.envs[env_idx].step(
                 self.actions[env_idx]
             )
-            self.buf_infos[env_idx] = obs
             # convert to SB3 VecEnv api
             self.buf_dones[env_idx] = terminated
             # See https://github.com/openai/gym/issues/3102
@@ -76,7 +75,7 @@ class CustomVecEnv(VecEnv):
 
             if self.buf_dones[env_idx]:
                 # save final observation where user can get it, then reset
-                self.buf_infos[env_idx]["terminal_observation"] = obs
+                self.buf_infos[env_idx]["terminal_observation"] = deepcopy(obs)
                 # obs, self.reset_infos[env_idx] = self.envs[env_idx].reset()
                 obs = self.envs[env_idx].reset()
             self._save_obs(env_idx, obs)
@@ -98,9 +97,11 @@ class CustomVecEnv(VecEnv):
 
 
     def reset(self) -> VecEnvObs:
+        self.buf_dones = np.zeros((self.num_envs,), dtype=bool)
+        self.buf_rews = np.zeros((self.num_envs,), dtype=np.float32)
         for env_idx in range(self.num_envs):
-            # TODO what did they write about reset infos and next state after termination?? READ
             obs = self.envs[env_idx].reset()
+            self.buf_infos[env_idx] = obs
             self._save_obs(env_idx, obs)
         return self._obs_from_buf()
 
@@ -133,14 +134,15 @@ class CustomVecEnv(VecEnv):
         self.buf_obs[env_idx] = obs
 
     def _obs_from_buf(self) -> VecEnvObs:
-        # TODO convert self.buf_infos[env_idx]["terminal_observation"] into vectors for all buf elements that contain terminal_observation
-        #
-        # TODO better IDEA: buf_obs encoding contains all terminal_observations as well - just have to pick them by index and concatenate!
-        # 
         batch_encoding = self.state_encoding.batch_encode(self.buf_obs, sys_token=self.sys_token, usr_token=self.usr_token, sep_token=self.sep_token)
-        terminal_observations = [env_idx for env_idx, info in enumerate(self.buf_infos) if "terminal_observation" in info]
-        for env_idx in terminal_observations:
-            self.buf_infos[env_idx]['terminal_observation'] = batch_encoding[env_idx].detach().clone()
+
+        # convert all terminal observations into vectors (found in buf_infos['terminal_observations']) because stable-baselines resets done environments immediately in step()
+        terminal_observation_indices = [env_idx for env_idx, info in enumerate(self.buf_infos) if "terminal_observation" in info]
+        if len(terminal_observation_indices) > 0:
+            batch_encoding_terminal_obs = self.state_encoding.batch_encode([self.buf_infos[env_idx]['terminal_observation'] for env_idx in terminal_observation_indices], sys_token=self.sys_token, usr_token=self.usr_token, sep_token=self.sep_token)
+            for list_idx, env_idx in enumerate(terminal_observation_indices):
+                self.buf_infos[env_idx]['terminal_observation'] = batch_encoding_terminal_obs[list_idx].detach()
+        
         return batch_encoding
     
     @property 

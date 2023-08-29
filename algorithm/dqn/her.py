@@ -205,8 +205,12 @@ class HindsightExperienceReplayWrapper(object):
     
     def _replay_episode(self, mode: str, original_transitions: List[HERReplaySample], artificial_goal: DummyGoal, final_transition_idx: int) -> float:
         # replay episode with new goal
+        # print("\n\n\n")
+        # print("======== RESET =========")
         episode_reward = 0.0
         obs = self.env.reset(mode=mode, replayed_goal=artificial_goal)
+        # print("Goal node:", self.data.nodes_by_key[artificial_goal.goal_node_key].text[:50])
+        # print(f'            ({self.data.nodes_by_key[artificial_goal.goal_node_key].key})')
         done = False
         transition_idx = 0
         while not done and transition_idx <= final_transition_idx:
@@ -214,13 +218,21 @@ class HindsightExperienceReplayWrapper(object):
             original_transition = original_transitions[transition_idx]
             # recover original action
             original_action = original_transition.action
+            # print(f"- Transition {transition_idx}:")
+            # print(f"     - ORIGINAL ACTION = {original_action}")
+            # print(f"     - ORIGINAL NODE = {self.data.nodes_by_key[original_transition.info[EnvInfo.DIALOG_NODE_KEY]].text[:50]}")
+            # print(f"     -                 ({original_transition.info[EnvInfo.DIALOG_NODE_KEY]})")
             # replay action
             next_obs, reward, done, info = self.env.step(original_action, replayed_user_utterance=original_transition.info[EnvInfo.CURRENT_USER_UTTERANCE] if transition_idx > 0 else artificial_goal.initial_user_utterance)
             # record new observations
+            # print(f"    => NEW NODE = {self.data.nodes_by_key[info[EnvInfo.DIALOG_NODE_KEY]].text[:50]}")
+            # print(f"    =>            {info[EnvInfo.DIALOG_NODE_KEY]}")
             self._store_aritificial_transition(obs, next_obs, original_action, reward, done, info)
             episode_reward += reward
             transition_idx += 1
 
+        # print(" -> REACHED GOAL:", info[EnvInfo.REACHED_GOAL_ONCE])
+        # print(" -> ASKED GOAL", info[EnvInfo.ASKED_GOAL])
         assert info[EnvInfo.REACHED_GOAL_ONCE] == True
         if self.append_ask_action and not (original_action == ActionType.ASK):
             # append an artificial ASK action as last action, if replayed episode didn't end in one
