@@ -327,7 +327,7 @@ class BaseEnv:
                         done = logic_done
                     self.log_dialog_msg(f'-> TURN REWARD: {reward}')
 
-                    if not self.goal.goal_node_key:
+                    if isinstance(self.goal.goal_node_key, type(None)):
                         done = True # check if we reached end of dialog tree
                         self.log_dialog_msg('-> REACHED TREE END')
 
