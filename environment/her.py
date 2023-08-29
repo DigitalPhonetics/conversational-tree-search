@@ -48,6 +48,8 @@ class CTSHEREnvironment:
         value_backend = RealValueBackend(dataset.a1_countries, dataset)
 
         # initialize task-specific environments
+        self.dialog_logging = False
+        self.stat_logging = True
         self.guided_env = GuidedEnvironment(dataset=dataset,
                 sys_token=sys_token, usr_token=usr_token, sep_token=sep_token,
                 max_steps=max_steps, max_reward=self.max_reward, user_patience=user_patience,
@@ -55,6 +57,8 @@ class CTSHEREnvironment:
                 answer_parser=answer_parser, system_parser=system_parser, logic_parser=logic_parser,
                 value_backend=value_backend,
                 auto_skip=auto_skip)
+        self.guided_env.set_stat_logging(True)
+        self.guided_env.set_dialog_logging(False)
         self.free_env = FreeEnvironment(dataset=dataset,
                 sys_token=sys_token, usr_token=usr_token, sep_token=sep_token,
                 max_steps=max_steps, max_reward=self.max_reward, user_patience=user_patience,
@@ -62,6 +66,8 @@ class CTSHEREnvironment:
                 answer_parser=answer_parser, system_parser=system_parser, logic_parser=logic_parser, 
                 value_backend=value_backend,
                 auto_skip=auto_skip)
+        self.free_env.set_stat_logging(True)
+        self.free_env.set_dialog_logging(False)
 
         print("HER ENV!!", "TOKENS:", sys_token, usr_token, sep_token)
     
@@ -81,7 +87,7 @@ class CTSHEREnvironment:
             self.active_env = self.guided_env
 
         # choose uniformely at random between guided and free env according to ratio
-        self.active_env.episode_log = []
+        self.active_env.current_episode_log = []
         return self.active_env.reset(current_episode=self.current_episode, max_distance=self.max_distance, replayed_goal=replayed_goal)
 
     def step(self, action: int, replayed_user_utterance: Tuple[str, None] = None) -> Tuple[dict, float, bool, dict]:

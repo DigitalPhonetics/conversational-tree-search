@@ -150,9 +150,6 @@ class CustomDQN(DQN):
         self.current_resets = 0
 
     def train(self, gradient_steps: int, batch_size: int = 100) -> None:
-        for env in self.env.envs:
-            env.reset_episode_log()
-        
         # Switch to train mode (this affects batch norm / dropout)
         self.policy.set_training_mode(True)
         # Update learning rate according to schedule

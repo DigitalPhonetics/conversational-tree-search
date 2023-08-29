@@ -47,8 +47,22 @@ class BaseEnv:
         self.value_backend = value_backend
 
         # stats
-        self.episode_log = []
+        self.current_episode_log = []
+        self.dialog_logging = True
+        self.stat_logging = True
         self.reset_stats()
+
+    def set_dialog_logging(self, logging: bool):
+        """ Controls if text will be appended to the episode log or not """
+        self.dialog_logging = logging
+
+    def set_stat_logging(self, logging: bool):
+        """ Controls if stats will be recorded or not """
+        self.stat_logging = logging
+
+    def log_dialog_msg(self, msg: str):
+        if self.dialog_logging:
+            self.current_episode_log.append(f'{self.env_id}-{self.current_episode}$ {msg}')
 
     def reset_stats(self):
         # success stats
@@ -75,12 +89,14 @@ class BaseEnv:
         self.actioncount_ask_question_irrelevant = 0
         self.actioncount_missingvariable = 0
 
-
     def pre_reset(self):
         self.current_step = 0
         self.user_answer_keys = defaultdict(int)
         self.visited_node_keys = defaultdict(int)
         self.bst = {}
+
+        # reset log of current episode
+        self.current_episode_log = []
        
         self.initial_user_utterance = "" 
         self.current_node = self.data.start_node.connected_node
@@ -93,8 +109,7 @@ class BaseEnv:
             self.goal: UserGoal or RealUserGoal
         """
         self.initial_user_utterance = deepcopy(self.goal.initial_user_utterance)
-
-        self.goal_node_coverage[self.goal.goal_node_key] += 1
+        
         self.current_user_utterance = deepcopy(self.initial_user_utterance)
         self.user_utterances_history = [deepcopy(self.initial_user_utterance)]
         self.system_utterances_history = [deepcopy(self.current_node.text)]
@@ -103,10 +118,12 @@ class BaseEnv:
         self.on_path = True
 
         # coverage stats
-        self.node_coverage[self.current_node.key] += 1
+        if self.stat_logging:
+            self.goal_node_coverage[self.goal.goal_node_key] += 1
+            self.node_coverage[self.current_node.key] += 1
+        self.current_episode += 1
 
         # dialog stats
-        self.current_episode += 1
         self.current_step = 0
         self.episode_reward = 0.0
         self.skipped_nodes = 0
@@ -117,10 +134,12 @@ class BaseEnv:
         self.percieved_length = 1 # only ASK actions (actions visible to the user) - starts with 1 because reset turn is ASK as well
 
         # Logging
-        self.episode_log.append(f'{self.env_id}-{self.current_episode}$ ======== RESET =========')
-        self.episode_log.append(f'{self.env_id}-{self.current_episode}$ GOAL: {self.goal.goal_node_key} {self.data.nodes_by_key[self.goal.goal_node_key].text[:100]}') 
-        self.episode_log.append(f'{self.env_id}-{self.current_episode}$ CONSTRAINTS: {self.goal.constraints}')
-        self.episode_log.append(f'{self.env_id}-{self.current_episode}$ INITIAL UTTERANCE: {self.initial_user_utterance}') 
+        self.log_dialog_msg('======== RESET =========')
+        self.log_dialog_msg(f'GOAL: {self.goal.goal_node_key} {self.data.nodes_by_key[self.goal.goal_node_key].text[:100]}') 
+        self.log_dialog_msg('CONSTRAINTS:') 
+        for idx, constraint in enumerate(self.goal.constraints.values()):
+            self.log_dialog_msg(f'{idx}) {constraint}')
+        self.log_dialog_msg(f'INITIAL UTTERANCE: {self.initial_user_utterance}') 
 
         return self.get_obs()
     
@@ -181,16 +200,17 @@ class BaseEnv:
                 return self.current_node.connected_node
             else:
                 # invalid skip index: > 0
-                self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> INVALID TRANSITION TO CONNECTED_NODE {answer_index}')
+                self.log_dialog_msg(f'-> INVALID TRANSITION TO CONNECTED_NODE {answer_index}')
                 return None
         # we dont' have a directly connected node, but maybe answers
         if answer_index >= num_answers:
             # invalid answer index (we have less answers than chosen index)
-            self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> INVALID TRANSITION TO ANSWER {answer_index}, HAS ONLY {num_answers}')
+            self.log_dialog_msg(f'-> INVALID TRANSITION TO ANSWER {answer_index}, HAS ONLY {num_answers}')
             return None # invalid action: stay at current node
         
         next_node = self.current_node.answer_by_index(answer_index).connected_node
-        self.node_coverage[next_node.key] += 1
+        if self.stat_logging:
+            self.node_coverage[next_node.key] += 1
         return next_node
 
     @property
@@ -284,18 +304,20 @@ class BaseEnv:
         if self.check_user_patience_reached(): 
             reward = -self.max_reward  # bad
             done = True
-            self.episode_log.append(f'{self.env_id}-{self.current_episode}$ REACHED MAX USER PATIENCE')
+            self.log_dialog_msg('REACHED MAX USER PATIENCE')
         elif self.reached_max_length():
             done = True # already should have large negtative reward (expect if in guided mode, where max length could even be desired)
-            self.episode_log.append(f'{self.env_id}-{self.current_episode}$ REACHED MAX LENGTH')
+            self.log_dialog_msg('REACHED MAX LENGTH')
         else:
             assert self.current_node.node_type != NodeType.LOGIC
             if action == ActionType.ASK:
                 self.percieved_length += 1
-                self.actioncount_asks[self.current_node.node_type] += 1
+                if self.stat_logging:
+                    self.actioncount_asks[self.current_node.node_type] += 1
                 done, reward = self.ask(replayed_user_utterance)
             else:
-                self.actioncount_skips[self.current_node.node_type] += 1
+                if self.stat_logging:
+                    self.actioncount_skips[self.current_node.node_type] += 1
                 done, reward = self.skip(action-1) # get answer index by shifting actions to the left
 
                 # handle logic node auto-transitioning here
@@ -303,11 +325,11 @@ class BaseEnv:
                     reward, logic_done, did_handle_logic_node = self.handle_logic_nodes(reward)
                     if did_handle_logic_node:
                         done = logic_done
-                    self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> TURN REWARD: {reward}')
+                    self.log_dialog_msg(f'-> TURN REWARD: {reward}')
 
                     if not self.goal.goal_node_key:
                         done = True # check if we reached end of dialog tree
-                        self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> REACHED TREE END')
+                        self.log_dialog_msg('-> REACHED TREE END')
 
                 # check if agent is on correct path
                 if (not self.current_node) or (not self.current_node.key in self.goal.visited_ids):
@@ -316,14 +338,14 @@ class BaseEnv:
                         # we're not at the end of the tree, but we took a wrong skip
                         done = True
                         reward = -self.max_reward
-                        self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> STOPPED BECAUSE OF INVALID SKIP')
+                        self.log_dialog_msg('-> STOPPED BECAUSE OF INVALID SKIP')
                 if self.on_path:
                     # transition is on goal path! -> update index
                     self.last_valid_skip_transition_idx = self.current_step
                 
-            self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> USER UTTERANCE: {self.current_user_utterance}')
+            self.log_dialog_msg(f'-> USER UTTERANCE: {self.current_user_utterance}')
             if self.current_node:
-                self.episode_log.append(f'{self.env_id}-{self.current_episode}$ TO NODE: {self.current_node.node_type.value} - {self.current_node.key} - {self.current_node.text[:100]}')
+                self.log_dialog_msg(f'TO NODE: {self.current_node.node_type.value} - {self.current_node.key} - {self.current_node.text[:100]}')
 
             # update history
             self.last_action_idx = action
@@ -344,14 +366,14 @@ class BaseEnv:
        
         self.episode_reward += reward
         if done:
-            self.reached_goals.append(float(self.reached_goal_once))
-            self.asked_goals.append(float(self.asked_goal_once))
-            # self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> TURN REWARD: {reward}')
-            self.episode_log.append(f'{self.env_id}-{self.current_episode}$=> REACHED GOAL ONCE: {self.reached_goal_once}')
-            self.episode_log.append(f'{self.env_id}-{self.current_episode}$=> ASKED GOAL ONCE: {self.asked_goal_once}')
-            self.episode_log.append(f'{self.env_id}-{self.current_episode}$=> FINAL REWARD: {self.episode_reward}')
-            self.episode_log.append(f'{self.env_id}-{self.current_episode}$=> PERCIEVED LENGTH: {self.percieved_length}')
-            self.episode_log.append(f'{self.env_id}-{self.current_episode}$=> TOTAL LENGTH: {self.current_step}')
+            if self.stat_logging:
+                self.reached_goals.append(float(self.reached_goal_once))
+                self.asked_goals.append(float(self.asked_goal_once))
+            self.log_dialog_msg(f'=> REACHED GOAL ONCE: {self.reached_goal_once}')
+            self.log_dialog_msg(f'=> ASKED GOAL ONCE: {self.asked_goal_once}')
+            self.log_dialog_msg(f'=> FINAL REWARD: {self.episode_reward}')
+            self.log_dialog_msg(f'=> PERCIEVED LENGTH: {self.percieved_length}')
+            self.log_dialog_msg(f'=> TOTAL LENGTH: {self.current_step}')
 
         obs = self.get_obs()
         reward /= self.max_reward 
@@ -362,12 +384,14 @@ class BaseEnv:
 
     def update_action_counters(self, action: int):
         action_type = ActionType.ASK if action == ActionType.ASK else ActionType.SKIP
-        self.actioncount[action_type] += 1
+        if self.stat_logging:
+            self.actioncount[action_type] += 1
 
         if action_type == ActionType.SKIP and self.last_action_idx >= ActionType.SKIP: # it's only a REAL skip if we didn't ask before
             if self.current_node:
-                self.actioncount_skips[self.current_node.node_type] += 1
-                self.skipped_nodes += 1
+                if self.stat_logging:
+                    self.actioncount_skips[self.current_node.node_type] += 1
+                    self.skipped_nodes += 1
 
     def update_node_counters(self):
         if self.current_node:
@@ -398,21 +422,23 @@ class BaseEnv:
                         default_answer = answer
                 self.current_node = default_answer.connected_node
                 if self.current_node:
-                    self.node_coverage[self.current_node.key] += 1
-                    self.episode_log.append(f"{self.env_id}-{self.current_episode}$ -> AUTO SKIP LOGIC NODE: SUCCESS {self.current_node.key}")
+                    if self.stat_logging:
+                        self.node_coverage[self.current_node.key] += 1
+                    self.log_dialog_msg(f"-> AUTO SKIP LOGIC NODE: SUCCESS {self.current_node.key}")
 
                     if self.goal.has_reached_goal_node(self.current_node):
                         reward += self.reward_reached_goal
                         self.reached_goal_once = True
-                        self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> REACHED GOAL')
+                        self.log_dialog_msg('-> REACHED GOAL')
                 else:
-                    self.episode_log.append(f"{self.env_id}-{self.current_episode}$ -> AUTO SKIP LOGIC NODE: SUCCESS, but current node NULL {self.current_node}")
+                    self.log_dialog_msg(f"-> AUTO SKIP LOGIC NODE: SUCCESS, but current node NULL {self.current_node}")
                     done = True
             else:
                 # we don't know variable (yet?) -> punish and stop
                 reward = -self.max_reward
-                self.actioncount_missingvariable += 1
-                self.episode_log.append(f"{self.env_id}-{self.current_episode}$ -> AUTO SKIP LOGIC NODE: FAIL, VAR {var_name} not in BST -> {self.current_node.key}")
+                if self.stat_logging:
+                    self.actioncount_missingvariable += 1
+                self.log_dialog_msg(f"-> AUTO SKIP LOGIC NODE: FAIL, VAR {var_name} not in BST -> {self.current_node.key}")
                 done = True
                 break
 

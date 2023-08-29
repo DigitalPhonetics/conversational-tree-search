@@ -1,3 +1,4 @@
+from copy import deepcopy
 import random
 from typing import Tuple
 
@@ -36,10 +37,14 @@ class CTSEnvironment(gymnasium.Env):
                 state_encoding: StateEncoding,
                 **kwargs):
         # self.env_id = env_id
+        self.dialog_logging = True
+        self.stat_logging = True
         self.goal_distance_mode = goal_distance_mode
         self.goal_distance_increment = goal_distance_increment
         self.data = dataset
         self.mode = mode
+        self.stop_when_reaching_goal = stop_when_reaching_goal
+        self.stop_on_invalid_skip = stop_on_invalid_skip
 
         self.action_space = gymnasium.spaces.Discrete(state_encoding.space_dims.num_actions)
         if state_encoding.action_config.in_state_space == True:
@@ -78,11 +83,26 @@ class CTSEnvironment(gymnasium.Env):
                 value_backend=value_backend,
                 auto_skip=auto_skip)
 
-        # TODO add logger
         # TODO forward coverage stats
         self.turn_counter = 0
 
         print("ENV!!", mode, "TOKENS:", sys_token, usr_token, sep_token)
+
+    def set_dialog_logging(self, logging: bool):
+        """ Controls if text will be appended to the episode log or not """
+        self.dialog_logging = logging
+        if hasattr(self, 'guided_env'):
+            self.guided_env.set_dialog_logging(logging)
+        if hasattr(self, 'free_env'):
+            self.free_env.set_dialog_logging(logging)
+
+    def set_stat_logging(self, logging: bool):
+        """ Controls if stats will be recorded or not """
+        self.stat_logging = logging
+        if hasattr(self, 'guided_env'):
+            self.guided_env.set_stat_logging(logging)
+        if hasattr(self, 'free_env'):
+            self.free_env.set_stat_logging(logging)
     
     @property
     def current_episode(self):
@@ -107,28 +127,24 @@ class CTSEnvironment(gymnasium.Env):
             self.max_distance = cfg.INSTANCES[cfg.InstanceArgs.MAX_DISTANCE]
 
         # choose uniformely at random between guided and free env according to ratio
+        self.prev_episode_log = deepcopy(self.active_env.current_episode_log) if hasattr(self, "active_env") else []
         self.active_env = self.guided_env if random.random() < self.guided_free_ratio else self.free_env
-        return self.active_env.reset(current_episode=self.current_episode, max_distance=self.max_distance)
-    
-    @property
-    def episode_log(self):
-        log = []
-        if hasattr(self, "guided_env"):
-            log.extend(self.guided_env.episode_log)
-        if hasattr(self, "free_env"):
-            log.extend(self.free_env.episode_log)
-        return log
+        obs = self.active_env.reset(current_episode=self.current_episode, max_distance=self.max_distance)
+        obs[EnvInfo.IS_FAQ] = hasattr(self, 'free_env') and (self.active_env == self.free_env)
+        return obs
     
     def reset_episode_log(self):
         if hasattr(self, "guided_env"):
-            self.guided_env.episode_log = []
+            self.guided_env.current_episode_log = []
         if hasattr(self, "free_env"):
-            self.free_env.episode_log = []
+            self.free_env.current_episode_log = []
 
     def step(self, action: int, replayed_user_utterance: Tuple[str, None] = None) -> Tuple[dict, float, bool, dict]:
         obs, reward, done = self.active_env.step(action, replayed_user_utterance)
         obs[EnvInfo.IS_FAQ] = hasattr(self, 'free_env') and (self.active_env == self.free_env)
         obs["is_success"] = obs[EnvInfo.ASKED_GOAL]
+        if (not self.stop_on_invalid_skip) and (not self.stop_when_reaching_goal):
+            assert done == False or self.turn_counter > 0, f"Episode terminated on first step"
         self.turn_counter += 1
         return obs, reward, done, False, obs # trunated, info = obs before encoding
     

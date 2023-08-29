@@ -97,6 +97,12 @@ def custom_evaluate_policy(
     # Divides episodes among different sub environments in the vector as evenly as possible
     episode_count_targets = np.array([(n_eval_episodes + i) // n_envs for i in range(n_envs)], dtype="int")
 
+    for sub_env in env.envs:
+        sub_env.reset_episode_log()
+        # re-enable logging
+        sub_env.set_dialog_logging(True)
+        sub_env.set_stat_logging(True)
+
     current_rewards = np.zeros(n_envs)
     current_lengths = np.zeros(n_envs, dtype="int")
     observations = env.reset()
@@ -139,6 +145,10 @@ def custom_evaluate_policy(
                     # record env mode: free or guided
                     total_dialogs += 1
 
+                    assert env.envs[i].current_step == 0, "no reset happened"
+                    assert current_lengths[i] > 0, "episode was terminated immediately"
+
+                    dialog_log.extend(env.envs[i].prev_episode_log) # append last dialog only
                     if info[EnvInfo.IS_FAQ]:
                         free_dialogs += 1
                         episode_rewards_free.append(current_rewards[i])
@@ -152,14 +162,14 @@ def custom_evaluate_policy(
                     episode_counts[i] += 1
                     current_rewards[i] = 0
                     current_lengths[i] = 0
+            else:
+                # this environment has already completed all of its dialogs - stop recording
+                env.envs[i].set_dialog_logging(False)
+                env.envs[i].set_stat_logging(False)
 
         observations = new_observations
         if render:
             env.render()
-    
-    for sub_env in env.envs:
-        dialog_log.extend(sub_env.episode_log)
-        sub_env.reset_episode_log()
 
     free_dialogs = free_dialogs / total_dialogs
     guided_dialogs = guided_dialogs / total_dialogs

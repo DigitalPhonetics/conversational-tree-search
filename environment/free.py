@@ -42,9 +42,10 @@ class FreeEnvironment(BaseEnv):
         self.pre_reset()
 
         self.goal = self.goal_gen.draw_goal_free(max_distance) if isinstance(replayed_goal, type(None)) else replayed_goal
-        self.coverage_question_synonyms[self.goal.delexicalised_initial_user_utterance.lower().replace("?", "")] += 1
+        if self.stat_logging:
+            self.coverage_question_synonyms[self.goal.delexicalised_initial_user_utterance.lower().replace("?", "")] += 1
 
-        self.episode_log.append(f'{self.env_id}-{self.current_episode}$ MODE: Free') 
+        self.log_dialog_msg('MODE: Free') 
         return self.post_reset()
 
     def ask(self, replayed_user_utterance: Tuple[str, None]) -> Tuple[bool, float]:
@@ -55,11 +56,11 @@ class FreeEnvironment(BaseEnv):
             # we ask goal node for the first time
             reward += self.max_reward
             self.asked_goal_once = True
-            self.episode_log.append(f'{self.env_id}-{self.current_episode}$ ASK REACHED GOAL')
+            self.log_dialog_msg('ASK REACHED GOAL')
 
             if self.stop_when_reaching_goal:
                 # we asked goal: auto-stop
-                self.episode_log.append(f'{self.env_id}-{self.current_episode}$ AUTO-STOP REACHED GOAL')
+                self.log_dialog_msg('AUTO-STOP REACHED GOAL')
                 done = True
         else:
             reward -= 1
@@ -84,10 +85,11 @@ class FreeEnvironment(BaseEnv):
                 if not var_instance.relevant:
                     # asking for irrelevant variable is bad
                     reward -= 2
-                    self.actioncount_ask_variable_irrelevant += 1
-                    self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> IRRELEVANT VAR: {var.name} ')
+                    if self.stat_logging:
+                        self.actioncount_ask_variable_irrelevant += 1
+                    self.log_dialog_msg(f'-> IRRELEVANT VAR: {var.name} ')
                 self.coverage_variables[var.name][self.bst[var.name]] += 1
-                self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> VAR NAME: {var.name}, VALUE: {self.bst[var.name]}')
+                self.log_dialog_msg(f'-> VAR NAME: {var.name}, VALUE: {self.bst[var.name]}')
             elif self.current_node.node_type == NodeType.QUESTION:
                 response = None
                 if self.current_node.key in self.user_answer_keys:
@@ -98,20 +100,22 @@ class FreeEnvironment(BaseEnv):
                 if not response:
                     # reached end of dialog tree
                     done = True
-                    self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> REACHED TREE END')
+                    self.log_dialog_msg('-> REACHED TREE END')
                 else:
                     # get user reply
                     if not response.relevant:
                         reward -= 2 # chose different path than goal path]
-                        self.actioncount_ask_question_irrelevant += 1
-                        self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> IRRELEVANT QUESTION')
+                        if self.stat_logging:
+                            self.actioncount_ask_question_irrelevant += 1
+                        self.log_dialog_msg('-> IRRELEVANT QUESTION')
                     # answer = self.current_node.answers.get(key=response.answer_key)
                     if replayed_user_utterance:
                         self.current_user_utterance = replayed_user_utterance
                     else:
                         answer = self.current_node.answer_by_key(response.answer_key)
                         self.current_user_utterance = rand_remove_questionmark(random.choice(self.data.answer_synonyms[answer.text.lower()]))
-                    self.coverage_answer_synonyms[self.current_user_utterance.lower().replace("?", "")] += 1
+                    if self.stat_logging:
+                        self.coverage_answer_synonyms[self.current_user_utterance.lower().replace("?", "")] += 1
             # info nodes don't require special handling
 
         return done, reward
@@ -135,14 +139,15 @@ class FreeEnvironment(BaseEnv):
             if self.goal.has_reached_goal_node(self.current_node):
                 reward += self.reward_reached_goal # assign a reward for reaching the goal (but not asked yet, because this was a skip)
                 self.reached_goal_once = True
-                self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> REACHED GOAL')
+                self.log_dialog_msg('-> REACHED GOAL')
             else:
-                self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> SKIP (answer index: {answer_index}) to {next_node.key}')
+                self.log_dialog_msg(f'-> SKIP (answer index: {answer_index}) to {next_node.key}')
         else:
             # invalid transition -> punish
-            self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> INVALID SKIP (answer index: {answer_index} for {len(self.current_node.answers)})')
+            self.log_dialog_msg(f'-> INVALID SKIP (answer index: {answer_index} for {len(self.current_node.answers)})')
             reward -= 3
-            self.actioncount_skip_invalid += 1
+            if self.stat_logging:
+                self.actioncount_skip_invalid += 1
         return done, reward
 
     def reached_goal(self) -> bool:

@@ -24,14 +24,18 @@ class VariableValue:
         self.geq_condition = None
 
     def __str__(self) -> str:
-        return f"""Variable '{self.var_name}': {self.var_type}
-            - < {self.lt_condition}
-            - <= {self.leq_condition}
-            - = {self.eq_condition}
-            - >= {self.geq_condition}
-            - > {self.gt_condition}
-        """
-        
+        text = [f"Variable {self.var_name}' ({self.var_type}), constraints: "]
+        if not isinstance(self.lt_condition, type(None)):
+            text.append(f" - < {self.lt_condition}")
+        if not isinstance(self.leq_condition, type(None)):
+            text.append(f" - <= {self.leq_condition}")
+        if not isinstance(self.eq_condition, type(None)):
+            text.append(f" - = {self.eq_condition}")
+        if not isinstance(self.geq_condition, type(None)):
+            text.append(f" - >= {self.geq_condition}")
+        if not isinstance(self.gt_condition, type(None)):
+            text.append(f" - > {self.gt_condition}")
+        return "\n".join(text)
 
     def add_default_condition(self, other_branch_conditions: List[Tuple[str, Any]]) -> bool:
         # invert conditions in same branch statement (DEFAULT is always == condition)
