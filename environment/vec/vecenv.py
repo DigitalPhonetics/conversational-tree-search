@@ -110,6 +110,12 @@ class CustomVecEnv(VecEnv):
         for env in self.envs:
             env.close()
 
+    def set_dialog_logging(self, logging: bool):
+        """ Controls if text will be appended to the episode log or not """
+        self.dialog_logging = logging
+        for env in self.envs:
+            env.set_dialog_logging(logging)
+
 
     def get_images(self) -> Sequence[Optional[np.ndarray]]:
         if self.render_mode != "rgb_array":

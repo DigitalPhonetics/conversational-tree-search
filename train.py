@@ -26,6 +26,7 @@ from environment.vec.vecenv import CustomVecEnv
 from environment.cts import CTSEnvironment
 
 import os
+import time
 
 th.set_num_threads(8) # default on server: 32
 th.set_num_interop_threads(8) # default on server: 32
@@ -33,9 +34,11 @@ th.set_num_interop_threads(8) # default on server: 32
 from training.stats import CustomEvalCallback
 os.environ['TOKENIZERS_PARALLELISM'] = "True"
 
+run_id = f"run_{str(time.time()).split('.')[0]}"
+OmegaConf.register_resolver("run_dir", lambda : f"/mount/arbeitsdaten/asr-2/vaethdk/cts_newcodebase_weights/{run_id}/")
+
 cs = ConfigStore.instance()
 register_configs()
-
 
 def to_class(path:str):
     from pydoc import locate
@@ -110,16 +113,13 @@ def load_cfg(cfg):
             sync_tensorboard=True,  # auto-upload sb3's tensorboard metrics
             # monitor_gym=True,  # auto-upload the videos of agents playing the game
             save_code=True,  # optional
-            dir="/mount/arbeitsdaten/asr-2/vaethdk/cts_newcodebase_weights/{run_id}/wandb"
+            dir=f"/mount/arbeitsdaten/asr-2/vaethdk/cts_newcodebase_weights/{run_id}/",
+            id=run_id
         )
-        run_id = run.id
         callbacks.append(WandbCallback(
             model_save_path=f"/mount/arbeitsdaten/asr-2/vaethdk/cts_newcodebase_weights/{run_id}",
             verbose=2)
         )
-    else:
-        import random
-        run_id = f"run_{random.randint(0, 999999)}"
     
     if "training" in cfg.experiment and not isinstance(cfg.experiment.training, type(None)): 
         train_data, cache, state_encoding, train_env = setup_data_and_vecenv(device=cfg.experiment.device, dataset_cfg=cfg.experiment.training.dataset, environment_cfg=cfg.experiment.environment,
@@ -127,7 +127,7 @@ def load_cfg(cfg):
                                                                         cache=cache, encoding=state_encoding,
                                                                         state_config=cfg.experiment.state, action_config=cfg.experiment.actions,
                                                                         torch_compile=cfg.experiment.torch_compile)
-
+        train_env.set_dialog_logging(False)
         train_env = VecMonitor(train_env)
     if "validation" in cfg.experiment and not isinstance(cfg.experiment.validation, type(None)): 
         val_data, cache, state_encoding, val_env = setup_data_and_vecenv(device=cfg.experiment.device, dataset_cfg=cfg.experiment.validation.dataset, environment_cfg=cfg.experiment.environment,

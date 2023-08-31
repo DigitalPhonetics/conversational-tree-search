@@ -21,6 +21,9 @@ defaults:
   # overwrite defaults loaded above with the following content from this file
   - _self_
 
+hydra:
+  run:
+    dir: ${run_dir:}
 experiment:
   device: cuda:0
   seed: 12345678

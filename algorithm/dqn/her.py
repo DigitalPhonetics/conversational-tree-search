@@ -274,19 +274,22 @@ class HindsightExperienceReplayWrapper(object):
             question = goal_node.random_question()
             # create dummy goal
             goal.delexicalised_initial_user_utterance = rand_remove_questionmark(question.text)
-            try:
-                goal.initial_user_utterance = self.system_parser.parse_template(goal.delexicalised_initial_user_utterance, self.env.free_env.value_backend, goal.constraints)
-            except:
-                print(f"HER ERROR: parser on retry {retry}", goal.delexicalised_initial_user_utterance, goal.constraints)
-                offset = 1
-                if original_transitions[final_transition_idx].action == ActionType.ASK:
-                    # have to backward to previous node
-                    offset += 1
-                if final_transition_idx - offset > 1:
-                    self._replay_free(original_transitions[:final_transition_idx-1], retry=retry+1)
-                else:
-                    self.replay_success_free.append(0.0)
-                    return
+            if "{{" in goal.delexicalised_initial_user_utterance:
+                try:
+                        goal.initial_user_utterance = self.system_parser.parse_template(goal.delexicalised_initial_user_utterance, self.env.free_env.value_backend, goal.constraints)
+                except:
+                    print(f"HER ERROR: parser on retry {retry}", goal.delexicalised_initial_user_utterance, goal.constraints)
+                    offset = 1
+                    if original_transitions[final_transition_idx].action == ActionType.ASK:
+                        # have to backward to previous node
+                        offset += 1
+                    if final_transition_idx - offset > 1:
+                        self._replay_free(original_transitions[:final_transition_idx-1], retry=retry+1)
+                    else:
+                        self.replay_success_free.append(0.0)
+                        return
+            else:
+                goal.initial_user_utterance = goal.delexicalised_initial_user_utterance
 
         # replay
         total_reward = self._replay_episode(mode='free', original_transitions=original_transitions, artificial_goal=goal, final_transition_idx=final_transition_idx)

@@ -333,6 +333,7 @@ class CustomDQN(DQN):
         :param total_timesteps:
         """
         self._current_progress_remaining = 1.0 - float(num_timesteps % total_timesteps ) / float(total_timesteps)
+        self.logger.record('train/progress_remaining', self._current_progress_remaining)
 
     def reset_exploration(self, reset_idx: int, clear_buffer: bool):
         self.current_resets = reset_idx

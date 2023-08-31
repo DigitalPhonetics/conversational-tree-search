@@ -262,21 +262,24 @@ class UserGoal:
 
         # substitute values for delexicalised faq questions (not in bst)
         substitution_vars = {}
-        required_vars = system_parser.find_variables(initial_user_utterance)
-        for var in required_vars:
-            if not var in self.variables:
-                # draw random value
-                value = None
-                if var == "COUNTRY":
-                    value = data.countries[random.choice(list(data.countries.keys()))]
-                elif var == "CITY":
-                    value = data.cities[random.choice(list(data.cities.keys()))]
-                substitution_vars[var] = value
-            else:
-                substitution_vars[var] = self.variables[var]
+        if "{{" in initial_user_utterance:
+            required_vars = system_parser.find_variables(initial_user_utterance)
+            for var in required_vars:
+                if not var in self.variables:
+                    # draw random value
+                    value = None
+                    if var == "COUNTRY":
+                        value = data.countries[random.choice(list(data.countries.keys()))]
+                    elif var == "CITY":
+                        value = data.cities[random.choice(list(data.cities.keys()))]
+                    substitution_vars[var] = value
+                else:
+                    substitution_vars[var] = self.variables[var]
+            self.initial_user_utterance = system_parser.parse_template(initial_user_utterance, value_backend, substitution_vars)
+        else:
+            self.initial_user_utterance = initial_user_utterance
         self.constraints = self.path.constraints
         self.delexicalised_initial_user_utterance = initial_user_utterance
-        self.initial_user_utterance = system_parser.parse_template(initial_user_utterance, value_backend, substitution_vars)
 
 
     def expand_path(self, goal_node: DialogNode, start_node: DialogNode, answerParser: AnswerTemplateParser):

@@ -332,7 +332,7 @@ class CustomEvalCallback(EventCallback):
                     del self.checkpoint_handles[lowest_checkpoint_reward]
                 # save model and stats
                 self.checkpoint_handles[mean_reward] = self.n_calls // self.eval_freq
-                self.model.save(os.path.join(self.best_model_save_path, f"ckpt_{self.n_calls // self.eval_freq}.pt"))
+                self.model.save(os.path.join(self.best_model_save_path, f"ckpt_{self.n_calls // self.eval_freq}.pt")) # ,include=['replay_buffer'])
                 with open(os.path.join(self.best_model_save_path, f"stats_{self.n_calls // self.eval_freq}.txt"), "w") as f:
                     lines = [f"Eval num_timesteps={self.num_timesteps}\n",
                              f"{self.mode}/max_goal_distance: {self.eval_env.envs[0].max_distance}\n",

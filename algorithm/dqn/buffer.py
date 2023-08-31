@@ -89,6 +89,9 @@ class CustomReplayBuffer:
         self.action[self.pos] = action.item()
         self.reward[self.pos] = reward.item()
         self.done[self.pos] = done.item()
+        if "terminal_observation" in infos:
+            # delete, because terminal_observation is already stored in next_observation by stable-baselines!
+            del infos['terminal_observation']
         self.infos[self.pos] = deepcopy(infos)
         self.artificial_transition[self.pos] = int(is_artificial)
 
@@ -125,6 +128,9 @@ class CustomReplayBuffer:
             self.artificial_transition[self.pos:end_pos] = int(is_aritificial)
             # Copy to avoid mutation by reference
             for batch_idx, info in enumerate(infos):
+                if "terminal_observation" in info:
+                    # delete, because terminal_observation is already stored in next_observation by stable-baselines!
+                    del info['terminal_observation']
                 self.infos[self.pos+batch_idx] = deepcopy(info)
             self.pos = end_pos
             if end_pos == self.capacity:
@@ -268,6 +274,9 @@ class PrioritizedReplayBuffer(CustomReplayBuffer):
         self.action[self.pos] = action.item()
         self.reward[self.pos] = reward.item()
         self.done[self.pos] = done.item()
+        if "terminal_observation" in infos:
+            # delete, because terminal_observation is already stored in next_observation by stable-baselines!
+            del infos['terminal_observation']
         self.infos[self.pos] = deepcopy(infos)
         self.artificial_transition[self.pos] = int(is_artificial)
         self.tree.add(self.max_priority)
@@ -305,6 +314,9 @@ class PrioritizedReplayBuffer(CustomReplayBuffer):
             self.artificial_transition[self.pos:end_pos] = int(is_aritificial)
             # Copy to avoid mutation by reference
             for batch_idx, info in enumerate(infos):
+                if "terminal_observation" in info:
+                    # delete, because terminal_observation is already stored in next_observation by stable-baselines!
+                    del info['terminal_observation']
                 self.infos[self.pos+batch_idx] = deepcopy(info)
                 self.tree.add(self.max_priority)
             self.pos = end_pos

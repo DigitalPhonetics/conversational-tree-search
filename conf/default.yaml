@@ -21,31 +21,32 @@ defaults:
   # overwrite defaults loaded above with the following content from this file
   - _self_
 
+hydra:
+  run:
+    dir: ${run_dir:}
 experiment:
   device: cuda:0
   seed: 12345678
   cudnn_deterministic: false
   torch_compile: true
   logging:
-    # keep_checkpoints: 5
+    keep_checkpoints: 5
     wandb_log: ONLINE
     dialog_log: FULL
     log_interval: 1000
   training:
     noise: 0.1
-    every_steps: 3
+    every_steps: 3  # train 84 times per step (from all 256 envs)
     dataset:
       use_answer_synonyms: true
-      augmentation: ARTIFICIAL_ONLY
-      augmentation_version: 2
+      augmentation: NONE
   validation:
     noise: 0.0
     every_steps: 15000
     dialogs: 500
     dataset:
       use_answer_synonyms: true
-      augmentation: ARTIFICIAL_ONLY
-      augmentation_version: 2
+      augmentation: NONE
   testing:
     noise: 0.0
     every_steps: 15000
@@ -72,7 +73,7 @@ experiment:
     dqn:
       timesteps_per_reset: 2000000 # single timesteps (across all vec envs)
       batch_size: 256
-      target_network_update_frequency: 2 # times per batch
+      target_network_update_frequency: 1 # train 85 times per patch -> 1 step for target update frequency == 85 live network updates
       max_grad_norm: 1.0
       gamma: 0.99
   environment:
