@@ -3,6 +3,7 @@ defaults:
   # dataset choice: train, test, joint (train + test)
   - dataset@experiment.training.dataset : train
   - dataset@experiment.validation.dataset: train
+  - dataset@experiment.testing.dataset: test
   
   # model, algorithm & optimizer
   - optimizer@experiment.optimizer: adam
@@ -26,33 +27,55 @@ experiment:
   cudnn_deterministic: false
   torch_compile: false
   logging:
-    # keep_checkpoints: 5
+    keep_checkpoints: 0
     wandb_log: NONE
     dialog_log: NONE
     log_interval: 1000
   training:
-    noise: 0.3
-    every_steps: 2
-    steps: 4
+    noise: 0.1
+    every_steps: 3  # train 84 times per step (from all 256 envs)
     dataset:
       use_answer_synonyms: true
+      augmentation: ARTIFICIAL_ONLY
+      augmentation_version: 2
   validation:
     noise: 0.0
-    every_steps: 2 
-    dialogs: 4
+    every_steps: 50
+    dialogs: 10
     dataset:
       use_answer_synonyms: true
+      augmentation: ARTIFICIAL_ONLY
+      augmentation_version: 2
+  testing:
+    noise: 0.0
+    every_steps: 15000
+    dialogs: 500
+    dataset:
+      use_answer_synonyms: true
+  # testing:
   policy:
     _target_: algorithm.dqn.dqn.CustomDQNPolicy
     activation_fn: torch.nn.SELU
+    net_arch:
+      shared_layer_sizes: [4096, 4096, 4096]
+      value_layer_sizes: [2048, 1024]
+      advantage_layer_sizes: [4096, 2048, 1024]
+      dropout_rate: 0.25
+      normalization_layers: false
+      intent_loss_weight: 0.1
+      q_value_clipping: 10.0
   optimizer:
     lr: 0.0001
   # model:
   #   hidden_layer_sizes: [1024, 1024]
   algorithm:
     dqn:
-      batch_size: 3
-      warmup_turns: 0
+      timesteps_per_reset: 10000 # single timesteps (across all vec envs)
+      batch_size: 8
+      target_network_update_frequency: 1 # train 85 times per patch -> 1 step for target update frequency == 85 live network updates
+      max_grad_norm: 1.0
+      gamma: 0.99
+      warmup_turns: 8
   environment:
     guided_free_ratio: 0.5
     auto_skip: NONE
@@ -61,14 +84,14 @@ experiment:
     user_patience: 3
     stop_when_reaching_goal: true # stop after goal node was both reached + presented (ASK)
     stop_on_invalid_skip: false # stop when taking a wrong path
-    num_train_envs: 1
-    num_val_envs: 1
-    num_test_envs: 0
-    sys_token: "[SYS]"
-    usr_token: "[USR]"
+    num_train_envs: 4
+    num_val_envs: 2
+    num_test_envs: 2
+    sys_token: "SYSTEM:"
+    usr_token: "USER:"
     sep_token: ""
     goal_distance_mode: FULL_DISTANCE # FULL_DISTANCE, INCREMENT_EVERY_N_EPISODES
-    goal_distance_increment: 1000 # increment distance by 1 after N episodes - will be ignored if goal distance mode is different from INCREMENT_EVERY_N_EPISODES
+    goal_distance_increment: 100 # increment distance by 1 after N * #TRAIN_ENVS episodes - will be ignored if goal distance mode is different from INCREMENT_EVERY_N_EPISODES
   actions:
     in_state_space: true
     action_masking: true

@@ -36,7 +36,7 @@ experiment:
     log_interval: 1000
   training:
     noise: 0.1
-    every_steps: 3  # train 84 times per step (from all 256 envs)
+    every_steps: 1
     dataset:
       use_answer_synonyms: true
       augmentation: ARTIFICIAL_ONLY
@@ -55,63 +55,97 @@ experiment:
     dialogs: 500
     dataset:
       use_answer_synonyms: true
+      augmentation: NONE
+      augmentation_version: 0
   policy:
     _target_: algorithm.dqn.dqn.CustomDQNPolicy
     activation_fn: torch.nn.SELU
     net_arch:
-      shared_layer_sizes: [4096, 4096, 4096]
-      value_layer_sizes: [2048, 1024]
-      advantage_layer_sizes: [4096, 2048, 1024]
-      dropout_rate: 0.25
-      normalization_layers: false
+      shared_layer_sizes:
+      - 4096
+      - 4096
+      - 4096
+      value_layer_sizes:
+      - 2048
+      - 1024
+      - 1024
+      advantage_layer_sizes:
+      - 4096
+      - 2048
+      - 1024
+      dropout_rate: 0.1
+      normalization_layers: true
       intent_loss_weight: 0.1
       q_value_clipping: 10.0
   optimizer:
-    lr: 0.0001
+    class_path: torch.optim.Adam
+    lr: 0.001
   algorithm:
     dqn:
-      timesteps_per_reset: 2000000 # single timesteps (across all vec envs)
+      timesteps_per_reset: 1000000
       batch_size: 256
-      target_network_update_frequency: 1 # train 85 times per patch -> 1 step for target update frequency == 85 live network updates
-      max_grad_norm: 1.0
+      target_network_update_frequency: 5
+      max_grad_norm: 5.0
       gamma: 0.99
+      reset_exploration_times: 0
+      exploration_fraction: 0.99
+      eps_start: 0.75
+      eps_end: 0.0
+      warmup_turns: 2560
+      q_value_clipping: 5.0
+      targets:
+        tau: 0.03
+        alpha: 0.9
+        clipping: -1.0
+      buffer:
+        backend:
+          buffer_size: 25000
+          device: cpu
+          alpha: 0.6
+          beta: 0.4
+          use_lap: false
   environment:
     guided_free_ratio: 0.5
     auto_skip: NONE
     normalize_rewards: true
     max_steps: 50
-    user_patience: 3
-    stop_when_reaching_goal: true # stop after goal node was both reached + presented (ASK)
-    stop_on_invalid_skip: false # stop when taking a wrong path
+    user_patience: 5
+    stop_when_reaching_goal: true
+    stop_on_invalid_skip: false
     num_train_envs: 256
     num_val_envs: 100
     num_test_envs: 100
-    sys_token: "SYSTEM:"
-    usr_token: "USER:"
-    sep_token: ""
-    goal_distance_mode: FULL_DISTANCE # FULL_DISTANCE, INCREMENT_EVERY_N_EPISODES
-    goal_distance_increment: 100 # increment distance by 1 after N * #TRAIN_ENVS episodes - will be ignored if goal distance mode is different from INCREMENT_EVERY_N_EPISODES
+    goal_distance_mode: FULL_DISTANCE
+    goal_distance_increment: 100
+    sys_token: 'SYSTEM:'
+    usr_token: 'USER:'
+    sep_token: ''
   actions:
     in_state_space: true
     action_masking: true
   state:
-    # TODO: make all of these classes, so we can easily plug everything together as a sequence of maps from property -> class -> sub-vector?
     last_system_action: true
     beliefstate: true
     node_position: true
     node_type: true
+    action_position: true
     node_text:
       active: true
+      pooling: NONE
+      noise_std: 0.0
     dialog_history:
       active: true
-    current_user_utterance:
-      active: true
-    initial_user_utterance:
-      active: true
+      pooling: NONE
+      noise_std: 0.0
     action_text:
       active: true
-    action_position: true
-    # TODO attentions    
-    # TODO user_intent_prediction
-
-  _target_: training.trainer.Trainer
+      pooling: NONE
+      noise_std: 0.0
+    current_user_utterance:
+      active: true
+      pooling: NONE
+      noise_std: 0.0
+    initial_user_utterance:
+      active: true
+      pooling: NONE
+      noise_std: 0.0
