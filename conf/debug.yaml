@@ -7,6 +7,7 @@ defaults:
   
   # model, algorithm & optimizer
   - optimizer@experiment.optimizer: adam
+  - optimizer/scheduler@experiment.optimizer.scheduler: halfcosine
   - net_arch@experiment.policy.net_arch: dqn/decoupled_dueling_dqn_with_intentprediction
   - algorithm@experiment.algorithm: dqn/dqn
   - algorithm/dqn/targets@experiment.algorithm.dqn.targets: muenchausen
@@ -21,31 +22,32 @@ defaults:
   # overwrite defaults loaded above with the following content from this file
   - _self_
 
+hydra:
+  run:
+    dir: ${run_dir:}
 experiment:
   device: cuda:0
   seed: 12345678
-  cudnn_deterministic: false
+  cudnn_deterministic: true
   torch_compile: false
   logging:
     keep_checkpoints: 0
-    wandb_log: NONE
+    wandb_log: ONLINE #  NONE
     dialog_log: NONE
-    log_interval: 1000
+    log_interval: 2
   training:
     noise: 0.1
-    every_steps: 3  # train 84 times per step (from all 256 envs)
+    every_steps: 2
     dataset:
       use_answer_synonyms: true
-      augmentation: ARTIFICIAL_ONLY
-      augmentation_version: 2
+      augmentation: NONE
   validation:
     noise: 0.0
-    every_steps: 50
-    dialogs: 10
+    every_steps: 500
+    dialogs: 5
     dataset:
       use_answer_synonyms: true
-      augmentation: ARTIFICIAL_ONLY
-      augmentation_version: 2
+      augmentation: NONE
   testing:
     noise: 0.0
     every_steps: 15000
@@ -65,17 +67,23 @@ experiment:
       intent_loss_weight: 0.1
       q_value_clipping: 10.0
   optimizer:
-    lr: 0.0001
+    scheduler:
+      start_lr: 0.001
+      end_lr: 0.0001
   # model:
   #   hidden_layer_sizes: [1024, 1024]
   algorithm:
     dqn:
-      timesteps_per_reset: 10000 # single timesteps (across all vec envs)
-      batch_size: 8
+      timesteps_per_reset: 250 # single timesteps (across all vec envs)
+      reset_exploration_times: 3
+      batch_size: 2
       target_network_update_frequency: 1 # train 85 times per patch -> 1 step for target update frequency == 85 live network updates
       max_grad_norm: 1.0
       gamma: 0.99
-      warmup_turns: 8
+      warmup_turns: 2
+      buffer:
+        backend:
+          buffer_size: 100
   environment:
     guided_free_ratio: 0.5
     auto_skip: NONE
@@ -84,7 +92,7 @@ experiment:
     user_patience: 3
     stop_when_reaching_goal: true # stop after goal node was both reached + presented (ASK)
     stop_on_invalid_skip: false # stop when taking a wrong path
-    num_train_envs: 4
+    num_train_envs: 2
     num_val_envs: 2
     num_test_envs: 2
     sys_token: "SYSTEM:"

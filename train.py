@@ -169,10 +169,12 @@ def load_cfg(cfg):
     # - gradient_steps
     net_arch = OmegaConf.to_container(cfg.experiment.policy.net_arch)
     net_arch['state_dims'] = state_encoding.space_dims # patch arguments
+    
+    lr_schedule = instantiate(cfg.experiment.optimizer.scheduler)
     optim = OmegaConf.to_container(cfg.experiment.optimizer)
+    optim.pop("scheduler")
     optim_class = to_class(optim.pop('class_path'))
-    lr = optim.pop('lr')
-    print("Optim ARGS:", optim_class, lr, optim)
+    print("Optim ARGS:", optim_class, optim)
     policy_kwargs = {
         "activation_fn": to_class(cfg.experiment.policy.activation_fn),   
         "net_arch": net_arch,
@@ -216,7 +218,7 @@ def load_cfg(cfg):
                 env=train_env, 
                 batch_size=cfg.experiment.algorithm.dqn.batch_size,
                 verbose=1, device=cfg.experiment.device,  
-                learning_rate=lr, 
+                learning_rate=lr_schedule, 
                 exploration_initial_eps=cfg.experiment.algorithm.dqn.eps_start, exploration_final_eps=cfg.experiment.algorithm.dqn.eps_end, exploration_fraction=cfg.experiment.algorithm.dqn.exploration_fraction,
                 buffer_size=cfg.experiment.algorithm.dqn.buffer.backend.buffer_size, 
                 learning_starts=cfg.experiment.algorithm.dqn.warmup_turns,

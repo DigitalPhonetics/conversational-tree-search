@@ -1,0 +1,4 @@
+_target_: algorithm.schedule.scheduler.LinearScheduleWithWarmup
+start_lr: 0.001
+end_lr: 0.0001
+warmup_fraction: 0.01 # 1 percent

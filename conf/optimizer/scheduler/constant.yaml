@@ -1,0 +1,2 @@
+_target_: algorithm.schedule.scheduler.ConstantSchedule
+start_lr: 0.0001

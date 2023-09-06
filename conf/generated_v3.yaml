@@ -68,7 +68,8 @@ experiment:
       intent_loss_weight: 0.1
       q_value_clipping: 10.0
   optimizer:
-    lr: 0.0001
+    scheduler:
+      start_lr: 0.0001
   # model:
   #   hidden_layer_sizes: [1024, 1024]
   algorithm:

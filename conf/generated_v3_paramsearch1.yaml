@@ -79,7 +79,8 @@ experiment:
       q_value_clipping: 10.0
   optimizer:
     class_path: torch.optim.Adam
-    lr: 0.001
+    scheduler:
+      start_lr: 0.001
   algorithm:
     dqn:
       timesteps_per_reset: 1000000

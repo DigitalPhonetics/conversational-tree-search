@@ -1,3 +1,6 @@
+defaults:
+- scheduler/constant
+
 class_path: torch.optim.SGD
 weight_decay: 0
 momentum: 0.9
