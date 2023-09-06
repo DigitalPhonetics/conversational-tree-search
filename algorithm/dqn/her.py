@@ -85,6 +85,17 @@ class HindsightExperienceReplayWrapper(object):
         self.replay_success_free = deque([], maxlen=AVERAGE_WINDOW) # successful replays over last n episodes
         self.replay_success_guided = deque([], maxlen=AVERAGE_WINDOW) # successful replays over last n episodes
 
+    def save_params(self) -> Dict[str, Any]:
+        return {
+            "replay_buffer": self.replay_buffer.save_params(),
+            "episode_transitions": self.episode_transitions,
+            "artificial_transition_buffer": self.artificial_transition_buffer,
+            "artifical_rewards_free": self.artifical_rewards_free,
+            "artifical_rewards_guided": self.artifical_rewards_guided,
+            "replay_success_free": self.replay_success_free,
+            "replay_success_guided": self.replay_success_guided
+        }
+
     def clear(self):
         self.replay_buffer.clear()
         self.episode_transitions = [list() for _ in range(self.num_train_envs)]

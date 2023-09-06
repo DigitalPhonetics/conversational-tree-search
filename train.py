@@ -3,11 +3,11 @@ import hydra
 from hydra.core.config_store import ConfigStore
 from hydra.utils import instantiate
 from omegaconf import OmegaConf
-from algorithm.dqn.buffer import CustomReplayBuffer
+# from algorithm.dqn.buffer import CustomReplayBuffer
 from algorithm.dqn.dqn import CustomDQN
 from algorithm.dqn.her import HindsightExperienceReplayWrapper
-from environment.old.cts import OldCTSEnv, OldCustomVecEnv
-from environment.old.her import OldHindsightExperienceReplayWrapper
+# from environment.old.cts import OldCTSEnv, OldCustomVecEnv
+# from environment.old.her import OldHindsightExperienceReplayWrapper
 from utils.utils import AutoSkipMode
 
 from config import INSTANCES, ActionConfig, InstanceType, StateConfig, WandbLogLevel, register_configs, EnvironmentConfig, DatasetConfig
@@ -15,12 +15,12 @@ from data.cache import Cache
 from data.dataset import GraphDataset
 from encoding.state import StateEncoding
 from stable_baselines3.common.vec_env import VecMonitor
-from stable_baselines3.common.callbacks import CallbackList, CheckpointCallback, EvalCallback
+from stable_baselines3.common.callbacks import CallbackList #, CheckpointCallback, EvalCallback
 from stable_baselines3.common.env_util import make_vec_env
 import torch as th
 
 import wandb
-from wandb.integration.sb3 import WandbCallback
+# from wandb.integration.sb3 import WandbCallback
 
 from environment.vec.vecenv import CustomVecEnv
 from environment.cts import CTSEnvironment
@@ -116,10 +116,10 @@ def load_cfg(cfg):
             dir=f"/mount/arbeitsdaten/asr-2/vaethdk/cts_newcodebase_weights/{run_id}/",
             id=run_id
         )
-        callbacks.append(WandbCallback(
-            model_save_path=f"/mount/arbeitsdaten/asr-2/vaethdk/cts_newcodebase_weights/{run_id}",
-            verbose=2)
-        )
+        # callbacks.append(WandbCallback(
+        #     model_save_path=f"/mount/arbeitsdaten/asr-2/vaethdk/cts_newcodebase_weights/{run_id}",
+        #     verbose=2)
+        # )
     
     if "training" in cfg.experiment and not isinstance(cfg.experiment.training, type(None)): 
         train_data, cache, state_encoding, train_env = setup_data_and_vecenv(device=cfg.experiment.device, dataset_cfg=cfg.experiment.training.dataset, environment_cfg=cfg.experiment.environment,

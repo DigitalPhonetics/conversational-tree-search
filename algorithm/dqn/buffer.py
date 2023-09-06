@@ -66,6 +66,20 @@ class CustomReplayBuffer:
         self.pos = 0
         self.full = False
 
+    def save_params(self) -> Dict[str, Any]:
+        return {
+            "buffer_size": self.buffer_size,
+            "obs": self.obs,
+            "next_obs": self.next_obs,
+            "done": self.done,
+            "reward": self.reward,
+            "infos": self.infos,
+            "artificial_transition": self.artificial_transition,
+            "capacity": self.capacity,
+            "pos": self.pos,
+            "full": self.full
+        }
+
     def clear(self):
         self.full = False
         self.pos = 0
@@ -93,6 +107,10 @@ class CustomReplayBuffer:
             # delete, because terminal_observation is already stored in next_observation by stable-baselines!
             del infos['terminal_observation']
         self.infos[self.pos] = deepcopy(infos)
+        # save memory
+        del self.infos[self.pos][EnvInfo.USER_UTTERANCE_HISTORY]
+        del self.infos[self.pos][EnvInfo.SYSTEM_UTTERANCE_HISTORY]
+        # replay info
         self.artificial_transition[self.pos] = int(is_artificial)
 
         self.pos += 1
@@ -125,13 +143,16 @@ class CustomReplayBuffer:
             self.action[self.pos:end_pos] = th.from_numpy(action)
             self.reward[self.pos:end_pos] = th.from_numpy(reward)
             self.done[self.pos:end_pos] = th.from_numpy(done)
-            self.artificial_transition[self.pos:end_pos] = int(is_aritificial)
+            self.artificial_transition[self.pos:end_pos] = int(is_aritificial) # replay info
             # Copy to avoid mutation by reference
             for batch_idx, info in enumerate(infos):
                 if "terminal_observation" in info:
                     # delete, because terminal_observation is already stored in next_observation by stable-baselines!
                     del info['terminal_observation']
                 self.infos[self.pos+batch_idx] = deepcopy(info)
+                # save memory
+                del self.infos[self.pos+batch_idx][EnvInfo.USER_UTTERANCE_HISTORY]
+                del self.infos[self.pos+batch_idx][EnvInfo.SYSTEM_UTTERANCE_HISTORY]
             self.pos = end_pos
             if end_pos == self.capacity:
                 self.full = True
@@ -254,6 +275,20 @@ class PrioritizedReplayBuffer(CustomReplayBuffer):
         self.beta = beta
         self.e = (1.0/buffer_size)
 
+    def save_params(self) -> Dict[str, Any]:
+        return super().save_params() | {
+            "tree": {
+                "write": self.tree.write,
+                "capacity": self.tree.capacity,
+                "tree": self.tree.tree,
+                "n_entries": self.tree.n_entries
+            },
+            "max_priority": self.max_priority,
+            "alpha": self.alpha,
+            "beta": self.beta,
+            "e": self.e
+        }
+
     def clear(self):
         super().clear()
         self.tree = SumTree(self.buffer_size)
@@ -278,6 +313,10 @@ class PrioritizedReplayBuffer(CustomReplayBuffer):
             # delete, because terminal_observation is already stored in next_observation by stable-baselines!
             del infos['terminal_observation']
         self.infos[self.pos] = deepcopy(infos)
+        # save memory
+        del self.infos[self.pos][EnvInfo.USER_UTTERANCE_HISTORY]
+        del self.infos[self.pos][EnvInfo.SYSTEM_UTTERANCE_HISTORY]
+        # replay info
         self.artificial_transition[self.pos] = int(is_artificial)
         self.tree.add(self.max_priority)
 
@@ -311,13 +350,16 @@ class PrioritizedReplayBuffer(CustomReplayBuffer):
             self.action[self.pos:end_pos] = th.from_numpy(action)
             self.reward[self.pos:end_pos] = th.from_numpy(reward)
             self.done[self.pos:end_pos] = th.from_numpy(done)
-            self.artificial_transition[self.pos:end_pos] = int(is_aritificial)
+            self.artificial_transition[self.pos:end_pos] = int(is_aritificial) # replay info
             # Copy to avoid mutation by reference
             for batch_idx, info in enumerate(infos):
                 if "terminal_observation" in info:
                     # delete, because terminal_observation is already stored in next_observation by stable-baselines!
                     del info['terminal_observation']
                 self.infos[self.pos+batch_idx] = deepcopy(info)
+                # save memory
+                del self.infos[self.pos+batch_idx][EnvInfo.USER_UTTERANCE_HISTORY]
+                del self.infos[self.pos+batch_idx][EnvInfo.SYSTEM_UTTERANCE_HISTORY]
                 self.tree.add(self.max_priority)
             self.pos = end_pos
             if end_pos == self.capacity:
