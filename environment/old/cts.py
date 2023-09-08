@@ -52,8 +52,9 @@ class OldCTSEnv(gym.Env):
                 goal_distance_mode: GoalDistanceMode,
                 goal_distance_increment: int,
                 **kwargs):
-                 
-            
+        
+        assert isinstance(auto_skip, AutoSkipMode)
+        assert isinstance(goal_distance_mode, GoalDistanceMode) 
         self.mode = mode
      
         self.max_steps = max_steps if max_steps else 2 * dataset.get_max_tree_depth() # if no max step is set, choose automatically 2*tree depth

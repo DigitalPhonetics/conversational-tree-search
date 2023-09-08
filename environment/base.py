@@ -27,6 +27,7 @@ class BaseEnv:
             value_backend: RealValueBackend,
             auto_skip: AutoSkipMode,
             stop_on_invalid_skip: bool) -> None:
+        assert isinstance(auto_skip, AutoSkipMode)
 
         self.env_id = random.randint(0, 99999999)
         self.data = dataset

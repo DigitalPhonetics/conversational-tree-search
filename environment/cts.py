@@ -36,6 +36,8 @@ class CTSEnvironment(gymnasium.Env):
                 goal_distance_increment: int,
                 state_encoding: StateEncoding,
                 **kwargs):
+        assert isinstance(auto_skip, AutoSkipMode)
+        assert isinstance(goal_distance_mode, GoalDistanceMode)
         # self.env_id = env_id
         self.dialog_logging = True
         self.stat_logging = True
@@ -54,9 +56,11 @@ class CTSEnvironment(gymnasium.Env):
             self.observation_space = gymnasium.spaces.Box(low=float('-inf'), high=float('inf'), shape=(state_encoding.space_dims.state_vector,)) #, dtype=np.float32)
 
 
+        self.tree_depth = dataset.get_max_tree_depth()
         self.max_reward = 4 * dataset.get_max_tree_depth() if normalize_rewards else 1.0
         self.max_distance = dataset.get_max_tree_depth() + 1  if goal_distance_mode == GoalDistanceMode.FULL_DISTANCE else 1 # set max. or min. distance to start
-        cfg.INSTANCES[cfg.InstanceArgs.MAX_DISTANCE] = self.max_distance
+        if self.mode == "train":
+            cfg.INSTANCES[cfg.InstanceArgs.MAX_DISTANCE] = self.max_distance
 
         # text parsers
         answer_parser = AnswerTemplateParser()
@@ -121,10 +125,9 @@ class CTSEnvironment(gymnasium.Env):
         # adapt max. goald distance
         if self.mode == "train" and self.goal_distance_mode == GoalDistanceMode.INCREMENT_EVERY_N_EPISODES:
             # don't adapt in evaluation / testing, because we have less episodes there 
-            self.max_distance = max(self.current_episode // self.goal_distance_increment, 1)
-            cfg.INSTANCES[cfg.InstanceArgs.MAX_DISTANCE] = self.max_distance
+             self.max_distance = cfg.INSTANCES[cfg.InstanceArgs.MAX_DISTANCE]
         elif not self.mode == "train":
-            self.max_distance = cfg.INSTANCES[cfg.InstanceArgs.MAX_DISTANCE]
+            self.max_distance = self.tree_depth + 1
 
         # choose uniformely at random between guided and free env according to ratio
         self.prev_episode_log = deepcopy(self.active_env.current_episode_log) if hasattr(self, "active_env") else []

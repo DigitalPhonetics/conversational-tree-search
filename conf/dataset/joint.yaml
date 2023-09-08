@@ -1,4 +1,4 @@
-graph_path: resources/en/traintest_graph.json
-answer_path: resources/en/traintest_answers.json
+graph_path: en/traintest_graph.json
+answer_path: en/traintest_answers.json
 augmentation: NONE
 augmentation_version: 0

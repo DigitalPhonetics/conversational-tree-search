@@ -61,6 +61,8 @@ class HindsightExperienceReplayWrapper(object):
                     device: Union[th.device, str] = "cpu",
                     **kwargs):
         
+        assert isinstance(auto_skip, AutoSkipMode)
+        
         self.append_ask_action = append_ask_action
         self.replay_buffer = PrioritizedLAPReplayBuffer(buffer_size=buffer_size, observation_space=observation_space, action_space=action_space, alpha=alpha, beta=beta, device=device, **kwargs)
         print("HER BUFFER BACKEND", self.replay_buffer.__class__.__name__)
@@ -98,7 +100,7 @@ class HindsightExperienceReplayWrapper(object):
     
     def load_params(self, data):
         self.replay_buffer.load_params(data['replay_buffer'])
-        self.episode_transitions = data['episode_transitions']
+        # self.episode_transitions = data['episode_transitions']
         self.artificial_transition_buffer = data['artificial_transition_buffer']
         self.artifical_rewards_free = data['artifical_rewards_free']
         self.artifical_rewards_guided = data['artifical_rewards_guided']

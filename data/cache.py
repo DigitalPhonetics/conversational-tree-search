@@ -59,6 +59,7 @@ class Cache:
     @torch.no_grad()
     def _apply_pooling(self, embeddings: torch.FloatTensor, pooling: TextEmbeddingPooling) -> torch.FloatTensor:
         # pooling
+        assert isinstance(pooling, TextEmbeddingPooling)
         if pooling == TextEmbeddingPooling.MEAN:
             return embeddings.mean(1)   # 1 x seq_len x 1024 => average to 1 x 1024 to get sentence embedding
         elif pooling == TextEmbeddingPooling.CLS:

@@ -80,10 +80,8 @@ print("Converting to YAML....")
 experiment = ckpt_data['configuration']['_content'].replace("'", '"').replace("True", 'true').replace("False", 'false')
 
 def replace_text_before_colon(text):
-    # pattern to match text within angled brackets
-    pattern = r"<([^:]+):[^>]*>"
-    # using re.sub()
-    result = re.sub(pattern, r'"\1"', text)
+    # pattern to match text within angled brackets and remove the class name (before the .)
+    result = re.sub(r'<[^.]*\.([^:]*)\:.*?>', r'"\1"', text)
     return result
 
 def remove_newlines_inside_square_brackets(text):
@@ -99,14 +97,15 @@ def remove_newlines_inside_square_brackets(text):
 
 cfg = json.loads(replace_text_before_colon(experiment))
 with open(f"{ckpt_dir}/config.yaml", "w") as f:
-    pretty_json = json.dumps(cfg, indent=4, sort_keys=True)
+    pretty_json = json.dumps(cfg, indent=2, sort_keys=True)
     pretty_json = remove_newlines_inside_square_brackets(pretty_json)
     pretty_json = pretty_json.replace('"', '').replace("{", "").replace("},", '').replace("}", "").replace(",\n", "\n")
     pretty_json = pretty_json.replace("SYSTEM:", '"SYSTEM:"').replace("USER:", '"USER:"')
     pretty_json = pretty_json.replace("resources/", "")
-    f.write(pretty_json)
-
-
+    yaml_data = ["defaults:\n", "  - config_schema"]
+    for line in pretty_json.split('\n'):
+        yaml_data.append(line[2:] + "\n")
+    f.writelines(yaml_data)
 
 print("Beginning normal initalization!")
 def to_class(path:str):
@@ -151,6 +150,12 @@ def setup_data_and_vecenv(device: str, dataset_cfg: DatasetConfig, environment_c
 @hydra.main(version_base=None, config_path=f"{ckpt_dir}/", config_name="config")
 def load_cfg(cfg):
     global INSTANCES
+    if isinstance(cfg.experiment.environment.sep_token, type(None)):
+       cfg.experiment.environment.sep_token = ""
+    if isinstance(cfg.experiment.environment.usr_token, type(None)):
+       cfg.experiment.environment.sep_token = ""
+    if isinstance(cfg.experiment.environment.sys_token, type(None)):
+       cfg.experiment.environment.sep_token = ""
     INSTANCES[InstanceType.CONFIG] = cfg
     print(OmegaConf.to_yaml(cfg))
 
@@ -301,6 +306,7 @@ def load_cfg(cfg):
     model.replay_buffer.load_params(th.load(f"{ckpt_dir}/replay_buffer.pth"))
 
     print('Resuming WanDB...')
+    assert isinstance(cfg.experiment.logging.wandb_log, WandbLogLevel)
     if cfg.experiment.logging.wandb_log != WandbLogLevel.NONE:
         if cfg.experiment.logging.wandb_log == WandbLogLevel.OFFLINE:
             os.environ['WANDB_MODE'] = 'offline'

@@ -29,6 +29,7 @@ class RealUserEnvironment(BaseEnv):
             answer_parser: AnswerTemplateParser, logic_parser: LogicTemplateParser,
             value_backend: RealValueBackend,
             auto_skip: AutoSkipMode, stop_on_invalid_skip: bool) -> None:
+        assert isinstance(auto_skip, AutoSkipMode)
         super().__init__(dataset=dataset,
             sys_token=sys_token, usr_token=usr_token, sep_token=sep_token, 
             max_steps=max_steps, max_reward=max_reward, user_patience=user_patience,

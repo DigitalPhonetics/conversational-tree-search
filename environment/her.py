@@ -31,6 +31,7 @@ class CTSHEREnvironment:
                 stop_on_invalid_skip: bool,
                 sys_token: str, usr_token: str, sep_token: str,
                 **kwargs):
+        assert isinstance(auto_skip, AutoSkipMode)
         # self.env_id = env_id
         self.data = dataset
         self.sys_token = sys_token

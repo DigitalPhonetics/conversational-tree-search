@@ -104,6 +104,7 @@ def load_cfg(cfg):
     state_encoding = None
     
     callbacks = []
+    assert isinstance(cfg.experiment.logging.wandb_log, WandbLogLevel)
     if cfg.experiment.logging.wandb_log != WandbLogLevel.NONE:
         if cfg.experiment.logging.wandb_log == WandbLogLevel.OFFLINE:
             os.environ['WANDB_MODE'] = 'offline'
