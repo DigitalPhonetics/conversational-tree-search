@@ -95,6 +95,15 @@ class HindsightExperienceReplayWrapper(object):
             "replay_success_free": self.replay_success_free,
             "replay_success_guided": self.replay_success_guided
         }
+    
+    def load_params(self, data):
+        self.replay_buffer.load_params(data['replay_buffer'])
+        self.episode_transitions = data['episode_transitions']
+        self.artificial_transition_buffer = data['artificial_transition_buffer']
+        self.artifical_rewards_free = data['artifical_rewards_free']
+        self.artifical_rewards_guided = data['artifical_rewards_guided']
+        self.replay_success_free = data['replay_success_free'] 
+        self.replay_success_guided = data['replay_success_guided']
 
     def clear(self):
         self.replay_buffer.clear()

@@ -79,6 +79,17 @@ class CustomReplayBuffer:
             "pos": self.pos,
             "full": self.full
         }
+    
+    def load_params(self, data):
+        self.obs = data['obs']
+        self.next_obs = data['next_obs']
+        self.done = data['done']
+        self.reward = data['reward']
+        self.infos = data['infos']
+        self.artificial_transition = data['artificial_transition']
+        self.capacity = data['capacity']
+        self.pos = data['pos']
+        self.full = data['full']
 
     def clear(self):
         self.full = False
@@ -288,6 +299,14 @@ class PrioritizedReplayBuffer(CustomReplayBuffer):
             "beta": self.beta,
             "e": self.e
         }
+
+    def load_params(self, data):
+        self.tree.write = data['tree']['write']
+        self.tree.tree = data['tree']['tree']
+        self.tree.capacity = data['tree']['capacity']
+        self.tree.n_entries = data['tree']['n_entries']
+        self.max_priority = data['max_priority']
+        super().load_params(data)
 
     def clear(self):
         super().clear()

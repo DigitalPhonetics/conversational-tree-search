@@ -432,9 +432,9 @@ class CustomDQN(DQN):
         clear_buffer_on_reset: bool = False,
         callback = None,
         log_interval: int = 4,
-        progress_bar: bool = False):
-
-
+        progress_bar: bool = False
+    ):
+        
         for reset_idx in range(reset_exploration_times+1):
             self.reset_exploration(reset_idx, clear_buffer_on_reset)
             end_timestep_of_reset = (reset_idx + 1) * total_timesteps
@@ -446,6 +446,84 @@ class CustomDQN(DQN):
                 tb_log_name="DQN",
                 progress_bar=progress_bar,
             )
+            # reset total timesteps, because stable-baselines will increase it by the current number of steps - this would destroy the idea of the modulo operation in _update_current_progress_remaining  
+            self._total_timesteps = total_timesteps
+
+            callback.on_training_start(locals(), globals())
+
+            while self.num_timesteps < end_timestep_of_reset:
+                rollout = self.collect_rollouts(
+                    self.env,
+                    train_freq=self.train_freq,
+                    action_noise=self.action_noise,
+                    callback=callback,
+                    learning_starts=self.learning_starts,
+                    replay_buffer=self.replay_buffer,
+                    log_interval=log_interval,
+                )
+
+                if rollout.continue_training is False:
+                    break
+
+                if self.num_timesteps > 0 and self.num_timesteps > self.learning_starts:
+                    # If no `gradient_steps` is specified,
+                    # do as many gradients steps as steps performed during the rollout
+                    gradient_steps = self.gradient_steps if self.gradient_steps >= 0 else rollout.episode_timesteps
+                    # Special case when the user passes `gradient_steps=0`
+                    if gradient_steps > 0:
+                        self.train(batch_size=self.batch_size, gradient_steps=gradient_steps)
+
+            callback.on_training_end()
+
+
+    def continue_learning(self,
+        current_steps, 
+        current_timesteps_at_start,
+        current_episode_num,
+        current_progress_remaining,
+        current_n_updates,
+        current_n_calls,
+        current_exploration_rate,
+        current_global_step,
+        current_resets,
+        total_timesteps: int,
+        reset_exploration_times: int = 0,
+        clear_buffer_on_reset: bool = False,
+        callback = None,
+        log_interval: int = 4,
+        progress_bar: bool = False):
+
+        self.num_timesteps = current_steps
+        self._num_timesteps_at_start=current_timesteps_at_start
+        self._episode_num = current_episode_num
+        self._current_progress_remaining = current_progress_remaining
+        self._n_updates = current_n_updates
+        self._n_calls = current_n_calls
+        self.exploration_rate = current_exploration_rate
+        self.global_step = current_global_step
+
+        for reset_idx in range(current_resets, reset_exploration_times+1):
+            self.reset_exploration(reset_idx, clear_buffer_on_reset)
+            end_timestep_of_reset = (reset_idx + 1) * total_timesteps
+
+            _, callback = self._setup_learn(
+                total_timesteps,
+                callback,
+                reset_num_timesteps=False,
+                tb_log_name="DQN",
+                progress_bar=progress_bar,
+            )
+
+            if reset_idx == current_resets:
+                self.num_timesteps = current_steps
+                self._num_timesteps_at_start=current_timesteps_at_start
+                self._episode_num = current_episode_num
+                self._current_progress_remaining = current_progress_remaining
+                self._n_updates = current_n_updates
+                self._n_calls = current_n_calls
+                self.exploration_rate = current_exploration_rate
+                self.global_step = current_global_step
+
             # reset total timesteps, because stable-baselines will increase it by the current number of steps - this would destroy the idea of the modulo operation in _update_current_progress_remaining  
             self._total_timesteps = total_timesteps
 
