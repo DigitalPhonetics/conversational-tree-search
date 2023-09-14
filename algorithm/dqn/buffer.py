@@ -88,6 +88,9 @@ class CustomReplayBuffer:
         self.action[self.pos] = action.item()
         self.reward[self.pos] = reward.item()
         self.done[self.pos] = done.item()
+        if "terminal_observation" in infos:
+            # delete, because terminal_observation is already stored in next_observation by stable-baselines!
+            del infos['terminal_observation']
         self.infos[self.pos] = deepcopy(infos)
         self.artificial_transition[self.pos] = int(is_artificial)
 
@@ -122,6 +125,9 @@ class CustomReplayBuffer:
             self.reward[self.pos:end_pos] = th.from_numpy(reward)
             self.done[self.pos:end_pos] = th.from_numpy(done)
             self.artificial_transition[self.pos:end_pos] = int(is_aritificial)
+            if "terminal_observation" in info:
+                    # delete, because terminal_observation is already stored in next_observation by stable-baselines!
+                    del info['terminal_observation']
             # Copy to avoid mutation by reference
             for batch_idx, info in enumerate(infos):
                 self.infos[self.pos+batch_idx] = deepcopy(info)
@@ -262,6 +268,9 @@ class PrioritizedReplayBuffer(CustomReplayBuffer):
         self.action[self.pos] = action.item()
         self.reward[self.pos] = reward.item()
         self.done[self.pos] = done.item()
+        if "terminal_observation" in infos:
+            # delete, because terminal_observation is already stored in next_observation by stable-baselines!
+            del infos['terminal_observation']
         self.infos[self.pos] = deepcopy(infos)
         self.artificial_transition[self.pos] = int(is_artificial)
         self.tree.add(self.max_priority)
@@ -299,6 +308,9 @@ class PrioritizedReplayBuffer(CustomReplayBuffer):
             self.artificial_transition[self.pos:end_pos] = int(is_aritificial)
             # Copy to avoid mutation by reference
             for batch_idx, info in enumerate(infos):
+                if "terminal_observation" in info:
+                    # delete, because terminal_observation is already stored in next_observation by stable-baselines!
+                    del info['terminal_observation']
                 self.infos[self.pos+batch_idx] = deepcopy(info)
                 self.tree.add(self.max_priority)
             self.pos = end_pos

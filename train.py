@@ -56,7 +56,8 @@ def setup_data_and_vecenv(device: str, dataset_cfg: DatasetConfig, environment_c
                          mode: str, n_envs: int, log_dir: str,
                          cache: Cache, encoding: StateEncoding,
                          state_config: StateConfig, action_config: ActionConfig,
-                         torch_compile: bool) -> Tuple[GraphDataset, Cache, StateEncoding, CustomVecEnv]:
+                         torch_compile: bool,
+                         save_terminal_obs: bool) -> Tuple[GraphDataset, Cache, StateEncoding, CustomVecEnv]:
     data = instantiate(dataset_cfg, _target_='data.dataset.GraphDataset')
     if isinstance(cache, type(None)):
         cache, encoding = setup_cache_and_encoding(device=device, data=data, state_config=state_config, action_config=action_config, torch_compile=torch_compile)
@@ -82,7 +83,8 @@ def setup_data_and_vecenv(device: str, dataset_cfg: DatasetConfig, environment_c
                                     "state_encoding": encoding,
                                     "sys_token": environment_cfg.sys_token,
                                     "usr_token": environment_cfg.usr_token,
-                                    "sep_token": environment_cfg.sep_token
+                                    "sep_token": environment_cfg.sep_token,
+                                    "save_terminal_obs": save_terminal_obs
                                 })
     vec_env = VecMonitor(vec_env, filename=log_dir)
     return data, cache, encoding, vec_env
@@ -127,7 +129,8 @@ def load_cfg(cfg):
                                                                         mode="train", n_envs=cfg.experiment.environment.num_train_envs, log_dir=None,
                                                                         cache=cache, encoding=state_encoding,
                                                                         state_config=cfg.experiment.state, action_config=cfg.experiment.actions,
-                                                                        torch_compile=cfg.experiment.torch_compile)
+                                                                        torch_compile=cfg.experiment.torch_compile,
+                                                                        save_terminal_obs=cfg.experiment.algorithm.dqn.save_terminal_obs)
 
         train_env = VecMonitor(train_env)
     if "validation" in cfg.experiment and not isinstance(cfg.experiment.validation, type(None)): 
@@ -135,7 +138,8 @@ def load_cfg(cfg):
                                                                         mode="val", n_envs=cfg.experiment.environment.num_val_envs, log_dir=f"/mount/arbeitsdaten/asr-2/vaethdk/cts_newcodebase_weights/{run_id}/best_eval/monitor_logs",
                                                                         cache=cache, encoding=state_encoding,
                                                                         state_config=cfg.experiment.state, action_config=cfg.experiment.actions,
-                                                                        torch_compile=cfg.experiment.torch_compile)
+                                                                        torch_compile=cfg.experiment.torch_compile,
+                                                                        save_terminal_obs=cfg.experiment.algorithm.dqn.save_terminal_obs)
         callbacks.append(CustomEvalCallback(eval_env=val_env, mode='eval',
                              best_model_save_path=f"/mount/arbeitsdaten/asr-2/vaethdk/cts_newcodebase_weights/{run_id}/best_eval/weights",
                              log_path=f"/mount/arbeitsdaten/asr-2/vaethdk/cts_newcodebase_weights/{run_id}/best_eval/logs",
@@ -148,7 +152,8 @@ def load_cfg(cfg):
                                                                         mode="test", n_envs=cfg.experiment.environment.num_test_envs, log_dir=f"/mount/arbeitsdaten/asr-2/vaethdk/cts_newcodebase_weights/{run_id}/best_test/monitor_logs",
                                                                         cache=cache, encoding=state_encoding,
                                                                         state_config=cfg.experiment.state, action_config=cfg.experiment.actions,
-                                                                        torch_compile=cfg.experiment.torch_compile)
+                                                                        torch_compile=cfg.experiment.torch_compile,
+                                                                        save_terminal_obs=cfg.experiment.algorithm.dqn.save_terminal_obs)
         callbacks.append(CustomEvalCallback(eval_env=test_env, mode='test',
                         best_model_save_path=f"/mount/arbeitsdaten/asr-2/vaethdk/cts_newcodebase_weights/{run_id}/best_test/weights",
                         log_path=f"/mount/arbeitsdaten/asr-2/vaethdk/cts_newcodebase_weights/{run_id}/best_test/logs",
@@ -203,6 +208,8 @@ def load_cfg(cfg):
     replay_buffer_class = HindsightExperienceReplayWrapper
     # replay_buffer_class = OldHindsightExperienceReplayWrapper
     # replay_buffer_class = CustomReplayBuffer
+    # from algorithm.dqn.buffer import PrioritizedLAPReplayBuffer
+    # replay_buffer_class = PrioritizedLAPReplayBuffer
     dqn_target_cls =  to_class(cfg.experiment.algorithm.dqn.targets._target_)
     dqn_target_args = {'gamma': cfg.experiment.algorithm.dqn.gamma}
     dqn_target_args.update(cfg.experiment.algorithm.dqn.targets) 

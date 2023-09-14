@@ -15,3 +15,4 @@ dqn:
   warmup_turns: 2560
   target_network_update_frequency: 15
   q_value_clipping: 10.0
+  save_terminal_obs: false
