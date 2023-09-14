@@ -1,5 +1,6 @@
 from statistics import mean
-from typing import Any, Dict, Union, Optional
+import traceback
+from typing import Any, Dict, List, Union, Optional
 import os 
 import numpy as np
 import warnings
@@ -49,6 +50,7 @@ class CustomEvalCallback(EventCallback):
         eval_freq: int = 10000,
         log_path: Optional[str] = None,
         best_model_save_path: Optional[str] = None,
+        keep_checkpoints: int = 5,
         deterministic: bool = True,
         render: bool = False,
         verbose: int = 1,
@@ -72,9 +74,7 @@ class CustomEvalCallback(EventCallback):
 
         self.eval_env = eval_env
         self.best_model_save_path = best_model_save_path
-        # Logs will be written in ``evaluations.npz``
-        if log_path is not None:
-            log_path = os.path.join(log_path, "evaluations")
+        # # Logs will be written in ``evaluations.npz``
         self.log_path = log_path
         print("LOG PATH:", self.log_path)
         self.evaluations_results_free = []
@@ -224,8 +224,7 @@ class CustomEvalCallback(EventCallback):
                 # )
 
                 # log dialogs
-                dialog_log_path = "/".join(self.log_path.split("/")[:-1])
-                with open(f"{dialog_log_path}/dialogs_{self.n_calls // self.eval_freq}.txt", "w") as f:
+                with open(f"{self.log_path}/dialogs_{self.n_calls // self.eval_freq}.txt", "w") as f:
                     f.write(f"#LAST EPISODE: {self.eval_env.current_episode}")
                     f.writelines([log_line + "\n" for log_line in dialog_log])
 

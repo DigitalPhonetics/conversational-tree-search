@@ -152,6 +152,9 @@ class CustomReplayBuffer:
             [self.infos[batch_idx] for batch_idx in batch_inds.tolist()]
         )
     
+    def reset_last_transition_indices(self):
+        pass 
+    
 
 
 class PrioritizedReplayBufferSamples(NamedTuple):

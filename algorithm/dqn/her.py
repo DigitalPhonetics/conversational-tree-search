@@ -138,6 +138,9 @@ class HindsightExperienceReplayWrapper(object):
 
     def __len__(self):
         return len(self.replay_buffer)
+    
+    def reset_last_transition_indices(self):
+        self.replay_buffer.reset_last_transition_indices()
 
     def _staging_complete(self):
         # trigger batch encoding when full (>= batch_size elements)
