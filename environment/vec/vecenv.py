@@ -14,6 +14,7 @@ from stable_baselines3.common.vec_env.util import obs_space_info
 from encoding.state import StateEncoding
 from environment.cts import CTSEnvironment
 
+SAVE_TERMINAL_OBS = True
 
 class CustomVecEnv(VecEnv):
     """
@@ -73,9 +74,10 @@ class CustomVecEnv(VecEnv):
             # Gym 0.26 introduces a breaking change
             self.buf_infos[env_idx]["TimeLimit.truncated"] = False
 
-            if self.buf_dones[env_idx]:
+            if  self.buf_dones[env_idx]:
                 # save final observation where user can get it, then reset
-                self.buf_infos[env_idx]["terminal_observation"] = deepcopy(obs)
+                if SAVE_TERMINAL_OBS:
+                    self.buf_infos[env_idx]["terminal_observation"] = deepcopy(obs)
                 # obs, self.reset_infos[env_idx] = self.envs[env_idx].reset()
                 obs = self.envs[env_idx].reset()
             self._save_obs(env_idx, obs)

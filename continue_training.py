@@ -29,9 +29,9 @@ from environment.vec.vecenv import CustomVecEnv
 from environment.cts import CTSEnvironment
 
 import os
-import time
 
-run_id = "run_1693923896"
+
+run_id = "run_1693923939"
 DEVICE = "cuda:0"
 
 print("Continue run for id", run_id)
@@ -225,7 +225,7 @@ def load_cfg(cfg):
     try:
         lr_schedule = instantiate(cfg.experiment.optimizer.scheduler)
     except:
-        lr_schedule = ConstantSchedule(start_lr=ckpt_data['learning_rate'])
+        lr_schedule = ConstantSchedule(start_lr=ckpt_data['learning_rate']['start_lr'])
     optim = OmegaConf.to_container(cfg.experiment.optimizer)
     try:
         optim.pop("scheduler")
@@ -322,8 +322,8 @@ def load_cfg(cfg):
         )
     
     # delete unzipped folder
-    # print("Deleting tmp dir...")
-    # shutil.rmtree(f"{ckpt_dir}")
+    print("Deleting tmp dir...")
+    shutil.rmtree(f"{ckpt_dir}")
 
     num_timesteps = ckpt_data['num_timesteps'] 
     # _total_timesteps = ckpt_data['_total_timesteps']

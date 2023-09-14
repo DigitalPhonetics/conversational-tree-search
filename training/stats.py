@@ -72,21 +72,22 @@ class CustomEvalCallback(EventCallback):
         self.mode = mode
         self.keep_checkpoints = keep_checkpoints
         self.checkpoint_handles = {} # map checkpoint scores to paths
-        for ckpt_file in os.listdir(best_model_save_path):
+        if os.path.exists(best_model_save_path):
             # check if we have checkpoints in the directory already; 
-            # if so: parse the scores and add the handles
-            if "ckpt_" in ckpt_file:
-                # find corresponding stats file
-                stats_file = ckpt_file.replace("ckpt_", "stats_").replace(".pth", ".txt").replace(".pt", ".txt")
-                with open(f"{best_model_save_path}/{stats_file}", "r") as f:
-                    for line in f.readlines():
-                        if "Mean episode reward" in line: # e.g. Mean episode reward=-0.35 +/- 1.07
-                            rew = line.split("=")[1] # e.g. -0.35 +/- 1.07
-                            rew = rew.split("+/-")[0] # e.g. -0.35
-                            rew = float(rew.strip())
-                            self.checkpoint_handles[rew] = int(ckpt_file.strip("ckpt_").strip(".pth").strip(".pt"))
-                            print(f"FOUND CHECKPOINT HANDLE {self.checkpoint_handles[rew]} with reward {rew}")
-                            break
+            for ckpt_file in os.listdir(best_model_save_path):
+                # if so: parse the scores and add the handles
+                if "ckpt_" in ckpt_file:
+                    # find corresponding stats file
+                    stats_file = ckpt_file.replace("ckpt_", "stats_").replace(".pth", ".txt").replace(".pt", ".txt")
+                    with open(f"{best_model_save_path}/{stats_file}", "r") as f:
+                        for line in f.readlines():
+                            if "Mean episode reward" in line: # e.g. Mean episode reward=-0.35 +/- 1.07
+                                rew = line.split("=")[1] # e.g. -0.35 +/- 1.07
+                                rew = rew.split("+/-")[0] # e.g. -0.35
+                                rew = float(rew.strip())
+                                self.checkpoint_handles[rew] = int(ckpt_file.strip("ckpt_").strip(".pth").strip(".pt"))
+                                print(f"FOUND CHECKPOINT HANDLE {self.checkpoint_handles[rew]} with reward {rew}")
+                                break
 
         self.eval_env = eval_env
         self.best_model_save_path = best_model_save_path
@@ -342,8 +343,14 @@ class CustomEvalCallback(EventCallback):
                 # current reward is better than lowest saved checkpoint (or we have stored less than we can)
                 # -> delete lowest checkoint, then save current checkpoint
                 if not isinstance(lowest_checkpoint_reward, type(None)):
-                    os.remove(os.path.join(self.best_model_save_path, f"ckpt_{self.checkpoint_handles[lowest_checkpoint_reward]}.pt"))
-                    os.remove(os.path.join(self.best_model_save_path, f"stats_{self.checkpoint_handles[lowest_checkpoint_reward]}.txt"))
+                    try:
+                        os.remove(os.path.join(self.best_model_save_path, f"ckpt_{self.checkpoint_handles[lowest_checkpoint_reward]}.pt"))
+                    except:
+                        print("ERROR: COULD NOT REMOVE CHECKPOINT", os.path.join(self.best_model_save_path, f"ckpt_{self.checkpoint_handles[lowest_checkpoint_reward]}.pt"))
+                    try:
+                        os.remove(os.path.join(self.best_model_save_path, f"stats_{self.checkpoint_handles[lowest_checkpoint_reward]}.txt"))
+                    except:
+                        print("ERROR: COULD NOT REMOVE STATS ", os.path.join(self.best_model_save_path, f"stats_{self.checkpoint_handles[lowest_checkpoint_reward]}.txt"))
                     del self.checkpoint_handles[lowest_checkpoint_reward]
                 # save model and stats
                 self.checkpoint_handles[mean_reward] = self.n_calls // self.eval_freq
