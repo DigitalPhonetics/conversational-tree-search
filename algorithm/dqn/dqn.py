@@ -1,14 +1,16 @@
 
+import io
+import os
+import pathlib
+import shutil
 from statistics import mean
-from typing import Tuple, TypeVar, Union, Dict, Optional, Type, Any
+from typing import Iterable, Set, Tuple, TypeVar, Union, Dict, Optional, Type, Any
 from stable_baselines3 import DQN
 
 import torch as th
 import torch.nn.functional as F
 
 from gymnasium import spaces
-from stable_baselines3.dqn.policies import QNetwork
-from stable_baselines3.common.type_aliases import Schedule
 
 from typing import Any, Dict, Optional, Tuple, Type, Union
 
@@ -17,19 +19,100 @@ import torch as th
 from gymnasium import spaces
 from torch.nn import functional as F
 
+import stable_baselines3 as sb3
 from stable_baselines3.common.buffers import ReplayBuffer
 from stable_baselines3.common.type_aliases import GymEnv, Schedule
 from stable_baselines3.dqn.policies import QNetwork
 from algorithm.dqn.her import HindsightExperienceReplayWrapper
+from stable_baselines3.common.save_util import recursive_getattr, data_to_json
+from stable_baselines3.common.utils import get_system_info
+from stable_baselines3.dqn.policies import QNetwork
+from stable_baselines3.common.type_aliases import Schedule
 
 from algorithm.dqn.policy import CustomDQNPolicy
-from algorithm.dqn.targets import DQNTarget, StandardTarget
+from algorithm.dqn.targets import DQNTarget
 from environment.old.her import OldHindsightExperienceReplayWrapper
 from utils.utils import EnvInfo
 import config as cfg
 
 SelfDQN = TypeVar("SelfDQN", bound="CustomDQN")
 
+
+from datetime import datetime
+from stat import S_IFREG
+from stream_zip import ZIP_64, stream_zip
+
+
+def _local_files(names):
+    now  = datetime.now()
+    def contents(name):
+        with open(name, 'rb') as f:
+            while chunk := f.read(65536):
+                yield chunk
+
+    return (
+        (name, now, S_IFREG | 0o600, ZIP_64, contents(name))
+        for name in names
+    )
+
+def save_to_zip_file(
+    save_path: Union[str, pathlib.Path, io.BufferedIOBase],
+    data: Optional[Dict[str, Any]] = None,
+    params: Optional[Dict[str, Any]] = None,
+    pytorch_variables: Optional[Dict[str, Any]] = None,
+    replay_buffer = None,
+    verbose: int = 0,
+) -> None:
+    """
+    Save model data to a zip archive.
+
+    :param save_path: Where to store the model.
+        if save_path is a str or pathlib.Path ensures that the path actually exists.
+    :param data: Class parameters being stored (non-PyTorch variables)
+    :param params: Model parameters being stored expected to contain an entry for every
+                   state_dict with its name and the state_dict.
+    :param pytorch_variables: Other PyTorch variables expected to contain name and value of the variable.
+    :param verbose: Verbosity level: 0 for no output, 1 for info messages, 2 for debug messages
+    """
+
+    # First, write individual files to disk
+
+    # data/params can be None, so do not
+    # try to serialize them blindly
+    os.makedirs(save_path, exist_ok=True)
+    filenames = []
+    if data is not None:
+        serialized_data = data_to_json(data)
+        f_data = f"{save_path}/data"
+        with open(f_data, "w") as f:
+            f.write(serialized_data)
+        filenames.append(f_data)
+    if pytorch_variables is not None:
+        f_pytorch_vars = f"{save_path}/pytorch_variables.pth"
+        th.save(pytorch_variables, f_pytorch_vars)
+        filenames.append(f_pytorch_vars)
+    if params is not None:
+       for file_name, dict_ in params.items():
+           f_param = f"{save_path}/{file_name}.pth"
+           th.save(dict_, f_param)
+           filenames.append(f_param)
+    if replay_buffer is not None:
+        f_replay = f"{save_path}/replay_buffer.pth"
+        th.save(replay_buffer.save_params(), f_replay)
+        filenames.append(f_replay) 
+    f_sys_info = f"{save_path}/system_info.txt"
+    with open(f_sys_info, "w") as f:
+        f.write(get_system_info(print_info=False)[1])
+        f.write(f"\n_stable_baselines3_version: {sb3.__version__}")
+
+    # Create a zip-archive and write our objects there.
+    with open(f"{save_path}.pt", 'wb') as f:
+        for chunk in stream_zip(_local_files(filenames)):
+            f.write(chunk)
+            
+    # Cleanup
+    shutil.rmtree(save_path)
+        
 
 class CustomDQN(DQN):
     """
@@ -223,6 +306,7 @@ class CustomDQN(DQN):
         self.logger.record("train/max_goal_distance", cfg.INSTANCES[cfg.InstanceArgs.MAX_DISTANCE])
         self.logger.record("train/buffer_size", len(self.replay_buffer))
         self.logger.record("train/q_values", mean(q_values))
+        self.logger.record("train/epsilon", self.exploration_rate)
         if self.policy.intent_prediction:
             self.logger.record("train/intent_loss", np.mean(intent_losses))
         if self.replay_buffer_class in [HindsightExperienceReplayWrapper, OldHindsightExperienceReplayWrapper]:
@@ -320,3 +404,59 @@ class CustomDQN(DQN):
             buffer_action = unscaled_action
             action = buffer_action
         return action, buffer_action
+    
+
+    def save(
+        self,
+        path: Union[str, pathlib.Path, io.BufferedIOBase],
+        exclude: Optional[Iterable[str]] = None,
+        include: Optional[Set[str]] = None,
+    ) -> None:
+        """
+        Save all the attributes of the object and the model parameters in a zip-file.
+
+        :param path: path to the file where the rl agent should be saved
+        :param exclude: name of parameters that should be excluded in addition to the default ones
+        :param include: name of parameters that might be excluded but should be included anyway
+        """
+        # Copy parameter list so we don't mutate the original dict
+        data = self.__dict__.copy()
+        replay_buffer = None
+
+        # Exclude is union of specified parameters (if any) and standard exclusions
+        if exclude is None:
+            exclude = []
+        exclude = set(exclude).union(self._excluded_save_params())
+
+        # Do not exclude params if they are specifically included
+        if include is not None:
+            # DON'T INCLUDE REPLAY BUGGER - would be converted to JSON string in memory -> overflow!
+            if "replay_buffer" in include:
+                include.remove("replay_buffer")
+                replay_buffer = self.replay_buffer
+            exclude = exclude.difference(include)
+
+        state_dicts_names, torch_variable_names = self._get_torch_save_params()
+        all_pytorch_variables = state_dicts_names + torch_variable_names
+        for torch_var in all_pytorch_variables:
+            # We need to get only the name of the top most module as we'll remove that
+            var_name = torch_var.split(".")[0]
+            # Any params that are in the save vars must not be saved by data
+            exclude.add(var_name)
+
+        # Remove parameter entries of parameters which are to be excluded
+        for param_name in exclude:
+            data.pop(param_name, None)
+
+        # Build dict of torch variables
+        pytorch_variables = None
+        if torch_variable_names is not None:
+            pytorch_variables = {}
+            for name in torch_variable_names:
+                attr = recursive_getattr(self, name)
+                pytorch_variables[name] = attr
+
+        # Build dict of state_dicts
+        params_to_save = self.get_parameters()
+
+        save_to_zip_file(path, data=data, params=params_to_save, pytorch_variables=pytorch_variables, replay_buffer=replay_buffer)
