@@ -1,0 +1,4 @@
+_target_: data.dataset.OnboardingGraphDataset
+graph_path: resources/en/reimburse/test_graph.json
+answer_path: resources/en/reimburse/test_answers.json
+augmentation: NONE
