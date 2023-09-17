@@ -42,22 +42,22 @@
                     {
                         "id": "16939912049114625",
                         "nodeId": "16939903469335362",
-                        "text": "Finding Housing"
+                        "raw_text": "Finding Housing"
                     },
                     {
                         "id": "16939912323240997",
                         "nodeId": "16939903469335362",
-                        "text": "Information for international students"
+                        "raw_text": "Information for international students"
                     },
                     {
                         "id": "16939919957853833",
                         "nodeId": "16939903469335362",
-                        "text": "Public transportation"
+                        "raw_text": "Public transportation"
                     },
                     {
                         "id": "16939919798263477",
                         "nodeId": "16939903469335362",
-                        "text": "Work permits, residence permits, and visas"
+                        "raw_text": "Work permits, residence permits, and visas"
                     }
                 ],
                 "questions": []
@@ -86,12 +86,12 @@
                     {
                         "id": "16939923573475838",
                         "nodeId": "16939923328235660",
-                        "text": "Hotels"
+                        "raw_text": "Hotels"
                     },
                     {
                         "id": "16939923635329728",
                         "nodeId": "16939923328235660",
-                        "text": "Long-term housing"
+                        "raw_text": "Long-term housing"
                     }
                 ],
                 "questions": []
@@ -120,47 +120,47 @@
                     {
                         "id": "16939924558739259",
                         "nodeId": "16939924040231869",
-                        "text": "Finding housing"
+                        "raw_text": "Finding housing"
                     },
                     {
                         "id": "16939924308109388",
                         "nodeId": "16939924040231869",
-                        "text": "Opening a bank account"
+                        "raw_text": "Opening a bank account"
                     },
                     {
                         "id": "16939924651091479",
                         "nodeId": "16939924040231869",
-                        "text": "University services"
+                        "raw_text": "University services"
                     },
                     {
                         "id": "16939924484347907",
                         "nodeId": "16939924040231869",
-                        "text": "Enrolling in the university"
+                        "raw_text": "Enrolling in the university"
                     },
                     {
                         "id": "16939927127743408",
                         "nodeId": "16939924040231869",
-                        "text": "Sports organisations"
+                        "raw_text": "Sports organisations"
                     },
                     {
                         "id": "16940089183408053",
                         "nodeId": "16939924040231869",
-                        "text": "How to register my address with the city"
+                        "raw_text": "How to register my address with the city"
                     },
                     {
                         "id": "16940138665420723",
                         "nodeId": "16939924040231869",
-                        "text": "Working"
+                        "raw_text": "Working"
                     },
                     {
                         "id": "16940139803270397",
                         "nodeId": "16939924040231869",
-                        "text": "Transportation"
+                        "raw_text": "Transportation"
                     },
                     {
                         "id": "16939924364114252",
                         "nodeId": "16939924040231869",
-                        "text": "Getting health insurance"
+                        "raw_text": "Getting health insurance"
                     }
                 ],
                 "questions": []
@@ -235,22 +235,22 @@
                     {
                         "id": "16939964154911386",
                         "nodeId": "16939963999650878",
-                        "text": "Flat share"
+                        "raw_text": "Flat share"
                     },
                     {
                         "id": "16939964269424731",
                         "nodeId": "16939963999650878",
-                        "text": "Rental apartment"
+                        "raw_text": "Rental apartment"
                     },
                     {
                         "id": "16939964212012724",
                         "nodeId": "16939963999650878",
-                        "text": "Student dorms"
+                        "raw_text": "Student dorms"
                     },
                     {
                         "id": "16939966036739596",
                         "nodeId": "16939963999650878",
-                        "text": "What are the differences?"
+                        "raw_text": "What are the differences?"
                     }
                 ],
                 "questions": []
@@ -372,7 +372,7 @@
                     {
                         "id": "16940008677669292",
                         "nodeId": "16940008677663898",
-                        "text": "{{IS_STUDENT=BOOLEAN}}"
+                        "raw_text": "{{IS_STUDENT=BOOLEAN}}"
                     }
                 ],
                 "questions": []
@@ -402,12 +402,12 @@
                     {
                         "id": "16940009072175733",
                         "nodeId": "16940009032438081",
-                        "text": "== TRUE }}"
+                        "raw_text": "== TRUE }}"
                     },
                     {
                         "id": "16940009032432421",
                         "nodeId": "16940009032438081",
-                        "text": " == DEFAULT }}"
+                        "raw_text": " == DEFAULT }}"
                     }
                 ],
                 "questions": []
@@ -446,8 +446,8 @@
             },
             "data": {
                 "id": "16940030269022060",
-                "markup": "<p>As a note: anyone staying in Germany for longer than 90 days is required to register with the residents&lsquo; registration office [Bürgerbüro] in their place of residence within fourteen days upon arrival.</p>",
-                "raw_text": "As a note: anyone staying in Germany for longer than 90 days is required to register with the residents&lsquo; registration office [Bürgerbüro] in their place of residence within fourteen days upon arrival.",
+                "markup": "<p>As a note: anyone staying in Germany for longer than 90 days is required to register with the residents' registration office [Bu\u0308rgerbu\u0308ro] in their place of residence within fourteen days upon arrival.</p>",
+                "raw_text": "As a note: anyone staying in Germany for longer than 90 days is required to register with the residents' registration office [Bu\u0308rgerbu\u0308ro] in their place of residence within fourteen days upon arrival.",
                 "position": {
                     "x": 4512.359814272009,
                     "y": 1461.7499713710038
@@ -539,8 +539,8 @@
             },
             "data": {
                 "id": "16940062976746793",
-                "markup": "<div class=\"page\" title=\"Page 8\">\n<div class=\"layoutArea\">\n<div class=\"column\">\n<p>The registration office will provide you with a confirmation of your registration [Meldebestätigung], which you will need for opening a bank account and for obtaining a residence permit (if applicable).</p>\n</div>\n</div>\n</div>",
-                "raw_text": "The registration office will provide you with a confirmation of your registration [Meldebestätigung], which you will need for opening a bank account and for obtaining a residence permit (if applicable).",
+                "markup": "<div class=\"page\" title=\"Page 8\">\n<div class=\"layoutArea\">\n<div class=\"column\">\n<p>The registration office will provide you with a confirmation of your registration [Meldebesta\u0308tigung], which you will need for opening a bank account and for obtaining a residence permit (if applicable).</p>\n</div>\n</div>\n</div>",
+                "raw_text": "The registration office will provide you with a confirmation of your registration [Meldebesta\u0308tigung], which you will need for opening a bank account and for obtaining a residence permit (if applicable).",
                 "position": {
                     "x": 4903.359815520075,
                     "y": 1461.7499956488505
@@ -695,12 +695,12 @@
                     {
                         "id": "16940085574315151",
                         "nodeId": "16940085259147103",
-                        "text": "yes"
+                        "raw_text": "yes"
                     },
                     {
                         "id": "16940085581804287",
                         "nodeId": "16940085259147103",
-                        "text": "no"
+                        "raw_text": "no"
                     }
                 ],
                 "questions": []
@@ -751,12 +751,12 @@
                     {
                         "id": "16940097664505093",
                         "nodeId": "16940097447818842",
-                        "text": "yes"
+                        "raw_text": "yes"
                     },
                     {
                         "id": "16940097709000821",
                         "nodeId": "16940097447818842",
-                        "text": "no"
+                        "raw_text": "no"
                     }
                 ],
                 "questions": []
@@ -810,22 +810,22 @@
                     {
                         "id": "16940100183728098",
                         "nodeId": "16940099824902790",
-                        "text": "Finalising an offer"
+                        "raw_text": "Finalising an offer"
                     },
                     {
                         "id": "16940100253612872",
                         "nodeId": "16940099824902790",
-                        "text": "I want to apply for student housing"
+                        "raw_text": "I want to apply for student housing"
                     },
                     {
                         "id": "16940109896655093",
                         "nodeId": "16940099824902790",
-                        "text": "Moving in"
+                        "raw_text": "Moving in"
                     },
                     {
                         "id": "16940109983988855",
                         "nodeId": "16940099824902790",
-                        "text": "Moving out"
+                        "raw_text": "Moving out"
                     }
                 ],
                 "questions": []
@@ -888,8 +888,8 @@
             },
             "data": {
                 "id": "16940106375155011",
-                "markup": "<div class=\"page\" title=\"Page 4\">\n<div class=\"layoutArea\">\n<div class=\"column\">\n<p>Do not forget to fill in your SEPA direct debit authorization [SEPA-Lastschrift] and hand it in to the caretaker&rsquo;s office in person (or send it by e-mail to your person responsible at the SWS)!</p>\n<p>You should have received the SEPA form together with your tenancy agreement. With the SEPA authorization your monthly rent can be debited automatically from your bank account.</p>\n</div>\n</div>\n</div>",
-                "raw_text": "Do not forget to fill in your SEPA direct debit authorization [SEPA-Lastschrift] and hand it in to the caretaker&rsquo;s office in person (or send it by e-mail to your person responsible at the SWS)!\nYou should have received the SEPA form together with your tenancy agreement. With the SEPA authorization your monthly rent can be debited automatically from your bank account.",
+                "markup": "<div class=\"page\" title=\"Page 4\">\n<div class=\"layoutArea\">\n<div class=\"column\">\n<p>Do not forget to fill in your SEPA direct debit authorization [SEPA-Lastschrift] and hand it in to the caretaker's office in person (or send it by e-mail to your person responsible at the SWS)!</p>\n<p>You should have received the SEPA form together with your tenancy agreement. With the SEPA authorization your monthly rent can be debited automatically from your bank account.</p>\n</div>\n</div>\n</div>",
+                "raw_text": "Do not forget to fill in your SEPA direct debit authorization [SEPA-Lastschrift] and hand it in to the caretaker's office in person (or send it by e-mail to your person responsible at the SWS)!\nYou should have received the SEPA form together with your tenancy agreement. With the SEPA authorization your monthly rent can be debited automatically from your bank account.",
                 "position": {
                     "x": 4163.0941512959525,
                     "y": -193.00038007991884
@@ -974,12 +974,12 @@
                     {
                         "id": "16940123725568928",
                         "nodeId": "16940123407705035",
-                        "text": "yes"
+                        "raw_text": "yes"
                     },
                     {
                         "id": "16940123769907448",
                         "nodeId": "16940123407705035",
-                        "text": "no"
+                        "raw_text": "no"
                     }
                 ],
                 "questions": []
@@ -994,8 +994,8 @@
             },
             "data": {
                 "id": "16940128782255012",
-                "markup": "<div class=\"page\" title=\"Page 3\">\n<div class=\"layoutArea\">\n<div class=\"column\">\n<p>As proof of your identity please present your passport and your moving-in letter at the caretaker&rsquo;s office [Hausmeisterbüro]</p>\n</div>\n</div>\n</div>",
-                "raw_text": "As proof of your identity please present your passport and your moving-in letter at the caretaker&rsquo;s office [Hausmeisterbüro]",
+                "markup": "<div class=\"page\" title=\"Page 3\">\n<div class=\"layoutArea\">\n<div class=\"column\">\n<p>As proof of your identity please present your passport and your moving-in letter at the caretaker's office [Hausmeisterbu\u0308ro]</p>\n</div>\n</div>\n</div>",
+                "raw_text": "As proof of your identity please present your passport and your moving-in letter at the caretaker's office [Hausmeisterbu\u0308ro]",
                 "position": {
                     "x": 3783.8285854312808,
                     "y": 354.4995660228873
@@ -1033,22 +1033,22 @@
                     {
                         "id": "16940129688619224",
                         "nodeId": "16940129305705732",
-                        "text": "Studierendenwerk"
+                        "raw_text": "Studierendenwerk"
                     },
                     {
                         "id": "16940129733853339",
                         "nodeId": "16940129305705732",
-                        "text": "Student ministry"
+                        "raw_text": "Student ministry"
                     },
                     {
                         "id": "16940131883029271",
                         "nodeId": "16940129305705732",
-                        "text": "SWS"
+                        "raw_text": "SWS"
                     },
                     {
                         "id": "16940129920308052",
                         "nodeId": "16940129305705732",
-                        "text": "VSSW"
+                        "raw_text": "VSSW"
                     }
                 ],
                 "questions": []
@@ -1173,12 +1173,7 @@
                     {
                         "id": "16940140266058042",
                         "nodeId": "16940140109258011",
-                        "text": "yes"
-                    },
-                    {
-                        "id": "16940140272888859",
-                        "nodeId": "16940140109258011",
-                        "text": "no"
+                        "raw_text": "yes"
                     }
                 ],
                 "questions": []
@@ -1207,17 +1202,17 @@
                     {
                         "id": "16940141082206724",
                         "nodeId": "16940140825082634",
-                        "text": "Student "
+                        "raw_text": "Student "
                     },
                     {
                         "id": "16940141089713987",
                         "nodeId": "16940140825082634",
-                        "text": "Employee"
+                        "raw_text": "Employee"
                     },
                     {
                         "id": "16940141105212927",
                         "nodeId": "16940140825082634",
-                        "text": "No"
+                        "raw_text": "No"
                     }
                 ],
                 "questions": []
@@ -1247,12 +1242,12 @@
                     {
                         "id": "16940143325295675",
                         "nodeId": "16940143044016344",
-                        "text": "Stay in the area"
+                        "raw_text": "Stay in the area"
                     },
                     {
                         "id": "16940143370392515",
                         "nodeId": "16940143044016344",
-                        "text": "travel farther"
+                        "raw_text": "travel farther"
                     }
                 ],
                 "questions": []
@@ -1399,22 +1394,22 @@
                     {
                         "id": "16940158032227419",
                         "nodeId": "16940157565110395",
-                        "text": "EU Country"
+                        "raw_text": "EU Country"
                     },
                     {
                         "id": "16940158088455928",
                         "nodeId": "16940157565110395",
-                        "text": "I am from a country with a special exception"
+                        "raw_text": "I am from a country with a special exception"
                     },
                     {
                         "id": "16940785166291124",
                         "nodeId": "16940157565110395",
-                        "text": "What countries have a special status?"
+                        "raw_text": "What countries have a special status?"
                     },
                     {
                         "id": "16940158313753595",
                         "nodeId": "16940157565110395",
-                        "text": "No"
+                        "raw_text": "No"
                     }
                 ],
                 "questions": []
@@ -1492,12 +1487,12 @@
                     {
                         "id": "16940162893485791",
                         "nodeId": "16940162658496966",
-                        "text": "yes"
+                        "raw_text": "yes"
                     },
                     {
                         "id": "16940162931654921",
                         "nodeId": "16940162658496966",
-                        "text": "no"
+                        "raw_text": "no"
                     }
                 ],
                 "questions": []
@@ -1551,12 +1546,12 @@
                     {
                         "id": "16940164383845341",
                         "nodeId": "16940163965937206",
-                        "text": "yes"
+                        "raw_text": "yes"
                     },
                     {
                         "id": "16940164391346014",
                         "nodeId": "16940163965937206",
-                        "text": "no"
+                        "raw_text": "no"
                     }
                 ],
                 "questions": []
@@ -1610,12 +1605,12 @@
                     {
                         "id": "16940165963363276",
                         "nodeId": "16940165861719281",
-                        "text": "yes"
+                        "raw_text": "yes"
                     },
                     {
                         "id": "16940166004684637",
                         "nodeId": "16940165861719281",
-                        "text": "no"
+                        "raw_text": "no"
                     }
                 ],
                 "questions": []
@@ -1705,12 +1700,12 @@
                     {
                         "id": "16940841194105511",
                         "nodeId": "16940840841874248",
-                        "text": "yes"
+                        "raw_text": "yes"
                     },
                     {
                         "id": "16940841202571564",
                         "nodeId": "16940840841874248",
-                        "text": "no"
+                        "raw_text": "no"
                     }
                 ],
                 "questions": [],
@@ -1878,8 +1873,8 @@
             "selected": false,
             "data": {
                 "id": "16940881811685927",
-                "markup": "<div class=\"page\" title=\"Page 25\">\n<div class=\"layoutArea\">\n<div class=\"column\">\n<p>Please consider that exchange students who study in a Bachelor&lsquo;s program are not eligible for a Hiwi position.</p>\n</div>\n</div>\n</div>",
-                "raw_text": "Please consider that exchange students who study in a Bachelor&lsquo;s program are not eligible for a Hiwi position.",
+                "markup": "<div class=\"page\" title=\"Page 25\">\n<div class=\"layoutArea\">\n<div class=\"column\">\n<p>Please consider that exchange students who study in a Bachelor's program are not eligible for a Hiwi position.</p>\n</div>\n</div>\n</div>",
+                "raw_text": "Please consider that exchange students who study in a Bachelor's program are not eligible for a Hiwi position.",
                 "answers": [],
                 "questions": [],
                 "tags": [
@@ -1905,7 +1900,7 @@
                     {
                         "nodeId": "16940882887581703",
                         "id": "16940882887587977",
-                        "text": "{{EU_CITIZEN=BOOLEAN}}"
+                        "raw_text": "{{EU_CITIZEN=BOOLEAN}}"
                     }
                 ],
                 "questions": [],
@@ -1932,12 +1927,12 @@
                     {
                         "nodeId": "16940883273302735",
                         "id": "16940883273301749",
-                        "text": " == DEFAULT }}"
+                        "raw_text": " == DEFAULT }}"
                     },
                     {
                         "id": "16940883312692281",
                         "nodeId": "16940883273302735",
-                        "text": "== TRUE }}"
+                        "raw_text": "== TRUE }}"
                     }
                 ],
                 "questions": [],
@@ -1964,12 +1959,12 @@
                     {
                         "id": "16940886179228624",
                         "nodeId": "16940885769698961",
-                        "text": "degree student"
+                        "raw_text": "degree student"
                     },
                     {
                         "id": "16940886234142515",
                         "nodeId": "16940885769698961",
-                        "text": "exchange student"
+                        "raw_text": "exchange student"
                     }
                 ],
                 "questions": [],
@@ -1996,7 +1991,7 @@
                     {
                         "nodeId": "16940887034114549",
                         "id": "16940887034115354",
-                        "text": "{{BACHELOR=BOOLEAN}}"
+                        "raw_text": "{{BACHELOR=BOOLEAN}}"
                     }
                 ],
                 "questions": [],
@@ -2023,12 +2018,12 @@
                     {
                         "nodeId": "16940887586934492",
                         "id": "16940887586937051",
-                        "text": " == DEFAULT }}"
+                        "raw_text": " == DEFAULT }}"
                     },
                     {
                         "id": "16940887631323185",
                         "nodeId": "16940887586934492",
-                        "text": "== TRUE }}"
+                        "raw_text": "== TRUE }}"
                     }
                 ],
                 "questions": [],
@@ -2073,12 +2068,12 @@
                     {
                         "nodeId": "16940888497049676",
                         "id": "16940888497058985",
-                        "text": " == DEFAULT }}"
+                        "raw_text": " == DEFAULT }}"
                     },
                     {
                         "id": "16940888538695516",
                         "nodeId": "16940888497049676",
-                        "text": "== TRUE }}"
+                        "raw_text": "== TRUE }}"
                     }
                 ],
                 "questions": [],
@@ -2102,12 +2097,12 @@
                     {
                         "nodeId": "16940889107717111",
                         "id": "16940889107718061",
-                        "text": " == DEFAULT }}"
+                        "raw_text": " == DEFAULT }}"
                     },
                     {
                         "id": "16940889166743958",
                         "nodeId": "16940889107717111",
-                        "text": "== TRUE }}"
+                        "raw_text": "== TRUE }}"
                     }
                 ],
                 "questions": [],
@@ -2143,8 +2138,8 @@
             "selected": false,
             "data": {
                 "id": "16940889657476504",
-                "markup": "<div class=\"page\" title=\"Page 25\">\n<div class=\"section\">\n<div class=\"layoutArea\">\n<div class=\"column\">\n<p>However, the visa/residence permit of non-EU students only allows the employment as a student assistant. Therefore, non-EU students need to re-quest an addition to their visa/residence permit when they are offered a position as a research assistant at the university. The addition is requested from the for- eign registration office [Ausländerbehörde].</p>\n</div>\n</div>\n</div>\n</div>",
-                "raw_text": "However, the visa/residence permit of non-EU students only allows the employment as a student assistant. Therefore, non-EU students need to re-quest an addition to their visa/residence permit when they are offered a position as a research assistant at the university. The addition is requested from the for- eign registration office [Ausländerbehörde].",
+                "markup": "<div class=\"page\" title=\"Page 25\">\n<div class=\"section\">\n<div class=\"layoutArea\">\n<div class=\"column\">\n<p>However, the visa/residence permit of non-EU students only allows the employment as a student assistant. Therefore, non-EU students need to re-quest an addition to their visa/residence permit when they are offered a position as a research assistant at the university. The addition is requested from the for- eign registration office [Ausla\u0308nderbeho\u0308rde].</p>\n</div>\n</div>\n</div>\n</div>",
+                "raw_text": "However, the visa/residence permit of non-EU students only allows the employment as a student assistant. Therefore, non-EU students need to re-quest an addition to their visa/residence permit when they are offered a position as a research assistant at the university. The addition is requested from the for- eign registration office [Ausla\u0308nderbeho\u0308rde].",
                 "answers": [],
                 "questions": [],
                 "tags": [
@@ -2254,17 +2249,17 @@
                     {
                         "id": "16940913013355993",
                         "nodeId": "16940912326494583",
-                        "text": "yes"
+                        "raw_text": "yes"
                     },
                     {
                         "id": "16940913020019265",
                         "nodeId": "16940912326494583",
-                        "text": "no"
+                        "raw_text": "no"
                     },
                     {
                         "id": "16940913026335336",
                         "nodeId": "16940912326494583",
-                        "text": "how do I know if I need one?"
+                        "raw_text": "how do I know if I need one?"
                     }
                 ],
                 "questions": [],
@@ -2344,8 +2339,8 @@
             "selected": false,
             "data": {
                 "id": "16940924496262932",
-                "markup": "<div class=\"page\" title=\"Page 11\">\n<div class=\"layoutArea\">\n<div class=\"column\">\n<p>As a note, you will need to apply for a residence permit at the latest one week before your entrance visa expires. You need to do so at the foreigners&rsquo; registration office at the place of your registered residence.</p>\n</div>\n</div>\n</div>",
-                "raw_text": "As a note, you will need to apply for a residence permit at the latest one week before your entrance visa expires. You need to do so at the foreigners&rsquo; registration office at the place of your registered residence.",
+                "markup": "<div class=\"page\" title=\"Page 11\">\n<div class=\"layoutArea\">\n<div class=\"column\">\n<p>As a note, you will need to apply for a residence permit at the latest one week before your entrance visa expires. You need to do so at the foreigners' registration office at the place of your registered residence.</p>\n</div>\n</div>\n</div>",
+                "raw_text": "As a note, you will need to apply for a residence permit at the latest one week before your entrance visa expires. You need to do so at the foreigners' registration office at the place of your registered residence.",
                 "answers": [],
                 "questions": [],
                 "tags": [
@@ -2364,8 +2359,8 @@
             "selected": false,
             "data": {
                 "id": "16940929156411157",
-                "markup": "<div class=\"page\" title=\"Page 12\">\n<div class=\"layoutArea\">\n<div class=\"column\">\n<p>The production of your residence permit takes about eight weeks. When applying for your residence permit, the foreigners&rsquo; registration office will let you know when you will receive it. Meanwhile the foreigners&rsquo; registration office provides a preliminary confirmation of an authorized residence permit. The residence permit usually consists of a chip card and the supplementary sheet.</p>\n</div>\n</div>\n</div>",
-                "raw_text": "The production of your residence permit takes about eight weeks. When applying for your residence permit, the foreigners&rsquo; registration office will let you know when you will receive it. Meanwhile the foreigners&rsquo; registration office provides a preliminary confirmation of an authorized residence permit. The residence permit usually consists of a chip card and the supplementary sheet.",
+                "markup": "<div class=\"page\" title=\"Page 12\">\n<div class=\"layoutArea\">\n<div class=\"column\">\n<p>The production of your residence permit takes about eight weeks. When applying for your residence permit, the foreigners' registration office will let you know when you will receive it. Meanwhile the foreigners' registration office provides a preliminary confirmation of an authorized residence permit. The residence permit usually consists of a chip card and the supplementary sheet.</p>\n</div>\n</div>\n</div>",
+                "raw_text": "The production of your residence permit takes about eight weeks. When applying for your residence permit, the foreigners' registration office will let you know when you will receive it. Meanwhile the foreigners' registration office provides a preliminary confirmation of an authorized residence permit. The residence permit usually consists of a chip card and the supplementary sheet.",
                 "answers": [],
                 "questions": [],
                 "tags": [
@@ -2384,8 +2379,8 @@
             "selected": false,
             "data": {
                 "id": "16940939050680550",
-                "markup": "<p>For you residence permit application, you will need to submit the following:</p>\n<div class=\"page\" title=\"Page 13\">\n<div class=\"layoutArea\">\n<div class=\"column\">\n<ul>\n<li>\n<p>Completed and signed application form for a residence permit</p>\n</li>\n<li>\n<p>A copy of your passport</p>\n</li>\n<li>\n<p>Your visa (if applicable)</p>\n</li>\n<li>\n<p>A biometrical photo (see below)</p>\n</li>\n<li>\n<p>Letter of admission [Zulassungsbescheid] from the University of Stuttgart, or a working contract/hosting agreement from your employer</p>\n</li>\n<li>\n<p>Proof of sufficient funds (minimum EUR 934 per month) e. g. a bank statement from a German account, a scholarship letter, or your last paystub</p>\n</li>\n<li>\n<p>Health insurance confirmation [Versicherungsbescheinigung] from a German health insurance provider</p>\n</li>\n<li>\n<p>Confirmation of registration [Meldebestätigung] (see residence registration)</p>\n</li>\n<li>\n<p>EUR 100 handling charge (DAAD-scholarship holders need their scholarship confirmation for a waiver)</p>\n</li>\n</ul>\n</div>\n</div>\n</div>",
-                "raw_text": "For you residence permit application, you will need to submit the following: Completed and signed application form for a residence permit: A copy of your passport,\n Your visa (if applicable),\n A biometrical photo (see below),\n Letter of admission [Zulassungsbescheid] from the University of Stuttgart, or a working contract/hosting agreement from your employer,\n Proof of sufficient funds (minimum EUR 934 per month) e. g. a bank statement from a German account, a scholarship letter, or your last paystub,\n Health insurance confirmation [Versicherungsbescheinigung] from a German health insurance provider,\n Confirmation of registration [Meldebestätigung] (see residence registration),\n EUR 100 handling charge (DAAD-scholarship holders need their scholarship confirmation for a waiver)",
+                "markup": "<p>For you residence permit application, you will need to submit the following:</p>\n<div class=\"page\" title=\"Page 13\">\n<div class=\"layoutArea\">\n<div class=\"column\">\n<ul>\n<li>\n<p>Completed and signed application form for a residence permit</p>\n</li>\n<li>\n<p>A copy of your passport</p>\n</li>\n<li>\n<p>Your visa (if applicable)</p>\n</li>\n<li>\n<p>A biometrical photo (see below)</p>\n</li>\n<li>\n<p>Letter of admission [Zulassungsbescheid] from the University of Stuttgart, or a working contract/hosting agreement from your employer</p>\n</li>\n<li>\n<p>Proof of sufficient funds (minimum EUR 934 per month) e. g. a bank statement from a German account, a scholarship letter, or your last paystub</p>\n</li>\n<li>\n<p>Health insurance confirmation [Versicherungsbescheinigung] from a German health insurance provider</p>\n</li>\n<li>\n<p>Confirmation of registration [Meldebesta\u0308tigung] (see residence registration)</p>\n</li>\n<li>\n<p>EUR 100 handling charge (DAAD-scholarship holders need their scholarship confirmation for a waiver)</p>\n</li>\n</ul>\n</div>\n</div>\n</div>",
+                "raw_text": "For you residence permit application, you will need to submit the following: Completed and signed application form for a residence permit: A copy of your passport,\n Your visa (if applicable),\n A biometrical photo (see below),\n Letter of admission [Zulassungsbescheid] from the University of Stuttgart, or a working contract/hosting agreement from your employer,\n Proof of sufficient funds (minimum EUR 934 per month) e. g. a bank statement from a German account, a scholarship letter, or your last paystub,\n Health insurance confirmation [Versicherungsbescheinigung] from a German health insurance provider,\n Confirmation of registration [Meldebesta\u0308tigung] (see residence registration),\n EUR 100 handling charge (DAAD-scholarship holders need their scholarship confirmation for a waiver)",
                 "answers": [],
                 "questions": [],
                 "tags": [

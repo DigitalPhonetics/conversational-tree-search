@@ -1,6 +1,7 @@
 from collections import defaultdict
 from copy import deepcopy
 from typing import Any, Tuple, Union, Dict
+import re
 
 import torch
 from environment.goal import DummyGoal
@@ -300,12 +301,12 @@ class BaseEnv:
 
                 # handle logic node auto-transitioning here
                 if not done:
-                    reward, logic_done, did_handle_logic_node = self.handle_logic_nodes(reward)
+                    reward, logic_done, did_handle_logic_node = self.handle_logic_and_varupdate_nodes(reward)
                     if did_handle_logic_node:
                         done = logic_done
                     self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> TURN REWARD: {reward}')
 
-                    if not self.goal.goal_node_key:
+                    if isinstance(self.goal.goal_node_key, type(None)):
                         done = True # check if we reached end of dialog tree
                         self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> REACHED TREE END')
 
@@ -372,48 +373,73 @@ class BaseEnv:
         if self.current_node:
             self.node_count[self.current_node.node_type] += 1
 
-    def handle_logic_nodes(self, reward: float) -> Tuple[float, bool, bool]:
+    def handle_logic_and_varupdate_nodes(self, reward: float) -> Tuple[float, bool, bool]:
         done = False
         did_handle_logic_node = False
-        while self.current_node and self.current_node.node_type == NodeType.LOGIC:
+        while self.current_node and self.current_node.node_type in [NodeType.LOGIC, NodeType.VARIABLE_UPDATE]:
             did_handle_logic_node = True
-            self.node_count[NodeType.LOGIC] += 1
-            lhs = self.current_node.text
-            var_name = lhs.lstrip("{{").strip() # form: {{ VAR_NAME
-            if var_name in self.bst:
-                # don't assign reward, is automatic transition without agent interaction
-                # evaluate statement, choose correct branch and skip to connected node
-                default_answer = None
-                # for idx, answer in enumerate(self.current_node.answers.all()):
-                for answer in self.current_node.answers:
-                    # check if full statement {{{lhs rhs}}} evaluates to True
-                    rhs = answer.text
-                    if not "DEFAULT" in rhs: # handle DEFAULT case last!
-                        if self._fillLogicTemplate(f"{lhs} {rhs}"):
-                            # evaluates to True, follow this path!
+            self.node_count[self.current_node.node_type] += 1
+
+            if self.current_node.node_type == NodeType.LOGIC:
+                lhs = self.current_node.text
+                var_name = lhs.lstrip("{{").strip() # form: {{ VAR_NAME
+                if var_name in self.bst:
+                    # don't assign reward, is automatic transition without agent interaction
+                    # evaluate statement, choose correct branch and skip to connected node
+                    default_answer = None
+                    # for idx, answer in enumerate(self.current_node.answers.all()):
+                    for answer in self.current_node.answers:
+                        # check if full statement {{{lhs rhs}}} evaluates to True
+                        rhs = answer.text
+                        if not "DEFAULT" in rhs: # handle DEFAULT case last!
+                            if self._fillLogicTemplate(f"{lhs} {rhs}"):
+                                # evaluates to True, follow this path!
+                                default_answer = answer
+                                break
+                        else:
                             default_answer = answer
-                            break
+                    self.current_node = default_answer.connected_node
+                    if self.current_node:
+                        self.node_coverage[self.current_node.key] += 1
+                        self.episode_log.append(f"{self.env_id}-{self.current_episode}$ -> AUTO SKIP LOGIC NODE: SUCCESS {self.current_node.key}")
+
+                        if self.goal.has_reached_goal_node(self.current_node):
+                            reward += self.reward_reached_goal
+                            self.reached_goal_once = True
+                            self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> REACHED GOAL')
                     else:
-                        default_answer = answer
-                self.current_node = default_answer.connected_node
+                        self.episode_log.append(f"{self.env_id}-{self.current_episode}$ -> AUTO SKIP LOGIC NODE: SUCCESS, but current node NULL {self.current_node}")
+                        done = True
+                else:
+                    # we don't know variable (yet?) -> punish and stop
+                    reward = -self.max_reward
+                    self.actioncount_missingvariable += 1
+                    self.episode_log.append(f"{self.env_id}-{self.current_episode}$ -> AUTO SKIP LOGIC NODE: FAIL, VAR {var_name} not in BST -> {self.current_node.key}")
+                    done = True
+                    break
+            elif self.current_node.node_type == NodeType.VARIABLE_UPDATE:
+                # TODO: also handle updates, this currently only handles initialization of variables 
+                # FORMAT: "IS_STUDENT(BOOLEAN) := TRUE"
+                pattern = r'\s*(\w+)\s*\((\w+)\)\s*:=\s*(\w+)'
+                match = re.match(pattern, self.current_node.text)
+                var_name, var_type, var_value = match.groups()
+                if var_type == "BOOLEAN":
+                    assert var_value.lower() in ["true", "false"]
+                    self.bst[var_name] = True if var_value.lower() == "true" else False
+                # TODO handle other var types
+                self.current_node = self.current_node.connected_node
                 if self.current_node:
                     self.node_coverage[self.current_node.key] += 1
-                    self.episode_log.append(f"{self.env_id}-{self.current_episode}$ -> AUTO SKIP LOGIC NODE: SUCCESS {self.current_node.key}")
-
+                    self.episode_log.append(f"{self.env_id}-{self.current_episode}$ -> AUTO SKIP VARIABLE UPDATE NODE: SUCCESS {self.current_node.key}")
                     if self.goal.has_reached_goal_node(self.current_node):
                         reward += self.reward_reached_goal
                         self.reached_goal_once = True
                         self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> REACHED GOAL')
                 else:
-                    self.episode_log.append(f"{self.env_id}-{self.current_episode}$ -> AUTO SKIP LOGIC NODE: SUCCESS, but current node NULL {self.current_node}")
+                    self.episode_log.append(f"{self.env_id}-{self.current_episode}$ -> AUTO SKIP VARIABLE UPDATE NODE: SUCCESS, but current node NULL {self.current_node}")
                     done = True
-            else:
-                # we don't know variable (yet?) -> punish and stop
-                reward = -self.max_reward
-                self.actioncount_missingvariable += 1
-                self.episode_log.append(f"{self.env_id}-{self.current_episode}$ -> AUTO SKIP LOGIC NODE: FAIL, VAR {var_name} not in BST -> {self.current_node.key}")
-                done = True
-                break
+                
+                
 
         # if did_handle_logic_node and not done:
         #     self.post_handle_logic_nodes()

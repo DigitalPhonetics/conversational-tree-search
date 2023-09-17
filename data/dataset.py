@@ -14,6 +14,7 @@ import torch
 class NodeType(Enum):
     INFO = "infoNode"
     VARIABLE = "userInputNode"
+    VARIABLE_UPDATE = 'variableUpdateNode'
     QUESTION = "userResponseNode"
     LOGIC = "logicNode"
     START = "startNode"
@@ -30,11 +31,12 @@ class DataAugmentationLevel(Enum):
 
 @dataclass
 class DatasetConfig:
+    _target_: str
     graph_path: str
     answer_path: str
     use_answer_synonyms: bool
     augmentation: DataAugmentationLevel
-    augmentation_version: Optional[int]
+    augmentation_path: Optional[str] = None
 
 @dataclass
 class Answer:
@@ -97,14 +99,10 @@ class Tagegeld:
 # TODO load uebernachtungsgeld 
 
 class GraphDataset:
-    def __init__(self, graph_path: str, answer_path: str, use_answer_synonyms: bool, augmentation: DataAugmentationLevel, augmentation_version: int = 1) -> None:
-
-        self.graph = self._load_graph(graph_path, augmentation, augmentation_version)
-        self.answer_synonyms = self._load_answer_synonyms(answer_path, use_answer_synonyms, augmentation)
-        self.a1_countries = self._load_a1_countries()
-        self.hotel_costs, self.country_list, self.city_list = self._load_hotel_costs()
-        self._load_country_synonyms()
-        self._load_city_synonyms()
+    def __init__(self, graph_path: str, answer_path: str, use_answer_synonyms: bool, augmentation: DataAugmentationLevel, augmentation_path: str = None, resource_dir: str = "resources/") -> None:
+        assert isinstance(augmentation, DataAugmentationLevel), f"found {augmentation}"
+        self.graph = self._load_graph(resource_dir, graph_path, augmentation, augmentation_path)
+        self.answer_synonyms = self._load_answer_synonyms(os.path.join(resource_dir, answer_path), use_answer_synonyms, augmentation)
 
         self.num_guided_goal_nodes = sum([1 for node in self.node_list if (node.node_type in [NodeType.INFO, NodeType.QUESTION, NodeType.VARIABLE] and len(node.answers) > 0) or (node.node_type == NodeType.INFO)])
         self.num_free_goal_nodes = sum([1 for node in self.node_list if len(node.questions) > 0])
@@ -129,9 +127,9 @@ class GraphDataset:
     def _should_load_generated_data(self, augmentation: DataAugmentationLevel) -> bool:
         return augmentation in [DataAugmentationLevel.ARTIFICIAL_ONLY, DataAugmentationLevel.MIXED]
 
-    def _load_graph(self, graph_path: str, augmentation: DataAugmentationLevel, augmentation_version: int):
+    def _load_graph(self, resource_dir: str, graph_path: str, augmentation: DataAugmentationLevel, augmentation_path: str):
         # load graph
-        with open(graph_path, "r") as f:
+        with open(os.path.join(resource_dir, graph_path), "r") as f:
             data = json.load(f)
 
             self.nodes_by_key: Dict[str, DialogNode] = {}
@@ -184,7 +182,7 @@ class GraphDataset:
             
             # data augmentation
             if self._should_load_generated_data(augmentation):
-                generated_path = f"{os.path.dirname(graph_path)}/generated/train_questions_v{augmentation_version}.json"
+                generated_path = os.path.join(resource_dir, augmentation_path)
                 with open(generated_path, "r") as f:
                     print("- Loading questions from ", generated_path)
                     augmented_questions = json.load(f)
@@ -201,7 +199,7 @@ class GraphDataset:
             # parse connections
             for connection in data['connections']:
                 fromDialogNode = self.nodes_by_key[int(connection['source'])]
-                if fromDialogNode.node_type == NodeType.START or fromDialogNode.node_type == NodeType.INFO:
+                if fromDialogNode.node_type in [NodeType.START, NodeType.INFO, NodeType.VARIABLE_UPDATE]:
                     fromDialogNode.connected_node = self.nodes_by_key[int(connection['target'])]
                 else:
                     fromDialogAnswer = self.answers_by_key[int(connection['sourceHandle'])]
@@ -228,49 +226,6 @@ class GraphDataset:
                     answer_data[key].extend(generated_answers[key])
         return answer_data
 
-    def _load_a1_countries(self):
-        with open("resources/en/a1_countries.json", "r") as f:
-            a1_countries = json.load(f)
-        return a1_countries
-
-    def _load_hotel_costs(self) -> Tuple[Dict[str, Dict[str, float]], Set[str], Set[str]]:
-        """
-        Returns:
-            hotel_costs: country -> city -> value
-            country_list: Set[str]            
-            city_list: Set[str]
-        """
-        # load max. hotel costs
-        hotel_costs = defaultdict(lambda: dict())
-        country_list = set()
-        city_list = set()
-
-        content = pd.read_excel("resources/en/TAGEGELD_AUSLAND.xlsx")
-        for idx, row in content.iterrows():
-            country = row['Land']
-            city = row['Stadt']
-            country_list.add(country)
-            city_list.add(city)
-            daily_allowance = row['Tagegeld LRKG']
-            hotel_costs[country][city] = Tagegeld(country=country, city=city, daily_allowance=daily_allowance)
-        return hotel_costs, country_list, city_list
-    
-    def _load_country_synonyms(self):
-        with open('resources/en/country_synonyms.json', 'r') as f:
-            country_synonyms = json.load(f)
-            self.country_keys = [country.lower() for country in country_synonyms.keys()]
-            self.countries = {country.lower(): country for country in country_synonyms.keys()}
-            self.countries.update({country_syn.lower(): country for country, country_syns in country_synonyms.items()
-                                    for country_syn in country_syns})
-    
-    def _load_city_synonyms(self):
-        with open('resources/en/city_synonyms.json', 'r') as f:
-            city_synonyms = json.load(f)
-            self.city_keys = [city.lower() for city in city_synonyms.keys()]
-            self.cities = {city.lower(): city for city in city_synonyms.keys() if city != '$REST'}
-            self.cities.update({city_syn.lower(): city for city, city_syns in city_synonyms.items()
-                                for city_syn in city_syns})
-       
     def _calculate_action_masks(self) -> Dict[int, torch.IntTensor]:
         """ Pre-calculate action mask per node s.t. it is usable without database lookups """
         masks = {}
@@ -344,3 +299,124 @@ class GraphDataset:
 
     def random_question(self) -> Question:
         return random.choice(self.question_list)
+
+
+class ReimburseGraphDataset(GraphDataset):
+    def __init__(self, graph_path: str, answer_path: str, use_answer_synonyms: bool, augmentation: DataAugmentationLevel, augmentation_path: str = None, resource_dir: str = "resources/") -> None:
+        assert isinstance(augmentation, DataAugmentationLevel), f"found {augmentation}"
+        super().__init__(graph_path=graph_path, answer_path=answer_path, use_answer_synonyms=use_answer_synonyms, augmentation=augmentation, augmentation_path=augmentation_path, resource_dir=resource_dir)
+        self.a1_countries = self._load_a1_countries(resource_dir)
+        self.hotel_costs, self.country_list, self.city_list = self._load_hotel_costs(resource_dir)
+        self._load_country_synonyms(resource_dir)
+        self._load_city_synonyms(resource_dir)
+
+
+    def _load_a1_countries(self, resource_dir: str):
+        with open(os.path.join(resource_dir, "en/reimburse/a1_countries.json"), "r") as f:
+            a1_countries = json.load(f)
+        return a1_countries
+
+    def _load_hotel_costs(self, resource_dir: str) -> Tuple[Dict[str, Dict[str, float]], Set[str], Set[str]]:
+        """
+        Returns:
+            hotel_costs: country -> city -> value
+            country_list: Set[str]            
+            city_list: Set[str]
+        """
+        # load max. hotel costs
+        hotel_costs = defaultdict(lambda: dict())
+        country_list = set()
+        city_list = set()
+
+        content = pd.read_excel(os.path.join(resource_dir, "en/reimburse/TAGEGELD_AUSLAND.xlsx"))
+        for idx, row in content.iterrows():
+            country = row['Land']
+            city = row['Stadt']
+            country_list.add(country)
+            city_list.add(city)
+            daily_allowance = row['Tagegeld LRKG']
+            hotel_costs[country][city] = Tagegeld(country=country, city=city, daily_allowance=daily_allowance)
+        return hotel_costs, country_list, city_list
+    
+    def _load_country_synonyms(self, resource_dir: str):
+        with open(os.path.join(resource_dir, 'en/reimburse/country_synonyms.json'), 'r') as f:
+            country_synonyms = json.load(f)
+            self.country_keys = [country.lower() for country in country_synonyms.keys()]
+            self.countries = {country.lower(): country for country in country_synonyms.keys()}
+            self.countries.update({country_syn.lower(): country for country, country_syns in country_synonyms.items()
+                                    for country_syn in country_syns})
+    
+    def _load_city_synonyms(self, resource_dir: str):
+        with open(os.path.join(resource_dir, 'en/reimburse/city_synonyms.json'), 'r') as f:
+            city_synonyms = json.load(f)
+            self.city_keys = [city.lower() for city in city_synonyms.keys()]
+            self.cities = {city.lower(): city for city in city_synonyms.keys() if city != '$REST'}
+            self.cities.update({city_syn.lower(): city for city, city_syns in city_synonyms.items()
+                                for city_syn in city_syns})
+
+
+
+class OnboardingGraphDataset(GraphDataset):
+    def __init__(self, graph_path: str, answer_path: str, use_answer_synonyms: bool, augmentation: DataAugmentationLevel, augmentation_path: str = None, resource_dir: str = "resources/") -> None:
+        assert isinstance(augmentation, DataAugmentationLevel), f"found {augmentation}"
+        super().__init__(graph_path=graph_path, answer_path=answer_path, use_answer_synonyms=use_answer_synonyms, augmentation=augmentation, augmentation_path=augmentation_path, resource_dir=resource_dir)
+
+    def _load_answer_synonyms(self, answer_path: str, use_answer_synonyms: bool, augmentation: DataAugmentationLevel):
+        # we don't have synonyms here - extract answers from graph file instead (answer_path == train graph!)
+        answer_data = {answer.text.lower(): [answer.text] for answer in self.answers_by_key.values()} # key is also the only possible value
+        if not use_answer_synonyms or augmentation == DataAugmentationLevel.ARTIFICIAL_ONLY:
+            if not use_answer_synonyms:
+                print("- not using synonyms")
+            else:
+                print("- only artificial answers")
+        if use_answer_synonyms and self._should_load_generated_data(augmentation):
+            augmentation_path = f"{os.path.dirname(answer_path)}/generated/train_answers.json"
+            with open(augmentation_path, "r") as f:
+                print(f"Loading augmentation answers from {augmentation_path}")
+                generated_answers = json.load(f)
+                for key in generated_answers:
+                    answer_data[key].extend(generated_answers[key])
+        return answer_data
+
+    def _load_a1_countries(self, resource_dir: str):
+        with open(os.path.join(resource_dir, "en/a1_countries.json"), "r") as f:
+            a1_countries = json.load(f)
+        return a1_countries
+
+    def _load_hotel_costs(self, resource_dir: str) -> Tuple[Dict[str, Dict[str, float]], Set[str], Set[str]]:
+        """
+        Returns:
+            hotel_costs: country -> city -> value
+            country_list: Set[str]            
+            city_list: Set[str]
+        """
+        # load max. hotel costs
+        hotel_costs = defaultdict(lambda: dict())
+        country_list = set()
+        city_list = set()
+
+        content = pd.read_excel(os.path.join(resource_dir, "en/TAGEGELD_AUSLAND.xlsx"))
+        for idx, row in content.iterrows():
+            country = row['Land']
+            city = row['Stadt']
+            country_list.add(country)
+            city_list.add(city)
+            daily_allowance = row['Tagegeld LRKG']
+            hotel_costs[country][city] = Tagegeld(country=country, city=city, daily_allowance=daily_allowance)
+        return hotel_costs, country_list, city_list
+    
+    def _load_country_synonyms(self, resource_dir: str):
+        with open(os.path.join(resource_dir, 'en/country_synonyms.json'), 'r') as f:
+            country_synonyms = json.load(f)
+            self.country_keys = [country.lower() for country in country_synonyms.keys()]
+            self.countries = {country.lower(): country for country in country_synonyms.keys()}
+            self.countries.update({country_syn.lower(): country for country, country_syns in country_synonyms.items()
+                                    for country_syn in country_syns})
+    
+    def _load_city_synonyms(self, resource_dir: str):
+        with open(os.path.join(resource_dir, 'en/city_synonyms.json'), 'r') as f:
+            city_synonyms = json.load(f)
+            self.city_keys = [city.lower() for city in city_synonyms.keys()]
+            self.cities = {city.lower(): city for city in city_synonyms.keys() if city != '$REST'}
+            self.cities.update({city_syn.lower(): city for city, city_syns in city_synonyms.items()
+                                for city_syn in city_syns})

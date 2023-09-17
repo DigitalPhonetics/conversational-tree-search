@@ -1,0 +1,106 @@
+{
+  "$REST": [],
+  "Canberra": [],
+  "Sydney": [],
+  "Brasilia": [],
+  "Rio de Janeiro": [
+      "Rio"
+  ],
+  "Sao Paulo": [
+      "São Paulo"
+  ],
+  "Chengdu": [],
+  "Hong Kong": [],
+  "Beijing": [],
+  "Shanghai": [],
+  "Dep 92,93 or 94": [
+      "Dep 92",
+      "Dep 93",
+      "Dep 94",
+      "Department 92",
+      "Department 93",
+      "Department 94"
+  ],
+  "Lyon": [],
+  "Marseille": [],
+  "Paris": [],
+  "Strasbourg": [
+      "Strassbourg"
+  ],
+  "London": [],
+  "Athens": [],
+  "Chennai": [],
+  "Kolkata": [],
+  "Mumbai": [],
+  "New Delhi": [
+  ],
+  "Milan": [
+      "Milano"
+  ],
+  "Rome": [
+      "Roma"
+  ],
+  "Tokyo": [],
+  "Ottawa": [],
+  "Toronto": [],
+  "Vancouver": [],
+  "Islamabad": [],
+  "Wroclaw": [
+      "Wrocław",
+      "Wroclaw"
+  ],
+  "Gdansk": [
+      "Gdansk",
+      "Gdańsk"
+  ],
+  "Canary Islands": [
+  ],
+  "Krakow": [
+      "Kraków",
+      "Krakow"
+  ],
+  "Warsaw": [
+      "Warszawa",
+      "Warsow"
+  ],
+  "Lisbon": [
+      "Lisboa"
+  ],
+  "Bucharest": [],
+  "Moscow": [],
+  "St. Petersburg": [
+      "Saint Petersburg",
+      "Petersburg"
+  ],
+  "Geneva": [
+      "Geneva",
+      "Genève"
+  ],
+  "Barcelona": [],
+  "Madrid": [],
+  "Palma de Mallorca": [
+      "Palma"
+  ],
+  "Cape Town": [],
+  "Johannesburg": [],
+  "Istanbul": [],
+  "Izmir": [],
+  "Atlanta": [],
+  "Boston": [],
+  "Chicago": [],
+  "Houston": [],
+  "Los Angeles": [
+      "LA"
+  ],
+  "Miami": [],
+  "New York": [
+      "NY",
+      "NYC",
+      "New York City"
+  ],
+  "San Francisco": [],
+  "Washington DC": [
+      "Washington D.C.",
+      "Washington, D.C."
+  ]
+}
