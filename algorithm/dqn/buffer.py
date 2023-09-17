@@ -67,7 +67,6 @@ class CustomReplayBuffer:
     
     def save_params(self) -> Dict[str, Any]:
         return {
-            "buffer_size": self.buffer_size,
             "obs": self.obs,
             "next_obs": self.next_obs,
             "done": self.done,
