@@ -61,6 +61,8 @@ class HindsightExperienceReplayWrapper(object):
                     device: Union[th.device, str] = "cpu",
                     **kwargs):
         
+        assert isinstance(auto_skip, AutoSkipMode)
+        
         self.append_ask_action = append_ask_action
         self.replay_buffer = PrioritizedLAPReplayBuffer(buffer_size=buffer_size, observation_space=observation_space, action_space=action_space, alpha=alpha, beta=beta, device=device, **kwargs)
         print("HER BUFFER BACKEND", self.replay_buffer.__class__.__name__)
@@ -74,6 +76,7 @@ class HindsightExperienceReplayWrapper(object):
                                     sys_token=sys_token, usr_token=usr_token, sep_token=sep_token)
 
         # Buffer for storing transitions of the current episode, for vectorized environment
+        self.num_train_envs = num_train_envs
         self.episode_transitions: List[List[HERReplaySample]] = [list() for _ in range(num_train_envs)]
         # Buffer for storing artificial transitions until we have enough to process a full batch
         self.artificial_transition_buffer: List[HERReplaySample] = []
@@ -83,6 +86,35 @@ class HindsightExperienceReplayWrapper(object):
         self.artifical_rewards_guided = deque([], maxlen=AVERAGE_WINDOW) # reward over last n episodes
         self.replay_success_free = deque([], maxlen=AVERAGE_WINDOW) # successful replays over last n episodes
         self.replay_success_guided = deque([], maxlen=AVERAGE_WINDOW) # successful replays over last n episodes
+
+    def save_params(self) -> Dict[str, Any]:
+        return {
+            "replay_buffer": self.replay_buffer.save_params(),
+            "episode_transitions": self.episode_transitions,
+            "artificial_transition_buffer": self.artificial_transition_buffer,
+            "artifical_rewards_free": self.artifical_rewards_free,
+            "artifical_rewards_guided": self.artifical_rewards_guided,
+            "replay_success_free": self.replay_success_free,
+            "replay_success_guided": self.replay_success_guided
+        }
+    
+    def load_params(self, data):
+        self.replay_buffer.load_params(data['replay_buffer'])
+        # self.episode_transitions = data['episode_transitions']
+        self.artificial_transition_buffer = data['artificial_transition_buffer']
+        self.artifical_rewards_free = data['artifical_rewards_free']
+        self.artifical_rewards_guided = data['artifical_rewards_guided']
+        self.replay_success_free = data['replay_success_free'] 
+        self.replay_success_guided = data['replay_success_guided']
+
+    def clear(self):
+        self.replay_buffer.clear()
+        self.episode_transitions = [list() for _ in range(self.num_train_envs)]
+        self.artificial_transition_buffer = []
+        self.artifical_rewards_free.clear()
+        self.artifical_rewards_guided.clear()
+        self.replay_success_free.clear()
+        self.replay_success_guided.clear()
 
     @property
     def artificial_episodes(self):

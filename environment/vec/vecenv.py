@@ -105,6 +105,7 @@ class CustomVecEnv(VecEnv):
     def reset(self) -> VecEnvObs:
         for env_idx in range(self.num_envs):
             obs = self.envs[env_idx].reset()
+            self.buf_infos[env_idx] = obs
             self._save_obs(env_idx, obs)
         return self._obs_from_buf()
 
