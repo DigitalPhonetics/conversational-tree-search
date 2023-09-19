@@ -83,6 +83,7 @@ experiment:
     dialog_log: DialogLogLevel.FULL
     wandb_log: WandbLogLevel.ONLINE
     log_interval: 1000
+    keep_checkpoints: 5
   environment:
     guided_free_ratio: 0.5
     auto_skip: AutoSkipMode.NONE

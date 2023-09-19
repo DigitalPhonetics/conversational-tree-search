@@ -80,7 +80,7 @@ class CustomEvalCallback(EventCallback):
                     # if so: parse the scores and add the handles
                     if "ckpt_" in ckpt_file:
                         # find corresponding stats file
-                        stats_file = ckpt_file.replace("ckpt_", "stats_").replace(".zip", ".txt")
+                        stats_file = ckpt_file.replace("ckpt_", "stats_").replace(".zip", ".txt").replace(".pt", ".txt")
                         with open(f"{best_model_save_path}/{stats_file}", "r") as f:
                             for line in f.readlines():
                                 if "Mean episode reward" in line: # e.g. Mean episode reward=-0.35 +/- 1.07
