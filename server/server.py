@@ -141,6 +141,11 @@ class Survey(BaseHandler):
     def get(self):
         self.render("./templates/survey.html")
 
+class PreSurvey(BaseHandler):
+    @tornado.web.authenticated
+    def get(self):
+        self.render("./templates/pre_survey.html")
+
 class ThankYou(BaseHandler):
     @tornado.web.authenticated
     def get(self):
@@ -192,7 +197,8 @@ if __name__ == "__main__":
     print("settings created")
     app = Application([
         (r"/", LoginHandler),
-        (r"/survey", Survey),
+        (r"/post_survey", Survey),
+        (r"/pre_survey", PreSurvey),
         (r"/check_login", CheckLogin),
         (r"/chat", ChatIndex),
         (r"/channel", UserChatSocket),
