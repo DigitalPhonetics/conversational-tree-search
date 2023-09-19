@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div style="display:flex;flex-direction: column;justify-content:center; align-items:center; height:100%">
+    <div class="card" >
+        <div class="card-body" style="align-self: center">
+            <form method="post" action="/check_login">
+                <div class="mb-3">
+                    <label for="username" class="form-label">Choose User Name</label>
+                    <input type="text" class="form-control" name="username" id="username"/>
+                </div>
+                <div style="display: flex; flex-direction: row; justify-content: center;">
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>  
+{% end %}

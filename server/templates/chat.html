@@ -1,0 +1,604 @@
+{% extends "base.html" %}
+
+{% block css %}
+<style>
+body {
+        height: 100%;
+        background-image: linear-gradient(45deg, #004191, #00BEFF);
+        box-sizing: border-box;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .mainContainer {
+        height: 100%;
+        display: flex;
+        flex-flow: column nowrap;
+        gap: 0px;
+    }
+    .contentFooterDivider {
+        display: flex;
+        flex-flow: column;
+        flex-grow: 1;
+        background-color: white;
+        margin: 1rem;
+        margin-bottom: 0.5rem;
+        border-radius: 1rem;
+        min-width: 30rem;
+        max-width: 60rem;
+        height: calc(100% - 2.5rem - 0.25em - 4.5rem);
+    }
+    .commanBtnBar {
+        display: flex;
+        flex-flow: row wrap;
+        align-items: center;
+        width: 100%;
+        min-height: 2.5rem;
+        border-top-left-radius: 1em;
+        border-top-right-radius: 1em;
+        gap: 0.25em;
+        background-color:  #323232;
+        padding: 0.25em;
+        padding-left: 0.75em;
+        z-index: 10;
+    }
+    .content {
+        /* Divides the main part of the website into messagelist (left) and playlist (right) */
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        flex-grow: 1;
+        width: 100%;
+        height: 100%;
+        gap: 0.5em;
+    }
+    .playlist {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        gap: 0.5em;
+        background-color: white;
+        margin: 1rem;
+        margin-bottom: 0.5rem;
+        padding-bottom: 0.5rem;
+        border-radius: 1rem;
+        align-items: center;
+    }
+    .playlistItem {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        gap: 0.25rem;
+        align-items: stretch;
+        margin-left: 0.5rem;
+        margin-right: 0.1rem;
+    }
+    .messagebox
+    {
+        padding: 1.5em;
+        flex-grow: 1;
+        flex-flow: row nowrap;
+        overflow-y: auto;
+        min-height: 20rem;
+    }
+    .inputContainer
+    {
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: stretch;
+        background-color:  #323232;
+        padding: 0.75em;
+        border-bottom-left-radius: 1em;
+        border-bottom-right-radius: 1em;
+    }
+    footer {
+        font-size: 0.8rem;
+        margin: 0px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+    footer a {
+        color: white;
+        padding-right: 0.5rem;
+    }
+
+    .mailsvg {
+        width: 1.5em;
+        height: 1.5em;
+    }
+    .mailsvg:hover path {
+        stroke: red;
+        fill: red;
+        
+    }
+   
+    .speech-bubble { 
+        position: relative;
+        border-radius: .4em;
+        clear: both;
+        margin-bottom: 1em;
+        margin-top: 1em;
+        padding-bottom: 0.5em;
+        font-size: 1rem;
+    }
+    .speech-bubble::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        width: 0;
+        height: 0;
+        border: 21px solid transparent;
+        border-top: 0;
+        margin-top: -10px;
+    }
+
+    .system {
+        background: #E5E5EA;  
+        text-align: left;
+        float: left;
+    }
+    .system:after {
+        left: 0;
+        border-right-color: #E5E5EA;
+        border-left: 0;
+        margin-left: -20px;
+    }
+    .user {
+        background: #ccf2ff;
+        text-align: right;
+        float: right;
+    }
+    .user:after {
+        right: 0;
+        border-left-color: #ccf2ff;
+        border-right: 0;
+        margin-right: -20px;
+    }
+
+    .message {
+        padding: 0.5em;
+        color: black;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    .systemMsg {
+        margin-left: 0.5em;
+        margin-right: 0.5em;
+        margin-top: 0.5em;
+        border-radius: .4em;
+        padding: 0.5em;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    #thumbs_up:hover { 
+        fill: rgb(39, 190, 39);
+    }
+    #thumbs_down:hover {
+        fill:rgb(216, 13, 13) !important;
+    }
+
+    .answer_candidate_list {
+        display: flex;
+        flex-flow: row wrap;
+        gap: 0.2em;
+        align-items: center;
+    }
+    .answer_candidate {
+        color: black;
+        border-radius: 2px;
+        background-color: #F5F5FA;
+        padding: 0.3em;
+        cursor: pointer;
+    }
+    .answer_candidate:hover {
+         background-color: #ccf2ff;
+    }
+
+    .divBtn {
+        font-family: Arial, Helvetica, sans-serif;
+        color: white;
+        border-radius: 0.25em;
+        height: 2em;
+        text-decoration: none;
+        text-align: center;
+        /* line-height: 2em; */
+        border: none;
+        max-height: 2em;
+        padding-left: 0.2em;
+        padding-right: 0.2em;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-flow: row wrap;
+        gap: 0.3em;
+    }   
+    .divBtn:hover {
+        background-color: white;
+        color: black;
+    }
+
+    .divBtn:after {
+        border-left: 2px solid white;
+        height: 1em;
+        content: '';
+        margin-left: 0.5em;
+    }
+
+    .headerBtn {
+        font-family: Arial, Helvetica, sans-serif;
+        background-color: #00BEFF;
+        color: white;
+        border-radius: 0.25em;
+        height: 2em;
+        text-decoration: none;
+        text-align: center;
+        line-height: 2em;
+        border: none;
+        max-height: 2em;
+        padding-left: 0.2em;
+        padding-right: 0.2em;
+        cursor: pointer;
+    }
+    .headerBtn:hover {
+        background-color: white;
+        color: black;
+    }
+
+    .feedbackContainer {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: right;
+        flex-grow: 1;
+    }
+
+    .feedbackBtn {
+        font-family: Arial, Helvetica, sans-serif;
+        color: white;
+        border-radius: 0.25em;
+        height: 2em;
+        text-decoration: none;
+        text-align: center;
+        /* line-height: 2em; */
+        border: none;
+        max-height: 2em;
+        padding-left: 0.2em;
+        padding-right: 0.2em;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-flow: row wrap;
+        gap: 0.3em;
+        background-color: transparent;
+    }
+    .feedbackBtn:hover {
+        background-color: white;
+        color: black;
+    }
+    
+    div.stars{
+        width: auto;
+        display: inline-block;
+    }
+
+    input.star{
+        display: none;
+    }
+
+    label.star {
+        float: right;
+        padding: 0.1em;
+        font-size: 1.2em;
+        color: #444;
+        transition: all .2s;
+    }
+
+    input.star:checked ~ label.star:before {
+        content:'\f005';
+        color: #FD4;
+        transition: all .25s;
+    }
+
+    label.star:hover{
+        transform: scale(1.3);
+    }
+
+    label.star:before{
+        content:'\f006';
+        font-family: FontAwesome;
+    }
+
+    .feedbackDivider {
+       border-top: 1px solid #c4c4c4;
+    }
+
+    .userinput {
+        font-size: 1rem;
+        flex-grow: 1;
+        height: 2rem;
+    }
+    #overlay {
+        background: #ffffff;
+        color: #666666;
+        position: fixed;
+        height: 100%;
+        width: 100%;
+        z-index: 5000;
+        top: 0;
+        left: 0;
+        float: left;
+        text-align: center;
+        padding-top: 25%;
+        opacity: .80;
+    }
+    .spinner {
+        margin: 0 auto;
+        height: 64px;
+        width: 64px;
+        animation: rotate 0.8s infinite linear;
+        border: 5px solid firebrick;
+        border-right-color: transparent;
+        border-radius: 50%;
+    }
+    .typing {
+        align-items: center;
+        display: flex;
+        height: 17px;
+    }
+    .typing .dot {
+        animation: mercuryTypingAnimation 1.8s infinite ease-in-out;
+        background-color: #6CAD96;
+        border-radius: 50%;
+        height: 7px;
+        margin-right: 4px;
+        vertical-align: middle;
+        width: 7px;
+        display: inline-block;
+    }
+    .typing .dot:nth-child(1) {
+        animation-delay: 200ms;
+    }
+    .typing .dot:nth-child(2) {
+        animation-delay: 300ms;
+    }
+    .typing .dot:nth-child(3) {
+        animation-delay: 400ms;
+    }
+    .typing .dot:last-child {
+        margin-right: 0;
+    }
+
+    @keyframes mercuryTypingAnimation {
+        0% {
+            transform: translateY(0px);
+            background-color:#6CAD96; 
+        }
+        28% {
+            transform: translateY(-7px);
+            background-color:#9ECAB9; 
+        }
+        44% {
+            transform: translateY(0px);
+            background-color: #B5D9CB; 
+        }
+    }
+    @keyframes rotate {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+    @media (max-width: 992px) {  
+        p, body, span {font-size: 2rem;}
+        .userinput {
+            font-size: 2rem;
+            height: 4rem;
+        }
+        .contentFooterDivider {
+            border-radius: 2rem;
+        }
+        .commanBtnBar {
+            min-height: 8rem;
+            gap: 0.1rem;
+            padding: 0.1rem;
+            padding-left: 0.3rem;
+        }
+    }
+</style>
+{% end %}
+
+{% block scripts %}
+<script>
+    var messages = [];
+    var mode = "";
+
+    var chunks = [];
+    let mediaRecorder = null;
+
+    function addChunk(e) {
+        chunks.push(e.data);
+    }
+
+    async function sendAudioData(e) {
+        const blob = new Blob(chunks);
+        chunks = [];
+        const reader = new window.FileReader();
+        reader.readAsDataURL(blob);
+        reader.onloadend = function () {
+            const base64data = reader.result.substr(reader.result.indexOf(',') + 1);
+            socket.send(JSON.stringify({
+                EVENT: "SPEECH", 
+                VALUE: base64data
+            }))
+        }
+    }
+
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        console.log("getUserMedia supported.");
+        navigator.mediaDevices.getUserMedia({ audio: {sampleRate: 16000}, mimeType: 'audio/webm;codecs=pcm' }
+            ).then((stream) => { 
+                mediaRecorder = new MediaRecorder(stream); 
+                console.log("created mediaRecorder");
+                mediaRecorder.ondataavailable = addChunk;
+                mediaRecorder.onstop = sendAudioData;
+            }).catch((err) => {
+                console.error(`The following getUserMedia error occurred: ${err}`);
+            });
+    } else {
+        console.log("getUserMedia not supported on your browser!");
+    }
+
+    function get_cookie(name) 
+    {
+        var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+        if (match) return match[2];
+    }
+
+    const seen_conditions = parseInt(get_cookie('seen_conditions'));
+    var typingAnimation = false;
+
+    $(document).ready(function() {
+        $('#overlay').fadeIn();
+    });
+
+    const socket = new WebSocket("ws://" + window.location.host + "/channel");
+    socket.onmessage = (msg) => {
+        const msg_data = JSON.parse(msg.data);
+        event = msg_data['EVENT'];
+        value = msg_data['VALUE'];
+        if(event === "MSG") {
+            value = msg_data['VALUE'];
+            addSystemMessage(value);
+        }else if (event === "USER_MSG"){
+            addUserMessage(value);
+        }
+
+    }
+    socket.onopen = (event) => {
+        console.log('connected');
+        const num_dialogs = seen_conditions;
+        $("#chat_header").append(`<div style="color:white">Dialog ${num_dialogs + 1} / {{total_conditions}}</div>`)
+        startDialog();
+    };
+    socket.onerror = (event) => {
+        console.log('error');
+        addSystemMessage("Der Server scheint nicht erreichbar zu sein. Bitte benachrichtigen Sie den Support.");
+    }
+
+    function startDialog() {
+        messages = [];
+    }
+  
+    function addUserMessage(query) {
+        /*
+        Adds a new messagebox to the message list
+        Args:
+            query (String): the user query
+        */
+        messages.push(`USER: ${query}`);
+        $("#messagelist").append(`
+            <div class="speech-bubble user">
+                <div class="message" style="color: anthrazit">${query}</div>
+            </div>
+        `);
+
+        $("#messagelist").animate({ scrollTop: $('#messagelist').prop("scrollHeight")}, 500); // scroll to newest message
+    }
+
+    function addSystemMessage(msg) {
+       // console.log(msg_list);
+       messages.push(`SYS: ${msg}`);
+       var sys_msg = '<div class="speech-bubble system"><div class="systemMsg">'
+       // replace spotify links with embed players
+       const newMsg = msg.replaceAll(/(https:\/\/open\.spotify\.com\/)(intl-de\/)(\S+)(\?si=\S+)/g, 
+                                  `<iframe style="border-radius:12px; height: 5rem" src="\$1embed/\$3?utm_source=generator"  width="100%" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture" loading="lazy"></iframe>`);
+        console.log(newMsg);
+       sys_msg += `${newMsg}`
+       sys_msg += "</div></div>";
+       $("#messagelist").append(sys_msg);
+       
+       $("#userinput").focus();
+       $("#messagelist").animate({ scrollTop: $('#messagelist').prop("scrollHeight")}, 500); // scroll to newest message
+    }
+
+    function sendMessage(user_utterance) {
+        console.log('sending msg', user_utterance);
+        const user_input = $("#userinput").val(); // get user input from input field
+
+        // select as message either input from textfield or candidate from answer list
+        const msg_content = user_utterance.length > 0? user_utterance : user_input;
+
+        addUserMessage(msg_content);
+
+        // send query, receive and render answer
+        socket.send(JSON.stringify({
+            EVENT: "MSG",
+            VALUE: msg_content
+        }));
+        
+        $('#userinput').val(""); // reset text
+    }
+
+    function endDialog() {
+        socket.send(JSON.stringify({
+            EVENT: "END_DIALOG",
+            VALUE: true
+        }));
+        // window.location.replace("http://" + window.location.host + "/survey");
+    }
+
+    function enterKeyDown(e) {
+        if(e.key === "Enter") {
+            sendMessage("");
+        }
+    }
+
+    function startRecording(){
+        // WebVoiceProcessor.WebVoiceProcessor.subscribe(vuMeterEngine).catch(error => {
+        //     writeMessage('Error initializing WebVoiceProcessor: ' + error);
+        //   })
+        mediaRecorder.start();
+        console.log("START", mediaRecorder);
+        $('#start_audio').prop("disabled",true);
+        $('#stop_audio').prop("disabled", false);
+    }
+
+    stopRecording = () => {
+        mediaRecorder.stop();
+        $('#start_audio').prop("disabled",false);
+        $('#stop_audio').prop("disabled", true);
+    }
+
+</script>
+{% end %}
+
+{% block content %}
+<div class="mainContainer">
+    <div class="content">
+
+        <div class="contentFooterDivider">
+            <div class="commanBtnBar" style="min-height:8rem;height: fit-content;" id="chat_header">
+                <button class="btn btn-success" id="start_audio" onclick="startRecording()">Aufnahme starten</button>
+                <button class="btn btn-warning" id="stop_audio" onclick="stopRecording()" disabled="true">Aufnahme beenden</button>
+                <button class="btn btn-danger" onclick="endDialog()">Dialog beenden</button>
+            </div>
+
+            <div id="messagelist" class="messagebox"></div>
+
+            <div class="inputContainer">
+                <input id="userinput" class="userinput" placeholder="Enter your text here" onkeydown="enterKeyDown(event)"/>
+                <div class="headerBtn" id='btnSend' onclick="sendMessage('')">Send</div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <a href='https://www.uni-stuttgart.de/impressum/'>Impressum</a>
+        <!-- <a href="TODO">Datenschutz</a> -->
+    </footer>
+</div>
+{% end %}
