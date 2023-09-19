@@ -106,7 +106,7 @@ def save_to_zip_file(
         f.write(f"\n_stable_baselines3_version: {sb3.__version__}")
 
     # Create a zip-archive and write our objects there.
-    with open(f"{save_path}.pt", 'wb') as f:
+    with open(f"{save_path}.zip", 'wb') as f:
         for chunk in stream_zip(_local_files(filenames)):
             f.write(chunk)
             
@@ -404,7 +404,68 @@ class CustomDQN(DQN):
             buffer_action = unscaled_action
             action = buffer_action
         return action, buffer_action
-    
+
+    def continue_learning(self,
+        current_steps, 
+        current_timesteps_at_start,
+        current_episode_num,
+        current_progress_remaining,
+        current_n_updates,
+        current_n_calls,
+        current_exploration_rate,
+        current_global_step,
+        total_timesteps: int,
+        callback = None,
+        log_interval: int = 4,
+        progress_bar: bool = False):
+
+        self.num_timesteps = current_steps
+        self._num_timesteps_at_start=current_timesteps_at_start
+        self._episode_num = current_episode_num
+        self._current_progress_remaining = current_progress_remaining
+        self._n_updates = current_n_updates
+        self._n_calls = current_n_calls
+        self.exploration_rate = current_exploration_rate
+        self.global_step = current_global_step
+
+        _, callback = self._setup_learn(
+            total_timesteps,
+            callback,
+            reset_num_timesteps=False,
+            tb_log_name="DQN_1",
+            progress_bar=progress_bar,
+        )
+
+        # reset total timesteps, because stable-baselines will increase it by the current number of steps - this would destroy the idea of the modulo operation in _update_current_progress_remaining  
+        self._total_timesteps = total_timesteps
+
+        callback.on_training_start(locals(), globals())
+
+        while self.num_timesteps < total_timesteps:
+            rollout = self.collect_rollouts(
+                self.env,
+                train_freq=self.train_freq,
+                action_noise=self.action_noise,
+                callback=callback,
+                learning_starts=self.learning_starts,
+                replay_buffer=self.replay_buffer,
+                log_interval=log_interval,
+            )
+
+            if rollout.continue_training is False:
+                break
+
+            if self.num_timesteps > 0 and self.num_timesteps > self.learning_starts:
+                # If no `gradient_steps` is specified,
+                # do as many gradients steps as steps performed during the rollout
+                gradient_steps = self.gradient_steps if self.gradient_steps >= 0 else rollout.episode_timesteps
+                # Special case when the user passes `gradient_steps=0`
+                if gradient_steps > 0:
+                    self.train(batch_size=self.batch_size, gradient_steps=gradient_steps)
+
+        callback.on_training_end()
+
+        return self
 
     def save(
         self,
