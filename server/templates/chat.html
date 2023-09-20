@@ -415,42 +415,6 @@ body {
     var messages = [];
     var mode = "";
 
-    var chunks = [];
-    let mediaRecorder = null;
-
-    function addChunk(e) {
-        chunks.push(e.data);
-    }
-
-    async function sendAudioData(e) {
-        const blob = new Blob(chunks);
-        chunks = [];
-        const reader = new window.FileReader();
-        reader.readAsDataURL(blob);
-        reader.onloadend = function () {
-            const base64data = reader.result.substr(reader.result.indexOf(',') + 1);
-            socket.send(JSON.stringify({
-                EVENT: "SPEECH", 
-                VALUE: base64data
-            }))
-        }
-    }
-
-    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-        console.log("getUserMedia supported.");
-        navigator.mediaDevices.getUserMedia({ audio: {sampleRate: 16000}, mimeType: 'audio/webm;codecs=pcm' }
-            ).then((stream) => { 
-                mediaRecorder = new MediaRecorder(stream); 
-                console.log("created mediaRecorder");
-                mediaRecorder.ondataavailable = addChunk;
-                mediaRecorder.onstop = sendAudioData;
-            }).catch((err) => {
-                console.error(`The following getUserMedia error occurred: ${err}`);
-            });
-    } else {
-        console.log("getUserMedia not supported on your browser!");
-    }
-
     function get_cookie(name) 
     {
         var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));

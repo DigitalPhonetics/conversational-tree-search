@@ -49,7 +49,7 @@
 {% block content %}
 <div class="container">
     <h1 class="mb-4 mt-4">Pre-Interaction Survey</h1>
-    <form id="survey_form" onsubmit="return submit_form(event)" method="POST" action="/log_study">
+    <form id="survey_form" onsubmit="return submit_form(event)" method="POST" action="/log_survey">
 
         <div class="card mt-5 mb-3">
             <div class="card-header">
@@ -150,12 +150,24 @@
                 <h4>Expectations of Chatbots</h4>
             </div>
             <div class="card-body">
-                <p class="card-title" style="padding-top: 2%"><b>Is there any other feedback you'd like to provide? Were there any problems with the dialog system?</b></p>
+                <p style="padding: 2%;">The following questions are aimed at understanding what your expectations/previous experiences are for a <b>business travel chatbot</b>. Based on your previous knowledge of chatots, please answer them assuming you would be interacting with a chatbot to find out more about business travel regulations at a particular company.</p>
+
+                <h6>What type of information would you expect to be able to get from a chatbot? In what circumstances would you consider using a chatbot to find out information vs. contacting a real person or reading through company policy documents?</h6>
                 <div class="form-group">
-                <textarea class="form-control" name="general_feedback_frei" id="bug_report_frei" rows="4" ></textarea>
+                <textarea class="form-control" name="expectations_1" id="expectations_1" rows="4" required></textarea>
                 </div> 
 
-                <p class="card-title" style="padding-top: 2%"><b>Please mark how much you agree with the following statements based on your perception</b></p>
+                <h6 style="padding-top: 2%;">How would you phrase your input to the chatbot? Is this similar or different to how you would use a search engine or ask a real person?</h6>
+                <div class="form-group">
+                <textarea class="form-control" name="expectations_2" id="expectations_2" rows="4" required></textarea>
+                </div> 
+
+                <h6 style="padding-top: 2%;">What type or quality of answer would you expect to be able to get from a chatbot, e.g., style, level of detail, correctness, etc.?</h6>
+                <div class="form-group">
+                <textarea class="form-control" name="expectations_3" id="expecations_3" rows="4" required></textarea>
+                </div>                
+
+                <p class="card-title" style="padding-top: 2%"><b>Please mark how much you agree with the following statements:</b></p>
                 <table
             class="table table-striped"
             style="width: 70%; margin-top: 2%; margin-left: 15%; margin-bottom: 2%">
@@ -180,776 +192,180 @@
             </tr>
             </thead>
             <tbody>
-            <tr id="trust_1">
-                <td scope="row">
-                    The dialog system is capable of interpreting situations correctly.
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="trust_1" id="trust_1_1" value="1" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="trust_1" id="trust_1_2" value="2" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="trust_1" id="trust_1_3" value="3" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="trust_1" id="trust_1_4" value="4" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="trust_1" id="trust_1_5" value="5" required>
-                </td>
+                <tr id="chat_exp_1">
+                    <td scope="row">
+                        I expect a chatbot to understand natural language questions, like I would phrase them if I were asking another person
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_1" id="chat_exp_1_1" value="1" required>
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_1" id="chat_exp_1_2" value="2" required>
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_1" id="chat_exp_1_3" value="3" required>
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_1" id="chat_exp_1_4" value="4" required>
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_1" id="chat_exp_1_5" value="5" required>
+                    </td>
 
-            </tr>
+                </tr>
 
-            <tr id="trust_2">
-                <td scope="row">
-                    The dialog system works reliably.
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="trust_2" id="trust_2_1" value="1" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="trust_2" id="trust_2_2" value="2" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="trust_2" id="trust_2_3" value="3" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="trust_2" id="trust_2_4" value="4" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="trust_2" id="trust_2_5" value="5" required>
-                </td>
-            </tr> 
-            
-            <tr id="trust_3">
-                <td scope="row">
-                    A dialog system malfunction is likely.
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="trust_3" id="trust_3_1" value="1" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="trust_3" id="trust_3_2" value="2" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="trust_3" id="trust_3_3" value="3" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="trust_3" id="trust_3_4" value="4" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="trust_3" id="trust_3_5" value="5" required>
-                </td>
-            </tr>
-            
-            <tr id="trust_4">
-                <td scope="row">
-                    The dialog system is capable of taking over complicated tasks.
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="trust_4" id="trust_4_1" value="1" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="trust_4" id="trust_4_2" value="2" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="trust_4" id="trust_4_3" value="3" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="trust_4" id="trust_4_4" value="4" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="trust_4" id="trust_4_5" value="5" required>
-                </td>
-            </tr>
-            
-            <tr id="trust_5">
-                <td scope="row">
-                    The dialog system might make sporadic errors.
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="trust_5" id="trust_5_1" value="1" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="trust_5" id="trust_5_2" value="2" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="trust_5" id="trust_5_3" value="3" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="trust_5" id="trust_5_4" value="4" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="trust_5" id="trust_5_5" value="5" required>
-                </td>
-            </tr>
-            
-            <tr id="trust_6">
-                <td scope="row">
-                    I am confident about the dialog system's capabilities.
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="trust_6" id="trust_6_1" value="1" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="trust_6" id="trust_6_2" value="2" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="trust_6" id="trust_6_3" value="3" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="trust_6" id="trust_6_4" value="4" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="trust_6" id="trust_6_5" value="5" required>
-                </td>
-            </tr>  
-            
-            <tr id="trust_7">
-                <td scope="row">
-                    The dialog system state was always clear to me.
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="trust_7" id="trust_7_1" value="1" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="trust_7" id="trust_7_2" value="2" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="trust_7" id="trust_7_3" value="3" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="trust_7" id="trust_7_4" value="4" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="trust_7" id="trust_7_5" value="5" required>
-                </td>
-            </tr>
-
-            <tr id="trust_8">
-                <td scope="row">
-                    The dialog system reacts unpredictably.
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="trust_8" id="trust_8_1" value="1" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="trust_8" id="trust_8_2" value="2" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="trust_8" id="trust_8_3" value="3" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="trust_8" id="trust_8_4" value="4" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="trust_8" id="trust_8_5" value="5" required>
-                </td>
-            </tr>
-
-
-            <tr id="trust_9">
-                <td scope="row">
-                    I was able to understand why things happened.
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="trust_9" id="trust_9_1" value="1" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="trust_9" id="trust_9_2" value="2" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="trust_9" id="trust_9_3" value="3" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="trust_9" id="trust_9_4" value="4" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="trust_9" id="trust_9_5" value="5" required>
-                </td>
-            </tr>
-
-            <tr id="trust_10">
-                <td scope="row">
-                    It's difficult to identify what the dialog system will do next.
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="trust_10" id="trust_10_1" value="1" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="trust_10" id="trust_10_2" value="2" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="trust_10" id="trust_10_3" value="3" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="trust_10" id="trust_10_4" value="4" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="trust_10" id="trust_10_5" value="5" required>
-                </td>
-            </tr>
-
-            <tr id="trust_11">
-                <td scope="row">
-                    I trust the dialog system.
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="trust_11" id="trust_11_1" value="1" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="trust_11" id="trust_11_2" value="2" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="trust_11" id="trust_11_3" value="3" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="trust_11" id="trust_11_4" value="4" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="trust_11" id="trust_11_5" value="5" required>
-                </td>
-            </tr>
-
-            <tr id="trust_12">
-                <td scope="row">
-                    I can rely on the dialog system.
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="trust_12" id="trust_12_1" value="1" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="trust_12" id="trust_12_2" value="2" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="trust_12" id="trust_12_3" value="3" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="trust_12" id="trust_12_4" value="4" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="trust_12" id="trust_12_5" value="5" required>
-                </td>
-            </tr>
-
-            </tbody>
-        </table>
-        </div>
-        </div>
-
-        <div class="card mt-5 mb-3">
-        <div class="card-header">
-            <h4>Feedback to the User Experience</h4>
-        </div>
-        <div class="card-body">
-            <p class="card-title" style="padding-top: 2%"><b>Please rate how much you agree with the following statements about the dialog system's usability</b> </p>
-
-            <table
-            class="table table-striped"
-            style="width: 70%; margin-top: 2%; margin-left: 15%; margin-bottom: 2%">
-            <thead>
-            <tr>
-                <td scope="col" />
-                <td scope="col" style="text-align: center">
-                Strongly Disagree
-                </td>
-                <td scope="col" style="text-align: center">
-                Disagree
-                </td>
-                <td scope="col" style="text-align: center">
-                Neither Agree Nor Disagree
-                </td>
-                <td scope="col" style="text-align: center">
-                Agree
-                </td>
-                <td scope="col" style="text-align: center">
-                Strongly Agree
-                </td>            
-            </tr>
-            </thead>
-            <tbody>
-            <tr id="sus_1">
-                <td scope="row">
-                I think that I would like to use this dialog system frequently.
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="sus_1" id="sus_1_1" value="1" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="sus_1" id="sus_1_2" value="2" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="sus_1" id="sus_1_3" value="3" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="sus_1" id="sus_1_4" value="4" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="sus_1" id="sus_1_5" value="5" required>
-                </td>
-
-            </tr>
-
-            <tr id="sus_2">
-                <td scope="row">
-                I found the dialog system unnecessarily complex.
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="sus_2" id="sus_2_1" value="1" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="sus_2" id="sus_2_2" value="2" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="sus_2" id="sus_2_3" value="3" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="sus_2" id="sus_2_4" value="4" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="sus_2" id="sus_2_5" value="5" required>
-                </td>
-            </tr> 
-            
-            <tr id="sus_3">
-                <td scope="row">
-                I thought the dialog system was easy to use.
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="sus_3" id="sus_3_1" value="1" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="sus_3" id="sus_3_2" value="2" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="sus_3" id="sus_3_3" value="3" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="sus_3" id="sus_3_4" value="4" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="sus_3" id="sus_3_5" value="5" required>
-                </td>
-            </tr>
-            
-            <tr id="sus_4">
-                <td scope="row">
-                I think that I would need support of a technical person to be able to use this dialog system.
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="sus_4" id="sus_4_1" value="1" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="sus_4" id="sus_4_2" value="2" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="sus_4" id="sus_4_3" value="3" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="sus_4" id="sus_4_4" value="4" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="sus_4" id="sus_4_5" value="5" required>
-                </td>
-            </tr>
-            
-            <tr id="sus_5">
-                <td scope="row">
-                I found the various functions in this dialog system were well integrated.
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="sus_5" id="sus_5_1" value="1" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="sus_5" id="sus_5_2" value="2" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="sus_5" id="sus_5_3" value="3" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="sus_5" id="sus_5_4" value="4" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="sus_5" id="sus_5_5" value="5" required>
-                </td>
-            </tr>
-            
-            <tr id="sus_6">
-                <td scope="row">
-                I thought there was too much inconsistency in this dialog system.
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="sus_6" id="sus_6_1" value="1" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="sus_6" id="sus_6_2" value="2" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="sus_6" id="sus_6_3" value="3" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="sus_6" id="sus_6_4" value="4" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="sus_6" id="sus_6_5" value="5" required>
-                </td>
-            </tr>  
-            
-            <tr id="sus_7">
-                <td scope="row">
-                I would imagine that most people would learn to use this dialog system very quickly.
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="sus_7" id="sus_7_1" value="1" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="sus_7" id="sus_7_2" value="2" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="sus_7" id="sus_7_3" value="3" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="sus_7" id="sus_7_4" value="4" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="sus_7" id="sus_7_5" value="5" required>
-                </td>
-            </tr>
-
-            <tr id="sus_8">
-                <td scope="row">
-                I found the dialog system very cumbersome to use.
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="sus_8" id="sus_8_1" value="1" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="sus_8" id="sus_8_2" value="2" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="sus_8" id="sus_8_3" value="3" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="sus_8" id="sus_8_4" value="4" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="sus_8" id="sus_8_5" value="5" required>
-                </td>
-            </tr>
-
-
-            <tr id="sus_9">
-                <td scope="row">
-                I felt very confident using the the dialog system.
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="sus_9" id="sus_9_1" value="1" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="sus_9" id="sus_9_2" value="2" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="sus_9" id="sus_9_3" value="3" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="sus_9" id="sus_9_4" value="4" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="sus_9" id="sus_9_5" value="5" required>
-                </td>
-            </tr>
-
-            <tr id="sus_10">
-                <td scope="row">
-                I needed to learn a lot of things before I could get going with this dialog system.
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="sus_10" id="sus_10_1" value="1" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="sus_10" id="sus_10_2" value="2" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="sus_10" id="sus_10_3" value="3" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="sus_10" id="sus_10_4" value="4" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="sus_10" id="sus_10_5" value="5" required>
-                </td>
-            </tr>  
-            
-        </tbody>
-    </table>
-
-            <p class="card-title" style="padding-top: 2%"><b>Please rate your overall impression of the dialog system</b> </p>
-
-            <table
-            class="table table-striped"
-            style="width: 70%; margin-top: 2%; margin-left: 15%; margin-bottom: 2%">
-            <thead>
-            <tr>
-                <td scope="col" />
-                <td scope="col" style="text-align: center">
-                Strongly Disagree
-                </td>
-                <td scope="col" style="text-align: center">
-                Disagree
-                </td>
-                <td scope="col" style="text-align: center">
-                Neither Agree Nor Disagree
-                </td>
-                <td scope="col" style="text-align: center">
-                Agree
-                </td>
-                <td scope="col" style="text-align: center">
-                Strongly Agree
-                </td>            
-            </tr>
-            </thead>
-            <tbody>
-            
-            <tr id="sus_11">
-                <td scope="row">
-                    Overall, I liked using this dialog system.
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="sus_11" id="sus_11_1" value="1" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="sus_11" id="sus_11_2" value="2" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="sus_11" id="sus_11_3" value="3" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="sus_11" id="sus_11_4" value="4" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="sus_11" id="sus_11_5" value="5" required>
-                </td>
-            </tr>
-
-            <tr id="sus_12">
-                <td scope="row">
-                    Overall, I enjoyed the way the dialog system communicated with me.
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="sus_12" id="sus_12_1" value="1" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="sus_12" id="sus_12_2" value="2" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="sus_12" id="sus_12_3" value="3" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="sus_12" id="sus_12_4" value="4" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="sus_12" id="sus_12_5" value="5" required>
-                </td>
-            </tr>
-
-            <tr id="sus_13">
-                <td scope="row">
-                    Overall, I was satisfied with the playlist I created using this dialog system.
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="sus_13" id="sus_13_1" value="1" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="sus_13" id="sus_13_2" value="2" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="sus_13" id="sus_13_3" value="3" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="sus_13" id="sus_13_4" value="4" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="sus_13" id="sus_13_5" value="5" required>
-                </td>
-            </tr>
-
-            </tbody>
-        </table>
-
-            <p class="card-title" style="padding-top: 2%"><b>Please rate your impression of the dialog system's likability </b> </p>
-
-            <table
-            class="table table-striped"
-            style="width: 40%; margin-top: 2%; margin-left: 30%; margin-bottom: 2%">
-            <thead>
-            <tr>
-                <td scope="col" />
-                <td scope="col" style="text-align: center">
-                1
-                </td>
-                <td scope="col" style="text-align: center">
-                2
-                </td>
-                <td scope="col" style="text-align: center">
-                3
-                </td>
-                <td scope="col" style="text-align: center">
-                4
-                </td>
-                <td scope="col" style="text-align: center">
-                5
-                </td>        
-                <td scope="col" />    
-            </tr>
-            </thead>
-            <tbody>
-            <tr id="like_1">
-                <td scope="row">
-                Dislike
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="like_1" id="like_1_1" value="1" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="like_1" id="like_1_2" value="2" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="like_1" id="like_1_3" value="3" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="like_1" id="like_1_4" value="4" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="like_1" id="like_1_5" value="5" required>
-                </td>
-                <td scope="row">Like</td>
-            </tr>
-
-            <tr id="like_2">
-                <td scope="row">
-                Unfriendly
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="like_2" id="like_2_1" value="1" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="like_2" id="like_2_2" value="2" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="like_2" id="like_2_3" value="3" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="like_2" id="like_2_4" value="4" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="like_2" id="like_2_5" value="5" required>
-                </td>
-                <td scope="row">Friendly</td>
-            </tr>
-
-            <tr id="like_3">
-                <td scope="row">
-                Unkind
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="like_3" id="like_3_1" value="1" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="like_3" id="like_3_2" value="2" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="like_3" id="like_3_3" value="3" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="like_3" id="like_3_4" value="4" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="like_3" id="like_3_5" value="5" required>
-                </td>
-                <td scope="row"> Kind </td>
-            </tr>
-
-            <tr id="like_4">
-                <td scope="row">
-                Unpleasant
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="like_4" id="like_4_1" value="1" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="like_4" id="like_4_2" value="2" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="like_4" id="like_4_3" value="3" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="like_4" id="like_4_4" value="4" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="like_4" id="like_4_5" value="5" required>
-                </td>
-                <td scope="row"> Pleasant </td>
-            </tr>
-
-            <tr id="like_5">
-                <td scope="row">
-                Awful
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="like_5" id="like_5_1" value="1" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="like_5" id="like_5_2" value="2" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="like_5" id="like_5_3" value="3" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="like_5" id="like_5_4" value="4" required>
-                </td>
-                <td style="text-align: center">
-                <input class="form-check-input" type="radio" name="like_5" id="like_5_5" value="5" required>
-                </td>
-                <td scope="row"> Nice </td>
-            </tr>
-
-            </tbody>
-            </table>
-
-            
-
-            <p class="card-title" style="padding-top: 2%"><b>What did you like about the interaction with this dialog system?  </b> </p>
-            <div class="form-group">
-            <textarea class="form-control" name="positive_feedback_frei" id="positive_feedback_frei" rows="4" ></textarea>
-            </div>
-            
-            <p class="card-title" style="padding-top: 2%"><b>What did you dislike about the interaction with this dialog system?</b></p>
-            <div class="form-group">
-            <textarea class="form-control" name="negative_feedback_frei" id="negative_feedback_frei" rows="4" ></textarea>
-            </div>
-
-            <p class="card-title" style="padding-top: 2%"><b>What would you have changed about the system's behavior to make the interaction better for you?</b> </p>
-            <div class="form-group">
-            <textarea class="form-control" name="other_feedback_frei" id="other_feedback_frei" rows="4" ></textarea>
-            </div>       
-
-        </div>
-        </div>
-
-        <div class="card mt-5 mb-3">
-            <div class="card-header">
-                <h4>General feedback</h4>
-            </div>
-            <div class="card-body">
+                <tr id="chat_exp_2">
+                    <td scope="row">
+                        I expect chatbots to only recognize keywords/or provide fixed options that I can select
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_2" id="chat_exp_2_1" value="1" required>
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_2" id="chat_exp_2_2" value="2" required>
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_2" id="chat_exp_2_3" value="3" required>
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_2" id="chat_exp_2_4" value="4" required>
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_2" id="chat_exp_2_5" value="5" required>
+                    </td>
+                </tr> 
                 
-                <p class="card-title" style="padding-top: 2%"><b>Is there any other feedback you'd like to provide? Were there any problems with the dialog system?</b></p>
-                <div class="form-group">
-                <textarea class="form-control" name="general_feedback_frei" id="bug_report_frei" rows="4" ></textarea>
-                </div> 
-            </div>
-            </div>
+                <tr id="chat_exp_3">
+                    <td scope="row">
+                        I expect that in order to get a good answer, I have to ask a very precise question
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_3" id="chat_exp_3_1" value="1" required>
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_3" id="chat_exp_3_2" value="2" required>
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_3" id="chat_exp_3_3" value="3" required>
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_3" id="chat_exp_3_4" value="4" required>
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_3" id="chat_exp_3_5" value="5" required>
+                    </td>
+                </tr>
+                
+                <tr id="chat_exp_4">
+                    <td scope="row">
+                        I expect chatbots to be able to ask clarifying questions to help me narrow down my problem, e.g., if my original question is vague
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_4" id="chat_exp_4_1" value="1" required>
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_4" id="chat_exp_4_2" value="2" required>
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_4" id="chat_exp_4_3" value="3" required>
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_4" id="chat_exp_4_4" value="4" required>
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_4" id="chat_exp_4_5" value="5" required>
+                    </td>
+                </tr>
+                
+                <tr id="chat_exp_5">
+                    <td scope="row">
+                        I expect a chatbot would only be able to give a general answer to my questions
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_5" id="chat_exp_5_1" value="1" required>
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_5" id="chat_exp_5_2" value="2" required>
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_5" id="chat_exp_5_3" value="3" required>
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_5" id="chat_exp_5_4" value="4" required>
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_5" id="chat_exp_5_5" value="5" required>
+                    </td>
+                </tr>
+                
+                <tr id="chat_exp_6">
+                    <td scope="row">
+                        I expect a chatbot should be able to give personalized answers specific to my case
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_6" id="chat_exp_6_1" value="1" required>
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_6" id="chat_exp_6_2" value="2" required>
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_6" id="chat_exp_6_3" value="3" required>
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_6" id="chat_exp_6_4" value="4" required>
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_6" id="chat_exp_6_5" value="5" required>
+                    </td>
+                </tr>  
+                
+                <tr id="chat_exp_7">
+                    <td scope="row">
+                        I expect a chatbot should be able to provide an immediate answer as a direct response to my question (single turn interaction)
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_7" id="chat_exp_7_1" value="1" required>
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_7" id="chat_exp_7_2" value="2" required>
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_7" id="chat_exp_7_3" value="3" required>
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_7" id="chat_exp_7_4" value="4" required>
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_7" id="chat_exp_7_5" value="5" required>
+                    </td>
+                </tr>
+
+                <tr id="chat_exp_8">
+                    <td scope="row">
+                        I expect a chatbot would need to ask multiple questions before it is able to give me an answer
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_8" id="chat_exp_8_1" value="1" required>
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_8" id="chat_exp_8_2" value="2" required>
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_8" id="chat_exp_8_3" value="3" required>
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_8" id="chat_exp_8_4" value="4" required>
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_8" id="chat_exp_8_5" value="5" required>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        </div>
+        </div>
+
+        
 
         <button type="submit" class="btn btn-success mb-4" onclick="validate_form()">Submit</button>
     </form>
