@@ -1,10 +1,9 @@
 from copy import deepcopy
 from dataclasses import dataclass
-from typing import Any, Dict, Tuple, Union
+from typing import Any, Dict, Set, Tuple, Union
 
 
-from data.dataset import DialogNode, GraphDataset, NodeType
-from data.cache import Cache
+from data.dataset import GraphDataset, NodeType
 
 from data.parsers.answerTemplateParser import AnswerTemplateParser
 from data.parsers.logicParser import LogicTemplateParser
@@ -17,22 +16,25 @@ from environment.base import BaseEnv
 @dataclass
 class RealUserGoal:
     initial_user_utterance: str
+    delexicalised_initial_user_utterance: str
     goal_node_key: str
     constraints: Dict[str, Any]
+    visited_ids: Set[int]
 
 class RealUserEnvironment(BaseEnv):
-    def __init__(self, env_id: int, 
-            cache: Cache, dataset: GraphDataset, state_encoding: StateEncoding,
+    def __init__(self,
+            dataset: GraphDataset,
             sys_token: str, usr_token: str, sep_token: str,
-            max_steps: int, max_reward: float,
+            max_steps: int, max_reward: float, user_patience: int,
             answer_parser: AnswerTemplateParser, logic_parser: LogicTemplateParser,
             value_backend: RealValueBackend,
-            auto_skip: AutoSkipMode) -> None:
-        super().__init__(env_id=env_id, cache=cache, dataset=dataset, state_encoding=state_encoding,
+            auto_skip: AutoSkipMode, stop_on_invalid_skip: bool) -> None:
+        assert isinstance(auto_skip, AutoSkipMode)
+        super().__init__(dataset=dataset,
             sys_token=sys_token, usr_token=usr_token, sep_token=sep_token, 
-            max_steps=max_steps, max_reward=max_reward,
+            max_steps=max_steps, max_reward=max_reward, user_patience=user_patience,
             answer_parser=answer_parser, logic_parser=logic_parser, value_backend=value_backend,
-            auto_skip=auto_skip)
+            auto_skip=auto_skip, stop_on_invalid_skip=stop_on_invalid_skip)
 
     def reset(self):
         self.pre_reset()
@@ -44,7 +46,8 @@ class RealUserEnvironment(BaseEnv):
         print(self.current_node.text)
         # Ask for initial user input
         initial_user_utterance = deepcopy(input(">>"))
-        self.goal = RealUserGoal(initial_user_utterance=initial_user_utterance, goal_node_key=self.data.start_node.key, constraints={})
+        self.goal = RealUserGoal(initial_user_utterance=initial_user_utterance, delexicalised_initial_user_utterance=initial_user_utterance,
+                                 goal_node_key=self.data.start_node.key, constraints=dict(), visited_ids=set())
 
         return self.post_reset()
 
@@ -82,13 +85,14 @@ class RealUserEnvironment(BaseEnv):
     def skip(self, answer_index: int) -> Tuple[bool, float]:
         done = False
         reward = -1.0
+        print("SKIPPING")
         
-        print("SKIPPING", self.current_node.text[:100])
         next_node = self.get_transition(answer_index)
 
         if next_node:
             # valid transition
             self.current_node = next_node
+            print("-> TO", self.current_node.text[:100])
         else:
             done = True
             print("REACHED END OF DIALOG TREE")
