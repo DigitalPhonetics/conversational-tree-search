@@ -449,7 +449,7 @@ body {
     };
     socket.onerror = (event) => {
         console.log('error');
-        addSystemMessage("Der Server scheint nicht erreichbar zu sein. Bitte benachrichtigen Sie den Support.");
+        addSystemMessage("The server is currently unavailable. Please contact the researchers so it can be restarted.");
     }
 
     function startDialog() {
@@ -508,7 +508,7 @@ body {
 
     function endDialog() {
         socket.send(JSON.stringify({
-            EVENT: "END_DIALOG",
+            EVENT: "RESTART",
             VALUE: true
         }));
         // window.location.replace("http://" + window.location.host + "/survey");
@@ -520,22 +520,6 @@ body {
         }
     }
 
-    function startRecording(){
-        // WebVoiceProcessor.WebVoiceProcessor.subscribe(vuMeterEngine).catch(error => {
-        //     writeMessage('Error initializing WebVoiceProcessor: ' + error);
-        //   })
-        mediaRecorder.start();
-        console.log("START", mediaRecorder);
-        $('#start_audio').prop("disabled",true);
-        $('#stop_audio').prop("disabled", false);
-    }
-
-    stopRecording = () => {
-        mediaRecorder.stop();
-        $('#start_audio').prop("disabled",false);
-        $('#stop_audio').prop("disabled", true);
-    }
-
 </script>
 {% end %}
 
@@ -545,9 +529,7 @@ body {
 
         <div class="contentFooterDivider">
             <div class="commanBtnBar" style="min-height:8rem;height: fit-content;" id="chat_header">
-                <button class="btn btn-success" id="start_audio" onclick="startRecording()">Aufnahme starten</button>
-                <button class="btn btn-warning" id="stop_audio" onclick="stopRecording()" disabled="true">Aufnahme beenden</button>
-                <button class="btn btn-danger" onclick="endDialog()">Dialog beenden</button>
+                <button class="btn btn-danger" onclick="restart()">Restart</button>
             </div>
 
             <div id="messagelist" class="messagebox"></div>

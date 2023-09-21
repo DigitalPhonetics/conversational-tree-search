@@ -1,7 +1,8 @@
 import asyncio
 import logging
+import hashlib
 from multiprocessing import freeze_support
-import time
+import json
 from typing import Dict, Union
 
 import tornado
@@ -18,19 +19,36 @@ import multiprocessing
 
 multiprocessing.set_start_method("spawn")
 
-logger = logging.getLogger("chat")
-logger.setLevel(logging.INFO)
-log_file_handler = logging.FileHandler("study_log.txt")
-log_file_handler.setLevel(logging.INFO)
-logger.addHandler(log_file_handler)
+chat_logger = logging.getLogger("chat")
+chat_logger.setLevel(logging.INFO)
+chat_log_file_handler = logging.FileHandler("chat.txt")
+chat_log_file_handler.setLevel(logging.INFO)
+chat_logger.addHandler(chat_log_file_handler)
+
+survey_logger = logging.getLogger("survey")
+survey_logger.setLevel(logging.INFO)
+survey_log_file_handler = logging.FileHandler("survey_log.txt")
+survey_log_file_handler.setLevel(logging.INFO)
+survey_logger.addHandler(survey_log_file_handler)
+
+user_logger = logging.getLogger("user_info")
+user_logger.setLevel(logging.INFO)
+user_log_file_handler = logging.FileHandler("user_log.txt")
+user_log_file_handler.setLevel(logging.INFO)
+user_logger.addHandler(user_log_file_handler)
 
 DEBUG = True
 NUM_CONDITIONS = 1
+GROUP_ASSIGNMENTS = {"hdc": [], "faq": [], "cts": []}
 
-CURRENT_USER_CONNECTION = None 
-
-# domain = JSONLookupDomain(name="GasStations")
-
+# on start, check if we have an assignment file, if so, load it and pre-fill group assignments with content
+with open("user_log.txt", "rt") as assignments:
+    for line in assignments:
+        if "GROUP" in line:
+            user, group = line.split("||")
+            user = user.split(":")[1].strip()
+            group = group.split(":")[1].strip()
+            GROUP_ASSIGNMENTS[group].append(user)
 
 # class GUIInterface(Service):
 #     def __init__(self, domain = None, logger =  None):
@@ -58,16 +76,9 @@ CURRENT_USER_CONNECTION = None
     
 
 # gui_interface = GUIInterface(domain=domain)
-# nlu = HandcraftedNLU(domain=domain, language=Language.GERMAN)
-# bst = HandcraftedBST(domain=domain)
-# policy = GasstationsPolicy(domain=domain)
-# nlg = HandcraftedNLG(domain=domain)
-# adaptivity = Adaptivity(domain=domain)
 
-# ds = DialogSystem([gui_interface, nlg, nlu, bst, policy, adaptivity])
-# error_free = ds.is_error_free_messaging_pipeline()
-# if not error_free:
-#     ds.print_inconsistencies()
+# TODO initialise three policies as separate domains
+# ds = DialogSystem([gui_interface, policy_hdc, policy_faq, policy_cts])
 
 class BaseHandler(RequestHandler):
     def get_current_user(self):
@@ -84,30 +95,49 @@ class LoginHandler(BaseHandler):
         if self.current_user:
             if not self.get_cookie("seen_conditions"):
                 self.set_cookie("seen_conditions", "0")
-            self.redirect("/pre_survey")
+            self.redirect("/data_agreement")
         else:
             self.render("./templates/login.html")
 
 
 class CheckLogin(RequestHandler):
     def post(self):
-        username = self.get_body_argument("username")
-        self.set_secure_cookie("user", username)
+        username = self.get_body_argument("username").encode()
+        h = hashlib.shake_256(username)
+        self.set_secure_cookie("user", h.hexdigest(15))
         if not self.get_cookie("seen_conditions"):
             self.set_cookie("seen_conditions", "0")
-        self.redirect("/pre_survey")
+        self.redirect("/data_agreement")
 
-class LogSurvey(BaseHandler):
+class LogPreSurvey(BaseHandler):
     def post(self):
-        global NUM_CONDITIONS
-        seen_conditions = int(self.get_cookie('seen_conditions'))
+        global GROUP_ASSIGNMENTS
         results = self.request.body_arguments
         results = {key : str(results[key][0])[2:-1] for key in results}
-        logging.getLogger("chat").info(f"USER: {self.current_user} || SURVEY: {results}")
-        if seen_conditions < NUM_CONDITIONS:
-            self.redirect(f"/chat")
-        else:
-            self.redirect(f"/thank_you")
+        logging.getLogger("survey").info(f"USER: {self.current_user} || PRE-SURVEY: {results}")
+        self.redirect(f"/chat")
+
+class LogPostSurvey(BaseHandler):
+    def post(self):
+        results = self.request.body_arguments
+        results = {key : str(results[key][0])[2:-1] for key in results}
+        logging.getLogger("survey").info(f"USER: {self.current_user} || POST-SURVEY: {results}")
+        self.redirect(f"/thank_you")
+
+class UserAgreed(BaseHandler):
+    def post(self):
+        logging.getLogger("user_info").info(f"USER: {self.current_user} || AGREED: True")
+
+        # If user is not assigned, assign to group with fewest participants
+        if not self.get_cookie("group_assignment"):
+            group = sorted(GROUP_ASSIGNMENTS.items(), key=lambda item: len(item[1]))[0][0]
+            self.set_cookie("group_assignment", group)
+
+            # add assignment to file
+            logging.getLogger("user_info").info(f"USER: {self.current_user} || GROUP: {group}")
+            logging.getLogger("chat").info(f"USER: {self.current_user} || GROUP: {group}")
+
+        self.redirect(f"/pre_survey")
         
 
 class ChatIndex(BaseHandler):
@@ -117,6 +147,11 @@ class ChatIndex(BaseHandler):
         seen_conditions = int(self.get_cookie('seen_conditions')) + 1
         self.set_cookie("seen_conditions", str(seen_conditions))
         self.render("./templates/chat.html", total_conditions=NUM_CONDITIONS)
+
+class DataAgreement(BaseHandler):
+    @tornado.web.authenticated
+    def get(self):
+        self.render("./templates/data_agreement.html")
 
 class PostSurvey(BaseHandler):
     @tornado.web.authenticated
@@ -131,7 +166,7 @@ class PreSurvey(BaseHandler):
 class ThankYou(BaseHandler):
     @tornado.web.authenticated
     def get(self):
-        self.render("./templates/thank_you.html")
+        self.render("./templates/thank_you.html", completion_key=self.current_user)
 
 
 # class UserChatSocket(AuthenticatedWebSocketHandler):
@@ -184,8 +219,11 @@ if __name__ == "__main__":
         (r"/check_login", CheckLogin),
         (r"/chat", ChatIndex),
         # (r"/channel", UserChatSocket),
-        (r"/log_survey", LogSurvey),
-        (r"/thank_you", ThankYou)
+        (r"/log_pre_survey", LogPreSurvey),
+        (r"/log_post_survey", LogPostSurvey),
+        (r"/data_agreement", DataAgreement),
+        (r"/thank_you", ThankYou),
+        (r"/agreed_to_data_collection", UserAgreed)
     ], **settings)
     print("created app")
     http_server = tornado.httpserver.HTTPServer(app) #, ssl_options = ssl_ctx)
