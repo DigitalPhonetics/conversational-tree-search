@@ -63,15 +63,8 @@ body {
         padding-bottom: 0.5rem;
         border-radius: 1rem;
         align-items: center;
-    }
-    .playlistItem {
-        display: flex;
-        flex-direction: row;
-        width: 100%;
-        gap: 0.25rem;
-        align-items: stretch;
-        margin-left: 0.5rem;
-        margin-right: 0.1rem;
+        justify-content: center;
+        text-align: center;
     }
     .messagebox
     {
@@ -438,13 +431,20 @@ body {
             addSystemMessage(value);
         }else if (event === "USER_MSG"){
             addUserMessage(value);
+        }else if (event === "NEW_GOAL"){
+            // Update the goal
+            console.log("HERE")
+            goal = document.getElementById("goal");
+            goal.innerHTML = `<p>${value}</p>`;
+
+        }else if (event === "EXPERIMENT_OVER"){
+            console.log(window.location.host + "/post_survey");
+            window.location.replace(window.location.host + "/post_survey")
         }
 
     }
     socket.onopen = (event) => {
         console.log('connected');
-        const num_dialogs = seen_conditions;
-        $("#chat_header").append(`<div style="color:white">Dialog ${num_dialogs + 1} / {{total_conditions}}</div>`)
         startDialog();
     };
     socket.onerror = (event) => {
@@ -506,12 +506,18 @@ body {
         $('#userinput').val(""); // reset text
     }
 
-    function endDialog() {
+    function restart() {
         socket.send(JSON.stringify({
             EVENT: "RESTART",
             VALUE: true
         }));
-        // window.location.replace("http://" + window.location.host + "/survey");
+    }
+
+    function nextGoal(){
+        socket.send(JSON.stringify({
+            EVENT: "NEXT_GOAL",
+            VALUE: true
+        }))
     }
 
     function enterKeyDown(e) {
@@ -540,6 +546,15 @@ body {
             </div>
         </div>
 
+        <div id="goalContainer" class="playlist">
+            <div class="commanBtnBar" style="color: white; text-align: center;">
+                Your goal is to answer the following question:
+            </div>
+            <div id="goal" style="width:100%;">
+            <p>{{goal}}</p>
+            </div>
+            <button class="btn btn-success mb-4" onclick="nextGoal()">I found an answer</button>
+        </div>
     </div>
 
     <footer>

@@ -33,6 +33,20 @@ from omegaconf import DictConfig, OmegaConf
 from hydra.core.config_store import ConfigStore
 from config import register_configs
 
+DEBUG = True
+NUM_GOALS = 2
+GROUP_ASSIGNMENTS = {"hdc": [], "faq": [], "cts": []}
+USER_GOAL_NUM = {}
+
+# on start, check if we have an assignment file, if so, load it and pre-fill group assignments with content
+with open("user_log.txt", "rt") as assignments:
+    for line in assignments:
+        if "GROUP" in line:
+            user, group = line.split("||")
+            user = user.split(":")[1].strip()
+            group = group.split(":")[1].strip()
+            GROUP_ASSIGNMENTS[group].append(user)
+
 
 chat_logger = logging.getLogger("chat")
 chat_logger.setLevel(logging.INFO)
@@ -51,19 +65,6 @@ user_logger.setLevel(logging.INFO)
 user_log_file_handler = logging.FileHandler("user_log.txt")
 user_log_file_handler.setLevel(logging.INFO)
 user_logger.addHandler(user_log_file_handler)
-
-DEBUG = True
-NUM_CONDITIONS = 1
-GROUP_ASSIGNMENTS = {"hdc": [], "faq": [], "cts": []}
-
-# on start, check if we have an assignment file, if so, load it and pre-fill group assignments with content
-with open("user_log.txt", "rt") as assignments:
-    for line in assignments:
-        if "GROUP" in line:
-            user, group = line.split("||")
-            user = user.split(":")[1].strip()
-            group = group.split(":")[1].strip()
-            GROUP_ASSIGNMENTS[group].append(user)
 
 cs = ConfigStore.instance()
 register_configs()
@@ -216,6 +217,13 @@ def next_action(env: RealUserEnvironment) -> Tuple[int, bool]:
     return action, intent
 
 
+def choose_user_goal(user_id: str):
+    # TODO actually implement logic
+    global USER_GOAL_NUM
+    if USER_GOAL_NUM[user_id] == 1:
+        return "TEST"
+    else:
+        return "BLAH"
 
 
 class BaseHandler(RequestHandler):
@@ -231,8 +239,6 @@ class AuthenticatedWebSocketHandler(WebSocketHandler):
 class LoginHandler(BaseHandler):
     def get(self):
         if self.current_user:
-            if not self.get_cookie("seen_conditions"):
-                self.set_cookie("seen_conditions", "0")
             self.redirect("/data_agreement")
         else:
             self.render("server/templates/login.html")
@@ -243,8 +249,6 @@ class CheckLogin(RequestHandler):
         username = self.get_body_argument("username").encode()
         h = hashlib.shake_256(username)
         self.set_secure_cookie("user", h.hexdigest(15))
-        if not self.get_cookie("seen_conditions"):
-            self.set_cookie("seen_conditions", "0")
         self.redirect("/data_agreement")
 
 class LogPreSurvey(BaseHandler):
@@ -281,10 +285,13 @@ class UserAgreed(BaseHandler):
 class ChatIndex(BaseHandler):
     @tornado.web.authenticated
     def get(self):
-        global NUM_CONDITIONS
-        seen_conditions = int(self.get_cookie('seen_conditions')) + 1
-        self.set_cookie("seen_conditions", str(seen_conditions))
-        self.render("server/templates/chat.html", total_conditions=NUM_CONDITIONS)
+        global USER_GOAL_NUM
+        # TODO: actually choose a goal
+        if self.current_user not in USER_GOAL_NUM:
+            USER_GOAL_NUM[self.current_user]  = 1
+        goal = choose_user_goal(self.current_user)
+        logging.getLogger("chat").info(f"USER: {self.current_user} || GOAL: {goal}")
+        self.render("server/templates/chat.html", goal=goal)
 
 class DataAgreement(BaseHandler):
     @tornado.web.authenticated
@@ -313,9 +320,10 @@ class UserChatSocket(AuthenticatedWebSocketHandler):
         print(f"starting dialog system for user {self.current_user}")
         logging.getLogger("chat").info(f"==== NEW DIALOG STARTED FOR USER {self.current_user} ====")
         # TODO initialise new dialog for user
-        # TODO initialise new info goal for user (and log it)
 
     def on_message(self, message):
+        global NUM_GOALS
+        global USER_GOAL_NUM
         data = tornado.escape.json_decode(message)
         event = data["EVENT"]
         value = data["VALUE"]
@@ -326,11 +334,15 @@ class UserChatSocket(AuthenticatedWebSocketHandler):
         elif event == "RESTART":
             logging.getLogger("chat").info(f"USER ({self.current_user} FINISHED DIALOG)")
             # TODO restart dialog
-        elif event == "Next_GOAL":
+        elif event == "NEXT_GOAL":
             # TODO choose a new goal
-            next_goal = None
-            logging.getLogger("chat").info(f"USER: {self.current_user} || GOAL: {next_goal}")
-            # TODO update information goal for user
+            if USER_GOAL_NUM[self.current_user] >= NUM_GOALS:
+                self.write_message({"EVENT": "EXPERIMENT_OVER", "VALUE": True})
+            else:
+                USER_GOAL_NUM[self.current_user] += 1
+                next_goal = choose_user_goal(self.current_user)
+                self.write_message({"EVENT": "NEW_GOAL", "VALUE": next_goal})
+                logging.getLogger("chat").info(f"USER: {self.current_user} || GOAL: {next_goal}")
        
     def on_close(self):
         print(f"Closing connection for user {self.current_user}")
@@ -349,7 +361,7 @@ if __name__ == "__main__":
         (r"/pre_survey", PreSurvey),
         (r"/check_login", CheckLogin),
         (r"/chat", ChatIndex),
-        # (r"/channel", UserChatSocket),
+        (r"/channel", UserChatSocket),
         (r"/log_pre_survey", LogPreSurvey),
         (r"/log_post_survey", LogPostSurvey),
         (r"/data_agreement", DataAgreement),
