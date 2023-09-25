@@ -1119,76 +1119,6 @@
         "node_text": "If you are new to Stuttgart, you can register for a free 14-day public transportation ticket with the SSB here, which is good for all public transit in the Stuttgart area.",
         "node_type": "infoNode"
     },
-    "16950909160872152": {
-        "dialog_node_key": 16940086225064020,
-        "key": "16950909160872152",
-        "text": "What is the purpose of the Stuttgart Help-Bot?",
-        "node_text": "Hi I'm the Stuttgart Help-Bot! My goal is to help your move to Germany and especially to Stuttgart go as smoothly as possible!",
-        "node_type": "infoNode"
-    },
-    "16950909160872278": {
-        "dialog_node_key": 16940086225064020,
-        "key": "16950909160872278",
-        "text": "Where does the Stuttgart Help-Bot specialize in assisting with moves?",
-        "node_text": "Hi I'm the Stuttgart Help-Bot! My goal is to help your move to Germany and especially to Stuttgart go as smoothly as possible!",
-        "node_type": "infoNode"
-    },
-    "16950909160872314": {
-        "dialog_node_key": 16940086225064020,
-        "key": "16950909160872314",
-        "text": "What is the main goal of the Stuttgart Help-Bot?",
-        "node_text": "Hi I'm the Stuttgart Help-Bot! My goal is to help your move to Germany and especially to Stuttgart go as smoothly as possible!",
-        "node_type": "infoNode"
-    },
-    "16950909160872364": {
-        "dialog_node_key": 16940086225064020,
-        "key": "16950909160872364",
-        "text": "Who created the Stuttgart Help-Bot?",
-        "node_text": "Hi I'm the Stuttgart Help-Bot! My goal is to help your move to Germany and especially to Stuttgart go as smoothly as possible!",
-        "node_type": "infoNode"
-    },
-    "16950909160872397": {
-        "dialog_node_key": 16940086225064020,
-        "key": "16950909160872397",
-        "text": "What is the Stuttgart Help-Bot's role in helping with relocations?",
-        "node_text": "Hi I'm the Stuttgart Help-Bot! My goal is to help your move to Germany and especially to Stuttgart go as smoothly as possible!",
-        "node_type": "infoNode"
-    },
-    "16950909160872436": {
-        "dialog_node_key": 16940086225064020,
-        "key": "16950909160872436",
-        "text": "What specific city does the Stuttgart Help-Bot focus on?",
-        "node_text": "Hi I'm the Stuttgart Help-Bot! My goal is to help your move to Germany and especially to Stuttgart go as smoothly as possible!",
-        "node_type": "infoNode"
-    },
-    "16950909160872471": {
-        "dialog_node_key": 16940086225064020,
-        "key": "16950909160872471",
-        "text": "What can the Stuttgart Help-Bot do to make your move easier?",
-        "node_text": "Hi I'm the Stuttgart Help-Bot! My goal is to help your move to Germany and especially to Stuttgart go as smoothly as possible!",
-        "node_type": "infoNode"
-    },
-    "1695090916087251": {
-        "dialog_node_key": 16940086225064020,
-        "key": "1695090916087251",
-        "text": "Why was the Stuttgart Help-Bot created?",
-        "node_text": "Hi I'm the Stuttgart Help-Bot! My goal is to help your move to Germany and especially to Stuttgart go as smoothly as possible!",
-        "node_type": "infoNode"
-    },
-    "16950909160872548": {
-        "dialog_node_key": 16940086225064020,
-        "key": "16950909160872548",
-        "text": "How does the Stuttgart Help-Bot help with moving to Germany?",
-        "node_text": "Hi I'm the Stuttgart Help-Bot! My goal is to help your move to Germany and especially to Stuttgart go as smoothly as possible!",
-        "node_type": "infoNode"
-    },
-    "16950909160872588": {
-        "dialog_node_key": 16940086225064020,
-        "key": "16950909160872588",
-        "text": "What is the Stuttgart Help-Bot's ultimate objective?",
-        "node_text": "Hi I'm the Stuttgart Help-Bot! My goal is to help your move to Germany and especially to Stuttgart go as smoothly as possible!",
-        "node_type": "infoNode"
-    },
     "16950916202810001": {
         "dialog_node_key": 16940098143630140,
         "key": "16950916202810001",
@@ -1679,76 +1609,6 @@
         "node_text": "As proof of your identity please present your passport and your moving-in letter at the caretaker's office [Hausmeisterbu\u0308ro]",
         "node_type": "infoNode"
     },
-    "16950981261059682": {
-        "dialog_node_key": 16940131756409225,
-        "key": "16950981261059682",
-        "text": "Can someone pick up my room keys if I can't make it to the office during dorm move-in at SWS?",
-        "node_text": "For students moving into a dormitory of SWS, it is possible to have someone collect your room keys before arrival if you will have trouble making it to the office hours. To do this, you will need to send this person a filled out version of the authorisation form you received with you offer letter.",
-        "node_type": "infoNode"
-    },
-    "16950981261059842": {
-        "dialog_node_key": 16940131756409225,
-        "key": "16950981261059842",
-        "text": "What do I need to do if I want someone else to collect my room keys at SWS dorm?",
-        "node_text": "For students moving into a dormitory of SWS, it is possible to have someone collect your room keys before arrival if you will have trouble making it to the office hours. To do this, you will need to send this person a filled out version of the authorisation form you received with you offer letter.",
-        "node_type": "infoNode"
-    },
-    "1695098126105989": {
-        "dialog_node_key": 16940131756409225,
-        "key": "1695098126105989",
-        "text": "Is there a form I need to fill out for someone to collect my room keys at SWS dorm?",
-        "node_text": "For students moving into a dormitory of SWS, it is possible to have someone collect your room keys before arrival if you will have trouble making it to the office hours. To do this, you will need to send this person a filled out version of the authorisation form you received with you offer letter.",
-        "node_type": "infoNode"
-    },
-    "16950981261059961": {
-        "dialog_node_key": 16940131756409225,
-        "key": "16950981261059961",
-        "text": "How can I authorize someone to collect my room keys at SWS dorm?",
-        "node_text": "For students moving into a dormitory of SWS, it is possible to have someone collect your room keys before arrival if you will have trouble making it to the office hours. To do this, you will need to send this person a filled out version of the authorisation form you received with you offer letter.",
-        "node_type": "infoNode"
-    },
-    "1695098126106002": {
-        "dialog_node_key": 16940131756409225,
-        "key": "1695098126106002",
-        "text": "What is the process for authorizing someone to collect my room keys at SWS dorm?",
-        "node_text": "For students moving into a dormitory of SWS, it is possible to have someone collect your room keys before arrival if you will have trouble making it to the office hours. To do this, you will need to send this person a filled out version of the authorisation form you received with you offer letter.",
-        "node_type": "infoNode"
-    },
-    "16950981261060078": {
-        "dialog_node_key": 16940131756409225,
-        "key": "16950981261060078",
-        "text": "Can I send the authorization form electronically for someone to collect my room keys at SWS dorm?",
-        "node_text": "For students moving into a dormitory of SWS, it is possible to have someone collect your room keys before arrival if you will have trouble making it to the office hours. To do this, you will need to send this person a filled out version of the authorisation form you received with you offer letter.",
-        "node_type": "infoNode"
-    },
-    "16950981261060126": {
-        "dialog_node_key": 16940131756409225,
-        "key": "16950981261060126",
-        "text": "Is there a specific time frame for sending the authorization form for room key collection at SWS dorm?",
-        "node_text": "For students moving into a dormitory of SWS, it is possible to have someone collect your room keys before arrival if you will have trouble making it to the office hours. To do this, you will need to send this person a filled out version of the authorisation form you received with you offer letter.",
-        "node_type": "infoNode"
-    },
-    "16950981261060183": {
-        "dialog_node_key": 16940131756409225,
-        "key": "16950981261060183",
-        "text": "Can I have someone collect my room keys at SWS dorm if I'm not able to make it to the office during the designated hours?",
-        "node_text": "For students moving into a dormitory of SWS, it is possible to have someone collect your room keys before arrival if you will have trouble making it to the office hours. To do this, you will need to send this person a filled out version of the authorisation form you received with you offer letter.",
-        "node_type": "infoNode"
-    },
-    "16950981261060233": {
-        "dialog_node_key": 16940131756409225,
-        "key": "16950981261060233",
-        "text": "What do I need to do if I can't make it to the office during the designated hours at SWS dorm?",
-        "node_text": "For students moving into a dormitory of SWS, it is possible to have someone collect your room keys before arrival if you will have trouble making it to the office hours. To do this, you will need to send this person a filled out version of the authorisation form you received with you offer letter.",
-        "node_type": "infoNode"
-    },
-    "1695098126106029": {
-        "dialog_node_key": 16940131756409225,
-        "key": "1695098126106029",
-        "text": "Can I authorize someone to collect my room keys at SWS dorm even if I'm not there during office hours?",
-        "node_text": "For students moving into a dormitory of SWS, it is possible to have someone collect your room keys before arrival if you will have trouble making it to the office hours. To do this, you will need to send this person a filled out version of the authorisation form you received with you offer letter.",
-        "node_type": "infoNode"
-    },
     "1695098953448938": {
         "dialog_node_key": 16940131778732207,
         "key": "1695098953448938",
@@ -1817,76 +1677,6 @@
         "key": "16950989534489815",
         "text": "Is it possible to have my key delivered before I arrive at the VSSW?",
         "node_text": "You only have the option to pick up your dorm key in person (it is not possible to have someone collect your room key before your arrival). But you can arrange with the caretaker of the VSSW that they deposit your key in a safe in front of the dorm.",
-        "node_type": "infoNode"
-    },
-    "16950995474074852": {
-        "dialog_node_key": 16940133595134488,
-        "key": "16950995474074852",
-        "text": "What should I do if I can't collect the keys as mentioned in my moving-in letter?",
-        "node_text": "In case you cannot collect the keys as stated in your moving-in letter [Einzugsschreiben], you will have to arrange an appointment with the respective caretaker [Hausmeister] about 14 days before your arrival.",
-        "node_type": "infoNode"
-    },
-    "16950995474074974": {
-        "dialog_node_key": 16940133595134488,
-        "key": "16950995474074974",
-        "text": "How many days before my arrival should I arrange an appointment with the caretaker?",
-        "node_text": "In case you cannot collect the keys as stated in your moving-in letter [Einzugsschreiben], you will have to arrange an appointment with the respective caretaker [Hausmeister] about 14 days before your arrival.",
-        "node_type": "infoNode"
-    },
-    "16950995474075015": {
-        "dialog_node_key": 16940133595134488,
-        "key": "16950995474075015",
-        "text": "What is the purpose of the appointment with the caretaker?",
-        "node_text": "In case you cannot collect the keys as stated in your moving-in letter [Einzugsschreiben], you will have to arrange an appointment with the respective caretaker [Hausmeister] about 14 days before your arrival.",
-        "node_type": "infoNode"
-    },
-    "16950995474075048": {
-        "dialog_node_key": 16940133595134488,
-        "key": "16950995474075048",
-        "text": "What is the moving-in letter called in German?",
-        "node_text": "In case you cannot collect the keys as stated in your moving-in letter [Einzugsschreiben], you will have to arrange an appointment with the respective caretaker [Hausmeister] about 14 days before your arrival.",
-        "node_type": "infoNode"
-    },
-    "16950995474075072": {
-        "dialog_node_key": 16940133595134488,
-        "key": "16950995474075072",
-        "text": "What is the caretaker's role in this process?",
-        "node_text": "In case you cannot collect the keys as stated in your moving-in letter [Einzugsschreiben], you will have to arrange an appointment with the respective caretaker [Hausmeister] about 14 days before your arrival.",
-        "node_type": "infoNode"
-    },
-    "16950995474075103": {
-        "dialog_node_key": 16940133595134488,
-        "key": "16950995474075103",
-        "text": "What happens if I don't arrange an appointment with the caretaker?",
-        "node_text": "In case you cannot collect the keys as stated in your moving-in letter [Einzugsschreiben], you will have to arrange an appointment with the respective caretaker [Hausmeister] about 14 days before your arrival.",
-        "node_type": "infoNode"
-    },
-    "16950995474075134": {
-        "dialog_node_key": 16940133595134488,
-        "key": "16950995474075134",
-        "text": "How do I contact the caretaker to set up an appointment?",
-        "node_text": "In case you cannot collect the keys as stated in your moving-in letter [Einzugsschreiben], you will have to arrange an appointment with the respective caretaker [Hausmeister] about 14 days before your arrival.",
-        "node_type": "infoNode"
-    },
-    "1695099547407516": {
-        "dialog_node_key": 16940133595134488,
-        "key": "1695099547407516",
-        "text": "What should I do if I can't arrange an appointment with the caretaker?",
-        "node_text": "In case you cannot collect the keys as stated in your moving-in letter [Einzugsschreiben], you will have to arrange an appointment with the respective caretaker [Hausmeister] about 14 days before your arrival.",
-        "node_type": "infoNode"
-    },
-    "16950995474075186": {
-        "dialog_node_key": 16940133595134488,
-        "key": "16950995474075186",
-        "text": "What is the consequence of not collecting the keys as stated in the moving-in letter?",
-        "node_text": "In case you cannot collect the keys as stated in your moving-in letter [Einzugsschreiben], you will have to arrange an appointment with the respective caretaker [Hausmeister] about 14 days before your arrival.",
-        "node_type": "infoNode"
-    },
-    "16950995474075215": {
-        "dialog_node_key": 16940133595134488,
-        "key": "16950995474075215",
-        "text": "What is the name of the person responsible for the keys?",
-        "node_text": "In case you cannot collect the keys as stated in your moving-in letter [Einzugsschreiben], you will have to arrange an appointment with the respective caretaker [Hausmeister] about 14 days before your arrival.",
         "node_type": "infoNode"
     },
     "16951002643320286": {
@@ -4267,6 +4057,146 @@
         "key": "16951342687094371",
         "text": "Can DAAD-scholarship holders get a waiver for the application fee?",
         "node_text": "For you residence permit application, you will need to submit the following: Completed and signed application form for a residence permit: A copy of your passport,\n Your visa (if applicable),\n A biometrical photo (see below),\n Letter of admission [Zulassungsbescheid] from the University of Stuttgart, or a working contract/hosting agreement from your employer,\n Proof of sufficient funds (minimum EUR 934 per month) e. g. a bank statement from a German account, a scholarship letter, or your last paystub,\n Health insurance confirmation [Versicherungsbescheinigung] from a German health insurance provider,\n Confirmation of registration [Meldebesta\u0308tigung] (see residence registration),\n EUR 100 handling charge (DAAD-scholarship holders need their scholarship confirmation for a waiver)",
+        "node_type": "infoNode"
+    },
+    "16956301129293985": {
+        "dialog_node_key": 16940131756409225,
+        "key": "16956301129293985",
+        "text": "Can someone pick up my room keys if I can't make it to the office during my arrival at SWS dormitory?",
+        "node_text": "\\n\\n\\nFor students moving into a dormitory of SWS, it is possible to have someone collect your room keys before arrival if you will have trouble making it to the office hours. To do this, you will need to arrange an appointment with the appropriate building caretaker (at best 14 days in advance) and you will need to send this person a filled out version of the authorisation form you received with you offer letter.\\n\\n\\n",
+        "node_type": "infoNode"
+    },
+    "16956301129294114": {
+        "dialog_node_key": 16940131756409225,
+        "key": "16956301129294114",
+        "text": "How can I arrange for someone to collect my room keys before I get to the dorm?",
+        "node_text": "\\n\\n\\nFor students moving into a dormitory of SWS, it is possible to have someone collect your room keys before arrival if you will have trouble making it to the office hours. To do this, you will need to arrange an appointment with the appropriate building caretaker (at best 14 days in advance) and you will need to send this person a filled out version of the authorisation form you received with you offer letter.\\n\\n\\n",
+        "node_type": "infoNode"
+    },
+    "1695630112929414": {
+        "dialog_node_key": 16940131756409225,
+        "key": "1695630112929414",
+        "text": "What is the earliest time I can arrange for someone to collect my room keys?",
+        "node_text": "\\n\\n\\nFor students moving into a dormitory of SWS, it is possible to have someone collect your room keys before arrival if you will have trouble making it to the office hours. To do this, you will need to arrange an appointment with the appropriate building caretaker (at best 14 days in advance) and you will need to send this person a filled out version of the authorisation form you received with you offer letter.\\n\\n\\n",
+        "node_type": "infoNode"
+    },
+    "16956301129294174": {
+        "dialog_node_key": 16940131756409225,
+        "key": "16956301129294174",
+        "text": "What do I need to do to authorize someone to collect my room keys?",
+        "node_text": "\\n\\n\\nFor students moving into a dormitory of SWS, it is possible to have someone collect your room keys before arrival if you will have trouble making it to the office hours. To do this, you will need to arrange an appointment with the appropriate building caretaker (at best 14 days in advance) and you will need to send this person a filled out version of the authorisation form you received with you offer letter.\\n\\n\\n",
+        "node_type": "infoNode"
+    },
+    "16956301129294202": {
+        "dialog_node_key": 16940131756409225,
+        "key": "16956301129294202",
+        "text": "What form do I need to send to the building caretaker for key collection?",
+        "node_text": "\\n\\n\\nFor students moving into a dormitory of SWS, it is possible to have someone collect your room keys before arrival if you will have trouble making it to the office hours. To do this, you will need to arrange an appointment with the appropriate building caretaker (at best 14 days in advance) and you will need to send this person a filled out version of the authorisation form you received with you offer letter.\\n\\n\\n",
+        "node_type": "infoNode"
+    },
+    "1695630112929424": {
+        "dialog_node_key": 16940131756409225,
+        "key": "1695630112929424",
+        "text": "How can I contact the building caretaker to arrange key collection?",
+        "node_text": "\\n\\n\\nFor students moving into a dormitory of SWS, it is possible to have someone collect your room keys before arrival if you will have trouble making it to the office hours. To do this, you will need to arrange an appointment with the appropriate building caretaker (at best 14 days in advance) and you will need to send this person a filled out version of the authorisation form you received with you offer letter.\\n\\n\\n",
+        "node_type": "infoNode"
+    },
+    "16956301129294274": {
+        "dialog_node_key": 16940131756409225,
+        "key": "16956301129294274",
+        "text": "Is there a specific time frame for sending the authorisation form?",
+        "node_text": "\\n\\n\\nFor students moving into a dormitory of SWS, it is possible to have someone collect your room keys before arrival if you will have trouble making it to the office hours. To do this, you will need to arrange an appointment with the appropriate building caretaker (at best 14 days in advance) and you will need to send this person a filled out version of the authorisation form you received with you offer letter.\\n\\n\\n",
+        "node_type": "infoNode"
+    },
+    "16956301129294302": {
+        "dialog_node_key": 16940131756409225,
+        "key": "16956301129294302",
+        "text": "What happens if I don't arrange for key collection in advance?",
+        "node_text": "\\n\\n\\nFor students moving into a dormitory of SWS, it is possible to have someone collect your room keys before arrival if you will have trouble making it to the office hours. To do this, you will need to arrange an appointment with the appropriate building caretaker (at best 14 days in advance) and you will need to send this person a filled out version of the authorisation form you received with you offer letter.\\n\\n\\n",
+        "node_type": "infoNode"
+    },
+    "16956301129294336": {
+        "dialog_node_key": 16940131756409225,
+        "key": "16956301129294336",
+        "text": "Can I collect my room keys outside of the office hours?",
+        "node_text": "\\n\\n\\nFor students moving into a dormitory of SWS, it is possible to have someone collect your room keys before arrival if you will have trouble making it to the office hours. To do this, you will need to arrange an appointment with the appropriate building caretaker (at best 14 days in advance) and you will need to send this person a filled out version of the authorisation form you received with you offer letter.\\n\\n\\n",
+        "node_type": "infoNode"
+    },
+    "16956301129294364": {
+        "dialog_node_key": 16940131756409225,
+        "key": "16956301129294364",
+        "text": "What is the process for collecting room keys if I arrive during office hours?",
+        "node_text": "\\n\\n\\nFor students moving into a dormitory of SWS, it is possible to have someone collect your room keys before arrival if you will have trouble making it to the office hours. To do this, you will need to arrange an appointment with the appropriate building caretaker (at best 14 days in advance) and you will need to send this person a filled out version of the authorisation form you received with you offer letter.\\n\\n\\n",
+        "node_type": "infoNode"
+    },
+    "16956309023697326": {
+        "dialog_node_key": 16952109735520524,
+        "key": "16956309023697326",
+        "text": "Can I buy train tickets in person?",
+        "node_text": "If you want to buy tickts at a later point, you can do this either in person, using a ticket machine at the station of your departure or online through the DB or VVS transportation apps.",
+        "node_type": "infoNode"
+    },
+    "16956309023697438": {
+        "dialog_node_key": 16952109735520524,
+        "key": "16956309023697438",
+        "text": "Is there a ticket machine at the station for purchasing tickets?",
+        "node_text": "If you want to buy tickts at a later point, you can do this either in person, using a ticket machine at the station of your departure or online through the DB or VVS transportation apps.",
+        "node_type": "infoNode"
+    },
+    "16956309023697488": {
+        "dialog_node_key": 16952109735520524,
+        "key": "16956309023697488",
+        "text": "Can I buy tickets online through DB or VVS apps?",
+        "node_text": "If you want to buy tickts at a later point, you can do this either in person, using a ticket machine at the station of your departure or online through the DB or VVS transportation apps.",
+        "node_type": "infoNode"
+    },
+    "1695630902369751": {
+        "dialog_node_key": 16952109735520524,
+        "key": "1695630902369751",
+        "text": "Where can I buy tickets besides in person?",
+        "node_text": "If you want to buy tickts at a later point, you can do this either in person, using a ticket machine at the station of your departure or online through the DB or VVS transportation apps.",
+        "node_type": "infoNode"
+    },
+    "16956309023697548": {
+        "dialog_node_key": 16952109735520524,
+        "key": "16956309023697548",
+        "text": "What are the different ways to buy train tickets?",
+        "node_text": "If you want to buy tickts at a later point, you can do this either in person, using a ticket machine at the station of your departure or online through the DB or VVS transportation apps.",
+        "node_type": "infoNode"
+    },
+    "16956309023697572": {
+        "dialog_node_key": 16952109735520524,
+        "key": "16956309023697572",
+        "text": "Can I use a ticket machine at the station for my departure?",
+        "node_text": "If you want to buy tickts at a later point, you can do this either in person, using a ticket machine at the station of your departure or online through the DB or VVS transportation apps.",
+        "node_type": "infoNode"
+    },
+    "1695630902369761": {
+        "dialog_node_key": 16952109735520524,
+        "key": "1695630902369761",
+        "text": "Can I use the DB or VVS apps to buy tickets online?",
+        "node_text": "If you want to buy tickts at a later point, you can do this either in person, using a ticket machine at the station of your departure or online through the DB or VVS transportation apps.",
+        "node_type": "infoNode"
+    },
+    "1695630902369763": {
+        "dialog_node_key": 16952109735520524,
+        "key": "1695630902369763",
+        "text": "Is there a ticket machine at the station for my departure?",
+        "node_text": "If you want to buy tickts at a later point, you can do this either in person, using a ticket machine at the station of your departure or online through the DB or VVS transportation apps.",
+        "node_type": "infoNode"
+    },
+    "1695630902369766": {
+        "dialog_node_key": 16952109735520524,
+        "key": "1695630902369766",
+        "text": "Can I buy tickets at the station of my departure?",
+        "node_text": "If you want to buy tickts at a later point, you can do this either in person, using a ticket machine at the station of your departure or online through the DB or VVS transportation apps.",
+        "node_type": "infoNode"
+    },
+    "16956309023697681": {
+        "dialog_node_key": 16952109735520524,
+        "key": "16956309023697681",
+        "text": "Can I use the DB or VVS apps to buy tickets for my departure?",
+        "node_text": "If you want to buy tickts at a later point, you can do this either in person, using a ticket machine at the station of your departure or online through the DB or VVS transportation apps.",
         "node_type": "infoNode"
     }
 }
