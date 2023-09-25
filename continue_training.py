@@ -11,7 +11,7 @@ from algorithm.dqn.dqn import CustomDQN
 from algorithm.dqn.her import HindsightExperienceReplayWrapper
 # from environment.old.cts import OldCTSEnv, OldCustomVecEnv
 # from environment.old.her import OldHindsightExperienceReplayWrapper
-from utils.utils import AutoSkipMode
+from utils.utils import AutoSkipMode, to_class
 
 from config import INSTANCES, ActionConfig, InstanceType, StateConfig, WandbLogLevel, register_configs, EnvironmentConfig, DatasetConfig
 from data.cache import Cache
@@ -83,10 +83,6 @@ with open(f"{ckpt_dir}/data", "r") as f:
 
 
 print("Beginning normal initalization!")
-def to_class(path:str):
-    from pydoc import locate
-    class_instance = locate(path)
-    return class_instance
 
 def setup_cache_and_encoding(device: str, data: GraphDataset, state_config: StateConfig, action_config: ActionConfig, torch_compile: bool) -> Tuple[Cache, StateEncoding]:
     cache = Cache(device=device, data=data, state_config=state_config, torch_compile=torch_compile)

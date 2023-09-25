@@ -1,15 +1,9 @@
 from copy import deepcopy
 from enum import Enum
 import hashlib
-import json
-import os
-from pathlib import Path
 import random
 from statistics import mean
-from typing import Dict, List
 import torch
-
-
 
 
 class State(Enum):
@@ -120,6 +114,12 @@ def _munchausen_stable_logsoftmax(q: torch.FloatTensor, tau: float) -> torch.Flo
 def _munchausen_stable_softmax(q: torch.FloatTensor, tau: float) -> torch.FloatTensor:
     return torch.softmax((q-q.max(-1, keepdim=True)[0])/tau, -1) # batch
 
+
+
+def to_class(path:str):
+    from pydoc import locate
+    class_instance = locate(path)
+    return class_instance
 
 
 class ExperimentLogging(Enum):

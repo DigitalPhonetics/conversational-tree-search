@@ -14,7 +14,7 @@ from data.parsers.parserValueProvider import RealValueBackend
 from data.parsers.answerTemplateParser import AnswerTemplateParser
 from data.parsers.systemTemplateParser import SystemTemplateParser
 from data.parsers.logicParser import LogicTemplateParser
-from utils.utils import AutoSkipMode
+from utils.utils import AutoSkipMode, to_class
 from algorithm.dqn.dqn import CustomDQN
 import torch
 from data.cache import Cache
@@ -49,13 +49,6 @@ DEBUG = True
 NUM_CONDITIONS = 2
 
 CURRENT_USER_CONNECTION = None 
-
-def to_class(path:str):
-    from pydoc import locate
-    class_instance = locate(path)
-    return class_instance
-
-
 
 def load_model(ckpt_path: str, cfg_name: str, device: str, data: GraphDataset) -> Tuple[DictConfig, CustomDQN, StateEncoding]:
     # load config
@@ -193,7 +186,27 @@ def next_action(env: RealUserEnvironment) -> Tuple[int, bool]:
 
 
 
-## TODO 
+## TODO: write new GUI module
+## - BST
+## - Conversation history
+## - GC
+## - Logging?
+## - Survey processing?
+class ChatEngine:
+    def __init__(self, user_id: str) -> None:
+        self.user_id = user_id
+        self.user_env = RealUserEnvironment() # contains .bst, .reset()
+        self.current_obs = None
+
+    def start_dialog(self) -> None:
+        self.current_obs = self.reset()
+
+    def reply(self) -> str:
+
+
+
+
+
 class GUIInterface(Service):
     def __init__(self, domain = None, logger =  None):
         Service.__init__(self, domain=domain)

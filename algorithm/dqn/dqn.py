@@ -432,11 +432,19 @@ class CustomDQN(DQN):
             total_timesteps,
             callback,
             reset_num_timesteps=False,
-            tb_log_name="DQN_1",
+            tb_log_name="DQN",
             progress_bar=progress_bar,
         )
 
         # reset total timesteps, because stable-baselines will increase it by the current number of steps - this would destroy the idea of the modulo operation in _update_current_progress_remaining  
+        self.num_timesteps = current_steps
+        self._num_timesteps_at_start=current_timesteps_at_start
+        self._episode_num = current_episode_num
+        self._current_progress_remaining = current_progress_remaining
+        self._n_updates = current_n_updates
+        self._n_calls = current_n_calls
+        self.exploration_rate = current_exploration_rate
+        self.global_step = current_global_step
         self._total_timesteps = total_timesteps
 
         callback.on_training_start(locals(), globals())
