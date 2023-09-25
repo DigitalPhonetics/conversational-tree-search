@@ -1,5 +1,8 @@
 import asyncio
 import logging
+import hashlib
+from multiprocessing import freeze_support
+from typing import Dict
 import multiprocessing
 
 import tornado
@@ -30,6 +33,39 @@ from omegaconf import DictConfig, OmegaConf
 from hydra.core.config_store import ConfigStore
 from config import register_configs
 
+DEBUG = True
+NUM_GOALS = 2
+GROUP_ASSIGNMENTS = {"hdc": [], "faq": [], "cts": []}
+USER_GOAL_NUM = {}
+
+# on start, check if we have an assignment file, if so, load it and pre-fill group assignments with content
+with open("user_log.txt", "rt") as assignments:
+    for line in assignments:
+        if "GROUP" in line:
+            user, group = line.split("||")
+            user = user.split(":")[1].strip()
+            group = group.split(":")[1].strip()
+            GROUP_ASSIGNMENTS[group].append(user)
+
+
+chat_logger = logging.getLogger("chat")
+chat_logger.setLevel(logging.INFO)
+chat_log_file_handler = logging.FileHandler("chat_log.txt")
+chat_log_file_handler.setLevel(logging.INFO)
+chat_logger.addHandler(chat_log_file_handler)
+
+survey_logger = logging.getLogger("survey")
+survey_logger.setLevel(logging.INFO)
+survey_log_file_handler = logging.FileHandler("survey_log.txt")
+survey_log_file_handler.setLevel(logging.INFO)
+survey_logger.addHandler(survey_log_file_handler)
+
+user_logger = logging.getLogger("user_info")
+user_logger.setLevel(logging.INFO)
+user_log_file_handler = logging.FileHandler("user_log.txt")
+user_log_file_handler.setLevel(logging.INFO)
+user_logger.addHandler(user_log_file_handler)
+
 cs = ConfigStore.instance()
 register_configs()
 
@@ -39,16 +75,6 @@ ckpt_path = '/mount/arbeitsdaten/asr-2/vaethdk/cts_newcodebase_weights/run_16950
 
 multiprocessing.set_start_method("spawn")
 
-logger = logging.getLogger("chat")
-logger.setLevel(logging.INFO)
-log_file_handler = logging.FileHandler("chat_log.txt")
-log_file_handler.setLevel(logging.INFO)
-logger.addHandler(log_file_handler)
-
-DEBUG = True
-NUM_CONDITIONS = 2
-
-CURRENT_USER_CONNECTION = None 
 
 def load_model(ckpt_path: str, cfg_name: str, device: str, data: GraphDataset) -> Tuple[DictConfig, CustomDQN, StateEncoding]:
     # load config
@@ -171,8 +197,8 @@ def load_env(data: GraphDataset) -> RealUserEnvironment:
                         auto_skip=AutoSkipMode.NONE, stop_on_invalid_skip=False)
     return env
 
-data = ReimburseGraphDataset('en/reimburse/test_graph.json', 'en/reimburse/test_answers.json', use_answer_synonyms=True, augmentation=DataAugmentationLevel.NONE, resource_dir='resources')
-cfg, model, state_encoding = load_model(ckpt_path=ckpt_path, cfg_name=cfg_name, device='cpu', data=data)
+# data = ReimburseGraphDataset('en/reimburse/test_graph.json', 'en/reimburse/test_answers.json', use_answer_synonyms=True, augmentation=DataAugmentationLevel.NONE, resource_dir='resources')
+# cfg, model, state_encoding = load_model(ckpt_path=ckpt_path, cfg_name=cfg_name, device='cpu', data=data)
 
 def next_action(env: RealUserEnvironment) -> Tuple[int, bool]:
     # encode observation
@@ -185,6 +211,13 @@ def next_action(env: RealUserEnvironment) -> Tuple[int, bool]:
     return action, intent
 
 
+def choose_user_goal(user_id: str):
+    # TODO actually implement logic
+    global USER_GOAL_NUM
+    if USER_GOAL_NUM[user_id] == 1:
+        return "TEST"
+    else:
+        return "BLAH"
 
 ## TODO: write new GUI module
 ## - BST
@@ -252,79 +285,110 @@ class AuthenticatedWebSocketHandler(WebSocketHandler):
 class LoginHandler(BaseHandler):
     def get(self):
         if self.current_user:
-            if not self.get_cookie("seen_conditions"):
-                self.set_cookie("seen_conditions", "0")
-            self.redirect("/chat")
+            self.redirect("/data_agreement")
         else:
-            self.render("./templates/login.html")
+            self.render("server/templates/login.html")
 
 
 class CheckLogin(RequestHandler):
     def post(self):
-        username = self.get_body_argument("username")
-        self.set_secure_cookie("user", username)
-        if not self.get_cookie("seen_conditions"):
-            self.set_cookie("seen_conditions", "0")
-        self.redirect("/chat")
+        username = self.get_body_argument("username").encode()
+        h = hashlib.shake_256(username)
+        self.set_secure_cookie("user", h.hexdigest(15))
+        self.redirect("/data_agreement")
 
-class LogSurvey(BaseHandler):
+class LogPreSurvey(BaseHandler):
     def post(self):
-        global NUM_CONDITIONS
-        seen_conditions = int(self.get_cookie('seen_conditions')) + 1
-        self.set_cookie("seen_conditions", str(seen_conditions))
+        global GROUP_ASSIGNMENTS
         results = self.request.body_arguments
         results = {key : str(results[key][0])[2:-1] for key in results}
-        logging.getLogger("chat").info(f"USER {self.current_user}; SURVEY: {results}")
-        if seen_conditions < NUM_CONDITIONS:
-            self.redirect(f"/chat")
-        else:
-            self.redirect(f"/thank_you")
+        logging.getLogger("survey").info(f"USER: {self.current_user} || PRE-SURVEY: {results}")
+        self.redirect(f"/chat")
+
+class LogPostSurvey(BaseHandler):
+    def post(self):
+        results = self.request.body_arguments
+        results = {key : str(results[key][0])[2:-1] for key in results}
+        logging.getLogger("survey").info(f"USER: {self.current_user} || POST-SURVEY: {results}")
+        self.redirect(f"/thank_you")
+
+class UserAgreed(BaseHandler):
+    def post(self):
+        logging.getLogger("user_info").info(f"USER: {self.current_user} || AGREED: True")
+
+        # If user is not assigned, assign to group with fewest participants
+        if not self.get_cookie("group_assignment"):
+            group = sorted(GROUP_ASSIGNMENTS.items(), key=lambda item: len(item[1]))[0][0]
+            self.set_cookie("group_assignment", group)
+
+            # add assignment to file
+            logging.getLogger("user_info").info(f"USER: {self.current_user} || GROUP: {group}")
+            logging.getLogger("chat").info(f"USER: {self.current_user} || GROUP: {group}")
+
+        self.redirect(f"/pre_survey")
         
 
 class ChatIndex(BaseHandler):
     @tornado.web.authenticated
     def get(self):
-        global NUM_CONDITIONS
-        self.render("./templates/chat.html", total_conditions=NUM_CONDITIONS)
+        global USER_GOAL_NUM
+        # TODO: actually choose a goal
+        if self.current_user not in USER_GOAL_NUM:
+            USER_GOAL_NUM[self.current_user]  = 1
+        goal = choose_user_goal(self.current_user)
+        logging.getLogger("chat").info(f"USER: {self.current_user} || GOAL: {goal}")
+        self.render("server/templates/chat.html", goal=goal)
 
-class Survey(BaseHandler):
+class DataAgreement(BaseHandler):
     @tornado.web.authenticated
     def get(self):
-        self.render("./templates/survey.html")
+        self.render("server/templates/data_agreement.html")
+
+class PostSurvey(BaseHandler):
+    @tornado.web.authenticated
+    def get(self):
+        self.render("server/templates/post_survey.html")
 
 class PreSurvey(BaseHandler):
     @tornado.web.authenticated
     def get(self):
-        self.render("./templates/pre_survey.html")
+        self.render("server/templates/pre_survey.html")
 
 class ThankYou(BaseHandler):
     @tornado.web.authenticated
     def get(self):
-        self.render("./templates/thank_you.html")
+        self.render("server/templates/thank_you.html", completion_key=self.current_user)
 
 
 class UserChatSocket(AuthenticatedWebSocketHandler):
     def open(self):
-        global gui_interface
-        global ds
         print(f"Opened socket for user: {self.current_user}")
-        gui_interface.set_state(user_id=self.current_user, attribute_name='socket', attribute_value=self)
-        ds._start_dialog(start_signals={"user_utterance/GasStations": ""}, user_id=self.current_user)
         print(f"starting dialog system for user {self.current_user}")
         logging.getLogger("chat").info(f"==== NEW DIALOG STARTED FOR USER {self.current_user} ====")
+        # TODO initialise new dialog for user
 
     def on_message(self, message):
-        global gui_interface
+        global NUM_GOALS
+        global USER_GOAL_NUM
         data = tornado.escape.json_decode(message)
         event = data["EVENT"]
         value = data["VALUE"]
         if event == "MSG":
-            # TODO: might need to update for audio files
+            # TODO: forward message to (correct) dialog system
             print(f"MSG for user {self.current_user}: {message}")
             logging.getLogger("chat").info(f"MSG USER ({self.current_user}): {value}")
-            gui_interface.forward_to_dialog_system(self.current_user, value)
-        if event == "END_DIALOG":
+        elif event == "RESTART":
             logging.getLogger("chat").info(f"USER ({self.current_user} FINISHED DIALOG)")
+            # TODO restart dialog
+        elif event == "NEXT_GOAL":
+            # TODO choose a new goal
+            if USER_GOAL_NUM[self.current_user] >= NUM_GOALS:
+                self.write_message({"EVENT": "EXPERIMENT_OVER", "VALUE": True})
+            else:
+                USER_GOAL_NUM[self.current_user] += 1
+                next_goal = choose_user_goal(self.current_user)
+                self.write_message({"EVENT": "NEW_GOAL", "VALUE": next_goal})
+                logging.getLogger("chat").info(f"USER: {self.current_user} || GOAL: {next_goal}")
        
     def on_close(self):
         print(f"Closing connection for user {self.current_user}")
@@ -339,13 +403,16 @@ if __name__ == "__main__":
     print("settings created")
     app = Application([
         (r"/", LoginHandler),
-        (r"/post_survey", Survey),
+        (r"/post_survey", PostSurvey),
         (r"/pre_survey", PreSurvey),
         (r"/check_login", CheckLogin),
         (r"/chat", ChatIndex),
         (r"/channel", UserChatSocket),
-        (r"/log_survey", LogSurvey),
-        (r"/thank_you", ThankYou)
+        (r"/log_pre_survey", LogPreSurvey),
+        (r"/log_post_survey", LogPostSurvey),
+        (r"/data_agreement", DataAgreement),
+        (r"/thank_you", ThankYou),
+        (r"/agreed_to_data_collection", UserAgreed)
     ], **settings)
     print("created app")
     http_server = tornado.httpserver.HTTPServer(app) #, ssl_options = ssl_ctx)
@@ -355,8 +422,3 @@ if __name__ == "__main__":
     io_loop = tornado.ioloop.IOLoop.current()
     print("created io loop")
     io_loop.start()
-    
-    ds.print_inconsistencies()
-    # ds._start_dialog(start_signals={"user_utterance/gasstations": ""}, user_id="default")
-    # gui_interface.forward_to_dialog_system("Hi")
-

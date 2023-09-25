@@ -2,7 +2,13 @@
 
 {% block content %}
 <div style="display:flex; justify-content: center; align-items: center; width: 100%; height: 100%;">
-    Thank You for participating!
+    <div class="card mt-5 mb-3">
+        <div class="card-header" style="text-align: center;">
+            <h4>Thank You for Participating!</h4>
+        </div>
+        <div class="card-body" style="text-align: center;">
+            <p>Your completion key is: <b> {{completion_key}} </b></p>
+        </div>
+    </div>
 </div>
-
 {% end %}

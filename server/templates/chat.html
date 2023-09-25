@@ -63,15 +63,8 @@ body {
         padding-bottom: 0.5rem;
         border-radius: 1rem;
         align-items: center;
-    }
-    .playlistItem {
-        display: flex;
-        flex-direction: row;
-        width: 100%;
-        gap: 0.25rem;
-        align-items: stretch;
-        margin-left: 0.5rem;
-        margin-right: 0.1rem;
+        justify-content: center;
+        text-align: center;
     }
     .messagebox
     {
@@ -415,42 +408,6 @@ body {
     var messages = [];
     var mode = "";
 
-    var chunks = [];
-    let mediaRecorder = null;
-
-    function addChunk(e) {
-        chunks.push(e.data);
-    }
-
-    async function sendAudioData(e) {
-        const blob = new Blob(chunks);
-        chunks = [];
-        const reader = new window.FileReader();
-        reader.readAsDataURL(blob);
-        reader.onloadend = function () {
-            const base64data = reader.result.substr(reader.result.indexOf(',') + 1);
-            socket.send(JSON.stringify({
-                EVENT: "SPEECH", 
-                VALUE: base64data
-            }))
-        }
-    }
-
-    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-        console.log("getUserMedia supported.");
-        navigator.mediaDevices.getUserMedia({ audio: {sampleRate: 16000}, mimeType: 'audio/webm;codecs=pcm' }
-            ).then((stream) => { 
-                mediaRecorder = new MediaRecorder(stream); 
-                console.log("created mediaRecorder");
-                mediaRecorder.ondataavailable = addChunk;
-                mediaRecorder.onstop = sendAudioData;
-            }).catch((err) => {
-                console.error(`The following getUserMedia error occurred: ${err}`);
-            });
-    } else {
-        console.log("getUserMedia not supported on your browser!");
-    }
-
     function get_cookie(name) 
     {
         var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
@@ -474,18 +431,25 @@ body {
             addSystemMessage(value);
         }else if (event === "USER_MSG"){
             addUserMessage(value);
+        }else if (event === "NEW_GOAL"){
+            // Update the goal
+            console.log("HERE")
+            goal = document.getElementById("goal");
+            goal.innerHTML = `<p>${value}</p>`;
+
+        }else if (event === "EXPERIMENT_OVER"){
+            console.log(window.location.host + "/post_survey");
+            window.location.replace("http://" + window.location.host + "/post_survey")
         }
 
     }
     socket.onopen = (event) => {
         console.log('connected');
-        const num_dialogs = seen_conditions;
-        $("#chat_header").append(`<div style="color:white">Dialog ${num_dialogs + 1} / {{total_conditions}}</div>`)
         startDialog();
     };
     socket.onerror = (event) => {
         console.log('error');
-        addSystemMessage("Der Server scheint nicht erreichbar zu sein. Bitte benachrichtigen Sie den Support.");
+        addSystemMessage("The server is currently unavailable. Please contact the researchers so it can be restarted.");
     }
 
     function startDialog() {
@@ -542,34 +506,24 @@ body {
         $('#userinput').val(""); // reset text
     }
 
-    function endDialog() {
+    function restart() {
         socket.send(JSON.stringify({
-            EVENT: "END_DIALOG",
+            EVENT: "RESTART",
             VALUE: true
         }));
-        // window.location.replace("http://" + window.location.host + "/survey");
+    }
+
+    function nextGoal(){
+        socket.send(JSON.stringify({
+            EVENT: "NEXT_GOAL",
+            VALUE: true
+        }))
     }
 
     function enterKeyDown(e) {
         if(e.key === "Enter") {
             sendMessage("");
         }
-    }
-
-    function startRecording(){
-        // WebVoiceProcessor.WebVoiceProcessor.subscribe(vuMeterEngine).catch(error => {
-        //     writeMessage('Error initializing WebVoiceProcessor: ' + error);
-        //   })
-        mediaRecorder.start();
-        console.log("START", mediaRecorder);
-        $('#start_audio').prop("disabled",true);
-        $('#stop_audio').prop("disabled", false);
-    }
-
-    stopRecording = () => {
-        mediaRecorder.stop();
-        $('#start_audio').prop("disabled",false);
-        $('#stop_audio').prop("disabled", true);
     }
 
 </script>
@@ -581,9 +535,7 @@ body {
 
         <div class="contentFooterDivider">
             <div class="commanBtnBar" style="min-height:8rem;height: fit-content;" id="chat_header">
-                <button class="btn btn-success" id="start_audio" onclick="startRecording()">Aufnahme starten</button>
-                <button class="btn btn-warning" id="stop_audio" onclick="stopRecording()" disabled="true">Aufnahme beenden</button>
-                <button class="btn btn-danger" onclick="endDialog()">Dialog beenden</button>
+                <button class="btn btn-danger" onclick="restart()">Restart</button>
             </div>
 
             <div id="messagelist" class="messagebox"></div>
@@ -594,6 +546,15 @@ body {
             </div>
         </div>
 
+        <div id="goalContainer" class="playlist">
+            <div class="commanBtnBar" style="color: white; text-align: center;">
+                Your goal is to answer the following question:
+            </div>
+            <div id="goal" style="width:100%;">
+            <p>{{goal}}</p>
+            </div>
+            <button class="btn btn-success mb-4" onclick="nextGoal()">I found an answer</button>
+        </div>
     </div>
 
     <footer>

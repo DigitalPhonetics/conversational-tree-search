@@ -1,0 +1,660 @@
+{% extends "base.html" %}
+
+{% block css %}
+
+<style>
+    .btn-secondary.active, .btn-secondary:active {
+        color: white !important;
+        background: #00BEFF !important;
+        border-color: #00BEFF !important;
+    }
+
+</style>
+
+{% end %}
+
+{% block scripts %}
+<script>
+    function validate_form() {
+        var elements = document.getElementById("survey_form").elements;
+        for (var i = 0, element; element = elements[i++];) {
+            if (element.type == "radio"){
+            var valid = element.checkValidity()
+            if (!valid){
+                var table = document.getElementById(element.name + '_table');
+                // Handles the additional questions which are hidden and optional
+                if (table){
+                table.style.borderStyle = 'dotted';
+                table.style.borderWidth = '2px';
+                table.style.borderColor = 'red';
+                };
+            }
+            }
+            else if (element.type == "textarea"){
+            var valid = element.checkValidity()
+            if (!valid){
+                element.style.borderStyle = 'solid';
+                element.style.borderColor = 'red';
+            }
+            else {
+                element.style.borderColor = 'grey';
+            }
+            };
+        };
+    };
+    </script> 
+
+{% end %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mb-4 mt-4">Post-Interaction Survey</h1>
+    <form id="survey_form" onsubmit="return submit_form(event)" method="POST" action="/log_post_survey">
+
+        <div class="card mt-5 mb-3">
+            <div class="card-header">
+                <h4>Expectations</h4>
+            </div>
+            <div class="card-body">
+                <h6>How well did the chatbot you interacted with match your expectations for a chatbot? Please describe in which ways your expectations were or were not met.</h6>
+                <div class="form-group">
+                    <textarea class="form-control" name="expectations_1" id="expectations_1" rows="4" required></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="card mt-5 mb-3">
+            <div class="card-header">
+                <h4>Chatbot Capabilities</h4>
+            </div>
+            <div class="card-body">
+                <p class="card-title" style="padding-top: 2%"><b>After interacting with the chatbot, please mark how much you agree with the following statements:</b></p>
+                <table class="table table-striped" style="width: 70%; margin-top: 2%; margin-left: 15%; margin-bottom: 2%">
+            <thead>
+            <tr>
+                <td scope="col" />
+                <td scope="col" style="text-align: center">
+                Strongly Disagree
+                </td>
+                <td scope="col" style="text-align: center">
+                Disagree
+                </td>
+                <td scope="col" style="text-align: center">
+                Neither Agree Nor Disagree
+                </td>
+                <td scope="col" style="text-align: center">
+                Agree
+                </td>
+                <td scope="col" style="text-align: center">
+                Strongly Agree
+                </td>
+                <td scope=""col style="text-align: center;">
+                N/A
+                </td>       
+            </tr>
+            </thead>
+            <tbody>
+                <tr id="chat_exp_1">
+                    <td scope="row">
+                        The chatbot was able to understand natural language questions, like I would phrase them if I were asking another person
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_1" id="chat_exp_1_1" value="1" required>
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_1" id="chat_exp_1_2" value="2" required>
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_1" id="chat_exp_1_3" value="3" required>
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_1" id="chat_exp_1_4" value="4" required>
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_1" id="chat_exp_1_5" value="5" required>
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_1" id="chat_exp_1_6" value="None" required>
+                    </td>                    
+                </tr>
+
+                <tr id="chat_exp_2">
+                    <td scope="row">
+                        The chatbot was only able to recognize keywords/ input from a fixed set of options I could select
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_2" id="chat_exp_2_1" value="1" required>
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_2" id="chat_exp_2_2" value="2" required>
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_2" id="chat_exp_2_3" value="3" required>
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_2" id="chat_exp_2_4" value="4" required>
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_2" id="chat_exp_2_5" value="5" required>
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_2" id="chat_exp_2_6" value="None" required>
+                    </td>  
+                </tr> 
+                
+                <tr id="chat_exp_3">
+                    <td scope="row">
+                        In order to get a good answer, I had to ask a very precise question
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_3" id="chat_exp_3_1" value="1" required>
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_3" id="chat_exp_3_2" value="2" required>
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_3" id="chat_exp_3_3" value="3" required>
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_3" id="chat_exp_3_4" value="4" required>
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_3" id="chat_exp_3_5" value="5" required>
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_3" id="chat_exp_3_6" value="None" required>
+                    </td>  
+                </tr>
+                
+                <tr id="chat_exp_4">
+                    <td scope="row">
+                        The chatbot was able to ask clarifying questions to help me narrow down my problem, e.g., if my original question is vague
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_4" id="chat_exp_4_1" value="1" required>
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_4" id="chat_exp_4_2" value="2" required>
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_4" id="chat_exp_4_3" value="3" required>
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_4" id="chat_exp_4_4" value="4" required>
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_4" id="chat_exp_4_5" value="5" required>
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_4" id="chat_exp_4_6" value="None" required>
+                    </td>  
+                </tr>
+                
+                <tr id="chat_exp_5">
+                    <td scope="row">
+                        The chatbot was only able to give a general answer to my questions
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_5" id="chat_exp_5_1" value="1" required>
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_5" id="chat_exp_5_2" value="2" required>
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_5" id="chat_exp_5_3" value="3" required>
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_5" id="chat_exp_5_4" value="4" required>
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_5" id="chat_exp_5_5" value="5" required>
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_5" id="chat_exp_5_6" value="None" required>
+                    </td>  
+                </tr>
+                
+                <tr id="chat_exp_6">
+                    <td scope="row">
+                        The chatbot was able to give personalized answers specific to my case
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_6" id="chat_exp_6_1" value="1" required>
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_6" id="chat_exp_6_2" value="2" required>
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_6" id="chat_exp_6_3" value="3" required>
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_6" id="chat_exp_6_4" value="4" required>
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_6" id="chat_exp_6_5" value="5" required>
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_6" id="chat_exp_6_6" value="None" required>
+                    </td>  
+                </tr>  
+                
+                <tr id="chat_exp_7">
+                    <td scope="row">
+                       The chatbot was able to provide an immediate answer as a direct response to my question (single turn interaction)
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_7" id="chat_exp_7_1" value="1" required>
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_7" id="chat_exp_7_2" value="2" required>
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_7" id="chat_exp_7_3" value="3" required>
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_7" id="chat_exp_7_4" value="4" required>
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_7" id="chat_exp_7_5" value="5" required>
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_7" id="chat_exp_7_6" value="None" required>
+                    </td>  
+                </tr>
+
+                <tr id="chat_exp_8">
+                    <td scope="row">
+                        The chatbot needed to ask multiple questions before it is able to give me an answer
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_8" id="chat_exp_8_1" value="1" required>
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_8" id="chat_exp_8_2" value="2" required>
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_8" id="chat_exp_8_3" value="3" required>
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_8" id="chat_exp_8_4" value="4" required>
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_8" id="chat_exp_8_5" value="5" required>
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="chat_exp_8" id="chat_exp_8_6" value="None" required>
+                    </td>  
+                </tr>
+            </tbody>
+        </table>
+        </div>
+        </div>
+
+        <div class="card mt-5 mb-3">
+            <div class="card-header">
+                <h4>User Experience</h4>
+            </div>
+            <div class="card-body">
+                <p class="card-title" style="padding-top: 2%"><b>Please mark how much you agree with the following statements:</b></p>
+                <table
+                class="table table-striped"
+                style="width: 70%; margin-top: 2%; margin-left: 15%; margin-bottom: 2%">
+                <thead>
+                    <tr>
+                        <td scope="col" />
+                        <td scope="col" style="text-align: center">
+                        Strongly Disagree
+                        </td>
+                        <td scope="col" style="text-align: center">
+                        Disagree
+                        </td>
+                        <td scope="col" style="text-align: center">
+                        Neither Agree Nor Disagree
+                        </td>
+                        <td scope="col" style="text-align: center">
+                        Agree
+                        </td>
+                        <td scope="col" style="text-align: center">
+                        Strongly Agree
+                        </td>    
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr id="reliability_1">
+                            <td scope="row">
+                                The chatbot was capable of interpreting situations correctly
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="reliability_1" id="reliability_1_1" value="1" required>
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="reliability_1" id="reliability_1_2" value="2" required>
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="reliability_1" id="reliability_1_3" value="3" required>
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="reliability_1" id="reliability_1_4" value="4" required>
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="reliability_1" id="reliability_1_5" value="5" required>
+                            </td>                 
+                        </tr>
+                        <tr id="reliability_2">
+                            <td scope="row">
+                                The chatbot works reliably
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="reliability_2" id="reliability_2_1" value="1" required>
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="reliability_2" id="reliability_2_2" value="2" required>
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="reliability_2" id="reliability_2_3" value="3" required>
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="reliability_2" id="reliability_2_4" value="4" required>
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="reliability_2" id="reliability_2_5" value="5" required>
+                            </td>                 
+                        </tr> 
+                        <tr id="reliability_3">
+                            <td scope="row">
+                                A malfunction of the chatbot is likely
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="reliability_3" id="reliability_3_1" value="1" required>
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="reliability_3" id="reliability_3_2" value="2" required>
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="reliability_3" id="reliability_3_3" value="3" required>
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="reliability_3" id="reliability_3_4" value="4" required>
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="reliability_3" id="reliability_3_5" value="5" required>
+                            </td>                 
+                        </tr>
+                        <tr id="reliability_4">
+                            <td scope="row">
+                                The chatbot is capable of handling complex tasks
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="reliability_4" id="reliability_4_1" value="1" required>
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="reliability_4" id="reliability_4_2" value="2" required>
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="reliability_4" id="reliability_4_3" value="3" required>
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="reliability_4" id="reliability_4_4" value="4" required>
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="reliability_4" id="reliability_4_5" value="5" required>
+                            </td>                 
+                        </tr>
+                        <tr id="reliability_5">
+                            <td scope="row">
+                                The chatbot might make sporadic errors
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="reliability_5" id="reliability_5_1" value="1" required>
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="reliability_5" id="reliability_5_2" value="2" required>
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="reliability_5" id="reliability_5_3" value="3" required>
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="reliability_5" id="reliability_5_4" value="4" required>
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="reliability_5" id="reliability_5_5" value="5" required>
+                            </td>                 
+                        </tr>
+                        <tr id="reliability_6">
+                            <td scope="row">
+                                I am confident about the chatbot's abilities
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="reliability_6" id="reliability_6_1" value="1" required>
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="reliability_6" id="reliability_6_2" value="2" required>
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="reliability_6" id="reliability_6_3" value="3" required>
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="reliability_6" id="reliability_6_4" value="4" required>
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="reliability_6" id="reliability_6_5" value="5" required>
+                            </td>                 
+                        </tr>
+                        <!-- <tr id="understanding_1">
+                            <td scope="row">
+                                The chatbot's state was always clear to me
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="understanding_1" id="understanding_1_1" value="1" required>
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="understanding_1" id="understanding_1_2" value="2" required>
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="understanding_1" id="understanding_1_3" value="3" required>
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="understanding_1" id="understanding_1_4" value="4" required>
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="understanding_1" id="understanding_1_5" value="5" required>
+                            </td>                 
+                        <tr>
+                        <tr id="understanding_2">
+                            <td scope="row">
+                                The chatbot reacts unpredictably
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="understanding_2" id="understanding_2_1" value="1" required>
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="understanding_2" id="understanding_2_2" value="2" required>
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="understanding_2" id="understanding_2_3" value="3" required>
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="understanding_2" id="understanding_2_4" value="4" required>
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="understanding_2" id="understanding_2_5" value="5" required>
+                            </td>                 
+                        <tr>
+                        <tr id="understanding_3">
+                            <td scope="row">
+                                I was able to understand why things happened
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="understanding_3" id="understanding_3_1" value="1" required>
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="understanding_3" id="understanding_3_2" value="2" required>
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="understanding_3" id="understanding_3_3" value="3" required>
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="understanding_3" id="understanding_3_4" value="4" required>
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="understanding_3" id="understanding_3_5" value="5" required>
+                            </td>
+                        <tr>
+                        <tr id="understanding_4">
+                            <td scope="row">
+                                It's difficult to understand what they chatbot will do next
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="understanding_4" id="understanding_4_1" value="1" required>
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="understanding_4" id="understanding_4_2" value="2" required>
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="understanding_4" id="understanding_4_3" value="3" required>
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="understanding_4" id="understanding_4_4" value="4" required>
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="understanding_4" id="understanding_4_5" value="5" required>
+                            </td>                 
+                        <tr> -->
+                        <tr id="trust_1">
+                            <td scope="row">
+                                I trust the chatbot
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="trust_1" id="trust_1_1" value="1" required>
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="trust_1" id="trust_1_2" value="2" required>
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="trust_1" id="trust_1_3" value="3" required>
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="trust_1" id="trust_1_4" value="4" required>
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="trust_1" id="trust_1_5" value="5" required>
+                            </td>                 
+                        </tr>
+                        <tr id="trust_2">
+                            <td scope="row">
+                                I trust the chatbot
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="trust_2" id="trust_2_1" value="1" required>
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="trust_2" id="trust_2_2" value="2" required>
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="trust_2" id="trust_2_3" value="3" required>
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="trust_2" id="trust_2_4" value="4" required>
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="trust_2" id="trust_2_5" value="5" required>
+                            </td>
+                        </tr>
+                        <tr id="umux_1">
+                            <td scope="row">
+                                This chatbot's capabilities met my requirements
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="umux_1" id="umux_1_1" value="1" required>
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="umux_1" id="umux_1_2" value="2" required>
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="umux_1" id="umux_1_3" value="3" required>
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="umux_1" id="umux_1_4" value="4" required>
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="umux_1" id="umux_1_5" value="5" required>
+                            </td>
+                        </tr>
+                        <tr id="umux_2">
+                            <td scope="row">
+                                Using this chatbot is a frustrating experience
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="umux_2" id="umux_2_1" value="1" required>
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="umux_2" id="umux_2_2" value="2" required>
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="umux_2" id="umux_2_3" value="3" required>
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="umux_2" id="umux_2_4" value="4" required>
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="umux_2" id="umux_2_5" value="5" required>
+                            </td>
+                        </tr>
+                        <tr id="umux_3">
+                            <td scope="row">
+                                This chatbot is easy to use
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="umux_3" id="umux_3_1" value="1" required>
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="umux_3" id="umux_3_2" value="2" required>
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="umux_3" id="umux_3_3" value="3" required>
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="umux_3" id="umux_3_4" value="4" required>
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="umux_3" id="umux_3_5" value="5" required>
+                            </td>
+                        </tr>
+                        <tr id="umux_4">
+                            <td scope="row">
+                                I have to spend to long correcting things with this chatbot
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="umux_4" id="umux_4_1" value="1" required>
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="umux_4" id="umux_4_2" value="2" required>
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="umux_4" id="umux_4_3" value="3" required>
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="umux_4" id="umux_4_4" value="4" required>
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="umux_4" id="umux_4_5" value="5" required>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h6 style="padding-top: 2%;">What did you like about your interaction with the chatbot? What would you consider the chatbot's strengths to be?</h6>
+                <div class="form-group">
+                <textarea class="form-control" name="expectations_2" id="expectations_2" rows="4" required></textarea>
+                </div> 
+
+                <h6 style="padding-top: 2%;">What did you dislike about your interaction with the chatbot? What would you consider the chatbot's weaknesses?</h6>
+                <div class="form-group">
+                <textarea class="form-control" name="expectations_3" id="expecations_3" rows="4" required></textarea>
+                </div>   
+            </div>
+        </div>
+
+
+        <button type="submit" class="btn btn-success mb-4" onclick="validate_form()">Submit</button>
+    </form>
+</div>
+{% end %}
