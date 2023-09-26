@@ -1,8 +1,6 @@
 import asyncio
 import logging
 import hashlib
-from multiprocessing import freeze_support
-from typing import Dict
 import multiprocessing
 
 import tornado
@@ -11,9 +9,9 @@ from tornado.web import RequestHandler, Application
 from tornado.websocket import WebSocketHandler
 
 from environment.realuser import RealUserEnvironment
-from typing import Tuple
+from typing import List, Tuple
 from data.dataset import GraphDataset, ReimburseGraphDataset, DataAugmentationLevel
-from data.parsers.parserValueProvider import RealValueBackend
+from data.parsers.parserValueProvider import ReimbursementRealValueBackend
 from data.parsers.answerTemplateParser import AnswerTemplateParser
 from data.parsers.systemTemplateParser import SystemTemplateParser
 from data.parsers.logicParser import LogicTemplateParser
@@ -24,7 +22,7 @@ from data.cache import Cache
 from gymnasium import Env
 from encoding.state import StateEncoding
 
-from config import DialogLogLevel, WandbLogLevel
+from config import ActionType, DialogLogLevel, WandbLogLevel
 from algorithm.dqn.her import HindsightExperienceReplayWrapper
 import gymnasium as gym
 
@@ -37,9 +35,13 @@ DEBUG = True
 NUM_GOALS = 2
 GROUP_ASSIGNMENTS = {"hdc": [], "faq": [], "cts": []}
 USER_GOAL_NUM = {}
+CHAT_ENGINES = {}
+DEVICE = "cpu"
 
 # on start, check if we have an assignment file, if so, load it and pre-fill group assignments with content
-with open("user_log.txt", "rt") as assignments:
+with open("user_log.txt", "a+") as assignments:
+    print(assignments)
+    print(type(assignments))
     for line in assignments:
         if "GROUP" in line:
             user, group = line.split("||")
@@ -182,13 +184,7 @@ def load_model(ckpt_path: str, cfg_name: str, device: str, data: GraphDataset) -
         model.policy.eval()
     return cfg, model, encoding
 
-def load_env(data: GraphDataset) -> RealUserEnvironment:
-    # setup data & parsers
-    answerParser = AnswerTemplateParser()
-    logicParser = LogicTemplateParser()
-    sysParser = SystemTemplateParser()
-    valueBackend = RealValueBackend(a1_laender=data.a1_countries, data=data.hotel_costs)
-
+def load_env(data: GraphDataset, answer_parser, logic_parser, value_backend) -> RealUserEnvironment:
     # setup env
     env = RealUserEnvironment(dataset=data, 
                         sys_token="SYSTEM", usr_token="USER", sep_token="",
@@ -197,18 +193,15 @@ def load_env(data: GraphDataset) -> RealUserEnvironment:
                         auto_skip=AutoSkipMode.NONE, stop_on_invalid_skip=False)
     return env
 
-# data = ReimburseGraphDataset('en/reimburse/test_graph.json', 'en/reimburse/test_answers.json', use_answer_synonyms=True, augmentation=DataAugmentationLevel.NONE, resource_dir='resources')
-# cfg, model, state_encoding = load_model(ckpt_path=ckpt_path, cfg_name=cfg_name, device='cpu', data=data)
-
-def next_action(env: RealUserEnvironment) -> Tuple[int, bool]:
-    # encode observation
-    s = state_encoding.batch_encode(observation=[env.get_obs()], sys_token=cfg.experiment.environment.sys_token, usr_token=cfg.experiment.environment.usr_token, sep_token=cfg.experiment.environment.sep_token) 
-    # predict action & intent
-    action, intent = model.predict(observation=s, deterministic=True)
-    action = int(action)
-    intent = intent.item()
-
-    return action, intent
+# setup data
+data = ReimburseGraphDataset('en/reimburse/test_graph.json', 'en/reimburse/test_answers.json', use_answer_synonyms=True, augmentation=DataAugmentationLevel.NONE, resource_dir='resources')
+# setup data & parsers
+answerParser = AnswerTemplateParser()
+logicParser = LogicTemplateParser()
+sysParser = SystemTemplateParser()
+valueBackend = ReimbursementRealValueBackend(a1_laender=data.a1_countries, data=data.hotel_costs)
+# setup model and encoding
+cfg, model, state_encoding = load_model(ckpt_path=ckpt_path, cfg_name=cfg_name, device=DEVICE, data=data)
 
 
 def choose_user_goal(user_id: str):
@@ -226,51 +219,42 @@ def choose_user_goal(user_id: str):
 ## - Logging?
 ## - Survey processing?
 class ChatEngine:
-    def __init__(self, user_id: str) -> None:
+    def __init__(self, user_id: str, socket) -> None:
         self.user_id = user_id
-        self.user_env = RealUserEnvironment() # contains .bst, .reset()
+        self.user_env = load_env(data, answerParser, logicParser, valueBackend) # contains .bst, .reset()
         self.current_obs = None
+        self.socket = socket
 
     def start_dialog(self) -> None:
         self.current_obs = self.reset()
 
-    def reply(self) -> str:
+    def user_reply(self, user_utterance: str):
+        # TODO is it enough to set current user utterance ?
+        self.user_env.current_user_utterance = user_utterance
 
+    def system_reply(self) -> List[str]:
+        # encode observation
+        s = state_encoding.batch_encode(observation=[self.user_env.get_obs()], sys_token=cfg.experiment.environment.sys_token, usr_token=cfg.experiment.environment.usr_token, sep_token=cfg.experiment.environment.sep_token) 
+        # predict action & intent
+        action, intent = model.predict(observation=s, deterministic=True)
+        action = int(action)
+        intent = intent.item()
 
+        msgs = []
 
+        if action == ActionType.ASK:
+            # get system message from action
+            msgs.append(self.user_env.current_node.text)
 
+            # TODO continue automatic looping after certain nodes
+            # - info node (because there will be no expected user input)
+        elif action >= ActionType.SKIP:
+            # continue skipping
+            msgs.extend(self.system_reply())
 
-class GUIInterface(Service):
-    def __init__(self, domain = None, logger =  None):
-        Service.__init__(self, domain=domain)
-        self.logger = logger
-        self.loopy_loop = asyncio.new_event_loop()
+        for msg in msgs:
+            self.socket.write_message(msg)
 
-    @PublishSubscribe(sub_topics=['sys_utterance'])
-    def send_sys_output(self, user_id: str = "default", sys_utterance: str = ""):
-        asyncio.set_event_loop(self.loopy_loop)
-        print("SYS MSG:", sys_utterance)
-        if self.get_state(user_id, 'socket'):
-            logging.getLogger("chat").info(f"MSG SYSTEM ({user_id}): {sys_utterance}")
-            self.get_state(user_id, 'socket').write_message({"EVENT": "MSG", "VALUE": sys_utterance})
-        else:
-            print("NOT CONNECTED")
-
-    # TODO: update once we have speech and not text
-    @PublishSubscribe(pub_topics=["user_utterance"])
-    def forward_to_dialog_system(self, user_id, user_utterance):
-        print("USER", user_id)
-        print("PUBLISH TO DIALOG SYSTEM")
-        return {"user_utterance": user_utterance}
-    
-
-# TODO 
-gui_interface = GUIInterface(domain=domain)
-bst = HandcraftedBST(domain=domain)
-ds = DialogSystem([gui_interface, nlg, nlu, bst, policy, adaptivity])
-error_free = ds.is_error_free_messaging_pipeline()
-if not error_free:
-    ds.print_inconsistencies()
 
 class BaseHandler(RequestHandler):
     def get_current_user(self):
@@ -333,8 +317,6 @@ class ChatIndex(BaseHandler):
     def get(self):
         global USER_GOAL_NUM
         # TODO: actually choose a goal
-        if self.current_user not in USER_GOAL_NUM:
-            USER_GOAL_NUM[self.current_user]  = 1
         goal = choose_user_goal(self.current_user)
         logging.getLogger("chat").info(f"USER: {self.current_user} || GOAL: {goal}")
         self.render("server/templates/chat.html", goal=goal)
@@ -362,24 +344,31 @@ class ThankYou(BaseHandler):
 
 class UserChatSocket(AuthenticatedWebSocketHandler):
     def open(self):
+        global CHAT_ENGINES
         print(f"Opened socket for user: {self.current_user}")
         print(f"starting dialog system for user {self.current_user}")
         logging.getLogger("chat").info(f"==== NEW DIALOG STARTED FOR USER {self.current_user} ====")
         # TODO initialise new dialog for user
+        if not self.current_user in CHAT_ENGINES:
+            CHAT_ENGINES[self.get_current_user] = ChatEngine(self.current_user, self)
+        CHAT_ENGINES[self.get_current_user].start_dialog()
 
     def on_message(self, message):
         global NUM_GOALS
         global USER_GOAL_NUM
+        global CHAT_ENGINES
         data = tornado.escape.json_decode(message)
         event = data["EVENT"]
         value = data["VALUE"]
         if event == "MSG":
-            # TODO: forward message to (correct) dialog system
+            # forward message to (correct) dialog system
             print(f"MSG for user {self.current_user}: {message}")
             logging.getLogger("chat").info(f"MSG USER ({self.current_user}): {value}")
+            CHAT_ENGINES[self.current_user].user_reply(message)
         elif event == "RESTART":
             logging.getLogger("chat").info(f"USER ({self.current_user} FINISHED DIALOG)")
-            # TODO restart dialog
+            # restart dialog
+            CHAT_ENGINES[self.current_user].start_dialog()
         elif event == "NEXT_GOAL":
             # TODO choose a new goal
             if USER_GOAL_NUM[self.current_user] >= NUM_GOALS:
@@ -416,7 +405,7 @@ if __name__ == "__main__":
     ], **settings)
     print("created app")
     http_server = tornado.httpserver.HTTPServer(app) #, ssl_options = ssl_ctx)
-    http_server.listen(8000)
+    http_server.listen(44123)
     print("set up server address")
 
     io_loop = tornado.ioloop.IOLoop.current()
