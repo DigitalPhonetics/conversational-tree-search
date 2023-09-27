@@ -78,6 +78,11 @@ class CustomVecEnv(VecEnv):
             # Gym 0.26 introduces a breaking change
             self.buf_infos[env_idx]["TimeLimit.truncated"] = False
 
+            if self.envs[env_idx].active_env.env_mode == "guided":
+                self.envs[env_idx].last_log_end_ptr_guided = len(self.envs[env_idx].guided_env.episode_log)
+            elif self.envs[env_idx].active_env.env_mode == "free":
+                self.envs[env_idx].last_log_end_ptr_free = len(self.envs[env_idx].free_env.episode_log)
+
             if self.buf_dones[env_idx]:
                 # save final observation where user can get it, then reset
                 if self.save_terminal_obs:

@@ -84,7 +84,7 @@ class BaseEnv:
         self.visited_node_keys = defaultdict(int)
         self.bst = {}
 
-        self._mode = "none"
+        self.env_mode = "none"
         self.initial_user_utterance = "" 
         self.current_node = self.data.start_node.connected_node
         self.prev_node = None
@@ -309,6 +309,7 @@ class BaseEnv:
                 self.percieved_length += 1
                 self.actioncount_asks[self.current_node.node_type] += 1
                 done, reward = self.ask(replayed_user_utterance)
+                self.episode_log.append(f'{self.env_id}-{self.current_episode}$ ASKING NODE: {self.current_node.node_type.value} - {self.current_node.key} - {self.current_node.text[:100]}')
             else:
                 self.actioncount_skips[self.current_node.node_type] += 1
                 done, reward = self.skip(action-1) # get answer index by shifting actions to the left
@@ -329,7 +330,7 @@ class BaseEnv:
                     self.on_path = False
                     if self.current_node:
                         # check if skip was correct locally (in case it is NOT the first turn of an FAQ-style dialog - in which case the answer will not be in the answer synonyms!)
-                        if self.prev_node.node_type == NodeType.QUESTION and self.last_action_idx == ActionType.ASK and (self._mode == "guided" or (self._mode == "free" and self.user_utterances_history[-1] != self.initial_user_utterance)):
+                        if self.prev_node.node_type == NodeType.QUESTION and self.last_action_idx == ActionType.ASK and (self.env_mode == "guided" or (self.env_mode == "free" and self.user_utterances_history[-1] != self.initial_user_utterance)):
                             # we have user input for previous turn!
                             locally_correct = self.locally_correct_skip(prev_usr_utterance=self.user_utterances_history[-1], origin_node=self.prev_node, followup_node=self.current_node)
                             self.actioncount_skip_accuracy.append(1.0 if locally_correct else 0.0)

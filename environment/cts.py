@@ -37,6 +37,8 @@ class CTSEnvironment(gymnasium.Env):
         self.goal_distance_increment = goal_distance_increment
         self.data = dataset
         self.mode = mode
+        self.last_log_end_ptr_free = 0
+        self.last_log_end_ptr_guided = 0
 
         self.max_reward = 4 * dataset.get_max_tree_depth() if normalize_rewards else 1.0
         self.max_distance = dataset.get_max_tree_depth() + 1  if goal_distance_mode == GoalDistanceMode.FULL_DISTANCE else 1 # set max. or min. distance to start
@@ -114,6 +116,7 @@ class CTSEnvironment(gymnasium.Env):
         return log
     
     def reset_episode_log(self):
+        self.last_log_end_ptr = 0
         if hasattr(self, "guided_env"):
             self.guided_env.episode_log = []
         if hasattr(self, "free_env"):

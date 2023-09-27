@@ -38,7 +38,7 @@ class GuidedEnvironment(BaseEnv):
     def reset(self, current_episode: int, max_distance: int, replayed_goal: DummyGoal = None):
         self.pre_reset()
 
-        self._mode = "guided"
+        self.env_mode = "guided"
         self.goal = self.goal_gen.draw_goal_guided(max_distance) if isinstance(replayed_goal, type(None)) else replayed_goal
         self.coverage_answer_synonyms[self.goal.delexicalised_initial_user_utterance.lower().replace("?", "")] += 1
         
