@@ -8,7 +8,7 @@ import tornado.httpserver
 from tornado.web import RequestHandler, Application
 from tornado.websocket import WebSocketHandler
 
-from environment.realuser import RealUserEnvironment
+from environment.realuser import RealUserEnvironment, RealUserEnvironmentWeb
 from typing import List, Tuple
 from data.dataset import GraphDataset, ReimburseGraphDataset, DataAugmentationLevel
 from data.parsers.parserValueProvider import ReimbursementRealValueBackend
@@ -36,7 +36,7 @@ NUM_GOALS = 2
 GROUP_ASSIGNMENTS = {"hdc": [], "faq": [], "cts": []}
 USER_GOAL_NUM = {}
 CHAT_ENGINES = {}
-DEVICE = "cpu"
+DEVICE = "cuda:0"
 
 # on start, check if we have an assignment file, if so, load it and pre-fill group assignments with content
 with open("user_log.txt", "a+") as assignments:
@@ -72,8 +72,8 @@ cs = ConfigStore.instance()
 register_configs()
 
 ## NOTE: assumes already unzipped checkpoint at cfg_path!
-cfg_name = "reimburse_generated_v1_terminalobs"
-ckpt_path = '/mount/arbeitsdaten/asr-2/vaethdk/cts_newcodebase_weights/run_1695028356/best_eval/weights/test'
+cfg_name = "reimburse_realdata_terminalobs"
+ckpt_path = '/mount/arbeitsdaten/asr-2/vaethdk/cts_newcodebase_weights/run_1694965093/best_eval/weights/tmp'
 
 multiprocessing.set_start_method("spawn")
 
@@ -147,7 +147,7 @@ def load_model(ckpt_path: str, cfg_name: str, device: str, data: GraphDataset) -
             "sep_token": cfg.experiment.environment.sep_token,
             "alpha": cfg.experiment.algorithm.dqn.buffer.backend.alpha,
             "beta": cfg.experiment.algorithm.dqn.buffer.backend.beta,
-            "use_lap": cfg.experiment.algorithm.dqn.buffer.backend.use_lap 
+            "use_lap": cfg.experiment.algorithm.dqn.buffer.backend.use_lap ,
         }
         replay_buffer_class = HindsightExperienceReplayWrapper
         dqn_target_cls =  to_class(cfg.experiment.algorithm.dqn.targets._target_)
@@ -161,7 +161,7 @@ def load_model(ckpt_path: str, cfg_name: str, device: str, data: GraphDataset) -
                     verbose=1, device=cfg.experiment.device,  
                     learning_rate=lr, 
                     exploration_initial_eps=cfg.experiment.algorithm.dqn.eps_start, exploration_final_eps=cfg.experiment.algorithm.dqn.eps_end, exploration_fraction=cfg.experiment.algorithm.dqn.exploration_fraction,
-                    buffer_size=cfg.experiment.algorithm.dqn.buffer.backend.buffer_size, 
+                    buffer_size=1, # we don't need to store experience, will only increase RAM usage 
                     learning_starts=cfg.experiment.algorithm.dqn.warmup_turns,
                     gamma=cfg.experiment.algorithm.dqn.gamma,
                     train_freq=1, # how many rollouts to perform before training once (one rollout = num_train_envs steps)
@@ -184,9 +184,9 @@ def load_model(ckpt_path: str, cfg_name: str, device: str, data: GraphDataset) -
         model.policy.eval()
     return cfg, model, encoding
 
-def load_env(data: GraphDataset, answer_parser, logic_parser, value_backend) -> RealUserEnvironment:
+def load_env(data: GraphDataset, answer_parser, logic_parser, value_backend) -> RealUserEnvironmentWeb:
     # setup env
-    env = RealUserEnvironment(dataset=data, 
+    env = RealUserEnvironmentWeb(dataset=data, 
                         sys_token="SYSTEM", usr_token="USER", sep_token="",
                         max_steps=50, max_reward=150, user_patience=2,
                         answer_parser=answerParser, logic_parser=logicParser, value_backend=valueBackend,
@@ -222,39 +222,47 @@ class ChatEngine:
     def __init__(self, user_id: str, socket) -> None:
         self.user_id = user_id
         self.user_env = load_env(data, answerParser, logicParser, valueBackend) # contains .bst, .reset()
-        self.current_obs = None
         self.socket = socket
 
     def start_dialog(self) -> None:
-        self.current_obs = self.reset()
+        self.user_env.reset()
+        self.action = ActionType.ASK.value # 1st action is to ask user start node
+        self.socket.write_message({"EVENT": "MSG", "VALUE": self.user_env.current_node.text})
 
     def user_reply(self, user_utterance: str):
-        # TODO is it enough to set current user utterance ?
-        self.user_env.current_user_utterance = user_utterance
+        print("Setting user reply:", user_utterance)
+        if self.user_env.first_turn:
+            self.user_env.set_initial_user_utterance(user_utterance)
+        else:
+            self.user_env.set_user_utterance(user_utterance)
+        self.system_reply() # continue dialog loop
 
-    def system_reply(self) -> List[str]:
-        # encode observation
-        s = state_encoding.batch_encode(observation=[self.user_env.get_obs()], sys_token=cfg.experiment.environment.sys_token, usr_token=cfg.experiment.environment.usr_token, sep_token=cfg.experiment.environment.sep_token) 
-        # predict action & intent
-        action, intent = model.predict(observation=s, deterministic=True)
-        action = int(action)
-        intent = intent.item()
+    def system_reply(self):
+        done = False
+        while not done:
+            print("Choosing next action...")
+            obs, reward, done = self.user_env.step(self.action)
 
-        msgs = []
+            if not done:
+                # encode observation
+                s = state_encoding.batch_encode(observation=[obs], sys_token=cfg.experiment.environment.sys_token, usr_token=cfg.experiment.environment.usr_token, sep_token=cfg.experiment.environment.sep_token) 
+                # predict action & intent
+                action, intent = model.predict(observation=s, deterministic=True)
+                self.action = int(action)
+                intent = intent.item()
+                print("-> ACTION", action)
 
-        if action == ActionType.ASK:
-            # get system message from action
-            msgs.append(self.user_env.current_node.text)
+                if action == ActionType.ASK:
+                    # get system message from action
+                    self.socket.write_message({"EVENT": "MSG", "VALUE": self.user_env.current_node.text})
+                    if self.user_env.needs_user_utterance():
+                        done = True
+                elif action >= ActionType.SKIP:
+                    # continue skipping
+                    pass
 
-            # TODO continue automatic looping after certain nodes
-            # - info node (because there will be no expected user input)
-        elif action >= ActionType.SKIP:
-            # continue skipping
-            msgs.extend(self.system_reply())
-
-        for msg in msgs:
-            self.socket.write_message(msg)
-
+                    
+        
 
 class BaseHandler(RequestHandler):
     def get_current_user(self):
@@ -317,6 +325,7 @@ class ChatIndex(BaseHandler):
     def get(self):
         global USER_GOAL_NUM
         # TODO: actually choose a goal
+        USER_GOAL_NUM[self.current_user] = 1
         goal = choose_user_goal(self.current_user)
         logging.getLogger("chat").info(f"USER: {self.current_user} || GOAL: {goal}")
         self.render("server/templates/chat.html", goal=goal)
@@ -350,8 +359,10 @@ class UserChatSocket(AuthenticatedWebSocketHandler):
         logging.getLogger("chat").info(f"==== NEW DIALOG STARTED FOR USER {self.current_user} ====")
         # TODO initialise new dialog for user
         if not self.current_user in CHAT_ENGINES:
-            CHAT_ENGINES[self.get_current_user] = ChatEngine(self.current_user, self)
-        CHAT_ENGINES[self.get_current_user].start_dialog()
+            CHAT_ENGINES[self.current_user] = ChatEngine(self.current_user, self)
+        else:
+            CHAT_ENGINES[self.current_user].socket = self
+        CHAT_ENGINES[self.current_user].start_dialog()
 
     def on_message(self, message):
         global NUM_GOALS
@@ -366,8 +377,8 @@ class UserChatSocket(AuthenticatedWebSocketHandler):
             logging.getLogger("chat").info(f"MSG USER ({self.current_user}): {value}")
             CHAT_ENGINES[self.current_user].user_reply(message)
         elif event == "RESTART":
-            logging.getLogger("chat").info(f"USER ({self.current_user} FINISHED DIALOG)")
             # restart dialog
+            logging.getLogger("chat").info(f"USER ({self.current_user} NEW DIALOG)")
             CHAT_ENGINES[self.current_user].start_dialog()
         elif event == "NEXT_GOAL":
             # TODO choose a new goal
