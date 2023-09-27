@@ -5,11 +5,11 @@ from data.dataset import GraphDataset
 locale.setlocale(locale.LC_ALL, 'de_DE.UTF-8') 
 
 class ValueBackend:
-    def get_nlu_val(self, bst: dict, var_name: str):
-        raise NotImplementedError
-
     def get_table_val(self, table_name, func_name, values):
         raise NotImplementedError
+    
+    def get_nlu_val(self, bst: dict, var_name: str):
+        return bst[var_name]
 
 
 class MockDB(ValueBackend):
@@ -30,12 +30,12 @@ class MockDB(ValueBackend):
 
 
 class RealValueBackend(ValueBackend):
+    pass
+
+class ReimbursementRealValueBackend(ValueBackend):
     def __init__(self, a1_laender: Dict[str, bool], data: GraphDataset) -> None:
         self.a1_laender = a1_laender
         self.data = data
-
-    def get_nlu_val(self, bst: dict, var_name: str):
-        return bst[var_name]
 
     def get_table_val(self, table_name, func_name, values):
         if table_name == 'TAGEGELD':

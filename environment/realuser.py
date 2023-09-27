@@ -21,6 +21,8 @@ class RealUserGoal:
     constraints: Dict[str, Any]
     visited_ids: Set[int]
 
+
+
 class RealUserEnvironment(BaseEnv):
     def __init__(self,
             dataset: GraphDataset,
@@ -64,7 +66,7 @@ class RealUserEnvironment(BaseEnv):
 
         if self.current_node.node_type == NodeType.VARIABLE:
             # get variable name
-            var = self.answer_template_parser.find_variable(self.current_node.answer_by_index(0).text)
+            var = self.answerParser.find_variable(self.current_node.answer_by_index(0).text)
 
             # check if variable was already asked
             if var.name in self.bst:
@@ -105,3 +107,70 @@ class RealUserEnvironment(BaseEnv):
         return False
 
 
+
+
+class RealUserEnvironmentWeb(RealUserEnvironment):
+    def __init__(self,
+            dataset: GraphDataset,
+            sys_token: str, usr_token: str, sep_token: str,
+            max_steps: int, max_reward: float, user_patience: int,
+            answer_parser: AnswerTemplateParser, logic_parser: LogicTemplateParser,
+            value_backend: RealValueBackend,
+            auto_skip: AutoSkipMode, stop_on_invalid_skip: bool) -> None:
+        super().__init__(dataset=dataset,
+            sys_token=sys_token, usr_token=usr_token, sep_token=sep_token, 
+            max_steps=max_steps, max_reward=max_reward, user_patience=user_patience,
+            answer_parser=answer_parser, logic_parser=logic_parser, value_backend=value_backend,
+            auto_skip=auto_skip, stop_on_invalid_skip=stop_on_invalid_skip)
+        self.first_turn = False
+        
+    def ask(self, replayed_user_utterance: Tuple[str, None]) -> Tuple[bool, float]:
+        """ NOTE: ASK action is split into 2 parts: first part for reward, 2nd part for setting the user utterance """
+        reward = 0.0
+        # output system text
+        print("ASKING", self.current_node.text)
+
+        if self.auto_skip_mode != AutoSkipMode.NONE:
+            reward -= 1 # because it is 2 actions
+
+        return False, reward
+    
+    def needs_user_utterance(self) -> bool:
+        return self.current_node.node_type in [NodeType.VARIABLE, NodeType.QUESTION]
+
+    def set_user_utterance(self, user_utterance: str):
+        self.first_turn = False
+        if self.current_node.node_type == NodeType.VARIABLE:
+            # get variable name
+            var = self.answer_template_parser.find_variable(self.current_node.answer_by_index(0).text)
+
+            # check if variable was already asked
+            if var.name in self.bst:
+                reward -= 1 # variable value already known
+            
+            # get user reply and save to bst
+            self.bst[var.name] = user_utterance
+            self.current_user_utterance = str(deepcopy(user_utterance))
+
+            self.coverage_variables[var.name][self.bst[var.name]] += 1
+        elif self.current_node.node_type == NodeType.QUESTION:
+            self.current_user_utterance = deepcopy(user_utterance)
+
+    def set_initial_user_utterance(self, initial_user_utterance: str):
+        self.first_turn = False
+        self.goal = RealUserGoal(initial_user_utterance=initial_user_utterance, delexicalised_initial_user_utterance=initial_user_utterance,
+                                 goal_node_key=self.data.start_node.key, constraints=dict(), visited_ids=set())
+        return self.post_reset()
+
+
+    def reset(self):
+        self.episode_reward = 0.0
+        self.percieved_length = 0
+
+        self.pre_reset()
+        self.first_turn = True
+
+        # Output first node
+        # print(self.current_node.text)
+        # Ask for initial user input
+        
