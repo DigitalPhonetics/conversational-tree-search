@@ -1,4 +1,3 @@
-import asyncio
 import logging
 import hashlib
 import multiprocessing
@@ -8,8 +7,8 @@ import tornado.httpserver
 from tornado.web import RequestHandler, Application
 from tornado.websocket import WebSocketHandler
 
-from environment.realuser import RealUserEnvironment, RealUserEnvironmentWeb
-from typing import List, Tuple
+from environment.realuser import RealUserEnvironmentWeb
+from typing import Tuple
 from data.dataset import GraphDataset, ReimburseGraphDataset, DataAugmentationLevel
 from data.parsers.parserValueProvider import ReimbursementRealValueBackend
 from data.parsers.answerTemplateParser import AnswerTemplateParser
@@ -21,15 +20,15 @@ import torch
 from data.cache import Cache
 from gymnasium import Env
 from encoding.state import StateEncoding
+from server.nlu import NLU
 
-from config import ActionType, DialogLogLevel, WandbLogLevel
 from algorithm.dqn.her import HindsightExperienceReplayWrapper
 import gymnasium as gym
 
 from hydra import compose, initialize
 from omegaconf import DictConfig, OmegaConf
 from hydra.core.config_store import ConfigStore
-from config import register_configs
+from config import register_configs, ActionType, DialogLogLevel, WandbLogLevel
 
 DEBUG = True
 NUM_GOALS = 2
@@ -184,16 +183,18 @@ def load_model(ckpt_path: str, cfg_name: str, device: str, data: GraphDataset) -
         model.policy.eval()
     return cfg, model, encoding
 
-def load_env(data: GraphDataset, answer_parser, logic_parser, value_backend) -> RealUserEnvironmentWeb:
+def load_env(data: GraphDataset, nlu: NLU, answer_parser, logic_parser, value_backend) -> RealUserEnvironmentWeb:
     # setup env
-    env = RealUserEnvironmentWeb(dataset=data, 
+    env = RealUserEnvironmentWeb(dataset=data, nlu=nlu,
                         sys_token="SYSTEM", usr_token="USER", sep_token="",
                         max_steps=50, max_reward=150, user_patience=2,
                         answer_parser=answerParser, logic_parser=logicParser, value_backend=valueBackend,
                         auto_skip=AutoSkipMode.NONE, stop_on_invalid_skip=False)
     return env
 
+
 # setup data
+nlu = NLU()
 data = ReimburseGraphDataset('en/reimburse/test_graph.json', 'en/reimburse/test_answers.json', use_answer_synonyms=True, augmentation=DataAugmentationLevel.NONE, resource_dir='resources')
 # setup data & parsers
 answerParser = AnswerTemplateParser()
@@ -221,7 +222,7 @@ def choose_user_goal(user_id: str):
 class ChatEngine:
     def __init__(self, user_id: str, socket) -> None:
         self.user_id = user_id
-        self.user_env = load_env(data, answerParser, logicParser, valueBackend) # contains .bst, .reset()
+        self.user_env = load_env(data, nlu, answerParser, logicParser, valueBackend) # contains .bst, .reset()
         self.socket = socket
 
     def start_dialog(self) -> None:
@@ -232,10 +233,17 @@ class ChatEngine:
     def user_reply(self, user_utterance: str):
         print("Setting user reply:", user_utterance)
         if self.user_env.first_turn:
+            print("-- FISRT TURN")
             self.user_env.set_initial_user_utterance(user_utterance)
+            self.system_reply() # continue dialog loop
         else:
-            self.user_env.set_user_utterance(user_utterance)
-        self.system_reply() # continue dialog loop
+            print("-- NOT FIRST TURN ANYMORE")
+            error_msg = self.user_env.set_user_utterance(user_utterance)
+            print(" --- error msg", error_msg)
+            if error_msg:
+                self.socket.write_message({"EVENT": "MSG", "VALUE": error_msg})
+            else:
+                self.system_reply() # continue dialog loop
 
     def system_reply(self):
         done = False
