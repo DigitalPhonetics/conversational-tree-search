@@ -205,12 +205,11 @@ cfg, model, state_encoding = load_model(ckpt_path=ckpt_path, cfg_name=cfg_name, 
 
 
 def choose_user_goal(user_id: str):
-    # TODO actually implement logic
     global USER_GOAL_NUM
     if USER_GOAL_NUM[user_id] == 1:
-        return "TEST"
+        return "You are trying to figure out how much money you get for booking somewhere to stay on your trip. <ul><li>Your trip is to Tokyo, Japan</li><li>You plan to stay in a hotel</li></ul>"
     else:
-        return "BLAH"
+        return "You want to figure out how much money you can get reimbursed for your travel. <ul><li>You used your own car</li><li>Your trip was 20km and lasted 8 hours</li><li>You took two colleagues with you</li></ul>"
 
 ## TODO: write new GUI module
 ## - BST
