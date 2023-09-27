@@ -206,12 +206,11 @@ cfg, model, state_encoding = load_model(ckpt_path=ckpt_path, cfg_name=cfg_name, 
 
 
 def choose_user_goal(user_id: str):
-    # TODO actually implement logic
     global USER_GOAL_NUM
     if USER_GOAL_NUM[user_id] == 1:
-        return "TEST"
+        return "You are trying to figure out how much money you get for booking somewhere to stay on your trip. <ul><li>Your trip is to Tokyo, Japan</li><li>Your trip should take 10 days</li><li>You plan to stay in a hotel</li></ul>"
     else:
-        return "BLAH"
+        return "You want to figure out how much money you can get reimbursed for your travel. <ul><li>You used your own car</li><li>Your trip was 20km and lasted 8 hours</li><li>You took two colleagues with you</li></ul>"
 
 ## TODO: write new GUI module
 ## - BST
@@ -331,12 +330,7 @@ class UserAgreed(BaseHandler):
 class ChatIndex(BaseHandler):
     @tornado.web.authenticated
     def get(self):
-        global USER_GOAL_NUM
-        # TODO: actually choose a goal
-        USER_GOAL_NUM[self.current_user] = 1
-        goal = choose_user_goal(self.current_user)
-        logging.getLogger("chat").info(f"USER: {self.current_user} || GOAL: {goal}")
-        self.render("server/templates/chat.html", goal=goal)
+        self.render("server/templates/chat.html")
 
 class DataAgreement(BaseHandler):
     @tornado.web.authenticated
@@ -362,6 +356,7 @@ class ThankYou(BaseHandler):
 class UserChatSocket(AuthenticatedWebSocketHandler):
     def open(self):
         global CHAT_ENGINES
+        global USER_GOAL_NUM
         print(f"Opened socket for user: {self.current_user}")
         print(f"starting dialog system for user {self.current_user}")
         logging.getLogger("chat").info(f"==== NEW DIALOG STARTED FOR USER {self.current_user} ====")
@@ -370,6 +365,12 @@ class UserChatSocket(AuthenticatedWebSocketHandler):
             CHAT_ENGINES[self.current_user] = ChatEngine(self.current_user, self)
         else:
             CHAT_ENGINES[self.current_user].socket = self
+
+        # choose a goal
+        USER_GOAL_NUM[self.current_user] = 1 if self.current_user not in USER_GOAL_NUM else USER_GOAL_NUM[self.current_user]
+        goal = choose_user_goal(self.current_user)
+        logging.getLogger("chat").info(f"USER: {self.current_user} || GOAL: {goal}")
+        self.write_message({"EVENT": "NEW_GOAL", "VALUE": goal})            
         CHAT_ENGINES[self.current_user].start_dialog()
 
     def on_message(self, message):
@@ -388,10 +389,18 @@ class UserChatSocket(AuthenticatedWebSocketHandler):
             # restart dialog
             logging.getLogger("chat").info(f"USER ({self.current_user} NEW DIALOG)")
             CHAT_ENGINES[self.current_user].start_dialog()
-        elif event == "NEXT_GOAL":
-            # TODO choose a new goal
+        elif"NEXT_GOAL" in event:
+            # Log success/failure
+            if event == "NEXT_GOAL_CORRECT":
+                logging.getLogger("chat").info(f"USER: {self.current_user} || DIALOG END: SUCCESS")
+            elif event == "NEXT_GOAL_INCORRECT":
+                logging.getLogger("chat").info(f"USER: {self.current_user} || DIALOG END: FAILURE")
+            else:
+                logging.getLogger("chat").info(f"USER: {self.current_user} || DIALOG END: UNKNOWN CONDITION")
+            # choose a new goal
             if USER_GOAL_NUM[self.current_user] >= NUM_GOALS:
                 self.write_message({"EVENT": "EXPERIMENT_OVER", "VALUE": True})
+                # TODO: Restart dialog
             else:
                 USER_GOAL_NUM[self.current_user] += 1
                 next_goal = choose_user_goal(self.current_user)
