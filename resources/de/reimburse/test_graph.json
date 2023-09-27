@@ -411,7 +411,7 @@
             "data": {
                 "id": "16351700401033947",
                 "markup": "<p>Fl&uuml;ge sind erstattungsf&auml;hig, wenn ein besonderer<a title=\"Bedingungen f&uuml;r Flugreise\" href=\"https://www.redacted\" target=\"_blank\" rel=\"noopener\"> dienstlicher oder wirtschaftlicher Grund</a> vorliegt, z.B.:</p>\n<ul>\n<li>Wahrnehmung mehrerer aufeinanderfolgender dienstlicher Termine</li>\n<li>Gesundheitszustand</li>\n<li>Arbeitszeitgewinn</li>\n<li>F&uuml;hrt zu einer geringeren Reisekostenverg&uuml;tung</li>\n</ul>\n<p style=\"text-align: left;\">&nbsp;</p>",
-                "raw_text": "Flüge sind erstattungsfähig, wenn ein besonderer dienstlicher oder wirtschaftlicher Grund vorliegt, z.B.:Wahrnehmung mehrerer aufeinanderfolgender dienstlicher TermineGesundheitszustandArbeitszeitgewinnFührt zu einer geringeren Reisekostenvergütung ",
+                "raw_text": "Flüge sind erstattungsfähig, wenn ein besonderer dienstlicher oder wirtschaftlicher Grund vorliegt, z.B.: Wahrnehmung mehrerer aufeinanderfolgender dienstlicher TermineGesundheitszustandArbeitszeitgewinnFührt zu einer geringeren Reisekostenvergütung ",
                 "position": {
                     "x": 5869,
                     "y": 1117
@@ -1480,7 +1480,7 @@
             },
             "data": {
                 "id": "16365520936325006",
-                "markup": "<p>In Deutschland k&ouml;nnen bis zu 60 &euro; (bzw. 80&euro; in St&auml;dten mit mehr als 100.000 Einwohnern oder allgemein/saisonbedingt hohen Zimmerpreisen) &Uuml;bernachtungsgeld gegen Vorlage einer Rechnung erstattet werden.</p>",
+                "markup": "<p>In Deutschland k&ouml;nnen bis zu 60 € (bzw. 80€ in St&auml;dten mit mehr als 100.000 Einwohnern oder allgemein/saisonbedingt hohen Zimmerpreisen) &Uuml;bernachtungsgeld gegen Vorlage einer Rechnung erstattet werden.</p>",
                 "raw_text": "In Deutschland können bis zu 60 € (bzw. 80€ in Städten mit mehr als 100.000 Einwohnern oder allgemein/saisonbedingt hohen Zimmerpreisen) Übernachtungsgeld gegen Vorlage einer Rechnung erstattet werden.",
                 "position": {
                     "x": 11901,
@@ -1516,7 +1516,7 @@
             },
             "data": {
                 "id": "16365521324065600",
-                "markup": "<p>In {{ LAND }} k&ouml;nnen bis zu 90&euro; (bzw. 120&euro; in St&auml;dten mit mehr als 100.000 Einwohnern oder allgemein/saisonbedingt hohen Zimmerpreisen) &Uuml;bernachtungsgeld gegen Vorlage einer Rechnung erstattet werden.</p>",
+                "markup": "<p>In {{ LAND }} k&ouml;nnen bis zu 90€ (bzw. 120€ in St&auml;dten mit mehr als 100.000 Einwohnern oder allgemein/saisonbedingt hohen Zimmerpreisen) &Uuml;bernachtungsgeld gegen Vorlage einer Rechnung erstattet werden.</p>",
                 "raw_text": "In {{ LAND }} können bis zu 90€ (bzw. 120€ in Städten mit mehr als 100.000 Einwohnern oder allgemein/saisonbedingt hohen Zimmerpreisen) Übernachtungsgeld gegen Vorlage einer Rechnung erstattet werden.",
                 "position": {
                     "x": 11886,
@@ -2374,7 +2374,7 @@
             },
             "data": {
                 "id": "16370471520840317",
-                "markup": "<p>Ab dem 15. Tag wird ihr Tagegeld auf {{ 0.75 * &nbsp;TAGEGELD.TAGEGELDSATZ(LAND, STADT) }} &euro; gek&uuml;rzt.</p>",
+                "markup": "<p>Ab dem 15. Tag wird ihr Tagegeld auf {{ 0.75 * &nbsp;TAGEGELD.TAGEGELDSATZ(LAND, STADT) }} € gek&uuml;rzt.</p>",
                 "raw_text": "Ab dem 15. Tag wird ihr Tagegeld auf {{ 0.75 *  TAGEGELD.TAGEGELDSATZ(LAND, STADT) }} € gekürzt.",
                 "position": {
                     "x": 10793,
@@ -2564,7 +2564,7 @@
             },
             "data": {
                 "id": "16370471522950468",
-                "markup": "<p>{{ LAND }}: Ihnen stehen {{ TAGEGELD.TAGEGELDSATZ(LAND, STADT) }} &euro;&nbsp; pro Tag zu, &nbsp;abz&uuml;glich unentgeltlicher Verpflegung.</p>",
+                "markup": "<p>{{ LAND }}: Ihnen stehen {{ TAGEGELD.TAGEGELDSATZ(LAND, STADT) }} €&nbsp; pro Tag zu, &nbsp;abz&uuml;glich unentgeltlicher Verpflegung.</p>",
                 "raw_text": "{{ LAND }}: Ihnen stehen {{ TAGEGELD.TAGEGELDSATZ(LAND, STADT) }} €  pro Tag zu,  abzüglich unentgeltlicher Verpflegung.",
                 "position": {
                     "x": 9586,
@@ -3033,7 +3033,7 @@
             },
             "data": {
                 "id": "16378344233411490",
-                "markup": "<p>In Deutschland bekommen Sie 20&euro; f&uuml;r die &Uuml;bernachtung bei Verwandten/Bekannten.</p>",
+                "markup": "<p>In Deutschland bekommen Sie 20€ f&uuml;r die &Uuml;bernachtung bei Verwandten/Bekannten.</p>",
                 "raw_text": "In Deutschland bekommen Sie 20€ für die Übernachtung bei Verwandten/Bekannten.",
                 "position": {
                     "x": 12161,
@@ -3112,7 +3112,7 @@
             },
             "data": {
                 "id": "16378349334755637",
-                "markup": "<p>Im Ausland bekommen Sie 30&euro; f&uuml;r die &Uuml;bernachtung bei Verwandten/Bekannten.</p>",
+                "markup": "<p>Im Ausland bekommen Sie 30€ f&uuml;r die &Uuml;bernachtung bei Verwandten/Bekannten.</p>",
                 "raw_text": "Im Ausland bekommen Sie 30€ für die Übernachtung bei Verwandten/Bekannten.",
                 "position": {
                     "x": 12569,
@@ -4002,7 +4002,7 @@
             },
             "data": {
                 "id": "16457022377469579",
-                "markup": "<p>Bei einer Dienstreisedauer mit mehr als 8 und weniger als 14 Stunden Dauer werden 6&euro; Tagegeld ausbezahlt.</p>",
+                "markup": "<p>Bei einer Dienstreisedauer mit mehr als 8 und weniger als 14 Stunden Dauer werden 6€ Tagegeld ausbezahlt.</p>",
                 "raw_text": "Bei einer Dienstreisedauer mit mehr als 8 und weniger als 14 Stunden Dauer werden 6€ Tagegeld ausbezahlt.",
                 "position": {
                     "x": 10145,
@@ -4111,7 +4111,7 @@
             },
             "data": {
                 "id": "16460325754790153",
-                "markup": "<p>Wenn Sie Ihren privaten PKW aus <strong>triftigem Grund</strong> genutzt haben, k&ouml;nnen <strong>0,25&euro; pro</strong> gefahrenem <strong>Kilometer </strong>abgerechnet werden.</p>",
+                "markup": "<p>Wenn Sie Ihren privaten PKW aus <strong>triftigem Grund</strong> genutzt haben, k&ouml;nnen <strong>0,25€ pro</strong> gefahrenem <strong>Kilometer </strong>abgerechnet werden.</p>",
                 "raw_text": "Wenn Sie Ihren privaten PKW aus triftigem Grund genutzt haben, können 0,25€ pro gefahrenem Kilometer abgerechnet werden.",
                 "position": {
                     "x": 5349,
@@ -4540,7 +4540,7 @@
             },
             "data": {
                 "id": "16572908886396643",
-                "markup": "<p>In Deutschland stehen ihnen 24&euro;&nbsp; pro Tag zu, abz&uuml;glich unentgeltlicher Verpflegung.</p>",
+                "markup": "<p>In Deutschland stehen ihnen 24€&nbsp; pro Tag zu, abz&uuml;glich unentgeltlicher Verpflegung.</p>",
                 "raw_text": "In Deutschland stehen ihnen 24€  pro Tag zu, abzüglich unentgeltlicher Verpflegung.",
                 "position": {
                     "x": 10137,

@@ -1543,140 +1543,140 @@
         "dialog_node_key": 16365520936325006,
         "key": "16916697973755512",
         "text": "Can hotel costs be reimbursed in Germany?",
-        "node_text": "In Germany hotel costs can be reimbursed up to 60\u20ac (or 80\u20ac in cities with a population of more than 100,000 or general/seasonal high prices) with the submission of a paid invoice.",
+        "node_text": "In Germany hotel costs can be reimbursed up to 60€ (or 80€ in cities with a population of more than 100,000 or general/seasonal high prices) with the submission of a paid invoice.",
         "node_type": "infoNode"
     },
     "1691669797375566": {
         "dialog_node_key": 16365520936325006,
         "key": "1691669797375566",
         "text": "What is the maximum reimbursement for hotel costs in Germany?",
-        "node_text": "In Germany hotel costs can be reimbursed up to 60\u20ac (or 80\u20ac in cities with a population of more than 100,000 or general/seasonal high prices) with the submission of a paid invoice.",
+        "node_text": "In Germany hotel costs can be reimbursed up to 60€ (or 80€ in cities with a population of more than 100,000 or general/seasonal high prices) with the submission of a paid invoice.",
         "node_type": "infoNode"
     },
     "169166979737557": {
         "dialog_node_key": 16365520936325006,
         "key": "169166979737557",
         "text": "Is there a difference in reimbursement for hotels in cities with more than 100,000 people?",
-        "node_text": "In Germany hotel costs can be reimbursed up to 60\u20ac (or 80\u20ac in cities with a population of more than 100,000 or general/seasonal high prices) with the submission of a paid invoice.",
+        "node_text": "In Germany hotel costs can be reimbursed up to 60€ (or 80€ in cities with a population of more than 100,000 or general/seasonal high prices) with the submission of a paid invoice.",
         "node_type": "infoNode"
     },
     "16916697973755746": {
         "dialog_node_key": 16365520936325006,
         "key": "16916697973755746",
         "text": "What is the additional amount for hotel costs in cities with more than 100,000 people?",
-        "node_text": "In Germany hotel costs can be reimbursed up to 60\u20ac (or 80\u20ac in cities with a population of more than 100,000 or general/seasonal high prices) with the submission of a paid invoice.",
+        "node_text": "In Germany hotel costs can be reimbursed up to 60€ (or 80€ in cities with a population of more than 100,000 or general/seasonal high prices) with the submission of a paid invoice.",
         "node_type": "infoNode"
     },
     "16916697973755786": {
         "dialog_node_key": 16365520936325006,
         "key": "16916697973755786",
         "text": "Is there a difference in reimbursement for hotels during general/seasonal high prices?",
-        "node_text": "In Germany hotel costs can be reimbursed up to 60\u20ac (or 80\u20ac in cities with a population of more than 100,000 or general/seasonal high prices) with the submission of a paid invoice.",
+        "node_text": "In Germany hotel costs can be reimbursed up to 60€ (or 80€ in cities with a population of more than 100,000 or general/seasonal high prices) with the submission of a paid invoice.",
         "node_type": "infoNode"
     },
     "1691669797375583": {
         "dialog_node_key": 16365520936325006,
         "key": "1691669797375583",
         "text": "What is the additional amount for hotel costs during general/seasonal high prices?",
-        "node_text": "In Germany hotel costs can be reimbursed up to 60\u20ac (or 80\u20ac in cities with a population of more than 100,000 or general/seasonal high prices) with the submission of a paid invoice.",
+        "node_text": "In Germany hotel costs can be reimbursed up to 60€ (or 80€ in cities with a population of more than 100,000 or general/seasonal high prices) with the submission of a paid invoice.",
         "node_type": "infoNode"
     },
     "16916697973755872": {
         "dialog_node_key": 16365520936325006,
         "key": "16916697973755872",
         "text": "What documentation is required for hotel cost reimbursement in Germany?",
-        "node_text": "In Germany hotel costs can be reimbursed up to 60\u20ac (or 80\u20ac in cities with a population of more than 100,000 or general/seasonal high prices) with the submission of a paid invoice.",
+        "node_text": "In Germany hotel costs can be reimbursed up to 60€ (or 80€ in cities with a population of more than 100,000 or general/seasonal high prices) with the submission of a paid invoice.",
         "node_type": "infoNode"
     },
     "16916697973755915": {
         "dialog_node_key": 16365520936325006,
         "key": "16916697973755915",
         "text": "Is there a specific invoice that needs to be submitted for hotel cost reimbursement?",
-        "node_text": "In Germany hotel costs can be reimbursed up to 60\u20ac (or 80\u20ac in cities with a population of more than 100,000 or general/seasonal high prices) with the submission of a paid invoice.",
+        "node_text": "In Germany hotel costs can be reimbursed up to 60€ (or 80€ in cities with a population of more than 100,000 or general/seasonal high prices) with the submission of a paid invoice.",
         "node_type": "infoNode"
     },
     "16916697973755958": {
         "dialog_node_key": 16365520936325006,
         "key": "16916697973755958",
         "text": "Are there any other costs that can be reimbursed in Germany besides hotel costs?",
-        "node_text": "In Germany hotel costs can be reimbursed up to 60\u20ac (or 80\u20ac in cities with a population of more than 100,000 or general/seasonal high prices) with the submission of a paid invoice.",
+        "node_text": "In Germany hotel costs can be reimbursed up to 60€ (or 80€ in cities with a population of more than 100,000 or general/seasonal high prices) with the submission of a paid invoice.",
         "node_type": "infoNode"
     },
     "16916697973756": {
         "dialog_node_key": 16365520936325006,
         "key": "16916697973756",
         "text": "Are there any exceptions to the hotel cost reimbursement rules in Germany?",
-        "node_text": "In Germany hotel costs can be reimbursed up to 60\u20ac (or 80\u20ac in cities with a population of more than 100,000 or general/seasonal high prices) with the submission of a paid invoice.",
+        "node_text": "In Germany hotel costs can be reimbursed up to 60€ (or 80€ in cities with a population of more than 100,000 or general/seasonal high prices) with the submission of a paid invoice.",
         "node_type": "infoNode"
     },
     "16916704111048632": {
         "dialog_node_key": 16365521324065600,
         "key": "16916704111048632",
         "text": "What is the budget for accommodations in {{ COUNTRY }}?",
-        "node_text": "In {{ COUNTRY }} you have a budget of up to 90\u20ac (or 120\u20ac in cities with a population of more than 100,000 or generally/seasonally high hotel prices) for accommodations, so long as you present proof of a paid invoice. ",
+        "node_text": "In {{ COUNTRY }} you have a budget of up to 90€ (or 120€ in cities with a population of more than 100,000 or generally/seasonally high hotel prices) for accommodations, so long as you present proof of a paid invoice. ",
         "node_type": "infoNode"
     },
     "1691670411104879": {
         "dialog_node_key": 16365521324065600,
         "key": "1691670411104879",
         "text": "Is there a higher budget for cities with a population over 100,000?",
-        "node_text": "In {{ COUNTRY }} you have a budget of up to 90\u20ac (or 120\u20ac in cities with a population of more than 100,000 or generally/seasonally high hotel prices) for accommodations, so long as you present proof of a paid invoice. ",
+        "node_text": "In {{ COUNTRY }} you have a budget of up to 90€ (or 120€ in cities with a population of more than 100,000 or generally/seasonally high hotel prices) for accommodations, so long as you present proof of a paid invoice. ",
         "node_type": "infoNode"
     },
     "16916704111048837": {
         "dialog_node_key": 16365521324065600,
         "key": "16916704111048837",
         "text": "What is the maximum budget for accommodations in cities with high hotel prices?",
-        "node_text": "In {{ COUNTRY }} you have a budget of up to 90\u20ac (or 120\u20ac in cities with a population of more than 100,000 or generally/seasonally high hotel prices) for accommodations, so long as you present proof of a paid invoice. ",
+        "node_text": "In {{ COUNTRY }} you have a budget of up to 90€ (or 120€ in cities with a population of more than 100,000 or generally/seasonally high hotel prices) for accommodations, so long as you present proof of a paid invoice. ",
         "node_type": "infoNode"
     },
     "16916704111048863": {
         "dialog_node_key": 16365521324065600,
         "key": "16916704111048863",
         "text": "What type of proof is required to show the paid invoice for accommodations?",
-        "node_text": "In {{ COUNTRY }} you have a budget of up to 90\u20ac (or 120\u20ac in cities with a population of more than 100,000 or generally/seasonally high hotel prices) for accommodations, so long as you present proof of a paid invoice. ",
+        "node_text": "In {{ COUNTRY }} you have a budget of up to 90€ (or 120€ in cities with a population of more than 100,000 or generally/seasonally high hotel prices) for accommodations, so long as you present proof of a paid invoice. ",
         "node_type": "infoNode"
     },
     "16916704111048884": {
         "dialog_node_key": 16365521324065600,
         "key": "16916704111048884",
         "text": "Can the budget for accommodations be used in any city in {{ COUNTRY }}?",
-        "node_text": "In {{ COUNTRY }} you have a budget of up to 90\u20ac (or 120\u20ac in cities with a population of more than 100,000 or generally/seasonally high hotel prices) for accommodations, so long as you present proof of a paid invoice. ",
+        "node_text": "In {{ COUNTRY }} you have a budget of up to 90€ (or 120€ in cities with a population of more than 100,000 or generally/seasonally high hotel prices) for accommodations, so long as you present proof of a paid invoice. ",
         "node_type": "infoNode"
     },
     "1691670411104893": {
         "dialog_node_key": 16365521324065600,
         "key": "1691670411104893",
         "text": "Is there a specific season when the budget for accommodations changes?",
-        "node_text": "In {{ COUNTRY }} you have a budget of up to 90\u20ac (or 120\u20ac in cities with a population of more than 100,000 or generally/seasonally high hotel prices) for accommodations, so long as you present proof of a paid invoice. ",
+        "node_text": "In {{ COUNTRY }} you have a budget of up to 90€ (or 120€ in cities with a population of more than 100,000 or generally/seasonally high hotel prices) for accommodations, so long as you present proof of a paid invoice. ",
         "node_type": "infoNode"
     },
     "16916704111048958": {
         "dialog_node_key": 16365521324065600,
         "key": "16916704111048958",
         "text": "Can the budget for accommodations be used for other expenses besides hotels?",
-        "node_text": "In {{ COUNTRY }} you have a budget of up to 90\u20ac (or 120\u20ac in cities with a population of more than 100,000 or generally/seasonally high hotel prices) for accommodations, so long as you present proof of a paid invoice. ",
+        "node_text": "In {{ COUNTRY }} you have a budget of up to 90€ (or 120€ in cities with a population of more than 100,000 or generally/seasonally high hotel prices) for accommodations, so long as you present proof of a paid invoice. ",
         "node_type": "infoNode"
     },
     "16916704111048996": {
         "dialog_node_key": 16365521324065600,
         "key": "16916704111048996",
         "text": "Is there a difference in budget for accommodations in rural and urban areas of {{ COUNTRY }}?",
-        "node_text": "In {{ COUNTRY }} you have a budget of up to 90\u20ac (or 120\u20ac in cities with a population of more than 100,000 or generally/seasonally high hotel prices) for accommodations, so long as you present proof of a paid invoice. ",
+        "node_text": "In {{ COUNTRY }} you have a budget of up to 90€ (or 120€ in cities with a population of more than 100,000 or generally/seasonally high hotel prices) for accommodations, so long as you present proof of a paid invoice. ",
         "node_type": "infoNode"
     },
     "16916704111049016": {
         "dialog_node_key": 16365521324065600,
         "key": "16916704111049016",
         "text": "Can the budget for accommodations be used for multiple nights?",
-        "node_text": "In {{ COUNTRY }} you have a budget of up to 90\u20ac (or 120\u20ac in cities with a population of more than 100,000 or generally/seasonally high hotel prices) for accommodations, so long as you present proof of a paid invoice. ",
+        "node_text": "In {{ COUNTRY }} you have a budget of up to 90€ (or 120€ in cities with a population of more than 100,000 or generally/seasonally high hotel prices) for accommodations, so long as you present proof of a paid invoice. ",
         "node_type": "infoNode"
     },
     "16916704111049058": {
         "dialog_node_key": 16365521324065600,
         "key": "16916704111049058",
         "text": "Is there a specific time frame when the budget for accommodations is valid?",
-        "node_text": "In {{ COUNTRY }} you have a budget of up to 90\u20ac (or 120\u20ac in cities with a population of more than 100,000 or generally/seasonally high hotel prices) for accommodations, so long as you present proof of a paid invoice. ",
+        "node_text": "In {{ COUNTRY }} you have a budget of up to 90€ (or 120€ in cities with a population of more than 100,000 or generally/seasonally high hotel prices) for accommodations, so long as you present proof of a paid invoice. ",
         "node_type": "infoNode"
     },
     "16916709640805364": {
@@ -2733,140 +2733,140 @@
         "dialog_node_key": 16370471520840317,
         "key": "16916799121467845",
         "text": "When does the per diem reduction start?",
-        "node_text": "Beginning on the 15th day, your per diem will be reduced to {{ 0.75 * &nbsp;PERDIEM.AMOUNT(COUNTRY, CITY) }} &euro;.",
+        "node_text": "Beginning on the 15th day, your per diem will be reduced to {{ 0.75 * €PERDIEM.AMOUNT(COUNTRY, CITY) }} €.",
         "node_type": "infoNode"
     },
     "16916799121468022": {
         "dialog_node_key": 16370471520840317,
         "key": "16916799121468022",
         "text": "What is the reduced per diem amount?",
-        "node_text": "Beginning on the 15th day, your per diem will be reduced to {{ 0.75 * &nbsp;PERDIEM.AMOUNT(COUNTRY, CITY) }} &euro;.",
+        "node_text": "Beginning on the 15th day, your per diem will be reduced to {{ 0.75 * PERDIEM.AMOUNT(COUNTRY, CITY) }} €.",
         "node_type": "infoNode"
     },
     "16916799121468084": {
         "dialog_node_key": 16370471520840317,
         "key": "16916799121468084",
         "text": "How is the reduced per diem amount calculated?",
-        "node_text": "Beginning on the 15th day, your per diem will be reduced to {{ 0.75 * &nbsp;PERDIEM.AMOUNT(COUNTRY, CITY) }} &euro;.",
+        "node_text": "Beginning on the 15th day, your per diem will be reduced to {{ 0.75 * PERDIEM.AMOUNT(COUNTRY, CITY) }} €.",
         "node_type": "infoNode"
     },
     "16916799121468124": {
         "dialog_node_key": 16370471520840317,
         "key": "16916799121468124",
         "text": "What is the original per diem amount?",
-        "node_text": "Beginning on the 15th day, your per diem will be reduced to {{ 0.75 * &nbsp;PERDIEM.AMOUNT(COUNTRY, CITY) }} &euro;.",
+        "node_text": "Beginning on the 15th day, your per diem will be reduced to {{ 0.75 * PERDIEM.AMOUNT(COUNTRY, CITY) }} €.",
         "node_type": "infoNode"
     },
     "16916799121468167": {
         "dialog_node_key": 16370471520840317,
         "key": "16916799121468167",
         "text": "What is the percentage of the reduction?",
-        "node_text": "Beginning on the 15th day, your per diem will be reduced to {{ 0.75 * &nbsp;PERDIEM.AMOUNT(COUNTRY, CITY) }} &euro;.",
+        "node_text": "Beginning on the 15th day, your per diem will be reduced to {{ 0.75 * PERDIEM.AMOUNT(COUNTRY, CITY) }} €.",
         "node_type": "infoNode"
     },
     "16916799121468208": {
         "dialog_node_key": 16370471520840317,
         "key": "16916799121468208",
         "text": "What factors affect the per diem amount?",
-        "node_text": "Beginning on the 15th day, your per diem will be reduced to {{ 0.75 * &nbsp;PERDIEM.AMOUNT(COUNTRY, CITY) }} &euro;.",
+        "node_text": "Beginning on the 15th day, your per diem will be reduced to {{ 0.75 * PERDIEM.AMOUNT(COUNTRY, CITY) }} €.",
         "node_type": "infoNode"
     },
     "16916799121468246": {
         "dialog_node_key": 16370471520840317,
         "key": "16916799121468246",
         "text": "What is the currency of the per diem payment?",
-        "node_text": "Beginning on the 15th day, your per diem will be reduced to {{ 0.75 * &nbsp;PERDIEM.AMOUNT(COUNTRY, CITY) }} &euro;.",
+        "node_text": "Beginning on the 15th day, your per diem will be reduced to {{ 0.75 * PERDIEM.AMOUNT(COUNTRY, CITY) }} €.",
         "node_type": "infoNode"
     },
     "16916799121468291": {
         "dialog_node_key": 16370471520840317,
         "key": "16916799121468291",
         "text": "How does the country and city affect the per diem amount?",
-        "node_text": "Beginning on the 15th day, your per diem will be reduced to {{ 0.75 * &nbsp;PERDIEM.AMOUNT(COUNTRY, CITY) }} &euro;.",
+        "node_text": "Beginning on the 15th day, your per diem will be reduced to {{ 0.75 * PERDIEM.AMOUNT(COUNTRY, CITY) }} €.",
         "node_type": "infoNode"
     },
     "16916799121468334": {
         "dialog_node_key": 16370471520840317,
         "key": "16916799121468334",
         "text": "What happens if the country or city changes?",
-        "node_text": "Beginning on the 15th day, your per diem will be reduced to {{ 0.75 * &nbsp;PERDIEM.AMOUNT(COUNTRY, CITY) }} &euro;.",
+        "node_text": "Beginning on the 15th day, your per diem will be reduced to {{ 0.75 * PERDIEM.AMOUNT(COUNTRY, CITY) }} €.",
         "node_type": "infoNode"
     },
     "1691679912146838": {
         "dialog_node_key": 16370471520840317,
         "key": "1691679912146838",
         "text": "Is there a way to increase the per diem amount?",
-        "node_text": "Beginning on the 15th day, your per diem will be reduced to {{ 0.75 * &nbsp;PERDIEM.AMOUNT(COUNTRY, CITY) }} &euro;.",
+        "node_text": "Beginning on the 15th day, your per diem will be reduced to {{ 0.75 * PERDIEM.AMOUNT(COUNTRY, CITY) }} €.",
         "node_type": "infoNode"
     },
     "1691680992546376": {
         "dialog_node_key": 16370471522950468,
         "key": "1691680992546376",
         "text": "What is the daily per diem amount in {{ COUNTRY }}, and how does it change if I decline free meals?",
-        "node_text": "In {{ COUNTRY }}, you are entitled to {{ PERDIEM.AMOUNT(COUNTRY, CITY) }} \u20ac  per day, minus any free meals which you choose to decline.",
+        "node_text": "In {{ COUNTRY }}, you are entitled to {{ PERDIEM.AMOUNT(COUNTRY, CITY) }} €  per day, minus any free meals which you choose to decline.",
         "node_type": "infoNode"
     },
     "16916809925463905": {
         "dialog_node_key": 16370471522950468,
         "key": "16916809925463905",
         "text": "How much money can I receive per day for my expenses in {{ CITY }}, {{ COUNTRY }}, and how does it work with free meals?",
-        "node_text": "In {{ COUNTRY }}, you are entitled to {{ PERDIEM.AMOUNT(COUNTRY, CITY) }} \u20ac  per day, minus any free meals which you choose to decline.",
+        "node_text": "In {{ COUNTRY }}, you are entitled to {{ PERDIEM.AMOUNT(COUNTRY, CITY) }} €  per day, minus any free meals which you choose to decline.",
         "node_type": "infoNode"
     },
     "16916809925463972": {
         "dialog_node_key": 16370471522950468,
         "key": "16916809925463972",
         "text": "What is the daily allowance for expenses in {{ COUNTRY }}, and how does it affect the amount if I refuse free meals?",
-        "node_text": "In {{ COUNTRY }}, you are entitled to {{ PERDIEM.AMOUNT(COUNTRY, CITY) }} \u20ac  per day, minus any free meals which you choose to decline.",
+        "node_text": "In {{ COUNTRY }}, you are entitled to {{ PERDIEM.AMOUNT(COUNTRY, CITY) }} €  per day, minus any free meals which you choose to decline.",
         "node_type": "infoNode"
     },
     "16916809925464015": {
         "dialog_node_key": 16370471522950468,
         "key": "16916809925464015",
         "text": "How much money can I get per day for my expenses in {{ CITY }}, {{ COUNTRY }}, and how does it change if I don't accept free meals?",
-        "node_text": "In {{ COUNTRY }}, you are entitled to {{ PERDIEM.AMOUNT(COUNTRY, CITY) }} \u20ac  per day, minus any free meals which you choose to decline.",
+        "node_text": "In {{ COUNTRY }}, you are entitled to {{ PERDIEM.AMOUNT(COUNTRY, CITY) }} €  per day, minus any free meals which you choose to decline.",
         "node_type": "infoNode"
     },
     "16916809925464056": {
         "dialog_node_key": 16370471522950468,
         "key": "16916809925464056",
         "text": "What is the daily per diem amount in {{ COUNTRY }}, and how does it change if I decline free meals?",
-        "node_text": "In {{ COUNTRY }}, you are entitled to {{ PERDIEM.AMOUNT(COUNTRY, CITY) }} \u20ac  per day, minus any free meals which you choose to decline.",
+        "node_text": "In {{ COUNTRY }}, you are entitled to {{ PERDIEM.AMOUNT(COUNTRY, CITY) }} €  per day, minus any free meals which you choose to decline.",
         "node_type": "infoNode"
     },
     "169168099254641": {
         "dialog_node_key": 16370471522950468,
         "key": "169168099254641",
         "text": "How much money can I receive per day for my expenses in {{ CITY }}, {{ COUNTRY }}, and how does it work with free meals?",
-        "node_text": "In {{ COUNTRY }}, you are entitled to {{ PERDIEM.AMOUNT(COUNTRY, CITY) }} \u20ac  per day, minus any free meals which you choose to decline.",
+        "node_text": "In {{ COUNTRY }}, you are entitled to {{ PERDIEM.AMOUNT(COUNTRY, CITY) }} €  per day, minus any free meals which you choose to decline.",
         "node_type": "infoNode"
     },
     "16916809925464118": {
         "dialog_node_key": 16370471522950468,
         "key": "16916809925464118",
         "text": "What is the daily allowance for expenses in {{ COUNTRY }}, and how does it affect the amount if I refuse free meals?",
-        "node_text": "In {{ COUNTRY }}, you are entitled to {{ PERDIEM.AMOUNT(COUNTRY, CITY) }} \u20ac  per day, minus any free meals which you choose to decline.",
+        "node_text": "In {{ COUNTRY }}, you are entitled to {{ PERDIEM.AMOUNT(COUNTRY, CITY) }} €  per day, minus any free meals which you choose to decline.",
         "node_type": "infoNode"
     },
     "16916809925464165": {
         "dialog_node_key": 16370471522950468,
         "key": "16916809925464165",
         "text": "How much money can I get per day for my expenses in {{ CITY }}, {{ COUNTRY }}, and how does it change if I don't accept free meals?",
-        "node_text": "In {{ COUNTRY }}, you are entitled to {{ PERDIEM.AMOUNT(COUNTRY, CITY) }} \u20ac  per day, minus any free meals which you choose to decline.",
+        "node_text": "In {{ COUNTRY }}, you are entitled to {{ PERDIEM.AMOUNT(COUNTRY, CITY) }} €  per day, minus any free meals which you choose to decline.",
         "node_type": "infoNode"
     },
     "16916809925464199": {
         "dialog_node_key": 16370471522950468,
         "key": "16916809925464199",
         "text": "What is the daily per diem amount in {{ COUNTRY }}, and how does it change if I decline free meals?",
-        "node_text": "In {{ COUNTRY }}, you are entitled to {{ PERDIEM.AMOUNT(COUNTRY, CITY) }} \u20ac  per day, minus any free meals which you choose to decline.",
+        "node_text": "In {{ COUNTRY }}, you are entitled to {{ PERDIEM.AMOUNT(COUNTRY, CITY) }} €  per day, minus any free meals which you choose to decline.",
         "node_type": "infoNode"
     },
     "16916809925464222": {
         "dialog_node_key": 16370471522950468,
         "key": "16916809925464222",
         "text": "How much money can I receive per day for my expenses in {{ CITY }}, {{ COUNTRY }}, and how does it work with free meals?",
-        "node_text": "In {{ COUNTRY }}, you are entitled to {{ PERDIEM.AMOUNT(COUNTRY, CITY) }} \u20ac  per day, minus any free meals which you choose to decline.",
+        "node_text": "In {{ COUNTRY }}, you are entitled to {{ PERDIEM.AMOUNT(COUNTRY, CITY) }} €  per day, minus any free meals which you choose to decline.",
         "node_type": "infoNode"
     },
     "16916814208636332": {
@@ -3433,140 +3433,140 @@
         "dialog_node_key": 16378344233411490,
         "key": "16916850307049744",
         "text": "What amount are you entitled to in Germany when staying with friends or family?",
-        "node_text": "In Germany, you are entitled to 20\u20ac if you are staying with friends or family",
+        "node_text": "In Germany, you are entitled to 20€ if you are staying with friends or family",
         "node_type": "infoNode"
     },
     "16916850307049894": {
         "dialog_node_key": 16378344233411490,
         "key": "16916850307049894",
         "text": "Is there a specific amount given when staying with friends or family in Germany?",
-        "node_text": "In Germany, you are entitled to 20\u20ac if you are staying with friends or family",
+        "node_text": "In Germany, you are entitled to 20€ if you are staying with friends or family",
         "node_type": "infoNode"
     },
     "1691685030704994": {
         "dialog_node_key": 16378344233411490,
         "key": "1691685030704994",
         "text": "How much money can you receive when staying with friends or family in Germany?",
-        "node_text": "In Germany, you are entitled to 20\u20ac if you are staying with friends or family",
+        "node_text": "In Germany, you are entitled to 20€ if you are staying with friends or family",
         "node_type": "infoNode"
     },
     "16916850307049973": {
         "dialog_node_key": 16378344233411490,
         "key": "16916850307049973",
         "text": "What is the monetary benefit for staying with friends or family in Germany?",
-        "node_text": "In Germany, you are entitled to 20\u20ac if you are staying with friends or family",
+        "node_text": "In Germany, you are entitled to 20€ if you are staying with friends or family",
         "node_type": "infoNode"
     },
     "16916850307050006": {
         "dialog_node_key": 16378344233411490,
         "key": "16916850307050006",
         "text": "Is there a financial benefit for staying with friends or family in Germany?",
-        "node_text": "In Germany, you are entitled to 20\u20ac if you are staying with friends or family",
+        "node_text": "In Germany, you are entitled to 20€ if you are staying with friends or family",
         "node_type": "infoNode"
     },
     "1691685030705003": {
         "dialog_node_key": 16378344233411490,
         "key": "1691685030705003",
         "text": "Can you get any money when staying with friends or family in Germany?",
-        "node_text": "In Germany, you are entitled to 20\u20ac if you are staying with friends or family",
+        "node_text": "In Germany, you are entitled to 20€ if you are staying with friends or family",
         "node_type": "infoNode"
     },
     "16916850307050068": {
         "dialog_node_key": 16378344233411490,
         "key": "16916850307050068",
         "text": "Is there a specific amount given for staying with friends or family in Germany?",
-        "node_text": "In Germany, you are entitled to 20\u20ac if you are staying with friends or family",
+        "node_text": "In Germany, you are entitled to 20€ if you are staying with friends or family",
         "node_type": "infoNode"
     },
     "16916850307050102": {
         "dialog_node_key": 16378344233411490,
         "key": "16916850307050102",
         "text": "What is the amount you can receive when staying with friends or family in Germany?",
-        "node_text": "In Germany, you are entitled to 20\u20ac if you are staying with friends or family",
+        "node_text": "In Germany, you are entitled to 20€ if you are staying with friends or family",
         "node_type": "infoNode"
     },
     "1691685030705012": {
         "dialog_node_key": 16378344233411490,
         "key": "1691685030705012",
         "text": "Is there a monetary benefit for staying with friends or family in Germany?",
-        "node_text": "In Germany, you are entitled to 20\u20ac if you are staying with friends or family",
+        "node_text": "In Germany, you are entitled to 20€ if you are staying with friends or family",
         "node_type": "infoNode"
     },
     "1691685030705015": {
         "dialog_node_key": 16378344233411490,
         "key": "1691685030705015",
         "text": "Can you receive any money when staying with friends or family in Germany?",
-        "node_text": "In Germany, you are entitled to 20\u20ac if you are staying with friends or family",
+        "node_text": "In Germany, you are entitled to 20€ if you are staying with friends or family",
         "node_type": "infoNode"
     },
     "16916855433968449": {
         "dialog_node_key": 16378349334755637,
         "key": "16916855433968449",
         "text": "What amount are you entitled to if you stay with friends or family outside of Germany?",
-        "node_text": "Outside of Germany, you are entitled to 30\u20ac if you are staying with friends or family.",
+        "node_text": "Outside of Germany, you are entitled to 30€ if you are staying with friends or family.",
         "node_type": "infoNode"
     },
     "16916855433968594": {
         "dialog_node_key": 16378349334755637,
         "key": "16916855433968594",
         "text": "Is the entitlement amount the same for everyone?",
-        "node_text": "Outside of Germany, you are entitled to 30\u20ac if you are staying with friends or family.",
+        "node_text": "Outside of Germany, you are entitled to 30€ if you are staying with friends or family.",
         "node_type": "infoNode"
     },
     "16916855433968627": {
         "dialog_node_key": 16378349334755637,
         "key": "16916855433968627",
         "text": "Can you receive this entitlement in any country?",
-        "node_text": "Outside of Germany, you are entitled to 30\u20ac if you are staying with friends or family.",
+        "node_text": "Outside of Germany, you are entitled to 30€ if you are staying with friends or family.",
         "node_type": "infoNode"
     },
     "1691685543396866": {
         "dialog_node_key": 16378349334755637,
         "key": "1691685543396866",
         "text": "Is there a specific time limit for staying with friends or family to receive the entitlement?",
-        "node_text": "Outside of Germany, you are entitled to 30\u20ac if you are staying with friends or family.",
+        "node_text": "Outside of Germany, you are entitled to 30€ if you are staying with friends or family.",
         "node_type": "infoNode"
     },
     "16916855433968701": {
         "dialog_node_key": 16378349334755637,
         "key": "16916855433968701",
         "text": "Is there any paperwork required to receive this entitlement?",
-        "node_text": "Outside of Germany, you are entitled to 30\u20ac if you are staying with friends or family.",
+        "node_text": "Outside of Germany, you are entitled to 30€ if you are staying with friends or family.",
         "node_type": "infoNode"
     },
     "16916855433968735": {
         "dialog_node_key": 16378349334755637,
         "key": "16916855433968735",
         "text": "Can you receive this entitlement more than once?",
-        "node_text": "Outside of Germany, you are entitled to 30\u20ac if you are staying with friends or family.",
+        "node_text": "Outside of Germany, you are entitled to 30€ if you are staying with friends or family.",
         "node_type": "infoNode"
     },
     "16916855433968768": {
         "dialog_node_key": 16378349334755637,
         "key": "16916855433968768",
         "text": "Is there an age limit for receiving this entitlement?",
-        "node_text": "Outside of Germany, you are entitled to 30\u20ac if you are staying with friends or family.",
+        "node_text": "Outside of Germany, you are entitled to 30€ if you are staying with friends or family.",
         "node_type": "infoNode"
     },
     "16916855433968801": {
         "dialog_node_key": 16378349334755637,
         "key": "16916855433968801",
         "text": "Can you receive this entitlement if you are traveling alone?",
-        "node_text": "Outside of Germany, you are entitled to 30\u20ac if you are staying with friends or family.",
+        "node_text": "Outside of Germany, you are entitled to 30€ if you are staying with friends or family.",
         "node_type": "infoNode"
     },
     "16916855433968835": {
         "dialog_node_key": 16378349334755637,
         "key": "16916855433968835",
         "text": "Is there a maximum number of people who can receive this entitlement together?",
-        "node_text": "Outside of Germany, you are entitled to 30\u20ac if you are staying with friends or family.",
+        "node_text": "Outside of Germany, you are entitled to 30€ if you are staying with friends or family.",
         "node_type": "infoNode"
     },
     "16916855433968868": {
         "dialog_node_key": 16378349334755637,
         "key": "16916855433968868",
         "text": "Is there a specific website where you can find more information about this entitlement?",
-        "node_text": "Outside of Germany, you are entitled to 30\u20ac if you are staying with friends or family.",
+        "node_text": "Outside of Germany, you are entitled to 30€ if you are staying with friends or family.",
         "node_type": "infoNode"
     },
     "16916861917574475": {
@@ -4763,70 +4763,70 @@
         "dialog_node_key": 16457022377469579,
         "key": "16916948207315044",
         "text": "How much per diem do you get for trips lasting 8-14 hours?",
-        "node_text": "For trips lasting more than 8 hours, but less than 14, you are entitled to a per diem of 6\u20ac.",
+        "node_text": "For trips lasting more than 8 hours, but less than 14, you are entitled to a per diem of 6€.",
         "node_type": "infoNode"
     },
     "16916948207315202": {
         "dialog_node_key": 16457022377469579,
         "key": "16916948207315202",
         "text": "What is the per diem amount for trips between 8 and 14 hours?",
-        "node_text": "For trips lasting more than 8 hours, but less than 14, you are entitled to a per diem of 6\u20ac.",
+        "node_text": "For trips lasting more than 8 hours, but less than 14, you are entitled to a per diem of 6€.",
         "node_type": "infoNode"
     },
     "16916948207315247": {
         "dialog_node_key": 16457022377469579,
         "key": "16916948207315247",
         "text": "Is there a per diem for trips longer than 8 hours but less than 14 hours?",
-        "node_text": "For trips lasting more than 8 hours, but less than 14, you are entitled to a per diem of 6\u20ac.",
+        "node_text": "For trips lasting more than 8 hours, but less than 14, you are entitled to a per diem of 6€.",
         "node_type": "infoNode"
     },
     "1691694820731558": {
         "dialog_node_key": 16457022377469579,
         "key": "1691694820731558",
         "text": "What is the per diem rate for trips lasting 10 hours?",
-        "node_text": "For trips lasting more than 8 hours, but less than 14, you are entitled to a per diem of 6\u20ac.",
+        "node_text": "For trips lasting more than 8 hours, but less than 14, you are entitled to a per diem of 6€.",
         "node_type": "infoNode"
     },
     "1691694820731563": {
         "dialog_node_key": 16457022377469579,
         "key": "1691694820731563",
         "text": "Is there a per diem for trips lasting 12 hours?",
-        "node_text": "For trips lasting more than 8 hours, but less than 14, you are entitled to a per diem of 6\u20ac.",
+        "node_text": "For trips lasting more than 8 hours, but less than 14, you are entitled to a per diem of 6€.",
         "node_type": "infoNode"
     },
     "16916948207315671": {
         "dialog_node_key": 16457022377469579,
         "key": "16916948207315671",
         "text": "How much per diem do you get for a 10-hour trip?",
-        "node_text": "For trips lasting more than 8 hours, but less than 14, you are entitled to a per diem of 6\u20ac.",
+        "node_text": "For trips lasting more than 8 hours, but less than 14, you are entitled to a per diem of 6€.",
         "node_type": "infoNode"
     },
     "1691694820731572": {
         "dialog_node_key": 16457022377469579,
         "key": "1691694820731572",
         "text": "Is there a per diem for trips lasting 11 hours?",
-        "node_text": "For trips lasting more than 8 hours, but less than 14, you are entitled to a per diem of 6\u20ac.",
+        "node_text": "For trips lasting more than 8 hours, but less than 14, you are entitled to a per diem of 6€.",
         "node_type": "infoNode"
     },
     "16916948207315767": {
         "dialog_node_key": 16457022377469579,
         "key": "16916948207315767",
         "text": "What is the per diem for a 13-hour trip?",
-        "node_text": "For trips lasting more than 8 hours, but less than 14, you are entitled to a per diem of 6\u20ac.",
+        "node_text": "For trips lasting more than 8 hours, but less than 14, you are entitled to a per diem of 6€.",
         "node_type": "infoNode"
     },
     "1691694820731581": {
         "dialog_node_key": 16457022377469579,
         "key": "1691694820731581",
         "text": "Is there a per diem for trips lasting 14 hours?",
-        "node_text": "For trips lasting more than 8 hours, but less than 14, you are entitled to a per diem of 6\u20ac.",
+        "node_text": "For trips lasting more than 8 hours, but less than 14, you are entitled to a per diem of 6€.",
         "node_type": "infoNode"
     },
     "1691694820731585": {
         "dialog_node_key": 16457022377469579,
         "key": "1691694820731585",
         "text": "What is the per diem for a 14-hour trip?",
-        "node_text": "For trips lasting more than 8 hours, but less than 14, you are entitled to a per diem of 6\u20ac.",
+        "node_text": "For trips lasting more than 8 hours, but less than 14, you are entitled to a per diem of 6€.",
         "node_type": "infoNode"
     },
     "1691695378063873": {
@@ -4973,70 +4973,70 @@
         "dialog_node_key": 16460325754790153,
         "key": "16916964477729943",
         "text": "What is the amount you get for driving your car for a pressing reason?",
-        "node_text": "If you used your car for a pressing reason, you are entitled to 0,25\u20ac per kilometer driven.",
+        "node_text": "If you used your car for a pressing reason, you are entitled to 0,25€ per kilometer driven.",
         "node_type": "infoNode"
     },
     "16916964477730105": {
         "dialog_node_key": 16460325754790153,
         "key": "16916964477730105",
         "text": "Is there a specific amount for driving your car in case of an emergency?",
-        "node_text": "If you used your car for a pressing reason, you are entitled to 0,25\u20ac per kilometer driven.",
+        "node_text": "If you used your car for a pressing reason, you are entitled to 0,25€ per kilometer driven.",
         "node_type": "infoNode"
     },
     "16916964477730174": {
         "dialog_node_key": 16460325754790153,
         "key": "16916964477730174",
         "text": "How much do you receive per kilometer driven for a pressing reason?",
-        "node_text": "If you used your car for a pressing reason, you are entitled to 0,25\u20ac per kilometer driven.",
+        "node_text": "If you used your car for a pressing reason, you are entitled to 0,25€ per kilometer driven.",
         "node_type": "infoNode"
     },
     "16916964477730212": {
         "dialog_node_key": 16460325754790153,
         "key": "16916964477730212",
         "text": "What is the rate for driving your car in case of a pressing situation?",
-        "node_text": "If you used your car for a pressing reason, you are entitled to 0,25\u20ac per kilometer driven.",
+        "node_text": "If you used your car for a pressing reason, you are entitled to 0,25€ per kilometer driven.",
         "node_type": "infoNode"
     },
     "16916964477730255": {
         "dialog_node_key": 16460325754790153,
         "key": "16916964477730255",
         "text": "How much money do you get for driving your car in an emergency?",
-        "node_text": "If you used your car for a pressing reason, you are entitled to 0,25\u20ac per kilometer driven.",
+        "node_text": "If you used your car for a pressing reason, you are entitled to 0,25€ per kilometer driven.",
         "node_type": "infoNode"
     },
     "16916964477730293": {
         "dialog_node_key": 16460325754790153,
         "key": "16916964477730293",
         "text": "What is the payment for using your car in a pressing situation?",
-        "node_text": "If you used your car for a pressing reason, you are entitled to 0,25\u20ac per kilometer driven.",
+        "node_text": "If you used your car for a pressing reason, you are entitled to 0,25€ per kilometer driven.",
         "node_type": "infoNode"
     },
     "16916964477730334": {
         "dialog_node_key": 16460325754790153,
         "key": "16916964477730334",
         "text": "How much is given for driving your car in a pressing situation?",
-        "node_text": "If you used your car for a pressing reason, you are entitled to 0,25\u20ac per kilometer driven.",
+        "node_text": "If you used your car for a pressing reason, you are entitled to 0,25€ per kilometer driven.",
         "node_type": "infoNode"
     },
     "16916964477730372": {
         "dialog_node_key": 16460325754790153,
         "key": "16916964477730372",
         "text": "What is the amount for driving your car in a pressing reason?",
-        "node_text": "If you used your car for a pressing reason, you are entitled to 0,25\u20ac per kilometer driven.",
+        "node_text": "If you used your car for a pressing reason, you are entitled to 0,25€ per kilometer driven.",
         "node_type": "infoNode"
     },
     "16916964477730412": {
         "dialog_node_key": 16460325754790153,
         "key": "16916964477730412",
         "text": "How much money do you get for driving your car in a pressing reason?",
-        "node_text": "If you used your car for a pressing reason, you are entitled to 0,25\u20ac per kilometer driven.",
+        "node_text": "If you used your car for a pressing reason, you are entitled to 0,25€ per kilometer driven.",
         "node_type": "infoNode"
     },
     "1691696447773045": {
         "dialog_node_key": 16460325754790153,
         "key": "1691696447773045",
         "text": "What is the payment for driving your car in a pressing situation?",
-        "node_text": "If you used your car for a pressing reason, you are entitled to 0,25\u20ac per kilometer driven.",
+        "node_text": "If you used your car for a pressing reason, you are entitled to 0,25€ per kilometer driven.",
         "node_type": "infoNode"
     },
     "16916968764240537": {
@@ -5533,70 +5533,70 @@
         "dialog_node_key": 16572908886396643,
         "key": "16917003308608463",
         "text": "What is the daily allowance for meals in Germany?",
-        "node_text": "Within Germany, you are entitled to 24\u20ac per day, minus costs for free meals which were not eaten.",
+        "node_text": "Within Germany, you are entitled to 24€ per day, minus costs for free meals which were not eaten.",
         "node_type": "infoNode"
     },
     "16917003308608608": {
         "dialog_node_key": 16572908886396643,
         "key": "16917003308608608",
         "text": "Is there a deduction for unconsumed free meals?",
-        "node_text": "Within Germany, you are entitled to 24\u20ac per day, minus costs for free meals which were not eaten.",
+        "node_text": "Within Germany, you are entitled to 24€ per day, minus costs for free meals which were not eaten.",
         "node_type": "infoNode"
     },
     "16917003308608642": {
         "dialog_node_key": 16572908886396643,
         "key": "16917003308608642",
         "text": "How much can you get deducted for not eating free meals?",
-        "node_text": "Within Germany, you are entitled to 24\u20ac per day, minus costs for free meals which were not eaten.",
+        "node_text": "Within Germany, you are entitled to 24€ per day, minus costs for free meals which were not eaten.",
         "node_type": "infoNode"
     },
     "16917003308608675": {
         "dialog_node_key": 16572908886396643,
         "key": "16917003308608675",
         "text": "Are there any exceptions to the daily allowance rule?",
-        "node_text": "Within Germany, you are entitled to 24\u20ac per day, minus costs for free meals which were not eaten.",
+        "node_text": "Within Germany, you are entitled to 24€ per day, minus costs for free meals which were not eaten.",
         "node_type": "infoNode"
     },
     "16917003308608708": {
         "dialog_node_key": 16572908886396643,
         "key": "16917003308608708",
-        "text": "Can you receive more than 24\u20ac per day for meals?",
-        "node_text": "Within Germany, you are entitled to 24\u20ac per day, minus costs for free meals which were not eaten.",
+        "text": "Can you receive more than 24€ per day for meals?",
+        "node_text": "Within Germany, you are entitled to 24€ per day, minus costs for free meals which were not eaten.",
         "node_type": "infoNode"
     },
     "16917003308608742": {
         "dialog_node_key": 16572908886396643,
         "key": "16917003308608742",
         "text": "What happens if you don't eat any free meals?",
-        "node_text": "Within Germany, you are entitled to 24\u20ac per day, minus costs for free meals which were not eaten.",
+        "node_text": "Within Germany, you are entitled to 24€ per day, minus costs for free meals which were not eaten.",
         "node_type": "infoNode"
     },
     "16917003308608782": {
         "dialog_node_key": 16572908886396643,
         "key": "16917003308608782",
         "text": "Is the daily allowance affected by the number of meals you eat?",
-        "node_text": "Within Germany, you are entitled to 24\u20ac per day, minus costs for free meals which were not eaten.",
+        "node_text": "Within Germany, you are entitled to 24€ per day, minus costs for free meals which were not eaten.",
         "node_type": "infoNode"
     },
     "16917003308608823": {
         "dialog_node_key": 16572908886396643,
         "key": "16917003308608823",
         "text": "Can you use the daily allowance for other expenses?",
-        "node_text": "Within Germany, you are entitled to 24\u20ac per day, minus costs for free meals which were not eaten.",
+        "node_text": "Within Germany, you are entitled to 24€ per day, minus costs for free meals which were not eaten.",
         "node_type": "infoNode"
     },
     "16917003308608856": {
         "dialog_node_key": 16572908886396643,
         "key": "16917003308608856",
         "text": "Are there any additional benefits for meals in Germany?",
-        "node_text": "Within Germany, you are entitled to 24\u20ac per day, minus costs for free meals which were not eaten.",
+        "node_text": "Within Germany, you are entitled to 24€ per day, minus costs for free meals which were not eaten.",
         "node_type": "infoNode"
     },
     "16917003308608887": {
         "dialog_node_key": 16572908886396643,
         "key": "16917003308608887",
         "text": "How do you claim the daily allowance for meals?",
-        "node_text": "Within Germany, you are entitled to 24\u20ac per day, minus costs for free meals which were not eaten.",
+        "node_text": "Within Germany, you are entitled to 24€ per day, minus costs for free meals which were not eaten.",
         "node_type": "infoNode"
     }
 }
