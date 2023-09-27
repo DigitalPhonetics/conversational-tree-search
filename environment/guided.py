@@ -175,7 +175,15 @@ class GuidedEnvironment(BaseEnv):
                     self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> SKIPPED TO NEXT NODE, BUT W/O ASKING')
             else: 
                 reward += 3 # skipping is good after ask, and we chose next node correctly
-                self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> SKIPPED TO CORRECT NODE')
+
+                # check if skip was locally correct (after knowing it wasn't correct globally)
+                # -> still reward local correctness, since a path of locally correct skips => global correctness
+                # That means, it's OK to reward locally correct behaviour, even if it is wrong on a global scale
+                if not skip_correct_globally and prev_node.node_type == NodeType.QUESTION:
+                    # last action was ASK -> get user utterance from ASK turn
+                    if self.locally_correct_skip(prev_usr_utterance=self.user_utterances_history[-1], origin_node=prev_node, followup_node=next_node):
+                        reward = 1 # turn reward positive again (+1), but lower than if it were correct skip & correct path
+
         return done, reward
 
     def reached_goal(self) -> bool:
