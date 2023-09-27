@@ -4,12 +4,11 @@ from environment.goal import DummyGoal
 
 from utils.utils import EnvInfo
 
-from data.dataset import GraphDataset
+from data.dataset import GraphDataset, ReimburseGraphDataset
 
 from data.parsers.answerTemplateParser import AnswerTemplateParser
 from data.parsers.logicParser import LogicTemplateParser
 from data.parsers.systemTemplateParser import SystemTemplateParser
-from data.parsers.parserValueProvider import RealValueBackend
 from utils.utils import AutoSkipMode
 from environment.free import FreeEnvironment
 from environment.guided import GuidedEnvironment
@@ -45,7 +44,12 @@ class CTSHEREnvironment:
         answer_parser = AnswerTemplateParser()
         logic_parser = LogicTemplateParser()
         system_parser = SystemTemplateParser()
-        value_backend = RealValueBackend(dataset.a1_countries, dataset)
+        if isinstance(dataset, ReimburseGraphDataset):
+            from data.parsers.parserValueProvider import ReimbursementRealValueBackend
+            value_backend = ReimbursementRealValueBackend(dataset.a1_countries, dataset)
+        else:
+            from data.parsers.parserValueProvider import RealValueBackend
+            value_backend = RealValueBackend()
 
         # initialize task-specific environments
         self.guided_env = GuidedEnvironment(dataset=dataset,

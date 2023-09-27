@@ -1,14 +1,13 @@
 import random
-from typing import Tuple
+from typing import List, Tuple
 
 from utils.utils import EnvInfo
 
-from data.dataset import GraphDataset
+from data.dataset import GraphDataset, ReimburseGraphDataset
 
 from data.parsers.answerTemplateParser import AnswerTemplateParser
 from data.parsers.logicParser import LogicTemplateParser
 from data.parsers.systemTemplateParser import SystemTemplateParser
-from data.parsers.parserValueProvider import RealValueBackend
 from utils.utils import AutoSkipMode
 from environment.free import FreeEnvironment
 from environment.guided import GuidedEnvironment
@@ -47,7 +46,12 @@ class CTSEnvironment(gymnasium.Env):
         answer_parser = AnswerTemplateParser()
         logic_parser = LogicTemplateParser()
         system_parser = SystemTemplateParser()
-        value_backend = RealValueBackend(dataset.a1_countries, dataset)
+        if isinstance(dataset, ReimburseGraphDataset):
+            from data.parsers.parserValueProvider import ReimbursementRealValueBackend
+            value_backend = ReimbursementRealValueBackend(dataset.a1_countries, dataset)
+        else:
+            from data.parsers.parserValueProvider import RealValueBackend
+            value_backend = RealValueBackend()
 
         # initialize task-specific environments
         self.guided_free_ratio = guided_free_ratio
@@ -122,6 +126,11 @@ class CTSEnvironment(gymnasium.Env):
         self.turn_counter += 1
         return obs, reward, done, False, obs # trunated, info = obs before encoding
     
+    def get_local_skip_accuracy_free(self) -> List[float]:
+        return self.free_env.actioncount_skip_accuracy
+    
+    def get_local_skip_accuracy_guided(self) -> List[float]:
+        return self.guided_env.actioncount_skip_accuracy
 
     def get_goal_node_coverage_free(self):
         return len(self.free_env.goal_node_coverage) / self.data.count_question_nodes()

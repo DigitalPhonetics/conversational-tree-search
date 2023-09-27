@@ -71,6 +71,7 @@ class BaseEnv:
         self.actioncount = {action_type: 0 for action_type in ActionType} # counts all ask- and skip-events
         self.actioncount_skips = {node_type: 0 for node_type in NodeType} # counts skip events per node type
         self.actioncount_skip_invalid = 0
+        self.actioncount_skip_accuracy = []
         self.actioncount_asks = {node_type: 0 for node_type in NodeType}  # counts ask events per node type
         self.actioncount_ask_variable_irrelevant = 0
         self.actioncount_ask_question_irrelevant = 0
@@ -82,7 +83,8 @@ class BaseEnv:
         self.user_answer_keys = defaultdict(int)
         self.visited_node_keys = defaultdict(int)
         self.bst = {}
-       
+
+        self._mode = "none"
         self.initial_user_utterance = "" 
         self.current_node = self.data.start_node.connected_node
         self.prev_node = None
@@ -269,17 +271,29 @@ class BaseEnv:
     def asked_goal(self) -> Union[bool, float]:
         raise NotImplementedError
 
+    def locally_correct_skip(self, prev_usr_utterance: str, origin_node: DialogNode, followup_node: DialogNode) -> bool:
+        # convert previous user answer synonym -> prototypical answer
+        prev_user_answer_prototype = None
+        for answer in origin_node.answers:
+            if prev_usr_utterance.replace("?", "") in map(lambda answer: answer.replace("?", ""), self.data.answer_synonyms[answer.text.lower()]):
+                prev_user_answer_prototype = answer
+                break
+        # check if skip index from previous answer would have let to current node
+        correct = followup_node.key == prev_user_answer_prototype.connected_node.key
+        self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> SKIPPED TO {"LOCALLY CORRECT" if correct else "WRONG"} FOLLOWUP NODE')
+        return correct
+
     def ask(self, replayed_user_utterance: Tuple[str, None]) -> Tuple[bool, float]:
         raise NotImplementedError
 
     def skip(self, answer_index: int) -> Tuple[bool, float]:
         raise NotImplementedError 
-
+    
     def step(self, action: int, replayed_user_utterance: Tuple[str, None] = None) -> Tuple[torch.FloatTensor, float, bool, Dict[EnvInfo, Any]]:
         reward = 0.0
         done = False 
         self.prev_node = self.current_node
-        self.current_user_utterance = "" # reset user utterance for current turn 
+        self.current_user_utterance = "" # reset user utterance for current turn
 
         # check if dialog should end
         if self.check_user_patience_reached(): 
@@ -313,6 +327,12 @@ class BaseEnv:
                 # check if agent is on correct path
                 if (not self.current_node) or (not self.current_node.key in self.goal.visited_ids):
                     self.on_path = False
+                    if self.current_node:
+                        # check if skip was correct locally (in case it is NOT the first turn of an FAQ-style dialog - in which case the answer will not be in the answer synonyms!)
+                        if self.prev_node.node_type == NodeType.QUESTION and self.last_action_idx == ActionType.ASK and (self._mode == "guided" or (self._mode == "free" and self.user_utterances_history[-1] != self.initial_user_utterance)):
+                            # we have user input for previous turn!
+                            locally_correct = self.locally_correct_skip(prev_usr_utterance=self.user_utterances_history[-1], origin_node=self.prev_node, followup_node=self.current_node)
+                            self.actioncount_skip_accuracy.append(1.0 if locally_correct else 0.0)
                     if self.stop_on_invalid_skip and (not done) and self.current_node:
                         # we're not at the end of the tree, but we took a wrong skip
                         done = True

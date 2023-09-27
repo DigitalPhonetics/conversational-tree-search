@@ -38,6 +38,7 @@ class GuidedEnvironment(BaseEnv):
     def reset(self, current_episode: int, max_distance: int, replayed_goal: DummyGoal = None):
         self.pre_reset()
 
+        self._mode = "guided"
         self.goal = self.goal_gen.draw_goal_guided(max_distance) if isinstance(replayed_goal, type(None)) else replayed_goal
         self.coverage_answer_synonyms[self.goal.delexicalised_initial_user_utterance.lower().replace("?", "")] += 1
         
@@ -133,19 +134,22 @@ class GuidedEnvironment(BaseEnv):
     def reward_reached_goal(self) -> int:
         return 15
 
+
     def skip(self, answer_index: int) -> Tuple[bool, float]:
         done = False
         reward = 0.0
 
         next_node = self.get_transition(answer_index)
+        skip_correct_globally = True
         if (not next_node) or((next_node.node_type != NodeType.LOGIC) and (next_node.key not in self.goal.visited_ids)):
             # skipping is good after ask, but followup-node is wrong!
-            # -> terminate episode here
             reward -= self.max_reward / 4
             self.actioncount_skip_invalid += 1
             self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> INVALID SKIP OR WRONG FOLLOWUP NODE')
+            skip_correct_globally = False
             # done = True
         if next_node:
+            prev_node = self.current_node
             self.current_node = next_node
 
             if self.goal.has_reached_goal_node(self.current_node):
@@ -168,7 +172,7 @@ class GuidedEnvironment(BaseEnv):
                         self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> SKIPPED VARIABLE NODE W/O ASKING')
                 else:
                     reward -= 2  # last action was skip: punish, should have asked this turn
-                    self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> SKIPPED TO CORRECT NODE, BUT W/O ASKING')
+                    self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> SKIPPED TO NEXT NODE, BUT W/O ASKING')
             else: 
                 reward += 3 # skipping is good after ask, and we chose next node correctly
                 self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> SKIPPED TO CORRECT NODE')

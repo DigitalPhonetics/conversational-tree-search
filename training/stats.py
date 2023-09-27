@@ -318,10 +318,12 @@ class CustomEvalCallback(EventCallback):
                 self.logger.record(f"{self.mode}/ep_reward_free", mean(episode_rewards_free))
                 self.logger.record(f"{self.mode}/ep_length_free", mean(episode_lengths_free))
                 self.logger.record(f"{self.mode}/perceived_length_free", mean(percieved_lengths_free))
+                self.logger.record(f"{self.mode}/local_skip_accuracy_free", 100 * self.eval_env.stats_local_skip_accuracy_free())
             if len(episode_rewards_guided) > 0:
                 self.logger.record(f"{self.mode}/ep_reward_guided", mean(episode_rewards_guided))
                 self.logger.record(f"{self.mode}/ep_length_guided", mean(episode_lengths_guided))
                 self.logger.record(f"{self.mode}/perceived_length_guided", mean(percieved_lengths_guided))
+                self.logger.record(f"{self.mode}/local_skip_accuracy_guided", 100 * self.eval_env.stats_local_skip_accuracy_guided())
 
             if len(self._is_success_buffer) > 0:
                 success_rate = np.mean(self._is_success_buffer)

@@ -41,6 +41,7 @@ class FreeEnvironment(BaseEnv):
     def reset(self, current_episode: int, max_distance: int, replayed_goal: DummyGoal = None):
         self.pre_reset()
 
+        self._mode = "free"
         self.goal = self.goal_gen.draw_goal_free(max_distance) if isinstance(replayed_goal, type(None)) else replayed_goal
         self.coverage_question_synonyms[self.goal.delexicalised_initial_user_utterance.lower().replace("?", "")] += 1
 

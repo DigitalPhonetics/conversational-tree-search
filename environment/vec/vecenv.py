@@ -257,6 +257,24 @@ class CustomVecEnv(VecEnv):
         coverage_dict = self._join_dicts(coverage_dicts)
         return len(coverage_dict) / self.envs[0].data.num_answer_synonyms
     
+    def stats_local_skip_accuracy_free(self):
+        accs = []
+        for env in self.envs:
+            if hasattr(env, "free_env"):
+                accs.extend(env.get_local_skip_accuracy_free())
+        if len(accs) > 0:
+            return mean(accs)
+        return 0.0
+
+    def stats_local_skip_accuracy_guided(self):
+        accs = []
+        for env in self.envs:
+            if hasattr(env, "guided_env"):
+                accs.extend(env.get_local_skip_accuracy_guided())
+        if len(accs) > 0:
+            return mean(accs)
+        return 0.0
+    
     def stats_actioncount_skips_indvalid(self):
         count = 0
         for env in self.envs:

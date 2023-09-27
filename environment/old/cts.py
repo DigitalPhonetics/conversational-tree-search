@@ -198,6 +198,7 @@ class OldCTSEnv(gym.Env):
         self.actioncount_skip_question = 0
         self.actioncount_skip_variable = 0
         self.actioncount_skip_invalid = 0
+        self.actioncount_skip_accuracy = []
         self.actioncount_missingvariable = 0
 
         self.coverage_faqs[goal.goal_node_key] += 1
@@ -284,6 +285,7 @@ class OldCTSEnv(gym.Env):
         self.actioncount_skip_question = 0
         self.actioncount_skip_variable = 0
         self.actioncount_skip_invalid = 0
+        self.actioncount_skip_accuracy = []
         self.actioncount_missingvariable = 0
         self.env_id = 0
 
@@ -318,6 +320,7 @@ class OldCTSEnv(gym.Env):
         self.actioncount = {action_type: 0 for action_type in ActionType} # counts all ask- and skip-events
         self.actioncount_skips = {node_type: 0 for node_type in NodeType} # counts skip events per node type
         self.actioncount_skip_invalid = 0
+        self.actioncount_skip_accuracy = []
         self.actioncount_asks = {node_type: 0 for node_type in NodeType}  # counts ask events per node type
         self.actioncount_ask_variable_irrelevant = 0
         self.actioncount_ask_question_irrelevant = 0
