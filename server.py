@@ -1,19 +1,19 @@
 import logging
-import hashlib
 import multiprocessing
+from copy import deepcopy
 
 import tornado
 import tornado.httpserver
-from tornado.web import RequestHandler, Application
-from tornado.websocket import WebSocketHandler
+from tornado.web import Application
 
 from environment.realuser import RealUserEnvironmentWeb
-from typing import Tuple
-from data.dataset import GraphDataset, ReimburseGraphDataset, DataAugmentationLevel
+from typing import Tuple, Union
+from data.dataset import GraphDataset, NodeType, ReimburseGraphDataset, DataAugmentationLevel
 from data.parsers.parserValueProvider import ReimbursementRealValueBackend
 from data.parsers.answerTemplateParser import AnswerTemplateParser
 from data.parsers.systemTemplateParser import SystemTemplateParser
 from data.parsers.logicParser import LogicTemplateParser
+from server.handlers import AuthenticatedWebSocketHandler, BaseHandler, ChatIndex, CheckLogin, DataAgreement, LogPostSurvey, LogPreSurvey, LoginHandler, PostSurvey, PreSurvey, ThankYou
 from utils.utils import AutoSkipMode, to_class
 from algorithm.dqn.dqn import CustomDQN
 import torch
@@ -173,7 +173,7 @@ def load_model(ckpt_path: str, cfg_name: str, device: str, data: GraphDataset) -
                     replay_buffer_kwargs=replay_buffer_kwargs,
                     action_masking=cfg.experiment.actions.action_masking,
                     actions_in_state_space=cfg.experiment.actions.in_state_space
-                ) 
+                )
         
         # restore weights
         print("Restoring weights...")
@@ -224,101 +224,79 @@ class ChatEngine:
         self.user_env = load_env(data, nlu, answerParser, logicParser, valueBackend) # contains .bst, .reset()
         self.socket = socket
 
-    def start_dialog(self) -> None:
+    def next_action(self, obs: dict) -> Tuple[int, bool]:
+        # encode observation
+        s = state_encoding.batch_encode(observation=[obs], sys_token="SYSTEM", usr_token="USER", sep_token="") 
+        # predict action & intent
+        action, intent = model.predict(observation=s, deterministic=True)
+        action = int(action)
+        intent = intent.item()
+
+        return action, intent
+
+    def start_dialog(self):
         self.user_env.reset()
-        self.action = ActionType.ASK.value # 1st action is to ask user start node
         self.socket.write_message({"EVENT": "MSG", "VALUE": self.user_env.current_node.text})
+        # wait for initial user utterance
 
-    def user_reply(self, user_utterance: str):
-        print("Setting user reply:", user_utterance)
+    def user_reply(self, msg):
         if self.user_env.first_turn:
-            print("-- FISRT TURN")
-            self.user_env.set_initial_user_utterance(user_utterance)
-            self.system_reply() # continue dialog loop
+            self.set_initial_user_utterance(msg)
         else:
-            print("-- NOT FIRST TURN ANYMORE")
-            error_msg = self.user_env.set_user_utterance(user_utterance)
-            print(" --- error msg", error_msg)
-            if error_msg:
-                self.socket.write_message({"EVENT": "MSG", "VALUE": error_msg})
+            # set n-th turn utternace and step
+            if self.user_env.current_node.node_type == NodeType.VARIABLE:
+                # check if user input is valid using NLU
+                error_msg = self.user_env.check_variable_input(msg)
+                if error_msg:
+                    # unrecognized user input -> forward error message to UI
+                    self.socket.write_message({"EVENT": "MSG", "VALUE": error_msg})
+                else:
+                    # valid user input -> step
+                    self.step(action=self.action, utterance=msg)
             else:
-                self.system_reply() # continue dialog loop
+                self.step(action=self.action, utterance=msg)
 
-    def system_reply(self):
+    def set_initial_user_utterance(self, msg):
+        self.user_env.set_initial_user_utterance(msg)
+        self.step()
+
+    def step(self, action: Union[int, None] = None, utterance: Union[str, None] = None):
         done = False
         while not done:
-            print("Choosing next action...")
-            obs, reward, done = self.user_env.step(self.action)
-
-            if not done:
-                # encode observation
-                s = state_encoding.batch_encode(observation=[obs], sys_token=cfg.experiment.environment.sys_token, usr_token=cfg.experiment.environment.usr_token, sep_token=cfg.experiment.environment.sep_token) 
-                # predict action & intent
-                action, intent = model.predict(observation=s, deterministic=True)
-                self.action = int(action)
-                intent = intent.item()
-                print("-> ACTION", action)
-
-                if action == ActionType.ASK:
-                    # get system message from action
+            # get next action
+            if isinstance(action, type(None)):
+                self.action, self.intent = self.next_action(self.user_env.get_obs())
+                print("ACTION:", self.action, "INTENT:", "FREE" if self.intent == True else "GUIDED")
+            # perform next action
+            if self.action == ActionType.ASK:
+                # output current node
+                if self.user_env.current_node.node_type in [NodeType.QUESTION, NodeType.VARIABLE]:
+                    # wait for user input
+                    if isinstance(utterance, type(None)):
+                        self.socket.write_message({"EVENT": "MSG", "VALUE": self.user_env.current_node.text})
+                        return
+                    else:
+                       obs, reward, done = self.user_env.step(self.action, replayed_user_utterance=deepcopy(utterance))
+                       action = None
+                       utterance = None
+                       continue 
+                else:
                     self.socket.write_message({"EVENT": "MSG", "VALUE": self.user_env.current_node.text})
-                    if self.user_env.needs_user_utterance():
-                        done = True
-                elif action >= ActionType.SKIP:
-                    # continue skipping
-                    pass
+            # SKIP
+            obs, reward, done = self.user_env.step(self.action, replayed_user_utterance="")
 
-                    
+
         
-
-class BaseHandler(RequestHandler):
-    def get_current_user(self):
-        return tornado.escape.to_unicode(self.get_secure_cookie("user"))    
-
-class AuthenticatedWebSocketHandler(WebSocketHandler):
-    def get_current_user(self):
-        return tornado.escape.to_unicode(self.get_secure_cookie("user"))
-
-
-
-class LoginHandler(BaseHandler):
-    def get(self):
-        if self.current_user:
-            self.redirect("/data_agreement")
-        else:
-            self.render("server/templates/login.html")
-
-
-class CheckLogin(RequestHandler):
-    def post(self):
-        username = self.get_body_argument("username").encode()
-        h = hashlib.shake_256(username)
-        self.set_secure_cookie("user", h.hexdigest(15))
-        self.redirect("/data_agreement")
-
-class LogPreSurvey(BaseHandler):
-    def post(self):
-        global GROUP_ASSIGNMENTS
-        results = self.request.body_arguments
-        results = {key : str(results[key][0])[2:-1] for key in results}
-        logging.getLogger("survey").info(f"USER: {self.current_user} || PRE-SURVEY: {results}")
-        self.redirect(f"/chat")
-
-class LogPostSurvey(BaseHandler):
-    def post(self):
-        results = self.request.body_arguments
-        results = {key : str(results[key][0])[2:-1] for key in results}
-        logging.getLogger("survey").info(f"USER: {self.current_user} || POST-SURVEY: {results}")
-        self.redirect(f"/thank_you")
-
 class UserAgreed(BaseHandler):
     def post(self):
+        global GROUP_ASSIGNMENTS
         logging.getLogger("user_info").info(f"USER: {self.current_user} || AGREED: True")
 
         # If user is not assigned, assign to group with fewest participants
         if not self.get_cookie("group_assignment"):
             group = sorted(GROUP_ASSIGNMENTS.items(), key=lambda item: len(item[1]))[0][0]
             self.set_cookie("group_assignment", group)
+            GROUP_ASSIGNMENTS[group].append(self.current_user)
 
             # add assignment to file
             logging.getLogger("user_info").info(f"USER: {self.current_user} || GROUP: {group}")
@@ -326,32 +304,6 @@ class UserAgreed(BaseHandler):
 
         self.redirect(f"/pre_survey")
         
-
-class ChatIndex(BaseHandler):
-    @tornado.web.authenticated
-    def get(self):
-        self.render("server/templates/chat.html")
-
-class DataAgreement(BaseHandler):
-    @tornado.web.authenticated
-    def get(self):
-        self.render("server/templates/data_agreement.html")
-
-class PostSurvey(BaseHandler):
-    @tornado.web.authenticated
-    def get(self):
-        self.render("server/templates/post_survey.html")
-
-class PreSurvey(BaseHandler):
-    @tornado.web.authenticated
-    def get(self):
-        self.render("server/templates/pre_survey.html")
-
-class ThankYou(BaseHandler):
-    @tornado.web.authenticated
-    def get(self):
-        self.render("server/templates/thank_you.html", completion_key=self.current_user)
-
 
 class UserChatSocket(AuthenticatedWebSocketHandler):
     def open(self):
@@ -384,7 +336,7 @@ class UserChatSocket(AuthenticatedWebSocketHandler):
             # forward message to (correct) dialog system
             print(f"MSG for user {self.current_user}: {message}")
             logging.getLogger("chat").info(f"MSG USER ({self.current_user}): {value}")
-            CHAT_ENGINES[self.current_user].user_reply(message)
+            CHAT_ENGINES[self.current_user].user_reply(value)
         elif event == "RESTART":
             # restart dialog
             logging.getLogger("chat").info(f"USER ({self.current_user} NEW DIALOG)")
@@ -397,6 +349,8 @@ class UserChatSocket(AuthenticatedWebSocketHandler):
                 logging.getLogger("chat").info(f"USER: {self.current_user} || DIALOG END: FAILURE")
             else:
                 logging.getLogger("chat").info(f"USER: {self.current_user} || DIALOG END: UNKNOWN CONDITION")
+            with open("test_log.txt", "a") as f:
+                f.writelines([line + "\n" for line in CHAT_ENGINES[self.current_user].user_env.episode_log])
             # choose a new goal
             if USER_GOAL_NUM[self.current_user] >= NUM_GOALS:
                 self.write_message({"EVENT": "EXPERIMENT_OVER", "VALUE": True})
