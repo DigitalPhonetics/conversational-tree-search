@@ -348,7 +348,9 @@ body {
             // Update the goal
             g = document.getElementById("goal");
             g.innerHTML = `${value}`;
-
+        }else if (event === "RESTART"){
+            // TODO: clear messages
+            $("#messagelist").innerHTML = "";
         }else if (event === "EXPERIMENT_OVER"){
             console.log(window.location.host + "/post_survey");
             window.location.replace("http://" + window.location.host + "/post_survey")
@@ -437,7 +439,6 @@ body {
                 VALUE: true
             }));            
         }
-
     }
 
     function enterKeyDown(e) {
@@ -454,7 +455,7 @@ body {
     <div class="content">
 
         <div class="contentFooterDivider">
-            <div class="commanBtnBar" id="chat_header">
+            <div class="commanBtnBar" style="justify-content: flex-end;" id="chat_header">
                 <button class="btn btn-warning" style="margin: 2%;" onclick="restart()">Restart</button>
             </div>
 
