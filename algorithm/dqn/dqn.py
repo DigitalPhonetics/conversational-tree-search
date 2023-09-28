@@ -31,7 +31,7 @@ from stable_baselines3.common.type_aliases import Schedule
 
 from algorithm.dqn.policy import CustomDQNPolicy
 from algorithm.dqn.targets import DQNTarget
-from environment.old.her import OldHindsightExperienceReplayWrapper
+# from environment.old.her import OldHindsightExperienceReplayWrapper
 from utils.utils import EnvInfo
 import config as cfg
 
