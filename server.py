@@ -6,13 +6,14 @@ import tornado
 import tornado.httpserver
 from tornado.web import Application
 
-from environment.realuser import RealUserEnvironmentWeb
+from server.webenv import RealUserEnvironmentWeb
 from typing import Tuple, Union
-from data.dataset import GraphDataset, NodeType, ReimburseGraphDataset, DataAugmentationLevel
+from data.dataset import GraphDataset, NodeType, DataAugmentationLevel
 from data.parsers.parserValueProvider import ReimbursementRealValueBackend
 from data.parsers.answerTemplateParser import AnswerTemplateParser
 from data.parsers.systemTemplateParser import SystemTemplateParser
 from data.parsers.logicParser import LogicTemplateParser
+from server.formattedDataset import FormattedReimburseGraphDataset
 from server.handlers import AuthenticatedWebSocketHandler, BaseHandler, ChatIndex, CheckLogin, DataAgreement, LogPostSurvey, LogPreSurvey, LoginHandler, PostSurvey, PreSurvey, ThankYou
 from utils.utils import AutoSkipMode, to_class
 from algorithm.dqn.dqn import CustomDQN
@@ -22,7 +23,7 @@ from gymnasium import Env
 from encoding.state import StateEncoding
 from server.nlu import NLU
 
-from algorithm.dqn.her import HindsightExperienceReplayWrapper
+from algorithm.dqn.buffer import CustomReplayBuffer
 import gymnasium as gym
 
 from hydra import compose, initialize
@@ -162,7 +163,7 @@ def load_model(ckpt_path: str, cfg_name: str, device: str, data: GraphDataset) -
             "beta": cfg.experiment.algorithm.dqn.buffer.backend.beta,
             "use_lap": cfg.experiment.algorithm.dqn.buffer.backend.use_lap ,
         }
-        replay_buffer_class = HindsightExperienceReplayWrapper
+        replay_buffer_class = CustomReplayBuffer
         dqn_target_cls =  to_class(cfg.experiment.algorithm.dqn.targets._target_)
         dqn_target_args = {'gamma': cfg.experiment.algorithm.dqn.gamma}
         dqn_target_args.update(cfg.experiment.algorithm.dqn.targets) 
@@ -197,19 +198,19 @@ def load_model(ckpt_path: str, cfg_name: str, device: str, data: GraphDataset) -
         model.policy.eval()
     return cfg, model, encoding
 
-def load_env(data: GraphDataset, nlu: NLU, answer_parser, logic_parser, value_backend) -> RealUserEnvironmentWeb:
+def load_env(data: GraphDataset, nlu: NLU, sysParser, answer_parser, logic_parser, value_backend) -> RealUserEnvironmentWeb:
     # setup env
     env = RealUserEnvironmentWeb(dataset=data, nlu=nlu,
                         sys_token="SYSTEM", usr_token="USER", sep_token="",
                         max_steps=50, max_reward=150, user_patience=2,
-                        answer_parser=answerParser, logic_parser=logicParser, value_backend=valueBackend,
+                        system_parser=sysParser, answer_parser=answer_parser, logic_parser=logic_parser, value_backend=value_backend,
                         auto_skip=AutoSkipMode.NONE, stop_on_invalid_skip=False)
     return env
 
 
 # setup data
 nlu = NLU()
-data = ReimburseGraphDataset('en/reimburse/test_graph.json', 'en/reimburse/test_answers.json', use_answer_synonyms=True, augmentation=DataAugmentationLevel.NONE, resource_dir='resources')
+data = FormattedReimburseGraphDataset('en/reimburse/test_graph.json', 'en/reimburse/test_answers.json', use_answer_synonyms=True, augmentation=DataAugmentationLevel.NONE, resource_dir='resources')
 # setup data & parsers
 answerParser = AnswerTemplateParser()
 logicParser = LogicTemplateParser()
@@ -235,7 +236,7 @@ def choose_user_goal(user_id: str):
 class ChatEngine:
     def __init__(self, user_id: str, socket) -> None:
         self.user_id = user_id
-        self.user_env = load_env(data, nlu, answerParser, logicParser, valueBackend) # contains .bst, .reset()
+        self.user_env = load_env(data, nlu, sysParser, answerParser, logicParser, valueBackend) # contains .bst, .reset()
         self.socket = socket
 
     def next_action(self, obs: dict) -> Tuple[int, bool]:
@@ -250,7 +251,7 @@ class ChatEngine:
 
     def start_dialog(self):
         self.user_env.reset()
-        self.socket.write_message({"EVENT": "MSG", "VALUE": self.user_env.current_node.text})
+        self.socket.write_message({"EVENT": "MSG", "VALUE": self.user_env.get_current_node_markup(), "CANDIDATES": self.user_env.get_current_node_answer_candidates()  })
         # wait for initial user utterance
 
     def user_reply(self, msg):
@@ -287,7 +288,7 @@ class ChatEngine:
                 if self.user_env.current_node.node_type in [NodeType.QUESTION, NodeType.VARIABLE]:
                     # wait for user input
                     if isinstance(utterance, type(None)):
-                        self.socket.write_message({"EVENT": "MSG", "VALUE": self.user_env.current_node.text})
+                        self.socket.write_message({"EVENT": "MSG", "VALUE": self.user_env.get_current_node_markup(), "CANDIDATES": self.user_env.get_current_node_answer_candidates() })
                         return
                     else:
                        obs, reward, done = self.user_env.step(self.action, replayed_user_utterance=deepcopy(utterance))
@@ -295,7 +296,7 @@ class ChatEngine:
                        utterance = None
                        continue 
                 else:
-                    self.socket.write_message({"EVENT": "MSG", "VALUE": self.user_env.current_node.text})
+                    self.socket.write_message({"EVENT": "MSG", "VALUE": self.user_env.get_current_node_markup(), "CANDIDATES": self.user_env.get_current_node_answer_candidates()  })
             # SKIP
             obs, reward, done = self.user_env.step(self.action, replayed_user_utterance="")
 
