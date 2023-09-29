@@ -328,12 +328,6 @@ class BaseEnv:
                 # check if agent is on correct path
                 if (not self.current_node) or (not self.current_node.key in self.goal.visited_ids):
                     self.on_path = False
-                    if self.current_node:
-                        # check if skip was correct locally (in case it is NOT the first turn of an FAQ-style dialog - in which case the answer will not be in the answer synonyms!)
-                        if self.prev_node.node_type == NodeType.QUESTION and self.last_action_idx == ActionType.ASK and (self.env_mode == "guided" or (self.env_mode == "free" and self.user_utterances_history[-1] != self.initial_user_utterance)):
-                            # we have user input for previous turn!
-                            locally_correct = self.locally_correct_skip(prev_usr_utterance=self.user_utterances_history[-1], origin_node=self.prev_node, followup_node=self.current_node)
-                            self.actioncount_skip_accuracy.append(1.0 if locally_correct else 0.0)
                     if self.stop_on_invalid_skip and (not done) and self.current_node:
                         # we're not at the end of the tree, but we took a wrong skip
                         done = True
@@ -341,6 +335,14 @@ class BaseEnv:
                 if self.on_path:
                     # transition is on goal path! -> update index
                     self.last_valid_skip_transition_idx = self.current_step
+
+                # check skip accuracy
+                if self.current_node:
+                    # check if skip was correct locally (in case it is NOT the first turn of an FAQ-style dialog - in which case the answer will not be in the answer synonyms!)
+                    if self.prev_node.node_type == NodeType.QUESTION and self.last_action_idx == ActionType.ASK and (self.env_mode == "guided" or (self.env_mode == "free" and self.user_utterances_history[-1] != self.initial_user_utterance)):
+                        # we have user input for previous turn!
+                        locally_correct = self.locally_correct_skip(prev_usr_utterance=self.user_utterances_history[-1], origin_node=self.prev_node, followup_node=self.current_node)
+                        self.actioncount_skip_accuracy.append(1.0 if locally_correct else 0.0)
                 
             self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> USER UTTERANCE: {self.current_user_utterance}')
             if self.current_node:
