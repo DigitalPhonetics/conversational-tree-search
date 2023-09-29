@@ -34,11 +34,17 @@ DEBUG = True
 NUM_GOALS = 2
 HARD_GOALS = [
     "You are trying to figure out how much money you get for booking somewhere to stay on your trip. <ul><li>Your trip is to Tokyo, Japan</li><li>Your trip should take 10 days</li><li>You plan to stay in a hotel</li></ul>",
-    "You want to figure out how much money you can get reimbursed for your travel. <ul><li>You used your own car</li><li>Your trip was 20km and lasted 8 hours</li><li>You took two colleagues with you</li></ul>"
+    "You want to figure out how much money you can get reimbursed for your travel. <ul><li>You used your own car</li><li>Your trip was 20km and lasted 8 hours</li><li>You took two colleagues with you</li></ul>",
+    "You want to know how much money you can get be reimbursed for for your accommodations. <ul><li>You are traveling to France for your next trip</li><li>You plan to stay with your brother in his apartment. </li></ul>",
+    "You want to know how high the per diem is for food on your next trip. <ul><li>You are traveling to London, England</li><li>You will be there for 72 hours</li></ul>",
+    "You want to know..."
 ]
 EASY_GOALS = [
     "You want to know if you can get reimbursed if you reserve a seat for yourself on the train",
-    "You are traveling with another colleague and want to know if you have to share a room or if each of you can book your own"
+    "You are traveling with another colleague and want to know if you have to share a room or if each of you can book your own",
+    "You are planning on attending a conference and want to know if the membership fee can be reimbursed",
+    "You have just gotten sick and cannot travel anymore. You want to know if the money you have already paid can be reimbursed",
+    "You want to know if you can be reimbursed if you need to book a taxi during your trip."
     ]
 GROUP_ASSIGNMENTS = {"hdc": [], "faq": [], "cts": []}
 USER_GOAL_NUM = {}
