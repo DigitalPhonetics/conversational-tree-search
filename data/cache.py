@@ -51,9 +51,9 @@ class Cache:
         # TODO similarity encoding
 
     @torch.no_grad()
-    def _apply_noise(self, state_input_key: State, embeddings: torch.FloatTensor) -> torch.FloatTensor:
-        if self.state_embedding_cfg[state_input_key].noise_std > 0.0:
-            return torch.normal(mean=embeddings, std=self.state_embedding_cfg[state_input_key].noise_std*torch.abs(embeddings))
+    def _apply_noise(self, state_input_key: State, embeddings: torch.FloatTensor, noise: float) -> torch.FloatTensor:
+        if self.state_embedding_cfg[state_input_key].noise_std > 0.0 and noise > 0.0:
+            return torch.normal(mean=embeddings, std=self.state_embedding_cfg[state_input_key].noise_std*noise*torch.abs(embeddings))
         return embeddings
 
     @torch.no_grad()
@@ -69,16 +69,16 @@ class Cache:
             return embeddings # return unprocessed sequence: 1 x 1 x embedding_dim -> 1 x embedding_dim
 
     @torch.no_grad()
-    def _encode(self, state_input_key: State, text_embedding_name: str, caching: bool, cache_key: str, encode_fn: Any, value: Union[str, List[str]]):
+    def _encode(self, state_input_key: State, text_embedding_name: str, caching: bool, cache_key: str, encode_fn: Any, value: Union[str, List[str]], noise: float):
         pooling = self.state_embedding_cfg[state_input_key].pooling
         embeddings = encode_fn(value).detach().cpu()
-        embeddings = self._apply_noise(state_input_key=state_input_key, embeddings=embeddings)
+        embeddings = self._apply_noise(state_input_key=state_input_key, embeddings=embeddings, noise=noise)
         embeddings = self._apply_pooling(embeddings, pooling)
         return embeddings
 
 
     @torch.no_grad()
-    def encode_text(self, state_input_key: State, text: str):
+    def encode_text(self, state_input_key: State, text: str, noise: float):
         text_embedding_name = self.state_embedding_cfg[state_input_key]._target_
         text_embedding: TextEmbeddings = self.text_embeddings[text_embedding_name]
         return self._encode(state_input_key=state_input_key,
@@ -86,10 +86,11 @@ class Cache:
                             caching=text and (not text.isnumeric()),
                             cache_key=text.lower(),
                             encode_fn=text_embedding.encode,
-                            value=text).squeeze(0)
+                            value=text,
+                            noise=noise).squeeze(0)
     
     @torch.no_grad()
-    def batch_encode_text(self, state_input_key: State, text: List[str]):
+    def batch_encode_text(self, state_input_key: State, text: List[str], noise: float):
         text_embedding_name = self.state_embedding_cfg[state_input_key]._target_
         text_embedding: TextEmbeddings = self.text_embeddings[text_embedding_name]
 
@@ -97,7 +98,7 @@ class Cache:
         embeddings = text_embedding.batch_encode(text) # batch x embedding_dim
 
         # noise
-        embeddings = self._apply_noise(state_input_key=state_input_key, embeddings=embeddings)
+        embeddings = self._apply_noise(state_input_key=state_input_key, embeddings=embeddings, noise=noise)
         embeddings = self._apply_pooling(embeddings, self.state_embedding_cfg[state_input_key].pooling)
 
         return embeddings.detach().cpu()
@@ -116,7 +117,8 @@ class Cache:
                             caching=len(node.answers) > 0,
                         cache_key=f"actions_{node.key}",
                             encode_fn=text_embedding.batch_encode, # returns: num_actions x max_length x embedding_size
-                            value=[node.answer_by_index(i).text for i in range(len(node.answers))])
+                            value=[node.answer_by_index(i).text for i in range(len(node.answers))],
+                            noise=0.0)
     
     @torch.no_grad()
     def batch_encode_answer_text(self, node: List[DialogNode], action_space_dim: int):
@@ -159,8 +161,6 @@ class Cache:
             if len(current_batch) > 0:
                 # encode
                 enc = text_embedding.batch_encode(current_batch).detach().cpu() # batch x embedding_dim
-                # noise
-                enc = self._apply_noise(state_input_key=State.ACTION_TEXT, embeddings=enc)
                 enc = enc.detach().cpu()
                 
                 # assign answer embeddings to correct tensor positions

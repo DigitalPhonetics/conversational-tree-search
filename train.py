@@ -52,7 +52,8 @@ def setup_data_and_vecenv(device: str, dataset_cfg: DatasetConfig, environment_c
                          cache: Cache, encoding: StateEncoding,
                          state_config: StateConfig, action_config: ActionConfig,
                          torch_compile: bool,
-                         save_terminal_obs: bool) -> Tuple[GraphDataset, Cache, StateEncoding, CustomVecEnv]:
+                         save_terminal_obs: bool,
+                         noise: float) -> Tuple[GraphDataset, Cache, StateEncoding, CustomVecEnv]:
     data = instantiate(dataset_cfg)
     if isinstance(cache, type(None)):
         cache, encoding = setup_cache_and_encoding(device=device, data=data, state_config=state_config, action_config=action_config, torch_compile=torch_compile)
@@ -61,6 +62,7 @@ def setup_data_and_vecenv(device: str, dataset_cfg: DatasetConfig, environment_c
         "mode": mode,
         "dataset": data,
         "state_encoding": encoding,
+        "noise": noise,
         **environment_cfg
     }
     # TODO temporary change to old env - change back!
@@ -103,29 +105,15 @@ def load_cfg(cfg):
     state_encoding = None
     
     callbacks = []
-    if cfg.experiment.logging.wandb_log != WandbLogLevel.NONE:
-        if cfg.experiment.logging.wandb_log == WandbLogLevel.OFFLINE:
-            os.environ['WANDB_MODE'] = 'offline'
-        run = wandb.init(
-            project="cts_en_stablebaselines",
-            config=OmegaConf.to_container(cfg, resolve=True),
-            sync_tensorboard=True,  # auto-upload sb3's tensorboard metrics
-            # monitor_gym=True,  # auto-upload the videos of agents playing the game
-            save_code=True,  # optional
-            dir=f"/mount/arbeitsdaten/asr-2/vaethdk/cts_newcodebase_weights/{run_id}"
-        )
-        # callbacks.append(WandbCallback(
-        #     model_save_path=f"/mount/arbeitsdaten/asr-2/vaethdk/cts_newcodebase_weights/{run_id}",
-        #     verbose=2)
-        # )
-
+   
     if "training" in cfg.experiment and not isinstance(cfg.experiment.training, type(None)): 
         train_data, cache, state_encoding, train_env = setup_data_and_vecenv(device=cfg.experiment.device, dataset_cfg=cfg.experiment.training.dataset, environment_cfg=cfg.experiment.environment,
                                                                         mode="train", n_envs=cfg.experiment.environment.num_train_envs, log_dir=None,
                                                                         cache=cache, encoding=state_encoding,
                                                                         state_config=cfg.experiment.state, action_config=cfg.experiment.actions,
                                                                         torch_compile=cfg.experiment.torch_compile,
-                                                                        save_terminal_obs=cfg.experiment.algorithm.dqn.save_terminal_obs)
+                                                                        save_terminal_obs=cfg.experiment.algorithm.dqn.save_terminal_obs,
+                                                                        noise=cfg.experiment.training.noise)
 
         train_env = VecMonitor(train_env)
     if "validation" in cfg.experiment and not isinstance(cfg.experiment.validation, type(None)): 
@@ -134,7 +122,8 @@ def load_cfg(cfg):
                                                                         cache=cache, encoding=state_encoding,
                                                                         state_config=cfg.experiment.state, action_config=cfg.experiment.actions,
                                                                         torch_compile=cfg.experiment.torch_compile,
-                                                                        save_terminal_obs=cfg.experiment.algorithm.dqn.save_terminal_obs)
+                                                                        save_terminal_obs=cfg.experiment.algorithm.dqn.save_terminal_obs,
+                                                                        noise=cfg.experiment.validation.noise)
         callbacks.append(CustomEvalCallback(eval_env=val_env, mode='eval',
                              best_model_save_path=f"/mount/arbeitsdaten/asr-2/vaethdk/cts_newcodebase_weights/{run_id}/best_eval/weights",
                              log_path=f"/mount/arbeitsdaten/asr-2/vaethdk/cts_newcodebase_weights/{run_id}/best_eval/logs",
@@ -149,7 +138,8 @@ def load_cfg(cfg):
                                                                         cache=cache, encoding=state_encoding,
                                                                         state_config=cfg.experiment.state, action_config=cfg.experiment.actions,
                                                                         torch_compile=cfg.experiment.torch_compile,
-                                                                        save_terminal_obs=cfg.experiment.algorithm.dqn.save_terminal_obs)
+                                                                        save_terminal_obs=cfg.experiment.algorithm.dqn.save_terminal_obs,
+                                                                        noise=cfg.experiment.testing.noise)
         callbacks.append(CustomEvalCallback(eval_env=test_env, mode='test',
                         best_model_save_path=f"/mount/arbeitsdaten/asr-2/vaethdk/cts_newcodebase_weights/{run_id}/best_test/weights",
                         log_path=f"/mount/arbeitsdaten/asr-2/vaethdk/cts_newcodebase_weights/{run_id}/best_test/logs",
@@ -199,7 +189,8 @@ def load_cfg(cfg):
         "sep_token": cfg.experiment.environment.sep_token,
         "alpha": cfg.experiment.algorithm.dqn.buffer.backend.alpha,
         "beta": cfg.experiment.algorithm.dqn.buffer.backend.beta,
-        "use_lap": cfg.experiment.algorithm.dqn.buffer.backend.use_lap 
+        "use_lap": cfg.experiment.algorithm.dqn.buffer.backend.use_lap,
+        "noise": cfg.experiment.training.noise
     }
     # TODO change back!
     replay_buffer_class = HindsightExperienceReplayWrapper
@@ -233,6 +224,22 @@ def load_cfg(cfg):
                 actions_in_state_space=cfg.experiment.actions.in_state_space
             ) # TODO configure replay buffer class!
     
+    if cfg.experiment.logging.wandb_log != WandbLogLevel.NONE:
+        if cfg.experiment.logging.wandb_log == WandbLogLevel.OFFLINE:
+            os.environ['WANDB_MODE'] = 'offline'
+        run = wandb.init(
+            project="cts_en_stablebaselines",
+            config=OmegaConf.to_container(cfg, resolve=True),
+            sync_tensorboard=True,  # auto-upload sb3's tensorboard metrics
+            # monitor_gym=True,  # auto-upload the videos of agents playing the game
+            save_code=True,  # optional
+            dir=f"/mount/arbeitsdaten/asr-2/vaethdk/cts_newcodebase_weights/{run_id}"
+        )
+        # callbacks.append(WandbCallback(
+        #     model_save_path=f"/mount/arbeitsdaten/asr-2/vaethdk/cts_newcodebase_weights/{run_id}",
+        #     verbose=2)
+        # )
+
     model.learn(total_timesteps=cfg.experiment.algorithm.dqn.timesteps_per_reset, log_interval=cfg.experiment.logging.log_interval, progress_bar=False,
                     callback=CallbackList(callbacks)
         )

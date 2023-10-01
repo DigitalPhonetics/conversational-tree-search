@@ -92,7 +92,7 @@ class StateEncoding:
         return StateDims(state_vector=state_dim, action_vector=action_dim, state_action_subvector=state_action_subvector, num_actions=num_actions)
 
 
-    def encode(self, observation: Dict[EnvInfo, Any], sys_token: str, usr_token: str, sep_token: str):
+    def encode(self, observation: Dict[EnvInfo, Any], sys_token: str, usr_token: str, sep_token: str, noise: float):
         """
         Calls encoders from cache to transform observation/info dicts into a state vector.
 
@@ -114,17 +114,17 @@ class StateEncoding:
         if self.state_config.node_type:
             state_encoding.append(self.cache.node_type_encoding.encode(dialog_node=node))
         if self.state_config.node_text and self.state_config.node_text.active:
-            state_encoding.append(self.cache.encode_text(state_input_key=State.NODE_TEXT, text=node.text))
+            state_encoding.append(self.cache.encode_text(state_input_key=State.NODE_TEXT, text=node.text, noise=noise))
         if self.state_config.initial_user_utterance and self.state_config.initial_user_utterance.active:
-            state_encoding.append(self.cache.encode_text(state_input_key=State.INITIAL_USER_UTTERANCE, text=observation[EnvInfo.INITIAL_USER_UTTERANCE]))
+            state_encoding.append(self.cache.encode_text(state_input_key=State.INITIAL_USER_UTTERANCE, text=observation[EnvInfo.INITIAL_USER_UTTERANCE], noise=noise))
         if self.state_config.dialog_history and self.state_config.dialog_history.active:
             dialog_history = chain_dialog_history(sys_utterances=observation[EnvInfo.SYSTEM_UTTERANCE_HISTORY], usr_utterances=observation[EnvInfo.USER_UTTERANCE_HISTORY],
                                                             sys_token=sys_token, usr_token=usr_token, sep_token=sep_token)
             dialog_history = ["".join(turn) for turn in dialog_history]
             dialog_history = "".join(dialog_history)
-            state_encoding.append(self.cache.encode_text(state_input_key=State.DIALOG_HISTORY, text=dialog_history))
+            state_encoding.append(self.cache.encode_text(state_input_key=State.DIALOG_HISTORY, text=dialog_history, noise=noise))
         if self.state_config.current_user_utterance and self.state_config.current_user_utterance.active:
-            state_encoding.append(self.cache.encode_text(State.CURRENT_USER_UTTERANCE, text=observation[EnvInfo.CURRENT_USER_UTTERANCE]))
+            state_encoding.append(self.cache.encode_text(State.CURRENT_USER_UTTERANCE, text=observation[EnvInfo.CURRENT_USER_UTTERANCE], noise=noise))
 
         # print([s.size() for s in state_encoding])
         state_encoding = torch.cat(state_encoding, dim=-1) # 1 x state_dim - state_action_subvector
@@ -173,7 +173,7 @@ class StateEncoding:
                 state_encoding[-pad_rows:, :] = 0.0 # mask repeated state in padded rows
         return state_encoding.squeeze()
 
-    def batch_encode(self, observation: List[Dict[EnvInfo, Any]], sys_token: str, usr_token: str, sep_token: str):
+    def batch_encode(self, observation: List[Dict[EnvInfo, Any]], sys_token: str, usr_token: str, sep_token: str, noise: float):
         nodes: List[DialogNode] = [self.data.nodes_by_key[obs[EnvInfo.DIALOG_NODE_KEY]] for obs in observation]
 
         state_encoding = []
@@ -186,17 +186,17 @@ class StateEncoding:
         if self.state_config.node_type:
             state_encoding.append(self.cache.node_type_encoding.batch_encode(dialog_node=nodes))
         if self.state_config.node_text and self.state_config.node_text.active:
-            state_encoding.append(self.cache.batch_encode_text(state_input_key=State.NODE_TEXT, text=[node.text for node in nodes]))
+            state_encoding.append(self.cache.batch_encode_text(state_input_key=State.NODE_TEXT, text=[node.text for node in nodes], noise=noise))
         if self.state_config.initial_user_utterance and self.state_config.initial_user_utterance.active:
-            state_encoding.append(self.cache.batch_encode_text(state_input_key=State.INITIAL_USER_UTTERANCE, text=[obs[EnvInfo.INITIAL_USER_UTTERANCE] for obs in observation]))
+            state_encoding.append(self.cache.batch_encode_text(state_input_key=State.INITIAL_USER_UTTERANCE, text=[obs[EnvInfo.INITIAL_USER_UTTERANCE] for obs in observation], noise=noise))
         if self.state_config.dialog_history and self.state_config.dialog_history.active:
             dialog_history = [chain_dialog_history(sys_utterances=obs[EnvInfo.SYSTEM_UTTERANCE_HISTORY], usr_utterances=obs[EnvInfo.USER_UTTERANCE_HISTORY],
                                                             sys_token=sys_token, usr_token=usr_token, sep_token=sep_token) for obs in observation]
             dialog_history = [["".join(turn) for turn in batch_item] for batch_item in dialog_history]
             dialog_history = ["".join(batch_item) for batch_item in dialog_history]
-            state_encoding.append(self.cache.batch_encode_text(state_input_key=State.DIALOG_HISTORY, text=dialog_history))
+            state_encoding.append(self.cache.batch_encode_text(state_input_key=State.DIALOG_HISTORY, text=dialog_history, noise=noise))
         if self.state_config.current_user_utterance and self.state_config.current_user_utterance.active:
-            state_encoding.append(self.cache.batch_encode_text(State.CURRENT_USER_UTTERANCE, text=[obs[EnvInfo.CURRENT_USER_UTTERANCE] for obs in observation]))
+            state_encoding.append(self.cache.batch_encode_text(State.CURRENT_USER_UTTERANCE, text=[obs[EnvInfo.CURRENT_USER_UTTERANCE] for obs in observation], noise=noise))
 
         state_encoding = torch.cat(state_encoding, dim=-1) # batch x (state_dim - state_action_subvector)
 

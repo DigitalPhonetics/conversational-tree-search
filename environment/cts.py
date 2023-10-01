@@ -31,8 +31,10 @@ class CTSEnvironment(gymnasium.Env):
                 sys_token: str, usr_token: str, sep_token: str,
                 goal_distance_mode: GoalDistanceMode,
                 goal_distance_increment: int,
+                noise: float,
                 **kwargs):
         # self.env_id = env_id
+        self.noise = noise
         self.goal_distance_mode = goal_distance_mode
         self.goal_distance_increment = goal_distance_increment
         self.data = dataset
@@ -64,7 +66,8 @@ class CTSEnvironment(gymnasium.Env):
                 stop_when_reaching_goal=stop_when_reaching_goal, stop_on_invalid_skip=stop_on_invalid_skip,
                 answer_parser=answer_parser, system_parser=system_parser, logic_parser=logic_parser,
                 value_backend=value_backend,
-                auto_skip=auto_skip)
+                auto_skip=auto_skip,
+                noise=noise)
         if guided_free_ratio < 1.0:
             self.free_env = FreeEnvironment(dataset=dataset,
                 sys_token=sys_token, usr_token=usr_token, sep_token=sep_token,
@@ -72,7 +75,8 @@ class CTSEnvironment(gymnasium.Env):
                 stop_when_reaching_goal=stop_when_reaching_goal, stop_on_invalid_skip=stop_on_invalid_skip,
                 answer_parser=answer_parser, system_parser=system_parser, logic_parser=logic_parser, 
                 value_backend=value_backend,
-                auto_skip=auto_skip)
+                auto_skip=auto_skip,
+                noise=noise)
 
         # TODO add logger
         # TODO forward coverage stats

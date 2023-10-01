@@ -36,7 +36,7 @@ class CustomVecEnv(VecEnv):
                  sys_token: str,
                  usr_token: str,
                  sep_token: str,
-                 save_terminal_obs: bool
+                 save_terminal_obs: bool,
                  ):
         self.envs: List[CTSEnvironment] = [_patch_env(fn()) for fn in env_fns]
         self.sys_token = sys_token
@@ -144,11 +144,11 @@ class CustomVecEnv(VecEnv):
 
     @th.no_grad()
     def _obs_from_buf(self) -> VecEnvObs:
-        batch_encoding = self.state_encoding.batch_encode(self.buf_obs, sys_token=self.sys_token, usr_token=self.usr_token, sep_token=self.sep_token)
+        batch_encoding = self.state_encoding.batch_encode(self.buf_obs, sys_token=self.sys_token, usr_token=self.usr_token, sep_token=self.sep_token, noise=self.envs[0].noise)
         # convert all terminal observations into vectors (found in buf_infos['terminal_observations']) because stable-baselines resets done environments immediately in step()
         terminal_observation_indices = [env_idx for env_idx, info in enumerate(self.buf_infos) if (not isinstance(info, type(None))) and "terminal_observation" in info]
         if len(terminal_observation_indices) > 0:
-            batch_encoding_terminal_obs = self.state_encoding.batch_encode([self.buf_infos[env_idx]['terminal_observation'] for env_idx in terminal_observation_indices], sys_token=self.sys_token, usr_token=self.usr_token, sep_token=self.sep_token)
+            batch_encoding_terminal_obs = self.state_encoding.batch_encode([self.buf_infos[env_idx]['terminal_observation'] for env_idx in terminal_observation_indices], sys_token=self.sys_token, usr_token=self.usr_token, sep_token=self.sep_token, noise=self.envs[0].noise)
             for list_idx, env_idx in enumerate(terminal_observation_indices):
                 self.buf_infos[env_idx]['terminal_observation'] = batch_encoding_terminal_obs[list_idx]
         

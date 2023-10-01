@@ -94,7 +94,8 @@ def setup_data_and_vecenv(device: str, dataset_cfg: DatasetConfig, environment_c
                          cache: Cache, encoding: StateEncoding,
                          state_config: StateConfig, action_config: ActionConfig,
                          torch_compile: bool,
-                         save_terminal_obs: bool) -> Tuple[GraphDataset, Cache, StateEncoding, CustomVecEnv]:
+                         save_terminal_obs: bool,
+                         noise: float) -> Tuple[GraphDataset, Cache, StateEncoding, CustomVecEnv]:
     data = instantiate(dataset_cfg)
     if isinstance(cache, type(None)):
         cache, encoding = setup_cache_and_encoding(device=device, data=data, state_config=state_config, action_config=action_config, torch_compile=torch_compile)
@@ -103,6 +104,7 @@ def setup_data_and_vecenv(device: str, dataset_cfg: DatasetConfig, environment_c
         "mode": mode,
         "dataset": data,
         "state_encoding": encoding,
+        "noise": noise,
         **environment_cfg
     }
     vec_env = make_vec_env(env_id=CTSEnvironment, 
@@ -151,7 +153,8 @@ def load_cfg(cfg):
     #                                                                     cache=cache, encoding=state_encoding,
     #                                                                     state_config=cfg.experiment.state, action_config=cfg.experiment.actions,
     #                                                                     torch_compile=cfg.experiment.torch_compile,
-    #                                                                     save_terminal_obs=cfg.experiment.algorithm.dqn.save_terminal_obs)
+    #                                                                     save_terminal_obs=cfg.experiment.algorithm.dqn.save_terminal_obs,
+    #                                                                     noise=cfg.experiment.validation.noise)
     #     eval_callback = CustomEvalCallback(eval_env=val_env, mode='eval',
     #                          best_model_save_path=f"./.evaluation",
     #                          log_path=f"./.evaluation/eval",
@@ -175,7 +178,8 @@ def load_cfg(cfg):
                                                                         cache=cache, encoding=state_encoding,
                                                                         state_config=cfg.experiment.state, action_config=cfg.experiment.actions,
                                                                         torch_compile=cfg.experiment.torch_compile,
-                                                                        save_terminal_obs=cfg.experiment.algorithm.dqn.save_terminal_obs)
+                                                                        save_terminal_obs=cfg.experiment.algorithm.dqn.save_terminal_obs,
+                                                                        noise=cfg.experiment.testing.noise)
         test_callback = CustomEvalCallback(eval_env=test_env, mode='test',
                         best_model_save_path=f"./.evaluation/test",
                         log_path=f"./.evaluation/test",
@@ -221,7 +225,8 @@ def load_cfg(cfg):
         "sep_token": cfg.experiment.environment.sep_token,
         "alpha": cfg.experiment.algorithm.dqn.buffer.backend.alpha,
         "beta": cfg.experiment.algorithm.dqn.buffer.backend.beta,
-        "use_lap": cfg.experiment.algorithm.dqn.buffer.backend.use_lap 
+        "use_lap": cfg.experiment.algorithm.dqn.buffer.backend.use_lap,
+        "noise": 0.0
     }
     replay_buffer_class = CustomReplayBuffer
     dqn_target_cls =  to_class(cfg.experiment.algorithm.dqn.targets._target_)

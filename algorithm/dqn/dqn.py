@@ -31,7 +31,6 @@ from stable_baselines3.common.type_aliases import Schedule
 
 from algorithm.dqn.policy import CustomDQNPolicy
 from algorithm.dqn.targets import DQNTarget
-# from environment.old.her import OldHindsightExperienceReplayWrapper
 from utils.utils import EnvInfo
 import config as cfg
 
@@ -231,9 +230,6 @@ class CustomDQN(DQN):
         self.global_step = 0
 
     def train(self, gradient_steps: int, batch_size: int = 100) -> None:
-        for env in self.env.envs:
-            env.reset_episode_log()
-        
         # Switch to train mode (this affects batch norm / dropout)
         self.policy.set_training_mode(True)
         # Update learning rate according to schedule
@@ -309,7 +305,7 @@ class CustomDQN(DQN):
         self.logger.record("train/epsilon", self.exploration_rate)
         if self.policy.intent_prediction:
             self.logger.record("train/intent_loss", np.mean(intent_losses))
-        if self.replay_buffer_class in [HindsightExperienceReplayWrapper, OldHindsightExperienceReplayWrapper]:
+        if self.replay_buffer_class in [HindsightExperienceReplayWrapper]:
             self.logger.record("rollout/total_aritificial_episodes", self.replay_buffer.artificial_episodes)
             self.logger.record("rollout/her_mean_reward_free", self.replay_buffer.artificial_mean_episode_reward_free)
             self.logger.record("rollout/hear_mean_reward_guided", self.replay_buffer.artificial_mean_episode_reward_guided)
@@ -474,6 +470,13 @@ class CustomDQN(DQN):
         callback.on_training_end()
 
         return self
+
+    def _on_step(self) -> None:
+        super()._on_step()
+        # reset logs if we are trainig
+        if self.policy.training:
+            for env in self.env.envs:
+                env.reset_episode_log()
 
     def save(
         self,

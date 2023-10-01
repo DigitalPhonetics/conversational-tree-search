@@ -155,7 +155,7 @@ experiment:
       augmentation: DataAugmentationLevel.ARTIFICIAL_ONLY
       augmentation_path: en/onboarding/generated/train_questions_v3.json
     every_steps: 3
-    noise: 0.1
+    noise: 0.0
   validation:
     dataset:
       _target_: data.dataset.OnboardingGraphDataset

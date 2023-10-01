@@ -157,7 +157,7 @@ experiment:
       augmentation: ARTIFICIAL_ONLY
       augmentation_path: en/reimburse/generated/train_questions_v1_ling.json
     every_steps: 3
-    noise: 0.1
+    noise: 0.0
     steps: ???
   validation:
     dataset:

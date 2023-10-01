@@ -29,9 +29,11 @@ class CTSHEREnvironment:
                 stop_when_reaching_goal: bool,
                 stop_on_invalid_skip: bool,
                 sys_token: str, usr_token: str, sep_token: str,
+                noise: float,
                 **kwargs):
         # self.env_id = env_id
         self.data = dataset
+        self.noise = noise
         self.sys_token = sys_token
         self.usr_token = usr_token
         self.sep_token = sep_token
@@ -58,14 +60,16 @@ class CTSHEREnvironment:
                 stop_when_reaching_goal=stop_when_reaching_goal, stop_on_invalid_skip=stop_on_invalid_skip,
                 answer_parser=answer_parser, system_parser=system_parser, logic_parser=logic_parser,
                 value_backend=value_backend,
-                auto_skip=auto_skip)
+                auto_skip=auto_skip,
+                noise=noise)
         self.free_env = FreeEnvironment(dataset=dataset,
                 sys_token=sys_token, usr_token=usr_token, sep_token=sep_token,
                 max_steps=max_steps, max_reward=self.max_reward, user_patience=user_patience,
                 stop_when_reaching_goal=stop_when_reaching_goal, stop_on_invalid_skip=stop_on_invalid_skip,
                 answer_parser=answer_parser, system_parser=system_parser, logic_parser=logic_parser, 
                 value_backend=value_backend,
-                auto_skip=auto_skip)
+                auto_skip=auto_skip,
+                noise=noise)
 
         print("HER ENV!!", "TOKENS:", sys_token, usr_token, sep_token)
     

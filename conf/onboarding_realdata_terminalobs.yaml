@@ -154,7 +154,7 @@ experiment:
       use_answer_synonyms: true
       augmentation: DataAugmentationLevel.NONE
     every_steps: 3
-    noise: 0.1
+    noise: 0.0
   validation:
     dataset:
       _target_: data.dataset.OnboardingGraphDataset

@@ -58,6 +58,7 @@ class HindsightExperienceReplayWrapper(object):
                     stop_on_invalid_skip: bool,
                     alpha: float,
                     beta: float,
+                    noise: float,
                     device: Union[th.device, str] = "cpu",
                     **kwargs):
         
@@ -73,7 +74,8 @@ class HindsightExperienceReplayWrapper(object):
                                     normalize_rewards=normalize_rewards,
                                     max_steps=max_steps, user_patience=user_patience,
                                     stop_when_reaching_goal=stop_when_reaching_goal, stop_on_invalid_skip=stop_on_invalid_skip,
-                                    sys_token=sys_token, usr_token=usr_token, sep_token=sep_token)
+                                    sys_token=sys_token, usr_token=usr_token, sep_token=sep_token,
+                                    noise=noise)
 
         # Buffer for storing transitions of the current episode, for vectorized environment
         self.num_train_envs = num_train_envs
@@ -178,8 +180,8 @@ class HindsightExperienceReplayWrapper(object):
         # trigger batch encoding when full (>= batch_size elements)
         while len(self.artificial_transition_buffer) >= self.batch_size:
             # encode states
-            batch_obs = INSTANCES[InstanceType.STATE_ENCODING].batch_encode([transition.observations for transition in self.artificial_transition_buffer[:self.batch_size]], sys_token=self.env.sys_token, usr_token=self.env.usr_token, sep_token=self.env.sep_token)
-            batch_next_obs = INSTANCES[InstanceType.STATE_ENCODING].batch_encode([transition.next_observations for transition in self.artificial_transition_buffer[:self.batch_size]], sys_token=self.env.sys_token, usr_token=self.env.usr_token, sep_token=self.env.sep_token)
+            batch_obs = INSTANCES[InstanceType.STATE_ENCODING].batch_encode([transition.observations for transition in self.artificial_transition_buffer[:self.batch_size]], sys_token=self.env.sys_token, usr_token=self.env.usr_token, sep_token=self.env.sep_token, noise=self.env.noise)
+            batch_next_obs = INSTANCES[InstanceType.STATE_ENCODING].batch_encode([transition.next_observations for transition in self.artificial_transition_buffer[:self.batch_size]], sys_token=self.env.sys_token, usr_token=self.env.usr_token, sep_token=self.env.sep_token, noise=self.env.noise)
             # encode actions, dones, infos, rewards
             batch_actions = np.array([transition.action for transition in self.artificial_transition_buffer[:self.batch_size]], dtype=np.int16)
             batch_dones = np.array([transition.done for transition in self.artificial_transition_buffer[:self.batch_size]], dtype=np.int8)

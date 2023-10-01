@@ -24,12 +24,14 @@ class GuidedEnvironment(BaseEnv):
             stop_when_reaching_goal: bool, stop_on_invalid_skip: bool,
             answer_parser: AnswerTemplateParser, system_parser: SystemTemplateParser, logic_parser: LogicTemplateParser,
             value_backend: RealValueBackend,
-            auto_skip: AutoSkipMode) -> None:
+            auto_skip: AutoSkipMode,
+            noise: float) -> None:
         super().__init__(dataset=dataset,
             sys_token=sys_token, usr_token=usr_token, sep_token=sep_token,
             max_steps=max_steps, max_reward=max_reward, user_patience=user_patience,
             answer_parser=answer_parser, logic_parser=logic_parser, value_backend=value_backend,
-            auto_skip=auto_skip, stop_on_invalid_skip=stop_on_invalid_skip)
+            auto_skip=auto_skip, stop_on_invalid_skip=stop_on_invalid_skip,
+            noise=noise)
         self.goal_gen = UserGoalGenerator(graph=dataset, answer_parser=answer_parser,
             system_parser=system_parser, value_backend=value_backend)
         self.stop_when_reaching_goal = stop_when_reaching_goal

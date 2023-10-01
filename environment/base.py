@@ -27,10 +27,12 @@ class BaseEnv:
             answer_parser: AnswerTemplateParser, logic_parser: LogicTemplateParser,
             value_backend: RealValueBackend,
             auto_skip: AutoSkipMode,
-            stop_on_invalid_skip: bool) -> None:
+            stop_on_invalid_skip: bool,
+            noise: float) -> None:
 
         self.env_id = random.randint(0, 99999999)
         self.data = dataset
+        self.noise = noise
 
         self.max_steps = max_steps
         self.max_reward = max_reward
