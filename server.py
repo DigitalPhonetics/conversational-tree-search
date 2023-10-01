@@ -1,6 +1,8 @@
+import hashlib
 import logging
 import multiprocessing
 from copy import deepcopy
+import os
 
 import tornado
 import tornado.httpserver
@@ -14,7 +16,9 @@ from data.parsers.answerTemplateParser import AnswerTemplateParser
 from data.parsers.systemTemplateParser import SystemTemplateParser
 from data.parsers.logicParser import LogicTemplateParser
 from server.formattedDataset import FormattedReimburseGraphDataset
-from server.handlers import AuthenticatedWebSocketHandler, BaseHandler, ChatIndex, CheckLogin, DataAgreement, LogPostSurvey, LogPreSurvey, LoginHandler, PostSurvey, PreSurvey, ThankYou
+from server.handlers import AuthenticatedWebSocketHandler, BaseHandler, ChatIndex, DataAgreement, LogPostSurvey, LogPreSurvey, LoginHandler, PostSurvey, PreSurvey, ThankYou, KnownEntry
+from tornado.web import RequestHandler
+
 from utils.utils import AutoSkipMode, to_class
 from algorithm.dqn.dqn import CustomDQN
 import torch
@@ -53,22 +57,21 @@ CHAT_ENGINES = {}
 DEVICE = "cuda:0"
 
 # on start, check if we have an assignment file, if so, load it and pre-fill group assignments with content
-with open("user_log.txt", "a+") as assignments:
-    print(assignments)
-    print(type(assignments))
-    for line in assignments:
-        if "GROUP" in line:
-            user, group = line.split("||")
-            user = user.split(":")[1].strip()
-            group = group.split(":")[1].strip()
-            GROUP_ASSIGNMENTS[group].append(user)
-        elif "GOAL_INDEX" in line:
-            user, goal_group = line.split("||")
-            user = user.split(":")[1].strip()
-            goal_group = goal_group.split(":")[1].strip()
-            if goal_group not in USER_GOAL_GROUPS:
-                USER_GOAL_GROUPS[goal_group] = []
-            USER_GOAL_GROUPS[goal_group].append(user)
+if os.path.isfile("user_log.txt"):
+    with open("user_log.txt", "r") as assignments:
+        for line in assignments:
+            if "GROUP" in line:
+                user, group = line.split("||")
+                user = user.split(":")[1].strip()
+                group = group.split(":")[1].strip()
+                GROUP_ASSIGNMENTS[group].append(user)
+            elif "GOAL_INDEX" in line:
+                user, goal_group = line.split("||")
+                user = user.split(":")[1].strip()
+                goal_group = goal_group.split(":")[1].strip()
+                if goal_group not in USER_GOAL_GROUPS:
+                    USER_GOAL_GROUPS[goal_group] = []
+                USER_GOAL_GROUPS[goal_group].append(user)
 
 
 chat_logger = logging.getLogger("chat")
@@ -299,6 +302,19 @@ class ChatEngine:
             # SKIP
             obs, reward, done = self.user_env.step(self.action, replayed_user_utterance="")
 
+class CheckLogin(RequestHandler):
+    def post(self):
+        username = self.get_body_argument("username").encode()
+        h = hashlib.shake_256(username)
+        user_id = h.hexdigest(15)
+        known_users = set()
+        for group in GROUP_ASSIGNMENTS:
+            known_users.update(GROUP_ASSIGNMENTS[group])
+        if user_id in known_users:
+            self.redirect("/known_entry")
+        else:
+            self.set_secure_cookie("user", user_id)
+            self.redirect("/data_agreement")
 
         
 class UserAgreed(BaseHandler):
@@ -418,6 +434,7 @@ if __name__ == "__main__":
         (r"/log_post_survey", LogPostSurvey),
         (r"/data_agreement", DataAgreement),
         (r"/thank_you", ThankYou),
+        (r"/known_entry", KnownEntry),
         (r"/agreed_to_data_collection", UserAgreed)
     ], **settings)
     print("created app")
