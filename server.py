@@ -34,21 +34,21 @@ from config import register_configs, ActionType, DialogLogLevel, WandbLogLevel
 DEBUG = True
 NUM_GOALS = 2
 HARD_GOALS = [
-    "You are trying to figure out how much money you get for booking somewhere to stay on your trip. <ul><li>Your trip is to Tokyo, Japan</li><li>Your trip should take 10 days</li><li>You plan to stay in a hotel</li></ul>",
-    "You want to figure out how much money you can get reimbursed for your travel. <ul><li>You used your own car</li><li>Your trip was 20km and lasted 8 hours</li><li>You took two colleagues with you</li></ul>",
-    "You want to know how much money you can get be reimbursed for for your accommodations. <ul><li>You are traveling to France for your next trip</li><li>You plan to stay with your brother in his apartment. </li></ul>",
-    "You want to know how high the per diem is for food on your next trip. <ul><li>You are traveling to London, England</li><li>You will be there for 72 hours</li></ul>",
-    "You want to know..."
+    ("You are trying to figure out how much money you get for booking somewhere to stay on your trip. <ul><li>Your trip is to Tokyo, Japan</li><li>Your trip should take 10 days</li><li>You plan to stay in a hotel</li></ul>", 1234),
+    ("You want to figure out how much money you can get reimbursed for your travel. <ul><li>You used your own car</li><li>Your trip was 20km and lasted 8 hours</li><li>You took two colleagues with you</li></ul>", 1235),
+    ("You want to know how much money you can get be reimbursed for for your accommodations. <ul><li>You are traveling to France for your next trip</li><li>You plan to stay with your brother in his apartment. </li></ul>", 1236),
+    ("You want to know how high the per diem is for food on your next trip. <ul><li>You are traveling to London, England</li><li>You will be there for 72 hours</li></ul>", 1237),
+    ("You want to know...", 1238)
 ]
 EASY_GOALS = [
-    "You want to know if you can get reimbursed if you reserve a seat for yourself on the train",
-    "You are traveling with another colleague and want to know if you have to share a room or if each of you can book your own",
-    "You are planning on attending a conference and want to know if the membership fee can be reimbursed",
-    "You have just gotten sick and cannot travel anymore. You want to know if the money you have already paid can be reimbursed",
-    "You want to know if you can be reimbursed if you need to book a taxi during your trip."
+    ("You want to know if you can get reimbursed if you reserve a seat for yourself on the train", 1239),
+    ("You are traveling with another colleague and want to know if you have to share a room or if each of you can book your own", 1230),
+    ("You are planning on attending a conference and want to know if the membership fee can be reimbursed", 1231),
+    ("You have just gotten sick and cannot travel anymore. You want to know if the money you have already paid can be reimbursed", 1232),
+    ("You want to know if you can be reimbursed if you need to book a taxi during your trip.", 1233)
     ]
 GROUP_ASSIGNMENTS = {"hdc": [], "faq": [], "cts": []}
-USER_GOAL_NUM = {}
+USER_GOAL_GROUPS = {}
 CHAT_ENGINES = {}
 DEVICE = "cuda:0"
 
@@ -62,6 +62,13 @@ with open("user_log.txt", "a+") as assignments:
             user = user.split(":")[1].strip()
             group = group.split(":")[1].strip()
             GROUP_ASSIGNMENTS[group].append(user)
+        elif "GOAL_INDEX" in line:
+            user, goal_group = line.split("||")
+            user = user.split(":")[1].strip()
+            goal_group = goal_group.split(":")[1].strip()
+            if goal_group not in USER_GOAL_GROUPS:
+                USER_GOAL_GROUPS[goal_group] = []
+            USER_GOAL_GROUPS[goal_group].append(user)
 
 
 chat_logger = logging.getLogger("chat")
@@ -219,14 +226,6 @@ valueBackend = ReimbursementRealValueBackend(a1_laender=data.a1_countries, data=
 # setup model and encoding
 cfg, model, state_encoding = load_model(ckpt_path=ckpt_path, cfg_name=cfg_name, device=DEVICE, data=data)
 
-
-def choose_user_goal(user_id: str):
-    global USER_GOAL_NUM
-    if USER_GOAL_NUM[user_id] == 1:
-        return "You are trying to figure out how much money you get for booking somewhere to stay on your trip. <ul><li>Your trip is to Tokyo, Japan</li><li>Your trip should take 10 days</li><li>You plan to stay in a hotel</li></ul>"
-    else:
-        return "You want to figure out how much money you can get reimbursed for your travel. <ul><li>You used your own car</li><li>Your trip was 20km and lasted 8 hours</li><li>You took two colleagues with you</li></ul>"
-
 ## TODO: write new GUI module
 ## - BST
 ## - Conversation history
@@ -317,13 +316,19 @@ class UserAgreed(BaseHandler):
             logging.getLogger("user_info").info(f"USER: {self.current_user} || GROUP: {group}")
             logging.getLogger("chat").info(f"USER: {self.current_user} || GROUP: {group}")
 
+        # Assign the 
+        if not self.get_cookie_("goal_group"):
+            goal_group = sorted(USER_GOAL_GROUPS.items(), key=lambda item: len(item[1]))[0][0]
+            self.set_cookie("goal_group", goal_group)
+            USER_GOAL_GROUPS[goal_group].append(self.current_user)
+            logging.getLogger("user_info").info(f"USER: {self.current_user} || GOAL_INDEX: {goal_group}")
+
         self.redirect(f"/pre_survey")
         
 
 class UserChatSocket(AuthenticatedWebSocketHandler):
     def open(self):
         global CHAT_ENGINES
-        global USER_GOAL_NUM
         print(f"Opened socket for user: {self.current_user}")
         print(f"starting dialog system for user {self.current_user}")
         logging.getLogger("chat").info(f"==== NEW DIALOG STARTED FOR USER {self.current_user} ====")
@@ -334,15 +339,20 @@ class UserChatSocket(AuthenticatedWebSocketHandler):
             CHAT_ENGINES[self.current_user].socket = self
 
         # choose a goal
-        USER_GOAL_NUM[self.current_user] = 1 if self.current_user not in USER_GOAL_NUM else USER_GOAL_NUM[self.current_user]
-        goal = choose_user_goal(self.current_user)
-        logging.getLogger("chat").info(f"USER: {self.current_user} || GOAL: {goal}")
+        if not self.get_cookie("goal_counter"):
+            self.set_cookie("goal_counter", 0)
+        goal_group = int(self.get_cookie("goal_group"))
+        goal_counter = int(self.set_cookie("goal_counter"))
+        if goal_counter == 0:
+            goal, node_id = HARD_GOALS[goal_group]
+        else:
+            goal, node_id = EASY_GOALS[goal_group]
+        logging.getLogger("chat").info(f"USER: {self.current_user} || GOAL: {goal} || NODE_ID: {node_id}")
         self.write_message({"EVENT": "NEW_GOAL", "VALUE": goal})            
         CHAT_ENGINES[self.current_user].start_dialog()
 
     def on_message(self, message):
         global NUM_GOALS
-        global USER_GOAL_NUM
         global CHAT_ENGINES
         data = tornado.escape.json_decode(message)
         event = data["EVENT"]
@@ -358,6 +368,11 @@ class UserChatSocket(AuthenticatedWebSocketHandler):
             logging.getLogger("chat").info(f"USER ({self.current_user} NEW DIALOG)")
             CHAT_ENGINES[self.current_user].start_dialog()
         elif"NEXT_GOAL" in event:
+            # update the goal counter
+            goal_counter = int(self.get_cookie("goal_counter"))
+            goal_counter += 1
+            self.set_cookie("goal_counter", goal_counter)
+
             # Log success/failure
             if event == "NEXT_GOAL_CORRECT":
                 logging.getLogger("chat").info(f"USER: {self.current_user} || DIALOG END: SUCCESS")
@@ -367,18 +382,19 @@ class UserChatSocket(AuthenticatedWebSocketHandler):
                 logging.getLogger("chat").info(f"USER: {self.current_user} || DIALOG END: UNKNOWN CONDITION")
             with open("test_log.txt", "a") as f:
                 f.writelines([line + "\n" for line in CHAT_ENGINES[self.current_user].user_env.episode_log])
-            # choose a new goal
-            if USER_GOAL_NUM[self.current_user] >= NUM_GOALS:
+            # Interaction over, redirect to the post-survey
+            if goal_counter >= NUM_GOALS:
                 self.write_message({"EVENT": "EXPERIMENT_OVER", "VALUE": True})
                 # Start a new dialog
                 self.write_message({"EVENT": "RESTART", "VALUE": True})
+            else:  # choose a new goal
+                # There are only two goals chosen, so if we get here, we know we're already on the second gaol
+                goal_group = int(self.get_cookies("goal_group"))
+                next_goal, node_id = EASY_GOALS[goal_group]
+                self.write_message({"EVENT": "NEW_GOAL", "VALUE": next_goal})
+                logging.getLogger("chat").info(f"USER: {self.current_user} || GOAL: {next_goal} || NODE_ID: {node_id}")
                 logging.getLogger("chat").info(f"USER ({self.current_user} NEW DIALOG)")
                 CHAT_ENGINES[self.current_user].start_dialog()
-            else:
-                USER_GOAL_NUM[self.current_user] += 1
-                next_goal = choose_user_goal(self.current_user)
-                self.write_message({"EVENT": "NEW_GOAL", "VALUE": next_goal})
-                logging.getLogger("chat").info(f"USER: {self.current_user} || GOAL: {next_goal}")
        
     def on_close(self):
         print(f"Closing connection for user {self.current_user}")
