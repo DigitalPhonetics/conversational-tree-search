@@ -299,7 +299,6 @@ body {
     // history.back();
     // window.onpopstate = () => history.forward();
 
-    var mode = "";
     var goal_counter = Number.parseInt(get_cookie('goal_counter'));
 
     function open_link_info() {
@@ -374,21 +373,29 @@ body {
         } else if (event === "EXPERIMENT_OVER"){
             console.log(window.location.host + "/post_survey");
             window.location.replace("http://" + window.location.host + "/post_survey")
+        } else if(event === "DIALOG_ENDED") {
+            addSystemMessage("I hope this answered your question. Please click <b>next goal</b> on the right to proceed.", []);
+            disableUserInput(true);
         }
 
     }
     socket.onopen = (event) => {
         console.log('connected');
-        startDialog();
+        disableUserInput(false);
     };
     socket.onerror = (event) => {
         console.log('error');
         addSystemMessage("The server is currently unavailable. Please contact the researchers so it can be restarted.", []);
     }
 
-    function startDialog() {
+    function disableUserInput(disable) {
+        if(disable) {
+            $("#inputContainer").hide();
+        } else {
+            $("#inputContainer").show();
+        }
     }
-  
+
     function addUserMessage(query) {
         /*
         Adds a new messagebox to the message list
@@ -409,7 +416,11 @@ body {
        toggleTypingAnimation(false);
 
        var sys_msg = '<div class="speech-bubble system"><div class="systemMsg">';
-       sys_msg += `${msg}`;
+        if(get_cookie('policy_assignment') === 'faq') {
+            sys_msg += msg.replace('\n <p>You can either click on an answer from the suggested topics or enter your own text.</p>', '');
+        } else {
+            sys_msg += msg;
+        }
        if(candidates !== undefined && candidates.length > 0) {
             // add answer candidates
             sys_msg += '<div class="answer_candidate_list">';
@@ -452,6 +463,7 @@ body {
             EVENT: "RESTART",
             VALUE: true
         }));
+        disableUserInput(false);
     }
 
     function nextGoal(found_answer){
@@ -465,6 +477,7 @@ body {
                 goal_counter: goal_counter
             }
         }));
+        disableUserInput(false);
     }
 
     function enterKeyDown(e) {
@@ -505,7 +518,7 @@ body {
 
             <div id="messagelist" class="messagebox"></div>
 
-            <div class="inputContainer">
+            <div class="inputContainer" id="inputContainer">
                 <input id="userinput" class="userinput" placeholder="Enter your text here" onkeydown="enterKeyDown(event)"/>
                 <div class="headerBtn" id='btnSend' onclick="sendMessage('')">Send</div>
             </div>

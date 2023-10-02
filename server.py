@@ -218,7 +218,7 @@ data = FormattedReimburseGraphDataset('en/reimburse/test_graph.json', 'en/reimbu
 answerParser = AnswerTemplateParser()
 logicParser = LogicTemplateParser()
 sysParser = SystemTemplateParser()
-valueBackend = ReimbursementRealValueBackend(a1_laender=data.a1_countries, data=data.hotel_costs)
+valueBackend = ReimbursementRealValueBackend(a1_laender=data.a1_countries, data=data)
 # setup model and encoding
 cfg, cts_policy, state_encoding = load_model(ckpt_path=ckpt_path, cfg_name=cfg_name, device=DEVICE, data=data)
 

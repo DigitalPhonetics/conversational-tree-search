@@ -44,6 +44,9 @@ class RealUserEnvironmentWeb(RealUserEnvironment):
         markup = url_pattern.sub(r"""\1#\3 onclick="open_link_info()"\4""", self.current_node.markup)
         return self.system_parser.parse_template(markup, self.value_backend, self.bst)
 
+    def reached_tree_end(self) -> bool:
+        return not self.current_node or (len(self.current_node.answers) == 0 and not self.current_node.connected_node)
+
     def get_current_node_answer_candidates(self) -> List[str]:
         if self.current_node.node_type == NodeType.QUESTION:
             return [answer.text for answer in self.current_node.answers]
@@ -132,6 +135,8 @@ class RealUserEnvironmentWeb(RealUserEnvironment):
             if (not done) and self.goal.goal_node_key and self.auto_skip_mode != AutoSkipMode.NONE and self.last_action_idx == ActionType.ASK:
                 self.auto_skip()
 
+        if not done:
+            done = self.reached_tree_end()
        
         self.episode_reward += reward
         if done:
@@ -164,8 +169,11 @@ class RealUserEnvironmentWeb(RealUserEnvironment):
             if var.name in nlu_results:
                 if len(nlu_results[var.name]) > 1:
                     return f"Please provide only a single value. Detected multiple values: {', '.join(nlu_results[var.name])}"
-                elif len(nlu_results[var.name]) == 0:
-                    return f"Sorry, but the {var.name.lower()} you entered is unknown to the system. Please check spelling or try another value."
+                if len(nlu_results[var.name]) == 0:
+                    if var.name == "COUNTRY":
+                        return f"Sorry, but the {var.name.lower()} you entered is unknown to the system. Please check spelling or try another value."
+                    elif var.name == "CITY":
+                        return None # unkown cities will default to $REST
         elif var.name == "TRIP_LENGTH":
             nlu_results = self.nlu.extract_time(utterance)
             if len(nlu_results['time_spans']) > 1:
@@ -203,8 +211,10 @@ class RealUserEnvironmentWeb(RealUserEnvironment):
             # get user reply and save to bst
             if var.name in ["CITY", "COUNTRY"]:
                 nlu_results = self.nlu.extract_places(replayed_user_utterance)
-                if var.name in nlu_results:
+                if var.name in nlu_results and len(nlu_results[var.name]) > 0:
                     self.bst[var.name] = nlu_results[var.name][0]
+                elif var.name == "CITY":
+                    self.bst[var.name] = "$REST"
             elif var.name == "TRIP_LENGTH":
                 nlu_results = self.nlu.extract_time(replayed_user_utterance)
                 self.bst[var.name] = nlu_results['time_spans'][0]

@@ -14,7 +14,7 @@ class LoginHandler(BaseHandler):
     def get(self):
         if self.current_user:
             # if the user has done both dialogs already, they should not be able to chat again
-            if self.get_cookie("goal_counter") and int(self.get_cookie("goal_counter")) >= 2:
+            if self.get_cookie("goal_counter") and int(self.get_cookie("goal_counter")) >= 3:
                 self.redirect('/thank_you')
             else:
                 self.redirect("/data_agreement")
