@@ -1,5 +1,22 @@
 {% extends "base.html" %}
 
+{% block css %}
+
+<style>
+    .header {
+        position:absolute;
+        top: 0px;
+        width: 80%;
+        height: 3%;
+        text-align: right;
+        padding-right: 10px;
+    }
+
+</style>
+
+{% end %}
+
+
 {% block scripts %}
 <script>
 
@@ -21,5 +38,8 @@
             <button class="btn btn-warning mb-4" onclick="returnToLogin()">Return to Login</button>
         </div>
     </div>
+    <div class="header">
+        <a href="https://www.uni-stuttgart.de/impressum/">Impressum</a>
+    </div> 
 </div>
 {% end %}

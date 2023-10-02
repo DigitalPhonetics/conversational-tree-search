@@ -1,5 +1,21 @@
 {% extends "base.html" %}
 
+{% block css %}
+
+<style>
+    .header {
+        position:absolute;
+        top: 0px;
+        width: 80%;
+        height: 3%;
+        text-align: right;
+        padding-right: 10px;
+    }
+
+</style>
+
+{% end %}
+
 {% block content %}
 <div style="display:flex; justify-content: center; align-items: center; width: 100%; height: 100%;">
     <div class="card mt-5 mb-3">
@@ -8,7 +24,12 @@
         </div>
         <div class="card-body" style="text-align: center;">
             <p>Your completion key is: <b> {{completion_key}} </b></p>
+            <p>Don't forget to copy this back to the Mechanical Turk task as proof of task completion before closing this page!</p>
+            <p></p>
         </div>
     </div>
+    <div class="header">
+        <a href="https://www.uni-stuttgart.de/impressum/">Impressum</a>
+    </div> 
 </div>
 {% end %}
