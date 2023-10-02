@@ -40,7 +40,7 @@ NUM_GOALS = 3
 HARD_GOALS = [
     ("You are trying to figure out how much money you get for booking somewhere to stay on your trip. <ul><li>Your trip is to Tokyo, Japan</li><li>Your trip should take 10 days</li><li>You plan to stay in a hotel</li></ul>", 1234),
     ("You want to figure out how much money you can get reimbursed for your travel. <ul><li>You used your own car</li><li>Your trip was 20km and lasted 8 hours</li><li>You took two colleagues with you</li></ul>", 1235),
-    ("You want to know how much money you can get be reimbursed for for your accommodations. <ul><li>You are traveling to France for your next trip</li><li>You plan to stay with your brother in his apartment. </li></ul>", 1236),
+    ("You want to know how much money you can get reimbursed for for your accommodations. <ul><li>You are traveling to France for your next trip</li><li>You plan to stay with your brother in his apartment. </li></ul>", 1236),
     ("You want to know how high the per diem is for food on your next trip. <ul><li>You are traveling to London, England</li><li>You will be there for 72 hours</li></ul>", 1237),
     ("You want to know...", 1238)
 ]
@@ -52,7 +52,13 @@ EASY_GOALS = [
     ("You want to know if you can be reimbursed if you need to book a taxi during your trip.", 1233)
     ]
 
-OPEN_GOALS = [("You want to know what you need to consider when planning a business trip to Madrid, Spain.", None) for i in range(4)]
+OPEN_GOALS = [
+    ("You want to know what you need to consider when planning a business trip outside the country. <ul><li>You can choose details about the trip, e.g., location and length, yourself</li></ul>", None),
+    ("You want more information about how to plan a research semester. <ul><li>You can choose details about the trip, e.g., location and length, yourself</li></ul>", None),
+    ("You want to know more about choosing/booking transportation for your trip. <ul><li>You can choose details about the trip, e.g., location and length, yourself</li></ul>", None),
+    ("You want to know what types of costs you can get reimbursed for. <ul><li>You can choose details about the trip, e.g., location and length, yourself</li></ul>", None),
+    ("You want to know... <ul><li>You can choose details about the trip, e.g., location and length, yourself</li></ul>", None)
+    ]
 POLICY_ASSIGNMENT = {"hdc": [], "faq": [], "cts": []}
 USER_GOAL_GROUPS = {i: [] for i in range(4)}
 CHAT_ENGINES = {}
