@@ -36,7 +36,7 @@ from hydra.core.config_store import ConfigStore
 from config import register_configs, DialogLogLevel, WandbLogLevel
 
 DEBUG = True
-NUM_GOALS = 2
+NUM_GOALS = 3
 HARD_GOALS = [
     ("You are trying to figure out how much money you get for booking somewhere to stay on your trip. <ul><li>Your trip is to Tokyo, Japan</li><li>Your trip should take 10 days</li><li>You plan to stay in a hotel</li></ul>", 1234),
     ("You want to figure out how much money you can get reimbursed for your travel. <ul><li>You used your own car</li><li>Your trip was 20km and lasted 8 hours</li><li>You took two colleagues with you</li></ul>", 1235),
@@ -51,6 +51,8 @@ EASY_GOALS = [
     ("You have just gotten sick and cannot travel anymore. You want to know if the money you have already paid can be reimbursed", 1232),
     ("You want to know if you can be reimbursed if you need to book a taxi during your trip.", 1233)
     ]
+
+OPEN_GOALS = [("You want to know what you need to consider when planning a business trip to Madrid, Spain.", None) for i in range(4)]
 POLICY_ASSIGNMENT = {"hdc": [], "faq": [], "cts": []}
 USER_GOAL_GROUPS = {i: [] for i in range(4)}
 CHAT_ENGINES = {}
@@ -288,8 +290,10 @@ class UserChatSocket(AuthenticatedWebSocketHandler):
         goal_counter = int(self.get_cookie("goal_counter"))
         if goal_counter == 0:
             goal, node_id = HARD_GOALS[goal_group]
-        else:
+        elif goal_counter == 1:
             goal, node_id = EASY_GOALS[goal_group]
+        else:
+            goal, node_id = OPEN_GOALS[goal_group]
         logging.getLogger("chat").info(f"USER: {self.current_user} || GOAL: {goal} || NODE_ID: {node_id}")
         self.write_message({"EVENT": "NEW_GOAL", "VALUE": goal})            
         CHAT_ENGINES[self.current_user].start_dialog()
@@ -330,9 +334,11 @@ class UserChatSocket(AuthenticatedWebSocketHandler):
                 # Start a new dialog
                 self.write_message({"EVENT": "RESTART", "VALUE": True})
             else:  # choose a new goal
-                # There are only two goals chosen, so if we get here, we know we're already on the second gaol
                 goal_group = int(self.get_cookie("goal_group"))
-                next_goal, node_id = EASY_GOALS[goal_group]
+                if goal_counter == 1:
+                    next_goal, node_id = EASY_GOALS[goal_group]
+                else:
+                    next_goal, node_id = OPEN_GOALS[goal_group]
                 self.write_message({"EVENT": "NEW_GOAL", "VALUE": next_goal})
                 logging.getLogger("chat").info(f"USER: {self.current_user} || GOAL: {next_goal} || NODE_ID: {node_id}")
                 logging.getLogger("chat").info(f"USER ({self.current_user} NEW DIALOG)")
