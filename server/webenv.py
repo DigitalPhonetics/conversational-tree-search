@@ -13,6 +13,8 @@ from environment.realuser import RealUserEnvironment, RealUserGoal
 from server.nlu import NLU
 from utils.utils import AutoSkipMode
 
+import re
+url_pattern = re.compile(r'(<a\s+[^>]*href=")([^"]*)(")([^>]*>)')
 
 class RealUserEnvironmentWeb(RealUserEnvironment):
     def __init__(self,
@@ -30,8 +32,17 @@ class RealUserEnvironmentWeb(RealUserEnvironment):
         self.first_turn = False
         self.system_parser = system_parser
 
+    def variable_already_known(self) -> bool:
+        """ Checks whether the current node is a variable node, and if so, if its value is already known """
+        if self.current_node.node_type == NodeType.VARIABLE:
+            var = self.answerParser.find_variable(self.current_node.answer_by_index(0).text)
+            return var.name in self.bst
+        return False
+
     def get_current_node_markup(self) -> str:
-        return self.system_parser.parse_template(self.current_node.markup, self.value_backend, self.bst)
+        # replace links with alert
+        markup = url_pattern.sub(r"""\1#\3 onclick="open_link_info()"\4""", self.current_node.markup)
+        return self.system_parser.parse_template(markup, self.value_backend, self.bst)
 
     def get_current_node_answer_candidates(self) -> List[str]:
         if self.current_node.node_type == NodeType.QUESTION:

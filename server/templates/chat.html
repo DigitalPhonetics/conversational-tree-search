@@ -302,6 +302,10 @@ body {
     var mode = "";
     var goal_counter = Number.parseInt(get_cookie('goal_counter'));
 
+    function open_link_info() {
+        $('#linkInfoModal').modal('show');
+    }
+
     function set_cookie(cname, cvalue, exdays) {
         const d = new Date();
         d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
@@ -473,6 +477,24 @@ body {
 {% end %}
 
 {% block content %}
+<div id="linkInfoModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Link Information</h4>
+            </div>
+            <div class="modal-body">
+                <p>You don't have to follow links in the chat for this task.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="mainContainer">
     <div class="content">
 
