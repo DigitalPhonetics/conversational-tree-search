@@ -226,19 +226,20 @@ class RealUserEnvironmentWeb(RealUserEnvironment):
         self.first_turn = True
         self.pre_reset()
     
-    def set_initial_user_utterance(self, initial_user_utterance: str):
+    def set_initial_user_utterance(self, initial_user_utterance: str, check_variables: bool = True):
         # TODO check for bst values in first utterance
         # (we don't know variable type / name here, so just have to see if anything matches)
         self.goal = RealUserGoal(initial_user_utterance=deepcopy(initial_user_utterance), delexicalised_initial_user_utterance=deepcopy(initial_user_utterance),
                                  goal_node_key=self.data.start_node.key, constraints=dict(), visited_ids=set())
 
         # check locations
-        nlu_results = self.nlu.extract_places(initial_user_utterance)
-        if "COUNTRY" in nlu_results and len(nlu_results["COUNTRY"]) == 1:
-            # exactly 1 match -> set
-            self.bst["COUNTRY"] = nlu_results["COUNTRY"][0]
-        if "CITY" in nlu_results and len(nlu_results["CITY"]) == 1:
-            self.bst['CITY'] = nlu_results["CITY"][0]
+        if check_variables:
+            nlu_results = self.nlu.extract_places(initial_user_utterance)
+            if "COUNTRY" in nlu_results and len(nlu_results["COUNTRY"]) == 1:
+                # exactly 1 match -> set
+                self.bst["COUNTRY"] = nlu_results["COUNTRY"][0]
+            if "CITY" in nlu_results and len(nlu_results["CITY"]) == 1:
+                self.bst['CITY'] = nlu_results["CITY"][0]
         
         return self.post_reset()
     
