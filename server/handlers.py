@@ -17,15 +17,6 @@ class LoginHandler(BaseHandler):
         else:
             self.render("./templates/login.html")
 
-
-class CheckLogin(RequestHandler):
-    def post(self):
-        username = self.get_body_argument("username").encode()
-        h = hashlib.shake_256(username)
-        self.set_secure_cookie("user", h.hexdigest(15))
-        self.redirect("/data_agreement")
-
-
 class LogPostSurvey(BaseHandler):
     def post(self):
         results = self.request.body_arguments
@@ -41,6 +32,7 @@ class ChatIndex(BaseHandler):
 
 
 class LogPreSurvey(BaseHandler):
+    @tornado.web.authenticated
     def post(self):
         results = self.request.body_arguments
         results = {key : str(results[key][0])[2:-1] for key in results}
@@ -52,6 +44,10 @@ class DataAgreement(BaseHandler):
     @tornado.web.authenticated
     def get(self):
         self.render("./templates/data_agreement.html")
+
+class KnownEntry(BaseHandler):
+    def get(self):
+        self.render("./templates/known_entry.html")
 
 
 class PostSurvey(BaseHandler):
