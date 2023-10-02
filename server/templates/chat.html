@@ -365,8 +365,18 @@ body {
             addUserMessage(value);
         }else if (event === "NEW_GOAL"){
             // Update the goal
-            g = document.getElementById("goal");
-            g.innerHTML = `${value}`;
+            g = document.getElementById("goalContainer");
+            g.innerHTML = `
+            <div class="commandBtnBar" style="color: white; text-align: center;">
+                    <b style="margin: 0.2em;">Your goal is to answer the following question:</b>
+                </div>
+                <div id="goal" style="width:100%; padding: 2%; text-align: left;">
+                    ${value}
+                </div>   
+                <div style="display: flex; flex-direction: row; justify-content: center; width: 100%;">
+                    <button class="btn btn-success mb-4" style="margin: 2%;" onclick="nextGoal()">Finished Dialog</button>
+                </div> 
+            `;
         } else if (event === "EXPERIMENT_OVER"){
             console.log(window.location.host + "/post_survey");
             window.location.replace("http://" + window.location.host + "/post_survey")
@@ -450,23 +460,133 @@ body {
         }));
     }
 
-    function nextGoal(found_answer){
+    function nextGoal(){
         $("#messagelist").empty();
         goal_counter += 1;
         set_cookie('goal_counter', goal_counter.toString(), 2);
-        socket.send(JSON.stringify({
-            EVENT: "NEXT_GOAL",
-            VALUE: {
-                correct: found_answer,
-                goal_counter: goal_counter
-            }
-        }));
+        console.log("HERE");
+        g = document.getElementById("goalContainer");
+        g.innerHTML = `
+            <div class="commandBtnBar" style="color: white; text-align: center;">
+                <b style="margin: 0.2em;">Please rate your dialog:</b>
+            </div>
+            <div id="goal" style="width:100%; padding: 2%; text-align: left;">
+                <form>
+                <p><b>The length of dialog felt: </b></p>
+                <table class="table table-striped" style="width: 70%; margin-top: 2%; margin-left: 15%; margin-bottom: 2%">
+                <thead>
+                    <tr>
+                        <td scope="col" style="text-align: center">
+                        Much Too Short
+                        </td>
+                        <td scope="col" style="text-align: center">
+                        Too Short
+                        </td>
+                        <td scope="col" style="text-align: center">
+                        Good
+                        </td>
+                        <td scope="col" style="text-align: center">
+                        Too Long
+                        </td>
+                        <td scope="col" style="text-align: center">
+                        Much Too Long
+                        </td>   
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr id="chat_exp_1">
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="length" id="length_1" value="1" required>
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="length" id="length_2" value="2" required>
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="length" id="length_3" value="3" required>
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="length" id="length_4" value="4" required>
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="length" id="length_5" value="5" required>
+                            </td>                 
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p><b>I felt my question was: </b></p>
+
+                <table class="table table-striped" style="width: 70%; margin-top: 2%; margin-left: 15%; margin-bottom: 2%">
+                <thead>
+                    <tr>
+                        <td scope="col" style="text-align: center">
+                        Completely unanswered
+                        </td>
+                        <td scope="col" style="text-align: center">
+                        Mostly unanswered
+                        </td>
+                        <td scope="col" style="text-align: center">
+                        Mostly answered
+                        </td>
+                        <td scope="col" style="text-align: center">
+                        Completely answered
+                        </td>      
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr id="chat_exp_1">
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="quality" id="quality_1" value="1" required>
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="quality" id="quality_2" value="2" required>
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="quality" id="quality_3" value="3" required>
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="quality" id="quality_4" value="4" required>
+                            </td>                
+                        </tr>
+                    </tbody>
+                </table>
+            <div style="display: flex; flex-direction: row; justify-content: center; width: 100%;">
+                <button class="btn btn-success mb-4" style="margin: 2%;" type="submit" onclick="sendGoalFeedback(e)">Submit Rating</button>
+            </div> 
+            </form> 
+        </div> 
+        `;
     }
 
     function enterKeyDown(e) {
         if(e.key === "Enter") {
             sendMessage("");
         }
+    }
+
+    function sendGoalFeedback(e) {
+        e.preventDefault();
+        var length = null;
+        var quality = null;
+        var ele = document.getElementsByTagName('input');
+        for (i = 0; i < ele.length; i++) {
+            if (ele[i].type === "radio" && ele[i].checked) {
+                if (ele[i].name === "length"){
+                    length = ele[i].value;
+                }else if(ele[i].name === "quality"){
+                    quality = ele[i].value;
+                }
+            }
+        }
+
+        socket.send(JSON.stringify({
+            EVENT: "NEXT_GOAL",
+            VALUE: {
+                length: length,
+                quality: quality,
+                goal_counter: goal_counter
+            }
+        }));
     }
 
 </script>
@@ -496,8 +616,7 @@ body {
             <div id="goal" style="width:100%; padding: 2%; text-align: left;">
             </div>   
             <div style="display: flex; flex-direction: row; justify-content: center; width: 100%;">
-                <button class="btn btn-success mb-4" style="margin: 2%;" onclick="nextGoal(true)">I found an answer</button>
-                <button class="btn btn-danger mb-4" style="margin: 2%;" onclick="nextGoal(false)">I couldn't find an answer</button>
+                <button class="btn btn-success mb-4" style="margin: 2%;" onclick="nextGoal()">Finished Dialog</button>
             </div>                       
         </div>      
     </div>
