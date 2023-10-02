@@ -81,11 +81,10 @@ class ChatEngine:
                     if isinstance(utterance, type(None)):
                         self.socket.write_message({"EVENT": "MSG", "VALUE": self.user_env.get_current_node_markup(), "CANDIDATES": self.user_env.get_current_node_answer_candidates() })
                         return
-                    else:
-                       obs, reward, done = self.user_env.step(self.action, replayed_user_utterance=deepcopy(utterance))
-                       action = None
-                       utterance = None
-                       continue 
+                    obs, reward, done = self.user_env.step(self.action, replayed_user_utterance=deepcopy(utterance))
+                    action = None
+                    utterance = None
+                    continue
                 else:
                     self.socket.write_message({"EVENT": "MSG", "VALUE": self.user_env.get_current_node_markup(), "CANDIDATES": self.user_env.get_current_node_answer_candidates()  })
             # SKIP
@@ -126,6 +125,11 @@ class FAQBaselinePolicy(ChatEngine):
             data = torch.load("./server/node_embeddings.pt")
             print("Done")
             return data["node_idx_mapping"], data['embeddings']
+        
+    def set_initial_user_utterance(self, msg):
+        self.user_env.set_initial_user_utterance(msg, check_variables=False)
+        self.step()
+
 
     def step(self, action: Union[int, None] = None, utterance: Union[str, None] = None):
         # top-1 step
@@ -145,6 +149,10 @@ class FAQBaselinePolicy(ChatEngine):
 
 class GuidedBaselinePolicy(ChatEngine):
     def next_action(self, obs) -> Tuple[int, bool]:
+        if self.user_env.variable_already_known():
+            # SKIP this node, because we already know the variable's value
+            return ActionType.SKIP, False # jump to first (and only) answer: offset by 1, because answer 0 would be ASK
+        
         if self.user_env.last_action_idx == ActionType.ASK:
             # next action should be skip!
             if self.user_env.current_node.node_type == NodeType.QUESTION:
@@ -164,7 +172,7 @@ class GuidedBaselinePolicy(ChatEngine):
             elif self.user_env.current_node.node_type == NodeType.VARIABLE:
                 # should have exactly 1 answer - skip to that
                 if len(self.user_env.current_node.answers) > 0:
-                    return ActionType.SKIP.value, False # # jump to first (and only) answer: offset by 1, because answer 0 would be ASK
+                    return ActionType.SKIP.value, False # jump to first (and only) answer: offset by 1, because answer 0 would be ASK
                 else:
                     # TODO signal dialog end?
                     print("REACHED DIALOG END")
@@ -189,5 +197,10 @@ class CTSPolicy(ChatEngine):
         action, intent = self.model.predict(observation=s, deterministic=True)
         action = int(action)
         intent = intent.item()
+
+        if action == ActionType.ASK and self.user_env.variable_already_known():
+            # SKIP this node, because we already know the variable's value
+            print("Hard-coded variable node skip")
+            action = ActionType.SKIP.value # jump to first (and only) answer: offset by 1, because answer 0 would be ASK
 
         return action, intent

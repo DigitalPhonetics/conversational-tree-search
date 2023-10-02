@@ -410,7 +410,7 @@
             },
             "data": {
                 "id": "16351700401033947",
-                "markup": "<p>Flights are reimbursable there is a compelling <a title=\"requirements for air travel\" href=\"https://www.redacted\" target=\"_blank\" rel=\"noopener\"> business or economic reason</a>, e.g.:</p>\n <ul>\n <li>Ability to attend multiple sequential meetings </li>\n <li>Health reasons</li>\n <li>Saving work time</li>\n <li>Flying is less expensive</li>\n </ul>\n <p style=\"text-align: left;\"></p>",
+                "markup": "<p>Flights are reimbursable there is a compelling <a title=\"requirements for air travel\" href=\"https://www.redacted\"> business or economic reason</a>, e.g.:</p>\n <ul>\n <li>Ability to attend multiple sequential meetings </li>\n <li>Health reasons</li>\n <li>Saving work time</li>\n <li>Flying is less expensive</li>\n </ul>\n <p style=\"text-align: left;\"></p>",
                 "raw_text": "Flights are reimbursable there is a compelling  business or economic reason, e.g.: Ability to attend multiple sequential meetings \n Health reasons \n Saving work time \n Flying is less expensive ",
                 "position": {
                     "x": 5869,
@@ -445,7 +445,7 @@
             },
             "data": {
                 "id": "16351710117855351",
-                "markup": "<p>Flights must be booked through the <a title=\"Contact to travel agency DER\" href=\"mailto:redacted.com\" target=\"_blank\" rel=\"noopener\">university's Partner Travel Agency</a> (Tel. +123456789). It is not possible to book through an alternative agency. You can find more information on the business travel website.</p>\n <p>Contact information for the partner travel agency can be found <a title=\"Contact for travel agency DER\" href=\"https://www.redacted.pdf\" target=\"_blank\" rel=\"noopener\">here</a>.</p>",
+                "markup": "<p>Flights must be booked through the <a title=\"Contact to travel agency DER\" href=\"mailto:redacted.com\">university's Partner Travel Agency</a> (Tel. +123456789). It is not possible to book through an alternative agency. You can find more information on the business travel website.</p>\n <p>Contact information for the partner travel agency can be found <a title=\"Contact for travel agency DER\" href=\"https://www.redacted.pdf\">here</a>.</p>",
                 "raw_text": "Flights must be booked through the university's Partner Travel Agency (Tel. +123456789). It is not possible to book through an alternative agency. You can find more information on the business travel website. Contact information for the partner travel agency can be found here.",
                 "position": {
                     "x": 6846,
@@ -520,7 +520,7 @@
             },
             "data": {
                 "id": "16351756063145903",
-                "markup": "<p>You can book train tickets yourself (through the <a title=\"Deutsche Bahn\" href=\"https://www.bahn.de/\" target=\"_blank\" rel=\"noopener\">DB website</a>, at their counter / ticket machine) or through the <a title=\"contact for travel agency DER\" href=\"mailto:redacted.com\" target=\"_blank\" rel=\"noopener\">university's partner travel agency</a> (Tel. +123456789).</p>\n <p>You can find contact information for the partner travel agency <a title=\"contact info for travel agency DER\" href=\"https://www.redacted.pdf\" target=\"_blank\" rel=\"noopener\">here</a>.</p>",
+                "markup": "<p>You can book train tickets yourself (through the <a title=\"Deutsche Bahn\" href=\"https://www.bahn.de/\">DB website</a>, at their counter / ticket machine) or through the <a title=\"contact for travel agency DER\" href=\"mailto:redacted.com\">university's partner travel agency</a> (Tel. +123456789).</p>\n <p>You can find contact information for the partner travel agency <a title=\"contact info for travel agency DER\" href=\"https://www.redacted.pdf\">here</a>.</p>",
                 "raw_text": "You can book train tickets yourself (through the DB website, at their counter / ticket machine) or through the university's partner travel agency (Tel. +123456789). You can find contact information for the partner travel agency here.",
                 "position": {
                     "x": 6396,
@@ -864,7 +864,7 @@
             },
             "data": {
                 "id": "16363751447148919",
-                "markup": "<p>Please use this <a title=\"Permission form for business trip\" href=\"https://www.redacted.pdf\" target=\"_blank\" rel=\"noopener\">form </a> written permission from your supervisor.<strong> This is required before starting to book a trip.</strong></p>",
+                "markup": "<p>Please use this <a title=\"Permission form for business trip\" href=\"https://www.redacted.pdf\">form </a> written permission from your supervisor.<strong> This is required before starting to book a trip.</strong></p>",
                 "raw_text": "Please use this form  written permission from your supervisor. This is required before starting to book a trip.",
                 "position": {
                     "x": 361,
@@ -1033,7 +1033,7 @@
             },
             "data": {
                 "id": "16363753477187975",
-                "markup": "<p>Please check the current <strong><span style=\"color: #ba372a;\">COVID-19 travel warnings</span></strong> travel restrictions from the <a title=\"travel warnings from foreign ministry\" href=\"https://www.auswaertiges-amt.de/de/ReiseUndSicherheit/covid-19/2296762\" target=\"_blank\" rel=\"noopener\">foreign ministry</a> and the <a title=\"travel warnings from Robert Koch Institute\" href=\"https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Risikogebiete_neu.html\" target=\"_blank\" rel=\"noopener\">RKI</a>.</p>\n <p><br /><strong>Business trips to high risk areas or virus variation areas are not generally not allowed. In In extreme cases, authorization can be given by the leadership of Department 4 (Administrative Department).</strong></p>",
+                "markup": "<p>Please check the current <strong><span style=\"color: #ba372a;\">COVID-19 travel warnings</span></strong> travel restrictions from the <a title=\"travel warnings from foreign ministry\" href=\"https://www.auswaertiges-amt.de/de/ReiseUndSicherheit/covid-19/2296762\">foreign ministry</a> and the <a title=\"travel warnings from Robert Koch Institute\" href=\"https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Risikogebiete_neu.html\">RKI</a>.</p>\n <p><br /><strong>Business trips to high risk areas or virus variation areas are not generally not allowed. In In extreme cases, authorization can be given by the leadership of Department 4 (Administrative Department).</strong></p>",
                 "raw_text": "Please check the current COVID-19 travel warnings travel restrictions from the foreign ministry and the RKI. Business trips to high risk areas or virus variation areas are not generally not allowed. In In extreme cases, authorization can be given by the leadership of Department 4 (Administrative Department).",
                 "position": {
                     "x": 2171,
@@ -1074,7 +1074,7 @@
             },
             "data": {
                 "id": "16363754346769013",
-                "markup": "<p><span style=\"color: #ba372a;\"><strong>COVID-19:</strong></span> Business trips should be reduced to an absolute minimum and are only allowed when they are <strong>absolutely necessary</strong>.</p>\n <p>The decision for necessity can be made by the leaders of the administrative department (see <a title=\"Hygiene concept of the Uni \" href=\"https://www.redacted.pdf\" target=\"_blank\" rel=\"noopener\">Hygiene concept</a>, 2.4).</p>",
+                "markup": "<p><span style=\"color: #ba372a;\"><strong>COVID-19:</strong></span> Business trips should be reduced to an absolute minimum and are only allowed when they are <strong>absolutely necessary</strong>.</p>\n <p>The decision for necessity can be made by the leaders of the administrative department (see <a title=\"Hygiene concept of the Uni \" href=\"https://www.redacted.pdf\">Hygiene concept</a>, 2.4).</p>",
                 "raw_text": "COVID-19: Business trips should be reduced to an absolute minimum and are only allowed when they are absolutely necessary. The decision for necessity can be made by the leaders of the administrative department (see Hygiene concept, 2.4).",
                 "position": {
                     "x": 2562,
@@ -1099,7 +1099,7 @@
             },
             "data": {
                 "id": "16363754793760356",
-                "markup": "<p>A private extension to a trip must remain in proportion to the length of business-related travel. Business interests must remain the priority. For questions, please contact <a title=\"E-Mail address of the travel department\" href=\"mailto:redacted.de\" target=\"_blank\" rel=\"noopener\">the travel department</a>.</p>",
+                "markup": "<p>A private extension to a trip must remain in proportion to the length of business-related travel. Business interests must remain the priority. For questions, please contact <a title=\"E-Mail address of the travel department\" href=\"mailto:redacted.de\">the travel department</a>.</p>",
                 "raw_text": "A private extension to a trip must remain in proportion to the length of business-related travel. Business interests must remain the priority. For questions, please contact the travel department.",
                 "position": {
                     "x": 3629,
@@ -1326,7 +1326,7 @@
             },
             "data": {
                 "id": "16363812426270449",
-                "markup": "<p>Hotels can be booked using the <a title=\"E-Mail address travel agency DER\" href=\"mailto:redacted.com\" target=\"_blank\" rel=\"noopener\">university's partner travel agency</a>, through a booking portal, or booked directly</p>\n <p>The contact for the partner travel agency can be found <a title=\"contact travel agency DER\" href=\"https://www.redacted.pdf\" target=\"_blank\" rel=\"noopener\">here</a>.</p>\n <p>The university recommends <a title=\"Hotel recommendation list Germany\" href=\"https://www.redacted.xlsx\" target=\"_blank\" rel=\"noopener\">these hotels</a>.</p>",
+                "markup": "<p>Hotels can be booked using the <a title=\"E-Mail address travel agency DER\" href=\"mailto:redacted.com\">university's partner travel agency</a>, through a booking portal, or booked directly</p>\n <p>The contact for the partner travel agency can be found <a title=\"contact travel agency DER\" href=\"https://www.redacted.pdf\">here</a>.</p>\n <p>The university recommends <a title=\"Hotel recommendation list Germany\" href=\"https://www.redacted.xlsx\">these hotels</a>.</p>",
                 "raw_text": "Hotels can be booked using the university's partner travel agency, through a booking portal, or booked directly The contact for the partner travel agency can be found here. The university recommends these hotels.",
                 "position": {
                     "x": 10353,
@@ -1587,7 +1587,7 @@
             },
             "data": {
                 "id": "16365525056464242",
-                "markup": "<p>Rental cars be booked directly through the rental company or via the <a title=\"email address for DER Business Travel\" href=\"mailto:redacted.com\" target=\"_blank\" rel=\"noopener\">university's partner travel agency</a> (Tel. +123456789).</p>\n <p>You can find contact information for the travel agency <a title=\"contact for travel agency DER\" href=\"https://www.redacted.pdf\" target=\"_blank\" rel=\"noopener\">here</a>.</p>",
+                "markup": "<p>Rental cars be booked directly through the rental company or via the <a title=\"email address for DER Business Travel\" href=\"mailto:redacted.com\">university's partner travel agency</a> (Tel. +123456789).</p>\n <p>You can find contact information for the travel agency <a title=\"contact for travel agency DER\" href=\"https://www.redacted.pdf\">here</a>.</p>",
                 "raw_text": "Rental cars be booked directly through the rental company or via the university's partner travel agency (Tel. +123456789). You can find contact information for the travel agency here.",
                 "position": {
                     "x": 6231,
@@ -2048,7 +2048,7 @@
             },
             "data": {
                 "id": "16369666644048691",
-                "markup": "<p>All vaccinations which are  <strong>required</strong> for a business trip are  <strong>reimbursable</strong>.</p>\n <p>Costs for recommended vaccinations can only be refunded if the trip is being taken to a destination with an <strong>endemic or pandemic</strong>.</p>\n <p><strong>Please look at this circular letter: <a title=\"newsletter Nr. 31/2014 vaccination for business trips\" href=\"https://www.redacted.html\" target=\"_blank\" rel=\"noopener\">Vaccinations for Business Trips;(Nr. 31/2014)</a></strong></p>",
+                "markup": "<p>All vaccinations which are  <strong>required</strong> for a business trip are  <strong>reimbursable</strong>.</p>\n <p>Costs for recommended vaccinations can only be refunded if the trip is being taken to a destination with an <strong>endemic or pandemic</strong>.</p>\n <p><strong>Please look at this circular letter: <a title=\"newsletter Nr. 31/2014 vaccination for business trips\" href=\"https://www.redacted.html\">Vaccinations for Business Trips;(Nr. 31/2014)</a></strong></p>",
                 "raw_text": "All vaccinations which are  required for a business trip are reimbursable. Costs for recommended vaccinations can only be refunded if the trip is being taken to a destination with an endemic or pandemic. Please look at this circular letter: Vaccinations for Business Trips: (Nr. 31/2014)",
                 "position": {
                     "x": 4711,
@@ -2651,7 +2651,7 @@
             },
             "data": {
                 "id": "16370471523750267",
-                "markup": "<p>After the 8th day, depending on your case, the per diem may be reduced. </p>\n <p>For more information about your case, please contact <a title=\"E-Mail address business travel department\" href=\"mailto:redacted.de\" target=\"_blank\" rel=\"noopener\">the business travel department</a>.</p>",
+                "markup": "<p>After the 8th day, depending on your case, the per diem may be reduced. </p>\n <p>For more information about your case, please contact <a title=\"E-Mail address business travel department\" href=\"mailto:redacted.de\">the business travel department</a>.</p>",
                 "raw_text": "After the 8th day, depending on your case, the per diem may be reduced. For more information about your case, please contact the business travel department.",
                 "position": {
                     "x": 11099,
@@ -2687,7 +2687,7 @@
             },
             "data": {
                 "id": "16370481846790432",
-                "markup": "<p>As part of a reallocation/delegation, your office is relocated (no longer in CITY) </p>",
+                "markup": "<p>As part of a reallocation/delegation, your office is relocated (no longer in your city) </p>",
                 "raw_text": "As part of a reallocation/delegation, your office is relocated (no longer in CITY) ",
                 "position": {
                     "x": 2819,
@@ -2755,7 +2755,7 @@
             },
             "data": {
                 "id": "16370483570980906",
-                "markup": "<p>Business traveler can receive reimbursement for business related expenses by submitting the following <a title=\"Form for travel reimbursement\" href=\"https://www.redacted.pdf\" target=\"_blank\" rel=\"noopener\">form</a>.</p>",
+                "markup": "<p>Business traveler can receive reimbursement for business related expenses by submitting the following <a title=\"Form for travel reimbursement\" href=\"https://www.redacted.pdf\">form</a>.</p>",
                 "raw_text": "Business traveler can receive reimbursement for business related expenses by submitting the following form.",
                 "position": {
                     "x": 4470,
@@ -2837,7 +2837,7 @@
             },
             "data": {
                 "id": "16370678190615289",
-                "markup": "<p>Please use the <strong>country database </strong> to inform yourself about possible  <strong>Risks </strong>related to your trip.<br /><br /></p>\n <p>It is required<strong>to confirm that you have checked this information and gotten necessary advice as part of your <a title=\"Form for travel application\" href=\"https://www.redacted.pdf\" target=\"_blank\" rel=\"noopener\">travel application</a></strong>.  Your supervisor will confirm this when signing the form giving you permission to travel</p>",
+                "markup": "<p>Please use the <strong>country database </strong> to inform yourself about possible  <strong>Risks </strong>related to your trip.<br /><br /></p>\n <p>It is required<strong>to confirm that you have checked this information and gotten necessary advice as part of your <a title=\"Form for travel application\" href=\"https://www.redacted.pdf\">travel application</a></strong>.  Your supervisor will confirm this when signing the form giving you permission to travel</p>",
                 "raw_text": "Please use the country database  to inform yourself about possible  Risks related to your trip. It is required to confirm that you have checked this information and gotten necessary advice as part of your travel application.  Your supervisor will confirm this when signing the form giving you permission to travel",
                 "position": {
                     "x": 3032,
@@ -2871,7 +2871,7 @@
             },
             "data": {
                 "id": "16370678856758681",
-                "markup": "<p>The country database is available in German and English.  Countries are divided into<strong>risk classes: green, yellow, and red</stron>.<br />You can find more information here: <a title=\"Risik classes in the country database\" href=\"https://www.redacted\" target=\"_blank\" rel=\"noopener\">Risk classes in the country database</a></p>\n <p>If you would like information about the <strong>Risk class of your destination</strong>, click <a title=\"Risiko Klasse des Reiseziels\" href=\"http://redacted\" target=\"_blank\" rel=\"noopener\">here</a></p>",
+                "markup": "<p>The country database is available in German and English.  Countries are divided into<strong>risk classes: green, yellow, and red</stron>.<br />You can find more information here: <a title=\"Risik classes in the country database\" href=\"https://www.redacted\">Risk classes in the country database</a></p>\n <p>If you would like information about the <strong>Risk class of your destination</strong>, click <a title=\"Risiko Klasse des Reiseziels\" href=\"http://redacted\">here</a></p>",
                 "raw_text": "The country database is available in German and English.  Countries are divided into risk classes: green, yellow, and red. You can find more information here: Risk classes in the country database If you would like information about the Risk class of your destination, click here",
                 "position": {
                     "x": 3865,
@@ -2915,7 +2915,7 @@
             },
             "data": {
                 "id": "16370679473901470",
-                "markup": "<h4 id=\"id-2cd3fd7d-head2\"><strong>What do I do in an emergency on a business trip?</strong></h4>\n <p> </p>\n <div class=\"absatz\">\n <p>Please call the number listed on the <a title=\"Emergency Card\" href=\"https://www.redacted.pdf\" target=\"_blank\" rel=\"noopener\"><span style=\"text-decoration: underline;\"><strong>Emergency-Card</strong></span> </a>:<strong> </strong><span style=\"text-decoration: underline;\"><strong> </strong></span><strong>+123456789.</strong></p>\n <p>The Emergency-Card is also available in business card format. For more information, please enquire with the business travel department or your institute.</p>\n <p>This phone number is <strong>for emergencies only!</strong> Do not distribute it.</p>\n </div>\n <p><span style=\"text-decoration: underline;\"><strong>Emergency App<br /></strong></span>24/7 Emergency calling, Text chat, Video advice per the Emergency call Business App for iOS and Android<br /><strong>Download link</strong>: <a title=\"Emergency-App\" href=\"https://redacted\" target=\"_blank\" rel=\"noopener\"><span style=\"text-decoration: underline;\">Notfall-App</span></a></p>\n <p>QR-Code:<br /><img src=\"https://www.redacted.jpeg\" alt=\"QR Code Emergency app\" width=\"150\" height=\"150\" /></p>\n <p><strong>Registration code</strong>: </p>\n <p>Note: distributing the registration code to third parties is strictly prohibited.</p>",
+                "markup": "<h4 id=\"id-2cd3fd7d-head2\"><strong>What do I do in an emergency on a business trip?</strong></h4>\n <p> </p>\n <div class=\"absatz\">\n <p>Please call the number listed on the <a title=\"Emergency Card\" href=\"https://www.redacted.pdf\"><span style=\"text-decoration: underline;\"><strong>Emergency-Card</strong></span> </a>:<strong> </strong><span style=\"text-decoration: underline;\"><strong> </strong></span><strong>+123456789.</strong></p>\n <p>The Emergency-Card is also available in business card format. For more information, please enquire with the business travel department or your institute.</p>\n <p>This phone number is <strong>for emergencies only!</strong> Do not distribute it.</p>\n </div>\n <p><span style=\"text-decoration: underline;\"><strong>Emergency App<br /></strong></span>24/7 Emergency calling, Text chat, Video advice per the Emergency call Business App for iOS and Android<br /><strong>Download link</strong>: <a title=\"Emergency-App\" href=\"https://redacted\"><span style=\"text-decoration: underline;\">Notfall-App</span></a></p>\n <p>QR-Code:<br /><img src=\"https://www.redacted.jpeg\" alt=\"QR Code Emergency app\" width=\"150\" height=\"150\" /></p>\n <p><strong>Registration code</strong>: </p>\n <p>Note: distributing the registration code to third parties is strictly prohibited.</p>",
                 "raw_text": "What do I do in an emergency on a business trip? Please call the number listed on the Emergency-Card :  +123456789. The Emergency-Card is also available in business card format. For more information, please enquire with the business travel department or your institute. This phone number is for emergencies only! Do not distribute it. Emergency App24/7 Emergency calling, Text chat, Video advice per the Emergency call Business App for iOS and AndroidDownload link: Notfall-AppQR-Code:Registration code: Note: distributing the registration code to third parties is strictly prohibited.",
                 "position": {
                     "x": 2729,
@@ -3294,7 +3294,7 @@
             },
             "data": {
                 "id": "16387868859695624",
-                "markup": "<p>Thank you for using the business travel chatbot.</p>\n <p>Please let us know about your experience by filling out a quick <a title=\"Feedback\" href=\"../../../take_survey\" target=\"_blank\" rel=\"noopener\">survey</a>, that way we can improve our performance and your experience.</p></p>",
+                "markup": "<p>Thank you for using the business travel chatbot.</p>\n <p>Please let us know about your experience by filling out a quick survey, that way we can improve our performance and your experience.</p></p>",
                 "raw_text": "Thank you for using the business travel chatbot.Please let us know about your experience by filling out a quick survey, that way we can improve our performance and your experience.",
                 "position": {
                     "x": 12358,
@@ -3351,7 +3351,7 @@
             },
             "data": {
                 "id": "16389562608833278",
-                "markup": "<p>Please note the  <span style=\"color: #000000;\">current</span><strong><span style=\"color: #e03e2d;\"> <span style=\"color: #ba372a;\">COVID-19 travel warnings posted by the </span></span><span style=\"color: #ba372a;\"> </span></strong>and restrictions <a title=\"foreign ministry travel warnings\" href=\"https://www.auswaertiges-amt.de/de/ReiseUndSicherheit/covid-19/2296762\" target=\"_blank\" rel=\"noopener\">foreign ministry</a> and the <a title=\"travel warnings from the Robert Koch Institute\" href=\"https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Risikogebiete_neu.html\" target=\"_blank\" rel=\"noopener\">RKI</a>.</p>\n <p><br /><strong>Business trips to high risk or variant areas are generally not allowed. In extreme cases, permission can be petitioned for through the leadership of Department 4 (administrative department).</strong></p>",
+                "markup": "<p>Please note the  <span style=\"color: #000000;\">current</span><strong><span style=\"color: #e03e2d;\"> <span style=\"color: #ba372a;\">COVID-19 travel warnings posted by the </span></span><span style=\"color: #ba372a;\"> </span></strong>and restrictions <a title=\"foreign ministry travel warnings\" href=\"https://www.auswaertiges-amt.de/de/ReiseUndSicherheit/covid-19/2296762\">foreign ministry</a> and the <a title=\"travel warnings from the Robert Koch Institute\" href=\"https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Risikogebiete_neu.html\">RKI</a>.</p>\n <p><br /><strong>Business trips to high risk or variant areas are generally not allowed. In extreme cases, permission can be petitioned for through the leadership of Department 4 (administrative department).</strong></p>",
                 "raw_text": "Please note the  current COVID-19 travel warnings posted by the  and restrictions foreign ministry and the RKI. Business trips to high risk or variant areas are generally not allowed. In extreme cases, permission can be petitioned for through the leadership of Department 4 (administrative department).",
                 "position": {
                     "x": 2378,
@@ -3445,7 +3445,7 @@
             },
             "data": {
                 "id": "16389695846089108",
-                "markup": "<p><span style=\"color: #333333; font-family: 'Univers LT W01 45 Light', arial, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;\">For<strong>all </strong> business trips (even for short trips or ones lasting only a single day) <strong>outside the country</strong> to EU-countries, Iceland, Norway, Liechtenstein or Switzerland, you will need to fill out an <a title=\"Formular A1-form\" href=\"https://redacted.pdf\" target=\"_blank\" rel=\"noopener\"><strong>A1 Form</strong> </a>, which must be brought with you when you leave the country. </span></p>\n <p><span style=\"color: #333333; font-family: 'Univers LT W01 45 Light', arial, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;\">You will need to fill out a new A1 for each business trip you take. Filling the form out once, does not allow it to apply for subsequent trips you tak.</span></p>",
+                "markup": "<p><span style=\"color: #333333; font-family: 'Univers LT W01 45 Light', arial, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;\">For<strong>all </strong> business trips (even for short trips or ones lasting only a single day) <strong>outside the country</strong> to EU-countries, Iceland, Norway, Liechtenstein or Switzerland, you will need to fill out an <a title=\"Formular A1-form\" href=\"https://redacted.pdf\"><strong>A1 Form</strong> </a>, which must be brought with you when you leave the country. </span></p>\n <p><span style=\"color: #333333; font-family: 'Univers LT W01 45 Light', arial, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;\">You will need to fill out a new A1 for each business trip you take. Filling the form out once, does not allow it to apply for subsequent trips you tak.</span></p>",
                 "raw_text": "For all  business trips (even for short trips or ones lasting only a single day) outside the country to EU-countries, Iceland, Norway, Liechtenstein or Switzerland, you will need to fill out an A1 Form , which must be brought with you when you leave the country. You will need to fill out a new A1 for each business trip you take. Filling the form out once, does not allow it to apply for subsequent trips you tak.",
                 "position": {
                     "x": 1829,
@@ -3522,7 +3522,7 @@
             },
             "data": {
                 "id": "16391241972677029",
-                "markup": "<p>Application for business travel:</p>\n <p>German version:</p>\n <ul>\n <li><a title=\"Business trip application \" href=\"https://www.redacted.pdf\" target=\"_blank\" rel=\"noopener\">Application for business travel</a></li>\n <li><a title=\"application for financial help\" href=\"https://www.redacted.pdf\" target=\"_blank\" rel=\"noopener\">Application for financial help for business travel (for taking part in a lecture as part of a job application, for taking part in an interview panel, and for doctoral exams)</a></li>\n <li><a title=\"Application for advancement of funds\" href=\"https://www.redacted.pdf\" target=\"_blank\" rel=\"noopener\">Application for advancement of funds</a></li>\n </ul>\n <p>English version:</p>\n <ul>\n <li><a title=\"Business Trip Application\" href=\"https://www.redacted.pdf\" target=\"_blank\" rel=\"noopener\">Business Trip Application</a></li>\n </ul>",
+                "markup": "<p>Application for business travel:</p>\n <p>German version:</p>\n <ul>\n <li><a title=\"Business trip application \" href=\"https://www.redacted.pdf\">Application for business travel</a></li>\n <li><a title=\"application for financial help\" href=\"https://www.redacted.pdf\">Application for financial help for business travel (for taking part in a lecture as part of a job application, for taking part in an interview panel, and for doctoral exams)</a></li>\n <li><a title=\"Application for advancement of funds\" href=\"https://www.redacted.pdf\">Application for advancement of funds</a></li>\n </ul>\n <p>English version:</p>\n <ul>\n <li><a title=\"Business Trip Application\" href=\"https://www.redacted.pdf\">Business Trip Application</a></li>\n </ul>",
                 "raw_text": "Application for business travel: \nGerman version: Application for business travel \n Application for financial help for business travel (for taking part in a lecture as part of a job application, for taking part in an interview panel, and for doctoral exams) \n Application for advancement of funds \n English version: Business Trip Application",
                 "position": {
                     "x": -4362,
@@ -3561,7 +3561,7 @@
             },
             "data": {
                 "id": "16391245479319732",
-                "markup": "<p>Business travel reimbursement forms:</p>\n <p>German:</p>\n <ul>\n <li><a title=\"Travel reimbursement\" href=\"https://www.redacted.pdf\" target=\"_blank\" rel=\"noopener\">Travel reimbursement </a></li>\n <li><a title=\"Help with travel reimbursement\" href=\"https://www.redacted.pdf\" target=\"_blank\" rel=\"noopener\">Help with business travel reimbursement</a></li>\n <li><a title=\"Personal justification for travel reimbursement (German)\" href=\"https://www.redacted.pdf\" target=\"_blank\" rel=\"noopener\">Personal justification for travel reimbursement (German)</a></li>\n <li><a title=\"Reimbursement for an intracity business trip\" href=\"https://www.redacted.docx\" target=\"_blank\" rel=\"noopener\">Reimbursement for an intracity business trip</a></li>\n <li><a title=\"Proof of use of personal car for business reasons\" href=\"https://www.redacted.pdf\" target=\"_blank\" rel=\"noopener\">NProof of use of personal car for business reasons</a></li>\n <li><a title=\"Overview to application of Bahncard-Business viability\" href=\"https://www.redacted.pdf\" target=\"_blank\" rel=\"noopener\">Overview to application of Bahncard-Business viability</a></li>\n </ul>\n <p>English:</p>\n <ul>\n <li><a title=\"Travelling Expenses Claim\" href=\"https://www.redacted.pdf\" target=\"_blank\" rel=\"noopener\">Travelling Expenses Claim</a></li>\n <li><a title=\"Personal declaration/ reasons for travel expenses \" href=\"https://www.redacted.pdf\" target=\"_blank\" rel=\"noopener\">Personal declaration/ reasons for travel expenses </a></li>\n </ul>",
+                "markup": "<p>Business travel reimbursement forms:</p>\n <p>German:</p>\n <ul>\n <li><a title=\"Travel reimbursement\" href=\"https://www.redacted.pdf\">Travel reimbursement </a></li>\n <li><a title=\"Help with travel reimbursement\" href=\"https://www.redacted.pdf\">Help with business travel reimbursement</a></li>\n <li><a title=\"Personal justification for travel reimbursement (German)\" href=\"https://www.redacted.pdf\">Personal justification for travel reimbursement (German)</a></li>\n <li><a title=\"Reimbursement for an intracity business trip\" href=\"https://www.redacted.docx\">Reimbursement for an intracity business trip</a></li>\n <li><a title=\"Proof of use of personal car for business reasons\" href=\"https://www.redacted.pdf\">NProof of use of personal car for business reasons</a></li>\n <li><a title=\"Overview to application of Bahncard-Business viability\" href=\"https://www.redacted.pdf\">Overview to application of Bahncard-Business viability</a></li>\n </ul>\n <p>English:</p>\n <ul>\n <li><a title=\"Travelling Expenses Claim\" href=\"https://www.redacted.pdf\">Travelling Expenses Claim</a></li>\n <li><a title=\"Personal declaration/ reasons for travel expenses \" href=\"https://www.redacted.pdf\">Personal declaration/ reasons for travel expenses </a></li>\n </ul>",
                 "raw_text": "Business travel reimbursement forms: \n German: Travel reimbursement \n Help with business travel reimbursement \n Personal justification for travel reimbursement (German) \n Reimbursement for an intracity business trip \n Proof of use of personal car for business reasons \n Overview to application of Bahncard-Business viability \n English: Travelling Expenses Claim \n Personal declaration/ reasons for travel expenses",
                 "position": {
                     "x": -4332,
@@ -3605,7 +3605,7 @@
             },
             "data": {
                 "id": "16391250907662288",
-                "markup": "<p>Here is the hotel list:</p>\n <p><a title=\"Hotel list COUNTRY 2021\" href=\"https://www.redacted.xlsx\" target=\"_blank\" rel=\"noopener\">Hotel list COUNTRY 2021</a></p>\n <p> </p>",
+                "markup": "<p>Here is the hotel list:</p>\n <p><a title=\"Hotel list COUNTRY 2021\" href=\"https://www.redacted.xlsx\">Hotel list COUNTRY 2021</a></p>\n <p> </p>",
                 "raw_text": "Here is the hotel list: Hotel list Germany 2021 ",
                 "position": {
                     "x": -4351,
@@ -3712,7 +3712,7 @@
             },
             "data": {
                 "id": "16430174900099207",
-                "markup": "<p>You can use the following form <a title=\"Application for advance\" href=\"https://www.redacted.pdf)\" target=\"_blank\" rel=\"noopener\">application for advancement of travel reimbursement</a> to apply for an advance of you travel reimbursement. <br />This can be submitted through your institute.</p>",
+                "markup": "<p>You can use the following form <a title=\"Application for advance\" href=\"https://www.redacted.pdf)\">application for advancement of travel reimbursement</a> to apply for an advance of you travel reimbursement. <br />This can be submitted through your institute.</p>",
                 "raw_text": "You can use the following form application for advancement of travel reimbursement to apply for an advance of you travel reimbursement. This can be submitted through your institute.",
                 "position": {
                     "x": 5225,
@@ -3893,7 +3893,7 @@
             },
             "data": {
                 "id": "16457017855826480",
-                "markup": "<p>Please fill out the <a title=\"form for travel reimbursement\" href=\"https://www.redacted.pdf\" target=\"_blank\" rel=\"noopener\">travel reimbursement form</a> and send it along with original versions of all receipts to:</p>\n <p><br />Central Administration<br />Business Travel Department<br />Redacted St 123, using the internal mail system.</p>",
+                "markup": "<p>Please fill out the <a title=\"form for travel reimbursement\" href=\"https://www.redacted.pdf\">travel reimbursement form</a> and send it along with original versions of all receipts to:</p>\n <p><br />Central Administration<br />Business Travel Department<br />Redacted St 123, using the internal mail system.</p>",
                 "raw_text": "Please fill out the travel reimbursement form and send it along with original versions of all receipts to: Central AdministrationBusiness Travel Department Redacted St 123, using the internal mail system.",
                 "position": {
                     "x": -5034,
@@ -4071,7 +4071,7 @@
             },
             "data": {
                 "id": "16457053159041482",
-                "markup": "<p>You should try to cancel anything which has already been booked as quickly as possible.</p>\n <p><strong>Necessary expenses as a result of the planned Business trip, which cannot be cancelled will be reimbursed. </p>\n <p>Cancellation costs can also be reimbursed using the <a title=\"Form for travel reimbursement\" href=\"https://www.redacted.pdf\" target=\"_blank\" rel=\"noopener\">Form for travel reimbursement</a>.</p>",
+                "markup": "<p>You should try to cancel anything which has already been booked as quickly as possible.</p>\n <p><strong>Necessary expenses as a result of the planned Business trip, which cannot be cancelled will be reimbursed. </p>\n <p>Cancellation costs can also be reimbursed using the <a title=\"Form for travel reimbursement\" href=\"https://www.redacted.pdf\">Form for travel reimbursement</a>.</p>",
                 "raw_text": "You should try to cancel anything which has already been booked as quickly as possible. Necessary expenses as a result of the planned Business trip, which cannot be cancelled will be reimbursed. Cancellation costs can also be reimbursed using the Form for travel reimbursement.",
                 "position": {
                     "x": -3894,
@@ -4279,7 +4279,7 @@
             },
             "data": {
                 "id": "16460422136134149",
-                "markup": "<p>If you are traveling for more than 4 weeks and need help finding accommodations, please contact <a title=\"E-Mail address business travel department\" href=\"mailto:redacted.de\" target=\"_blank\" rel=\"noopener\">the business travel department</a>.</p>",
+                "markup": "<p>If you are traveling for more than 4 weeks and need help finding accommodations, please contact <a title=\"E-Mail address business travel department\" href=\"mailto:redacted.de\">the business travel department</a>.</p>",
                 "raw_text": "If you are traveling for more than 4 weeks and need help finding accommodations, please contact the business travel department.",
                 "position": {
                     "x": 1877,

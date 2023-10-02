@@ -13,6 +13,8 @@ from environment.realuser import RealUserEnvironment, RealUserGoal
 from server.nlu import NLU
 from utils.utils import AutoSkipMode
 
+import re
+url_pattern = re.compile(r'(<a\s+[^>]*href=")([^"]*)(")([^>]*>)')
 
 class RealUserEnvironmentWeb(RealUserEnvironment):
     def __init__(self,
@@ -30,8 +32,17 @@ class RealUserEnvironmentWeb(RealUserEnvironment):
         self.first_turn = False
         self.system_parser = system_parser
 
+    def variable_already_known(self) -> bool:
+        """ Checks whether the current node is a variable node, and if so, if its value is already known """
+        if self.current_node.node_type == NodeType.VARIABLE:
+            var = self.answerParser.find_variable(self.current_node.answer_by_index(0).text)
+            return var.name in self.bst
+        return False
+
     def get_current_node_markup(self) -> str:
-        return self.system_parser.parse_template(self.current_node.markup, self.value_backend, self.bst)
+        # replace links with alert
+        markup = url_pattern.sub(r"""\1#\3 onclick="open_link_info()"\4""", self.current_node.markup)
+        return self.system_parser.parse_template(markup, self.value_backend, self.bst)
 
     def get_current_node_answer_candidates(self) -> List[str]:
         if self.current_node.node_type == NodeType.QUESTION:
@@ -215,19 +226,20 @@ class RealUserEnvironmentWeb(RealUserEnvironment):
         self.first_turn = True
         self.pre_reset()
     
-    def set_initial_user_utterance(self, initial_user_utterance: str):
+    def set_initial_user_utterance(self, initial_user_utterance: str, check_variables: bool = True):
         # TODO check for bst values in first utterance
         # (we don't know variable type / name here, so just have to see if anything matches)
         self.goal = RealUserGoal(initial_user_utterance=deepcopy(initial_user_utterance), delexicalised_initial_user_utterance=deepcopy(initial_user_utterance),
                                  goal_node_key=self.data.start_node.key, constraints=dict(), visited_ids=set())
 
         # check locations
-        nlu_results = self.nlu.extract_places(initial_user_utterance)
-        if "COUNTRY" in nlu_results and len(nlu_results["COUNTRY"]) == 1:
-            # exactly 1 match -> set
-            self.bst["COUNTRY"] = nlu_results["COUNTRY"][0]
-        if "CITY" in nlu_results and len(nlu_results["CITY"]) == 1:
-            self.bst['CITY'] = nlu_results["CITY"][0]
+        if check_variables:
+            nlu_results = self.nlu.extract_places(initial_user_utterance)
+            if "COUNTRY" in nlu_results and len(nlu_results["COUNTRY"]) == 1:
+                # exactly 1 match -> set
+                self.bst["COUNTRY"] = nlu_results["COUNTRY"][0]
+            if "CITY" in nlu_results and len(nlu_results["CITY"]) == 1:
+                self.bst['CITY'] = nlu_results["CITY"][0]
         
         return self.post_reset()
     
