@@ -410,7 +410,7 @@
             },
             "data": {
                 "id": "16351700401033947",
-                "markup": "<p>Fl&uuml;ge sind erstattungsf&auml;hig, wenn ein besonderer<a title=\"Bedingungen f&uuml;r Flugreise\" href=\"https://www.redacted\" target=\"_blank\" rel=\"noopener\"> dienstlicher oder wirtschaftlicher Grund</a> vorliegt, z.B.:</p>\n<ul>\n<li>Wahrnehmung mehrerer aufeinanderfolgender dienstlicher Termine</li>\n<li>Gesundheitszustand</li>\n<li>Arbeitszeitgewinn</li>\n<li>F&uuml;hrt zu einer geringeren Reisekostenverg&uuml;tung</li>\n</ul>\n<p style=\"text-align: left;\">&nbsp;</p>",
+                "markup": "<p>Fl&uuml;ge sind erstattungsf&auml;hig, wenn ein besonderer<a title=\"Bedingungen f&uuml;r Flugreise\" href=\"https://www.redacted\"> dienstlicher oder wirtschaftlicher Grund</a> vorliegt, z.B.:</p>\n<ul>\n<li>Wahrnehmung mehrerer aufeinanderfolgender dienstlicher Termine</li>\n<li>Gesundheitszustand</li>\n<li>Arbeitszeitgewinn</li>\n<li>F&uuml;hrt zu einer geringeren Reisekostenverg&uuml;tung</li>\n</ul>\n<p style=\"text-align: left;\">&nbsp;</p>",
                 "raw_text": "Flüge sind erstattungsfähig, wenn ein besonderer dienstlicher oder wirtschaftlicher Grund vorliegt, z.B.: Wahrnehmung mehrerer aufeinanderfolgender dienstlicher TermineGesundheitszustandArbeitszeitgewinnFührt zu einer geringeren Reisekostenvergütung ",
                 "position": {
                     "x": 5869,
@@ -445,7 +445,7 @@
             },
             "data": {
                 "id": "16351710117855351",
-                "markup": "<p>Fl&uuml;ge m&uuml;ssen &uuml;ber das <a title=\"Kontaktdaten Reiseb&uuml;ro DER\" href=\"mailto:redacted.com\" target=\"_blank\" rel=\"noopener\">Vertragsreiseb&uuml;ro der Universit&auml;t </a> gebucht werden (Tel. +123456789). Es ist nicht m&ouml;glich, Fl&uuml;ge bei anderen Reiseb&uuml;ros zu buchen. Weitere Informationen finden Sie auf dem Reisekostenportal.</p>\n<p>Die Ansprechpersonen des Vertragsreiseb&uuml;ros finden Sie <a title=\"Ansprechpersonen des Vertragsreiseb&uuml;ros DER\" href=\"https://www.redacted.pdf\" target=\"_blank\" rel=\"noopener\">hier</a>.</p>",
+                "markup": "<p>Fl&uuml;ge m&uuml;ssen &uuml;ber das <a title=\"Kontaktdaten Reiseb&uuml;ro DER\" href=\"mailto:redacted.com\">Vertragsreiseb&uuml;ro der Universit&auml;t </a> gebucht werden (Tel. +123456789). Es ist nicht m&ouml;glich, Fl&uuml;ge bei anderen Reiseb&uuml;ros zu buchen. Weitere Informationen finden Sie auf dem Reisekostenportal.</p>\n<p>Die Ansprechpersonen des Vertragsreiseb&uuml;ros finden Sie <a title=\"Ansprechpersonen des Vertragsreiseb&uuml;ros DER\" href=\"https://www.redacted.pdf\">hier</a>.</p>",
                 "raw_text": "Flüge müssen über das Vertragsreisebüro der Universität  gebucht werden (Tel. +123456789). Es ist nicht möglich, Flüge bei anderen Reisebüros zu buchen. Weitere Informationen finden Sie auf dem Reisekostenportal.Die Ansprechpersonen des Vertragsreisebüros finden Sie hier.",
                 "position": {
                     "x": 6846,
@@ -520,7 +520,7 @@
             },
             "data": {
                 "id": "16351756063145903",
-                "markup": "<p>Bahnfahrkarten k&ouml;nnen selbst (&uuml;ber die <a title=\"Deutsche Bahn\" href=\"https://www.bahn.de/\" target=\"_blank\" rel=\"noopener\">Website der DB</a>, am Schalter / Automat) oder &uuml;ber das <a title=\"Kontaktdaten Reiseb&uuml;ro DER\" href=\"mailto:redacted.com\" target=\"_blank\" rel=\"noopener\">Vertragsreiseb&uuml;ro der Universit&auml;t </a> (Tel. +123456789) gebucht werden.</p>\n<p>Die Ansprechpersonen des Vertragsreiseb&uuml;ros finden Sie <a title=\"Ansprechpersonen des Vertragsreiseb&uuml;ros DER\" href=\"https://www.redacted.pdf\" target=\"_blank\" rel=\"noopener\">hier</a>.</p>",
+                "markup": "<p>Bahnfahrkarten k&ouml;nnen selbst (&uuml;ber die <a title=\"Deutsche Bahn\" href=\"https://www.bahn.de/\">Website der DB</a>, am Schalter / Automat) oder &uuml;ber das <a title=\"Kontaktdaten Reiseb&uuml;ro DER\" href=\"mailto:redacted.com\">Vertragsreiseb&uuml;ro der Universit&auml;t </a> (Tel. +123456789) gebucht werden.</p>\n<p>Die Ansprechpersonen des Vertragsreiseb&uuml;ros finden Sie <a title=\"Ansprechpersonen des Vertragsreiseb&uuml;ros DER\" href=\"https://www.redacted.pdf\">hier</a>.</p>",
                 "raw_text": "Bahnfahrkarten können selbst (über die Website der DB, am Schalter / Automat) oder über das Vertragsreisebüro der Universität  (Tel. +1234556789) gebucht werden.Die Ansprechpersonen des Vertragsreisebüros finden Sie hier.",
                 "position": {
                     "x": 6396,
@@ -864,7 +864,7 @@
             },
             "data": {
                 "id": "16363751447148919",
-                "markup": "<p>Bitte holen Sie sich zun&auml;chst mittels dieses&nbsp;<a title=\"Formular Dienstreisegenehmigung\" href=\"https://www.redacted.pdf\" target=\"_blank\" rel=\"noopener\">Formulars </a>eine schriftliche Genehmigug ihres Vorgesetzten ein.<strong> Dies ist zwingend erforderlich.</strong></p>",
+                "markup": "<p>Bitte holen Sie sich zun&auml;chst mittels dieses&nbsp;<a title=\"Formular Dienstreisegenehmigung\" href=\"https://www.redacted.pdf\">Formulars </a>eine schriftliche Genehmigug ihres Vorgesetzten ein.<strong> Dies ist zwingend erforderlich.</strong></p>",
                 "raw_text": "Bitte holen Sie sich zunächst mittels dieses Formulars eine schriftliche Genehmigug ihres Vorgesetzten ein. Dies ist zwingend erforderlich.",
                 "position": {
                     "x": 361,
@@ -1033,7 +1033,7 @@
             },
             "data": {
                 "id": "16363753477187975",
-                "markup": "<p>Bitte beachten Sie die aktuellen <strong><span style=\"color: #ba372a;\">COVID-19 Reisewarnungen</span></strong> und Beschr&auml;nkungen des <a title=\"Reisewarnungen des Ausw&auml;rtigen Amts\" href=\"https://www.auswaertiges-amt.de/de/ReiseUndSicherheit/covid-19/2296762\" target=\"_blank\" rel=\"noopener\">Ausw&auml;rtigen Amts</a> und des <a title=\"Reisewarnungen Robert Koch Institut\" href=\"https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Risikogebiete_neu.html\" target=\"_blank\" rel=\"noopener\">RKI</a>.</p>\n<p><br /><strong>Dienstreisen in Hochrisikogebiete und Virusvariantengebiete sind grunds&auml;tzlich nicht zul&auml;ssig. In unverzichtbaren und unaufschiebbaren F&auml;llen kann eine Genehmigung durch die Leitung Dezernat 4 (Dezernat Personal) erfolgen.</strong></p>",
+                "markup": "<p>Bitte beachten Sie die aktuellen <strong><span style=\"color: #ba372a;\">COVID-19 Reisewarnungen</span></strong> und Beschr&auml;nkungen des <a title=\"Reisewarnungen des Ausw&auml;rtigen Amts\" href=\"https://www.auswaertiges-amt.de/de/ReiseUndSicherheit/covid-19/2296762\">Ausw&auml;rtigen Amts</a> und des <a title=\"Reisewarnungen Robert Koch Institut\" href=\"https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Risikogebiete_neu.html\">RKI</a>.</p>\n<p><br /><strong>Dienstreisen in Hochrisikogebiete und Virusvariantengebiete sind grunds&auml;tzlich nicht zul&auml;ssig. In unverzichtbaren und unaufschiebbaren F&auml;llen kann eine Genehmigung durch die Leitung Dezernat 4 (Dezernat Personal) erfolgen.</strong></p>",
                 "raw_text": "Bitte beachten Sie die aktuellen COVID-19 Reisewarnungen und Beschränkungen des Auswärtigen Amts und des RKI.Dienstreisen in Hochrisikogebiete und Virusvariantengebiete sind grundsätzlich nicht zulässig. In unverzichtbaren und unaufschiebbaren Fällen kann eine Genehmigung durch die Leitung Dezernat 4 (Dezernat Personal) erfolgen.",
                 "position": {
                     "x": 2171,
@@ -1074,7 +1074,7 @@
             },
             "data": {
                 "id": "16363754346769013",
-                "markup": "<p><span style=\"color: #ba372a;\"><strong>COVID-19:</strong></span> Dienstreisen sollten auf das absolute Minimum reduziert werden und sind aktuell nur m&ouml;glich, wenn sie <strong>unbedingt erforderlich</strong> sind.</p>\n<p>Die Entscheidung hierzu treffen die Leitungen der Fakult&auml;ten bzw. Institute und der Zentralen Einrichtungen (siehe <a title=\"Hygienekonzept der Uni \" href=\"https://www.redacted.pdf\" target=\"_blank\" rel=\"noopener\">Hygienekonzept</a>, 2.4).</p>",
+                "markup": "<p><span style=\"color: #ba372a;\"><strong>COVID-19:</strong></span> Dienstreisen sollten auf das absolute Minimum reduziert werden und sind aktuell nur m&ouml;glich, wenn sie <strong>unbedingt erforderlich</strong> sind.</p>\n<p>Die Entscheidung hierzu treffen die Leitungen der Fakult&auml;ten bzw. Institute und der Zentralen Einrichtungen (siehe <a title=\"Hygienekonzept der Uni \" href=\"https://www.redacted.pdf\">Hygienekonzept</a>, 2.4).</p>",
                 "raw_text": "COVID-19: Dienstreisen sollten auf das absolute Minimum reduziert werden und sind aktuell nur möglich, wenn sie unbedingt erforderlich sind.Die Entscheidung hierzu treffen die Leitungen der Fakultäten bzw. Institute und der Zentralen Einrichtungen (siehe Hygienekonzept, 2.4).",
                 "position": {
                     "x": 2562,
@@ -1099,7 +1099,7 @@
             },
             "data": {
                 "id": "16363754793760356",
-                "markup": "<p>Eine private Verl&auml;ngerung muss zum dienstlichen Teil der Reise verh&auml;ltnism&auml;&szlig;ig sein. Das dienstliche Interesse der Reise muss im Vordergrund stehen. Bei Fragen kontaktieren Sie bitte die <a title=\"E-Mailadresse der Reisekostendienststelle\" href=\"mailto:redacted.de\" target=\"_blank\" rel=\"noopener\">Reisekostenstelle</a>.</p>",
+                "markup": "<p>Eine private Verl&auml;ngerung muss zum dienstlichen Teil der Reise verh&auml;ltnism&auml;&szlig;ig sein. Das dienstliche Interesse der Reise muss im Vordergrund stehen. Bei Fragen kontaktieren Sie bitte die <a title=\"E-Mailadresse der Reisekostendienststelle\" href=\"mailto:redacted.de\">Reisekostenstelle</a>.</p>",
                 "raw_text": "Eine private Verlängerung muss zum dienstlichen Teil der Reise verhältnismäßig sein. Das dienstliche Interesse der Reise muss im Vordergrund stehen. Bei Fragen kontaktieren Sie bitte die Reisekostenstelle.",
                 "position": {
                     "x": 3629,
@@ -1326,7 +1326,7 @@
             },
             "data": {
                 "id": "16363812426270449",
-                "markup": "<p>Hotels k&ouml;nnen &uuml;ber das <a title=\"E-Mailadresse Reiseb&uuml;ro DER\" href=\"mailto:redacted.com\" target=\"_blank\" rel=\"noopener\">Vertragsreiseb&uuml;ro der Universit&auml;t </a>, &uuml;ber Hotelbuchungsportale oder direkt gebucht werden.</p>\n<p>Die Ansprechpersonen des Vertragsreiseb&uuml;ros finden Sie <a title=\"Ansprechpersonen des Vertragsreiseb&uuml;ros DER\" href=\"https://www.redacted.pdf\" target=\"_blank\" rel=\"noopener\">hier</a>.</p>\n<p>Die Universit&auml;t empfiehlt <a title=\"Hotelempfehlungsliste Deutschland\" href=\"https://www.redacted.xlsx\" target=\"_blank\" rel=\"noopener\">die folgenden Hotels</a>.</p>",
+                "markup": "<p>Hotels k&ouml;nnen &uuml;ber das <a title=\"E-Mailadresse Reiseb&uuml;ro DER\" href=\"mailto:redacted.com\">Vertragsreiseb&uuml;ro der Universit&auml;t </a>, &uuml;ber Hotelbuchungsportale oder direkt gebucht werden.</p>\n<p>Die Ansprechpersonen des Vertragsreiseb&uuml;ros finden Sie <a title=\"Ansprechpersonen des Vertragsreiseb&uuml;ros DER\" href=\"https://www.redacted.pdf\">hier</a>.</p>\n<p>Die Universit&auml;t empfiehlt <a title=\"Hotelempfehlungsliste Deutschland\" href=\"https://www.redacted.xlsx\">die folgenden Hotels</a>.</p>",
                 "raw_text": "Hotels können über das Vertragsreisebüro der Universität, über Hotelbuchungsportale oder direkt gebucht werden.Die Ansprechpersonen des Vertragsreisebüros finden Sie hier.Die Universität empfiehlt die folgenden Hotels.",
                 "position": {
                     "x": 10353,
@@ -1587,7 +1587,7 @@
             },
             "data": {
                 "id": "16365525056464242",
-                "markup": "<p>Mietwagen k&ouml;nnen direkt &uuml;ber den Mietwagenanbieter oder das <a title=\"Mailadresse von Reiseb&uuml;ro DER Business Travel\" href=\"mailto:redacted.com\" target=\"_blank\" rel=\"noopener\">Vertragsreiseb&uuml;ro der Universit&auml;t </a> (Tel. +123456789) gebucht werden.</p>\n<p>Die Ansprechpersonen des Vertragsreiseb&uuml;ros finden Sie <a title=\"Ansprechpersonen des Vertragsreiseb&uuml;ros DER\" href=\"https://www.redacted.pdf\" target=\"_blank\" rel=\"noopener\">hier</a>.</p>",
+                "markup": "<p>Mietwagen k&ouml;nnen direkt &uuml;ber den Mietwagenanbieter oder das <a title=\"Mailadresse von Reiseb&uuml;ro DER Business Travel\" href=\"mailto:redacted.com\">Vertragsreiseb&uuml;ro der Universit&auml;t </a> (Tel. +123456789) gebucht werden.</p>\n<p>Die Ansprechpersonen des Vertragsreiseb&uuml;ros finden Sie <a title=\"Ansprechpersonen des Vertragsreiseb&uuml;ros DER\" href=\"https://www.redacted.pdf\">hier</a>.</p>",
                 "raw_text": "Mietwagen können direkt über den Mietwagenanbieter oder das Vertragsreisebüro der Universität (Tel. +123456789) gebucht werden.Die Ansprechpersonen des Vertragsreisebüros finden Sie hier.",
                 "position": {
                     "x": 6231,
@@ -2048,7 +2048,7 @@
             },
             "data": {
                 "id": "16369666644048691",
-                "markup": "<p>Alle Impfungen, die f&uuml;r die Einreise <strong>vorgeschrieben</strong> sind, k&ouml;nnen <strong>erstattet</strong> werden.</p>\n<p>Kosten f&uuml;r &bdquo;empfohlene&ldquo; Impfungen k&ouml;nnen nur erstattet werden, wenn die Reise in ein <strong>En-/Pandemiegebiet f&uuml;hrt. </strong></p>\n<p><strong>Bitte beachten Sie hierzu das Rundschreiben <a title=\"Rundschreiben Nr. 31/2014 Impfen im Rahmen von Dienstreisen\" href=\"https://www.redacted.html\" target=\"_blank\" rel=\"noopener\">Impfen im Rahmen von Dienstreisen&nbsp;(Nr. 31/2014)</a></strong></p>",
+                "markup": "<p>Alle Impfungen, die f&uuml;r die Einreise <strong>vorgeschrieben</strong> sind, k&ouml;nnen <strong>erstattet</strong> werden.</p>\n<p>Kosten f&uuml;r &bdquo;empfohlene&ldquo; Impfungen k&ouml;nnen nur erstattet werden, wenn die Reise in ein <strong>En-/Pandemiegebiet f&uuml;hrt. </strong></p>\n<p><strong>Bitte beachten Sie hierzu das Rundschreiben <a title=\"Rundschreiben Nr. 31/2014 Impfen im Rahmen von Dienstreisen\" href=\"https://www.redacted.html\">Impfen im Rahmen von Dienstreisen&nbsp;(Nr. 31/2014)</a></strong></p>",
                 "raw_text": "Alle Impfungen, die für die Einreise vorgeschrieben sind, können erstattet werden.Kosten für \"empfohlene\" Impfungen können nur erstattet werden, wenn die Reise in ein En-/Pandemiegebiet führt. Bitte beachten Sie hierzu das Rundschreiben Impfen im Rahmen von Dienstreisen (Nr. 31/2014)",
                 "position": {
                     "x": 4711,
@@ -2651,7 +2651,7 @@
             },
             "data": {
                 "id": "16370471523750267",
-                "markup": "<p>Ab dem 8. Tag wird das Tagegeld je nach Fall gek&uuml;rzt.</p>\n<p>F&uuml;r Informationen, die Ihrem Fall entsprechen, wenden sie sich bitte an ihre <a title=\"E-Mailadresse der Reisekostenstelle\" href=\"mailto:reise@redacted.de\" target=\"_blank\" rel=\"noopener\">Sachbearbeiter*innen</a>.</p>",
+                "markup": "<p>Ab dem 8. Tag wird das Tagegeld je nach Fall gek&uuml;rzt.</p>\n<p>F&uuml;r Informationen, die Ihrem Fall entsprechen, wenden sie sich bitte an ihre <a title=\"E-Mailadresse der Reisekostenstelle\" href=\"mailto:reise@redacted.de\">Sachbearbeiter*innen</a>.</p>",
                 "raw_text": "Ab dem 8. Tag wird das Tagegeld je nach Fall gekürzt.Für Informationen, die Ihrem Fall entsprechen, wenden sie sich bitte an ihre Sachbearbeiter*innen.",
                 "position": {
                     "x": 11099,
@@ -2755,7 +2755,7 @@
             },
             "data": {
                 "id": "16370483570980906",
-                "markup": "<p>Dienstreisende erhalten auf <a title=\"Formular Reisekostenabrechnung\" href=\"https://www.redacted.pdf\" target=\"_blank\" rel=\"noopener\">Antrag</a> eine Verg&uuml;tung der dienstlich veranlassten Kosten.</p>",
+                "markup": "<p>Dienstreisende erhalten auf <a title=\"Formular Reisekostenabrechnung\" href=\"https://www.redacted.pdf\">Antrag</a> eine Verg&uuml;tung der dienstlich veranlassten Kosten.</p>",
                 "raw_text": "Dienstreisende erhalten auf Antrag eine Vergütung der dienstlich veranlassten Kosten.",
                 "position": {
                     "x": 4470,
@@ -2837,7 +2837,7 @@
             },
             "data": {
                 "id": "16370678190615289",
-                "markup": "<p>Bitte informieren Sie sich bereits bei Planung der Dienstreise mittels der <strong>L&auml;nderdatenbank </strong>&uuml;ber m&ouml;gliche <strong>Risiken </strong>der Reisen.<br /><br /></p>\n<p>Es ist erfoderlich <strong>im <a title=\"Formular Dienstreiseantrag\" href=\"https://www.redacted.pdf\" target=\"_blank\" rel=\"noopener\">Dienstreiseantrag</a></strong> zu <strong>best&auml;tigen</strong>, dass diese <strong>Informationen eingeholt </strong>und notwendige <strong>Beratungen</strong> in Anspruch genommen wurden. Der Dienstvorgesetzte best&auml;tigt dies bei der Dienstreisegenehmigung mit ihrer/ seiner Unterschrift.</p>",
+                "markup": "<p>Bitte informieren Sie sich bereits bei Planung der Dienstreise mittels der <strong>L&auml;nderdatenbank </strong>&uuml;ber m&ouml;gliche <strong>Risiken </strong>der Reisen.<br /><br /></p>\n<p>Es ist erfoderlich <strong>im <a title=\"Formular Dienstreiseantrag\" href=\"https://www.redacted.pdf\">Dienstreiseantrag</a></strong> zu <strong>best&auml;tigen</strong>, dass diese <strong>Informationen eingeholt </strong>und notwendige <strong>Beratungen</strong> in Anspruch genommen wurden. Der Dienstvorgesetzte best&auml;tigt dies bei der Dienstreisegenehmigung mit ihrer/ seiner Unterschrift.</p>",
                 "raw_text": "Bitte informieren Sie sich bereits bei Planung der Dienstreise mittels der Länderdatenbank über mögliche Risiken der Reisen.Es ist erfoderlich im Dienstreiseantrag zu bestätigen, dass diese Informationen eingeholt und notwendige Beratungen in Anspruch genommen wurden. Der Dienstvorgesetzte bestätigt dies bei der Dienstreisegenehmigung mit ihrer/ seiner Unterschrift.",
                 "position": {
                     "x": 3032,
@@ -2871,7 +2871,7 @@
             },
             "data": {
                 "id": "16370678856758681",
-                "markup": "<p>Die L&auml;nderdatenbank ist auf Deutsch und Englisch verf&uuml;gbar und in <strong>Risiko-Klassen</strong> eingeteilt: <strong>gr&uuml;n, gelb </strong>und <strong>rot</strong>.<br />Die Erkl&auml;rung dazu finden Sie hier: <a title=\"Risiko-Klassen der L&auml;nderdatenbank\" href=\"https://www.redacted\" target=\"_blank\" rel=\"noopener\">Risiko-Klassen der L&auml;nderdatenbank</a></p>\n<p>M&ouml;chten Sie Informationen zur <strong>Risiko-Klasse Ihres Reiseziels</strong>, klichen Sie bitte hier:<br /><a title=\"Risiko Klasse des Reiseziels\" href=\"http://redacted\" target=\"_blank\" rel=\"noopener\">Risiko Klasse des Reiseziels</a></p>",
+                "markup": "<p>Die L&auml;nderdatenbank ist auf Deutsch und Englisch verf&uuml;gbar und in <strong>Risiko-Klassen</strong> eingeteilt: <strong>gr&uuml;n, gelb </strong>und <strong>rot</strong>.<br />Die Erkl&auml;rung dazu finden Sie hier: <a title=\"Risiko-Klassen der L&auml;nderdatenbank\" href=\"https://www.redacted\">Risiko-Klassen der L&auml;nderdatenbank</a></p>\n<p>M&ouml;chten Sie Informationen zur <strong>Risiko-Klasse Ihres Reiseziels</strong>, klichen Sie bitte hier:<br /><a title=\"Risiko Klasse des Reiseziels\" href=\"http://redacted\">Risiko Klasse des Reiseziels</a></p>",
                 "raw_text": "Die Länderdatenbank ist auf Deutsch und Englisch verfügbar und in Risiko-Klassen eingeteilt: grün, gelb und rot.Die Erklärung dazu finden Sie hier: Risiko-Klassen der LänderdatenbankMöchten Sie Informationen zur Risiko-Klasse Ihres Reiseziels, klichen Sie bitte hier:Risiko Klasse des Reiseziels",
                 "position": {
                     "x": 3865,
@@ -2915,7 +2915,7 @@
             },
             "data": {
                 "id": "16370679473901470",
-                "markup": "<h4 id=\"id-2cd3fd7d-head2\"><strong>Was ist in einem Notfall auf einer Dienstreise zu tun?</strong></h4>\n<p>&nbsp;</p>\n<div class=\"absatz\">\n<p>Bitte f&uuml;hren Sie die <a title=\"Notfallkarte\" href=\"https://www.redacted.pdf\" target=\"_blank\" rel=\"noopener\"><span style=\"text-decoration: underline;\"><strong>Notfallkarte</strong></span> </a>mit der entsprechenden<strong> </strong><strong>Notfall-Rufnummer</strong> stets mit sich:<br /><span style=\"text-decoration: underline;\"><strong> </strong></span><strong>+123456789.</strong></p>\n<p>Die Notfallkarte ist auch im Scheckkartenformat erh&auml;ltlich. Hierzu k&ouml;nnen Sie sich bei der Reisekostenstelle oder an ihrem Institut erkundigen.</p>\n<p>Diese Rufnummer sollte <strong>nur f&uuml;r Notf&auml;lle </strong>genutzt werden. Die Weitergabe an Dritte ist untersagt.</p>\n</div>\n<p><span style=\"text-decoration: underline;\"><strong>Notfall-App<br /></strong></span>24/7 Notruf, Textchat, Videoberatung per Hilferuf-Business-App f&uuml;r iOS und Android<br /><strong>Download-link</strong>:&nbsp;<a title=\"Notfall-App\" href=\"https:redacted\" target=\"_blank\" rel=\"noopener\"><span style=\"text-decoration: underline;\">Notfall-App</span></a></p>\n<p>QR-Code:<br /><img src=\"https://www.redacted.jpeg\" alt=\"QR Code Notfallapp\" width=\"150\" height=\"150\" /></p>\n<p><strong>Registrierungscode</strong>: Redacted</p>\n<p>Nutzungshinweis: Eine Weitergabe des Registrierungscodes an Dritte ist untersagt.</p>",
+                "markup": "<h4 id=\"id-2cd3fd7d-head2\"><strong>Was ist in einem Notfall auf einer Dienstreise zu tun?</strong></h4>\n<p>&nbsp;</p>\n<div class=\"absatz\">\n<p>Bitte f&uuml;hren Sie die <a title=\"Notfallkarte\" href=\"https://www.redacted.pdf\"><span style=\"text-decoration: underline;\"><strong>Notfallkarte</strong></span> </a>mit der entsprechenden<strong> </strong><strong>Notfall-Rufnummer</strong> stets mit sich:<br /><span style=\"text-decoration: underline;\"><strong> </strong></span><strong>+123456789.</strong></p>\n<p>Die Notfallkarte ist auch im Scheckkartenformat erh&auml;ltlich. Hierzu k&ouml;nnen Sie sich bei der Reisekostenstelle oder an ihrem Institut erkundigen.</p>\n<p>Diese Rufnummer sollte <strong>nur f&uuml;r Notf&auml;lle </strong>genutzt werden. Die Weitergabe an Dritte ist untersagt.</p>\n</div>\n<p><span style=\"text-decoration: underline;\"><strong>Notfall-App<br /></strong></span>24/7 Notruf, Textchat, Videoberatung per Hilferuf-Business-App f&uuml;r iOS und Android<br /><strong>Download-link</strong>:&nbsp;<a title=\"Notfall-App\" href=\"https:redacted\"><span style=\"text-decoration: underline;\">Notfall-App</span></a></p>\n<p>QR-Code:<br /><img src=\"https://www.redacted.jpeg\" alt=\"QR Code Notfallapp\" width=\"150\" height=\"150\" /></p>\n<p><strong>Registrierungscode</strong>: Redacted</p>\n<p>Nutzungshinweis: Eine Weitergabe des Registrierungscodes an Dritte ist untersagt.</p>",
                 "raw_text": "Was ist in einem Notfall auf einer Dienstreise zu tun? Bitte führen Sie die Notfallkarte mit der entsprechenden Notfall-Rufnummer stets mit sich: +123456789. Die Notfallkarte ist auch im Scheckkartenformat erhältlich. Hierzu können Sie sich bei der Reisekostenstelle oder an ihrem Institut erkundigen.Diese Rufnummer sollte nur für Notfälle genutzt werden. Die Weitergabe an Dritte ist untersagt.Notfall-App24/7 Notruf, Textchat, Videoberatung per Hilferuf-Business-App für iOS und AndroidDownload-link: Notfall-AppQR-Code:Registrierungscode: Redacted Nutzungshinweis: Eine Weitergabe des Registrierungscodes an Dritte ist untersagt.",
                 "position": {
                     "x": 2729,
@@ -3294,7 +3294,7 @@
             },
             "data": {
                 "id": "16387868859695624",
-                "markup": "<p>Vielen Dank f&uuml;r die Nutzung des Chatbot-Systems.</p>\n<p>Bitte geben Sie uns <a title=\"Feedback-Bogen\" href=\"../../../take_survey\" target=\"_blank\" rel=\"noopener\">Feedback</a>, damit wir das System optimieren und die Servicequalit&auml;t weiter verbessern k&ouml;nnen.</p>\n<p>Vielen Dank.</p>",
+                "markup": "<p>Vielen Dank f&uuml;r die Nutzung des Chatbot-Systems.</p>\n<p>Bitte geben Sie uns <a title=\"Feedback-Bogen\" href=\"../../../take_survey\">Feedback</a>, damit wir das System optimieren und die Servicequalit&auml;t weiter verbessern k&ouml;nnen.</p>\n<p>Vielen Dank.</p>",
                 "raw_text": "Vielen Dank für die Nutzung des Chatbot-Systems.Bitte geben Sie uns Feedback, damit wir das System optimieren und die Servicequalität weiter verbessern können.Vielen Dank.",
                 "position": {
                     "x": 12358,
@@ -3351,7 +3351,7 @@
             },
             "data": {
                 "id": "16389562608833278",
-                "markup": "<p>Bitte beachten Sie die <span style=\"color: #000000;\">aktuellen</span><strong><span style=\"color: #e03e2d;\"> <span style=\"color: #ba372a;\">COVID-19 Reisewarnungen</span></span><span style=\"color: #ba372a;\"> </span></strong>und Beschr&auml;nkungen des <a title=\"Reisewarnungen des Ausw&auml;rtigen Amts\" href=\"https://www.auswaertiges-amt.de/de/ReiseUndSicherheit/covid-19/2296762\" target=\"_blank\" rel=\"noopener\">Ausw&auml;rtigen Amts</a> und des <a title=\"Reisewarnungen Robert Koch Institut\" href=\"https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Risikogebiete_neu.html\" target=\"_blank\" rel=\"noopener\">RKI</a>.</p>\n<p><br /><strong>Dienstreisen in Hochrisikogebiete und Virusvariantengebiete sind grunds&auml;tzlich nicht zul&auml;ssig. In unverzichtbaren und unaufschiebbaren F&auml;llen kann eine Genehmigung durch die Leitung Dezernat 4 (Dezernat Personal) erfolgen.</strong></p>",
+                "markup": "<p>Bitte beachten Sie die <span style=\"color: #000000;\">aktuellen</span><strong><span style=\"color: #e03e2d;\"> <span style=\"color: #ba372a;\">COVID-19 Reisewarnungen</span></span><span style=\"color: #ba372a;\"> </span></strong>und Beschr&auml;nkungen des <a title=\"Reisewarnungen des Ausw&auml;rtigen Amts\" href=\"https://www.auswaertiges-amt.de/de/ReiseUndSicherheit/covid-19/2296762\">Ausw&auml;rtigen Amts</a> und des <a title=\"Reisewarnungen Robert Koch Institut\" href=\"https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Risikogebiete_neu.html\">RKI</a>.</p>\n<p><br /><strong>Dienstreisen in Hochrisikogebiete und Virusvariantengebiete sind grunds&auml;tzlich nicht zul&auml;ssig. In unverzichtbaren und unaufschiebbaren F&auml;llen kann eine Genehmigung durch die Leitung Dezernat 4 (Dezernat Personal) erfolgen.</strong></p>",
                 "raw_text": "Bitte beachten Sie die aktuellen COVID-19 Reisewarnungen und Beschränkungen des Auswärtigen Amts und des RKI.Dienstreisen in Hochrisikogebiete und Virusvariantengebiete sind grundsätzlich nicht zulässig. In unverzichtbaren und unaufschiebbaren Fällen kann eine Genehmigung durch die Leitung Dezernat 4 (Dezernat Personal) erfolgen.",
                 "position": {
                     "x": 2378,
@@ -3446,7 +3446,7 @@
             },
             "data": {
                 "id": "16389695846089108",
-                "markup": "<p><span style=\"color: #333333; font-family: 'Univers LT W01 45 Light', arial, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;\">F&uuml;r <strong>Dienstreisen </strong>(auch bei kurzfristigen oder sogar eint&auml;gigen Ausw&auml;rtst&auml;tigkeiten sowie <span style=\"color: #333333; font-family: 'Univers LT W01 45 Light', arial, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;\">Entsendungen</span>) <strong>im Ausland</strong> (EU-L&auml;nder, Island, Norwegen, Liechtenstein und der Schweiz) eine <a title=\"Formular A1-Bescheinigung\" href=\"https://redacted.pdf\" target=\"_blank\" rel=\"noopener\"><strong>A1-Bescheinigung</strong> </a><strong>einzuholen</strong>. Die A1- Bescheinigung m&uuml;ssen Sie im Ausland mit sich f&uuml;hren.&nbsp;</span></p>\n<p><span style=\"color: #333333; font-family: 'Univers LT W01 45 Light', arial, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;\">F&uuml;r jeden Arbeitseinsatz im Ausland ist die Bescheinigung jeweils neu zu beantragen. Es ist keine Dauerbescheinigung f&uuml;r mehrfache kurze Eins&auml;tze vorgesehen.</span></p>",
+                "markup": "<p><span style=\"color: #333333; font-family: 'Univers LT W01 45 Light', arial, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;\">F&uuml;r <strong>Dienstreisen </strong>(auch bei kurzfristigen oder sogar eint&auml;gigen Ausw&auml;rtst&auml;tigkeiten sowie <span style=\"color: #333333; font-family: 'Univers LT W01 45 Light', arial, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;\">Entsendungen</span>) <strong>im Ausland</strong> (EU-L&auml;nder, Island, Norwegen, Liechtenstein und der Schweiz) eine <a title=\"Formular A1-Bescheinigung\" href=\"https://redacted.pdf\"><strong>A1-Bescheinigung</strong> </a><strong>einzuholen</strong>. Die A1- Bescheinigung m&uuml;ssen Sie im Ausland mit sich f&uuml;hren.&nbsp;</span></p>\n<p><span style=\"color: #333333; font-family: 'Univers LT W01 45 Light', arial, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;\">F&uuml;r jeden Arbeitseinsatz im Ausland ist die Bescheinigung jeweils neu zu beantragen. Es ist keine Dauerbescheinigung f&uuml;r mehrfache kurze Eins&auml;tze vorgesehen.</span></p>",
                 "raw_text": "Für Dienstreisen (auch bei kurzfristigen oder sogar eintägigen Auswärtstätigkeiten sowie Entsendungen) im Ausland (EU-Länder, Island, Norwegen, Liechtenstein und der Schweiz) eine A1-Bescheinigung einzuholen. Die A1- Bescheinigung müssen Sie im Ausland mit sich führen. Für jeden Arbeitseinsatz im Ausland ist die Bescheinigung jeweils neu zu beantragen. Es ist keine Dauerbescheinigung für mehrfache kurze Einsätze vorgesehen.",
                 "position": {
                     "x": 1829,
@@ -3523,7 +3523,7 @@
             },
             "data": {
                 "id": "16391241972677029",
-                "markup": "<p>Fomulare zur Dienstreisegenehmigung:</p>\n<p>deutsch:</p>\n<ul>\n<li><a title=\"Dienstreiseantrag \" href=\"https://www.redacted.pdf\" target=\"_blank\" rel=\"noopener\">Dienstreiseantrag</a></li>\n<li><a title=\"Antrag Reisekostenbeihilfe (f&uuml;r Berufungsvortr&auml;ge, Berufungskommissionen und Doktorpr&uuml;fungen)\" href=\"https://www.redacted.pdf\" target=\"_blank\" rel=\"noopener\">Antrag Reisekostenbeihilfe (f&uuml;r Berufungsvortr&auml;ge, Berufungskommissionen und Doktorpr&uuml;fungen)</a></li>\n<li><a title=\"Antrag auf Reisekostenvorschuss\" href=\"https://www.redacted.pdf\" target=\"_blank\" rel=\"noopener\">Antrag auf Reisekostenvorschuss</a></li>\n</ul>\n<p>englisch:</p>\n<ul>\n<li><a title=\"Business Trip Application\" href=\"https://www.redacted.pdf\" target=\"_blank\" rel=\"noopener\">Business Trip Application</a></li>\n</ul>",
+                "markup": "<p>Fomulare zur Dienstreisegenehmigung:</p>\n<p>deutsch:</p>\n<ul>\n<li><a title=\"Dienstreiseantrag \" href=\"https://www.redacted.pdf\">Dienstreiseantrag</a></li>\n<li><a title=\"Antrag Reisekostenbeihilfe (f&uuml;r Berufungsvortr&auml;ge, Berufungskommissionen und Doktorpr&uuml;fungen)\" href=\"https://www.redacted.pdf\">Antrag Reisekostenbeihilfe (f&uuml;r Berufungsvortr&auml;ge, Berufungskommissionen und Doktorpr&uuml;fungen)</a></li>\n<li><a title=\"Antrag auf Reisekostenvorschuss\" href=\"https://www.redacted.pdf\">Antrag auf Reisekostenvorschuss</a></li>\n</ul>\n<p>englisch:</p>\n<ul>\n<li><a title=\"Business Trip Application\" href=\"https://www.redacted.pdf\">Business Trip Application</a></li>\n</ul>",
                 "raw_text": "Fomulare zur Dienstreisegenehmigung:deutsch:DienstreiseantragAntrag Reisekostenbeihilfe (für Berufungsvorträge, Berufungskommissionen und Doktorprüfungen)Antrag auf Reisekostenvorschussenglisch:Business Trip Application",
                 "position": {
                     "x": -4362,
@@ -3562,7 +3562,7 @@
             },
             "data": {
                 "id": "16391245479319732",
-                "markup": "<p>Formulare zur Dienstreiseabrechnung:</p>\n<p>deutsch:</p>\n<ul>\n<li><a title=\"Reisekostenabrechnung \" href=\"https://www.redacted.pdf\" target=\"_blank\" rel=\"noopener\">Reisekostenabrechnung </a></li>\n<li><a title=\"Hinweise zur Reisekostenabrechnung\" href=\"https://www.redacted.pdf\" target=\"_blank\" rel=\"noopener\">Hinweise zur Reisekostenabrechnung</a></li>\n<li><a title=\"Pers&ouml;nliche Erkl&auml;rung / Begr&uuml;ndung zur Reisekostenabrechnung (deutsch)\" href=\"https://www.redacted.pdf\" target=\"_blank\" rel=\"noopener\">Pers&ouml;nliche Erkl&auml;rung / Begr&uuml;ndung zur Reisekostenabrechnung (deutsch)</a></li>\n<li><a title=\"Anlage zur Reisekostenabrechnung/Abrechnung Dienstgang\" href=\"https://www.redacted.docx\" target=\"_blank\" rel=\"noopener\">Anlage zur Reisekostenabrechnung/Abrechnung Dienstgang</a></li>\n<li><a title=\"Nachweis &uuml;ber Dienstfahrten mit privatem PKW\" href=\"https://www.redacted.pdf\" target=\"_blank\" rel=\"noopener\">Nachweis &uuml;ber Dienstfahrten</a></li>\n<li><a title=\"Antrag BahnCard-Business, Rentabilit&auml;ts&uuml;bersicht\" href=\"https://www.redacted.pdf\" target=\"_blank\" rel=\"noopener\">Antrag BahnCard-Business, Rentabilit&auml;ts&uuml;bersicht</a></li>\n</ul>\n<p>englisch:</p>\n<ul>\n<li><a title=\"Travelling Expenses Claim\" href=\"https://www.redacted.pdf\" target=\"_blank\" rel=\"noopener\">Travelling Expenses Claim</a></li>\n<li><a title=\"Personal declaration/ reasons for travel expenses \" href=\"https://www.redacted.pdf\" target=\"_blank\" rel=\"noopener\">Personal declaration/ reasons for travel expenses </a></li>\n</ul>",
+                "markup": "<p>Formulare zur Dienstreiseabrechnung:</p>\n<p>deutsch:</p>\n<ul>\n<li><a title=\"Reisekostenabrechnung \" href=\"https://www.redacted.pdf\">Reisekostenabrechnung </a></li>\n<li><a title=\"Hinweise zur Reisekostenabrechnung\" href=\"https://www.redacted.pdf\">Hinweise zur Reisekostenabrechnung</a></li>\n<li><a title=\"Pers&ouml;nliche Erkl&auml;rung / Begr&uuml;ndung zur Reisekostenabrechnung (deutsch)\" href=\"https://www.redacted.pdf\">Pers&ouml;nliche Erkl&auml;rung / Begr&uuml;ndung zur Reisekostenabrechnung (deutsch)</a></li>\n<li><a title=\"Anlage zur Reisekostenabrechnung/Abrechnung Dienstgang\" href=\"https://www.redacted.docx\">Anlage zur Reisekostenabrechnung/Abrechnung Dienstgang</a></li>\n<li><a title=\"Nachweis &uuml;ber Dienstfahrten mit privatem PKW\" href=\"https://www.redacted.pdf\">Nachweis &uuml;ber Dienstfahrten</a></li>\n<li><a title=\"Antrag BahnCard-Business, Rentabilit&auml;ts&uuml;bersicht\" href=\"https://www.redacted.pdf\">Antrag BahnCard-Business, Rentabilit&auml;ts&uuml;bersicht</a></li>\n</ul>\n<p>englisch:</p>\n<ul>\n<li><a title=\"Travelling Expenses Claim\" href=\"https://www.redacted.pdf\">Travelling Expenses Claim</a></li>\n<li><a title=\"Personal declaration/ reasons for travel expenses \" href=\"https://www.redacted.pdf\">Personal declaration/ reasons for travel expenses </a></li>\n</ul>",
                 "raw_text": "Formulare zur Dienstreiseabrechnung:deutsch:Reisekostenabrechnung Hinweise zur ReisekostenabrechnungPersönliche Erklärung / Begründung zur Reisekostenabrechnung (deutsch)Anlage zur Reisekostenabrechnung/Abrechnung DienstgangNachweis über DienstfahrtenAntrag BahnCard-Business, Rentabilitätsübersichtenglisch:Travelling Expenses ClaimPersonal declaration/ reasons for travel expenses ",
                 "position": {
                     "x": -4332,
@@ -3606,7 +3606,7 @@
             },
             "data": {
                 "id": "16391250907662288",
-                "markup": "<p>Hier finden SIe die Hotelliste:</p>\n<p><a title=\"Hotelliste LAND 2021\" href=\"https://www.redacted.xlsx\" target=\"_blank\" rel=\"noopener\">Hotelliste LAND 2021</a></p>\n<p>&nbsp;</p>",
+                "markup": "<p>Hier finden SIe die Hotelliste:</p>\n<p><a title=\"Hotelliste LAND 2021\" href=\"https://www.redacted.xlsx\">Hotelliste LAND 2021</a></p>\n<p>&nbsp;</p>",
                 "raw_text": "Hier finden SIe die Hotelliste:Hotelliste LAND 2021 ",
                 "position": {
                     "x": -4351,
@@ -3713,7 +3713,7 @@
             },
             "data": {
                 "id": "16430174900099207",
-                "markup": "<p>Ein pers&ouml;nlicher Abschlag auf die Reisekostenverg&uuml;tung kann mit dem <a title=\"Antrag auf Reisekostenvorschuss\" href=\"https://www.redacted.pdf)\" target=\"_blank\" rel=\"noopener\">Formular</a>&nbsp;<br />Antrag auf Reisekostenvorschuss &uuml;ber das Institut/die Einrichtung beantragt&nbsp;<br />werden</p>",
+                "markup": "<p>Ein pers&ouml;nlicher Abschlag auf die Reisekostenverg&uuml;tung kann mit dem <a title=\"Antrag auf Reisekostenvorschuss\" href=\"https://www.redacted.pdf)\">Formular</a>&nbsp;<br />Antrag auf Reisekostenvorschuss &uuml;ber das Institut/die Einrichtung beantragt&nbsp;<br />werden</p>",
                 "raw_text": "Ein persönlicher Abschlag auf die Reisekostenvergütung kann mit dem Formular Antrag auf Reisekostenvorschuss über das Institut/die Einrichtung beantragt werden",
                 "position": {
                     "x": 5225,
@@ -3894,7 +3894,7 @@
             },
             "data": {
                 "id": "16457017855826480",
-                "markup": "<p>Bitte f&uuml;llen Sie das <a title=\"Formular zur Reisekostenabrechnung\" href=\"https://www.redacted.pdf\" target=\"_blank\" rel=\"noopener\">Formular zur Reisekostenabrechnung</a> aus und schicken es mit allen Originalbelegen per Hauspost an:</p>\n<p>Hauspost<br />Zentrale Verwaltung<br />Reisekostenstelle<br />Redacted Stra&szlig;e 123</p>",
+                "markup": "<p>Bitte f&uuml;llen Sie das <a title=\"Formular zur Reisekostenabrechnung\" href=\"https://www.redacted.pdf\">Formular zur Reisekostenabrechnung</a> aus und schicken es mit allen Originalbelegen per Hauspost an:</p>\n<p>Hauspost<br />Zentrale Verwaltung<br />Reisekostenstelle<br />Redacted Stra&szlig;e 123</p>",
                 "raw_text": "Bitte füllen Sie das Formular zur Reisekostenabrechnung aus und schicken es mit allen Originalbelegen per Hauspost an:HauspostZentrale VerwaltungReisekostenstelleRedacted Straße 123",
                 "position": {
                     "x": -5034,
@@ -4072,7 +4072,7 @@
             },
             "data": {
                 "id": "16457053159041482",
-                "markup": "<p>Sie sollten die getroffenen Reisevorbereitungen schnellstm&ouml;glich und so weitgehend wie möglich rückgängig machen/stornieren.</p>\n<p><strong>Notwendige Auslagen, die durch die Vorbereitung</strong> der Dienstreise entstanden sind <strong>und nicht stornierbar</strong> sind sowie <strong>Stornogebühren</strong>, können erstattet werden.</p>\n<p>Stornierungskosten k&ouml;nnen im Rahmen der Reisekostenabrechnung durch dieses <a title=\"Formular zur Reisekostenabrechnung\" href=\"https://www.redacted.pdf\" target=\"_blank\" rel=\"noopener\">Formular</a> abgewickelt werden.</p>",
+                "markup": "<p>Sie sollten die getroffenen Reisevorbereitungen schnellstm&ouml;glich und so weitgehend wie möglich rückgängig machen/stornieren.</p>\n<p><strong>Notwendige Auslagen, die durch die Vorbereitung</strong> der Dienstreise entstanden sind <strong>und nicht stornierbar</strong> sind sowie <strong>Stornogebühren</strong>, können erstattet werden.</p>\n<p>Stornierungskosten k&ouml;nnen im Rahmen der Reisekostenabrechnung durch dieses <a title=\"Formular zur Reisekostenabrechnung\" href=\"https://www.redacted.pdf\">Formular</a> abgewickelt werden.</p>",
                 "raw_text": "Sie sollten die getroffenen Reisevorbereitungen schnellstmöglich und so weitgehend wie möglich rückgängig machen/stornieren.Notwendige Auslagen, die durch die Vorbereitung der Dienstreise entstanden sind und nicht stornierbar sind sowie Stornogebühren, können erstattet werden.Stornierungskosten können im Rahmen der Reisekostenabrechnung durch dieses Formular abgewickelt werden.",
                 "position": {
                     "x": -3894,
@@ -4280,7 +4280,7 @@
             },
             "data": {
                 "id": "16460422136134149",
-                "markup": "<p>Bitte wenden Sie sich zwecks m&ouml;glicher Unterk&uuml;nfte bei einem Aufenthalt ab 4 Wochen an die <a title=\"E-Mailadresse Reisekostenstelle\" href=\"mailto:redacted.de\" target=\"_blank\" rel=\"noopener\">Reisekostenstelle</a>.</p>",
+                "markup": "<p>Bitte wenden Sie sich zwecks m&ouml;glicher Unterk&uuml;nfte bei einem Aufenthalt ab 4 Wochen an die <a title=\"E-Mailadresse Reisekostenstelle\" href=\"mailto:redacted.de\">Reisekostenstelle</a>.</p>",
                 "raw_text": "Bitte wenden Sie sich zwecks möglicher Unterkünfte bei einem Aufenthalt ab 4 Wochen an die Reisekostenstelle.",
                 "position": {
                     "x": 1877,
