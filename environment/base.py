@@ -28,9 +28,10 @@ class BaseEnv:
             value_backend: RealValueBackend,
             auto_skip: AutoSkipMode,
             stop_on_invalid_skip: bool,
-            noise: float) -> None:
+            noise: float,
+            env_id: int = None) -> None:
 
-        self.env_id = random.randint(0, 99999999)
+        self.env_id = random.randint(0, 99999999) if isinstance(env_id, type(None)) else env_id
         self.data = dataset
         self.noise = noise
 
@@ -123,7 +124,8 @@ class BaseEnv:
 
         # Logging
         self.episode_log.append(f'{self.env_id}-{self.current_episode}$ ======== RESET =========')
-        self.episode_log.append(f'{self.env_id}-{self.current_episode}$ GOAL: {self.goal.goal_node_key} {self.data.nodes_by_key[self.goal.goal_node_key].text[:100]}') 
+        if self.goal and not isinstance(self.goal.goal_node_key):
+            self.episode_log.append(f'{self.env_id}-{self.current_episode}$ GOAL: {self.goal.goal_node_key} {self.data.nodes_by_key[self.goal.goal_node_key].text[:100]}') 
         self.episode_log.append(f'{self.env_id}-{self.current_episode}$ CONSTRAINTS: {self.goal.constraints}')
         self.episode_log.append(f'{self.env_id}-{self.current_episode}$ INITIAL UTTERANCE: {self.initial_user_utterance}') 
 

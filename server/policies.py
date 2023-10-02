@@ -19,33 +19,30 @@ from sentence_transformers import util
 import re
 url_pattern = re.compile(r'(<a\s+[^>]*href=")([^"]*)(")([^>]*>)')
 
-def load_env(data: GraphDataset, nlu: NLU, sysParser, answer_parser, logic_parser, value_backend) -> RealUserEnvironmentWeb:
+def load_env(user_id: int, data: GraphDataset, nlu: NLU, sysParser, answer_parser, logic_parser, value_backend) -> RealUserEnvironmentWeb:
     # setup env
-    env = RealUserEnvironmentWeb(dataset=data, nlu=nlu,
+    env = RealUserEnvironmentWeb(user_id=user_id, dataset=data, nlu=nlu,
                         sys_token="SYSTEM", usr_token="USER", sep_token="",
-                        max_steps=50, max_reward=150, user_patience=3,
+                        max_steps=50, max_reward=150, user_patience=2,
                         system_parser=sysParser, answer_parser=answer_parser, logic_parser=logic_parser, value_backend=value_backend,
                         auto_skip=AutoSkipMode.NONE, stop_on_invalid_skip=False)
     return env
 
 
 ## TODO: 
-## - Conversation history
 ## - GC
-## - Logging?
-## - Survey processing?
 class ChatEngine:
     def __init__(self, user_id: str, socket, data: GraphDataset, state_encoding: StateEncoding, nlu: NLU, sysParser, answerParser, logicParser, valueBackend) -> None:
         self.user_id = user_id
         self.state_encoding = state_encoding
-        self.user_env = load_env(data, nlu, sysParser, answerParser, logicParser, valueBackend) # contains .bst, .reset()
+        self.user_env = load_env(user_id, data, nlu, sysParser, answerParser, logicParser, valueBackend) # contains .bst, .reset()
         self.socket = socket
 
     def next_action(self, obs: dict) -> Tuple[int, bool]:
         raise NotImplementedError        
 
-    def start_dialog(self):
-        self.user_env.reset()
+    def start_dialog(self, goal_node_id: int):
+        self.user_env.reset(goal_node_id=goal_node_id)
         self.socket.write_message({"EVENT": "MSG", "VALUE": self.user_env.get_current_node_markup(), "CANDIDATES": self.user_env.get_current_node_answer_candidates()  })
         # wait for initial user utterance
 
@@ -101,12 +98,6 @@ class ChatEngine:
 
 
 class FAQBaselinePolicy(ChatEngine):
-    # TODO 
-    # - load similarity model (could pass it via cache argument from server)
-    # - encode dataset (could pre-cache the enocded node texts in a seperate file, only encode first user utterance live)
-    # - return top-1 result only
-    # - logging + metrics, since we don't need and enivronment here ?
-    # - also ask Variables in case the response template contains any
     def __init__(self, user_id: str, socket, data: GraphDataset, state_encoding: StateEncoding, nlu: NLU, sysParser, answerParser, logicParser, valueBackend) -> None:
         super().__init__(user_id, socket, data, state_encoding, nlu, sysParser, answerParser, logicParser, valueBackend)
         self.country_list, self.country_city_list = self._get_country_city_map()
@@ -190,9 +181,14 @@ class FAQBaselinePolicy(ChatEngine):
         most_similar_node = self.user_env.data.nodes_by_key[most_similar_node_id]
         self.user_env.current_node = most_similar_node
 
+        self.user_env.episode_log.append(f'{self.user_id}-{self.user_env.current_episode}$: SKIP + ASK: Node {most_similar_node_id}, {most_similar_node.text[:50]}')
+        if self.user_env.goal.goal_node_key == most_similar_node_id:
+            self.episode_log.append(f'{self.user_id}-{self.user_env.current_episode}$=> REACHED GOAL ONCE: {self.reached_goal_once}')
+
         # output node 
         self.socket.write_message({"EVENT": "MSG", "VALUE": self.get_node_markup(most_similar_idx), "CANDIDATES": [] })
         # stop dialog here
+        self.socket.write_message({"EVENT": "DIALOG_ENDED", "VALUE": True})
 
 
 class GuidedBaselinePolicy(ChatEngine):
