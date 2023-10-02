@@ -37,13 +37,13 @@ class RealUserEnvironment(BaseEnv):
             max_steps: int, max_reward: float, user_patience: int,
             answer_parser: AnswerTemplateParser, logic_parser: LogicTemplateParser,
             value_backend: RealValueBackend,
-            auto_skip: AutoSkipMode, stop_on_invalid_skip: bool) -> None:
+            auto_skip: AutoSkipMode, stop_on_invalid_skip: bool, noise: float = 0.0) -> None:
         assert isinstance(auto_skip, AutoSkipMode)
         super().__init__(dataset=dataset,
             sys_token=sys_token, usr_token=usr_token, sep_token=sep_token, 
             max_steps=max_steps, max_reward=max_reward, user_patience=user_patience,
             answer_parser=answer_parser, logic_parser=logic_parser, value_backend=value_backend,
-            auto_skip=auto_skip, stop_on_invalid_skip=stop_on_invalid_skip)
+            auto_skip=auto_skip, stop_on_invalid_skip=stop_on_invalid_skip, noise=noise)
         self.nlu = nlu
 
     def reset(self):

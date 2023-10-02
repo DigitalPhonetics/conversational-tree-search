@@ -13,7 +13,11 @@ class BaseHandler(RequestHandler):
 class LoginHandler(BaseHandler):
     def get(self):
         if self.current_user:
-            self.redirect("/data_agreement")
+            # if the user has done both dialogs already, they should not be able to chat again
+            if self.get_cookie("goal_counter") and int(self.get_cookie("goal_counter")) >= 2:
+                self.redirect('/thank_you')
+            else:
+                self.redirect("/data_agreement")
         else:
             self.render("./templates/login.html")
 
@@ -28,6 +32,11 @@ class LogPostSurvey(BaseHandler):
 class ChatIndex(BaseHandler):
     @tornado.web.authenticated
     def get(self):
+        goal_counter = self.get_cookie("goal_counter")
+        if not goal_counter:
+            # first visit to chat index: initialize first goal
+            goal_counter = 0
+            self.set_cookie("goal_counter", str(goal_counter))
         self.render("./templates/chat.html")
 
 
@@ -43,6 +52,7 @@ class LogPreSurvey(BaseHandler):
 class DataAgreement(BaseHandler):
     @tornado.web.authenticated
     def get(self):
+        print(self.current_user)
         self.render("./templates/data_agreement.html")
 
 class KnownEntry(BaseHandler):

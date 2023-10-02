@@ -104,23 +104,27 @@ class FAQBaselinePolicy(ChatEngine):
     # - also ask Variables in case the response template contains any
     def __init__(self, user_id: str, socket, data: GraphDataset, state_encoding: StateEncoding, nlu: NLU, sysParser, answerParser, logicParser, valueBackend) -> None:
         super().__init__(user_id, socket, data, state_encoding, nlu, sysParser, answerParser, logicParser, valueBackend)
-        self.node_idx_mapping, self.node_embeddings = self._embed_node_texts()
+        self.node_idx_mapping, self.node_embeddings = self._embed_node_texts(data)
 
     def _embed_node_texts(self, data: GraphDataset) -> Tuple[Dict[int, int], torch.FloatTensor]:
         if not os.path.exists("./server/node_embeddings.pt"):
-            # TODO embed all info nodes
+            # embed all info nodes
+            print("Node embedding not found, creating...")
             embeddings = []
             node_idx_mapping = {} # mapping from node id -> embedding index
-            for node_idx, node in enumerate(data.nodes_by_key[NodeType.INFO]):
+            for node_idx, node in enumerate(data.nodes_by_type[NodeType.INFO]):
                 embeddings.append(self.state_encoding.cache.encode_text(state_input_key=State.NODE_TEXT, text=node.text, noise=0.0).cpu().view(1,-1))
-                node_idx_mapping[node.key] = node_idx
+                node_idx_mapping[node_idx] = node.key
             # save to file
             embeddings = torch.cat(embeddings, 0)
             torch.save({"node_idx_mapping": node_idx_mapping, "embeddings": embeddings}, "./server/node_embeddings.pt")
+            print("Done")
             return node_idx_mapping, embeddings
         else:
             # load node embedding from file
+            print("Node embedding found, loading...")
             data = torch.load("./server/node_embeddings.pt")
+            print("Done")
             return data["node_idx_mapping"], data['embeddings']
 
     def step(self, action: Union[int, None] = None, utterance: Union[str, None] = None):
@@ -128,10 +132,11 @@ class FAQBaselinePolicy(ChatEngine):
         # compare initial user utterance to all info node texts, select best match and return (ending dialog)
         user_enc = self.state_encoding.cache.encode_text(state_input_key=State.INITIAL_USER_UTTERANCE, text=self.user_env.initial_user_utterance, noise=0.0)
         cosine_scores = util.cos_sim(user_enc, self.node_embeddings)
-        most_similar_idx = cosine_scores.view(-1).argmax(-1)
+        most_similar_idx = cosine_scores.view(-1).argmax(-1).item()
         # map back from embedding index -> node
         most_similar_node_id = self.node_idx_mapping[most_similar_idx]
         most_similar_node = self.user_env.data.nodes_by_key[most_similar_node_id]
+        self.user_env.current_node = most_similar_node
 
         # output node 
         self.socket.write_message({"EVENT": "MSG", "VALUE": self.user_env.get_current_node_markup(), "CANDIDATES": [] })
@@ -142,16 +147,29 @@ class GuidedBaselinePolicy(ChatEngine):
     def next_action(self, obs) -> Tuple[int, bool]:
         if self.user_env.last_action_idx == ActionType.ASK:
             # next action should be skip!
-            # compare user input to answer candidates, and choose followup node based on similarity
-            answer_enc = self.state_encoding.cache.encode_answer_text(self.user_env.current_node).view(len(self.user_env.current_node.answers), -1)
-            user_enc = self.state_encoding.cache.encode_text(state_input_key=State.CURRENT_USER_UTTERANCE, text=self.user_env.current_user_utterance, noise=0.0).view(1, -1)
-            print("ANS ENC", answer_enc.size())
-            print("USER ENC", user_enc.size())
-            cosine_scores = util.cos_sim(user_enc, answer_enc)
-            print("COS SCORES", cosine_scores.size())
-            most_similar_idx = cosine_scores.view(-1).argmax(-1)
-            print("-> MOST SIMILAR IDX", most_similar_idx)
-            return ActionType.SKIP.value + most_similar_idx, False # offset by 1, because answer 0 would be ASK
+            if self.user_env.current_node.node_type == NodeType.QUESTION:
+                # compare user input to answer candidates, and choose followup node based on similarity
+                answer_enc = self.state_encoding.cache.encode_answer_text(self.user_env.current_node).view(len(self.user_env.current_node.answers), -1)
+                user_enc = self.state_encoding.cache.encode_text(state_input_key=State.CURRENT_USER_UTTERANCE, text=self.user_env.current_user_utterance, noise=0.0).view(1, -1)
+                print("ANS ENC", answer_enc.size())
+                print("USER ENC", user_enc.size())
+                cosine_scores = util.cos_sim(user_enc, answer_enc)
+                print("COS SCORES", cosine_scores.size())
+                most_similar_idx = cosine_scores.view(-1).argmax(-1).item()
+                print("-> MOST SIMILAR IDX", most_similar_idx)
+                return ActionType.SKIP.value + most_similar_idx, False # offset by 1, because answer 0 would be ASK
+            elif self.user_env.current_node.node_type == NodeType.INFO:
+                # no user input required - skip to connected node
+                return ActionType.SKIP.value, False
+            elif self.user_env.current_node.node_type == NodeType.VARIABLE:
+                # should have exactly 1 answer - skip to that
+                if len(self.user_env.current_node.answers) > 0:
+                    return ActionType.SKIP.value, False # # jump to first (and only) answer: offset by 1, because answer 0 would be ASK
+                else:
+                    # TODO signal dialog end?
+                    print("REACHED DIALOG END")
+            else:
+                raise Exception("Unexpected node type for asking:", self.user_env.current_node.node_type) 
         else:
             # last action was skip - should ask now!
             if self.user_env.current_node.node_type in [NodeType.INFO, NodeType.QUESTION, NodeType.VARIABLE]:

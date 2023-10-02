@@ -300,14 +300,30 @@ body {
     // window.onpopstate = () => history.forward();
 
     var mode = "";
+    var goal_counter = Number.parseInt(get_cookie('goal_counter'));
 
-    function get_cookie(name) 
-    {
-        var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
-        if (match) return match[2];
+    function set_cookie(cname, cvalue, exdays) {
+        const d = new Date();
+        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+        let expires = "expires="+d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
     }
 
-    const seen_conditions = parseInt(get_cookie('seen_conditions'));
+    function get_cookie(cname) {
+        let name = cname + "=";
+        let ca = document.cookie.split(';');
+        for(let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+
     var typingAnimation = false;
 
     $(document).ready(function() {
@@ -343,7 +359,7 @@ body {
         value = msg_data['VALUE'];
         if(event === "MSG") {
             value = msg_data['VALUE'];
-            const candidates = msg_data['CANDIDATES'];
+            const candidates = get_cookie("policy_assignment") === "faq"? [] : msg_data['CANDIDATES'];
             addSystemMessage(value, candidates);
         }else if (event === "USER_MSG"){
             addUserMessage(value);
@@ -436,17 +452,15 @@ body {
 
     function nextGoal(found_answer){
         $("#messagelist").empty();
-        if (found_answer){
-            socket.send(JSON.stringify({
-                EVENT: "NEXT_GOAL_CORRECT",
-                VALUE: true
-            }));
-        }else{
-            socket.send(JSON.stringify({
-                EVENT: "NEXT_GOAL_INCORRECT",
-                VALUE: true
-            }));            
-        }
+        goal_counter += 1;
+        set_cookie('goal_counter', goal_counter.toString(), 2);
+        socket.send(JSON.stringify({
+            EVENT: "NEXT_GOAL",
+            VALUE: {
+                correct: found_answer,
+                goal_counter: goal_counter
+            }
+        }));
     }
 
     function enterKeyDown(e) {
@@ -464,7 +478,7 @@ body {
 
         <div class="contentFooterDivider">
             <div class="commandBtnBar" style="justify-content: flex-end;" id="chat_header">
-                <button class="btn btn-warning" style="margin: 0.2em;" onclick="restart()">Restart</button>
+                <button class="btn btn-warning" style="margin: 0.2em;" onclick="restart()">Restart Dialog</button>
             </div>
 
             <div id="messagelist" class="messagebox"></div>

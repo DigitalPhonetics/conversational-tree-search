@@ -17,6 +17,7 @@ from data.parsers.logicParser import LogicTemplateParser
 from server.formattedDataset import FormattedReimburseGraphDataset
 from server.handlers import AuthenticatedWebSocketHandler, BaseHandler, ChatIndex, DataAgreement, LogPostSurvey, LogPreSurvey, LoginHandler, PostSurvey, PreSurvey, ThankYou, KnownEntry
 from tornado.web import RequestHandler
+from server.policies import CTSPolicy, FAQBaselinePolicy, GuidedBaselinePolicy
 
 from utils.utils import AutoSkipMode, to_class
 from algorithm.dqn.dqn import CustomDQN
@@ -50,8 +51,8 @@ EASY_GOALS = [
     ("You have just gotten sick and cannot travel anymore. You want to know if the money you have already paid can be reimbursed", 1232),
     ("You want to know if you can be reimbursed if you need to book a taxi during your trip.", 1233)
     ]
-GROUP_ASSIGNMENTS = {"hdc": [], "faq": [], "cts": []}
-USER_GOAL_GROUPS = {}
+POLICY_ASSIGNMENT = {"hdc": [], "faq": [], "cts": []}
+USER_GOAL_GROUPS = {i: [] for i in range(4)}
 CHAT_ENGINES = {}
 DEVICE = "cuda:0"
 
@@ -63,11 +64,11 @@ if os.path.isfile("user_log.txt"):
                 user, group = line.split("||")
                 user = user.split(":")[1].strip()
                 group = group.split(":")[1].strip()
-                GROUP_ASSIGNMENTS[group].append(user)
+                POLICY_ASSIGNMENT[group].append(user)
             elif "GOAL_INDEX" in line:
                 user, goal_group = line.split("||")
                 user = user.split(":")[1].strip()
-                goal_group = goal_group.split(":")[1].strip()
+                goal_group = int(goal_group.split(":")[1].strip())
                 if goal_group not in USER_GOAL_GROUPS:
                     USER_GOAL_GROUPS[goal_group] = []
                 USER_GOAL_GROUPS[goal_group].append(user)
@@ -217,7 +218,7 @@ logicParser = LogicTemplateParser()
 sysParser = SystemTemplateParser()
 valueBackend = ReimbursementRealValueBackend(a1_laender=data.a1_countries, data=data.hotel_costs)
 # setup model and encoding
-cfg, model, state_encoding = load_model(ckpt_path=ckpt_path, cfg_name=cfg_name, device=DEVICE, data=data)
+cfg, cts_policy, state_encoding = load_model(ckpt_path=ckpt_path, cfg_name=cfg_name, device=DEVICE, data=data)
 
 
 class CheckLogin(RequestHandler):
@@ -226,8 +227,8 @@ class CheckLogin(RequestHandler):
         h = hashlib.shake_256(username)
         user_id = h.hexdigest(15)
         known_users = set()
-        for group in GROUP_ASSIGNMENTS:
-            known_users.update(GROUP_ASSIGNMENTS[group])
+        for group in POLICY_ASSIGNMENT:
+            known_users.update(POLICY_ASSIGNMENT[group])
         if user_id in known_users:
             self.redirect("/known_entry")
         else:
@@ -237,23 +238,23 @@ class CheckLogin(RequestHandler):
 
 class UserAgreed(BaseHandler):
     def post(self):
-        global GROUP_ASSIGNMENTS
+        global POLICY_ASSIGNMENT
         logging.getLogger("user_info").info(f"USER: {self.current_user} || AGREED: True")
 
         # If user is not assigned, assign to group with fewest participants
-        if not self.get_cookie("group_assignment"):
-            group = sorted(GROUP_ASSIGNMENTS.items(), key=lambda item: len(item[1]))[0][0]
-            self.set_cookie("group_assignment", group)
-            GROUP_ASSIGNMENTS[group].append(self.current_user)
+        if not self.get_cookie("policy_assignment"):
+            group = sorted(POLICY_ASSIGNMENT.items(), key=lambda item: len(item[1]))[0][0]
+            self.set_cookie("policy_assignment", group)
+            POLICY_ASSIGNMENT[group].append(self.current_user)
 
             # add assignment to file
             logging.getLogger("user_info").info(f"USER: {self.current_user} || GROUP: {group}")
             logging.getLogger("chat").info(f"USER: {self.current_user} || GROUP: {group}")
 
-        # Assign the 
-        if not self.get_cookie_("goal_group"):
+        # Assign the goal group
+        if not self.get_cookie("goal_group"):
             goal_group = sorted(USER_GOAL_GROUPS.items(), key=lambda item: len(item[1]))[0][0]
-            self.set_cookie("goal_group", goal_group)
+            self.set_cookie("goal_group", str(goal_group))
             USER_GOAL_GROUPS[goal_group].append(self.current_user)
             logging.getLogger("user_info").info(f"USER: {self.current_user} || GOAL_INDEX: {goal_group}")
 
@@ -266,18 +267,25 @@ class UserChatSocket(AuthenticatedWebSocketHandler):
         print(f"Opened socket for user: {self.current_user}")
         print(f"starting dialog system for user {self.current_user}")
         logging.getLogger("chat").info(f"==== NEW DIALOG STARTED FOR USER {self.current_user} ====")
-        # TODO initialise new dialog for user
         if not self.current_user in CHAT_ENGINES:
-            # TODO swap out chat engine! (CTS, Free or guided baselines)
-            CHAT_ENGINES[self.current_user] = ChatEngine(self.current_user, self)
+            # Create policy for group assignment and user
+            group = self.get_cookie("policy_assignment") 
+            if group == "hdc":
+               CHAT_ENGINES[self.current_user] = GuidedBaselinePolicy(user_id=self.current_user,  socket=self, data=data, state_encoding=state_encoding, nlu=nlu, sysParser=sysParser, answerParser=answerParser, logicParser=logicParser, valueBackend=valueBackend)
+            elif group == "faq":
+                CHAT_ENGINES[self.current_user] = FAQBaselinePolicy(user_id=self.current_user,  socket=self, data=data, state_encoding=state_encoding, nlu=nlu, sysParser=sysParser, answerParser=answerParser, logicParser=logicParser, valueBackend=valueBackend)
+            elif group == "cts":
+                CHAT_ENGINES[self.current_user] = CTSPolicy(user_id=self.current_user,  socket=self, data=data, state_encoding=state_encoding, nlu=nlu, sysParser=sysParser, answerParser=answerParser, logicParser=logicParser, valueBackend=valueBackend, model=cts_policy)
+            else:
+                raise f"UNKNOWN POLICY ASSIGNMENT {group} FOR USER {self.current_user}"
         else:
             CHAT_ENGINES[self.current_user].socket = self
 
         # choose a goal
         if not self.get_cookie("goal_counter"):
-            self.set_cookie("goal_counter", 0)
+            self.set_cookie("goal_counter", str(0))
         goal_group = int(self.get_cookie("goal_group"))
-        goal_counter = int(self.set_cookie("goal_counter"))
+        goal_counter = int(self.get_cookie("goal_counter"))
         if goal_counter == 0:
             goal, node_id = HARD_GOALS[goal_group]
         else:
@@ -302,19 +310,18 @@ class UserChatSocket(AuthenticatedWebSocketHandler):
             self.write_message({"EVENT": "RESTART", "VALUE": True})
             logging.getLogger("chat").info(f"USER ({self.current_user} NEW DIALOG)")
             CHAT_ENGINES[self.current_user].start_dialog()
-        elif"NEXT_GOAL" in event:
+        elif event == "NEXT_GOAL":
             # update the goal counter
-            goal_counter = int(self.get_cookie("goal_counter"))
-            goal_counter += 1
-            self.set_cookie("goal_counter", goal_counter)
+            goal_correct = value["correct"]
+            goal_counter = value["goal_counter"]
+            print("GOAL CORRECT", goal_correct, type(goal_correct))
+            print("GOAL COUNTER", goal_counter, type(goal_counter))
 
             # Log success/failure
-            if event == "NEXT_GOAL_CORRECT":
+            if goal_correct:
                 logging.getLogger("chat").info(f"USER: {self.current_user} || DIALOG END: SUCCESS")
-            elif event == "NEXT_GOAL_INCORRECT":
-                logging.getLogger("chat").info(f"USER: {self.current_user} || DIALOG END: FAILURE")
             else:
-                logging.getLogger("chat").info(f"USER: {self.current_user} || DIALOG END: UNKNOWN CONDITION")
+                logging.getLogger("chat").info(f"USER: {self.current_user} || DIALOG END: FAILURE")
             with open("test_log.txt", "a") as f:
                 f.writelines([line + "\n" for line in CHAT_ENGINES[self.current_user].user_env.episode_log])
             # Interaction over, redirect to the post-survey
@@ -324,13 +331,13 @@ class UserChatSocket(AuthenticatedWebSocketHandler):
                 self.write_message({"EVENT": "RESTART", "VALUE": True})
             else:  # choose a new goal
                 # There are only two goals chosen, so if we get here, we know we're already on the second gaol
-                goal_group = int(self.get_cookies("goal_group"))
+                goal_group = int(self.get_cookie("goal_group"))
                 next_goal, node_id = EASY_GOALS[goal_group]
                 self.write_message({"EVENT": "NEW_GOAL", "VALUE": next_goal})
                 logging.getLogger("chat").info(f"USER: {self.current_user} || GOAL: {next_goal} || NODE_ID: {node_id}")
                 logging.getLogger("chat").info(f"USER ({self.current_user} NEW DIALOG)")
                 CHAT_ENGINES[self.current_user].start_dialog()
-       
+
     def on_close(self):
         print(f"Closing connection for user {self.current_user}")
 
