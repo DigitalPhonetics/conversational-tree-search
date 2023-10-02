@@ -1,14 +1,12 @@
 import logging
 import multiprocessing
-from copy import deepcopy
 
 import tornado
 import tornado.httpserver
 from tornado.web import Application
 
-from server.webenv import RealUserEnvironmentWeb
-from typing import Tuple, Union
-from data.dataset import GraphDataset, NodeType, DataAugmentationLevel
+from typing import Tuple
+from data.dataset import GraphDataset, DataAugmentationLevel
 from data.parsers.parserValueProvider import ReimbursementRealValueBackend
 from data.parsers.answerTemplateParser import AnswerTemplateParser
 from data.parsers.systemTemplateParser import SystemTemplateParser
@@ -29,7 +27,7 @@ import gymnasium as gym
 from hydra import compose, initialize
 from omegaconf import DictConfig, OmegaConf
 from hydra.core.config_store import ConfigStore
-from config import register_configs, ActionType, DialogLogLevel, WandbLogLevel
+from config import register_configs, DialogLogLevel, WandbLogLevel
 
 DEBUG = True
 NUM_GOALS = 2
@@ -198,15 +196,6 @@ def load_model(ckpt_path: str, cfg_name: str, device: str, data: GraphDataset) -
         model.policy.eval()
     return cfg, model, encoding
 
-def load_env(data: GraphDataset, nlu: NLU, sysParser, answer_parser, logic_parser, value_backend) -> RealUserEnvironmentWeb:
-    # setup env
-    env = RealUserEnvironmentWeb(dataset=data, nlu=nlu,
-                        sys_token="SYSTEM", usr_token="USER", sep_token="",
-                        max_steps=50, max_reward=150, user_patience=2,
-                        system_parser=sysParser, answer_parser=answer_parser, logic_parser=logic_parser, value_backend=value_backend,
-                        auto_skip=AutoSkipMode.NONE, stop_on_invalid_skip=False)
-    return env
-
 
 # setup data
 nlu = NLU()
@@ -227,81 +216,6 @@ def choose_user_goal(user_id: str):
     else:
         return "You want to figure out how much money you can get reimbursed for your travel. <ul><li>You used your own car</li><li>Your trip was 20km and lasted 8 hours</li><li>You took two colleagues with you</li></ul>"
 
-## TODO: write new GUI module
-## - BST
-## - Conversation history
-## - GC
-## - Logging?
-## - Survey processing?
-class ChatEngine:
-    def __init__(self, user_id: str, socket) -> None:
-        self.user_id = user_id
-        self.user_env = load_env(data, nlu, sysParser, answerParser, logicParser, valueBackend) # contains .bst, .reset()
-        self.socket = socket
-
-    def next_action(self, obs: dict) -> Tuple[int, bool]:
-        # encode observation
-        s = state_encoding.batch_encode(observation=[obs], sys_token="SYSTEM", usr_token="USER", sep_token="") 
-        # predict action & intent
-        action, intent = model.predict(observation=s, deterministic=True)
-        action = int(action)
-        intent = intent.item()
-
-        return action, intent
-
-    def start_dialog(self):
-        self.user_env.reset()
-        self.socket.write_message({"EVENT": "MSG", "VALUE": self.user_env.get_current_node_markup(), "CANDIDATES": self.user_env.get_current_node_answer_candidates()  })
-        # wait for initial user utterance
-
-    def user_reply(self, msg):
-        if self.user_env.first_turn:
-            self.set_initial_user_utterance(msg)
-        else:
-            # set n-th turn utternace and step
-            if self.user_env.current_node.node_type == NodeType.VARIABLE:
-                # check if user input is valid using NLU
-                error_msg = self.user_env.check_variable_input(msg)
-                if error_msg:
-                    # unrecognized user input -> forward error message to UI
-                    self.socket.write_message({"EVENT": "MSG", "VALUE": error_msg})
-                else:
-                    # valid user input -> step
-                    self.step(action=self.action, utterance=msg)
-            else:
-                self.step(action=self.action, utterance=msg)
-
-    def set_initial_user_utterance(self, msg):
-        self.user_env.set_initial_user_utterance(msg)
-        self.step()
-
-    def step(self, action: Union[int, None] = None, utterance: Union[str, None] = None):
-        done = False
-        while not done:
-            # get next action
-            if isinstance(action, type(None)):
-                self.action, self.intent = self.next_action(self.user_env.get_obs())
-                print("ACTION:", self.action, "INTENT:", "FREE" if self.intent == True else "GUIDED")
-            # perform next action
-            if self.action == ActionType.ASK:
-                # output current node
-                if self.user_env.current_node.node_type in [NodeType.QUESTION, NodeType.VARIABLE]:
-                    # wait for user input
-                    if isinstance(utterance, type(None)):
-                        self.socket.write_message({"EVENT": "MSG", "VALUE": self.user_env.get_current_node_markup(), "CANDIDATES": self.user_env.get_current_node_answer_candidates() })
-                        return
-                    else:
-                       obs, reward, done = self.user_env.step(self.action, replayed_user_utterance=deepcopy(utterance))
-                       action = None
-                       utterance = None
-                       continue 
-                else:
-                    self.socket.write_message({"EVENT": "MSG", "VALUE": self.user_env.get_current_node_markup(), "CANDIDATES": self.user_env.get_current_node_answer_candidates()  })
-            # SKIP
-            obs, reward, done = self.user_env.step(self.action, replayed_user_utterance="")
-
-
-        
 class UserAgreed(BaseHandler):
     def post(self):
         global GROUP_ASSIGNMENTS
@@ -329,6 +243,7 @@ class UserChatSocket(AuthenticatedWebSocketHandler):
         logging.getLogger("chat").info(f"==== NEW DIALOG STARTED FOR USER {self.current_user} ====")
         # TODO initialise new dialog for user
         if not self.current_user in CHAT_ENGINES:
+            # TODO swap out chat engine! (CTS, Free or guided baselines)
             CHAT_ENGINES[self.current_user] = ChatEngine(self.current_user, self)
         else:
             CHAT_ENGINES[self.current_user].socket = self
