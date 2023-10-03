@@ -3,6 +3,7 @@ import logging
 import multiprocessing
 from copy import deepcopy
 import os
+import traceback
 
 import tornado
 import tornado.httpserver
@@ -317,6 +318,8 @@ class UserChatSocket(AuthenticatedWebSocketHandler):
             try:
                 CHAT_ENGINES[self.current_user].user_reply(value)
             except:
+                traceback.print_exc()
+                logging.getLogger("chat").error(traceback.format_exc())
                 self.write_message({"EVENT": "MSG", "VALUE": "Sorry, but the system encountered an error. Please restart the dialog / reload the page, and if that leads to an error again, please end this dialog by click on the <b>Finished Dialog</b> button on the right.",  "CANDIDATES": [], "NODE_TYPE": "infoNode" })
         elif event == "RESTART":
             # restart dialog
