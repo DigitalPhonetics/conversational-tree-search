@@ -38,26 +38,26 @@ from config import register_configs, DialogLogLevel, WandbLogLevel
 DEBUG = True
 NUM_GOALS = 3
 HARD_GOALS = [
-    ("You are trying to figure out how much money you get for booking somewhere to stay on your trip. <ul><li>Your trip is to Tokyo, Japan</li><li>Your trip should take 10 days</li><li>You plan to stay in a hotel</li></ul>", 1234),
-    ("You want to figure out how much money you can get reimbursed for your travel. <ul><li>You used your own car</li><li>Your trip was 20km and lasted 8 hours</li><li>You took two colleagues with you</li></ul>", 1235),
-    ("You want to know how much money you can get reimbursed for for your accommodations. <ul><li>You are traveling to France for your next trip</li><li>You plan to stay with your brother in his apartment. </li></ul>", 1236),
-    ("You want to know how high the per diem is for food on your next trip. <ul><li>You are traveling to London, England</li><li>You will be there for 72 hours</li></ul>", 1237),
-    ("You want to know how you can get reimbursed for your flight.<ul><li>You are flying to Bejing, China</li><li>You plan to extend your stay with private vacation before flying back</li></ul>", 1238)
+    ("You are trying to figure out how much money you get for booking somewhere to stay on your trip. <ul><li>Your trip is to Tokyo, Japan</li><li>Your trip should take 10 days</li><li>You plan to stay in a hotel</li></ul>", 16365521324065600),
+    ("You want to figure out how much money you can get reimbursed for your travel. <ul><li>You used your own car</li><li>You took two colleagues with you</li></ul>", 16460328708250870),
+    ("You want to know how much money you can get reimbursed for for your accommodations. <ul><li>You are traveling to France for your next trip</li><li>You plan to stay with your brother in his apartment. </li></ul>", 16378349334755637),
+    ("You want to know how the reimbursement process works for research semester.<ul><li>You plan to bring your family with you</li></ul>", 16370483534787100),
+    ("You want to know how you can get reimbursed for your flight.<ul><li>You are flying to Bejing, China</li><li>You plan to extend your stay with private vacation before flying back</li></ul>", 16363755463439219)
 ]
 EASY_GOALS = [
-    ("You want to know if you can get reimbursed if you reserve a seat for yourself on the train", 1239),
-    ("You are traveling with another colleague and want to know if you have to share a room or if each of you can book your own", 1230),
-    ("You are planning on attending a conference and want to know if the membership fee can be reimbursed", 1231),
-    ("You have just gotten sick and cannot travel anymore. You want to know if the money you have already paid can be reimbursed", 1232),
-    ("You want to know if you can be reimbursed if you need to book a taxi during your trip.", 1233)
+    ("You want to know if you can get reimbursed if you reserve a seat for yourself on the train", 16363756478730906),
+    ("You are traveling with another colleague and want to know if you have to share a room or if each of you can book your own", 16363834594338823),
+    ("You are planning on attending a conference and want to know if the membership fee can be reimbursed", 16384329210117153),
+    ("You have to cancel your trip. You want to know if the money you have already paid can be reimbursed", 16457053159041482),
+    ("You want to know if you can be reimbursed if you need to book a taxi during your trip.", 16365525829145685)
     ]
 
 OPEN_GOALS = [
-    ("You want to know what you need to consider when planning a business trip outside your city.", None),
-    ("You want more information about how to plan a research semester.", None),
-    ("You want to know more about choosing/booking transportation for your trip.", None),
-    ("You want to know what types of costs you can get reimbursed for.", None),
-    ("You want to inform yourself about your company's procedures for emergencies during travel.", None)
+    ("You want to know what you need to consider when planning a business trip outside your city.", 16387868859695624),
+    ("You want more information about how to plan a research semester.", 16387868859695624),
+    ("You want to know more about choosing/booking transportation mode of your choice for your trip outside your country.", 16387868859695624),
+    ("You want to know what forms you will need for a business trip", 16387868859695624),
+    ("You want to inform yourself about your company's procedures for emergencies during travel.", 16387868859695624)
     ]
 POLICY_ASSIGNMENT = {"hdc": [], "faq": [], "cts": []}
 USER_GOAL_GROUPS = {i: [] for i in range(4)}
@@ -295,11 +295,11 @@ class UserChatSocket(AuthenticatedWebSocketHandler):
         goal_group = int(self.get_cookie("goal_group"))
         goal_counter = int(self.get_cookie("goal_counter"))
         if goal_counter == 0:
-            goal, node_id = HARD_GOALS[goal_group]
+            goal, node_id = OPEN_GOALS[goal_group]
         elif goal_counter == 1:
             goal, node_id = EASY_GOALS[goal_group]
         else:
-            goal, node_id = OPEN_GOALS[goal_group]
+            goal, node_id = HARD_GOALS[goal_group]
         logging.getLogger("chat").info(f"USER: {self.current_user} || GOAL: {goal} || NODE_ID: {node_id}")
         self.write_message({"EVENT": "NEW_GOAL", "VALUE": goal})            
         CHAT_ENGINES[self.current_user].start_dialog(node_id)
@@ -312,24 +312,39 @@ class UserChatSocket(AuthenticatedWebSocketHandler):
         value = data["VALUE"]
         if event == "MSG":
             # forward message to (correct) dialog system
-            print(f"MSG for user {self.current_user}: {message}")
+            # print(f"MSG for user {self.current_user}: {message}")
             # logging.getLogger("chat").info(f"MSG USER ({self.current_user}): {value}")
-            CHAT_ENGINES[self.current_user].user_reply(value)
+            try:
+                CHAT_ENGINES[self.current_user].user_reply(value)
+            except:
+                self.write_message({"EVENT": "MSG", "VALUE": "Sorry, but the system encountered an error. Please restart the dialog / reload the page, and if that leads to an error again, please end this dialog by click on the <b>Finished Dialog</b> button on the right.",  "CANDIDATES": [], "NODE_TYPE": "infoNode" })
         elif event == "RESTART":
             # restart dialog
             self.write_message({"EVENT": "RESTART", "VALUE": True})
-            logging.getLogger("chat").info(f"USER ({self.current_user} NEW DIALOG)")
+            # log to file and reset log
+            for line in CHAT_ENGINES[self.current_user].user_env.episode_log:
+                logging.getLogger("chat").info(line)
+            user_env = CHAT_ENGINES[self.current_user].user_env
+            user_env.episode_log = []
+            logging.getLogger("chat").info(f'{self.current_user}-{user_env.current_episode}$=> REACHED GOAL ONCE: {user_env.reached_goal_once}')
+            logging.getLogger("chat").info(f'{self.current_user}-{user_env.current_episode}$=> ASKED GOAL ONCE: {user_env.asked_goal_once}')
+            logging.getLogger("chat").info(f'{self.current_user}-{user_env.current_episode}$=> PERCIEVED LENGTH: {user_env.percieved_length}')
+            logging.getLogger("chat").info(f"=== USER ({self.current_user}) RESTART === ")
             CHAT_ENGINES[self.current_user].start_dialog(None)
         elif event == "NEXT_GOAL":
             # update the goal counter
             goal_counter = value["goal_counter"]
-            
+
+            user_env = CHAT_ENGINES[self.current_user].user_env
             # log to file and reset log
-            for line in CHAT_ENGINES[self.current_user].user_env.episode_log:
+            for line in user_env.episode_log:
                 logging.getLogger("chat").info(line)
-            CHAT_ENGINES[self.current_user].user_env.episode_log = []
+            user_env.episode_log = []
 
             # log user rating for current dialog
+            logging.getLogger("chat").info(f'{self.current_user}-{user_env.current_episode}$=> REACHED GOAL ONCE: {user_env.reached_goal_once}')
+            logging.getLogger("chat").info(f'{self.current_user}-{user_env.current_episode}$=> ASKED GOAL ONCE: {user_env.asked_goal_once}')
+            logging.getLogger("chat").info(f'{self.current_user}-{user_env.current_episode}$=> PERCIEVED LENGTH: {user_env.percieved_length}')
             logging.getLogger("chat").info(f"USER: {self.current_user} || QUALITY: {value['quality']}")
             logging.getLogger("chat").info(f"USER: {self.current_user} || LENGTH: {value['length']}")
 
@@ -343,10 +358,10 @@ class UserChatSocket(AuthenticatedWebSocketHandler):
                 if goal_counter == 1:
                     next_goal, node_id = EASY_GOALS[goal_group]
                 else:
-                    next_goal, node_id = OPEN_GOALS[goal_group]
+                    next_goal, node_id = HARD_GOALS[goal_group]
                 self.write_message({"EVENT": "NEW_GOAL", "VALUE": next_goal})
+                logging.getLogger("chat").info(f"==== NEW DIALOG STARTED FOR USER {self.current_user} ====")
                 logging.getLogger("chat").info(f"USER: {self.current_user} || GOAL: {next_goal} || NODE_ID: {node_id}")
-                logging.getLogger("chat").info(f"USER ({self.current_user} NEW DIALOG)")
                 CHAT_ENGINES[self.current_user].start_dialog(node_id)
 
     def on_close(self):

@@ -124,7 +124,7 @@ class BaseEnv:
 
         # Logging
         self.episode_log.append(f'{self.env_id}-{self.current_episode}$ ======== RESET =========')
-        if self.goal and not isinstance(self.goal.goal_node_key):
+        if self.goal and not isinstance(self.goal.goal_node_key, type(None)):
             self.episode_log.append(f'{self.env_id}-{self.current_episode}$ GOAL: {self.goal.goal_node_key} {self.data.nodes_by_key[self.goal.goal_node_key].text[:100]}') 
         self.episode_log.append(f'{self.env_id}-{self.current_episode}$ CONSTRAINTS: {self.goal.constraints}')
         self.episode_log.append(f'{self.env_id}-{self.current_episode}$ INITIAL UTTERANCE: {self.initial_user_utterance}') 

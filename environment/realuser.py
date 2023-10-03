@@ -45,6 +45,10 @@ class RealUserEnvironment(BaseEnv):
             env_id=user_id)
         self.nlu = nlu
 
+    @property
+    def reward_reached_goal(self) -> int:
+        return 15
+
     def reset(self):
         self.pre_reset()
 

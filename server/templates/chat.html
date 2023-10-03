@@ -2,7 +2,7 @@
 
 {% block css %}
 <style>
-body {
+    body {
         height: 100%;
         background-image: linear-gradient(45deg, #004191, #00BEFF);
         box-sizing: border-box;
@@ -10,12 +10,14 @@ body {
         justify-content: center;
         align-items: center;
     }
+
     .mainContainer {
         height: 100%;
         display: flex;
         flex-flow: column nowrap;
         gap: 0px;
     }
+
     .contentFooterDivider {
         display: flex;
         flex-flow: column;
@@ -28,6 +30,7 @@ body {
         max-width: 60rem;
         height: calc(100% - 2.5rem - 0.25em - 4.5rem);
     }
+
     .commandBtnBar {
         display: flex;
         flex-flow: row wrap;
@@ -36,11 +39,12 @@ body {
         border-top-left-radius: 1em;
         border-top-right-radius: 1em;
         gap: 0.25em;
-        background-color:  #323232;
+        background-color: #323232;
         padding: 0.25em;
         padding-left: 0.75em;
         z-index: 10;
     }
+
     .content {
         /* Divides the main part of the website into messagelist (left) and.goalbox (right) */
         display: flex;
@@ -51,6 +55,7 @@ body {
         height: 100%;
         gap: 0.5em;
     }
+
     .goalbox {
         display: flex;
         flex-direction: column;
@@ -65,24 +70,25 @@ body {
         justify-content: center;
         text-align: center;
     }
-    .messagebox
-    {
+
+    .messagebox {
         padding: 1.5em;
         flex-grow: 1;
         flex-flow: row nowrap;
         overflow-y: auto;
         min-height: 20rem;
     }
-    .inputContainer
-    {
+
+    .inputContainer {
         display: flex;
         flex-flow: row nowrap;
         align-items: stretch;
-        background-color:  #323232;
+        background-color: #323232;
         padding: 0.75em;
         border-bottom-left-radius: 1em;
         border-bottom-right-radius: 1em;
     }
+
     footer {
         font-size: 0.8rem;
         margin: 0px;
@@ -90,12 +96,13 @@ body {
         flex-direction: row;
         justify-content: center;
     }
+
     footer a {
         color: white;
         padding-right: 0.5rem;
     }
-   
-    .speech-bubble { 
+
+    .speech-bubble {
         position: relative;
         border-radius: .4em;
         clear: both;
@@ -104,6 +111,7 @@ body {
         padding-bottom: 0.5em;
         font-size: 1rem;
     }
+
     .speech-bubble::after {
         content: '';
         position: absolute;
@@ -116,21 +124,24 @@ body {
     }
 
     .system {
-        background: #E5E5EA;  
+        background: #E5E5EA;
         text-align: left;
         float: left;
     }
+
     .system:after {
         left: 0;
         border-right-color: #E5E5EA;
         border-left: 0;
         margin-left: -20px;
     }
+
     .user {
         background: #ccf2ff;
         text-align: right;
         float: right;
     }
+
     .user:after {
         right: 0;
         border-left-color: #ccf2ff;
@@ -143,6 +154,7 @@ body {
         color: black;
         font-family: Arial, Helvetica, sans-serif;
     }
+
     .systemMsg {
         margin-left: 0.5em;
         margin-right: 0.5em;
@@ -151,12 +163,14 @@ body {
         padding: 0.5em;
         font-family: Arial, Helvetica, sans-serif;
     }
+
     .answer_candidate_list {
         display: flex;
         flex-flow: row wrap;
         gap: 0.2em;
         align-items: center;
     }
+
     .answer_candidate {
         color: black;
         border-radius: 2px;
@@ -165,8 +179,9 @@ body {
         cursor: pointer;
         margin: 0px;
     }
+
     .answer_candidate:hover {
-         background-color: #ffcd39;
+        background-color: #ffcd39;
     }
 
     .divBtn {
@@ -187,7 +202,8 @@ body {
         align-items: center;
         flex-flow: row wrap;
         gap: 0.3em;
-    }   
+    }
+
     .divBtn:hover {
         background-color: white;
         color: black;
@@ -215,6 +231,7 @@ body {
         padding-right: 0.2em;
         cursor: pointer;
     }
+
     .headerBtn:hover {
         background-color: white;
         color: black;
@@ -225,6 +242,7 @@ body {
         flex-grow: 1;
         height: 2rem;
     }
+
     #overlay {
         background: #ffffff;
         color: #666666;
@@ -239,11 +257,13 @@ body {
         padding-top: 25%;
         opacity: .80;
     }
+
     .typing {
         align-items: center;
         display: flex;
         height: 17px;
     }
+
     .typing .dot {
         animation: mercuryTypingAnimation 1.8s infinite ease-in-out;
         background-color: #6CAD96;
@@ -254,15 +274,19 @@ body {
         width: 7px;
         display: inline-block;
     }
+
     .typing .dot:nth-child(1) {
         animation-delay: 200ms;
     }
+
     .typing .dot:nth-child(2) {
         animation-delay: 300ms;
     }
+
     .typing .dot:nth-child(3) {
         animation-delay: 400ms;
     }
+
     .typing .dot:last-child {
         margin-right: 0;
     }
@@ -270,21 +294,25 @@ body {
     @keyframes mercuryTypingAnimation {
         0% {
             transform: translateY(0px);
-            background-color:#6CAD96; 
+            background-color: #6CAD96;
         }
+
         28% {
             transform: translateY(-7px);
-            background-color:#9ECAB9; 
+            background-color: #9ECAB9;
         }
+
         44% {
             transform: translateY(0px);
-            background-color: #B5D9CB; 
+            background-color: #B5D9CB;
         }
     }
+
     @keyframes rotate {
         0% {
             transform: rotate(0deg);
         }
+
         100% {
             transform: rotate(360deg);
         }
@@ -300,7 +328,6 @@ body {
     // window.onpopstate = () => history.forward();
 
     var goal_counter = Number.parseInt(get_cookie('goal_counter'));
-    var last_sys_msg = "";
 
     function open_link_info() {
         $('#linkInfoModal').modal('show');
@@ -309,20 +336,20 @@ body {
     function set_cookie(cname, cvalue, exdays) {
         const d = new Date();
         d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-        let expires = "expires="+d.toUTCString();
+        let expires = "expires=" + d.toUTCString();
         document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
     }
 
     function get_cookie(cname) {
         let name = cname + "=";
         let ca = document.cookie.split(';');
-        for(let i = 0; i < ca.length; i++) {
+        for (let i = 0; i < ca.length; i++) {
             let c = ca[i];
             while (c.charAt(0) == ' ') {
-            c = c.substring(1);
+                c = c.substring(1);
             }
             if (c.indexOf(name) == 0) {
-            return c.substring(name.length, c.length);
+                return c.substring(name.length, c.length);
             }
         }
         return "";
@@ -330,12 +357,12 @@ body {
 
     var typingAnimation = false;
 
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('#overlay').fadeIn();
     });
 
     function toggleTypingAnimation(value) {
-        if(value == true && value != typingAnimation) {
+        if (value == true && value != typingAnimation) {
             const sys_msg = `<div id="typingAnimationDiv" class="speech-bubble system">
                 <div class="systemMsg">
                     <div class="typing">
@@ -346,8 +373,8 @@ body {
                 </div>
             </div>`;
             $("#messagelist").append(sys_msg);
-            $("#messagelist").animate({ scrollTop: $('#messagelist').prop("scrollHeight")}, 500); // scroll to newest message
-        } else if(value == false) {
+            $("#messagelist").animate({ scrollTop: $('#messagelist').prop("scrollHeight") }, 500); // scroll to newest message
+        } else if (value == false) {
             // console.log("remove");
             console.log($("#typingAnimationDiv"));
             $("#typingAnimationDiv").remove();
@@ -361,14 +388,21 @@ body {
         const msg_data = JSON.parse(msg.data);
         event = msg_data['EVENT'];
         value = msg_data['VALUE'];
-        if(event === "MSG") {
+        if (event === "MSG") {
             value = msg_data['VALUE'];
-            const candidates = get_cookie("policy_assignment") === "faq"? [] : msg_data['CANDIDATES'];
+            const candidates = get_cookie("policy_assignment") === "faq" ? [] : msg_data['CANDIDATES'];
+            const node_type = msg_data['NODE_TYPE']
             addSystemMessage(value, candidates);
-        }else if (event === "USER_MSG"){
+            if(node_type === "userInputNode" || node_type === "userResponseNode") {
+                // disableUserInput(false);
+                toggleTypingAnimation(false);
+            } else {
+                // disableUserInput(true);
+                toggleTypingAnimation(true);
+            }
+        } else if (event === "USER_MSG") {
             addUserMessage(value);
-        }else if (event === "NEW_GOAL"){
-            last_sys_msg = "";
+        } else if (event === "NEW_GOAL") {
             // Update the goal
             g = document.getElementById("goalContainer");
             g.innerHTML = `
@@ -382,13 +416,13 @@ body {
                     <button class="btn btn-success mb-4" style="margin: 2%;" onclick="nextGoal()">Finished Dialog</button>
                 </div> 
             `;
-        } else if (event === "EXPERIMENT_OVER"){
+            disableUserInput(false);
+        } else if (event === "EXPERIMENT_OVER") {
             // console.log(window.location.host + "/post_survey");
             window.location.replace("http://" + window.location.host + "/post_survey")
-        } else if(event === "DIALOG_ENDED") {
+        } else if (event === "DIALOG_ENDED") {
             addSystemMessage("I hope this answered your question. Please click the <b>finished dialog</b> button on the right to proceed.", []);
             disableUserInput(true);
-            last_sys_msg = "";
         }
 
     }
@@ -402,7 +436,8 @@ body {
     }
 
     function disableUserInput(disable) {
-        if(disable) {
+        console.log("DISABLE", disable)
+        if (disable) {
             $("#inputContainer").hide();
         } else {
             $("#inputContainer").show();
@@ -422,35 +457,31 @@ body {
         `);
         toggleTypingAnimation(true);
 
-        $("#messagelist").animate({ scrollTop: $('#messagelist').prop("scrollHeight")}, 500); // scroll to newest message
+        $("#messagelist").animate({ scrollTop: $('#messagelist').prop("scrollHeight") }, 500); // scroll to newest message
     }
 
     function addSystemMessage(msg, candidates) {
-       toggleTypingAnimation(false);
-       console.log(msg);
-       
-    //    console.log(msg, last_sys_msg, msg === last_sys_msg);
-       if(msg !== last_sys_msg) {
-            var sys_msg = '<div class="speech-bubble system"><div class="systemMsg">';
-                if(get_cookie('policy_assignment') === 'faq') {
-                    sys_msg += msg.replace('\n <p>You can either click on an answer from the suggested topics or enter your own text.</p>', '');
-                } else {
-                    sys_msg += msg;
-                }
-            if(candidates !== undefined && candidates.length > 0) {
-                    // add answer candidates
-                    sys_msg += '<div class="answer_candidate_list">';
-                    candidates.forEach(cand => {
-                        sys_msg += `<p class="answer_candidate" onClick="sendMessage('${cand.replace(/"/g, '\\"').replace(/'/g, "\\'")}')">${cand}</p>`
-                    });
-                    sys_msg += '</div>'
-            }
-            sys_msg += "</div></div>";
-            $("#messagelist").append(sys_msg);
-            $("#messagelist").animate({ scrollTop: $('#messagelist').prop("scrollHeight")}, 500); // scroll to newest message
+        toggleTypingAnimation(false);
+        console.log(msg);
+
+        var sys_msg = '<div class="speech-bubble system"><div class="systemMsg">';
+        if (get_cookie('policy_assignment') === 'faq') {
+            sys_msg += msg.replace('\n <p>You can either click on an answer from the suggested topics or enter your own text.</p>', '');
+        } else {
+            sys_msg += msg;
         }
-       $("#userinput").focus();
-       last_sys_msg = msg;
+        if (candidates !== undefined && candidates.length > 0) {
+            // add answer candidates
+            sys_msg += '<div class="answer_candidate_list">';
+            candidates.forEach(cand => {
+                sys_msg += `<p class="answer_candidate" onClick="sendMessage('${cand.replace(/"/g, '\\"').replace(/'/g, "\\'")}')">${cand}</p>`
+            });
+            sys_msg += '</div>'
+        }
+        sys_msg += "</div></div>";
+        $("#messagelist").append(sys_msg);
+        $("#messagelist").animate({ scrollTop: $('#messagelist').prop("scrollHeight") }, 500); // scroll to newest message
+        $("#userinput").focus();
     }
 
     function sendMessage(user_utterance) {
@@ -461,22 +492,20 @@ body {
         $('.answer_candidate_list').remove();
 
         // select as message either input from textfield or candidate from answer list
-        const msg_content = user_utterance.length > 0? user_utterance : user_input;    
+        const msg_content = user_utterance.length > 0 ? user_utterance : user_input;
         addUserMessage(msg_content);
-        last_sys_msg = "";
 
         // send query, receive and render answer
         socket.send(JSON.stringify({
             EVENT: "MSG",
             VALUE: msg_content
         }));
-        
-        
+
+
         $('#userinput').val(""); // reset text
     }
 
     function restart() {
-        last_sys_msg = "";
         $("#messagelist").empty();
         socket.send(JSON.stringify({
             EVENT: "RESTART",
@@ -485,9 +514,9 @@ body {
         disableUserInput(false);
     }
 
-    function nextGoal(){
-        last_sys_msg = "";
+    function nextGoal() {
         $("#messagelist").empty();
+        disableUserInput(true);
         goal_counter += 1;
         set_cookie('goal_counter', goal_counter.toString(), 2);
         g = document.getElementById("goalContainer");
@@ -581,11 +610,10 @@ body {
             </form> 
         </div> 
         `;
-        disableUserInput(false);
     }
 
     function enterKeyDown(e) {
-        if(e.key === "Enter") {
+        if (e.key === "Enter") {
             sendMessage("");
         }
     }
@@ -599,9 +627,9 @@ body {
         var ele = document.getElementsByTagName('input');
         for (i = 0; i < ele.length; i++) {
             if (ele[i].type === "radio" && ele[i].checked) {
-                if (ele[i].name === "length"){
+                if (ele[i].name === "length") {
                     length = ele[i].value;
-                }else if(ele[i].name === "quality"){
+                } else if (ele[i].name === "quality") {
                     quality = ele[i].value;
                 }
             }
@@ -650,7 +678,8 @@ body {
             <div id="messagelist" class="messagebox"></div>
 
             <div class="inputContainer" id="inputContainer">
-                <input id="userinput" class="userinput" placeholder="Enter your text here" onkeydown="enterKeyDown(event)"/>
+                <input id="userinput" class="userinput" placeholder="Enter your text here"
+                    onkeydown="enterKeyDown(event)" />
                 <div class="headerBtn" id='btnSend' onclick="sendMessage('')">Send</div>
             </div>
         </div>
@@ -660,11 +689,11 @@ body {
                 <b style="margin: 0.2em;">Your goal is to answer the following question:</b>
             </div>
             <div id="goal" style="width:100%; padding: 2%; text-align: left;">
-            </div>   
+            </div>
             <div style="display: flex; flex-direction: row; justify-content: center; width: 100%;">
                 <button class="btn btn-success mb-4" style="margin: 2%;" onclick="nextGoal()">Finished Dialog</button>
-            </div>                       
-        </div>      
+            </div>
+        </div>
     </div>
 
     <footer>

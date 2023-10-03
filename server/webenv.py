@@ -43,7 +43,11 @@ class RealUserEnvironmentWeb(RealUserEnvironment):
     def get_current_node_markup(self) -> str:
         # replace links with alert
         markup = url_pattern.sub(r"""\1#\3 onclick="open_link_info()"\4""", self.current_node.markup)
-        return self.system_parser.parse_template(markup, self.value_backend, self.bst)
+        try:
+            markup = self.system_parser.parse_template(markup, self.value_backend, self.bst)
+        except:
+            markup = "Sorry, but the dialog system did not ask all neccessary variables. Please consider this dialog ended and proceed with the <b>Finished Dialog</b> button on the right to proceed."
+        return markup
 
     def reached_tree_end(self) -> bool:
         return not self.current_node or (len(self.current_node.answers) == 0 and not self.current_node.connected_node)
@@ -59,7 +63,7 @@ class RealUserEnvironmentWeb(RealUserEnvironment):
                 if var.name == "COUNTRY":
                     return ["USA", "China", "UK", "Germany", "Egypt"]
             elif var.type == "TIMESPAN":
-                return ["2 days", "3 weeks", "1 year"]
+                return ["2 days", "3 weeks", "1 month"]
         return [] # no answer candidates
 
     def step(self, action: int, replayed_user_utterance: Tuple[str, None] = None):
@@ -232,12 +236,19 @@ class RealUserEnvironmentWeb(RealUserEnvironment):
                 nlu_results = self.nlu.extract_boolean(replayed_user_utterance)
                 self.bst[var.name] = nlu_results[0]
             else:
-                return "ERROR: Found unknown variable. Please report this problem."
+                self.episode_log.append(f'{self.env_id}-{self.current_episode}$ - VARIABLE NODE: UNKOWN VARIABLE NAME: {var.name}')
+                return True, reward - 15
+            
+            self.episode_log.append(f'{self.env_id}-{self.current_episode}$ - VARIABLE NODE: REAL USER UTTERANCE BEFORE NLU: {replayed_user_utterance}')
 
             self.current_user_utterance = str(deepcopy(self.bst[var.name]))
             self.coverage_variables[var.name][self.bst[var.name]] += 1
         elif self.current_node.node_type == NodeType.QUESTION:
             self.current_user_utterance = deepcopy(replayed_user_utterance)
+
+        if self.current_node.key == self.goal_node_id:
+            self.asked_goal_once = True
+            return True, reward + 15
 
         return False, reward
 
