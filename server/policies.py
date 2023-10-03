@@ -192,7 +192,7 @@ class FAQBaselinePolicy(ChatEngine):
 
         self.user_env.episode_log.append(f'{self.user_id}-{self.user_env.current_episode}$: SKIP + ASK: Node {most_similar_node_id}, {most_similar_node.text[:50]}')
         if self.user_env.goal.goal_node_key == most_similar_node_id:
-            self.episode_log.append(f'{self.user_id}-{self.user_env.current_episode}$=> REACHED GOAL ONCE: {self.reached_goal_once}')
+            self.user_env.episode_log.append(f'{self.user_id}-{self.user_env.current_episode}$=> REACHED GOAL ONCE: {self.user_env.reached_goal_once}')
 
         # output node 
         self.socket.write_message({"EVENT": "MSG", "VALUE": self.get_node_markup(most_similar_idx), "CANDIDATES": [], "NODE_TYPE": self.user_env.current_node.node_type.value })
