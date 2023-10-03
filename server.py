@@ -42,7 +42,7 @@ HARD_GOALS = [
     ("You want to figure out how much money you can get reimbursed for your travel. <ul><li>You used your own car</li><li>Your trip was 20km and lasted 8 hours</li><li>You took two colleagues with you</li></ul>", 1235),
     ("You want to know how much money you can get reimbursed for for your accommodations. <ul><li>You are traveling to France for your next trip</li><li>You plan to stay with your brother in his apartment. </li></ul>", 1236),
     ("You want to know how high the per diem is for food on your next trip. <ul><li>You are traveling to London, England</li><li>You will be there for 72 hours</li></ul>", 1237),
-    ("You want to know...", 1238)
+    ("You want to know how you can get reimbursed for your flight.<ul><li>You are flying to Bejing, China</li><li>You plan to extend your stay with private vacation before flying back</li></ul>", 1238)
 ]
 EASY_GOALS = [
     ("You want to know if you can get reimbursed if you reserve a seat for yourself on the train", 1239),
@@ -53,11 +53,11 @@ EASY_GOALS = [
     ]
 
 OPEN_GOALS = [
-    ("You want to know what you need to consider when planning a business trip outside the country. <ul><li>You can choose details about the trip, e.g., location and length, yourself</li></ul>", None),
-    ("You want more information about how to plan a research semester. <ul><li>You can choose details about the trip, e.g., location and length, yourself</li></ul>", None),
-    ("You want to know more about choosing/booking transportation for your trip. <ul><li>You can choose details about the trip, e.g., location and length, yourself</li></ul>", None),
-    ("You want to know what types of costs you can get reimbursed for. <ul><li>You can choose details about the trip, e.g., location and length, yourself</li></ul>", None),
-    ("You want to know... <ul><li>You can choose details about the trip, e.g., location and length, yourself</li></ul>", None)
+    ("You want to know what you need to consider when planning a business trip outside your city.", None),
+    ("You want more information about how to plan a research semester.", None),
+    ("You want to know more about choosing/booking transportation for your trip.", None),
+    ("You want to know what types of costs you can get reimbursed for.", None),
+    ("You want to inform yourself about your company's procedures for emergencies during travel.", None)
     ]
 POLICY_ASSIGNMENT = {"hdc": [], "faq": [], "cts": []}
 USER_GOAL_GROUPS = {i: [] for i in range(4)}
@@ -224,7 +224,7 @@ data = FormattedReimburseGraphDataset('en/reimburse/test_graph.json', 'en/reimbu
 answerParser = AnswerTemplateParser()
 logicParser = LogicTemplateParser()
 sysParser = SystemTemplateParser()
-valueBackend = ReimbursementRealValueBackend(a1_laender=data.a1_countries, data=data.hotel_costs)
+valueBackend = ReimbursementRealValueBackend(a1_laender=data.a1_countries, data=data)
 # setup model and encoding
 cfg, cts_policy, state_encoding = load_model(ckpt_path=ckpt_path, cfg_name=cfg_name, device=DEVICE, data=data)
 
@@ -302,7 +302,7 @@ class UserChatSocket(AuthenticatedWebSocketHandler):
             goal, node_id = OPEN_GOALS[goal_group]
         logging.getLogger("chat").info(f"USER: {self.current_user} || GOAL: {goal} || NODE_ID: {node_id}")
         self.write_message({"EVENT": "NEW_GOAL", "VALUE": goal})            
-        CHAT_ENGINES[self.current_user].start_dialog()
+        CHAT_ENGINES[self.current_user].start_dialog(node_id)
 
     def on_message(self, message):
         global NUM_GOALS
@@ -313,27 +313,26 @@ class UserChatSocket(AuthenticatedWebSocketHandler):
         if event == "MSG":
             # forward message to (correct) dialog system
             print(f"MSG for user {self.current_user}: {message}")
-            logging.getLogger("chat").info(f"MSG USER ({self.current_user}): {value}")
+            # logging.getLogger("chat").info(f"MSG USER ({self.current_user}): {value}")
             CHAT_ENGINES[self.current_user].user_reply(value)
         elif event == "RESTART":
             # restart dialog
             self.write_message({"EVENT": "RESTART", "VALUE": True})
             logging.getLogger("chat").info(f"USER ({self.current_user} NEW DIALOG)")
-            CHAT_ENGINES[self.current_user].start_dialog()
+            CHAT_ENGINES[self.current_user].start_dialog(None)
         elif event == "NEXT_GOAL":
             # update the goal counter
-            goal_correct = value["correct"]
             goal_counter = value["goal_counter"]
-            print("GOAL CORRECT", goal_correct, type(goal_correct))
-            print("GOAL COUNTER", goal_counter, type(goal_counter))
+            
+            # log to file and reset log
+            for line in CHAT_ENGINES[self.current_user].user_env.episode_log:
+                logging.getLogger("chat").info(line)
+            CHAT_ENGINES[self.current_user].user_env.episode_log = []
 
-            # Log success/failure
-            if goal_correct:
-                logging.getLogger("chat").info(f"USER: {self.current_user} || DIALOG END: SUCCESS")
-            else:
-                logging.getLogger("chat").info(f"USER: {self.current_user} || DIALOG END: FAILURE")
-            with open("test_log.txt", "a") as f:
-                f.writelines([line + "\n" for line in CHAT_ENGINES[self.current_user].user_env.episode_log])
+            # log user rating for current dialog
+            logging.getLogger("chat").info(f"USER: {self.current_user} || QUALITY: {value['quality']}")
+            logging.getLogger("chat").info(f"USER: {self.current_user} || LENGTH: {value['length']}")
+
             # Interaction over, redirect to the post-survey
             if goal_counter >= NUM_GOALS:
                 self.write_message({"EVENT": "EXPERIMENT_OVER", "VALUE": True})
@@ -348,7 +347,7 @@ class UserChatSocket(AuthenticatedWebSocketHandler):
                 self.write_message({"EVENT": "NEW_GOAL", "VALUE": next_goal})
                 logging.getLogger("chat").info(f"USER: {self.current_user} || GOAL: {next_goal} || NODE_ID: {node_id}")
                 logging.getLogger("chat").info(f"USER ({self.current_user} NEW DIALOG)")
-                CHAT_ENGINES[self.current_user].start_dialog()
+                CHAT_ENGINES[self.current_user].start_dialog(node_id)
 
     def on_close(self):
         print(f"Closing connection for user {self.current_user}")

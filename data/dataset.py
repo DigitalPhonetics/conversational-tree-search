@@ -101,6 +101,7 @@ class Tagegeld:
 class GraphDataset:
     def __init__(self, graph_path: str, answer_path: str, use_answer_synonyms: bool, augmentation: DataAugmentationLevel, augmentation_path: str = None, resource_dir: str = "resources/") -> None:
         assert isinstance(augmentation, DataAugmentationLevel), f"found {augmentation}"
+        self.resource_dir = resource_dir
         self.graph = self._load_graph(resource_dir, graph_path, augmentation, augmentation_path)
         self.answer_synonyms = self._load_answer_synonyms(os.path.join(resource_dir, answer_path), use_answer_synonyms, augmentation)
 

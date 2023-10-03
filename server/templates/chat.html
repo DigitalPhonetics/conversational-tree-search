@@ -299,8 +299,8 @@ body {
     // history.back();
     // window.onpopstate = () => history.forward();
 
-    var mode = "";
     var goal_counter = Number.parseInt(get_cookie('goal_counter'));
+    var last_sys_msg = "";
 
     function open_link_info() {
         $('#linkInfoModal').modal('show');
@@ -348,10 +348,10 @@ body {
             $("#messagelist").append(sys_msg);
             $("#messagelist").animate({ scrollTop: $('#messagelist').prop("scrollHeight")}, 500); // scroll to newest message
         } else if(value == false) {
-            console.log("remove");
+            // console.log("remove");
             console.log($("#typingAnimationDiv"));
             $("#typingAnimationDiv").remove();
-            console.log($("#typingAnimationDiv"));
+            // console.log($("#typingAnimationDiv"));
         }
         typingAnimation = value;
     }
@@ -368,6 +368,7 @@ body {
         }else if (event === "USER_MSG"){
             addUserMessage(value);
         }else if (event === "NEW_GOAL"){
+            last_sys_msg = "";
             // Update the goal
             g = document.getElementById("goalContainer");
             g.innerHTML = `
@@ -382,23 +383,32 @@ body {
                 </div> 
             `;
         } else if (event === "EXPERIMENT_OVER"){
-            console.log(window.location.host + "/post_survey");
+            // console.log(window.location.host + "/post_survey");
             window.location.replace("http://" + window.location.host + "/post_survey")
+        } else if(event === "DIALOG_ENDED") {
+            addSystemMessage("I hope this answered your question. Please click the <b>finished dialog</b> button on the right to proceed.", []);
+            disableUserInput(true);
+            last_sys_msg = "";
         }
 
     }
     socket.onopen = (event) => {
         console.log('connected');
-        startDialog();
+        disableUserInput(false);
     };
     socket.onerror = (event) => {
         console.log('error');
         addSystemMessage("The server is currently unavailable. Please contact the researchers so it can be restarted.", []);
     }
 
-    function startDialog() {
+    function disableUserInput(disable) {
+        if(disable) {
+            $("#inputContainer").hide();
+        } else {
+            $("#inputContainer").show();
+        }
     }
-  
+
     function addUserMessage(query) {
         /*
         Adds a new messagebox to the message list
@@ -417,22 +427,30 @@ body {
 
     function addSystemMessage(msg, candidates) {
        toggleTypingAnimation(false);
-
-       var sys_msg = '<div class="speech-bubble system"><div class="systemMsg">';
-       sys_msg += `${msg}`;
-       if(candidates !== undefined && candidates.length > 0) {
-            // add answer candidates
-            sys_msg += '<div class="answer_candidate_list">';
-            candidates.forEach(cand => {
-                sys_msg += `<p class="answer_candidate" onClick="sendMessage('${cand.replace(/"/g, '\\"').replace(/'/g, "\\'")}')">${cand}</p>`
-            });
-            sys_msg += '</div>'
-       }
-       sys_msg += "</div></div>";
-       $("#messagelist").append(sys_msg);
+       console.log(msg);
        
+    //    console.log(msg, last_sys_msg, msg === last_sys_msg);
+       if(msg !== last_sys_msg) {
+            var sys_msg = '<div class="speech-bubble system"><div class="systemMsg">';
+                if(get_cookie('policy_assignment') === 'faq') {
+                    sys_msg += msg.replace('\n <p>You can either click on an answer from the suggested topics or enter your own text.</p>', '');
+                } else {
+                    sys_msg += msg;
+                }
+            if(candidates !== undefined && candidates.length > 0) {
+                    // add answer candidates
+                    sys_msg += '<div class="answer_candidate_list">';
+                    candidates.forEach(cand => {
+                        sys_msg += `<p class="answer_candidate" onClick="sendMessage('${cand.replace(/"/g, '\\"').replace(/'/g, "\\'")}')">${cand}</p>`
+                    });
+                    sys_msg += '</div>'
+            }
+            sys_msg += "</div></div>";
+            $("#messagelist").append(sys_msg);
+            $("#messagelist").animate({ scrollTop: $('#messagelist').prop("scrollHeight")}, 500); // scroll to newest message
+        }
        $("#userinput").focus();
-       $("#messagelist").animate({ scrollTop: $('#messagelist').prop("scrollHeight")}, 500); // scroll to newest message
+       last_sys_msg = msg;
     }
 
     function sendMessage(user_utterance) {
@@ -445,6 +463,7 @@ body {
         // select as message either input from textfield or candidate from answer list
         const msg_content = user_utterance.length > 0? user_utterance : user_input;    
         addUserMessage(msg_content);
+        last_sys_msg = "";
 
         // send query, receive and render answer
         socket.send(JSON.stringify({
@@ -457,25 +476,27 @@ body {
     }
 
     function restart() {
+        last_sys_msg = "";
         $("#messagelist").empty();
         socket.send(JSON.stringify({
             EVENT: "RESTART",
             VALUE: true
         }));
+        disableUserInput(false);
     }
 
     function nextGoal(){
+        last_sys_msg = "";
         $("#messagelist").empty();
         goal_counter += 1;
         set_cookie('goal_counter', goal_counter.toString(), 2);
-        console.log("HERE");
         g = document.getElementById("goalContainer");
         g.innerHTML = `
             <div class="commandBtnBar" style="color: white; text-align: center;">
                 <b style="margin: 0.2em;">Please rate your dialog:</b>
             </div>
             <div id="goal" style="width:100%; padding: 2%; text-align: left;">
-                <form>
+                <form onsubmit="sendGoalFeedback(event); return false;">
                 <p><b>The length of dialog felt: </b></p>
                 <table class="table table-striped" style="width: 70%; margin-top: 2%; margin-left: 15%; margin-bottom: 2%">
                 <thead>
@@ -555,11 +576,12 @@ body {
                     </tbody>
                 </table>
             <div style="display: flex; flex-direction: row; justify-content: center; width: 100%;">
-                <button class="btn btn-success mb-4" style="margin: 2%;" type="submit" onclick="sendGoalFeedback(e)">Submit Rating</button>
+                <input class="btn btn-success mb-4" style="margin: 2%;" type="submit" value="Submit"/>
             </div> 
             </form> 
         </div> 
         `;
+        disableUserInput(false);
     }
 
     function enterKeyDown(e) {
@@ -568,8 +590,10 @@ body {
         }
     }
 
-    function sendGoalFeedback(e) {
-        e.preventDefault();
+    function sendGoalFeedback(event) {
+        console.log("hallo");
+        event.preventDefault();
+
         var length = null;
         var quality = null;
         var ele = document.getElementsByTagName('input');
@@ -625,7 +649,7 @@ body {
 
             <div id="messagelist" class="messagebox"></div>
 
-            <div class="inputContainer">
+            <div class="inputContainer" id="inputContainer">
                 <input id="userinput" class="userinput" placeholder="Enter your text here" onkeydown="enterKeyDown(event)"/>
                 <div class="headerBtn" id='btnSend' onclick="sendMessage('')">Send</div>
             </div>

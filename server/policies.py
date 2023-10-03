@@ -1,9 +1,10 @@
 
 
+from collections import defaultdict
 import os
 from typing import Any, Dict, Tuple, Union
 from copy import deepcopy
-
+import pandas as pd
 import torch
 
 from data.dataset import GraphDataset, NodeType
@@ -15,9 +16,12 @@ from config import ActionType
 
 from sentence_transformers import util
 
-def load_env(data: GraphDataset, nlu: NLU, sysParser, answer_parser, logic_parser, value_backend) -> RealUserEnvironmentWeb:
+import re
+url_pattern = re.compile(r'(<a\s+[^>]*href=")([^"]*)(")([^>]*>)')
+
+def load_env(user_id: int, data: GraphDataset, nlu: NLU, sysParser, answer_parser, logic_parser, value_backend) -> RealUserEnvironmentWeb:
     # setup env
-    env = RealUserEnvironmentWeb(dataset=data, nlu=nlu,
+    env = RealUserEnvironmentWeb(user_id=user_id, dataset=data, nlu=nlu,
                         sys_token="SYSTEM", usr_token="USER", sep_token="",
                         max_steps=50, max_reward=150, user_patience=2,
                         system_parser=sysParser, answer_parser=answer_parser, logic_parser=logic_parser, value_backend=value_backend,
@@ -26,22 +30,19 @@ def load_env(data: GraphDataset, nlu: NLU, sysParser, answer_parser, logic_parse
 
 
 ## TODO: 
-## - Conversation history
 ## - GC
-## - Logging?
-## - Survey processing?
 class ChatEngine:
     def __init__(self, user_id: str, socket, data: GraphDataset, state_encoding: StateEncoding, nlu: NLU, sysParser, answerParser, logicParser, valueBackend) -> None:
         self.user_id = user_id
         self.state_encoding = state_encoding
-        self.user_env = load_env(data, nlu, sysParser, answerParser, logicParser, valueBackend) # contains .bst, .reset()
+        self.user_env = load_env(user_id, data, nlu, sysParser, answerParser, logicParser, valueBackend) # contains .bst, .reset()
         self.socket = socket
 
     def next_action(self, obs: dict) -> Tuple[int, bool]:
         raise NotImplementedError        
 
-    def start_dialog(self):
-        self.user_env.reset()
+    def start_dialog(self, goal_node_id: int):
+        self.user_env.reset(goal_node_id=goal_node_id)
         self.socket.write_message({"EVENT": "MSG", "VALUE": self.user_env.get_current_node_markup(), "CANDIDATES": self.user_env.get_current_node_answer_candidates()  })
         # wait for initial user utterance
 
@@ -89,21 +90,31 @@ class ChatEngine:
                     self.socket.write_message({"EVENT": "MSG", "VALUE": self.user_env.get_current_node_markup(), "CANDIDATES": self.user_env.get_current_node_answer_candidates()  })
             # SKIP
             obs, reward, done = self.user_env.step(self.action, replayed_user_utterance="")
+        if done:
+            self.socket.write_message({"EVENT": "DIALOG_ENDED", "VALUE": True})
 
 
         
 
 
 class FAQBaselinePolicy(ChatEngine):
-    # TODO 
-    # - load similarity model (could pass it via cache argument from server)
-    # - encode dataset (could pre-cache the enocded node texts in a seperate file, only encode first user utterance live)
-    # - return top-1 result only
-    # - logging + metrics, since we don't need and enivronment here ?
-    # - also ask Variables in case the response template contains any
     def __init__(self, user_id: str, socket, data: GraphDataset, state_encoding: StateEncoding, nlu: NLU, sysParser, answerParser, logicParser, valueBackend) -> None:
         super().__init__(user_id, socket, data, state_encoding, nlu, sysParser, answerParser, logicParser, valueBackend)
-        self.node_idx_mapping, self.node_embeddings = self._embed_node_texts(data)
+        self.country_list, self.country_city_list = self._get_country_city_map()
+        self.node_idx_mapping, self.node_embeddings, self.node_markup = self._embed_node_texts(data)
+
+    def _get_country_city_map(self):
+        hotel_costs = defaultdict(lambda: dict())
+        country_list = set()
+        country_city_list = []
+
+        content = pd.read_excel(os.path.join(self.user_env.data.resource_dir, "en/reimburse/TAGEGELD_AUSLAND.xlsx"))
+        for idx, row in content.iterrows():
+            country = row['Land']
+            city = row['Stadt']
+            country_list.add(country)
+            country_city_list.append((country, city))
+        return list(country_list), country_city_list
 
     def _embed_node_texts(self, data: GraphDataset) -> Tuple[Dict[int, int], torch.FloatTensor]:
         if not os.path.exists("./server/node_embeddings.pt"):
@@ -111,24 +122,52 @@ class FAQBaselinePolicy(ChatEngine):
             print("Node embedding not found, creating...")
             embeddings = []
             node_idx_mapping = {} # mapping from node id -> embedding index
-            for node_idx, node in enumerate(data.nodes_by_type[NodeType.INFO]):
-                embeddings.append(self.state_encoding.cache.encode_text(state_input_key=State.NODE_TEXT, text=node.text, noise=0.0).cpu().view(1,-1))
-                node_idx_mapping[node_idx] = node.key
+            node_text_idx = 0
+            node_markup = []
+            for node in data.nodes_by_type[NodeType.INFO]:
+                variables = self.user_env.system_parser.find_variables(node.text)
+                if "CITY" in variables:
+                    # replace country and city
+                    for country, city in self.country_city_list:
+                        text = self.user_env.system_parser.parse_template(node.text, self.user_env.value_backend, {"COUNTRY": country, "CITY": city})
+                        embeddings.append(self.state_encoding.cache.encode_text(state_input_key=State.NODE_TEXT, text=text, noise=0.0).cpu().view(1,-1))
+                        node_idx_mapping[node_text_idx] = node.key
+                        node_markup.append(self.user_env.system_parser.parse_template(node.markup, self.user_env.value_backend, {"COUNTRY": country, "CITY": city}))
+                        node_text_idx += 1
+                elif "COUNTRY" in variables:
+                    # replace country only
+                    for country in self.country_list:
+                        text = self.user_env.system_parser.parse_template(node.text, self.user_env.value_backend, {"COUNTRY": country})
+                        embeddings.append(self.state_encoding.cache.encode_text(state_input_key=State.NODE_TEXT, text=text, noise=0.0).cpu().view(1,-1))
+                        node_idx_mapping[node_text_idx] = node.key
+                        node_markup.append(self.user_env.system_parser.parse_template(node.markup, self.user_env.value_backend, {"COUNTRY": country}))
+                        node_text_idx += 1
+                else:
+                    # normal text, don't replace anything
+                    embeddings.append(self.state_encoding.cache.encode_text(state_input_key=State.NODE_TEXT, text=node.text, noise=0.0).cpu().view(1,-1))
+                    node_idx_mapping[node_text_idx] = node.key
+                    node_markup.append(node.markup)
+                    node_text_idx += 1
             # save to file
             embeddings = torch.cat(embeddings, 0)
-            torch.save({"node_idx_mapping": node_idx_mapping, "embeddings": embeddings}, "./server/node_embeddings.pt")
+            torch.save({"node_idx_mapping": node_idx_mapping, "embeddings": embeddings, "node_markup": node_markup}, "./server/node_embeddings.pt")
             print("Done")
-            return node_idx_mapping, embeddings
+            return node_idx_mapping, embeddings, node_markup
         else:
             # load node embedding from file
             print("Node embedding found, loading...")
             data = torch.load("./server/node_embeddings.pt")
             print("Done")
-            return data["node_idx_mapping"], data['embeddings']
+            return data["node_idx_mapping"], data['embeddings'], data['node_markup']
         
     def set_initial_user_utterance(self, msg):
         self.user_env.set_initial_user_utterance(msg, check_variables=False)
         self.step()
+
+    def get_node_markup(self, node_idx: int) -> str:
+        # replace links with alert
+        markup = url_pattern.sub(r"""\1#\3 onclick="open_link_info()"\4""", self.node_markup[node_idx])
+        return markup
 
 
     def step(self, action: Union[int, None] = None, utterance: Union[str, None] = None):
@@ -142,9 +181,14 @@ class FAQBaselinePolicy(ChatEngine):
         most_similar_node = self.user_env.data.nodes_by_key[most_similar_node_id]
         self.user_env.current_node = most_similar_node
 
+        self.user_env.episode_log.append(f'{self.user_id}-{self.user_env.current_episode}$: SKIP + ASK: Node {most_similar_node_id}, {most_similar_node.text[:50]}')
+        if self.user_env.goal.goal_node_key == most_similar_node_id:
+            self.episode_log.append(f'{self.user_id}-{self.user_env.current_episode}$=> REACHED GOAL ONCE: {self.reached_goal_once}')
+
         # output node 
-        self.socket.write_message({"EVENT": "MSG", "VALUE": self.user_env.get_current_node_markup(), "CANDIDATES": [] })
+        self.socket.write_message({"EVENT": "MSG", "VALUE": self.get_node_markup(most_similar_idx), "CANDIDATES": [] })
         # stop dialog here
+        self.socket.write_message({"EVENT": "DIALOG_ENDED", "VALUE": True})
 
 
 class GuidedBaselinePolicy(ChatEngine):

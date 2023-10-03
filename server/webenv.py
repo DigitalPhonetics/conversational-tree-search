@@ -17,14 +17,14 @@ import re
 url_pattern = re.compile(r'(<a\s+[^>]*href=")([^"]*)(")([^>]*>)')
 
 class RealUserEnvironmentWeb(RealUserEnvironment):
-    def __init__(self,
+    def __init__(self, user_id: int,
             dataset: GraphDataset, nlu: NLU,
             sys_token: str, usr_token: str, sep_token: str,
             max_steps: int, max_reward: float, user_patience: int,
             system_parser: SystemTemplateParser, answer_parser: AnswerTemplateParser, logic_parser: LogicTemplateParser,
             value_backend: RealValueBackend,
             auto_skip: AutoSkipMode, stop_on_invalid_skip: bool) -> None:
-        super().__init__(dataset=dataset, nlu=nlu,
+        super().__init__(user_id=user_id, dataset=dataset, nlu=nlu,
             sys_token=sys_token, usr_token=usr_token, sep_token=sep_token, 
             max_steps=max_steps, max_reward=max_reward, user_patience=user_patience,
             answer_parser=answer_parser, logic_parser=logic_parser, value_backend=value_backend,
@@ -38,11 +38,15 @@ class RealUserEnvironmentWeb(RealUserEnvironment):
             var = self.answerParser.find_variable(self.current_node.answer_by_index(0).text)
             return var.name in self.bst
         return False
+    
 
     def get_current_node_markup(self) -> str:
         # replace links with alert
         markup = url_pattern.sub(r"""\1#\3 onclick="open_link_info()"\4""", self.current_node.markup)
         return self.system_parser.parse_template(markup, self.value_backend, self.bst)
+
+    def reached_tree_end(self) -> bool:
+        return not self.current_node or (len(self.current_node.answers) == 0 and not self.current_node.connected_node)
 
     def get_current_node_answer_candidates(self) -> List[str]:
         if self.current_node.node_type == NodeType.QUESTION:
@@ -64,6 +68,10 @@ class RealUserEnvironmentWeb(RealUserEnvironment):
         done = False 
         self.prev_node = self.current_node
         self.current_user_utterance = replayed_user_utterance # reset user utterance for current turn
+
+        if not self.reached_goal_once and self.goal.has_reached_goal_node(self.current_node):
+            self.episode_log.append(f'{self.env_id}-{self.current_episode}$ REACHED GOAL')
+            self.reached_goal_once = True
 
         # check if dialog should end
         if self.check_user_patience_reached(): 
@@ -132,6 +140,12 @@ class RealUserEnvironmentWeb(RealUserEnvironment):
             if (not done) and self.goal.goal_node_key and self.auto_skip_mode != AutoSkipMode.NONE and self.last_action_idx == ActionType.ASK:
                 self.auto_skip()
 
+        if not done:
+            done = self.reached_tree_end()
+
+        if not self.reached_goal_once and self.goal.has_reached_goal_node(self.current_node):
+            self.episode_log.append(f'{self.env_id}-{self.current_episode}$ REACHED GOAL')
+            self.reached_goal_once = True
        
         self.episode_reward += reward
         if done:
@@ -164,8 +178,11 @@ class RealUserEnvironmentWeb(RealUserEnvironment):
             if var.name in nlu_results:
                 if len(nlu_results[var.name]) > 1:
                     return f"Please provide only a single value. Detected multiple values: {', '.join(nlu_results[var.name])}"
-                elif len(nlu_results[var.name]) == 0:
-                    return f"Sorry, but the {var.name.lower()} you entered is unknown to the system. Please check spelling or try another value."
+                if len(nlu_results[var.name]) == 0:
+                    if var.name == "COUNTRY":
+                        return f"Sorry, but the {var.name.lower()} you entered is unknown to the system. Please check spelling or try another value."
+                    elif var.name == "CITY":
+                        return None # unkown cities will default to $REST
         elif var.name == "TRIP_LENGTH":
             nlu_results = self.nlu.extract_time(utterance)
             if len(nlu_results['time_spans']) > 1:
@@ -203,8 +220,10 @@ class RealUserEnvironmentWeb(RealUserEnvironment):
             # get user reply and save to bst
             if var.name in ["CITY", "COUNTRY"]:
                 nlu_results = self.nlu.extract_places(replayed_user_utterance)
-                if var.name in nlu_results:
+                if var.name in nlu_results and len(nlu_results[var.name]) > 0:
                     self.bst[var.name] = nlu_results[var.name][0]
+                elif var.name == "CITY":
+                    self.bst[var.name] = "$REST"
             elif var.name == "TRIP_LENGTH":
                 nlu_results = self.nlu.extract_time(replayed_user_utterance)
                 self.bst[var.name] = nlu_results['time_spans'][0]
@@ -222,15 +241,17 @@ class RealUserEnvironmentWeb(RealUserEnvironment):
 
         return False, reward
 
-    def reset(self):
+    def reset(self, goal_node_id: int):
         self.first_turn = True
         self.pre_reset()
+        if not isinstance(goal_node_id, type(None)):
+            self.goal_node_id = goal_node_id
     
     def set_initial_user_utterance(self, initial_user_utterance: str, check_variables: bool = True):
         # TODO check for bst values in first utterance
         # (we don't know variable type / name here, so just have to see if anything matches)
         self.goal = RealUserGoal(initial_user_utterance=deepcopy(initial_user_utterance), delexicalised_initial_user_utterance=deepcopy(initial_user_utterance),
-                                 goal_node_key=self.data.start_node.key, constraints=dict(), visited_ids=set())
+                                 goal_node_key=self.goal_node_id, constraints=dict(), visited_ids=set())
 
         # check locations
         if check_variables:

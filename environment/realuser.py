@@ -23,15 +23,13 @@ class RealUserGoal:
     visited_ids: Set[int]
 
     def has_reached_goal_node(self, candidate: DialogNode) -> bool:
-        # TODO return true if chosen goal was reached
-        warnings.warn("HAS REACHED GOAL NODE IS NOT YET IMPLEMENTED")
-        return False
+        return self.goal_node_key == candidate.key
 
 
 
 
 class RealUserEnvironment(BaseEnv):
-    def __init__(self,
+    def __init__(self, user_id: int,
             dataset: GraphDataset, nlu: NLU,
             sys_token: str, usr_token: str, sep_token: str,
             max_steps: int, max_reward: float, user_patience: int,
@@ -43,7 +41,8 @@ class RealUserEnvironment(BaseEnv):
             sys_token=sys_token, usr_token=usr_token, sep_token=sep_token, 
             max_steps=max_steps, max_reward=max_reward, user_patience=user_patience,
             answer_parser=answer_parser, logic_parser=logic_parser, value_backend=value_backend,
-            auto_skip=auto_skip, stop_on_invalid_skip=stop_on_invalid_skip, noise=noise)
+            auto_skip=auto_skip, stop_on_invalid_skip=stop_on_invalid_skip, noise=noise,
+            env_id=user_id)
         self.nlu = nlu
 
     def reset(self):
@@ -60,9 +59,6 @@ class RealUserEnvironment(BaseEnv):
                                  goal_node_key=self.data.start_node.key, constraints=dict(), visited_ids=set())
 
         return self.post_reset()
-
-    def check_user_patience_reached(self) -> bool:
-        return False # should never quit dialog automatically
 
     def ask(self, replayed_user_utterance: Tuple[str, None]) -> Tuple[bool, float]:
         reward = 0.0
