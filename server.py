@@ -231,8 +231,10 @@ valueBackend = ReimbursementRealValueBackend(a1_laender=data.a1_countries, data=
 # setup model and encoding
 cfg, cts_policy, state_encoding = load_model(ckpt_path=ckpt_path, cfg_name=cfg_name, device=DEVICE, data=data)
 # pre-load faq embeddings
+print("Preloading FAQ embeddings...")
 country_list, country_city_list = FAQBaselinePolicy.get_country_city_map(data=data)
 node_idx_mapping, node_embeddings, node_markup = FAQBaselinePolicy.embed_node_texts(data=data, state_encoding=state_encoding, system_parser=sysParser, country_list=country_list, country_city_list=country_city_list, value_backend=valueBackend)
+print("Done")
 
 class CheckLogin(RequestHandler):
     def post(self):
@@ -286,7 +288,7 @@ class UserChatSocket(AuthenticatedWebSocketHandler):
             if group == "hdc":
                CHAT_ENGINES[self.current_user] = GuidedBaselinePolicy(user_id=self.current_user,  socket=self, data=data, state_encoding=state_encoding, nlu=nlu, sysParser=sysParser, answerParser=answerParser, logicParser=logicParser, valueBackend=valueBackend)
             elif group == "faq":
-                CHAT_ENGINES[self.current_user] = FAQBaselinePolicy(user_id=self.current_user, socket=self, data=data, state_encoding=state_encoding, nlu=nlu, sysParser=sysParser, answerParser=answerParser, logicParser=logicParser, valueBackend=valueBackend, node_idx_mapping=node_idx_mapping, node_embeddings=node_embeddings, node_markup=node_markup)
+                CHAT_ENGINES[self.current_user] = FAQBaselinePolicy(user_id=self.current_user, socket=self, data=data, state_encoding=state_encoding, nlu=nlu, sysParser=sysParser, answerParser=answerParser, logicParser=logicParser, valueBackend=valueBackend, node_idx_mapping=node_idx_mapping, node_embeddings=node_embeddings, node_markup=node_markup, country_list=country_list, country_city_list=country_city_list)
             elif group == "cts":
                 CHAT_ENGINES[self.current_user] = CTSPolicy(user_id=self.current_user,  socket=self, data=data, state_encoding=state_encoding, nlu=nlu, sysParser=sysParser, answerParser=answerParser, logicParser=logicParser, valueBackend=valueBackend, model=cts_policy)
             else:
