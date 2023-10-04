@@ -36,7 +36,7 @@ from omegaconf import DictConfig, OmegaConf
 from hydra.core.config_store import ConfigStore
 from config import register_configs, DialogLogLevel, WandbLogLevel
 
-DEBUG = True
+DEBUG = False
 NUM_GOALS = 3
 HARD_GOALS = [
     ("You are trying to figure out how much money you get for booking somewhere to stay on your trip. <ul><li>Your trip is to Tokyo, Japan</li><li>Your trip should take 10 days</li><li>You plan to stay in a hotel</li></ul>", 16365521324065600),
@@ -63,7 +63,7 @@ OPEN_GOALS = [
 POLICY_ASSIGNMENT = {"hdc": [], "faq": [], "cts": []}
 USER_GOAL_GROUPS = {i: [] for i in range(4)}
 CHAT_ENGINES = {}
-DEVICE = "cuda:0"
+DEVICE = "cpu"
 
 # on start, check if we have an assignment file, if so, load it and pre-fill group assignments with content
 if os.path.isfile("user_log.txt"):
@@ -106,7 +106,7 @@ register_configs()
 
 ## NOTE: assumes already unzipped checkpoint at cfg_path!
 cfg_name = "reimburse_realdata_terminalobs"
-ckpt_path = '/mount/arbeitsdaten/asr-2/vaethdk/cts_newcodebase_weights/run_1694965093/best_eval/weights/tmp'
+ckpt_path = '/home/ubuntu/cts/models'
 
 multiprocessing.set_start_method("spawn")
 
@@ -149,7 +149,7 @@ def load_model(ckpt_path: str, cfg_name: str, device: str, data: GraphDataset) -
         dummy_env = CustomEnv(observation_space=observation_space, action_space=action_space)
 
         # setup model
-        print("Settung up model...")
+        print("Setting up model...")
         net_arch = OmegaConf.to_container(cfg.experiment.policy.net_arch)
         net_arch['state_dims'] = encoding.space_dims # patch arguments
         optim = OmegaConf.to_container(cfg.experiment.optimizer)
@@ -163,6 +163,7 @@ def load_model(ckpt_path: str, cfg_name: str, device: str, data: GraphDataset) -
             "optimizer_class": optim_class,
             "optimizer_kwargs": optim
         }
+        print("Replay buffer kwargs")
         replay_buffer_kwargs = {
             "num_train_envs": cfg.experiment.environment.num_train_envs,
             "batch_size": cfg.experiment.algorithm.dqn.batch_size,
@@ -186,6 +187,7 @@ def load_model(ckpt_path: str, cfg_name: str, device: str, data: GraphDataset) -
         dqn_target_cls =  to_class(cfg.experiment.algorithm.dqn.targets._target_)
         dqn_target_args = {'gamma': cfg.experiment.algorithm.dqn.gamma}
         dqn_target_args.update(cfg.experiment.algorithm.dqn.targets) 
+        print("Create model instance...")
         model = CustomDQN(policy=to_class(cfg.experiment.policy._target_), policy_kwargs=policy_kwargs,
                     target=dqn_target_cls(**dqn_target_args),
                     seed=cfg.experiment.seed,
@@ -375,7 +377,7 @@ if __name__ == "__main__":
         "login_url": "/",
         "cookie_secret": "YOUR_SECRET_KEY",
         "debug": DEBUG,
-        "static_path": "./node_modules"
+        "static_path": "./server/templates"
     }
     print("settings created")
     app = Application([
@@ -394,7 +396,7 @@ if __name__ == "__main__":
     ], **settings)
     print("created app")
     http_server = tornado.httpserver.HTTPServer(app) #, ssl_options = ssl_ctx)
-    http_server.listen(44123)
+    http_server.listen(8081)
     print("set up server address")
 
     io_loop = tornado.ioloop.IOLoop.current()
