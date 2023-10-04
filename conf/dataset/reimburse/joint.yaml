@@ -2,3 +2,5 @@ _target_: data.dataset.ReimburseGraphDataset
 graph_path: resources/en/reimburse/traintest_graph.json
 answer_path: resources/en/reimburse/traintest_answers.json
 augmentation: NONE
+question_limit: 0
+answer_limit: 0
