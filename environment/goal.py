@@ -224,6 +224,9 @@ class GoalPath:
     chosen_answers: Dict[int, Answer]
     constraints: Dict[str, VariableValue]
 
+    def __len__(self):
+        return len(self.visited_nodes)
+
 @dataclass
 class Condition:
     var_name: str
@@ -349,7 +352,7 @@ class UserGoal:
         return valid_paths
       
     def __len__(self):
-        return len(self.path.path)
+        return len(self.path)
 
     def has_reached_goal_node(self, candidate: DialogNode) -> bool:
         """ Returns True, if the candidate node is equal to the goal node, else False """
