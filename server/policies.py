@@ -103,21 +103,23 @@ class ChatEngine:
             self.socket.write_message({"EVENT": "DIALOG_ENDED", "VALUE": True})
 
 
-        
-
-
 class FAQBaselinePolicy(ChatEngine):
-    def __init__(self, user_id: str, socket, data: GraphDataset, state_encoding: StateEncoding, nlu: NLU, sysParser, answerParser, logicParser, valueBackend) -> None:
+    def __init__(self, user_id: str, socket, data: GraphDataset, state_encoding: StateEncoding, nlu: NLU, sysParser, answerParser, logicParser, valueBackend,
+                    node_idx_mapping, node_embeddings, node_markup, country_list, country_city_list) -> None:
         super().__init__(user_id, socket, data, state_encoding, nlu, sysParser, answerParser, logicParser, valueBackend)
-        self.country_list, self.country_city_list = self._get_country_city_map()
-        self.node_idx_mapping, self.node_embeddings, self.node_markup = self._embed_node_texts(data)
+        self.country_list = country_list
+        self.country_city_list = country_city_list
+        self.node_idx_mapping = node_idx_mapping
+        self.node_embeddings = node_embeddings
+        self.node_markup = node_markup
 
-    def _get_country_city_map(self):
+    @staticmethod
+    def get_country_city_map(data: GraphDataset):
         hotel_costs = defaultdict(lambda: dict())
         country_list = set()
         country_city_list = []
 
-        content = pd.read_excel(os.path.join(self.user_env.data.resource_dir, "en/reimburse/TAGEGELD_AUSLAND.xlsx"))
+        content = pd.read_excel(os.path.join(data.resource_dir, "en/reimburse/TAGEGELD_AUSLAND.xlsx"))
         for idx, row in content.iterrows():
             country = row['Land']
             city = row['Stadt']
@@ -125,7 +127,8 @@ class FAQBaselinePolicy(ChatEngine):
             country_city_list.append((country, city))
         return list(country_list), country_city_list
 
-    def _embed_node_texts(self, data: GraphDataset) -> Tuple[Dict[int, int], torch.FloatTensor]:
+    @staticmethod
+    def embed_node_texts(data: GraphDataset, state_encoding, system_parser, country_list, country_city_list, value_backend) -> Tuple[Dict[int, int], torch.FloatTensor]:
         if not os.path.exists("./server/node_embeddings.pt"):
             # embed all info nodes
             print("Node embedding not found, creating...")
@@ -134,26 +137,26 @@ class FAQBaselinePolicy(ChatEngine):
             node_text_idx = 0
             node_markup = []
             for node in data.nodes_by_type[NodeType.INFO]:
-                variables = self.user_env.system_parser.find_variables(node.text)
+                variables = system_parser.find_variables(node.text)
                 if "CITY" in variables:
                     # replace country and city
-                    for country, city in self.country_city_list:
-                        text = self.user_env.system_parser.parse_template(node.text, self.user_env.value_backend, {"COUNTRY": country, "CITY": city})
-                        embeddings.append(self.state_encoding.cache.encode_text(state_input_key=State.NODE_TEXT, text=text, noise=0.0).cpu().view(1,-1))
+                    for country, city in country_city_list:
+                        text = system_parser.parse_template(node.text, value_backend, {"COUNTRY": country, "CITY": city})
+                        embeddings.append(state_encoding.cache.encode_text(state_input_key=State.NODE_TEXT, text=text, noise=0.0).cpu().view(1,-1))
                         node_idx_mapping[node_text_idx] = node.key
-                        node_markup.append(self.user_env.system_parser.parse_template(node.markup, self.user_env.value_backend, {"COUNTRY": country, "CITY": city}))
+                        node_markup.append(system_parser.parse_template(node.markup, value_backend, {"COUNTRY": country, "CITY": city}))
                         node_text_idx += 1
                 elif "COUNTRY" in variables:
                     # replace country only
-                    for country in self.country_list:
-                        text = self.user_env.system_parser.parse_template(node.text, self.user_env.value_backend, {"COUNTRY": country})
-                        embeddings.append(self.state_encoding.cache.encode_text(state_input_key=State.NODE_TEXT, text=text, noise=0.0).cpu().view(1,-1))
+                    for country in country_list:
+                        text = system_parser.parse_template(node.text, value_backend, {"COUNTRY": country})
+                        embeddings.append(state_encoding.cache.encode_text(state_input_key=State.NODE_TEXT, text=text, noise=0.0).cpu().view(1,-1))
                         node_idx_mapping[node_text_idx] = node.key
-                        node_markup.append(self.user_env.system_parser.parse_template(node.markup, self.user_env.value_backend, {"COUNTRY": country}))
+                        node_markup.append(system_parser.parse_template(node.markup, value_backend, {"COUNTRY": country}))
                         node_text_idx += 1
                 else:
                     # normal text, don't replace anything
-                    embeddings.append(self.state_encoding.cache.encode_text(state_input_key=State.NODE_TEXT, text=node.text, noise=0.0).cpu().view(1,-1))
+                    embeddings.append(state_encoding.cache.encode_text(state_input_key=State.NODE_TEXT, text=node.text, noise=0.0).cpu().view(1,-1))
                     node_idx_mapping[node_text_idx] = node.key
                     node_markup.append(node.markup)
                     node_text_idx += 1
