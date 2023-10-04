@@ -413,10 +413,11 @@
                     ${value}
                 </div>   
                 <div style="display: flex; flex-direction: row; justify-content: center; width: 100%;">
-                    <button class="btn btn-success mb-4" style="margin: 2%;" onclick="nextGoal()">Finished Dialog</button>
+                    <button id="finished_dialog" class="btn btn-success mb-4" style="margin: 2%;" onclick="nextGoal()">Finished Dialog</button>
                 </div> 
             `;
             disableUserInput(false);
+            $('#finished_dialog').hide();
         } else if (event === "EXPERIMENT_OVER") {
             // console.log(window.location.host + "/post_survey");
             window.location.replace("http://" + window.location.host + "/post_survey")
@@ -429,10 +430,12 @@
     socket.onopen = (event) => {
         console.log('connected');
         disableUserInput(false);
+        $("#finished_dialog").hide();
     };
     socket.onerror = (event) => {
         console.log('error');
         addSystemMessage("The server is currently unavailable. Please contact the researchers so it can be restarted.", []);
+        $("#finished_dialog").show();
     }
 
     function disableUserInput(disable) {
@@ -501,7 +504,7 @@
             VALUE: msg_content
         }));
 
-
+        $("#finished_dialog").show();
         $('#userinput').val(""); // reset text
     }
 
@@ -691,7 +694,7 @@
             <div id="goal" style="width:100%; padding: 2%; text-align: left;">
             </div>
             <div style="display: flex; flex-direction: row; justify-content: center; width: 100%;">
-                <button class="btn btn-success mb-4" style="margin: 2%;" onclick="nextGoal()">Finished Dialog</button>
+                <button id="finished_dialog" class="btn btn-success mb-4" style="margin: 2%;" onclick="nextGoal()">Finished Dialog</button>
             </div>
         </div>
     </div>
