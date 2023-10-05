@@ -215,12 +215,12 @@ class GuidedBaselinePolicy(ChatEngine):
                 # compare user input to answer candidates, and choose followup node based on similarity
                 answer_enc = self.state_encoding.cache.encode_answer_text(self.user_env.current_node).view(len(self.user_env.current_node.answers), -1)
                 user_enc = self.state_encoding.cache.encode_text(state_input_key=State.CURRENT_USER_UTTERANCE, text=self.user_env.current_user_utterance, noise=0.0).view(1, -1)
-                print("ANS ENC", answer_enc.size())
-                print("USER ENC", user_enc.size())
+                # print("ANS ENC", answer_enc.size())
+                # print("USER ENC", user_enc.size())
                 cosine_scores = util.cos_sim(user_enc, answer_enc)
-                print("COS SCORES", cosine_scores.size())
+                # print("COS SCORES", cosine_scores.size())
                 most_similar_idx = cosine_scores.view(-1).argmax(-1).item()
-                print("-> MOST SIMILAR IDX", most_similar_idx)
+                print("-> MOST SIMILAR ANSWER IDX", most_similar_idx)
                 return ActionType.SKIP.value + most_similar_idx, False # offset by 1, because answer 0 would be ASK
             elif self.user_env.current_node.node_type == NodeType.INFO:
                 # no user input required - skip to connected node
