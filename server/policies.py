@@ -23,7 +23,7 @@ def load_env(user_id: int, data: GraphDataset, nlu: NLU, sysParser, answer_parse
     # setup env
     env = RealUserEnvironmentWeb(user_id=user_id, dataset=data, nlu=nlu,
                         sys_token="SYSTEM", usr_token="USER", sep_token="",
-                        max_steps=100, max_reward=150, user_patience=15,
+                        max_steps=75, max_reward=150, user_patience=8,
                         system_parser=sysParser, answer_parser=answer_parser, logic_parser=logic_parser, value_backend=value_backend,
                         auto_skip=AutoSkipMode.NONE, stop_on_invalid_skip=False)
     return env
@@ -37,7 +37,8 @@ class ChatEngine:
         self.state_encoding = state_encoding
         self.user_env = load_env(user_id, data, nlu, sysParser, answerParser, logicParser, valueBackend) # contains .bst, .reset()
         self.socket = socket
-        self.last_sys_nodes = set();
+        self.last_sys_nodes_ask = defaultdict(lambda: 0)
+        self.last_sys_nodes_skip = defaultdict(lambda: 0)
 
     def next_action(self, obs: dict) -> Tuple[int, bool]:
         raise NotImplementedError        
@@ -48,7 +49,8 @@ class ChatEngine:
         # wait for initial user utterance
 
     def user_reply(self, msg):
-        self.last_sys_nodes = set();
+        self.last_sys_nodes_ask = defaultdict(lambda: 0)
+        self.last_sys_nodes_skip = defaultdict(lambda: 0)
         if self.user_env.first_turn:
             self.set_initial_user_utterance(msg)
         else:
@@ -66,7 +68,8 @@ class ChatEngine:
                 self.step(action=self.action, utterance=msg)
 
     def set_initial_user_utterance(self, msg):
-        self.last_sys_nodes = set();
+        self.last_sys_nodes_ask = defaultdict(lambda: 0)
+        self.last_sys_nodes_skip = defaultdict(lambda: 0)
         self.user_env.set_initial_user_utterance(msg)
         self.step()
 
@@ -79,12 +82,12 @@ class ChatEngine:
                 print("ACTION:", self.action, "INTENT:", "FREE" if self.intent == True else "GUIDED")
             # perform next action
             if self.action == ActionType.ASK:
-                if (not isinstance(utterance, type(None))) and self.user_env.current_node.key in self.last_sys_nodes:
+                if (self.last_sys_nodes_ask[self.user_env.current_node.key] > 0) and self.user_env.current_node.key in self.last_sys_nodes_ask:
                     # we are about to repeat - stop dialog
                     done = True
                     self.user_env.episode_log.append(f'{self.user_id}-{self.user_env.current_episode}$ => STOPPED POLICY BEFORE REPEATING')
                     break
-                self.last_sys_nodes.add(self.user_env.current_node.key)
+                self.last_sys_nodes_ask[self.user_env.current_node.key] += 1
                 # output current node
                 if self.user_env.current_node.node_type in [NodeType.QUESTION, NodeType.VARIABLE]:
                     # wait for user input
@@ -92,6 +95,8 @@ class ChatEngine:
                         self.socket.write_message({"EVENT": "MSG", "VALUE": self.user_env.get_current_node_markup(), "CANDIDATES": self.user_env.get_current_node_answer_candidates(), "NODE_TYPE": self.user_env.current_node.node_type.value })
                         return
                     obs, reward, done = self.user_env.step(self.action, replayed_user_utterance=deepcopy(utterance))
+                    if done:
+                        break
                     action = None
                     utterance = None
                     continue
@@ -99,6 +104,13 @@ class ChatEngine:
                     self.socket.write_message({"EVENT": "MSG", "VALUE": self.user_env.get_current_node_markup(), "CANDIDATES": self.user_env.get_current_node_answer_candidates(), "NODE_TYPE": self.user_env.current_node.node_type.value  })
             # SKIP
             obs, reward, done = self.user_env.step(self.action, replayed_user_utterance="")
+            if done:
+                break
+            if self.user_env.current_node:
+                self.last_sys_nodes_skip[self.user_env.current_node.key] += 1
+                if self.last_sys_nodes_skip[self.user_env.current_node.key] > 5:
+                    done = True
+                    break
         if done:
             self.socket.write_message({"EVENT": "DIALOG_ENDED", "VALUE": True})
 
@@ -195,7 +207,11 @@ class FAQBaselinePolicy(ChatEngine):
 
         self.user_env.episode_log.append(f'{self.user_id}-{self.user_env.current_episode}$: SKIP + ASK: Node {most_similar_node_id}, {most_similar_node.text[:50]}')
         if self.user_env.goal.goal_node_key == most_similar_node_id:
-            self.user_env.episode_log.append(f'{self.user_id}-{self.user_env.current_episode}$=> REACHED GOAL ONCE: {self.user_env.reached_goal_once}')
+            # if at goal node, we also ask it automatically
+            self.user_env.reached_goal_once = True
+            self.user_env.asked_goal_once = True
+            # self.user_env.episode_log.append(f'{self.user_id}-{self.user_env.current_episode}$=> REACHED GOAL ONCE: True')
+            # self.user_env.episode_log.append(f'{self.user_id}-{self.user_env.current_episode}$=> ASKED GOAL ONCE: True')
 
         # output node 
         self.socket.write_message({"EVENT": "MSG", "VALUE": self.get_node_markup(most_similar_idx), "CANDIDATES": [], "NODE_TYPE": self.user_env.current_node.node_type.value })

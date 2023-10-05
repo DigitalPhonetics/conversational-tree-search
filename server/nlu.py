@@ -353,13 +353,11 @@ class NLU:
             found_booleans.append(True)
         if "affirmative" in user_utterance:
             found_booleans.append(True)
+        if "yup" in user_utterance:
+            found_booleans.append(True)
         
         # negative values
         if "no" in user_utterance:
-            found_booleans.append(False)
-        if "nope" in user_utterance:
-            found_booleans.append(False)
-        if "not" in user_utterance:
             found_booleans.append(False)
         if "never" in user_utterance:
             found_booleans.append(False)
@@ -372,6 +370,8 @@ class NLU:
         if "negative" in user_utterance:
             found_booleans.append(False)
         if "reject" in user_utterance:
+            found_booleans.append(False)
+        if "nah" in user_utterance:
             found_booleans.append(False)
 
         return found_booleans

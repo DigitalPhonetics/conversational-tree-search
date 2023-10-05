@@ -3,6 +3,7 @@ import logging
 import multiprocessing
 from copy import deepcopy
 import os
+import random
 import traceback
 
 import tornado
@@ -40,10 +41,10 @@ DEBUG = False
 NUM_GOALS = 3
 HARD_GOALS = [
     ("You are trying to figure out how much money you get for booking somewhere to stay on your trip. <ul><li>Your trip is to Tokyo, Japan</li><li>Your trip should take 10 days</li><li>You plan to stay in a hotel</li></ul>", 16365521324065600),
-    ("You want to figure out how much money you can get reimbursed for your travel. <ul><li>You used your own car</li><li>You took two colleagues with you</li></ul>", 16460328708250870),
-    ("You want to know how much money you can get reimbursed for for your accommodations. <ul><li>You are traveling to France for your next trip</li><li>You plan to stay with your brother in his apartment. </li></ul>", 16378349334755637),
+    ("You want to figure out how much money you can get for your travel. <ul><li>You used your own car</li><li>You took two colleagues with you</li></ul>", 16460328708250870),
+    ("You want to know how much money you can get for your accommodations. <ul><li>You are traveling to France for your next trip</li><li>You plan to stay with your brother in his apartment. </li></ul>", 16378349334755637),
     ("You want to know how the reimbursement process works for research semester.<ul><li>You plan to bring your family with you</li></ul>", 16370483534787100),
-    ("You want to know how you can get reimbursed for your flight.<ul><li>You are flying to Bejing, China</li><li>You plan to extend your stay with private vacation before flying back</li></ul>", 16363755463439219)
+    ("You want to know how you can get for your flight.<ul><li>You plan to extend your stay with private vacation before flying back</li></ul>", 16363755463439219)
 ]
 EASY_GOALS = [
     ("You want to know if you can get reimbursed if you reserve a seat for yourself on the train", 16363756478730906),
@@ -54,14 +55,15 @@ EASY_GOALS = [
     ]
 
 OPEN_GOALS = [
-    ("You want to know what you need to consider when planning a business trip outside your city.", 16387868859695624),
+    ("You want to know how to book a hotel", 16387868859695624),
+    ("You want to know how to book a flight", 16387868859695624),
     ("You want more information about how to plan a research semester.", 16387868859695624),
-    ("You want to know more about choosing/booking transportation mode of your choice for your trip outside your country.", 16387868859695624),
-    ("You want to know what forms you will need for a business trip", 16387868859695624),
-    ("You want to inform yourself about your company's procedures for emergencies during travel.", 16387868859695624)
+    ("You want to inform yourself what to do in case of an emergency during travel.", 16387868859695624)
     ]
-POLICY_ASSIGNMENT = {"hdc": [], "faq": [], "cts": []}
-USER_GOAL_GROUPS = {i: [] for i in range(4)}
+POLICY_ASSIGNMENT = {"cts": []} #{"hdc": [], "faq": [], "cts": []}
+USER_GOAL_GROUPS_OPEN = {i: [] for i in range(len(OPEN_GOALS))}
+USER_GOAL_GROUPS_EASY = {i: [] for i in range(len(EASY_GOALS))}
+USER_GOAL_GROUPS_HARD = {i: [] for i in range(len(HARD_GOALS))}
 CHAT_ENGINES = {}
 DEVICE = "cpu"
 
@@ -75,12 +77,12 @@ if os.path.isfile("user_log.txt"):
                 group = group.split(":")[1].strip()
                 POLICY_ASSIGNMENT[group].append(user)
             elif "GOAL_INDEX" in line:
-                user, goal_group = line.split("||")
+                user, goal_groups = line.split("||")
                 user = user.split(":")[1].strip()
-                goal_group = int(goal_group.split(":")[1].strip())
-                if goal_group not in USER_GOAL_GROUPS:
-                    USER_GOAL_GROUPS[goal_group] = []
-                USER_GOAL_GROUPS[goal_group].append(user)
+                goal_groups = [int(group) for group in goal_groups.split(":")[1].strip().split(",")]
+                USER_GOAL_GROUPS_OPEN[goal_groups[0]].append(user)
+                USER_GOAL_GROUPS_EASY[goal_groups[1]].append(user)
+                USER_GOAL_GROUPS_HARD[goal_groups[2]].append(user)
 
 
 chat_logger = logging.getLogger("chat")
@@ -105,8 +107,8 @@ cs = ConfigStore.instance()
 register_configs()
 
 ## NOTE: assumes already unzipped checkpoint at cfg_path!
-cfg_name = "reimburse_realdata_terminalobs"
-ckpt_path = '/home/ubuntu/cts/models'
+cfg_name = "reimburse_realdata_terminalobs_noise"
+ckpt_path = '/home/ubuntu/cts/models/realdata_noise'
 
 multiprocessing.set_start_method("spawn")
 
@@ -254,6 +256,7 @@ class CheckLogin(RequestHandler):
 class UserAgreed(BaseHandler):
     def post(self):
         global POLICY_ASSIGNMENT
+        global USER_GOAL_GROUPS_HARD, USER_GOAL_GROUPS_EASY, USER_GOAL_GROUPS_OPEN
         logging.getLogger("user_info").info(f"USER: {self.current_user} || AGREED: True")
 
         # If user is not assigned, assign to group with fewest participants
@@ -267,11 +270,15 @@ class UserAgreed(BaseHandler):
             logging.getLogger("chat").info(f"USER: {self.current_user} || GROUP: {group}")
 
         # Assign the goal group
-        if not self.get_cookie("goal_group"):
-            goal_group = sorted(USER_GOAL_GROUPS.items(), key=lambda item: len(item[1]))[0][0]
-            self.set_cookie("goal_group", str(goal_group))
-            USER_GOAL_GROUPS[goal_group].append(self.current_user)
-            logging.getLogger("user_info").info(f"USER: {self.current_user} || GOAL_INDEX: {goal_group}")
+        if not self.get_cookie("goal_groups"):
+            goal_group_open = random.choices(list(range(len(USER_GOAL_GROUPS_OPEN))), weights=[1./(len(USER_GOAL_GROUPS_OPEN[i]) + 1) for i in USER_GOAL_GROUPS_OPEN], k=1)[0]
+            goal_group_easy = random.choices(list(range(len(USER_GOAL_GROUPS_EASY))), weights=[1./(len(USER_GOAL_GROUPS_EASY[i]) + 1) for i in USER_GOAL_GROUPS_EASY], k=1)[0]
+            goal_group_hard = random.choices(list(range(len(USER_GOAL_GROUPS_HARD))), weights=[1./(len(USER_GOAL_GROUPS_HARD[i]) + 1) for i in USER_GOAL_GROUPS_HARD], k=1)[0]
+            self.set_cookie("goal_groups", f"{goal_group_open},{goal_group_easy},{goal_group_hard}")
+            USER_GOAL_GROUPS_OPEN[goal_group_open].append(self.current_user)
+            USER_GOAL_GROUPS_EASY[goal_group_easy].append(self.current_user)
+            USER_GOAL_GROUPS_HARD[goal_group_hard].append(self.current_user)
+            logging.getLogger("user_info").info(f"USER: {self.current_user} || GOAL_INDICES: {goal_group_open},{goal_group_easy},{goal_group_hard}")
 
         self.redirect(f"/pre_survey")
         
@@ -299,8 +306,9 @@ class UserChatSocket(AuthenticatedWebSocketHandler):
         # choose a goal
         if not self.get_cookie("goal_counter"):
             self.set_cookie("goal_counter", str(0))
-        goal_group = int(self.get_cookie("goal_group"))
+        goal_groups = [int(group) for group in self.get_cookie("goal_groups").split(",")]
         goal_counter = int(self.get_cookie("goal_counter"))
+        goal_group = goal_groups[goal_counter]
         if goal_counter == 0:
             goal, node_id = OPEN_GOALS[goal_group]
         elif goal_counter == 1:
@@ -363,7 +371,8 @@ class UserChatSocket(AuthenticatedWebSocketHandler):
                 # Start a new dialog
                 self.write_message({"EVENT": "RESTART", "VALUE": True})
             else:  # choose a new goal
-                goal_group = int(self.get_cookie("goal_group"))
+                goal_groups = [int(group) for group in self.get_cookie("goal_groups").split(",")]
+                goal_group = goal_groups[goal_counter]
                 if goal_counter == 1:
                     next_goal, node_id = EASY_GOALS[goal_group]
                 else:
