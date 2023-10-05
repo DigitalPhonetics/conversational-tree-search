@@ -37,6 +37,8 @@ class DatasetConfig:
     use_answer_synonyms: bool
     augmentation: DataAugmentationLevel
     augmentation_path: Optional[str] = None
+    question_limit: Optional[int] = 0
+    answer_limit: Optional[int] = 0
 
 @dataclass
 class Answer:
@@ -99,11 +101,12 @@ class Tagegeld:
 # TODO load uebernachtungsgeld 
 
 class GraphDataset:
-    def __init__(self, graph_path: str, answer_path: str, use_answer_synonyms: bool, augmentation: DataAugmentationLevel, augmentation_path: str = None, resource_dir: str = "resources/") -> None:
+    def __init__(self, graph_path: str, answer_path: str, use_answer_synonyms: bool, augmentation: DataAugmentationLevel, augmentation_path: str = None, resource_dir: str = "resources/",
+                 question_limit: int = 0, answer_limit: int = 0) -> None:
         assert isinstance(augmentation, DataAugmentationLevel), f"found {augmentation}"
         self.resource_dir = resource_dir
-        self.graph = self._load_graph(resource_dir, graph_path, augmentation, augmentation_path)
-        self.answer_synonyms = self._load_answer_synonyms(os.path.join(resource_dir, answer_path), use_answer_synonyms, augmentation)
+        self.graph = self._load_graph(resource_dir, graph_path, augmentation, augmentation_path, question_limit)
+        self.answer_synonyms = self._load_answer_synonyms(os.path.join(resource_dir, answer_path), use_answer_synonyms, augmentation, answer_limit)
 
         self.num_guided_goal_nodes = sum([1 for node in self.node_list if (node.node_type in [NodeType.INFO, NodeType.QUESTION, NodeType.VARIABLE] and len(node.answers) > 0) or (node.node_type == NodeType.INFO)])
         self.num_free_goal_nodes = sum([1 for node in self.node_list if len(node.questions) > 0])
@@ -121,6 +124,8 @@ class GraphDataset:
         print("- questions:", len(self.question_list))
         print("- loaded original data:", self._should_load_original_data(augmentation))
         print("- loaded generated data:", self._should_load_generated_data(augmentation))
+        print("- question limit:", question_limit, " - maximum loaded: ", max([len(node.questions) for node in self.node_list]))
+        print("- answer limit:", answer_limit, " - maximum loaded: ", max([len(self.answer_synonyms[answer]) for answer in self.answer_synonyms]))
 
     def _should_load_original_data(self, augmentation: DataAugmentationLevel) -> bool:
         return augmentation in [DataAugmentationLevel.NONE, DataAugmentationLevel.MIXED]
@@ -128,7 +133,7 @@ class GraphDataset:
     def _should_load_generated_data(self, augmentation: DataAugmentationLevel) -> bool:
         return augmentation in [DataAugmentationLevel.ARTIFICIAL_ONLY, DataAugmentationLevel.MIXED]
 
-    def _load_graph(self, resource_dir: str, graph_path: str, augmentation: DataAugmentationLevel, augmentation_path: str):
+    def _load_graph(self, resource_dir: str, graph_path: str, augmentation: DataAugmentationLevel, augmentation_path: str, question_limit: int):
         # load graph
         with open(os.path.join(resource_dir, graph_path), "r") as f:
             data = json.load(f)
@@ -177,9 +182,10 @@ class GraphDataset:
                                         text=faq_json['text'],
                                         parent=node)
                         assert not question.key in self.questions_by_key, f"Question {question.key} already in dataset"
-                        self.questions_by_key[question.key] = question
-                        node.questions.append(question)
-                        self.question_list.append(question)
+                        if question_limit == 0 or (question_limit > 0 and len(node.questions) < question_limit):
+                            self.questions_by_key[question.key] = question
+                            node.questions.append(question)
+                            self.question_list.append(question)
             
             # data augmentation
             if self._should_load_generated_data(augmentation):
@@ -193,9 +199,10 @@ class GraphDataset:
                                             text=augmented_questions[augmented_question_key]['text'],
                                             parent=parent)
                         assert not question.key in self.questions_by_key, f"Question {question.key} already in dataset" 
-                        self.questions_by_key[question.key] = question
-                        parent.questions.append(question)
-                        self.question_list.append(question)
+                        if question_limit == 0 or (question_limit > 0 and len(parent.questions) < question_limit):
+                            self.questions_by_key[question.key] = question
+                            parent.questions.append(question)
+                            self.question_list.append(question)
             
             # parse connections
             for connection in data['connections']:
@@ -206,7 +213,7 @@ class GraphDataset:
                     fromDialogAnswer = self.answers_by_key[int(connection['sourceHandle'])]
                     fromDialogAnswer.connected_node = self.nodes_by_key[int(connection['target'])]
 
-    def _load_answer_synonyms(self, answer_path: str, use_answer_synonyms: bool, augmentation: DataAugmentationLevel):
+    def _load_answer_synonyms(self, answer_path: str, use_answer_synonyms: bool, augmentation: DataAugmentationLevel, answer_limit: int):
         # load synonyms
         with open(answer_path, "r") as f:
             answers = json.load(f)
@@ -224,7 +231,9 @@ class GraphDataset:
                 print(f"Loading augmentation answers from {augmentation_path}")
                 generated_answers = json.load(f)
                 for key in generated_answers:
-                    answer_data[key].extend(generated_answers[key])
+                    for syn in generated_answers[key]:
+                        if answer_limit == 0 or (answer_limit > 0 and len(answer_data[key]) < answer_limit):
+                            answer_data[key].append(syn)
         return answer_data
 
     def _calculate_action_masks(self) -> Dict[int, torch.IntTensor]:
@@ -303,9 +312,9 @@ class GraphDataset:
 
 
 class ReimburseGraphDataset(GraphDataset):
-    def __init__(self, graph_path: str, answer_path: str, use_answer_synonyms: bool, augmentation: DataAugmentationLevel, augmentation_path: str = None, resource_dir: str = "resources/") -> None:
+    def __init__(self, graph_path: str, answer_path: str, use_answer_synonyms: bool, augmentation: DataAugmentationLevel, augmentation_path: str = None, resource_dir: str = "resources/", question_limit: int = 0, answer_limit: int = 0) -> None:
         assert isinstance(augmentation, DataAugmentationLevel), f"found {augmentation}"
-        super().__init__(graph_path=graph_path, answer_path=answer_path, use_answer_synonyms=use_answer_synonyms, augmentation=augmentation, augmentation_path=augmentation_path, resource_dir=resource_dir)
+        super().__init__(graph_path=graph_path, answer_path=answer_path, use_answer_synonyms=use_answer_synonyms, augmentation=augmentation, augmentation_path=augmentation_path, resource_dir=resource_dir, question_limit=question_limit, answer_limit=answer_limit)
         self.a1_countries = self._load_a1_countries(resource_dir)
         self.hotel_costs, self.country_list, self.city_list = self._load_hotel_costs(resource_dir)
         self._load_country_synonyms(resource_dir)
@@ -358,11 +367,11 @@ class ReimburseGraphDataset(GraphDataset):
 
 
 class OnboardingGraphDataset(GraphDataset):
-    def __init__(self, graph_path: str, answer_path: str, use_answer_synonyms: bool, augmentation: DataAugmentationLevel, augmentation_path: str = None, resource_dir: str = "resources/") -> None:
+    def __init__(self, graph_path: str, answer_path: str, use_answer_synonyms: bool, augmentation: DataAugmentationLevel, augmentation_path: str = None, resource_dir: str = "resources/", question_limit: int = 0, answer_limit: int = 0) -> None:
         assert isinstance(augmentation, DataAugmentationLevel), f"found {augmentation}"
-        super().__init__(graph_path=graph_path, answer_path=answer_path, use_answer_synonyms=use_answer_synonyms, augmentation=augmentation, augmentation_path=augmentation_path, resource_dir=resource_dir)
+        super().__init__(graph_path=graph_path, answer_path=answer_path, use_answer_synonyms=use_answer_synonyms, augmentation=augmentation, augmentation_path=augmentation_path, resource_dir=resource_dir, question_limit=question_limit, answer_limit=answer_limit)
 
-    def _load_answer_synonyms(self, answer_path: str, use_answer_synonyms: bool, augmentation: DataAugmentationLevel):
+    def _load_answer_synonyms(self, answer_path: str, use_answer_synonyms: bool, augmentation: DataAugmentationLevel, answer_limit: int):
         # we don't have synonyms here - extract answers from graph file instead (answer_path == train graph!)
         answer_data = {answer.text.lower(): [answer.text] for answer in self.answers_by_key.values()} # key is also the only possible value
         if not use_answer_synonyms or augmentation == DataAugmentationLevel.ARTIFICIAL_ONLY:
@@ -376,7 +385,9 @@ class OnboardingGraphDataset(GraphDataset):
                 print(f"Loading augmentation answers from {augmentation_path}")
                 generated_answers = json.load(f)
                 for key in generated_answers:
-                    answer_data[key].extend(generated_answers[key])
+                    for syn in generated_answers[key]:
+                        if answer_limit == 0 or (answer_limit > 0 and len(answer_data[key]) < answer_limit):
+                            answer_data[key].append(syn)
         return answer_data
 
     def _load_a1_countries(self, resource_dir: str):
