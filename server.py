@@ -76,7 +76,7 @@ if os.path.isfile("user_log.txt"):
                 user = user.split(":")[1].strip()
                 group = group.split(":")[1].strip()
                 POLICY_ASSIGNMENT[group].append(user)
-            elif "GOAL_INDEX" in line:
+            elif "GOAL_INDICES" in line:
                 user, goal_groups = line.split("||")
                 user = user.split(":")[1].strip()
                 goal_groups = [int(group) for group in goal_groups.split(":")[1].strip().split(",")]
