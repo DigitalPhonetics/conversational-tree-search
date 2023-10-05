@@ -173,16 +173,16 @@
 
     .answer_candidate {
         color: black;
-        border-radius: 2px;
+        border-radius: 1em;
         background-color: #F5F5FA;
         padding: 0.3em;
-        cursor: pointer;
+        /* cursor: pointer; */
         margin: 0px;
     }
 
-    .answer_candidate:hover {
+    /* .answer_candidate:hover {
         background-color: #ffcd39;
-    }
+    } */
 
     .divBtn {
         font-family: Arial, Helvetica, sans-serif;
@@ -328,6 +328,7 @@
     // window.onpopstate = () => history.forward();
 
     var goal_counter = Number.parseInt(get_cookie('goal_counter'));
+    var listen_to_messages = false;
 
     function open_link_info() {
         $('#linkInfoModal').modal('show');
@@ -376,7 +377,7 @@
             $("#messagelist").animate({ scrollTop: $('#messagelist').prop("scrollHeight") }, 500); // scroll to newest message
         } else if (value == false) {
             // console.log("remove");
-            console.log($("#typingAnimationDiv"));
+            // console.log($("#typingAnimationDiv"));
             $("#typingAnimationDiv").remove();
             // console.log($("#typingAnimationDiv"));
         }
@@ -389,18 +390,22 @@
         event = msg_data['EVENT'];
         value = msg_data['VALUE'];
         if (event === "MSG") {
-            value = msg_data['VALUE'];
-            const candidates = get_cookie("policy_assignment") === "faq" ? [] : msg_data['CANDIDATES'];
-            const node_type = msg_data['NODE_TYPE']
-            addSystemMessage(value, candidates);
-            if(node_type === "userInputNode" || node_type === "userResponseNode") {
-                // disableUserInput(false);
-                toggleTypingAnimation(false);
-            } else {
-                // disableUserInput(true);
-                toggleTypingAnimation(true);
+            if(listen_to_messages) {
+                value = msg_data['VALUE'];
+                const node_type = msg_data['NODE_TYPE']
+                addSystemMessage(value, msg_data['CANDIDATES']);
+                if(node_type === "userInputNode" || node_type === "userResponseNode") {
+                    // disableUserInput(false);
+                    toggleTypingAnimation(false);
+                } else {
+                    // disableUserInput(true);
+                    toggleTypingAnimation(true);
+                }
             }
-        } else if (event === "USER_MSG") {
+        } else if (event === "RESTART") {
+            listen_to_messages = true;
+        } 
+        else if (event === "USER_MSG") {
             addUserMessage(value);
         } else if (event === "NEW_GOAL") {
             // Update the goal
@@ -417,6 +422,7 @@
                 </div> 
             `;
             disableUserInput(false);
+            listen_to_messages = true;
             $('#finished_dialog').hide();
         } else if (event === "EXPERIMENT_OVER") {
             // console.log(window.location.host + "/post_survey");
@@ -430,6 +436,7 @@
     socket.onopen = (event) => {
         console.log('connected');
         disableUserInput(false);
+        listen_to_messages = true;
         $("#finished_dialog").hide();
     };
     socket.onerror = (event) => {
@@ -468,16 +475,15 @@
         console.log(msg);
 
         var sys_msg = '<div class="speech-bubble system"><div class="systemMsg">';
-        if (get_cookie('policy_assignment') === 'faq') {
-            sys_msg += msg.replace('\n <p>You can either click on an answer from the suggested topics or enter your own text.</p>', '');
-        } else {
-            sys_msg += msg;
-        }
+        sys_msg += msg
+            .replace('\n <p>You can either click on an answer from the suggested topics or enter your own text.</p>', '\n <p>I can provide information about the following topics:</p>')
+            .replace('<p><strong>What topic do you have questions about? </strong></p>', '<p><strong>How can I help you?</strong></p>');
+        
         if (candidates !== undefined && candidates.length > 0) {
             // add answer candidates
-            sys_msg += '<div class="answer_candidate_list">';
+            sys_msg += '<div class="answer_candidate_list">E.g.:';
             candidates.forEach(cand => {
-                sys_msg += `<p class="answer_candidate" onClick="sendMessage('${cand.replace(/"/g, '\\"').replace(/'/g, "\\'")}')">${cand}</p>`
+                sys_msg += `<p class="answer_candidate">${cand}</p>`; // onClick="sendMessage('${cand.replace(/"/g, '\\"').replace(/'/g, "\\'")}')"
             });
             sys_msg += '</div>'
         }
@@ -519,6 +525,7 @@
 
     function nextGoal() {
         $("#messagelist").empty();
+        listen_to_messages = false;
         disableUserInput(true);
         goal_counter += 1;
         set_cookie('goal_counter', goal_counter.toString(), 2);
@@ -622,7 +629,7 @@
     }
 
     function sendGoalFeedback(event) {
-        console.log("hallo");
+        // console.log("hallo");
         event.preventDefault();
 
         var length = null;
@@ -637,6 +644,22 @@
                 }
             }
         }
+
+        const goalWidth = Math.trunc($("#goalContainer").width());
+        const goalHeight = Math.trunc($("#goalContainer").height());
+
+        g = document.getElementById("goalContainer");
+        g.innerHTML = `
+            <div id="typingAnimationDiv" style="min-width=${goalWidth}px;min-height=${goalHeight}px;background=#ffca2c" >
+                <div class="systemMsg">
+                    <div class="typing">
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                    </div>
+                </div>
+            </div>
+        `;
 
         socket.send(JSON.stringify({
             EVENT: "NEXT_GOAL",
