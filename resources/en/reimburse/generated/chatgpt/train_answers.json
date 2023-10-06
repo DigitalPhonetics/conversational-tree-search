@@ -1,5 +1,5 @@
 {
-    "Business trip": [
+    "business trip": [
         "Work-related journey",
         "Professional excursion",
         "Corporate travel",
@@ -11,7 +11,7 @@
         "Occupational journey",
         "Business journey"
     ],
-    "Intracity business trip": [
+    "intracity business trip": [
         "A business trip within the city limits",
         "A work-related journey within the city",
         "A local business excursion",
@@ -35,7 +35,7 @@
         "What separates an intracity business trip from a typical business trip?",
         "What are the contrasts between an intracity business trip and a business trip?"
     ],
-    "Book a trip": [
+    "book a trip": [
         "Reserve a journey",
         "Schedule a travel",
         "Arrange a trip",
@@ -47,7 +47,7 @@
         "Confirm a pilgrimage",
         "Procure a sojourn"
     ],
-    "Research semester": [
+    "research semester": [
         "A semester dedicated to research",
         "A term focused on conducting research",
         "A period of time devoted to research",
@@ -59,7 +59,7 @@
         "A period of time for conducting thorough research",
         "A semester for immersing oneself in research."
     ],
-    "Travel Risk Management": [
+    "travel risk management": [
         "Managing the risks of traveling",
         "Ensuring safety while traveling",
         "Mitigating travel-related risks",
@@ -71,7 +71,7 @@
         "Ensuring safe travels for employees",
         "Minimizing risks during business travel"
     ],
-    "Problem/emergency during a business trip": [
+    "problem/emergency during a business trip": [
         "Something unexpected happened while I was on a work trip.",
         "I encountered an issue while traveling for business.",
         "A crisis arose during my business travel.",
@@ -83,7 +83,7 @@
         "A difficulty arose that disrupted my business travel plans.",
         "I encountered an obstacle that required immediate attention while on a work trip."
     ],
-    "Forms, deadlines, and procedures": [
+    "forms, deadlines, and procedures": [
         "The paperwork, due dates, and protocols",
         "The documentation, cutoffs, and guidelines",
         "The records, time limits, and steps",
@@ -108,42 +108,6 @@
         "Put an end to a voyage"
     ],
     "no": [
-        "Negative.",
-        "Not at all.",
-        "Nope.",
-        "Nada.",
-        "I'm afraid not.",
-        "Sorry, but no.",
-        "That's a negative.",
-        "No way.",
-        "Absolutely not.",
-        "I have to decline."
-    ],
-    "ja": [
-        "Yes",
-        "Affirmative",
-        "Indeed",
-        "Absolutely",
-        "Sure thing",
-        "You got it",
-        "Right on",
-        "Roger that",
-        "Okay",
-        "I agree"
-    ],
-    "Yes": [
-        "Sure thing!",
-        "Absolutely!",
-        "You got it!",
-        "No problem!",
-        "I'm on it!",
-        "That works!",
-        "Of course!",
-        "Definitely!",
-        "Right away!",
-        "Consider it done!"
-    ],
-    "No": [
         "Sorry, I can't.",
         "I'm afraid that's not possible.",
         "I have to decline.",
@@ -155,7 +119,19 @@
         "Regrettably, no.",
         "Nope."
     ],
-    "Transportation": [
+    "yes": [
+        "Sure thing!",
+        "Absolutely!",
+        "You got it!",
+        "No problem!",
+        "I'm on it!",
+        "That works!",
+        "Of course!",
+        "Definitely!",
+        "Right away!",
+        "Consider it done!"
+    ],
+    "transportation": [
         "Getting around",
         "Moving from place to place",
         "Means of travel",
@@ -167,7 +143,7 @@
         "Traveling",
         "Mobility"
     ],
-    "What are incidental costs?": [
+    "what are incidental costs?": [
         "Can you explain what incidental expenses are?",
         "What do you mean by incidental costs?",
         "Could you clarify what incidental expenses entail?",
@@ -179,7 +155,7 @@
         "What are the additional expenses that come under incidental costs?",
         "Can you break down what incidental costs are?"
     ],
-    "Incidental costs": [
+    "incidental costs": [
         "Additional expenses",
         "Unforeseen charges",
         "Supplementary fees",
@@ -191,7 +167,7 @@
         "Peripheral fees",
         "Accidental expenses"
     ],
-    "Accommodation": [
+    "accommodation": [
         "Lodging",
         "Housing",
         "Shelter",
@@ -203,7 +179,7 @@
         "Habitat",
         "Living quarters"
     ],
-    "Per diem": [
+    "per diem": [
         "Daily allowance",
         "Daily stipend",
         "Daily expense allowance",
@@ -215,7 +191,7 @@
         "Daily food allowance",
         "Daily lodging allowance"
     ],
-    "Request an advance": [
+    "request an advance": [
         "Can I get an advance payment?",
         "Is it possible to receive an advance?",
         "Would it be okay to request an advance?",
@@ -227,7 +203,7 @@
         "Is it feasible to ask for an advance payment?",
         "Would it be acceptable to request an advance?"
     ],
-    "Train": [
+    "train": [
         "I'm thinking of taking the railway.",
         "I might hop on the train.",
         "I'm considering traveling by rail.",
@@ -239,7 +215,7 @@
         "I'm considering taking the intercity train.",
         "I'm contemplating taking the high-speed rail."
     ],
-    "Public transit": [
+    "public transit": [
         "Using the local transportation system",
         "Taking the bus or train",
         "Utilizing public transportation",
@@ -251,7 +227,7 @@
         "Using the city's public transportation options",
         "Opting for public transit instead of driving."
     ],
-    "Personal car": [
+    "personal car": [
         "My own vehicle",
         "My private automobile",
         "My personal ride",
@@ -263,7 +239,7 @@
         "My individual automobile",
         "My exclusive car"
     ],
-    "Rental car": [
+    "rental car": [
         "Car rental",
         "Hiring a car",
         "Renting a vehicle",
@@ -275,7 +251,7 @@
         "Car borrowing",
         "Car loaning"
     ],
-    "Taxi": [
+    "taxi": [
         "Cab",
         "Car service",
         "Ride-hailing",
@@ -287,7 +263,7 @@
         "Chauffeured vehicle",
         "Car ride"
     ],
-    "Flight": [
+    "flight": [
         "Air travel",
         "Boarding a plane",
         "Taking off in an airplane",
@@ -299,7 +275,7 @@
         "Aerial voyage",
         "Soaring through the skies"
     ],
-    "I want to book different transportation": [
+    "i want to book different transportation": [
         "I'm looking to arrange alternative transportation.",
         "I need to reserve a different mode of transportation.",
         "I'm interested in booking a different means of travel.",
@@ -311,7 +287,7 @@
         "I'm searching for alternative transportation options.",
         "I'm hoping to book a different way to get from point A to point B."
     ],
-    "What is a reallocation/delegation?": [
+    "what is a reallocation/delegation?": [
         "Can you explain what reallocating/delegating means?",
         "What does it mean to reallocate/delegate?",
         "Could you define reallocation/delegation for me?",
@@ -323,7 +299,7 @@
         "Can you clarify what reallocation/delegation entails?",
         "What's the meaning of reallocation/delegation?"
     ],
-    "Alone": [
+    "alone": [
         "By myself",
         "Solo",
         "All by my lonesome",
@@ -335,7 +311,7 @@
         "Solitary",
         "On my own"
     ],
-    "With family": [
+    "with family": [
         "Along with my loved ones",
         "In the company of my kin",
         "Together with my relatives",
@@ -347,7 +323,7 @@
         "With my dear ones",
         "In the embrace of my family"
     ],
-    "Training opportunities": [
+    "training opportunities": [
         "Learning prospects",
         "Educational chances",
         "Instructional possibilities",
@@ -359,7 +335,7 @@
         "Training openings",
         "Educational openings"
     ],
-    "What do I need to consider?": [
+    "what do i need to consider?": [
         "What factors should I take into account?",
         "What should I keep in mind?",
         "What are the important things to think about?",
@@ -371,7 +347,7 @@
         "What should I factor in?",
         "What are the important aspects to consider?"
     ],
-    "Emergency help": [
+    "emergency help": [
         "Urgent assistance",
         "Immediate aid",
         "Critical support",
@@ -383,7 +359,7 @@
         "Acute assistance",
         "Emergency relief"
     ],
-    "Before the start of a business trip": [
+    "before the start of a business trip": [
         "Prior to embarking on a work-related journey",
         "Before hitting the road for a business excursion",
         "Preceding the commencement of a corporate travel",
@@ -395,7 +371,7 @@
         "Before the start of a work-related adventure",
         "Pre-departure arrangements for a business journey"
     ],
-    "Emergency during a business trip": [
+    "emergency on a business trip": [
         "When something unexpected happens while I'm on a work trip.",
         "Dealing with an urgent situation while traveling for business.",
         "A sudden crisis that occurs while I'm away on business.",
@@ -407,7 +383,7 @@
         "Managing a crisis that arises while I'm away on business.",
         "Coping with an unforeseen event during a business journey."
     ],
-    "Information about countries' risk categories": [
+    "information about countries' risk categories": [
         "Details on the risk categories of different countries",
         "Facts regarding the risk levels of various nations",
         "Insights into the risk classifications of different countries",
@@ -419,7 +395,7 @@
         "Statistics on the risk levels of different countries",
         "Updates on the risk categories assigned to various nations"
     ],
-    "Insurance": [
+    "insurance": [
         "Coverage protection",
         "Risk management",
         "Policy safeguard",
@@ -431,7 +407,7 @@
         "Coverage plan",
         "Coverage security"
     ],
-    "Oversized/overweight baggage": [
+    "oversized/overweight baggage": [
         "Luggage that exceeds the size or weight limit",
         "Baggage that is too big or heavy",
         "Bulky or heavy suitcases",
@@ -443,7 +419,7 @@
         "Bulky or heavy bags that don't meet the requirements",
         "Luggage that is too large or too heavy for travel."
     ],
-    "Conference": [
+    "conferences": [
         "A gathering of professionals",
         "A meeting of minds",
         "A symposium of experts",
@@ -455,7 +431,7 @@
         "A assembly of industry leaders",
         "A seminar of like-minded individuals"
     ],
-    "Credit card fees": [
+    "credit card fees": [
         "Charges for using a credit card",
         "Fees associated with credit card usage",
         "Costs for using a credit card",
@@ -467,7 +443,7 @@
         "Assessments for credit card usage",
         "Prices for credit card transactions"
     ],
-    "Cloakroom fees": [
+    "cloakroom fees": [
         "Charges for storing personal items",
         "Fees for checking in belongings",
         "Costs for leaving your coat and bag",
@@ -479,7 +455,7 @@
         "Charges for checking in your belongings",
         "Costs for holding onto your coat and bag"
     ],
-    "Entrance fees": [
+    "entrance fees": [
         "Admission charges",
         "Entry costs",
         "Access fees",
@@ -491,7 +467,7 @@
         "Entry fees",
         "Access charges"
     ],
-    "Mail fees": [
+    "mail fees": [
         "Charges for sending mail",
         "Postal expenses",
         "Fees for postage",
@@ -503,7 +479,7 @@
         "Cost of postage",
         "Charges for mailing services"
     ],
-    "Visa fees": [
+    "visa fees": [
         "Charges for obtaining a visa",
         "The cost of a visa application",
         "Fees associated with visa processing",
@@ -515,7 +491,7 @@
         "Charges for a visa approval",
         "The fee for a visa stamp"
     ],
-    "Conference meals ": [
+    "conference meals ": [
         "Food provided during a conference",
         "Meals served at a business event",
         "Catered food at a professional gathering",
@@ -527,7 +503,7 @@
         "Business event sustenance",
         "Conference meal provisions"
     ],
-    "Vaccinations": [
+    "vaccinations": [
         "Immunizations",
         "Inoculations",
         "Shots",
@@ -539,7 +515,7 @@
         "Serums",
         "Prophylactics"
     ],
-    "Parking fees": [
+    "parking fees": [
         "Charges for parking",
         "Fees for parking",
         "Costs for parking",
@@ -551,7 +527,7 @@
         "Dues for parking",
         "Levies for parking"
     ],
-    "Telephone and/or internet fees": [
+    "telephone and/or internet fees": [
         "Charges for phone and internet usage",
         "Costs associated with phone and internet services",
         "Expenses for using phone and internet",
@@ -563,7 +539,7 @@
         "Charges for phone and internet connectivity",
         "Costs for phone and internet connections"
     ],
-    "Corona tests (prc or antigen tests)": [
+    "corona tests (prc or antigen tests)": [
         "COVID-19 tests (PCR or antigen tests)",
         "Coronavirus tests (PCR or antigen tests)",
         "Virus tests (PCR or antigen tests)",
@@ -575,7 +551,7 @@
         "Swab tests (PCR or antigen tests)",
         "Diagnostic tests (PCR or antigen tests)"
     ],
-    "Hotel": [
+    "hotel": [
         "Lodging establishment",
         "Accommodation facility",
         "Inn",
@@ -587,7 +563,7 @@
         "Lodge",
         "Hospitality establishment"
     ],
-    "With friends": [
+    "with friends": [
         "Hanging out with buddies",
         "Chilling with pals",
         "Spending time with my mates",
@@ -599,7 +575,7 @@
         "Unwinding with my friends",
         "Sharing good times with my buddies"
     ],
-    "Self-catering house": [
+    "self-catering house": [
         "A house where you can cook your own meals.",
         "A house equipped with a kitchen for preparing your own food.",
         "A house with facilities for cooking your own meals.",
@@ -611,7 +587,7 @@
         "A house with a fully equipped kitchen for self-catering.",
         "A house that enables you to cook your own food."
     ],
-    "Camper": [
+    "camper": [
         "A recreational vehicle for camping",
         "A mobile home for outdoor adventures",
         "A vehicle equipped for camping and traveling",
@@ -623,7 +599,7 @@
         "A recreational vehicle for outdoor living",
         "A vehicle that doubles as a home for camping and traveling."
     ],
-    "Campsite": [
+    "campsite": [
         "Outdoor lodging area",
         "Tenting ground",
         "Wilderness accommodation",
@@ -635,7 +611,7 @@
         "Rural camping location",
         "Bushland bivouac"
     ],
-    "Can I book a room for just myself?": [
+    "can i book a room for just myself?": [
         "Is it possible to reserve a room for one person only?",
         "Can I make a reservation for a single occupancy room?",
         "Do you have any rooms available for solo travelers?",
@@ -647,7 +623,7 @@
         "Is it possible to book a room for a solo traveler?",
         "Can I reserve a room for myself only?"
     ],
-    "I would like information on other options for accommodation": [
+    "i would like information on other options for accommodation": [
         "Can you provide me with details on alternative lodging choices?",
         "I'm interested in learning about other accommodation options. Can you help me out?",
         "Could you give me some insight into different places to stay?",
@@ -659,7 +635,7 @@
         "Can you give me some information on other lodging options that might be available?",
         "I'm interested in exploring other accommodation possibilities. Can you give me some recommendations?"
     ],
-    "Do I have to pay a resort tax?": [
+    "do i have to pay a resort tax?": [
         "Is it mandatory for me to pay the resort tax?",
         "Do I need to pay the resort tax?",
         "Is the resort tax compulsory for me to pay?",
@@ -671,7 +647,7 @@
         "Is the resort tax something I cannot avoid paying?",
         "Is the resort tax something I must include in my payment?"
     ],
-    "Can I book a double bed room even if I'm traveling alone?": [
+    "can i book a double bed room even if i'm traveling alone?": [
         "Is it possible to reserve a room with a double bed even if I'm traveling solo?",
         "Can I request a double bed room even if I'm the only one traveling?",
         "Would it be okay to book a room with a double bed even if I'm traveling alone?",
@@ -683,7 +659,7 @@
         "Is it acceptable to book a room with a double bed even if I'm traveling solo?",
         "Can I choose a double bed room even if I'm not accompanied by anyone?"
     ],
-    "Apply for a business trip": [
+    "apply for a business trip": [
         "Request to go on a work-related journey",
         "Submit a proposal for a corporate excursion",
         "Ask for permission to travel for business purposes",
@@ -695,7 +671,7 @@
         "Submit a formal application for a business trip",
         "Seek approval to travel for work reasons"
     ],
-    "Business trip reimbursement": [
+    "business trip reimbursement": [
         "Getting paid back for my work-related travel expenses",
         "Receiving compensation for my business trip costs",
         "Claiming back the money I spent on my work travel",
@@ -707,7 +683,7 @@
         "Claiming back the money I spent on my work-related travel",
         "Having my employer cover the expenses I incurred during my business trip"
     ],
-    "Hotel list": [
+    "hotel list": [
         "List of hotels",
         "Roster of hotels",
         "Catalog of hotels",
@@ -719,7 +695,7 @@
         "Inventory of hotels",
         "Lineup of hotels"
     ],
-    "Find a form": [
+    "find a form": [
         "Locate a document",
         "Discover a form",
         "Hunt down a form",
@@ -731,7 +707,7 @@
         "Acquire a form",
         "Secure a document"
     ],
-    "Help filling out a form": [
+    "help filling out a form": [
         "Assistance with completing a document",
         "Aid in filling out a form",
         "Support with form completion",
@@ -743,7 +719,7 @@
         "Help with completing a paperwork",
         "Assistance in filling out a document"
     ],
-    "How long do I have to submit my trip reimbursement request?": [
+    "how long do i have to submit my trip reimbursement request?": [
         "What's the deadline for submitting my travel expense claim?",
         "Is there a time limit for filing my business trip reimbursement?",
         "When do I need to turn in my travel expenses for reimbursement?",
@@ -755,7 +731,7 @@
         "What's the time limit for requesting reimbursement for my business travel?",
         "When do I need to submit my travel expenses to get reimbursed?"
     ],
-    "Where can I submit my travel reimbursement request": [
+    "where can i submit my travel reimbursement request": [
         "Where do I need to send my travel expense claim?",
         "Can you tell me where to submit my business travel reimbursement request?",
         "I'm not sure where to send my travel expenses for reimbursement. Can you help?",
@@ -767,7 +743,7 @@
         "I'm a bit lost on where to submit my travel expenses for reimbursement. Can you assist?",
         "Could you let me know where I should submit my business travel reimbursement request?"
     ],
-    "Where can I find my employee identification number?": [
+    "where can i find my employee identification number?": [
         "Do you know where I can locate my employee ID number?",
         "Can you tell me where to find my employee identification number?",
         "I'm trying to find my employee ID number, any idea where it might be?",
@@ -779,7 +755,7 @@
         "I'm having trouble locating my employee ID number, do you know where it is?",
         "Can you assist me in finding my employee identification number?"
     ],
-    "Safety emergency": [
+    "safety emergency": [
         "An unexpected safety situation",
         "A crisis related to safety",
         "A sudden safety issue",
@@ -791,7 +767,7 @@
         "A hazardous safety event",
         "A dangerous safety occurrence"
     ],
-    "Transport missed or cancelled": [
+    "transport missed or cancelled": [
         "My ride got skipped or called off.",
         "The transportation I was supposed to take didn't show up or got cancelled.",
         "I missed my means of transportation or it got cancelled.",
@@ -803,7 +779,7 @@
         "My ride was a no-show or got cancelled.",
         "The transportation I had arranged didn't arrive or was cancelled."
     ],
-    "Medical emergency": [
+    "medical emergency": [
         "Health crisis",
         "Urgent medical situation",
         "Sudden illness",

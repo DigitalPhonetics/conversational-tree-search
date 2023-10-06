@@ -108,7 +108,7 @@ class GraphDataset:
         self.language = language
         self.resource_dir = resource_dir
         self.graph = self._load_graph(resource_dir, graph_path, augmentation, augmentation_path, question_limit)
-        self.answer_synonyms = self._load_answer_synonyms(os.path.join(resource_dir, answer_path), use_answer_synonyms, augmentation, answer_limit)
+        self.answer_synonyms = self._load_answer_synonyms(resource_dir, os.path.join(resource_dir, answer_path), use_answer_synonyms, augmentation, augmentation_path, answer_limit)
 
         self.num_guided_goal_nodes = sum([1 for node in self.node_list if (node.node_type in [NodeType.INFO, NodeType.QUESTION, NodeType.VARIABLE] and len(node.answers) > 0) or (node.node_type == NodeType.INFO)])
         self.num_free_goal_nodes = sum([1 for node in self.node_list if len(node.questions) > 0])
@@ -215,7 +215,7 @@ class GraphDataset:
                     fromDialogAnswer = self.answers_by_key[int(connection['sourceHandle'])]
                     fromDialogAnswer.connected_node = self.nodes_by_key[int(connection['target'])]
 
-    def _load_answer_synonyms(self, answer_path: str, use_answer_synonyms: bool, augmentation: DataAugmentationLevel, answer_limit: int):
+    def _load_answer_synonyms(self, resource_dir: str, answer_path: str, use_answer_synonyms: bool, augmentation: DataAugmentationLevel, augmentation_path: str, answer_limit: int):
         # load synonyms
         with open(answer_path, "r") as f:
             answers = json.load(f)
@@ -228,14 +228,14 @@ class GraphDataset:
                 # key is also the only possible value
                 answer_data = {answer.lower(): [answer] for answer in answer_data}
         if use_answer_synonyms and self._should_load_generated_data(augmentation):
-            augmentation_path = f"{os.path.dirname(answer_path)}/generated/train_answers.json"
-            with open(augmentation_path, "r") as f:
-                print(f"Loading augmentation answers from {augmentation_path}")
+            answer_augmentation_path = f"{resource_dir}/{os.path.dirname(augmentation_path)}/train_answers.json"
+            with open(answer_augmentation_path, "r") as f:
+                print(f"Loading augmentation answers from {answer_augmentation_path}")
                 generated_answers = json.load(f)
                 for key in generated_answers:
-                    for syn in generated_answers[key]:
-                        if answer_limit == 0 or (answer_limit > 0 and len(answer_data[key]) < answer_limit):
-                            answer_data[key].append(syn)
+                    for syn in generated_answers[key.lower()]:
+                        if answer_limit == 0 or (answer_limit > 0 and len(answer_data[key.lower()]) < answer_limit):
+                            answer_data[key.lower()].append(syn)
         return answer_data
 
     def _calculate_action_masks(self) -> Dict[int, torch.IntTensor]:
