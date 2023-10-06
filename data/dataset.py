@@ -373,7 +373,7 @@ class OnboardingGraphDataset(GraphDataset):
         assert isinstance(augmentation, DataAugmentationLevel), f"found {augmentation}"
         super().__init__(graph_path=graph_path, answer_path=answer_path, use_answer_synonyms=use_answer_synonyms, augmentation=augmentation, augmentation_path=augmentation_path, resource_dir=resource_dir, question_limit=question_limit, answer_limit=answer_limit, language=language)
 
-    def _load_answer_synonyms(self, answer_path: str, use_answer_synonyms: bool, augmentation: DataAugmentationLevel, answer_limit: int):
+    def _load_answer_synonyms(self, resource_dir: str, answer_path: str, use_answer_synonyms: bool, augmentation: DataAugmentationLevel, augmentation_path: str, answer_limit: int):
         # we don't have synonyms here - extract answers from graph file instead (answer_path == train graph!)
         answer_data = {answer.text.lower(): [answer.text] for answer in self.answers_by_key.values()} # key is also the only possible value
         if not use_answer_synonyms or augmentation == DataAugmentationLevel.ARTIFICIAL_ONLY:
@@ -382,13 +382,13 @@ class OnboardingGraphDataset(GraphDataset):
             else:
                 print("- only artificial answers")
         if use_answer_synonyms and self._should_load_generated_data(augmentation):
-            augmentation_path = f"{os.path.dirname(answer_path)}/generated/train_answers.json"
-            with open(augmentation_path, "r") as f:
-                print(f"Loading augmentation answers from {augmentation_path}")
+            answer_augmentation_path = f"{resource_dir}/{os.path.dirname(augmentation_path)}/train_answers.json"
+            with open(answer_augmentation_path, "r") as f:
+                print(f"Loading augmentation answers from {answer_augmentation_path}")
                 generated_answers = json.load(f)
                 for key in generated_answers:
-                    for syn in generated_answers[key]:
-                        if answer_limit == 0 or (answer_limit > 0 and len(answer_data[key]) < answer_limit):
+                    for syn in generated_answers[key.lower()]:
+                        if answer_limit == 0 or (answer_limit > 0 and len(answer_data[key.lower()]) < answer_limit):
                             answer_data[key].append(syn)
         return answer_data
 
