@@ -114,7 +114,6 @@ experiment:
       pooling: TextEmbeddingPooling.NONE
       noise_std: 0.0
       caching: false
-      ckpt_name: sentence-transformers/all-mpnet-base-v2
       embedding_dim: 768
       _target_: encoding.text.sbert.SentenceEmbeddings
     dialog_history:
@@ -122,7 +121,6 @@ experiment:
       pooling: TextEmbeddingPooling.NONE
       noise_std: 0.0
       caching: false
-      ckpt_name: sentence-transformers/all-mpnet-base-v2
       embedding_dim: 768
       _target_: encoding.text.sbert.SentenceEmbeddings
     action_text:
@@ -130,7 +128,6 @@ experiment:
       pooling: TextEmbeddingPooling.NONE
       noise_std: 0.0
       caching: false
-      ckpt_name: sentence-transformers/all-mpnet-base-v2
       embedding_dim: 768
       _target_: encoding.text.sbert.SentenceEmbeddings
     current_user_utterance:
@@ -138,7 +135,6 @@ experiment:
       pooling: TextEmbeddingPooling.NONE
       noise_std: 1.0
       caching: false
-      ckpt_name: sentence-transformers/all-mpnet-base-v2
       embedding_dim: 768
       _target_: encoding.text.sbert.SentenceEmbeddings
     initial_user_utterance:
@@ -146,7 +142,6 @@ experiment:
       pooling: TextEmbeddingPooling.NONE
       noise_std: 1.0
       caching: false
-      ckpt_name: sentence-transformers/all-mpnet-base-v2
       embedding_dim: 768
       _target_: encoding.text.sbert.SentenceEmbeddings
   training:
