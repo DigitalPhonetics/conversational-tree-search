@@ -1,0 +1,172 @@
+{
+    "1684157666.292921": {
+        "dialog_node_key": 16348058588084537,
+        "key": "1684157666.292921",
+        "text": "I need to book a flight and hotel for next week.",
+        "synonyms": [
+            "I have to arrange a flight and hotel for my upcoming trip.",
+            "I'm planning to travel next week and I need to book a flight and hotel.",
+            "I'm in charge of booking my travel arrangements for next week, including a flight and hotel.",
+            "Next week I'll be traveling and I need to reserve a flight and hotel.",
+            "I'm looking to book a flight and hotel for my trip next week.",
+            "I need to make reservations for a flight and hotel for my upcoming business trip.",
+            "I'm in the process of organizing my travel plans for next week, which includes booking a flight and hotel.",
+            "I'm hoping to secure a flight and hotel for my trip next week.",
+            "I'm currently searching for a flight and hotel for my upcoming travel next week.",
+            "I'm planning a trip for next week and I need to book a flight and hotel."
+        ]
+    },
+    "1684157691.6445262": {
+        "dialog_node_key": 16348058588084537,
+        "key": "1684157691.6445262",
+        "text": "I have a meeting with a client in a few days.",
+        "synonyms": [
+            "I'm scheduled to meet with a client in a couple of days.",
+            "I have a client meeting coming up in a few days.",
+            "I'm meeting with a client in a few days.",
+            "I have a client appointment in a few days.",
+            "I'm set to meet with a client in a few days' time.",
+            "I have a client conference scheduled in a few days.",
+            "I'm booked for a client meeting in a few days.",
+            "I'm due to meet with a client in a few days.",
+            "I have a client consultation in a few days.",
+            "I'm looking forward to meeting with a client in a few days."
+        ]
+    },
+    "1684157715.4593053": {
+        "dialog_node_key": 16348058588084537,
+        "key": "1684157715.4593053",
+        "text": "I'm heading out of town for work next month.",
+        "synonyms": [
+            "I'll be traveling for business next month.",
+            "I have a work trip scheduled for next month.",
+            "I'll be away on business next month.",
+            "I'm going out of town for work in a few weeks.",
+            "I have a business trip coming up next month.",
+            "I'll be on a work-related trip next month.",
+            "I'll be traveling for business purposes next month.",
+            "I'm scheduled to travel for work next month.",
+            "I'll be out of town for business reasons next month.",
+            "I have a work-related trip planned for next month."
+        ]
+    },
+    "1684157739.56372624": {
+        "dialog_node_key": 16348058588084537,
+        "key": "1684157739.56372624",
+        "text": "I have a conference to attend in a different city.",
+        "synonyms": [
+            "I'm headed out of town for a conference.",
+            "I'll be traveling to another city for a business event.",
+            "I have to go to a conference in a different location.",
+            "I'm off to attend a conference in a different city.",
+            "I'll be out of town for a conference.",
+            "I have a work-related event in another city.",
+            "I'm going to a conference in a different place.",
+            "I'll be traveling for a conference in a different city.",
+            "I have a business trip planned for a conference in another location.",
+            "I'm attending a conference in a different city for work."
+        ]
+    },
+    "1684157763.07759795": {
+        "dialog_node_key": 16348058588084537,
+        "key": "1684157763.07759795",
+        "text": "I'm going to be out of the office for a few days for business.",
+        "synonyms": [
+            "I'll be away from the office for a few days on a business trip.",
+            "I have some business travel coming up, so I'll be out of the office for a bit.",
+            "I'll be out of town for a few days on a business trip.",
+            "I'm heading out of the office for a few days for a business trip.",
+            "I'll be on a business trip for a few days, so I won't be in the office.",
+            "I'll be out of the office for a few days on business-related matters.",
+            "I'll be traveling for work for a few days, so I won't be in the office.",
+            "I'll be out of the office for a few days attending to some business matters.",
+            "I'll be away from the office for a few days on a work-related trip.",
+            "I'll be out of town for a few days on business, so I won't be in the office."
+        ]
+    },
+    "1684157790.1355966": {
+        "dialog_node_key": 16370471522263677,
+        "key": "1684157790.1355966",
+        "text": "I'm going to a conference next month.",
+        "synonyms": [
+            "I have plans to attend a conference next month.",
+            "Next month, I'll be heading to a conference.",
+            "There's a conference I'm attending next month.",
+            "I've got a conference on my schedule for next month.",
+            "I'll be traveling to a conference next month.",
+            "Next month, I'll be away at a conference.",
+            "I'm scheduled to attend a conference next month.",
+            "There's a conference I'm planning to attend next month.",
+            "I'm looking forward to a conference next month.",
+            "Next month, I'll be participating in a conference."
+        ]
+    },
+    "1684157813.5650617": {
+        "dialog_node_key": 16370471522263677,
+        "key": "1684157813.5650617",
+        "text": "I have a business trip coming up next week.",
+        "synonyms": [
+            "I'm scheduled to go on a work trip next week.",
+            "I'll be traveling for business next week.",
+            "I have a business excursion planned for next week.",
+            "Next week, I'll be heading out on a business journey.",
+            "I'm going on a business trip next week.",
+            "I have a work-related trip scheduled for next week.",
+            "Next week, I'll be traveling for work.",
+            "I'm going on a business expedition next week.",
+            "I have a business-related excursion coming up next week.",
+            "Next week, I'll be embarking on a business trip."
+        ]
+    },
+    "1684157837.0076758": {
+        "dialog_node_key": 16370471522263677,
+        "key": "1684157837.0076758",
+        "text": "I need to travel to meet with a client next month.",
+        "synonyms": [
+            "I have to go on a business trip to meet a client next month.",
+            "Next month, I'm scheduled to travel to meet with a client.",
+            "I'll be traveling next month to meet with a client.",
+            "I have a client meeting next month that requires me to travel.",
+            "Next month, I'll be heading out on a business trip to meet with a client.",
+            "I'm planning to travel next month for a client meeting.",
+            "I have a client meeting coming up next month that I need to travel for.",
+            "Next month, I'll be hitting the road to meet with a client.",
+            "I'll be traveling next month to meet with a client in person.",
+            "I have a client meeting scheduled for next month that requires me to travel."
+        ]
+    },
+    "1684157861.2755769": {
+        "dialog_node_key": 16370471522263677,
+        "key": "1684157861.2755769",
+        "text": "I'm attending a training seminar in a few weeks.",
+        "synonyms": [
+            "I have a training seminar coming up in a few weeks.",
+            "I'll be attending a training seminar in a few weeks' time.",
+            "There's a training seminar I'm scheduled to attend in a few weeks.",
+            "In a few weeks, I'll be heading to a training seminar.",
+            "I've got a training seminar on my calendar in a few weeks.",
+            "A training seminar is on my agenda in a few weeks.",
+            "I'm booked to attend a training seminar in a few weeks.",
+            "I'm looking forward to a training seminar I'll be attending in a few weeks.",
+            "I'm scheduled to participate in a training seminar in a few weeks.",
+            "I'll be off to a training seminar in a few weeks' time."
+        ]
+    },
+    "1684157885.44738110": {
+        "dialog_node_key": 16370471522263677,
+        "key": "1684157885.44738110",
+        "text": "I have a meeting with our overseas team next month.",
+        "synonyms": [
+            "Next month, I'll be meeting with our team abroad.",
+            "I have a meeting scheduled with our international team next month.",
+            "Our overseas team and I have a meeting planned for next month.",
+            "I'll be meeting with our team from abroad next month.",
+            "Next month, I have a meeting set up with our team located overseas.",
+            "I'm scheduled to meet with our team overseas next month.",
+            "Our international team and I have a meeting scheduled for next month.",
+            "Next month, I'll be meeting with our team located in another country.",
+            "I have a meeting planned with our team abroad next month.",
+            "Our overseas team and I have a meeting on the books for next month."
+        ]
+    }
+}

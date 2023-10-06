@@ -39,6 +39,7 @@ class DatasetConfig:
     augmentation_path: Optional[str] = None
     question_limit: Optional[int] = 0
     answer_limit: Optional[int] = 0
+    language: Optional[str] = "en"
 
 @dataclass
 class Answer:
@@ -102,8 +103,9 @@ class Tagegeld:
 
 class GraphDataset:
     def __init__(self, graph_path: str, answer_path: str, use_answer_synonyms: bool, augmentation: DataAugmentationLevel, augmentation_path: str = None, resource_dir: str = "resources/",
-                 question_limit: int = 0, answer_limit: int = 0) -> None:
+                 question_limit: int = 0, answer_limit: int = 0, language: str = "en") -> None:
         assert isinstance(augmentation, DataAugmentationLevel), f"found {augmentation}"
+        self.language = language
         self.resource_dir = resource_dir
         self.graph = self._load_graph(resource_dir, graph_path, augmentation, augmentation_path, question_limit)
         self.answer_synonyms = self._load_answer_synonyms(os.path.join(resource_dir, answer_path), use_answer_synonyms, augmentation, answer_limit)
@@ -312,9 +314,9 @@ class GraphDataset:
 
 
 class ReimburseGraphDataset(GraphDataset):
-    def __init__(self, graph_path: str, answer_path: str, use_answer_synonyms: bool, augmentation: DataAugmentationLevel, augmentation_path: str = None, resource_dir: str = "resources/", question_limit: int = 0, answer_limit: int = 0) -> None:
+    def __init__(self, graph_path: str, answer_path: str, use_answer_synonyms: bool, augmentation: DataAugmentationLevel, augmentation_path: str = None, resource_dir: str = "resources/", question_limit: int = 0, answer_limit: int = 0, language: str = "en") -> None:
         assert isinstance(augmentation, DataAugmentationLevel), f"found {augmentation}"
-        super().__init__(graph_path=graph_path, answer_path=answer_path, use_answer_synonyms=use_answer_synonyms, augmentation=augmentation, augmentation_path=augmentation_path, resource_dir=resource_dir, question_limit=question_limit, answer_limit=answer_limit)
+        super().__init__(graph_path=graph_path, answer_path=answer_path, use_answer_synonyms=use_answer_synonyms, augmentation=augmentation, augmentation_path=augmentation_path, resource_dir=resource_dir, question_limit=question_limit, answer_limit=answer_limit, language=language)
         self.a1_countries = self._load_a1_countries(resource_dir)
         self.hotel_costs, self.country_list, self.city_list = self._load_hotel_costs(resource_dir)
         self._load_country_synonyms(resource_dir)
@@ -322,7 +324,7 @@ class ReimburseGraphDataset(GraphDataset):
 
 
     def _load_a1_countries(self, resource_dir: str):
-        with open(os.path.join(resource_dir, "en/reimburse/a1_countries.json"), "r") as f:
+        with open(os.path.join(resource_dir, f"{self.language}/reimburse/a1_countries.json"), "r") as f:
             a1_countries = json.load(f)
         return a1_countries
 
@@ -338,7 +340,7 @@ class ReimburseGraphDataset(GraphDataset):
         country_list = set()
         city_list = set()
 
-        content = pd.read_excel(os.path.join(resource_dir, "en/reimburse/TAGEGELD_AUSLAND.xlsx"))
+        content = pd.read_excel(os.path.join(resource_dir, f"{self.language}/reimburse/TAGEGELD_AUSLAND.xlsx"))
         for idx, row in content.iterrows():
             country = row['Land']
             city = row['Stadt']
@@ -349,7 +351,7 @@ class ReimburseGraphDataset(GraphDataset):
         return hotel_costs, country_list, city_list
     
     def _load_country_synonyms(self, resource_dir: str):
-        with open(os.path.join(resource_dir, 'en/reimburse/country_synonyms.json'), 'r') as f:
+        with open(os.path.join(resource_dir, f'{self.language}/reimburse/country_synonyms.json'), 'r') as f:
             country_synonyms = json.load(f)
             self.country_keys = [country.lower() for country in country_synonyms.keys()]
             self.countries = {country.lower(): country for country in country_synonyms.keys()}
@@ -357,7 +359,7 @@ class ReimburseGraphDataset(GraphDataset):
                                     for country_syn in country_syns})
     
     def _load_city_synonyms(self, resource_dir: str):
-        with open(os.path.join(resource_dir, 'en/reimburse/city_synonyms.json'), 'r') as f:
+        with open(os.path.join(resource_dir, f'{self.language}/reimburse/city_synonyms.json'), 'r') as f:
             city_synonyms = json.load(f)
             self.city_keys = [city.lower() for city in city_synonyms.keys()]
             self.cities = {city.lower(): city for city in city_synonyms.keys() if city != '$REST'}
@@ -367,9 +369,9 @@ class ReimburseGraphDataset(GraphDataset):
 
 
 class OnboardingGraphDataset(GraphDataset):
-    def __init__(self, graph_path: str, answer_path: str, use_answer_synonyms: bool, augmentation: DataAugmentationLevel, augmentation_path: str = None, resource_dir: str = "resources/", question_limit: int = 0, answer_limit: int = 0) -> None:
+    def __init__(self, graph_path: str, answer_path: str, use_answer_synonyms: bool, augmentation: DataAugmentationLevel, augmentation_path: str = None, resource_dir: str = "resources/", question_limit: int = 0, answer_limit: int = 0, language: str = "en") -> None:
         assert isinstance(augmentation, DataAugmentationLevel), f"found {augmentation}"
-        super().__init__(graph_path=graph_path, answer_path=answer_path, use_answer_synonyms=use_answer_synonyms, augmentation=augmentation, augmentation_path=augmentation_path, resource_dir=resource_dir, question_limit=question_limit, answer_limit=answer_limit)
+        super().__init__(graph_path=graph_path, answer_path=answer_path, use_answer_synonyms=use_answer_synonyms, augmentation=augmentation, augmentation_path=augmentation_path, resource_dir=resource_dir, question_limit=question_limit, answer_limit=answer_limit, language=language)
 
     def _load_answer_synonyms(self, answer_path: str, use_answer_synonyms: bool, augmentation: DataAugmentationLevel, answer_limit: int):
         # we don't have synonyms here - extract answers from graph file instead (answer_path == train graph!)
@@ -391,7 +393,7 @@ class OnboardingGraphDataset(GraphDataset):
         return answer_data
 
     def _load_a1_countries(self, resource_dir: str):
-        with open(os.path.join(resource_dir, "en/a1_countries.json"), "r") as f:
+        with open(os.path.join(resource_dir, f"{self.language}/a1_countries.json"), "r") as f:
             a1_countries = json.load(f)
         return a1_countries
 
@@ -407,7 +409,7 @@ class OnboardingGraphDataset(GraphDataset):
         country_list = set()
         city_list = set()
 
-        content = pd.read_excel(os.path.join(resource_dir, "en/TAGEGELD_AUSLAND.xlsx"))
+        content = pd.read_excel(os.path.join(resource_dir, f"{self.language}/TAGEGELD_AUSLAND.xlsx"))
         for idx, row in content.iterrows():
             country = row['Land']
             city = row['Stadt']
@@ -418,7 +420,7 @@ class OnboardingGraphDataset(GraphDataset):
         return hotel_costs, country_list, city_list
     
     def _load_country_synonyms(self, resource_dir: str):
-        with open(os.path.join(resource_dir, 'en/country_synonyms.json'), 'r') as f:
+        with open(os.path.join(resource_dir, f'{self.language}/country_synonyms.json'), 'r') as f:
             country_synonyms = json.load(f)
             self.country_keys = [country.lower() for country in country_synonyms.keys()]
             self.countries = {country.lower(): country for country in country_synonyms.keys()}
@@ -426,7 +428,7 @@ class OnboardingGraphDataset(GraphDataset):
                                     for country_syn in country_syns})
     
     def _load_city_synonyms(self, resource_dir: str):
-        with open(os.path.join(resource_dir, 'en/city_synonyms.json'), 'r') as f:
+        with open(os.path.join(resource_dir, f'{self.language}/city_synonyms.json'), 'r') as f:
             city_synonyms = json.load(f)
             self.city_keys = [city.lower() for city in city_synonyms.keys()]
             self.cities = {city.lower(): city for city in city_synonyms.keys() if city != '$REST'}
