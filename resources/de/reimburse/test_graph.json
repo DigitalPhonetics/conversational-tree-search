@@ -986,8 +986,8 @@
                     {
                         "id": "16363752591246837",
                         "nodeId": "16363752591243585",
-                        "markup": "{{LAND=LOCATION}}",
-                        "raw_text": "{{LAND=LOCATION}}"
+                        "markup": "{{COUNTRY=LOCATION}}",
+                        "raw_text": "{{COUNTRY=LOCATION}}"
                     }
                 ],
                 "questions": []
@@ -1017,8 +1017,8 @@
                     {
                         "id": "16363753123480094",
                         "nodeId": "16363753123487784",
-                        "markup": "{{STADT=LOCATION}}",
-                        "raw_text": "{{STADT=LOCATION}}"
+                        "markup": "{{CITY=LOCATION}}",
+                        "raw_text": "{{CITY=LOCATION}}"
                     }
                 ],
                 "questions": []
@@ -1516,8 +1516,8 @@
             },
             "data": {
                 "id": "16365521324065600",
-                "markup": "<p>In {{ LAND }} k&ouml;nnen bis zu 90€ (bzw. 120€ in St&auml;dten mit mehr als 100.000 Einwohnern oder allgemein/saisonbedingt hohen Zimmerpreisen) &Uuml;bernachtungsgeld gegen Vorlage einer Rechnung erstattet werden.</p>",
-                "raw_text": "In {{ LAND }} können bis zu 90€ (bzw. 120€ in Städten mit mehr als 100.000 Einwohnern oder allgemein/saisonbedingt hohen Zimmerpreisen) Übernachtungsgeld gegen Vorlage einer Rechnung erstattet werden.",
+                "markup": "<p>In {{ COUNTRY }} k&ouml;nnen bis zu 90€ (bzw. 120€ in St&auml;dten mit mehr als 100.000 Einwohnern oder allgemein/saisonbedingt hohen Zimmerpreisen) &Uuml;bernachtungsgeld gegen Vorlage einer Rechnung erstattet werden.</p>",
+                "raw_text": "In {{ COUNTRY }} können bis zu 90€ (bzw. 120€ in Städten mit mehr als 100.000 Einwohnern oder allgemein/saisonbedingt hohen Zimmerpreisen) Übernachtungsgeld gegen Vorlage einer Rechnung erstattet werden.",
                 "position": {
                     "x": 11886,
                     "y": 130
@@ -1533,12 +1533,12 @@
                     {
                         "id": "16584080617352138",
                         "nodeId": "16365521324065600",
-                        "text": "Wie hoch ist die Übernachtungspauschale in {{LAND}}?"
+                        "text": "Wie hoch ist die Übernachtungspauschale in {{COUNTRY}}?"
                     },
                     {
                         "id": "16436271414418778",
                         "nodeId": "16365521324065600",
-                        "text": "Wie viel darf ein Hotel in {{LAND}} kosten?"
+                        "text": "Wie viel darf ein Hotel in {{COUNTRY}} kosten?"
                     }
                 ]
             }
@@ -1714,7 +1714,7 @@
                     {
                         "id": "16584085390455642",
                         "nodeId": "16365623179506925",
-                        "text": "Betreffen mich Übernachtungssteuern in {{LAND}}?"
+                        "text": "Betreffen mich Übernachtungssteuern in {{COUNTRY}}?"
                     },
                     {
                         "id": "16584085091616197",
@@ -1724,7 +1724,7 @@
                     {
                         "id": "16584943818275879",
                         "nodeId": "16365623179506925",
-                        "text": "Muss ich in {{LAND}} Kurtaxe abgeben?"
+                        "text": "Muss ich in {{COUNTRY}} Kurtaxe abgeben?"
                     }
                 ]
             }
@@ -2298,8 +2298,8 @@
             },
             "data": {
                 "id": "16370471520509009",
-                "markup": "{{LAND",
-                "raw_text": "{{LAND",
+                "markup": "{{COUNTRY",
+                "raw_text": "{{COUNTRY",
                 "position": {
                     "x": 11565,
                     "y": -101
@@ -2374,8 +2374,8 @@
             },
             "data": {
                 "id": "16370471520840317",
-                "markup": "<p>Ab dem 15. Tag wird ihr Tagegeld auf {{ 0.75 * &nbsp;TAGEGELD.TAGEGELDSATZ(LAND, STADT) }} € gek&uuml;rzt.</p>",
-                "raw_text": "Ab dem 15. Tag wird ihr Tagegeld auf {{ 0.75 *  TAGEGELD.TAGEGELDSATZ(LAND, STADT) }} € gekürzt.",
+                "markup": "<p>Ab dem 15. Tag wird ihr Tagegeld auf {{ 0.75 * &nbsp;PERDIEM.AMOUNT(COUNTRY, CITY) }} € gek&uuml;rzt.</p>",
+                "raw_text": "Ab dem 15. Tag wird ihr Tagegeld auf {{ 0.75 *  PERDIEM.AMOUNT(COUNTRY, CITY) }} € gekürzt.",
                 "position": {
                     "x": 10793,
                     "y": 3002
@@ -2396,7 +2396,7 @@
                     {
                         "id": "16585078580952979",
                         "nodeId": "16370471520840317",
-                        "text": "Ab wann wird das Geld für Essen in {{LAND}} gekürzt?"
+                        "text": "Ab wann wird das Geld für Essen in {{COUNTRY}} gekürzt?"
                     }
                 ]
             }
@@ -2410,8 +2410,8 @@
             },
             "data": {
                 "id": "16370471521305491",
-                "markup": "{{LAND",
-                "raw_text": "{{LAND",
+                "markup": "{{COUNTRY",
+                "raw_text": "{{COUNTRY",
                 "position": {
                     "x": 8961,
                     "y": 1672
@@ -2448,8 +2448,8 @@
             },
             "data": {
                 "id": "16370471521605605",
-                "markup": "{{LAND",
-                "raw_text": "{{LAND",
+                "markup": "{{COUNTRY",
+                "raw_text": "{{COUNTRY",
                 "position": {
                     "x": 14044,
                     "y": 417
@@ -2564,8 +2564,8 @@
             },
             "data": {
                 "id": "16370471522950468",
-                "markup": "<p>{{ LAND }}: Ihnen stehen {{ TAGEGELD.TAGEGELDSATZ(LAND, STADT) }} €&nbsp; pro Tag zu, &nbsp;abz&uuml;glich unentgeltlicher Verpflegung.</p>",
-                "raw_text": "{{ LAND }}: Ihnen stehen {{ TAGEGELD.TAGEGELDSATZ(LAND, STADT) }} €  pro Tag zu,  abzüglich unentgeltlicher Verpflegung.",
+                "markup": "<p>{{ COUNTRY }}: Ihnen stehen {{ PERDIEM.AMOUNT(COUNTRY, CITY) }} €&nbsp; pro Tag zu, &nbsp;abz&uuml;glich unentgeltlicher Verpflegung.</p>",
+                "raw_text": "{{ COUNTRY }}: Ihnen stehen {{ PERDIEM.AMOUNT(COUNTRY, CITY) }} €  pro Tag zu,  abzüglich unentgeltlicher Verpflegung.",
                 "position": {
                     "x": 9586,
                     "y": 2565
@@ -2581,7 +2581,7 @@
                     {
                         "id": "16433762842817668",
                         "nodeId": "16370471522950468",
-                        "text": "Wie viel Tagegeld bekomme ich in {{LAND}}?"
+                        "text": "Wie viel Tagegeld bekomme ich in {{COUNTRY}}?"
                     }
                 ]
             }
@@ -2901,7 +2901,7 @@
                     {
                         "id": "16585213287256223",
                         "nodeId": "16370678856758681",
-                        "text": "Ist die Reise nach {{LAND}} gefährlich?"
+                        "text": "Ist die Reise nach {{COUNTRY}} gefährlich?"
                     }
                 ]
             }
@@ -3074,8 +3074,8 @@
             },
             "data": {
                 "id": "16378344891556489",
-                "markup": "{{LAND",
-                "raw_text": "{{LAND",
+                "markup": "{{COUNTRY",
+                "raw_text": "{{COUNTRY",
                 "position": {
                     "x": 11201,
                     "y": 674
@@ -3139,7 +3139,7 @@
                     {
                         "id": "16584088874380973",
                         "nodeId": "16378349334755637",
-                        "text": "Kann ich in {{LAND}} bei Bekannten übernachten? "
+                        "text": "Kann ich in {{COUNTRY}} bei Bekannten übernachten? "
                     }
                 ]
             }
@@ -3676,8 +3676,8 @@
             },
             "data": {
                 "id": "16391575204698838",
-                "markup": "{{LAND",
-                "raw_text": "{{LAND",
+                "markup": "{{COUNTRY",
+                "raw_text": "{{COUNTRY",
                 "position": {
                     "x": 1475,
                     "y": 55
@@ -4493,8 +4493,8 @@
                     {
                         "id": "16478799587667634",
                         "nodeId": "16478799587660558",
-                        "markup": "{{LAND=LOCATION}}",
-                        "raw_text": "{{LAND=LOCATION}}"
+                        "markup": "{{COUNTRY=LOCATION}}",
+                        "raw_text": "{{COUNTRY=LOCATION}}"
                     }
                 ],
                 "questions": []
@@ -4524,8 +4524,8 @@
                     {
                         "id": "16478801254737669",
                         "nodeId": "16478801254732768",
-                        "markup": "{{LAND=LOCATION}}",
-                        "raw_text": "{{LAND=LOCATION}}"
+                        "markup": "{{COUNTRY=LOCATION}}",
+                        "raw_text": "{{COUNTRY=LOCATION}}"
                     }
                 ],
                 "questions": []

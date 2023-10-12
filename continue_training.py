@@ -55,7 +55,7 @@ def get_latest_checkpoint_name(ckpt_path: str) -> str:
     highest_number = -1
     for file in os.listdir(ckpt_path):
         if ".pt" in file or ".zip" in file:
-            number = int(file.strip("ckpt_").strip(".pt").strip(".zip"))
+            number = int(file.strip("ckpt_").strip(".pt").replace("_cleaned", "").strip(".zip"))
             if number > highest_number:
                 highest_number = number
     if os.path.isfile(f"{ckpt_path}/ckpt_{highest_number}.pt"):

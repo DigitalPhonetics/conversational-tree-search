@@ -136,7 +136,7 @@ experiment:
     current_user_utterance:
       active: true
       pooling: TextEmbeddingPooling.NONE
-      noise_std: 0.0
+      noise_std: 1.0
       caching: false
       ckpt_name: sentence-transformers/all-mpnet-base-v2
       embedding_dim: 768
@@ -144,7 +144,7 @@ experiment:
     initial_user_utterance:
       active: true
       pooling: TextEmbeddingPooling.NONE
-      noise_std: 0.0
+      noise_std: 1.0
       caching: false
       ckpt_name: sentence-transformers/all-mpnet-base-v2
       embedding_dim: 768

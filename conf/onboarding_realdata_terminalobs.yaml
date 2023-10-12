@@ -155,6 +155,7 @@ experiment:
       augmentation: DataAugmentationLevel.NONE
       question_limit: 0
       answer_limit: 0
+      language: en
     every_steps: 3
     noise: 0.0
   validation:
@@ -166,6 +167,7 @@ experiment:
       augmentation: DataAugmentationLevel.NONE
       question_limit: 0
       answer_limit: 0
+      language: en
     every_steps: 15000
     noise: 0.0
     dialogs: 500
