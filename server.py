@@ -44,12 +44,12 @@ HARD_GOALS = [
     ("You want to figure out how much money you can get for your travel. <ul><li>You used your own car</li><li>You took two colleagues with you</li></ul>", 16460328708250870),
     ("You want to know how much money you can get for your accommodations. <ul><li>You are traveling to France for your next trip</li><li>You plan to stay with your brother in his apartment. </li></ul>", 16378349334755637),
     ("You want to know how the reimbursement process works for research semester.<ul><li>You plan to bring your family with you</li></ul>", 16370483534787100),
-    ("You want to know how you can get for your flight.<ul><li>You plan to extend your stay with private vacation before flying back</li></ul>", 16363755463439219)
+    ("You want to know how you can get reimbursed for your flight.<ul><li>You plan to extend your stay with private vacation before flying back</li></ul>", 16363755463439219)
 ]
 EASY_GOALS = [
     ("You want to know if you can get reimbursed if you reserve a seat for yourself on the train", 16363756478730906),
     ("You are traveling with another colleague and want to know if you have to share a room or if each of you can book your own", 16363834594338823),
-    ("You are planning on attending a conference and want to know if the membership fee can be reimbursed", 16384329210117153),
+    ("You are planning on attending a conference and want to know if the conference fee can be reimbursed", 16384329210117153),
     ("You have to cancel your trip. You want to know if the money you have already paid can be reimbursed", 16457053159041482),
     ("You want to know if you can be reimbursed if you need to book a taxi during your trip.", 16365525829145685)
     ]
@@ -60,7 +60,7 @@ OPEN_GOALS = [
     ("You want more information about how to plan a research semester.", 16387868859695624),
     ("You want to inform yourself what to do in case of an emergency during travel.", 16387868859695624)
     ]
-POLICY_ASSIGNMENT = {"cts": []} #{"hdc": [], "faq": [], "cts": []}
+POLICY_ASSIGNMENT = {"hdc": [], "faq": [], "cts": []}
 USER_GOAL_GROUPS_OPEN = {i: [] for i in range(len(OPEN_GOALS))}
 USER_GOAL_GROUPS_EASY = {i: [] for i in range(len(EASY_GOALS))}
 USER_GOAL_GROUPS_HARD = {i: [] for i in range(len(HARD_GOALS))}

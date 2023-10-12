@@ -4,7 +4,7 @@ from typing import Dict, List
 from data.dataset import DataAugmentationLevel, ReimburseGraphDataset, DialogNode, Question, NodeType, Answer
 
 class FormattedReimburseGraphDataset(ReimburseGraphDataset):
-    def _load_graph(self, resource_dir: str, graph_path: str, augmentation: DataAugmentationLevel, augmentation_path: str):
+    def _load_graph(self, resource_dir: str, graph_path: str, augmentation: DataAugmentationLevel, augmentation_path: str, language: str):
             # load graph
             with open(os.path.join(resource_dir, graph_path), "r") as f:
                 data = json.load(f)
