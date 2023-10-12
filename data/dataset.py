@@ -368,7 +368,7 @@ class ReimburseGraphDataset(GraphDataset):
 
 
 
-class OnboardingGraphDataset(GraphDataset):
+class StandardGraphDataset(GraphDataset):
     def __init__(self, graph_path: str, answer_path: str, use_answer_synonyms: bool, augmentation: DataAugmentationLevel, augmentation_path: str = None, resource_dir: str = "resources/", question_limit: int = 0, answer_limit: int = 0, language: str = "en") -> None:
         assert isinstance(augmentation, DataAugmentationLevel), f"found {augmentation}"
         super().__init__(graph_path=graph_path, answer_path=answer_path, use_answer_synonyms=use_answer_synonyms, augmentation=augmentation, augmentation_path=augmentation_path, resource_dir=resource_dir, question_limit=question_limit, answer_limit=answer_limit, language=language)
@@ -392,45 +392,4 @@ class OnboardingGraphDataset(GraphDataset):
                             answer_data[key].append(syn)
         return answer_data
 
-    def _load_a1_countries(self, resource_dir: str):
-        with open(os.path.join(resource_dir, f"{self.language}/a1_countries.json"), "r") as f:
-            a1_countries = json.load(f)
-        return a1_countries
-
-    def _load_hotel_costs(self, resource_dir: str) -> Tuple[Dict[str, Dict[str, float]], Set[str], Set[str]]:
-        """
-        Returns:
-            hotel_costs: country -> city -> value
-            country_list: Set[str]            
-            city_list: Set[str]
-        """
-        # load max. hotel costs
-        hotel_costs = defaultdict(lambda: dict())
-        country_list = set()
-        city_list = set()
-
-        content = pd.read_excel(os.path.join(resource_dir, f"{self.language}/TAGEGELD_AUSLAND.xlsx"))
-        for idx, row in content.iterrows():
-            country = row['Land']
-            city = row['Stadt']
-            country_list.add(country)
-            city_list.add(city)
-            daily_allowance = row['Tagegeld LRKG']
-            hotel_costs[country][city] = Tagegeld(country=country, city=city, daily_allowance=daily_allowance)
-        return hotel_costs, country_list, city_list
-    
-    def _load_country_synonyms(self, resource_dir: str):
-        with open(os.path.join(resource_dir, f'{self.language}/country_synonyms.json'), 'r') as f:
-            country_synonyms = json.load(f)
-            self.country_keys = [country.lower() for country in country_synonyms.keys()]
-            self.countries = {country.lower(): country for country in country_synonyms.keys()}
-            self.countries.update({country_syn.lower(): country for country, country_syns in country_synonyms.items()
-                                    for country_syn in country_syns})
-    
-    def _load_city_synonyms(self, resource_dir: str):
-        with open(os.path.join(resource_dir, f'{self.language}/city_synonyms.json'), 'r') as f:
-            city_synonyms = json.load(f)
-            self.city_keys = [city.lower() for city in city_synonyms.keys()]
-            self.cities = {city.lower(): city for city in city_synonyms.keys() if city != '$REST'}
-            self.cities.update({city_syn.lower(): city for city, city_syns in city_synonyms.items()
-                                for city_syn in city_syns})
+   

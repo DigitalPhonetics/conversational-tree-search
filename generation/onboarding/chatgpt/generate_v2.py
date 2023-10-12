@@ -10,10 +10,10 @@ import sys
 sys.path.append('../../..')
 print(os.path.realpath("."))
 
-from data.dataset import OnboardingGraphDataset, DataAugmentationLevel, NodeType, DialogNode, Question
+from data.dataset import StandardGraphDataset, DataAugmentationLevel, NodeType, DialogNode, Question
 
 # %%
-human_data = OnboardingGraphDataset('en/onboarding/train_graph.json', 'en/onboarding/train_answers.json', True, DataAugmentationLevel.NONE, augmentation_path=None, resource_dir='../../../resources')
+human_data = StandardGraphDataset('en/onboarding/train_graph.json', 'en/onboarding/train_answers.json', True, DataAugmentationLevel.NONE, augmentation_path=None, resource_dir='../../../resources')
 
 
 # %%

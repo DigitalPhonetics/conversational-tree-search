@@ -16,9 +16,7 @@ print(os.path.realpath("."))
 from data.dataset import ReimburseGraphDataset, StandardGraphDataset, DataAugmentationLevel, NodeType, DialogNode, Question
 
 # %%
-onboard_human_data = StandardGraphDataset('en/onboarding/train_graph.json', 'en/onboarding/train_answers.json', True, DataAugmentationLevel.NONE, augmentation_path=None, resource_dir='../../../resources')
-
-
+reimburse_human_data = ReimburseGraphDataset('en/reimburse/train_graph.json', 'en/reimburse/train_answers.json', True, DataAugmentationLevel.NONE, augmentation_path=None, resource_dir='../../../resources')
 # %%
 
 def prompt_v3(node_text: str, num_questions: int):
@@ -57,7 +55,7 @@ nodes_with_ner = 0
 nodes_without_ner = 0
 avg_node_ner = []
 
-for node in tqdm(onboard_human_data.nodes_by_type[NodeType.INFO]):
+for node in tqdm(reimburse_human_data.nodes_by_type[NodeType.INFO]):
     context = nlp(node.text)
     if len(context.ents) > 0:
         nodes_with_ner += 1
@@ -65,7 +63,7 @@ for node in tqdm(onboard_human_data.nodes_by_type[NodeType.INFO]):
     else:
         nodes_without_ner += 1
 
-print("TOTAL INFO NODES", len(onboard_human_data.nodes_by_type[NodeType.INFO]))
+print("TOTAL INFO NODES", len(reimburse_human_data.nodes_by_type[NodeType.INFO]))
 print("NODES WITH NER", nodes_with_ner)
 print("NODES WITHOUT NER", nodes_without_ner)
 print("AVG NER PER NODE WITH NER", mean(avg_node_ner))
@@ -73,7 +71,7 @@ print("AVG NER PER NODE WITH NER", mean(avg_node_ner))
 # %%
 avg_node_sentence_length = []
 
-for node in onboard_human_data.nodes_by_type[NodeType.INFO]:
+for node in reimburse_human_data.nodes_by_type[NodeType.INFO]:
     avg_node_sentence_length.append(node.text.count("."))
 
 print("MAX #SENTENCES PER NODE", max(avg_node_sentence_length))
@@ -106,7 +104,7 @@ def extract_ner_sentences(node: DialogNode) -> List[Tuple[str, str]]:
 
 # %%
 # find a testing candidate
-for node in onboard_human_data.nodes_by_type[NodeType.INFO]:
+for node in reimburse_human_data.nodes_by_type[NodeType.INFO]:
     results = extract_ner_sentences(node)
     if len(results) > 1:
         print(results)
@@ -152,7 +150,7 @@ MAX_NEW_TOKENS = 1024
 generated_data = {}
 generated_data_unnumbered = {}
 
-for node in tqdm(onboard_human_data.nodes_by_type[NodeType.INFO]):
+for node in tqdm(reimburse_human_data.nodes_by_type[NodeType.INFO]):
     # use dict indexed by generated text to filter out duplicates
     all_generations = {}
     
@@ -243,8 +241,8 @@ for node in tqdm(onboard_human_data.nodes_by_type[NodeType.INFO]):
 
 # %%
 import json
-with open("../../../resources/en/onboarding/generated/chatgpt/train_questions_v3.json", "w") as f:
+with open("../../../resources/en/reimburse/generated/chatgpt/train_questions_v3.json", "w") as f:
     json.dump(generated_data, f)
 
-with open("../../../resources/en/onboarding/generated/chatgpt/train_questions_v3_unnumbered.json", "w") as f:
+with open("../../../resources/en/reimburse/generated/chatgpt/train_questions_v3_unnumbered.json", "w") as f:
     json.dump(generated_data_unnumbered, f)

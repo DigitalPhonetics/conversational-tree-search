@@ -148,7 +148,7 @@ experiment:
       _target_: encoding.text.sbert.SentenceEmbeddings
   training:
     dataset:
-      _target_: data.dataset.OnboardingGraphDataset
+      _target_: data.dataset.StandardGraphDataset
       graph_path: en/onboarding/train_graph.json
       answer_path: en/onboarding/train_answers.json
       use_answer_synonyms: true
@@ -160,7 +160,7 @@ experiment:
     noise: 0.0
   validation:
     dataset:
-      _target_: data.dataset.OnboardingGraphDataset
+      _target_: data.dataset.StandardGraphDataset
       graph_path: en/onboarding/train_graph.json
       answer_path: en/onboarding/train_answers.json
       use_answer_synonyms: true
