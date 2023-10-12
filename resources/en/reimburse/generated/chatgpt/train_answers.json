@@ -263,16 +263,16 @@
         "Request a prepayment"
     ],
     "train": [
-        "\"A rail vehicle used for commuting and transporting cargo.\"",
-        "\"A popular way to travel that relies on tracks for stability.\"",
-        "\"A form of transportation that utilizes rail tracks.\"",
-        "\"A mode of transportation that runs on rail lines.\"",
-        "\"A locomotive that runs on tracks.\"",
-        "\"A vehicle that transports passengers and goods on interconnected tracks.\"",
-        "\"A method of travel that uses a fixed route and rails.\"",
-        "\"A means of transportation that operates on fixed tracks.\"",
-        "\"A public transport system running on tracks for individuals and goods.\"",
-        "\"A convenient way to travel on fixed rails.\""
+        "A rail vehicle used for commuting and transporting cargo.",
+        "A popular way to travel that relies on tracks for stability.",
+        "A form of transportation that utilizes rail tracks.",
+        "A mode of transportation that runs on rail lines.",
+        "A locomotive that runs on tracks.",
+        "A vehicle that transports passengers and goods on interconnected tracks.",
+        "A method of travel that uses a fixed route and rails.",
+        "A means of transportation that operates on fixed tracks.",
+        "A public transport system running on tracks for individuals and goods.",
+        "A convenient way to travel on fixed rails."
     ],
     "public transit": [
         "Mass transit",
@@ -347,7 +347,7 @@
         "I'm looking to reserve various modes of transportation"
     ],
     "what is a reallocation/delegation?": [
-        "Can you clarify the term \"reallocation/delegation\" for me?",
+        "Can you clarify the term reallocation/delegation for me?",
         "What is involved in a reallocation/delegation?",
         "What are the characteristics of reallocation/delegation?",
         "How do you define reallocation/delegation?",
@@ -355,7 +355,7 @@
         "Can you give me a brief explanation of reallocation/delegation?",
         "How would you describe a reallocation/delegation?",
         "Can you explain the concept of reallocation/delegation?",
-        "What does \"reallocation/delegation\" mean?",
+        "What does reallocation/delegation mean?",
         "What is the meaning of reallocation/delegation?"
     ],
     "alone": [
@@ -548,7 +548,7 @@
         "Fees for visa applications",
         "Expenses for visa processing"
     ],
-    "conference meals": [
+    "conference meals ": [
         "Cuisine available at a conference",
         "Conference food and beverages",
         "Dining options at a conference",
