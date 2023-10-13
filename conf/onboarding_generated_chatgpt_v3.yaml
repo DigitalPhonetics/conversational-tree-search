@@ -133,7 +133,7 @@ experiment:
     current_user_utterance:
       active: true
       pooling: TextEmbeddingPooling.NONE
-      noise_std: 0.0
+      noise_std: 1.0
       caching: false
       ckpt_name: sentence-transformers/all-mpnet-base-v2
       embedding_dim: 768
@@ -141,7 +141,7 @@ experiment:
     initial_user_utterance:
       active: true
       pooling: TextEmbeddingPooling.NONE
-      noise_std: 0.0
+      noise_std: 1.0
       caching: false
       ckpt_name: sentence-transformers/all-mpnet-base-v2
       embedding_dim: 768
@@ -152,17 +152,32 @@ experiment:
       graph_path: en/onboarding/train_graph.json
       answer_path: en/onboarding/train_answers.json
       use_answer_synonyms: true
-      augmentation: DataAugmentationLevel.NONE
+      augmentation: DataAugmentationLevel.ARTIFICIAL_ONLY
+      augmentation_path: en/onboarding/generated/chatgpt/train_questions_v3.json
       question_limit: 0
       answer_limit: 0
       language: en
     every_steps: 3
-    noise: 0.0
+    noise: 0.1
   validation:
     dataset:
       _target_: data.dataset.StandardGraphDataset
       graph_path: en/onboarding/train_graph.json
       answer_path: en/onboarding/train_answers.json
+      use_answer_synonyms: true
+      augmentation: DataAugmentationLevel.ARTIFICIAL_ONLY
+      augmentation_path: en/onboarding/generated/chatgpt/train_questions_v3.json
+      question_limit: 0
+      answer_limit: 0
+      language: en
+    every_steps: 15000
+    noise: 0.0
+    dialogs: 500
+  testing:
+    dataset:
+      _target_: data.dataset.StandardGraphDataset
+      graph_path: en/onboarding/test_graph.json
+      answer_path: en/onboarding/test_answers.json
       use_answer_synonyms: true
       augmentation: DataAugmentationLevel.NONE
       question_limit: 0

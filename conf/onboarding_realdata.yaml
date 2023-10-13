@@ -152,8 +152,7 @@ experiment:
       graph_path: en/onboarding/train_graph.json
       answer_path: en/onboarding/train_answers.json
       use_answer_synonyms: true
-      augmentation: DataAugmentationLevel.ARTIFICIAL_ONLY
-      augmentation_path: en/onboarding/generated/train_questions_v3.json
+      augmentation: DataAugmentationLevel.NONE
       question_limit: 0
       answer_limit: 0
       language: en
@@ -165,8 +164,7 @@ experiment:
       graph_path: en/onboarding/train_graph.json
       answer_path: en/onboarding/train_answers.json
       use_answer_synonyms: true
-      augmentation: DataAugmentationLevel.ARTIFICIAL_ONLY
-      augmentation_path: en/onboarding/generated/train_questions_v3.json
+      augmentation: DataAugmentationLevel.NONE
       question_limit: 0
       answer_limit: 0
       language: en
@@ -176,8 +174,8 @@ experiment:
   testing:
     dataset:
       _target_: data.dataset.StandardGraphDataset
-      graph_path: en/onboarding/train_graph.json
-      answer_path: en/onboarding/train_answers.json
+      graph_path: en/onboarding/test_graph.json
+      answer_path: en/onboarding/test_answers.json
       use_answer_synonyms: true
       augmentation: DataAugmentationLevel.NONE
       question_limit: 0
