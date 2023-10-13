@@ -1,396 +1,476 @@
 {
-    "where can I find my employee identification number?": [
-        "Where can I find my employee number?",
-        "Where can I find my employee identification number?",
-        "What is my employee identification number?",
-        "Employee identification number",
-        "Employee number"
+    "16348059233297511": [
+        "For business",
+        "Travelling for business",
+        "Business trip",
+        "A business trip"
     ],
-    "rental car": [
-        "I want to rent a car",
+    "16348059022280168": [
+        "Intracity business trip"
+    ],
+    "16348059308264456": [
+        "How are these different?",
+        "what is the difference between an intracity business trip and a business trip?",
+        "What is the definition of a business trip?"
+    ],
+    "16348060093765599": [
+        "Plan business travel",
+        "Business trip",
+        "Book a trip"
+    ],
+    "16348060117936606": [
+        "Research sabbatical",
+        "Research semester",
+        "Exchange Semester"
+    ],
+    "16363753908915004": [
+        "Travel Risk Management",
+        "Travel safety"
+    ],
+    "16460435768492226": [
+        "Emergency",
+        "Problem/emergency during a business trip",
+        "Travel emergency",
+        "There's been an emergency"
+    ],
+    "16391214697489353": [
+        "Information about procedures",
+        "Forms, deadlines, and procedures",
+        "Where do I find the forms?"
+    ],
+    "16457052652127241": [
+        "Cancel a trip",
+        "What do I need to do to cancel?",
+        "Cancel",
+        "cancel a trip"
+    ],
+    "16348064379831866": [
+        "I don't have",
+        "Nah",
+        "Never",
+        "Nope",
+        "no"
+    ],
+    "16348064372891051": [
+        "Of course",
+        "Yes",
+        "yes",
+        "Correct"
+    ],
+    "16348070638613845": [
+        "Of course",
+        "Yes",
+        "Correct"
+    ],
+    "16348070702536664": [
+        "I don't have",
+        "Nah",
+        "Never",
+        "Nope",
+        "No"
+    ],
+    "16348100930250797": [
+        "Transportation",
+        "Book a flight",
+        "Bus",
+        "Information on ground transportation"
+    ],
+    "16354903195178445": [
+        "Examples of incidental costs",
+        "What are incidental costs?",
+        "I don't know what ancillary costs are"
+    ],
+    "16348100938155782": [
+        "Additional expenses",
+        "Ancillary costs",
+        "Incidental costs",
+        "Incidental expenses"
+    ],
+    "16348097680396647": [
+        "Accommodation",
+        "Hostel",
+        "Quarters",
+        "Overnight accommodation",
+        "Hotel",
+        "Living space",
+        "Room"
+    ],
+    "16348097687835256": [
+        "Transportation",
+        "Book a flight",
+        "Bus",
+        "Information on ground transportation"
+    ],
+    "16348097665338502": [
+        "Additional expenses",
+        "Ancillary costs",
+        "Incidental costs",
+        "Incidental expenses"
+    ],
+    "16365510021692384": [
+        "Budget for food",
+        "Food allowance",
+        "Per diem"
+    ],
+    "16430174634144696": [
+        "I need money in advance",
+        "Request an advance of funds",
+        "Request an advance"
+    ],
+    "16351688023444087": [
+        "Subway",
+        "Train",
+        "Take the train"
+    ],
+    "16351616190893714": [
+        "Subway",
+        "Public transport",
+        "Metro train",
+        "Public transportation",
+        "A bus",
+        "Public transit",
+        "Light rail",
+        "Taking the bus",
+        "Regional transportation"
+    ],
+    "16460322532907065": [
+        "My vehicle",
+        "Personal car",
+        "Auto"
+    ],
+    "16351692334402182": [
         "Car rental service",
+        "I want to rent a car",
         "Rent a car",
         "Hire a car",
         "Rental car",
         "Hired car"
     ],
-    "internal emergency team": [
-        "Contact emergency team",
-        "Emergency contact",
-        "Contact the emergency team",
-        "Emergency team",
-        "Contact for emergencies",
-        "Internal emergency team"
-    ],
-    "telephone and/or internet fees": [
-        "Charges for Telephone use",
-        "Online fees",
-        "Cell phone costs",
-        "Internet connection",
-        "Cell phone fees",
-        "Telephone fees",
-        "Costs for WIFI use",
-        "WIFI fees"
-    ],
-    "entrance fees": [
-        "Entrance fees",
-        "Admission",
-        "Costs for admission",
-        "Fees for entrance",
-        "Cost of entrance cards"
-    ],
-    "vaccinations": [
-        "Costs for vaccination",
-        "Vaccinations",
-        "Required shots",
-        "Vaccine",
-        "Recommended vaccines"
-    ],
-    "service offers": [
-        "Which services are available?",
-        "Service offers",
-        "Overview of services",
-        "What services are there?",
-        "Service offer",
-        "Services",
-        "Which services are offered?",
-        "Service"
-    ],
-    "relatives": [
-        "My mother",
-        "Sister",
-        "With relatives",
-        "With my brother",
-        "Family",
-        "My parents",
-        "With family"
-    ],
-    "public transit": [
-        "Public transit",
-        "Public transportation",
-        "Public transport",
-        "Taking the bus",
-        "Regional transportation",
-        "A bus",
-        "Light rail",
-        "Metro train",
-        "Subway"
-    ],
-    "information about countries' risk categories": [
-        "Info about risk categories",
-        "Information about threats",
-        "Danger level",
-        "Country risk level",
-        "Information about dangers",
-        "Information about risks in different countries"
-    ],
-    "business trip": [
-        "For business",
-        "A business trip",
-        "Travelling for business"
-    ],
-    "book a trip": [
-        "Book a trip",
-        "Plan business travel",
-        "Business trip"
-    ],
-    "accommodation": [
-        "Living space",
-        "Hostel",
-        "Quarters",
-        "Room",
-        "Overnight accommodation",
-        "Hotel"
-    ],
-    "train": [
-        "Subway",
-        "Train",
-        "Take the train"
-    ],
-    "i want to book different transportation": [
-        "Additional transport option",
-        "Other transportation",
-        "Book a flight",
-        "I still need a rental car"
-    ],
-    "what is a reallocation/delegation?": [
-        "What is a reallocation?",
-        "When does it count as a reallocation?",
-        "Which cases are treated as a delegation?",
-        "I don't know what a reallocation is"
-    ],
-    "alone": [
-        "by myself",
-        "alone",
-        "I'm traveling without accompaniment"
-    ],
-    "with family": [
-        "With family",
-        "Together with my wife",
-        "With my husband and children"
-    ],
-    "training opportunities": [
-        "Training opportunities",
-        "Training for Travel Risk Management",
-        "What trainings are offered?",
-        "Courses"
-    ],
-    "before the start of a business trip": [
-        "Before beginning travel",
-        "Before leaving",
-        "Info about starting a trip",
-        "Before the start of a business trip"
-    ],
-    "travel risk country database": [
-        "Travel risk country database",
-        "Danger level",
-        "Information about threats",
-        "Info about risk categories",
-        "Travel risk information",
-        "Countries database",
-        "Information about dangers"
-    ],
-    "insurance": [
-        "Expense for travel cancellation insurance",
-        "I had to pay for travel insurance",
-        "Insurance costs",
-        "Insurance fees"
-    ],
-    "hotel": [
-        "Roadside hotel",
-        "Youth hostel",
-        "Hotel",
-        "In a bed and breakfast",
-        "Motel",
-        "Hostel"
-    ],
-    "can I book a room for just myself?": [
-        "Can I sleep by myself?",
-        "Single room", 
-        "Ist it allowed to book a room to myself?"
-    ],
-    "apply for a business trip": [
-        "Permission",
-        "Apply to go on a business trip",
-        "Form for travel approval"
-    ],
-    "find a form": [
-        "Search",
-        "Find",
-        "Find a form"
-    ],
-    "transportation": [
-        "Information on ground transportation",
-        "Book a flight",
-        "Bus"
-    ],
-    "no": [
-        "I don't have",
-        "Nah",
-        "Never",
-        "Nope"
-    ],
-    "yes": [
-        "Correct",
-        "Yes",
-        "Of course"
-    ],
-    "safety emergency": [
-        "There's been a safety emergency",
-        "Safety emergency"
-    ],
-    "intracity business trip": [
-        "Intracity business trip"
-    ],
-    "what do I need to consider?": [
-        "What do I need to watch out for?",
-        "Is there anything I need to be careful about?"
-    ],
-    "emergency on a business trip": [
-        "There's been an emergency",
-        "Emergency"
-    ],
-    "emergency-app": [
-        "What is the emergency app?",
-        "More information about the app"
-    ],
-    "oversized/overweight baggage": [
-        "My bag is too heavy",
-        "My suitcase weighs too much",
-        "Extra luggage",
-        "Additional bag",
-        "Oversized/overweight baggage"
-    ],
-    "with friends": [
-        "Staying with friends",
-        "At a friend's place"
-    ],
-    "I would like information on other options for accommodation": [
-        "Information on other hotel options",
-        "I would like information on other options for accommodation",
-        "I changed my mind about where I want to stay"
-    ],
-    "business trip reimbursement": [
-        "Form for cost reimbursement",
-        "Business trip reimbursement"
-    ],
-    "research semester": [
-        "Exchange Semester",
-        "Research sabbatical"
-    ],
-    "what are incidental costs?": [
-        "What are incidental costs?",
-        "Examples of incidental costs",
-        "I don't know what ancillary costs are"
-    ],
-    "help filling out a form": [
-        "Assistance filling out a form",
-        "Filling out",
-        "I need help filling out a form"
-    ],
-    "Transport missed or cancelled": [
-        "I missed my train",
-        "My flight was cancelled ",
-        "Transportation missed oder cancelled"
-    ],
-    "what is the difference between an intracity business trip and a business trip?": [
-        "What is the definition of a business trip?",
-        "How are these different?"
-    ],
-    "travel risk management": [
-        "Travel safety",
-        "Travel Risk Management"
-    ],
-    "personal car": [
-        "Personal car",
-        "Auto",
-        "My vehicle"
-    ],
-    "emergency help": [
-        "Emergency help",
-        "Emergency on a business trip",
-        "There's been an emergency",
-        "I need help"
-    ],
-    "incidental costs": [
-        "Ancillary costs",
-        "Additional expenses",
-        "Incidental expenses"
-    ],
-    "conferences": [
-        "Conference expenses",
-        "Conference member entrance fee",
-        "Congress",
-        "Expo costs"
-    ],
-    "do I have to pay a resort tax?": [
-        "Do resort taxes also apply to business travel?",
-        "Do I need to pay a resort tax?",
-        "Are resort taxes reimbursable ?"
-    ],
-    "hotel list": [
-        "Which hotels should I book from?",
-        "Recommended hotels",
-        "List of suggested hotels"
-    ],
-    "how long do I have to submit my trip reimbursement request?": [
-        "What is the time window to submit my trip reimbursement request?",
-        "When is the deadline for a reimbursement request?",
-        "Time window for submitting reimbursement"
-    ],
-    "medical emergency": [
-        "Health emergency",
-        "Medical problem",
-        "I need immediate medical help"
-    ],
-    "problem/emergency during a business trip": [
-        "There's been an emergency",
-        "Travel emergency",
-        "Emergency"
-    ],
-    "per diem": [
-        "Food allowance",
-        "Budget for food"
-    ],
-    "general information": [
-        "General information",
-        "General"
-    ],
-    "md medicus": [
-        "Medicus"
-    ],
-    "credit card fees": [
-        "Credit card fees",
-        "Costs for a credit card"
-    ],
-    "self-catering house": [
-        "Self-catering house"
-    ],
-    "can I book a double bed room even if I'm traveling alone?": [
-        "Are double bed rooms allowed?",
-        "Can I book a double bed room even if I'm traveling alone?"
-    ],
-    "where can I submit my travel reimbursement request": [
-        "Where can I submit my travel reimbursement request?",
-        "Who do I send my travel reimbursement to?"
-    ],
-    "forms, deadlines, and procedures": [
-        "Where do I find the forms?",
-        "Information about procedures",
-        "Forms, deadlines, and procedures"
-    ],
-    "request an advance": [
-        "Request an advance of funds",
-        "Request an advance",
-        "I need money in advance"
-    ],
-    "taxi": [
+    "16351692394105157": [
         "Taxi"
     ],
-    "cloakroom fees": [
-        "Costs for use of a cloakroom",
-        "Costs for luggage supervision"
-    ],
-    "camper": [
-        "Camping van",
-        "In a camper"
-    ],
-    "campsite": [
-        "Campsite",
-        "Campground"
-    ],
-    "cancel a trip": [
-        "Cancel a trip",
-        "Cancel",
-        "What do I need to do to cancel?"
-    ],
-    "flight": [
+    "16351687978524495": [
         "Plane",
         "Am I allowed to fly?",
         "Are flights okay?",
         "Flight"
     ],
-    "mail fees": [
-        "Mail fees",
+    "16351757079693085": [
+        "Other transportation",
+        "I still need a rental car",
+        "Book a flight",
+        "I want to book different transportation",
+        "Additional transport option"
+    ],
+    "16351757094303988": [
+        "I don't have",
+        "Nah",
+        "Never",
+        "Nope",
+        "no"
+    ],
+    "16370641093562699": [
+        "What is a reallocation?",
+        "What is a reallocation/delegation?",
+        "When does it count as a reallocation?",
+        "Which cases are treated as a delegation?",
+        "I don't know what a reallocation is"
+    ],
+    "16370629640860383": [
+        "Of course",
+        "Yes",
+        "Correct"
+    ],
+    "16370629633128792": [
+        "I don't have",
+        "Nah",
+        "Never",
+        "Nope",
+        "No"
+    ],
+    "16353304327772731": [
+        "alone",
+        "Alone",
+        "I'm traveling without accompaniment",
+        "by myself"
+    ],
+    "16353304495764034": [
+        "With my husband and children",
+        "Together with my wife",
+        "With family"
+    ],
+    "16353415401052676": [
+        "What trainings are offered?",
+        "Training for Travel Risk Management",
+        "Courses",
+        "Training opportunities"
+    ],
+    "16353415038580994": [
+        "What do I need to watch out for?",
+        "What do I need to consider?",
+        "Is there anything I need to be careful about?"
+    ],
+    "16372362850358974": [
+        "There's been an emergency",
+        "I need help",
+        "Emergency help",
+        "Emergency on a business trip"
+    ],
+    "16354040647313232": [
+        "Before the start of a business trip",
+        "Info about starting a trip",
+        "Before leaving",
+        "Before beginning travel"
+    ],
+    "16354040816169298": [
+        "Emergency",
+        "Travel emergency",
+        "Problem/Emergency during a business trip",
+        "There's been an emergency"
+    ],
+    "16354040846379592": [
+        "Information about dangers",
+        "Info about risk categories",
+        "Information about countries' risk categories",
+        "Information about threats",
+        "Information about risks in different countries",
+        "Country risk level",
+        "Danger level"
+    ],
+    "16366215955221136": [
+        "Insurance",
+        "Insurance costs",
+        "I had to pay for travel insurance",
+        "Insurance fees",
+        "Expense for travel cancellation insurance"
+    ],
+    "16366217257750616": [
+        "Extra luggage",
+        "Additional bag",
+        "My bag is too heavy",
+        "My suitcase weighs too much",
+        "Oversized/overweight baggage"
+    ],
+    "16366217733967352": [
+        "Conferences",
+        "Conference expenses",
+        "Congress",
+        "Conference member entrance fee",
+        "Expo costs"
+    ],
+    "16366216038846358": [
+        "Costs for a credit card",
+        "Credit card fees"
+    ],
+    "16366216776897993": [
+        "Costs for luggage supervision",
+        "Costs for use of a cloakroom",
+        "Cloakroom fees"
+    ],
+    "16366216215051297": [
+        "Cost of entrance cards",
+        "Fees for entrance",
+        "Admission",
+        "Entrance fees",
+        "Costs for admission"
+    ],
+    "16366217110981491": [
         "Send a package",
+        "Mail fees",
         "Post a letter"
     ],
-    "visa fees": [
+    "16366217587243111": [
+        "Visa fees",
         "Entrance visa",
         "Costs for a visa"
     ],
-    "conference meals ": [
+    "16366218691490561": [
         "Conference dinner",
+        "Conference meals ",
         "Conference meals"
     ],
-    "parking fees": [
-        "Parking costs",
+    "16366217380492336": [
+        "Costs for vaccination",
+        "Vaccinations",
+        "Vaccine",
+        "Recommended vaccines",
+        "Required shots"
+    ],
+    "16366216693983384": [
+        "Metred parking fees",
         "Parking garage ticket",
         "Parking fees",
-        "Metred parking fees"
+        "Parking costs"
     ],
-    "corona tests (prc or antigen tests)": [
+    "16460403708757788": [
+        "Charges for Telephone use",
+        "Internet connection",
+        "Cell phone fees",
+        "Online fees",
+        "Cell phone costs",
+        "Costs for WIFI use",
+        "Telephone fees",
+        "Telephone and/or internet fees",
+        "WIFI fees"
+    ],
+    "16460411627874078": [
+        "corona tests (prc or antigen tests)",
         "PRC Test",
-        "corona tests (prc or antigen tests)"
+        "Corona tests (prc or antigen tests)"
+    ],
+    "16366221643562982": [
+        "Of course",
+        "Yes",
+        "Correct"
+    ],
+    "16366221720279859": [
+        "I don't have",
+        "Nah",
+        "Never",
+        "Nope",
+        "No"
+    ],
+    "16348098900448404": [
+        "Motel",
+        "Hostel",
+        "In a bed and breakfast",
+        "Youth hostel",
+        "Roadside hotel",
+        "Hotel"
+    ],
+    "16363805355939894": [
+        "With friends",
+        "At a friend's place",
+        "Staying with friends"
+    ],
+    "16363804593955353": [
+        "With my husband and children",
+        "Together with my wife",
+        "With family"
+    ],
+    "16460430539963033": [
+        "Self-catering house"
+    ],
+    "16351673495134495": [
+        "Camper",
+        "Camping van",
+        "In a camper"
+    ],
+    "16351642599565957": [
+        "Campground",
+        "Campsite"
+    ],
+    "16351652424666426": [
+        "Can I book a room for just myself?",
+        "Single room",
+        "Ist it allowed to book a room to myself?",
+        "Can I sleep by myself?"
+    ],
+    "16363837388355542": [
+        "Information on other hotel options",
+        "I would like information on other options for accommodation",
+        "I changed my mind about where I want to stay"
+    ],
+    "16351653270166704": [
+        "Do I have to pay a resort tax?",
+        "Do resort taxes also apply to business travel?",
+        "Are resort taxes reimbursable ?",
+        "Do I need to pay a resort tax?"
+    ],
+    "16378355824915046": [
+        "Can I book a double bed room even if I'm traveling alone?",
+        "Are double bed rooms allowed?"
+    ],
+    "16351674943208882": [
+        "I don't have",
+        "Nah",
+        "Never",
+        "Nope",
+        "No"
+    ],
+    "16384313191851977": [
+        "Of course",
+        "Yes",
+        "Correct"
+    ],
+    "16384313191851916": [
+        "I don't have",
+        "Nah",
+        "Never",
+        "Nope",
+        "No"
+    ],
+    "16391225916681233": [
+        "Form for travel approval",
+        "Apply to go on a business trip",
+        "Permission",
+        "Apply for a business trip"
+    ],
+    "16391226089046062": [
+        "Form for cost reimbursement",
+        "Business trip reimbursement"
+    ],
+    "16391250243796291": [
+        "Which hotels should I book from?",
+        "Hotel list",
+        "Recommended hotels",
+        "List of suggested hotels"
+    ],
+    "16391278774924194": [
+        "Of course",
+        "Yes",
+        "Correct"
+    ],
+    "16391278927093447": [
+        "I don't have",
+        "Nah",
+        "Never",
+        "Nope",
+        "No"
+    ],
+    "16430179967175861": [
+        "Search",
+        "Find",
+        "Find a form"
+    ],
+    "16430180103766483": [
+        "Filling out",
+        "Assistance filling out a form",
+        "I need help filling out a form",
+        "Help filling out a form"
+    ],
+    "16457028478164645": [
+        "Time window for submitting reimbursement",
+        "What is the time window to submit my trip reimbursement request?",
+        "When is the deadline for a reimbursement request?",
+        "How long do I have to submit my trip reimbursement request?"
+    ],
+    "16457017567303966": [
+        "Who do I send my travel reimbursement to?",
+        "Where can I submit my travel reimbursement request?",
+        "Where can I submit my travel reimbursement request"
+    ],
+    "16430180669634925": [
+        "Employee identification number",
+        "What is my employee identification number?",
+        "Employee number",
+        "Where can I find my employee number?",
+        "Where can I find my employee identification number?"
+    ],
+    "16460436607844377": [
+        "There's been a safety emergency",
+        "Safety emergency"
+    ],
+    "16460436710838885": [
+        "Transport missed or cancelled",
+        "My flight was cancelled ",
+        "I missed my train",
+        "Transportation missed oder cancelled"
+    ],
+    "16460436872998316": [
+        "Health emergency",
+        "Medical emergency",
+        "Medical problem",
+        "I need immediate medical help"
     ]
 }

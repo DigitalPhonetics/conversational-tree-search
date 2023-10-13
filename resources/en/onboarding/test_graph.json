@@ -1,0 +1,4103 @@
+{
+    "nodes": [
+        {
+            "id": "0",
+            "type": "startNode",
+            "position": {
+                "x": -870,
+                "y": 1869.2499704058514
+            },
+            "data": {
+                "id": "0",
+                "markup": "<p>START</p>",
+                "raw_text": "START",
+                "position": {
+                    "x": -870,
+                    "y": 1869.2499704058514
+                },
+                "type": "startNode",
+                "tags": [],
+                "answers": [],
+                "questions": []
+            }
+        },
+        {
+            "id": "16939903469335362",
+            "type": "userResponseNode",
+            "position": {
+                "x": -660.171871305575,
+                "y": 1741.7499659046662
+            },
+            "data": {
+                "id": "16939903469335362",
+                "markup": "<p>Hi I'm the Stuttgart Help-Bot! My goal is to help your move to Germany and especially to Stuttgart go as smoothly as possible!</p>\n<p>What would you like to know about?</p>",
+                "raw_text": "Hi I'm the Stuttgart Help-Bot! My goal is to help your move to Germany and especially to Stuttgart go as smoothly as possible!\n What would you like to know about?",
+                "position": {
+                    "x": -660.171871305575,
+                    "y": 1741.7499659046662
+                },
+                "type": "userResponseNode",
+                "tags": [],
+                "answers": [
+                    {
+                        "id": "16939912049114625",
+                        "nodeId": "16939903469335362",
+                        "raw_text": "Finding Housing"
+                    },
+                    {
+                        "id": "16939912323240997",
+                        "nodeId": "16939903469335362",
+                        "raw_text": "Information for international students"
+                    },
+                    {
+                        "id": "16939919957853833",
+                        "nodeId": "16939903469335362",
+                        "raw_text": "Public transportation"
+                    },
+                    {
+                        "id": "16939919798263477",
+                        "nodeId": "16939903469335362",
+                        "raw_text": "Work permits, residence permits, and visas"
+                    }
+                ],
+                "questions": []
+            }
+        },
+        {
+            "id": "16939923328235660",
+            "type": "userResponseNode",
+            "position": {
+                "x": 90.82814576725173,
+                "y": -1822.0004801908458
+            },
+            "data": {
+                "id": "16939923328235660",
+                "markup": "<p>Are you looking for immediate short-term housing or somehwere long term?</p>",
+                "raw_text": "Are you looking for immediate short-term housing or somehwere long term?",
+                "position": {
+                    "x": 90.82814576725173,
+                    "y": -1822.0004801908458
+                },
+                "type": "userResponseNode",
+                "tags": [
+                    "housing"
+                ],
+                "answers": [
+                    {
+                        "id": "16939923573475838",
+                        "nodeId": "16939923328235660",
+                        "raw_text": "Hotels"
+                    },
+                    {
+                        "id": "16939923635329728",
+                        "nodeId": "16939923328235660",
+                        "raw_text": "Long-term housing"
+                    }
+                ],
+                "questions": []
+            }
+        },
+        {
+            "id": "16939924040231869",
+            "type": "userResponseNode",
+            "position": {
+                "x": 352.82811295299143,
+                "y": 262.9999199491099
+            },
+            "data": {
+                "id": "16939924040231869",
+                "markup": "<p>What kind of information are you looking for?</p>",
+                "raw_text": "What kind of information are you looking for?",
+                "position": {
+                    "x": 352.82811295299143,
+                    "y": 262.9999199491099
+                },
+                "type": "userResponseNode",
+                "tags": [
+                    "students"
+                ],
+                "answers": [
+                    {
+                        "id": "16939924558739259",
+                        "nodeId": "16939924040231869",
+                        "raw_text": "Finding housing"
+                    },
+                    {
+                        "id": "16939924308109388",
+                        "nodeId": "16939924040231869",
+                        "raw_text": "Opening a bank account"
+                    },
+                    {
+                        "id": "16939924651091479",
+                        "nodeId": "16939924040231869",
+                        "raw_text": "University services"
+                    },
+                    {
+                        "id": "16939924484347907",
+                        "nodeId": "16939924040231869",
+                        "raw_text": "Enrolling in the university"
+                    },
+                    {
+                        "id": "16939927127743408",
+                        "nodeId": "16939924040231869",
+                        "raw_text": "Sports organisations"
+                    },
+                    {
+                        "id": "16940089183408053",
+                        "nodeId": "16939924040231869",
+                        "raw_text": "How to register my address with the city"
+                    },
+                    {
+                        "id": "16940138665420723",
+                        "nodeId": "16939924040231869",
+                        "raw_text": "Working"
+                    },
+                    {
+                        "id": "16940139803270397",
+                        "nodeId": "16939924040231869",
+                        "raw_text": "Transportation"
+                    },
+                    {
+                        "id": "16939924364114252",
+                        "nodeId": "16939924040231869",
+                        "raw_text": "Getting health insurance"
+                    }
+                ],
+                "questions": []
+            }
+        },
+        {
+            "id": "16939955837353087",
+            "type": "infoNode",
+            "position": {
+                "x": 830.3283485681031,
+                "y": -1912.500449489934
+            },
+            "data": {
+                "id": "16939955837353087",
+                "markup": "<p>For short stays, consider looking into one of the city's many hostels or hotels, which can be booked on a per night basis. Prices should start in the rnage of 40-150 euros per night.</p>",
+                "raw_text": "For short stays, consider looking into one of the city's many hostels or hotels, which can be booked on a per night basis. Prices should start in the rnage of 40-150 euros per night.",
+                "position": {
+                    "x": 830.3283485681031,
+                    "y": -1912.500449489934
+                },
+                "type": "infoNode",
+                "tags": [
+                    "housing"
+                ],
+                "answers": [],
+                "questions": [
+                    {
+                        "id": "16971209450123257",
+                        "nodeId": "16939955837353087",
+                        "text": "Where can I stay for the first days?"
+                    },
+                    {
+                        "id": "16971209646161248",
+                        "nodeId": "16939955837353087",
+                        "text": "What price range can I expect for a hotel?"
+                    },
+                    {
+                        "id": "16971209937775422",
+                        "nodeId": "16939955837353087",
+                        "text": "How expensive are hostels per night?"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "16939959118260698",
+            "type": "infoNode",
+            "position": {
+                "x": 1453.328429938057,
+                "y": -1927.5004494899342
+            },
+            "data": {
+                "id": "16939959118260698",
+                "markup": "<p>If you need more time to find somewhere permanent to stay, consider looking into an apartment style hotel (aparthotel). These can be booked on a per month basis and should start in the range of 900 euros per month.&nbsp;</p>",
+                "raw_text": "If you need more time to find somewhere permanent to stay, consider looking into an apartment style hotel (aparthotel). These can be booked on a per month basis and should start in the range of 900 euros per month. ",
+                "position": {
+                    "x": 1453.328429938057,
+                    "y": -1927.5004494899342
+                },
+                "type": "infoNode",
+                "tags": [
+                    "housing"
+                ],
+                "answers": [],
+                "questions": [
+                    {
+                        "id": "16971408267946486",
+                        "nodeId": "16939959118260698",
+                        "text": "What options do I have, if I need to stay somewhere for a longer time?"
+                    },
+                    {
+                        "id": "16971408430229135",
+                        "nodeId": "16939959118260698",
+                        "text": "Are any hotels available on a per month basis?"
+                    },
+                    {
+                        "id": "16971408561827705",
+                        "nodeId": "16939959118260698",
+                        "text": "Are there any options for apartment style hotels?"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "16939963999650878",
+            "type": "userResponseNode",
+            "position": {
+                "x": 1238.8281785815125,
+                "y": -1436.500369301415
+            },
+            "data": {
+                "id": "16939963999650878",
+                "markup": "<p>What type of housing are you interested in?</p>",
+                "raw_text": "What type of housing are you interested in?",
+                "position": {
+                    "x": 1238.8281785815125,
+                    "y": -1436.500369301415
+                },
+                "type": "userResponseNode",
+                "tags": [
+                    "housing"
+                ],
+                "answers": [
+                    {
+                        "id": "16939964154911386",
+                        "nodeId": "16939963999650878",
+                        "raw_text": "Flat share"
+                    },
+                    {
+                        "id": "16939964269424731",
+                        "nodeId": "16939963999650878",
+                        "raw_text": "Rental apartment"
+                    },
+                    {
+                        "id": "16939964212012724",
+                        "nodeId": "16939963999650878",
+                        "raw_text": "Student dorms"
+                    },
+                    {
+                        "id": "16939966036739596",
+                        "nodeId": "16939963999650878",
+                        "raw_text": "What are the differences?"
+                    }
+                ],
+                "questions": []
+            }
+        },
+        {
+            "id": "16939964993871601",
+            "type": "infoNode",
+            "position": {
+                "x": 1858.328429938057,
+                "y": -1596.2502701599306
+            },
+            "data": {
+                "id": "16939964993871601",
+                "markup": "<p>There are multiple way to find an apartment or flat share, but popular ones include:</p>\n<ul>\n<li><a href=\"wg-gesucht.de\">wg-gesucht.de</a> or similar online portals</li>\n<li>The personals section in newspapers</li>\n<li>Ads in public places such as university campuses or grocery stores</li>\n</ul>",
+                "raw_text": "There are multiple way to find an apartment or flat share, but popular ones include: \n wg-gesucht.de or similar online portals \n The personals section in newspapers \n Ads in public places such as university campuses or grocery stores \n ",
+                "position": {
+                    "x": 1858.328429938057,
+                    "y": -1596.2502701599306
+                },
+                "type": "infoNode",
+                "tags": [
+                    "housing"
+                ],
+                "answers": [],
+                "questions": [
+                    {
+                        "id": "16971408827580053",
+                        "nodeId": "16939964993871601",
+                        "text": "I need help finding a place to live"
+                    },
+                    {
+                        "id": "16971408963981946",
+                        "nodeId": "16939964993871601",
+                        "text": "Where can I look for a shared flat?"
+                    },
+                    {
+                        "id": "16971409102981557",
+                        "nodeId": "16939964993871601",
+                        "text": "Where can I find ads for apartments?"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "16939998831328941",
+            "type": "infoNode",
+            "position": {
+                "x": 1835.3282514567163,
+                "y": -878.5004246297185
+            },
+            "data": {
+                "id": "16939998831328941",
+                "markup": "<p>Student housing is available either through the studierendenwerk or through private companies. This can take the form of one-room apartments, flat shares, or dorm-style housing with a shared kitchen and bathrooms per floor.</p>\n<p>Student housing is only available to students enrolled in a higher education institution.</p>",
+                "raw_text": "Student housing is available either through the studierendenwerk or through private companies. This can take the form of one-room apartments, flat shares, or dorm-style housing with a shared kitchen and bathrooms per floor. Student housing is only available to students enrolled in a higher education institution.",
+                "position": {
+                    "x": 1835.3282514567163,
+                    "y": -878.5004246297185
+                },
+                "type": "infoNode",
+                "tags": [
+                    "housing"
+                ],
+                "answers": [],
+                "questions": [
+                    {
+                        "id": "16971413735437172",
+                        "nodeId": "16939998831328941",
+                        "text": "What kind of student dorms are there?"
+                    },
+                    {
+                        "id": "16971413860051616",
+                        "nodeId": "16939998831328941",
+                        "text": "Where can I rent a student dorm?"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "16940003656556475",
+            "type": "infoNode",
+            "position": {
+                "x": 2278.3283328266702,
+                "y": -878.5004731854121
+            },
+            "data": {
+                "id": "16940003656556475",
+                "markup": "<p>Flat shares are made up of two or more individuals who pool resources to rent an apartment or house together.</p>\n<p>Flat-shares generally fall into two categories: \"Zweck-WG\"s where individuals are only interested in reducing the cost of rent and flat-shares where a social component is also desired and flatmates hangout and spend time together.</p>",
+                "raw_text": "Flat shares are made up of two or more individuals who pool resources to rent an apartment or house together. Flat-shares generally fall into two categories: \"Zweck-WG\"s where individuals are only interested in reducing the cost of rent and flat-shares where a social component is also desired and flatmates hangout and spend time together.",
+                "position": {
+                    "x": 2278.3283328266702,
+                    "y": -878.5004731854121
+                },
+                "type": "infoNode",
+                "tags": [
+                    "housing"
+                ],
+                "answers": [],
+                "questions": [
+                    {
+                        "id": "16971414178345345",
+                        "nodeId": "16940003656556475",
+                        "text": "What exactly is a flat share?"
+                    },
+                    {
+                        "id": "16971414349092058",
+                        "nodeId": "16940003656556475",
+                        "text": "What type of flat shares are there is Germany?"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "16940007049402970",
+            "type": "infoNode",
+            "position": {
+                "x": 2766.3285113080115,
+                "y": -721.5004364774572
+            },
+            "data": {
+                "id": "16940007049402970",
+                "markup": "<p>Buying a house can be quite expensive in Stuttgart, while rental rates are often much more affordable, so it is common that many people choose instead to rent a house or apartment.</p>",
+                "raw_text": "Buying a house can be quite expensive in Stuttgart, while rental rates are often much more affordable, so it is common that many people choose instead to rent a house or apartment.",
+                "position": {
+                    "x": 2766.3285113080115,
+                    "y": -721.5004364774572
+                },
+                "type": "infoNode",
+                "tags": [
+                    "housing"
+                ],
+                "answers": [],
+                "questions": [
+                    {
+                        "id": "16971415160272443",
+                        "nodeId": "16940007049402970",
+                        "text": "Is it better to buy or rent a house in Stuttgart?"
+                    },
+                    {
+                        "id": "16971415317624053",
+                        "nodeId": "16940007049402970",
+                        "text": "Is it expensive to buy a house in Stuttgart?"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "16940008677663898",
+            "type": "userInputNode",
+            "position": {
+                "x": 1887.6173143000615,
+                "y": -1093.750337011395
+            },
+            "data": {
+                "id": "16940008677663898",
+                "markup": "<p>Are you a student?</p>",
+                "raw_text": "Are you a student?",
+                "position": {
+                    "x": 1887.6173143000615,
+                    "y": -1093.750337011395
+                },
+                "type": "userInputNode",
+                "tags": [
+                    "students",
+                    "housing"
+                ],
+                "answers": [
+                    {
+                        "id": "16940008677669292",
+                        "nodeId": "16940008677663898",
+                        "raw_text": "{{IS_STUDENT=BOOLEAN}}"
+                    }
+                ],
+                "questions": []
+            }
+        },
+        {
+            "id": "16940009032438081",
+            "type": "logicNode",
+            "position": {
+                "x": 2259.4690275082344,
+                "y": -1112.2503233249497
+            },
+            "data": {
+                "id": "16940009032438081",
+                "markup": "{{IS_STUDENT",
+                "raw_text": "{{IS_STUDENT",
+                "position": {
+                    "x": 2259.4690275082344,
+                    "y": -1112.2503233249497
+                },
+                "type": "logicNode",
+                "tags": [
+                    "students",
+                    "housing"
+                ],
+                "answers": [
+                    {
+                        "id": "16940009072175733",
+                        "nodeId": "16940009032438081",
+                        "raw_text": "== TRUE }}"
+                    },
+                    {
+                        "id": "16940009032432421",
+                        "nodeId": "16940009032438081",
+                        "raw_text": " == DEFAULT }}"
+                    }
+                ],
+                "questions": []
+            }
+        },
+        {
+            "id": "16940009283345803",
+            "type": "infoNode",
+            "position": {
+                "x": 2751.3286084193983,
+                "y": -923.5004592410207
+            },
+            "data": {
+                "id": "16940009283345803",
+                "markup": "<p>Student housing is only available for students currently enrolled in a higher education institute.</p>",
+                "raw_text": "Student housing is only available for students currently enrolled in a higher education institute.",
+                "position": {
+                    "x": 2751.3286084193983,
+                    "y": -923.5004592410207
+                },
+                "type": "infoNode",
+                "tags": [
+                    "housing",
+                    "students"
+                ],
+                "answers": [],
+                "questions": [
+                    {
+                        "id": "16971414581817409",
+                        "nodeId": "16940009283345803",
+                        "text": "Am I entitled to student housing?"
+                    },
+                    {
+                        "id": "16971414712561005",
+                        "nodeId": "16940009283345803",
+                        "text": "Can I live in student housing if I'm not currently enrolled at a university?"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "16940030269022060",
+            "type": "infoNode",
+            "position": {
+                "x": 4962.359814272009,
+                "y": 906.7499713710038
+            },
+            "data": {
+                "id": "16940030269022060",
+                "markup": "<p>As a note: anyone staying in Germany for longer than 90 days is required to register with the residents&lsquo; registration office [Bu\u0308rgerbu\u0308ro] in their place of residence within fourteen days upon arrival.</p>",
+                "raw_text": "As a note: anyone staying in Germany for longer than 90 days is required to register with the residents ' registration office [Bu\u0308rgerbu\u0308ro] in their place of residence within fourteen days upon arrival.",
+                "position": {
+                    "x": 4962.359814272009,
+                    "y": 906.7499713710038
+                },
+                "type": "infoNode",
+                "tags": [
+                    "housing",
+                    "address registration"
+                ],
+                "answers": [],
+                "questions": [
+                    {
+                        "id": "16971438364088543",
+                        "nodeId": "16940030269022060",
+                        "text": "When do I have to register with the residents' registration office?"
+                    },
+                    {
+                        "id": "16971438768736677",
+                        "nodeId": "16940030269022060",
+                        "text": "Do I have to register my address if I am staying in Germany less than 90 days?"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "16940055654220371",
+            "type": "infoNode",
+            "position": {
+                "x": 1865.3283485681031,
+                "y": -1371.250223234932
+            },
+            "data": {
+                "id": "16940055654220371",
+                "markup": "<p>Housing costs are relatively high in Stuttgart, although they do depend on the age and location of the house in question. Areas near to the city center or with better views into the valley are generally more expensive.</p>",
+                "raw_text": "Housing costs are relatively high in Stuttgart, although they do depend on the age and location of the house in question. Areas near to the city center or with better views into the valley are generally more expensive.",
+                "position": {
+                    "x": 1865.3283485681031,
+                    "y": -1326.250223234932
+                },
+                "type": "infoNode",
+                "tags": [
+                    "housing"
+                ],
+                "answers": [],
+                "questions": [
+                    {
+                        "id": "16971409584027149",
+                        "nodeId": "16940055654220371",
+                        "text": "How high are housing costs in Stuttgart?"
+                    },
+                    {
+                        "id": "16971409686279945",
+                        "nodeId": "16940055654220371",
+                        "text": "What factors influence the price of houses in Stuttgart?"
+                    },
+                    {
+                        "id": "16971410023142571",
+                        "nodeId": "16940055654220371",
+                        "text": "Which areas in Stuttgart are more expensive?"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "16940057750249450",
+            "type": "infoNode",
+            "position": {
+                "x": 2248.328429938057,
+                "y": -1330.2502707422998
+            },
+            "data": {
+                "id": "16940057750249450",
+                "markup": "<p>As a note, housing managment companies often require a credit check before allowing you to sign a rental contract.</p>",
+                "raw_text": "As a note, housing managment companies often require a credit check before allowing you to sign a rental contract.",
+                "position": {
+                    "x": 2248.328429938057,
+                    "y": -1330.2502707422998
+                },
+                "type": "infoNode",
+                "tags": [
+                    "housing"
+                ],
+                "answers": [],
+                "questions": [
+                    {
+                        "id": "16971410257119839",
+                        "nodeId": "16940057750249450",
+                        "text": "Will I need a credit check to rent an apartment?"
+                    },
+                    {
+                        "id": "16971410487373868",
+                        "nodeId": "16940057750249450",
+                        "text": "When is a credit check necessary in order to rent a house?"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "16940061789267558",
+            "type": "variableUpdateNode",
+            "position": {
+                "x": 691.7656781852111,
+                "y": -1251.2498403467876
+            },
+            "data": {
+                "id": "16940061789267558",
+                "markup": "IS_STUDENT(BOOLEAN) := TRUE",
+                "raw_text": "IS_STUDENT(BOOLEAN) := TRUE",
+                "position": {
+                    "x": 691.7656781852111,
+                    "y": -1251.2498403467876
+                },
+                "type": "variableUpdateNode",
+                "tags": [
+                    "students"
+                ],
+                "answers": [],
+                "questions": []
+            }
+        },
+        {
+            "id": "16940062976746793",
+            "type": "infoNode",
+            "position": {
+                "x": 5458.359815520075,
+                "y": 891.7499956488505
+            },
+            "data": {
+                "id": "16940062976746793",
+                "markup": "<div class=\"page\" title=\"Page 8\">\n<div class=\"layoutArea\">\n<div class=\"column\">\n<p>The registration office will provide you with a confirmation of your registration [Meldebesta\u0308tigung], which you will need for opening a bank account and for obtaining a residence permit (if applicable).</p>\n</div>\n</div>\n</div>",
+                "raw_text": " \n The registration office will provide you with a confirmation of your registration [Meldebesta\u0308tigung], which you will need for opening a bank account and for obtaining a residence permit (if applicable). \n ",
+                "position": {
+                    "x": 5458.359815520075,
+                    "y": 891.7499956488505
+                },
+                "type": "infoNode",
+                "tags": [
+                    "housing",
+                    "address registration"
+                ],
+                "answers": [],
+                "questions": [
+                    {
+                        "id": "16971439014887454",
+                        "nodeId": "16940062976746793",
+                        "text": "Why do I need a confirmation of my registration?"
+                    },
+                    {
+                        "id": "16971439168900527",
+                        "nodeId": "16940062976746793",
+                        "text": "Can I open a bank account without proof of registering my address?"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "16940067542712571",
+            "type": "infoNode",
+            "position": {
+                "x": 6360.360012238981,
+                "y": 876.7499713710038
+            },
+            "data": {
+                "id": "16940067542712571",
+                "markup": "<div class=\"page\" title=\"Page 8\">\n<div class=\"layoutArea\">\n<div class=\"column\">\n<p>You can fill out the application form at home, but you must submit it in person at any one of the registration offiices in the city.&nbsp;</p>\n<p>You can find a list of offices and a projection of the current waiting time <a href=\"https://www.stuttgart.de/service/buergerbueros.php\">here</a>.</p>\n</div>\n</div>\n</div>",
+                "raw_text": " \n You can fill out the application form at home, but you must submit it in person at any one of the registration offiices in the city. \n You can find a list of offices and a projection of the current waiting time here. \n ",
+                "position": {
+                    "x": 6360.360012238981,
+                    "y": 876.7499713710038
+                },
+                "type": "infoNode",
+                "tags": [
+                    "housing",
+                    "address registration"
+                ],
+                "answers": [],
+                "questions": [
+                    {
+                        "id": "16971439965338745",
+                        "nodeId": "16940067542712571",
+                        "text": "Can I register my address electronically or do I have to go in person?"
+                    },
+                    {
+                        "id": "16971440130295962",
+                        "nodeId": "16940067542712571",
+                        "text": "Where can I find the address of the office I need to register my address at?"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "16940072386917462",
+            "type": "infoNode",
+            "position": {
+                "x": 5909.359913879528,
+                "y": 876.7499713710038
+            },
+            "data": {
+                "id": "16940072386917462",
+                "markup": "<p>You will need the following to register your address:</p>\n<ul>\n<li>The filled out <a href=\"http://www.stuttgart.de/medien/ibs/meldeschein.pdf\">registration form</a></li>\n</ul>\n<div class=\"page\" title=\"Page 8\">\n<div class=\"layoutArea\">\n<div class=\"column\">\n<ul>\n<li>\n<p>A form confirming you have moved in, signed by your landlady or landlord called a [Wohnungsgeber-Bescheinigung] OR your moving-in letter [Einzugsschreiben] from the student ministry if you live in student housing</p>\n</li>\n<li>Your ID card or passport&nbsp;</li>\n</ul>\n</div>\n</div>\n</div>",
+                "raw_text": "You will need the following to register your address: \n The filled out registration form \n A form confirming you have moved in, signed by your landlady or landlord called a [Wohnungsgeber-Bescheinigung] OR your moving-in letter [Einzugsschreiben] from the student ministry if you live in student housing \n Your ID card or passport  \n ",
+                "position": {
+                    "x": 5909.359913879528,
+                    "y": 876.7499713710038
+                },
+                "type": "infoNode",
+                "tags": [
+                    "housing",
+                    "address registration"
+                ],
+                "answers": [],
+                "questions": [
+                    {
+                        "id": "16971439422537255",
+                        "nodeId": "16940072386917462",
+                        "text": "Do I need any special documents in order to register my address?"
+                    },
+                    {
+                        "id": "16971439714795072",
+                        "nodeId": "16940072386917462",
+                        "text": "Do I need to bring anything with me when I go to register my address?"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "16940075150645403",
+            "type": "infoNode",
+            "position": {
+                "x": 6811.3601105984335,
+                "y": 876.749983509927
+            },
+            "data": {
+                "id": "16940075150645403",
+                "markup": "<div class=\"page\" title=\"Page 9\">\n<div class=\"section\">\n<div class=\"layoutArea\">\n<div class=\"column\">\n<p>You must re-register every time you move!</p>\n<p>Additionally, non-EU citizens who need to apply for a residence permit can only do so at the city where they are currently registered. So make sure if you change cities, you don't delay registering your new address.</p>\n</div>\n</div>\n</div>\n</div>",
+                "raw_text": " \n You must re-register every time you move!\n Additionally, non-EU citizens who need to apply for a residence permit can only do so at the city where they are currently registered. So make sure if you change cities, you don't delay registering your new address. \n ",
+                "position": {
+                    "x": 6811.3601105984335,
+                    "y": 876.749983509927
+                },
+                "type": "infoNode",
+                "tags": [
+                    "housing",
+                    "address registration"
+                ],
+                "answers": [],
+                "questions": [
+                    {
+                        "id": "16971440477522977",
+                        "nodeId": "16940075150645403",
+                        "text": "Do I have to register every time I move?"
+                    },
+                    {
+                        "id": "16971440588303354",
+                        "nodeId": "16940075150645403",
+                        "text": "If I move, am I required to register my new address as well?"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "16940081581023553",
+            "type": "infoNode",
+            "position": {
+                "x": 941.3281044582418,
+                "y": 1484.4999316553153
+            },
+            "data": {
+                "id": "16940081581023553",
+                "markup": "<p>The Stuttgart area offers a wide range of public transportation options:</p>\n<ul>\n<li>S-Bahn</li>\n<li>U-Bahn</li>\n<li>Bus</li>\n<li>Regional trains</li>\n<li>Electric city bikes</li>\n</ul>",
+                "raw_text": "The Stuttgart area offers a wide range of public transportation options: \n S-Bahn \n U-Bahn \n Bus \n Regional trains \n Electric city bikes \n ",
+                "position": {
+                    "x": 941.3281044582418,
+                    "y": 1484.4999316553153
+                },
+                "type": "infoNode",
+                "tags": [
+                    "transit"
+                ],
+                "answers": [],
+                "questions": [
+                    {
+                        "id": "16971427841141574",
+                        "nodeId": "16940081581023553",
+                        "text": "What type of public transit is available in Stuttgart?"
+                    },
+                    {
+                        "id": "16971427990702084",
+                        "nodeId": "16940081581023553",
+                        "text": "Does Stuttgart have public city bikes?"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "16940084038975879",
+            "type": "infoNode",
+            "position": {
+                "x": 1707.3281700867624,
+                "y": 1171.7500684699075
+            },
+            "data": {
+                "id": "16940084038975879",
+                "markup": "<p>If you are new to Stuttgart, you can register for a free 14-day public transportation ticket with the SSB <a title=\"14-day ticket\" href=\"https://www.ssb-ag.de/kundeninfo/willkommen/\">here</a>, which is good for all public transit in the Stuttgart area.&nbsp;</p>",
+                "raw_text": "If you are new to Stuttgart, you can register for a free 14-day public transportation ticket with the SSB here, which is good for all public transit in the Stuttgart area. ",
+                "position": {
+                    "x": 1707.3281700867624,
+                    "y": 1171.7500684699075
+                },
+                "type": "infoNode",
+                "tags": [
+                    "transit"
+                ],
+                "answers": [],
+                "questions": [
+                    {
+                        "id": "16971428289154853",
+                        "nodeId": "16940084038975879",
+                        "text": "What public transit can I use with my free 14-day ticket?"
+                    },
+                    {
+                        "id": "16971428504640025",
+                        "nodeId": "16940084038975879",
+                        "text": "Where do I need to register to get my free public transit ticket?"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "16940085259147103",
+            "type": "userResponseNode",
+            "position": {
+                "x": 2582.828422691374,
+                "y": -1900.7504102110229
+            },
+            "data": {
+                "id": "16940085259147103",
+                "markup": "<p>Do you already know what you need to do to register your address once you have found a place to live?</p>",
+                "raw_text": "Do you already know what you need to do to register your address once you have found a place to live?",
+                "position": {
+                    "x": 2582.828422691374,
+                    "y": -1900.7504102110229
+                },
+                "type": "userResponseNode",
+                "tags": [
+                    "housing"
+                ],
+                "answers": [
+                    {
+                        "id": "16940085574315151",
+                        "nodeId": "16940085259147103",
+                        "raw_text": "yes"
+                    },
+                    {
+                        "id": "16940085581804287",
+                        "nodeId": "16940085259147103",
+                        "raw_text": "no"
+                    }
+                ],
+                "questions": []
+            }
+        },
+        {
+            "id": "16940097447818842",
+            "type": "userResponseNode",
+            "position": {
+                "x": 3250.828698284102,
+                "y": -1641.0004024733375
+            },
+            "data": {
+                "id": "16940097447818842",
+                "markup": "<p>Do you have a German bank account?</p>",
+                "raw_text": "Do you have a German bank account?",
+                "position": {
+                    "x": 3250.828698284102,
+                    "y": -1641.0004024733375
+                },
+                "type": "userResponseNode",
+                "tags": [
+                    "housing",
+                    "students"
+                ],
+                "answers": [
+                    {
+                        "id": "16940097664505093",
+                        "nodeId": "16940097447818842",
+                        "raw_text": "yes"
+                    },
+                    {
+                        "id": "16940097709000821",
+                        "nodeId": "16940097447818842",
+                        "raw_text": "no"
+                    }
+                ],
+                "questions": []
+            }
+        },
+        {
+            "id": "16940098143630140",
+            "type": "infoNode",
+            "position": {
+                "x": 3723.8285854312817,
+                "y": -1494.5004102816351
+            },
+            "data": {
+                "id": "16940098143630140",
+                "markup": "<div class=\"page\" title=\"Page 10\">\n<div class=\"layoutArea\">\n<div class=\"column\">\n<p>All students (including EU students) must have a German bank account if they wish to rent a student dorm through the SWS (Studierendenwerk Stuttgart) or the VSSW as it is required for the SEPA direct debit authorization [SEPA-Lastschrift]</p>\n</div>\n</div>\n</div>",
+                "raw_text": " \n All students (including EU students) must have a German bank account if they wish to rent a student dorm through the SWS (Studierendenwerk Stuttgart) or the VSSW as it is required for the SEPA direct debit authorization [SEPA-Lastschrift] \n ",
+                "position": {
+                    "x": 3723.8285854312817,
+                    "y": -1494.5004102816351
+                },
+                "type": "infoNode",
+                "tags": [
+                    "housing",
+                    "students"
+                ],
+                "answers": [],
+                "questions": [
+                    {
+                        "id": "16971411997784383",
+                        "nodeId": "16940098143630140",
+                        "text": "Do I need a German bank account for an SWS dorm?"
+                    },
+                    {
+                        "id": "16971412227084733",
+                        "nodeId": "16940098143630140",
+                        "text": "What is required to pay rent for a VSSV student dorm?"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "16940099824902790",
+            "type": "userResponseNode",
+            "position": {
+                "x": 2747.828616914148,
+                "y": -1299.7504202365976
+            },
+            "data": {
+                "id": "16940099824902790",
+                "markup": "<p>Do you have questions about applying for housing, finalising an offer, moving in, or moving out?</p>",
+                "raw_text": "Do you have questions about applying for housing, finalising an offer, moving in, or moving out?",
+                "position": {
+                    "x": 2747.828616914148,
+                    "y": -1299.7504202365976
+                },
+                "type": "userResponseNode",
+                "tags": [
+                    "housing",
+                    "students"
+                ],
+                "answers": [
+                    {
+                        "id": "16940100183728098",
+                        "nodeId": "16940099824902790",
+                        "raw_text": "Finalising an offer"
+                    },
+                    {
+                        "id": "16940100253612872",
+                        "nodeId": "16940099824902790",
+                        "raw_text": "I want to apply for student housing"
+                    },
+                    {
+                        "id": "16940109896655093",
+                        "nodeId": "16940099824902790",
+                        "raw_text": "Moving in"
+                    },
+                    {
+                        "id": "16940109983988855",
+                        "nodeId": "16940099824902790",
+                        "raw_text": "Moving out"
+                    }
+                ],
+                "questions": []
+            }
+        },
+        {
+            "id": "16940104487612380",
+            "type": "infoNode",
+            "position": {
+                "x": 3284.3285926779654,
+                "y": -1236.7504208024243
+            },
+            "data": {
+                "id": "16940104487612380",
+                "markup": "<p>Places are quite limited, so it is recommended to apply for a room at least 6 months in advanced. You can do this online <a title=\"housing application\" href=\"https://www.studierendenwerk-stuttgart.de/wohnen/online-bewerbung\">here</a></p>",
+                "raw_text": "Places are quite limited, so it is recommended to apply for a room at least 6 months in advanced. You can do this online here",
+                "position": {
+                    "x": 3284.3285926779654,
+                    "y": -1236.7504208024243
+                },
+                "type": "infoNode",
+                "tags": [
+                    "housing",
+                    "students"
+                ],
+                "answers": [],
+                "questions": [
+                    {
+                        "id": "16971416184349357",
+                        "nodeId": "16940104487612380",
+                        "text": "How much in advance should I apply for a dorm room?"
+                    },
+                    {
+                        "id": "16971416327916932",
+                        "nodeId": "16940104487612380",
+                        "text": "Where can I apply for a dorm room?"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "16940105542993511",
+            "type": "infoNode",
+            "position": {
+                "x": 3723.8285854312808,
+                "y": -1251.7503965245774
+            },
+            "data": {
+                "id": "16940105542993511",
+                "markup": "<p>You can apply for housing before you are admitted to a university, but must provide proof of acceptance before you can finalise your contract</p>",
+                "raw_text": "You can apply for housing before you are admitted to a university, but must provide proof of acceptance before you can finalise your contract",
+                "position": {
+                    "x": 3723.8285854312808,
+                    "y": -1251.7503965245774
+                },
+                "type": "infoNode",
+                "tags": [
+                    "housing",
+                    "students"
+                ],
+                "answers": [],
+                "questions": [
+                    {
+                        "id": "16971416613298705",
+                        "nodeId": "16940105542993511",
+                        "text": "What do I need in order to apply for university housing?"
+                    },
+                    {
+                        "id": "16971416875763693",
+                        "nodeId": "16940105542993511",
+                        "text": "Can I apply for university housing before I am admitted?"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "16940106375155011",
+            "type": "infoNode",
+            "position": {
+                "x": 4148.0941512959525,
+                "y": -1663.0003800799188
+            },
+            "data": {
+                "id": "16940106375155011",
+                "markup": "<div class=\"page\" title=\"Page 4\">\n<div class=\"layoutArea\">\n<div class=\"column\">\n<p>Do not forget to fill in your SEPA direct debit authorization [SEPA-Lastschrift] and hand it in to the caretaker&rsquo;s office in person (or send it by e-mail to your person responsible at the SWS)!</p>\n<p>You should have received the SEPA form together with your tenancy agreement. With the SEPA authorization your monthly rent can be debited automatically from your bank account.</p>\n</div>\n</div>\n</div>",
+                "raw_text": " \n Do not forget to fill in your SEPA direct debit authorization [SEPA-Lastschrift] and hand it in to the caretaker 's office in person (or send it by e-mail to your person responsible at the SWS)!\n You should have received the SEPA form together with your tenancy agreement. With the SEPA authorization your monthly rent can be debited automatically from your bank account. \n ",
+                "position": {
+                    "x": 4148.0941512959525,
+                    "y": -1663.0003800799188
+                },
+                "type": "infoNode",
+                "tags": [
+                    "housing",
+                    "students"
+                ],
+                "answers": [],
+                "questions": [
+                    {
+                        "id": "16971413026599231",
+                        "nodeId": "16940106375155011",
+                        "text": "Where do I need to submit my direct debit authorization?"
+                    },
+                    {
+                        "id": "16971413273696972",
+                        "nodeId": "16940106375155011",
+                        "text": "How can I submit my direct debit authorization?"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "16940110275154181",
+            "type": "infoNode",
+            "position": {
+                "x": 3389.3285926779654,
+                "y": -1952.0003776131216
+            },
+            "data": {
+                "id": "16940110275154181",
+                "markup": "<p>Finally, when signing a rental contract, you will be expected to pay a deposit [Kaution] either as part of the first rent payment or before moving in. This is usually equal to three months rent and will be returned when you move out assuming you leave the apartment in good condition.</p>",
+                "raw_text": "Finally, when signing a rental contract, you will be expected to pay a deposit [Kaution] either as part of the first rent payment or before moving in. This is usually equal to three months rent and will be returned when you move out assuming you leave the apartment in good condition.",
+                "position": {
+                    "x": 3389.3285926779654,
+                    "y": -1952.0003776131216
+                },
+                "type": "infoNode",
+                "tags": [
+                    "housing"
+                ],
+                "answers": [],
+                "questions": [
+                    {
+                        "id": "16971411058717256",
+                        "nodeId": "16940110275154181",
+                        "text": "How much does a rental deposit normally cost?"
+                    },
+                    {
+                        "id": "16971411402149681",
+                        "nodeId": "16940110275154181",
+                        "text": "When do I get my housing deposit back?"
+                    },
+                    {
+                        "id": "16971411622843764",
+                        "nodeId": "16940110275154181",
+                        "text": "When do I have to pay my rental deposit by?"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "16940120261630589",
+            "type": "infoNode",
+            "position": {
+                "x": 4163.0941512959525,
+                "y": -1055.5004096992661
+            },
+            "data": {
+                "id": "16940120261630589",
+                "markup": "<p>Collecting your key is only possible on working days during the building manager's office hours. So you will have to wait accordingly if you arrive on a weekend or holiday.</p>",
+                "raw_text": "Collecting your key is only possible on working days during the building manager's office hours. So you will have to wait accordingly if you arrive on a weekend or holiday.",
+                "position": {
+                    "x": 4163.0941512959525,
+                    "y": -1055.5004096992661
+                },
+                "type": "infoNode",
+                "tags": [
+                    "housing",
+                    "students"
+                ],
+                "answers": [],
+                "questions": [
+                    {
+                        "id": "16971417669088263",
+                        "nodeId": "16940120261630589",
+                        "text": "When can I collect my key from the dorm manager?"
+                    },
+                    {
+                        "id": "16971417875762761",
+                        "nodeId": "16940120261630589",
+                        "text": "What happens if I arrive in Stuttgart on a weekend, can I still pick up my form key from the building manager?"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "16940123407705035",
+            "type": "userResponseNode",
+            "position": {
+                "x": 3250.828698284102,
+                "y": -1010.1007853521445
+            },
+            "data": {
+                "id": "16940123407705035",
+                "markup": "<p>Will you be able to collect you keys in person (as stated in the moving in letter)?</p>",
+                "raw_text": "Will you be able to collect you keys in person (as stated in the moving in letter)?",
+                "position": {
+                    "x": 3250.828698284102,
+                    "y": -1010.1007853521445
+                },
+                "type": "userResponseNode",
+                "tags": [
+                    "housing",
+                    "students"
+                ],
+                "answers": [
+                    {
+                        "id": "16940123725568928",
+                        "nodeId": "16940123407705035",
+                        "raw_text": "yes"
+                    },
+                    {
+                        "id": "16940123769907448",
+                        "nodeId": "16940123407705035",
+                        "raw_text": "no"
+                    }
+                ],
+                "questions": []
+            }
+        },
+        {
+            "id": "16940128782255012",
+            "type": "infoNode",
+            "position": {
+                "x": 3723.8285854312808,
+                "y": -1055.5004339771126
+            },
+            "data": {
+                "id": "16940128782255012",
+                "markup": "<div class=\"page\" title=\"Page 3\">\n<div class=\"layoutArea\">\n<div class=\"column\">\n<p>As proof of your identity please present your passport and your moving-in letter at the caretaker&rsquo;s office [Hausmeisterbu\u0308ro]</p>\n</div>\n</div>\n</div>",
+                "raw_text": " \n As proof of your identity please present your passport and your moving-in letter at the caretaker 's office [Hausmeisterbu\u0308ro] \n ",
+                "position": {
+                    "x": 3723.8285854312808,
+                    "y": -1055.5004339771126
+                },
+                "type": "infoNode",
+                "tags": [
+                    "housing",
+                    "students"
+                ],
+                "answers": [],
+                "questions": [
+                    {
+                        "id": "16971417099517923",
+                        "nodeId": "16940128782255012",
+                        "text": "What documents do I need to bring with more for moving in?"
+                    },
+                    {
+                        "id": "16971417299210318",
+                        "nodeId": "16940128782255012",
+                        "text": "What identification do I need to bring for move-in?"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "16940129305705732",
+            "type": "userResponseNode",
+            "position": {
+                "x": 4219.828683790734,
+                "y": -731.4999792452404
+            },
+            "data": {
+                "id": "16940129305705732",
+                "markup": "<p>Is your dorm run by SWS or by VSSW</p>",
+                "raw_text": "Is your dorm run by SWS or by VSSW",
+                "position": {
+                    "x": 4219.828683790734,
+                    "y": -731.4999792452404
+                },
+                "type": "userResponseNode",
+                "tags": [
+                    "housing",
+                    "students"
+                ],
+                "answers": [
+                    {
+                        "id": "16940129688619224",
+                        "nodeId": "16940129305705732",
+                        "raw_text": "Studierendenwerk"
+                    },
+                    {
+                        "id": "16940129733853339",
+                        "nodeId": "16940129305705732",
+                        "raw_text": "Student ministry"
+                    },
+                    {
+                        "id": "16940131883029271",
+                        "nodeId": "16940129305705732",
+                        "raw_text": "SWS"
+                    },
+                    {
+                        "id": "16940129920308052",
+                        "nodeId": "16940129305705732",
+                        "raw_text": "VSSW"
+                    }
+                ],
+                "questions": []
+            }
+        },
+        {
+            "id": "16940131756409225",
+            "type": "infoNode",
+            "position": {
+                "x": 4782.3597171606225,
+                "y": -850.2499779847676
+            },
+            "data": {
+                "id": "16940131756409225",
+                "markup": "<div class=\"page\" title=\"Page 4\">\n<div class=\"layoutArea\">\n<div class=\"column\">\n<p>For students moving into a dormitory of SWS, it is possible to have someone collect your room keys before arrival if you will have trouble making it to the office hours. To do this, you will need to arrange an appointment with the appropriate building caretaker (at best 14 days in advance) and you will need to send this person a filled out version of the authorisation form you received with you offer letter.</p>\n</div>\n</div>\n</div>",
+                "raw_text": " \n For students moving into a dormitory of SWS, it is possible to have someone collect your room keys before arrival if you will have trouble making it to the office hours. To do this, you will need to arrange an appointment with the appropriate building caretaker (at best 14 days in advance) and you will need to send this person a filled out version of the authorisation form you received with you offer letter. \n ",
+                "position": {
+                    "x": 4782.3597171606225,
+                    "y": -850.2499779847676
+                },
+                "type": "infoNode",
+                "tags": [
+                    "housing",
+                    "students"
+                ],
+                "answers": [],
+                "questions": [
+                    {
+                        "id": "16971418489870965",
+                        "nodeId": "16940131756409225",
+                        "text": "What happens if I can't pick up my dorm key during office hours?"
+                    },
+                    {
+                        "id": "16971418737647464",
+                        "nodeId": "16940131756409225",
+                        "text": "What do I need to do in order for someone else to pick up my dorm key from the building manager?"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "16940131778732207",
+            "type": "infoNode",
+            "position": {
+                "x": 4782.3597171606225,
+                "y": -569.2499542892901
+            },
+            "data": {
+                "id": "16940131778732207",
+                "markup": "<div class=\"page\" title=\"Page 4\">\n<div class=\"section\">\n<div class=\"layoutArea\">\n<div class=\"column\">\n<p>You only have the option to pick up your dorm key in person (it is not possible to have someone collect your room key before your arrival). But you can arrange with the caretaker of the VSSW that they deposit your key in a safe in front of the dorm.</p>\n</div>\n</div>\n</div>\n</div>",
+                "raw_text": " \n You only have the option to pick up your dorm key in person (it is not possible to have someone collect your room key before your arrival). But you can arrange with the caretaker of the VSSW that they deposit your key in a safe in front of the dorm. \n ",
+                "position": {
+                    "x": 4782.3597171606225,
+                    "y": -569.2499542892901
+                },
+                "type": "infoNode",
+                "tags": [
+                    "housing",
+                    "students"
+                ],
+                "answers": [],
+                "questions": [
+                    {
+                        "id": "16971419173635698",
+                        "nodeId": "16940131778732207",
+                        "text": "Can I arrange for someone else to pick up my dorm key?"
+                    },
+                    {
+                        "id": "16971419309676315",
+                        "nodeId": "16940131778732207",
+                        "text": "What can I do if I can't pick up the key to my VSSV dorm?"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "16940136244110045",
+            "type": "infoNode",
+            "position": {
+                "x": 3254.3285926779654,
+                "y": -691.1008090476223
+            },
+            "data": {
+                "id": "16940136244110045",
+                "markup": "<p>When moving out, you will need to provide written notice to your landlord as stated in your contract (generally 3 months). Additionally, do not forget to register your change of address or deregister your address if you are moving out of the country.</p>",
+                "raw_text": "When moving out, you will need to provide written notice to your landlord as stated in your contract (generally 3 months). Additionally, do not forget to register your change of address or deregister your address if you are moving out of the country.",
+                "position": {
+                    "x": 3254.3285926779654,
+                    "y": -691.1008090476223
+                },
+                "type": "infoNode",
+                "tags": [
+                    "students",
+                    "housing"
+                ],
+                "answers": [],
+                "questions": [
+                    {
+                        "id": "16971415641739904",
+                        "nodeId": "16940136244110045",
+                        "text": "How much notice should I give before moving out?"
+                    },
+                    {
+                        "id": "16971415775952955",
+                        "nodeId": "16940136244110045",
+                        "text": "What is the average amount of notice to give my landlord before I move out?"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "16940140109258011",
+            "type": "userResponseNode",
+            "position": {
+                "x": 1320.8281457672517,
+                "y": 1443.2500509562453
+            },
+            "data": {
+                "id": "16940140109258011",
+                "markup": "<p>Would you like information about ticket options?</p>",
+                "raw_text": "Would you like information about ticket options?",
+                "position": {
+                    "x": 1320.8281457672517,
+                    "y": 1443.2500509562453
+                },
+                "type": "userResponseNode",
+                "tags": [
+                    "transit"
+                ],
+                "answers": [
+                    {
+                        "id": "16940140266058042",
+                        "nodeId": "16940140109258011",
+                        "raw_text": "yes"
+                    },
+                    {
+                        "id": "16940140272888859",
+                        "nodeId": "16940140109258011",
+                        "raw_text": "no"
+                    }
+                ],
+                "questions": []
+            }
+        },
+        {
+            "id": "16940140825082634",
+            "type": "userResponseNode",
+            "position": {
+                "x": 2116.828259951466,
+                "y": 1313.000004859155
+            },
+            "data": {
+                "id": "16940140825082634",
+                "markup": "<p>Are you a student or currently employed by a company?</p>",
+                "raw_text": "Are you a student or currently employed by a company?",
+                "position": {
+                    "x": 2116.828259951466,
+                    "y": 1313.000004859155
+                },
+                "type": "userResponseNode",
+                "tags": [
+                    "transit"
+                ],
+                "answers": [
+                    {
+                        "id": "16940141082206724",
+                        "nodeId": "16940140825082634",
+                        "raw_text": "Student "
+                    },
+                    {
+                        "id": "16940141089713987",
+                        "nodeId": "16940140825082634",
+                        "raw_text": "Employee"
+                    },
+                    {
+                        "id": "16940141105212927",
+                        "nodeId": "16940140825082634",
+                        "raw_text": "No"
+                    }
+                ],
+                "questions": []
+            }
+        },
+        {
+            "id": "16940143044016344",
+            "type": "userResponseNode",
+            "position": {
+                "x": 2514.82834132142,
+                "y": 1110.7499248122467
+            },
+            "data": {
+                "id": "16940143044016344",
+                "markup": "<p>Do you plan to stay within the Stuttgart area or travel travel frequently throughout Germany?</p>",
+                "raw_text": "Do you plan to stay within the Stuttgart area or travel travel frequently throughout Germany?",
+                "position": {
+                    "x": 2514.82834132142,
+                    "y": 1110.7499248122467
+                },
+                "type": "userResponseNode",
+                "tags": [
+                    "students",
+                    "transit"
+                ],
+                "answers": [
+                    {
+                        "id": "16940143325295675",
+                        "nodeId": "16940143044016344",
+                        "raw_text": "Stay in the area"
+                    },
+                    {
+                        "id": "16940143370392515",
+                        "nodeId": "16940143044016344",
+                        "raw_text": "travel farther"
+                    }
+                ],
+                "questions": []
+            }
+        },
+        {
+            "id": "16940143534063060",
+            "type": "infoNode",
+            "position": {
+                "x": 3201.3286084193983,
+                "y": 1589.2500781003691
+            },
+            "data": {
+                "id": "16940143534063060",
+                "markup": "<p>If you plan to travel oustide the SSB/VVS network, you should look into the Deutschland ticket, which allows you unlimited use of regional transit across all of Germany. The ticket costs 49 euros per month. For more information please see the SSB <a title=\"deutschland ticket\" href=\"https://www.ssb-ag.de/tickets/deutschland-ticket-fuer-49-euro-kommt/\">website</a>.</p>",
+                "raw_text": "If you plan to travel oustide the SSB/VVS network, you should look into the Deutschland ticket, which allows you unlimited use of regional transit across all of Germany. The ticket costs 49 euros per month. For more information please see the SSB website.",
+                "position": {
+                    "x": 3201.3286084193983,
+                    "y": 1589.2500781003691
+                },
+                "type": "infoNode",
+                "tags": [
+                    "transit"
+                ],
+                "answers": [],
+                "questions": [
+                    {
+                        "id": "16971431344291165",
+                        "nodeId": "16940143534063060",
+                        "text": "What train ticket options are there for travelling across germany?"
+                    },
+                    {
+                        "id": "16971431475977817",
+                        "nodeId": "16940143534063060",
+                        "text": "How much does the Deutschland ticket cost?"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "16940146412041402",
+            "type": "infoNode",
+            "position": {
+                "x": 3156.3285113080115,
+                "y": 1265.5000017350858
+            },
+            "data": {
+                "id": "16940146412041402",
+                "markup": "<p>As a student, you are eligible for the SSB <a href=\"https://www.ssb-ag.de/tickets/schueler-azubis-und-studierende/semestermarke/\">Semestermark</a> which allows you use of regional transportation within the VVS/SSB network on weekends and after 6pm during the week.</p>\n<p>You may also consider applying for the <a title=\"studiticket\" href=\"https://www.ssb-ag.de/tickets/schueler-azubis-und-studierende/studiticket/\">StudiTicket</a>, which allows unlimited use of the VVS/SSB network and costs 210 euros per semester.</p>",
+                "raw_text": "As a student, you are eligible for the SSB Semestermark which allows you use of regional transportation within the VVS/SSB network on weekends and after 6pm during the week. You may also consider applying for the StudiTicket, which allows unlimited use of the VVS/SSB network and costs 210 euros per semester.",
+                "position": {
+                    "x": 3156.3285113080115,
+                    "y": 1265.5000017350858
+                },
+                "type": "infoNode",
+                "tags": [
+                    "students",
+                    "transit"
+                ],
+                "answers": [],
+                "questions": [
+                    {
+                        "id": "16971430834906192",
+                        "nodeId": "16940146412041402",
+                        "text": "Are there cheaper train tickets for students?"
+                    },
+                    {
+                        "id": "16971431170739493",
+                        "nodeId": "16940146412041402",
+                        "text": "What is a Semestermark?"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "16940148771997902",
+            "type": "infoNode",
+            "position": {
+                "x": 2518.3283328266702,
+                "y": 1350.500014389747
+            },
+            "data": {
+                "id": "16940148771997902",
+                "markup": "<p>As an employee, you should check with your employer about whether they will subsidize a jobticket or the deutschland ticket.</p>",
+                "raw_text": "As an employee, you should check with your employer about whether they will subsidize a jobticket or the deutschland ticket.",
+                "position": {
+                    "x": 2518.3283328266702,
+                    "y": 1350.500014389747
+                },
+                "type": "infoNode",
+                "tags": [
+                    "transit"
+                ],
+                "answers": [],
+                "questions": [
+                    {
+                        "id": "16971429551080746",
+                        "nodeId": "16940148771997902",
+                        "text": "Are there subsidized  job tickets?"
+                    },
+                    {
+                        "id": "16971429905603544",
+                        "nodeId": "16940148771997902",
+                        "text": "Can I save money buying a job ticket?"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "16940150228174128",
+            "type": "infoNode",
+            "position": {
+                "x": 2503.328429938057,
+                "y": 1545.2000047034692
+            },
+            "data": {
+                "id": "16940150228174128",
+                "markup": "<p>The SSB/VVS offer a range of day, week, month, and 11-pack tickets to consider.</p>",
+                "raw_text": "The SSB/VVS offer a range of day, week, month, and 11-pack tickets to consider.",
+                "position": {
+                    "x": 2503.328429938057,
+                    "y": 1545.2000047034692
+                },
+                "type": "infoNode",
+                "tags": [
+                    "transit"
+                ],
+                "answers": [],
+                "questions": [
+                    {
+                        "id": "16971430176409023",
+                        "nodeId": "16940150228174128",
+                        "text": "What type of ticket options does the SSB offer?"
+                    },
+                    {
+                        "id": "16971430422596006",
+                        "nodeId": "16940150228174128",
+                        "text": "What type of transit passes does VVS offer?"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "16940157084530311",
+            "type": "infoNode",
+            "position": {
+                "x": 2878.831376492172,
+                "y": 2724.8714051998268
+            },
+            "data": {
+                "id": "16940157084530311",
+                "markup": "<p>You can apply for health insurance either online or in person at an insurance office.</p>",
+                "raw_text": "You can apply for health insurance either online or in person at an insurance office.",
+                "position": {
+                    "x": 2878.831376492172,
+                    "y": 2724.8714051998268
+                },
+                "type": "infoNode",
+                "tags": [
+                    "Health Insurance",
+                    "students"
+                ],
+                "answers": [],
+                "questions": [
+                    {
+                        "id": "16971434622327476",
+                        "nodeId": "16940157084530311",
+                        "text": "I need to apply for health insurance"
+                    },
+                    {
+                        "id": "16971434704348565",
+                        "nodeId": "16940157084530311",
+                        "text": "Do I have to apply for health insurance in person, or can I do it online?"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "16940157565110395",
+            "type": "userResponseNode",
+            "position": {
+                "x": 803.3309623957184,
+                "y": 2107.121330914345
+            },
+            "data": {
+                "id": "16940157565110395",
+                "markup": "<p>Are you from an EU country or from a country with a special status?</p>",
+                "raw_text": "Are you from an EU country or from a country with a special status?",
+                "position": {
+                    "x": 803.3309623957184,
+                    "y": 2107.121330914345
+                },
+                "type": "userResponseNode",
+                "tags": [
+                    "Health Insurance",
+                    "students"
+                ],
+                "answers": [
+                    {
+                        "id": "16940158032227419",
+                        "nodeId": "16940157565110395",
+                        "raw_text": "EU Country"
+                    },
+                    {
+                        "id": "16940158088455928",
+                        "nodeId": "16940157565110395",
+                        "raw_text": "I am from a country with a special exception"
+                    },
+                    {
+                        "id": "16940785166291124",
+                        "nodeId": "16940157565110395",
+                        "raw_text": "What countries have a special status?"
+                    },
+                    {
+                        "id": "16940158313753595",
+                        "nodeId": "16940157565110395",
+                        "raw_text": "No"
+                    }
+                ],
+                "questions": []
+            }
+        },
+        {
+            "id": "16940158703345333",
+            "type": "infoNode",
+            "position": {
+                "x": 2435.8311980108306,
+                "y": 2728.8713070401136
+            },
+            "data": {
+                "id": "16940158703345333",
+                "markup": "<p>You are required to obtain German health insurance before you can complete your enrollment with the university.</p>",
+                "raw_text": "You are required to obtain German health insurance before you can complete your enrollment with the university.",
+                "position": {
+                    "x": 2435.8311980108306,
+                    "y": 2728.8713070401136
+                },
+                "type": "infoNode",
+                "tags": [
+                    "Health Insurance",
+                    "students"
+                ],
+                "answers": [],
+                "questions": [
+                    {
+                        "id": "16971434237632324",
+                        "nodeId": "16940158703345333",
+                        "text": "Do I need German health insurance to enrol in university?"
+                    },
+                    {
+                        "id": "16971434413489953",
+                        "nodeId": "16940158703345333",
+                        "text": "Is health insurance required for enrolling in university?"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "16940162510604720",
+            "type": "infoNode",
+            "position": {
+                "x": 1759.8310352709232,
+                "y": 1923.6213838131473
+            },
+            "data": {
+                "id": "16940162510604720",
+                "markup": "<div class=\"page\" title=\"Page 6\">\n<div class=\"layoutArea\">\n<div class=\"column\">\n<p>As an EU citizen you are required to bring a European Health Insurance Card (EHIC or GHIC) from your insurance provider in your home country.</p>\n</div>\n</div>\n</div>",
+                "raw_text": " \n As an EU citizen you are required to bring a European Health Insurance Card (EHIC or GHIC) from your insurance provider in your home country. \n ",
+                "position": {
+                    "x": 1759.8310352709232,
+                    "y": 1923.6213838131473
+                },
+                "type": "infoNode",
+                "tags": [
+                    "Health Insurance",
+                    "students"
+                ],
+                "answers": [],
+                "questions": []
+            }
+        },
+        {
+            "id": "16940162658496966",
+            "type": "userResponseNode",
+            "position": {
+                "x": 1149.3311251356263,
+                "y": 1790.8714727126217
+            },
+            "data": {
+                "id": "16940162658496966",
+                "markup": "<p>Are you planning to work at all during yoru study?</p>",
+                "raw_text": "Are you planning to work at all during yoru study?",
+                "position": {
+                    "x": 1149.3311251356263,
+                    "y": 1790.8714727126217
+                },
+                "type": "userResponseNode",
+                "tags": [
+                    "Health Insurance",
+                    "students"
+                ],
+                "answers": [
+                    {
+                        "id": "16940162893485791",
+                        "nodeId": "16940162658496966",
+                        "raw_text": "yes"
+                    },
+                    {
+                        "id": "16940162931654921",
+                        "nodeId": "16940162658496966",
+                        "raw_text": "no"
+                    }
+                ],
+                "questions": []
+            }
+        },
+        {
+            "id": "16940163187913833",
+            "type": "infoNode",
+            "position": {
+                "x": 1760.8311980108306,
+                "y": 1682.871375014653
+            },
+            "data": {
+                "id": "16940163187913833",
+                "markup": "<div class=\"page\" title=\"Page 6\">\n<div class=\"section\">\n<div class=\"layoutArea\">\n<div class=\"column\">\n<p>For EU nationals who take on a minijob, a working student job or a paid internship during their studies, a German health insurance is mandatory.</p>\n</div>\n</div>\n</div>\n</div>",
+                "raw_text": " \n For EU nationals who take on a minijob, a working student job or a paid internship during their studies, a German health insurance is mandatory. \n ",
+                "position": {
+                    "x": 1760.8311980108306,
+                    "y": 1682.871375014653
+                },
+                "type": "infoNode",
+                "tags": [
+                    "Health Insurance",
+                    "students"
+                ],
+                "answers": [],
+                "questions": []
+            }
+        },
+        {
+            "id": "16940163965937206",
+            "type": "userResponseNode",
+            "position": {
+                "x": 1944.331222247013,
+                "y": 2611.62131150377
+            },
+            "data": {
+                "id": "16940163965937206",
+                "markup": "<p>Do you have private health insurance through a shcolarship program, e.g., DAAD?</p>",
+                "raw_text": "Do you have private health insurance through a shcolarship program, e.g., DAAD?",
+                "position": {
+                    "x": 1944.331222247013,
+                    "y": 2611.62131150377
+                },
+                "type": "userResponseNode",
+                "tags": [
+                    "Health Insurance",
+                    "students"
+                ],
+                "answers": [
+                    {
+                        "id": "16940164383845341",
+                        "nodeId": "16940163965937206",
+                        "raw_text": "yes"
+                    },
+                    {
+                        "id": "16940164391346014",
+                        "nodeId": "16940163965937206",
+                        "raw_text": "no"
+                    }
+                ],
+                "questions": []
+            }
+        },
+        {
+            "id": "16940164626701974",
+            "type": "infoNode",
+            "position": {
+                "x": 2420.8311980108306,
+                "y": 2312.8714167479557
+            },
+            "data": {
+                "id": "16940164626701974",
+                "markup": "<div class=\"page\" title=\"Page 6\">\n<div class=\"layoutArea\">\n<div class=\"column\">\n<p>You need to contact any state health insurance provider and present a proof of your scholarship award including health insurance. Before you can enroll in the university, a health insurance provider must electronically confirm your exemption from the state health insurance to the university.</p>\n</div>\n</div>\n</div>",
+                "raw_text": " \n You need to contact any state health insurance provider and present a proof of your scholarship award including health insurance. Before you can enroll in the university, a health insurance provider must electronically confirm your exemption from the state health insurance to the university. \n ",
+                "position": {
+                    "x": 2420.8311980108306,
+                    "y": 2312.8714167479557
+                },
+                "type": "infoNode",
+                "tags": [
+                    "Health Insurance",
+                    "students"
+                ],
+                "answers": [],
+                "questions": [
+                    {
+                        "id": "16971433807555157",
+                        "nodeId": "16940164626701974",
+                        "text": "As a scholarship holder, how do I prove I have health insurance?"
+                    },
+                    {
+                        "id": "16971433992001281",
+                        "nodeId": "16940164626701974",
+                        "text": "What do I need to do as a scholarship holder to enrol in university?"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "16940165861719281",
+            "type": "userResponseNode",
+            "position": {
+                "x": 1291.0420784497362,
+                "y": 2407.871478170535
+            },
+            "data": {
+                "id": "16940165861719281",
+                "markup": "<p>Are you under the age of 30?</p>",
+                "raw_text": "Are you under the age of 30?",
+                "position": {
+                    "x": 1291.0420784497362,
+                    "y": 2407.871478170535
+                },
+                "type": "userResponseNode",
+                "tags": [
+                    "Health Insurance",
+                    "students"
+                ],
+                "answers": [
+                    {
+                        "id": "16940165963363276",
+                        "nodeId": "16940165861719281",
+                        "raw_text": "yes"
+                    },
+                    {
+                        "id": "16940166004684637",
+                        "nodeId": "16940165861719281",
+                        "raw_text": "no"
+                    }
+                ],
+                "questions": []
+            }
+        },
+        {
+            "id": "16940166581560776",
+            "type": "infoNode",
+            "position": {
+                "x": 1947.8312137522635,
+                "y": 2326.0714710509237
+            },
+            "data": {
+                "id": "16940166581560776",
+                "markup": "<div class=\"page\" title=\"Page 6\">\n<div class=\"layoutArea\">\n<div class=\"column\">\n<p>All non-EU students over the age of 30 must take out a private health insurance. You will need to contact any state health insurance provider and present a proof of your private health insurance so they can confirm with the university that you are exempt from a state health insurance.</p>\n</div>\n</div>\n</div>",
+                "raw_text": " \n All non-EU students over the age of 30 must take out a private health insurance. You will need to contact any state health insurance provider and present a proof of your private health insurance so they can confirm with the university that you are exempt from a state health insurance. \n ",
+                "position": {
+                    "x": 1947.8312137522635,
+                    "y": 2326.0714710509237
+                },
+                "type": "infoNode",
+                "tags": [
+                    "Health Insurance",
+                    "students"
+                ],
+                "answers": [],
+                "questions": [
+                    {
+                        "id": "16971433141347427",
+                        "nodeId": "16940166581560776",
+                        "text": "Do I need to get private insurance?"
+                    },
+                    {
+                        "id": "16971433401298766",
+                        "nodeId": "16940166581560776",
+                        "text": "How can I tell if I should get private health insurance or public?"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "16940785287497320",
+            "type": "infoNode",
+            "position": {
+                "x": 1566.6554895135694,
+                "y": 2211.4786482222376
+            },
+            "data": {
+                "id": "16940785287497320",
+                "markup": "<div class=\"page\" title=\"Page 7\">\n<div class=\"layoutArea\">\n<div class=\"column\">\n<p>Countries that have a social security agreement [Sozialversicherungsabkommen] with the EU are:</p>\n<ul>\n<li>Bosnia-Herzegovina</li>\n<li>North Macedonia</li>\n<li>Montenegro</li>\n<li>Switzerland</li>\n<li>Serbia</li>\n<li>Turkey</li>\n<li>Tunisia</li>\n<li>UK</li>\n</ul>\n</div>\n</div>\n</div>",
+                "raw_text": " \n Countries that have a social security agreement [Sozialversicherungsabkommen] with the EU are: \n Bosnia-Herzegovina \n North Macedonia \n Montenegro \n Switzerland \n Serbia \n Turkey \n Tunisia \n UK \n ",
+                "position": {
+                    "x": 1566.6554895135694,
+                    "y": 2211.4786482222376
+                },
+                "type": "infoNode",
+                "tags": [
+                    "Health Insurance",
+                    "students"
+                ],
+                "answers": [],
+                "questions": [
+                    {
+                        "id": "16971432572415089",
+                        "nodeId": "16940785287497320",
+                        "text": "Which countries have a social security agreement with Germany?"
+                    },
+                    {
+                        "id": "16971432723082059",
+                        "nodeId": "16940785287497320",
+                        "text": "How do I know if my country has a social security agreement with Germany?"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "16940832239906757",
+            "type": "infoNode",
+            "position": {
+                "x": 1251.6686185235687,
+                "y": 2032.0051837000842
+            },
+            "data": {
+                "id": "16940832239906757",
+                "markup": "<div class=\"page\" title=\"Page 7\">\n<div class=\"layoutArea\">\n<div class=\"column\">\n<p>You'll need to get in touch with any German state health insurance provider and notify them that you are covered by a social security agreement with your home country. As the next step the German provider needs to transmit this information electronically to the University of Stuttgart. Only then can you be enrolled.</p>\n</div>\n</div>\n</div>",
+                "raw_text": " \n You'll need to get in touch with any German state health insurance provider and notify them that you are covered by a social security agreement with your home country. As the next step the German provider needs to transmit this information electronically to the University of Stuttgart. Only then can you be enrolled. \n ",
+                "position": {
+                    "x": 1251.6686185235687,
+                    "y": 2032.0051837000842
+                },
+                "type": "infoNode",
+                "tags": [
+                    "Health Insurance",
+                    "students"
+                ],
+                "answers": [],
+                "questions": [
+                    {
+                        "id": "16971431823660732",
+                        "nodeId": "16940832239906757",
+                        "text": "How can I prove I have health insurance covered by a social security agreement with my home country?"
+                    },
+                    {
+                        "id": "16971432220734886",
+                        "nodeId": "16940832239906757",
+                        "text": "What do I need to do to prove that my home country's health insurance is covered under a social security agreement?"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "16940840841874248",
+            "type": "userResponseNode",
+            "position": {
+                "x": 917.9128032224908,
+                "y": -528.0574331983244
+            },
+            "data": {
+                "id": "16940840841874248",
+                "markup": "<p>Do you currently have an EU bank account?</p>",
+                "raw_text": "Do you currently have an EU bank account?",
+                "position": {
+                    "x": 917.9128032224908,
+                    "y": -528.0574331983244
+                },
+                "type": "userResponseNode",
+                "tags": [
+                    "banking",
+                    "students"
+                ],
+                "answers": [
+                    {
+                        "id": "16940841194105511",
+                        "nodeId": "16940840841874248",
+                        "raw_text": "yes"
+                    },
+                    {
+                        "id": "16940841202571564",
+                        "nodeId": "16940840841874248",
+                        "raw_text": "no"
+                    }
+                ],
+                "questions": []
+            }
+        },
+        {
+            "id": "16940841337722103",
+            "type": "infoNode",
+            "position": {
+                "x": 1400.7720395866966,
+                "y": -662.4635912128451
+            },
+            "data": {
+                "id": "16940841337722103",
+                "markup": "<p>EU bank acounts can be used to pay bills and directly transfer money within Germany. Unless you plan to live in a SWS or VSSW dormitory, you will not need to create a separate German bank account.</p>",
+                "raw_text": "EU bank acounts can be used to pay bills and directly transfer money within Germany. Unless you plan to live in a SWS or VSSW dormitory, you will not need to create a separate German bank account.",
+                "position": {
+                    "x": 1400.7720395866966,
+                    "y": -662.4635912128451
+                },
+                "type": "infoNode",
+                "tags": [
+                    "banking",
+                    "students"
+                ],
+                "answers": [],
+                "questions": [
+                    {
+                        "id": "16971419986481883",
+                        "nodeId": "16940841337722103",
+                        "text": "Do I need a German bank account if I already have an EU one?"
+                    },
+                    {
+                        "id": "16971420205362834",
+                        "nodeId": "16940841337722103",
+                        "text": "Can I pay bills with my EU bank account?"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "16940842716694279",
+            "type": "infoNode",
+            "position": {
+                "x": 1396.989048438345,
+                "y": -362.68353307862276
+            },
+            "data": {
+                "id": "16940842716694279",
+                "markup": "<p>A German bank account is required to pay for your mandatory health insurance and for your dorm room if you stay in a SWS or VSSW residence hall.</p>",
+                "raw_text": "A German bank account is required to pay for your mandatory health insurance and for your dorm room if you stay in a SWS or VSSW residence hall.",
+                "position": {
+                    "x": 1396.989048438345,
+                    "y": -362.68353307862276
+                },
+                "type": "infoNode",
+                "tags": [
+                    "banking",
+                    "students"
+                ],
+                "answers": [],
+                "questions": [
+                    {
+                        "id": "16971420357614186",
+                        "nodeId": "16940842716694279",
+                        "text": "Is there any need to open a German bank account?"
+                    },
+                    {
+                        "id": "16971420470329889",
+                        "nodeId": "16940842716694279",
+                        "text": "What will I need a German bank account for?"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "16940848148490903",
+            "type": "infoNode",
+            "position": {
+                "x": 1798.7559093241362,
+                "y": -374.4064066433791
+            },
+            "data": {
+                "id": "16940848148490903",
+                "markup": "<div class=\"page\" title=\"Page 10\">\n<div class=\"layoutArea\">\n<div class=\"column\">\n<p>You can open a personal current account in person at either a local bank or an online bank [Direktbank].</p>\n<div class=\"page\" title=\"Page 10\">\n<div class=\"layoutArea\">\n<div class=\"column\">\n<p>It is usually quicker to open a bank account at an online bank, however, they only offer online or hotline support, whereas, at a local bank, you will have immediate support in person if you experience problems.</p>\n</div>\n</div>\n</div>\n</div>\n</div>\n</div>",
+                "raw_text": " \n You can open a personal current account in person at either a local bank or an online bank [Direktbank]. \n It is usually quicker to open a bank account at an online bank, however, they only offer online or hotline support, whereas, at a local bank, you will have immediate support in person if you experience problems.  \n ",
+                "position": {
+                    "x": 1798.7559093241362,
+                    "y": -374.4064066433791
+                },
+                "type": "infoNode",
+                "tags": [
+                    "students",
+                    "banking"
+                ],
+                "answers": [],
+                "questions": [
+                    {
+                        "id": "16971421040099656",
+                        "nodeId": "16940848148490903",
+                        "text": "How can I open a bank account?"
+                    },
+                    {
+                        "id": "16971421474864443",
+                        "nodeId": "16940848148490903",
+                        "text": "Can I open a bank account online?"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "16940848955726242",
+            "type": "infoNode",
+            "position": {
+                "x": 2288.323356812753,
+                "y": -407.68353307862276
+            },
+            "data": {
+                "id": "16940848955726242",
+                "markup": "<div class=\"page\" title=\"Page 10\">\n<div class=\"layoutArea\">\n<div class=\"column\">\n<p>The following documents are required:</p>\n<ul>\n<li>Proof of your address registration</li>\n<li>Passport or identity card (EU-citizens)</li>\n<li>Letter of admission from the University of Stuttgart (in order to get a student bank account)</li>\n<li>University enrollment certificate (can be provided later)</li>\n<li>Non-EU citizens: Visa or residence permit (can be provided later)</li>\n</ul>\n</div>\n</div>\n</div>",
+                "raw_text": " \n The following documents are required: \n Proof of your address registration \n Passport or identity card (EU-citizens)\n Letter of admission from the University of Stuttgart (in order to get a student bank account)\n University enrollment certificate (can be provided later)\n Non-EU citizens: Visa or residence permit (can be provided later) \n ",
+                "position": {
+                    "x": 2288.323356812753,
+                    "y": -407.68353307862276
+                },
+                "type": "infoNode",
+                "tags": [
+                    "banking",
+                    "students"
+                ],
+                "answers": [],
+                "questions": [
+                    {
+                        "id": "16971421616665397",
+                        "nodeId": "16940848955726242",
+                        "text": "What documents will I need in order to open a bank account?"
+                    },
+                    {
+                        "id": "16971421848694875",
+                        "nodeId": "16940848955726242",
+                        "text": "I need to open a bank account, can I submit proof of my university enrolment later?"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "16940858646301580",
+            "type": "infoNode",
+            "position": {
+                "x": 937.9905000074336,
+                "y": -73.51883466283743
+            },
+            "data": {
+                "id": "16940858646301580",
+                "markup": "<p>University Services include:</p>\n<ul>\n<li>Language center (with tandem partners)</li>\n<li>Internet, email, IT center</li>\n<li>A lawyer for initial consulations</li>\n<li>An ombudsperson&nbsp;</li>\n<li>A pyschological counseling service</li>\n<li>International student mentoring program</li>\n<li>Student clubs</li>\n<li>Sports programs</li>\n</ul>",
+                "raw_text": "University Services include: \n Language center (with tandem partners)\n Internet, email, IT center \n A lawyer for initial consulations \n An ombudsperson \n A pyschological counseling service \n International student mentoring program \n Student clubs \n Sports programs \n ",
+                "position": {
+                    "x": 937.9905000074336,
+                    "y": -73.51883466283743
+                },
+                "type": "infoNode",
+                "tags": [
+                    "services",
+                    "students"
+                ],
+                "answers": [],
+                "questions": [
+                    {
+                        "id": "16971422404824813",
+                        "nodeId": "16940858646301580",
+                        "text": "What type of services does the university offer?"
+                    },
+                    {
+                        "id": "16971422544979913",
+                        "nodeId": "16940858646301580",
+                        "text": "Does the university offer psychological counselling?"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "16940870977108317",
+            "type": "infoNode",
+            "position": {
+                "x": 2375.4165424867324,
+                "y": 564.8504582071348
+            },
+            "data": {
+                "id": "16940870977108317",
+                "markup": "<div class=\"page\" title=\"Page 14\">\n<div class=\"layoutArea\">\n<div class=\"column\">\n<p>Students who are EU citizens can work a maximum of 20 hours per week in accordance with the applicable laws for German students.</p>\n</div>\n</div>\n</div>",
+                "raw_text": " \n Students who are EU citizens can work a maximum of 20 hours per week in accordance with the applicable laws for German students. \n ",
+                "position": {
+                    "x": 2375.4165424867324,
+                    "y": 564.8504582071348
+                },
+                "type": "infoNode",
+                "tags": [
+                    "working",
+                    "students"
+                ],
+                "answers": [],
+                "questions": [
+                    {
+                        "id": "16971426041330506",
+                        "nodeId": "16940870977108317",
+                        "text": "How much can EU citizens work per week?"
+                    },
+                    {
+                        "id": "16971426187220842",
+                        "nodeId": "16940870977108317",
+                        "text": "How many hours a week are EU citizens allowed to work?"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "16940881134856675",
+            "type": "infoNode",
+            "position": {
+                "x": 2379.0342653236576,
+                "y": 793.8512002720099
+            },
+            "data": {
+                "id": "16940881134856675",
+                "markup": "<div class=\"page\" title=\"Page 14\">\n<div class=\"layoutArea\">\n<div class=\"column\">\n<p>Students of other nationality may only work under certain conditions in accordance to their visa or residence permit (normally 120 full days or 240 half days maximum per calendar year and as a Hiwi at the University).</p>\n</div>\n</div>\n</div>",
+                "raw_text": " \n Students of other nationality may only work under certain conditions in accordance to their visa or residence permit (normally 120 full days or 240 half days maximum per calendar year and as a Hiwi at the University). \n ",
+                "position": {
+                    "x": 2379.0342653236576,
+                    "y": 793.8512002720099
+                },
+                "type": "infoNode",
+                "tags": [
+                    "working",
+                    "students"
+                ],
+                "answers": [],
+                "questions": [
+                    {
+                        "id": "16971425529645368",
+                        "nodeId": "16940881134856675",
+                        "text": "How many days are foreign students allowed to work in a year?"
+                    },
+                    {
+                        "id": "16971425800931217",
+                        "nodeId": "16940881134856675",
+                        "text": "What decides how much foreign students are allowed to work?"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "16940881811685927",
+            "type": "infoNode",
+            "position": {
+                "x": 2060.5218214086453,
+                "y": 955.0290869108139
+            },
+            "data": {
+                "id": "16940881811685927",
+                "markup": "<div class=\"page\" title=\"Page 25\">\n<div class=\"layoutArea\">\n<div class=\"column\">\n<p>Please consider that exchange students who study in a Bachelor&lsquo;s program are not eligible for a Hiwi (student assistant/research) position.</p>\n</div>\n</div>\n</div>",
+                "raw_text": " \n Please consider that exchange students who study in a Bachelor 's program are not eligible for a Hiwi (student assistant/research) position. \n ",
+                "position": {
+                    "x": 2060.5218214086453,
+                    "y": 955.0290869108139
+                },
+                "type": "infoNode",
+                "tags": [
+                    "working",
+                    "students"
+                ],
+                "answers": [],
+                "questions": [
+                    {
+                        "id": "16971425006276235",
+                        "nodeId": "16940881811685927",
+                        "text": "Can I get a student assistant job as an exchange student?"
+                    },
+                    {
+                        "id": "16971425260236099",
+                        "nodeId": "16940881811685927",
+                        "text": "Are exchange students eligible to work as student assistants?"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "16940882887581703",
+            "type": "userInputNode",
+            "position": {
+                "x": 839.4196192038721,
+                "y": 704.1608697181933
+            },
+            "data": {
+                "id": "16940882887581703",
+                "markup": "<p>Are you an EU citizen?</p>",
+                "raw_text": "Are you an EU citizen?",
+                "position": {
+                    "x": 839.4196192038721,
+                    "y": 704.1608697181933
+                },
+                "type": "userInputNode",
+                "tags": [
+                    "working",
+                    "students"
+                ],
+                "answers": [
+                    {
+                        "id": "16940882887587977",
+                        "nodeId": "16940882887581703",
+                        "raw_text": "{{EU_CITIZEN=BOOLEAN}}"
+                    }
+                ],
+                "questions": []
+            }
+        },
+        {
+            "id": "16940883273302735",
+            "type": "logicNode",
+            "position": {
+                "x": 2051.702564905717,
+                "y": 673.2106453782442
+            },
+            "data": {
+                "id": "16940883273302735",
+                "markup": "{{EU_CITIZEN",
+                "raw_text": "{{EU_CITIZEN",
+                "position": {
+                    "x": 2051.702564905717,
+                    "y": 673.2106453782442
+                },
+                "type": "logicNode",
+                "tags": [
+                    "working",
+                    "students"
+                ],
+                "answers": [
+                    {
+                        "id": "16940883273301749",
+                        "nodeId": "16940883273302735",
+                        "raw_text": " == DEFAULT }}"
+                    },
+                    {
+                        "id": "16940883312692281",
+                        "nodeId": "16940883273302735",
+                        "raw_text": "== TRUE }}"
+                    }
+                ],
+                "questions": []
+            }
+        },
+        {
+            "id": "16940885769698961",
+            "type": "userResponseNode",
+            "position": {
+                "x": 1694.5108059227664,
+                "y": 782.8705803590959
+            },
+            "data": {
+                "id": "16940885769698961",
+                "markup": "<p>Are you a degree student or only here as part of an exchange?</p>",
+                "raw_text": "Are you a degree student or only here as part of an exchange?",
+                "position": {
+                    "x": 1694.5108059227664,
+                    "y": 782.8705803590959
+                },
+                "type": "userResponseNode",
+                "tags": [
+                    "working",
+                    "students"
+                ],
+                "answers": [
+                    {
+                        "id": "16940886179228624",
+                        "nodeId": "16940885769698961",
+                        "raw_text": "degree student"
+                    },
+                    {
+                        "id": "16940886234142515",
+                        "nodeId": "16940885769698961",
+                        "raw_text": "exchange student"
+                    }
+                ],
+                "questions": []
+            }
+        },
+        {
+            "id": "16940887034114549",
+            "type": "userInputNode",
+            "position": {
+                "x": 1102.70440082003,
+                "y": 682.600486057443
+            },
+            "data": {
+                "id": "16940887034114549",
+                "markup": "<p>Do you already have your bachelors degree?</p>",
+                "raw_text": "Do you already have your bachelors degree?",
+                "position": {
+                    "x": 1102.70440082003,
+                    "y": 682.600486057443
+                },
+                "type": "userInputNode",
+                "tags": [
+                    "working",
+                    "students"
+                ],
+                "answers": [
+                    {
+                        "id": "16940887034115354",
+                        "nodeId": "16940887034114549",
+                        "raw_text": "{{BACHELOR=BOOLEAN}}"
+                    }
+                ],
+                "questions": []
+            }
+        },
+        {
+            "id": "16940887586934492",
+            "type": "logicNode",
+            "position": {
+                "x": 1473.0444658391782,
+                "y": 680.2355332082695
+            },
+            "data": {
+                "id": "16940887586934492",
+                "markup": "{{BACHELOR",
+                "raw_text": "{{BACHELOR",
+                "position": {
+                    "x": 1473.0444658391782,
+                    "y": 680.2355332082695
+                },
+                "type": "logicNode",
+                "tags": [],
+                "answers": [
+                    {
+                        "id": "16940887586937051",
+                        "nodeId": "16940887586934492",
+                        "raw_text": " == DEFAULT }}"
+                    },
+                    {
+                        "id": "16940887631323185",
+                        "nodeId": "16940887586934492",
+                        "raw_text": "== TRUE }}"
+                    }
+                ],
+                "questions": []
+            }
+        },
+        {
+            "id": "16940888456052464",
+            "type": "infoNode",
+            "position": {
+                "x": 3035.3733093988517,
+                "y": 630.3295767854316
+            },
+            "data": {
+                "id": "16940888456052464",
+                "markup": "<div class=\"page\" title=\"Page 25\">\n<div class=\"section\">\n<div class=\"layoutArea\">\n<div class=\"column\">\n<p>Students who have already earned a first university degree (e. g. Bachelor) may be employed as a research assistant (wis- senschaftliche Hilfskraft/Hiwi) instead of a student assistant (studentische Hilfs- kraft/Hiwi). The salary of a research assistant is higher than that of a student assistant.</p>\n</div>\n</div>\n</div>\n</div>",
+                "raw_text": " \n Students who have already earned a first university degree (e. g. Bachelor) may be employed as a research assistant (wis- senschaftliche Hilfskraft/Hiwi) instead of a student assistant (studentische Hilfs- kraft/Hiwi). The salary of a research assistant is higher than that of a student assistant. \n ",
+                "position": {
+                    "x": 3035.3733093988517,
+                    "y": 630.3295767854316
+                },
+                "type": "infoNode",
+                "tags": [
+                    "working",
+                    "students"
+                ],
+                "answers": [],
+                "questions": [
+                    {
+                        "id": "16971426668711944",
+                        "nodeId": "16940888456052464",
+                        "text": "What is required to work as a research assistant instead of a student assistant?"
+                    },
+                    {
+                        "id": "16971426940144823",
+                        "nodeId": "16940888456052464",
+                        "text": "What degree do I need in order to work as a research assistant?"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "16940888497049676",
+            "type": "logicNode",
+            "position": {
+                "x": 2823.1419752713705,
+                "y": 651.228189551017
+            },
+            "data": {
+                "id": "16940888497049676",
+                "markup": "{{BACHELOR",
+                "raw_text": "{{BACHELOR",
+                "position": {
+                    "x": 2823.1419752713705,
+                    "y": 651.228189551017
+                },
+                "type": "logicNode",
+                "tags": [],
+                "answers": [
+                    {
+                        "id": "16940888497058985",
+                        "nodeId": "16940888497049676",
+                        "raw_text": " == DEFAULT }}"
+                    },
+                    {
+                        "id": "16940888538695516",
+                        "nodeId": "16940888497049676",
+                        "raw_text": "== TRUE }}"
+                    }
+                ],
+                "questions": []
+            }
+        },
+        {
+            "id": "16940889107717111",
+            "type": "logicNode",
+            "position": {
+                "x": 3408.9861196043244,
+                "y": 645.6392462316151
+            },
+            "data": {
+                "id": "16940889107717111",
+                "markup": "{{EU_CITIZEN",
+                "raw_text": "{{EU_CITIZEN",
+                "position": {
+                    "x": 3408.9861196043244,
+                    "y": 645.6392462316151
+                },
+                "type": "logicNode",
+                "tags": [],
+                "answers": [
+                    {
+                        "id": "16940889107718061",
+                        "nodeId": "16940889107717111",
+                        "raw_text": " == DEFAULT }}"
+                    },
+                    {
+                        "id": "16940889166743958",
+                        "nodeId": "16940889107717111",
+                        "raw_text": "== TRUE }}"
+                    }
+                ],
+                "questions": []
+            }
+        },
+        {
+            "id": "16940889266672653",
+            "type": "infoNode",
+            "position": {
+                "x": 3887.17685764332,
+                "y": 680.7424693803428
+            },
+            "data": {
+                "id": "16940889266672653",
+                "markup": "<p>I hoped this helped answer your questions. If not, please click restart and ask another question :)</p>",
+                "raw_text": "I hoped this helped answer your questions. If not, please click restart and ask another question :)",
+                "position": {
+                    "x": 3887.17685764332,
+                    "y": 680.7424693803428
+                },
+                "type": "infoNode",
+                "tags": [],
+                "answers": [],
+                "questions": []
+            }
+        },
+        {
+            "id": "16940889657476504",
+            "type": "infoNode",
+            "position": {
+                "x": 3561.196237730406,
+                "y": 822.281637039694
+            },
+            "data": {
+                "id": "16940889657476504",
+                "markup": "<div class=\"page\" title=\"Page 25\">\n<div class=\"section\">\n<div class=\"layoutArea\">\n<div class=\"column\">\n<p>However, the visa/residence permit of non-EU students only allows the employment as a student assistant. Therefore, non-EU students need to request an addition to their visa/residence permit when they are offered a position as a research assistant at the university. The addition is requested from the foreign registration office [Ausla\u0308nderbeho\u0308rde].</p>\n</div>\n</div>\n</div>\n</div>",
+                "raw_text": " \n However, the visa/residence permit of non-EU students only allows the employment as a student assistant. Therefore, non-EU students need to request an addition to their visa/residence permit when they are offered a position as a research assistant at the university. The addition is requested from the foreign registration office [Ausla\u0308nderbeho\u0308rde]. \n ",
+                "position": {
+                    "x": 3561.196237730406,
+                    "y": 822.281637039694
+                },
+                "type": "infoNode",
+                "tags": [
+                    "working",
+                    "students"
+                ],
+                "answers": [],
+                "questions": [
+                    {
+                        "id": "16971427383067692",
+                        "nodeId": "16940889657476504",
+                        "text": "Can non-EU students be research assistants?"
+                    },
+                    {
+                        "id": "16971427497760852",
+                        "nodeId": "16940889657476504",
+                        "text": "What do I need to do as a non-EU student in order to be allowed to work as a research assistant?"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "16940895890871751",
+            "type": "infoNode",
+            "position": {
+                "x": 769.4253780141003,
+                "y": 450.8486391117765
+            },
+            "data": {
+                "id": "16940895890871751",
+                "markup": "<div class=\"page\" title=\"Page 23\">\n<div class=\"layoutArea\">\n<div class=\"column\">\n<p>Each semester the university sports [Hochschulsport] offers a large range of sports activities. There are special registration periods. To gain one of the popular places, you have to register as soon as possible. Further information infomation please visit the <a title=\"Hochschulsport\" href=\"http://www.hochschulsport.uni-stuttgart.de/en/\">website</a>.</p>\n</div>\n</div>\n</div>",
+                "raw_text": " \n Each semester the university sports [Hochschulsport] offers a large range of sports activities. There are special registration periods. To gain one of the popular places, you have to register as soon as possible. Further information infomation please visit the website. \n ",
+                "position": {
+                    "x": 769.4253780141003,
+                    "y": 450.8486391117765
+                },
+                "type": "infoNode",
+                "tags": [
+                    "students",
+                    "sports"
+                ],
+                "answers": [],
+                "questions": [
+                    {
+                        "id": "16971423856564058",
+                        "nodeId": "16940895890871751",
+                        "text": "Where can I register for a university sports course?"
+                    },
+                    {
+                        "id": "16971424045619028",
+                        "nodeId": "16940895890871751",
+                        "text": "How can I get a spot in a popular university sports course?"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "16940897051904275",
+            "type": "infoNode",
+            "position": {
+                "x": 1144.6111405972517,
+                "y": 449.9884504805201
+            },
+            "data": {
+                "id": "16940897051904275",
+                "markup": "<p>Payment for university sports classes is done online through a bank transfer, therefore you will need an EU bank account to take part in a sports class.</p>",
+                "raw_text": "Payment for university sports classes is done online through a bank transfer, therefore you will need an EU bank account to take part in a sports class.",
+                "position": {
+                    "x": 1144.6111405972517,
+                    "y": 449.9884504805201
+                },
+                "type": "infoNode",
+                "tags": [
+                    "sports",
+                    "students"
+                ],
+                "answers": [],
+                "questions": [
+                    {
+                        "id": "16971424376226805",
+                        "nodeId": "16940897051904275",
+                        "text": "How do I pay for university sports courses?"
+                    },
+                    {
+                        "id": "16971424551757773",
+                        "nodeId": "16940897051904275",
+                        "text": "Do I need an EU bank account to sign up for a uni sport class?"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "16940900562189341",
+            "type": "infoNode",
+            "position": {
+                "x": 894.826254643271,
+                "y": 216.1823648216469
+            },
+            "data": {
+                "id": "16940900562189341",
+                "markup": "<p>Please submit all requested documents electronically to the C@MPUS website and transfer the semester contribution to the university. Once you have uploaded all documents, it can take up to three weeks to process your enrollment, so please make sure to do this before the start of the semester.</p>",
+                "raw_text": "Please submit all requested documents electronically to the C@MPUS website and transfer the semester contribution to the university. Once you have uploaded all documents, it can take up to three weeks to process your enrollment, so please make sure to do this before the start of the semester.",
+                "position": {
+                    "x": 894.826254643271,
+                    "y": 216.1823648216469
+                },
+                "type": "infoNode",
+                "tags": [
+                    "enrollement",
+                    "students"
+                ],
+                "answers": [],
+                "questions": [
+                    {
+                        "id": "16971422913528909",
+                        "nodeId": "16940900562189341",
+                        "text": "How can I submit my documents for enrolment?"
+                    },
+                    {
+                        "id": "16971423049745032",
+                        "nodeId": "16940900562189341",
+                        "text": "Roughly how long will the university need to process my enrolment?"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "16940904626778070",
+            "type": "infoNode",
+            "position": {
+                "x": 1296.47058220465,
+                "y": 208.45813833600428
+            },
+            "data": {
+                "id": "16940904626778070",
+                "markup": "<div class=\"page\" title=\"Page 14\">\n<div class=\"layoutArea\">\n<div class=\"column\">\n<p>Before submitting your enrolment application, make sure your health insurance status is listed correctly! If not, please contact your state health insurance provider! If you don not have a health insurance policy, please contact any provider. Health insurance is required to enroll in the university.</p>\n</div>\n</div>\n</div>",
+                "raw_text": " \n Before submitting your enrolment application, make sure your health insurance status is listed correctly! If not, please contact your state health insurance provider! If you don not have a health insurance policy, please contact any provider. Health insurance is required to enroll in the university. \n ",
+                "position": {
+                    "x": 1296.47058220465,
+                    "y": 208.45813833600428
+                },
+                "type": "infoNode",
+                "tags": [
+                    "enrollement",
+                    "students"
+                ],
+                "answers": [],
+                "questions": [
+                    {
+                        "id": "16971423260435836",
+                        "nodeId": "16940904626778070",
+                        "text": "What do I need to do if my health insurance isn't listed properly?"
+                    },
+                    {
+                        "id": "16971423525677001",
+                        "nodeId": "16940904626778070",
+                        "text": "Do I need health insurance to enrol in university?"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "16940912326494583",
+            "type": "userResponseNode",
+            "position": {
+                "x": 129.66522335269545,
+                "y": 2862.464951205601
+            },
+            "data": {
+                "id": "16940912326494583",
+                "markup": "<p>Are you from a country which requires an entrance visa?</p>",
+                "raw_text": "Are you from a country which requires an entrance visa?",
+                "position": {
+                    "x": 129.66522335269545,
+                    "y": 2862.464951205601
+                },
+                "type": "userResponseNode",
+                "tags": [
+                    "visa"
+                ],
+                "answers": [
+                    {
+                        "id": "16940913013355993",
+                        "nodeId": "16940912326494583",
+                        "raw_text": "yes"
+                    },
+                    {
+                        "id": "16940913020019265",
+                        "nodeId": "16940912326494583",
+                        "raw_text": "no"
+                    },
+                    {
+                        "id": "16940913026335336",
+                        "nodeId": "16940912326494583",
+                        "raw_text": "how do I know if I need one?"
+                    }
+                ],
+                "questions": []
+            }
+        },
+        {
+            "id": "16940915397922172",
+            "type": "infoNode",
+            "position": {
+                "x": 540.1817418358033,
+                "y": 3165.6790127097383
+            },
+            "data": {
+                "id": "16940915397922172",
+                "markup": "<div class=\"page\" title=\"Page 12\">\n<div class=\"layoutArea\">\n<div class=\"column\">\n<p>Citizens from, for example, Australia, Brazil, Canada, Japan, South Korea, UK and the USA may enter Germany without a visa. Otherwise please check with your local embassy.&nbsp;</p>\n</div>\n</div>\n</div>",
+                "raw_text": " \n Citizens from, for example, Australia, Brazil, Canada, Japan, South Korea, UK and the USA may enter Germany without a visa. Otherwise please check with your local embassy.  \n ",
+                "position": {
+                    "x": 540.1817418358033,
+                    "y": 3165.6790127097383
+                },
+                "type": "infoNode",
+                "tags": [
+                    "visa"
+                ],
+                "answers": [],
+                "questions": [
+                    {
+                        "id": "16971436679631924",
+                        "nodeId": "16940915397922172",
+                        "text": "How do I know if I need an entrance visa to enter Germany?"
+                    },
+                    {
+                        "id": "16971436837798606",
+                        "nodeId": "16940915397922172",
+                        "text": "Which countries can enter Germany without a vis?"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "16940923274592932",
+            "type": "infoNode",
+            "position": {
+                "x": 558.1464566222814,
+                "y": 2671.4562211227358
+            },
+            "data": {
+                "id": "16940923274592932",
+                "markup": "<p>You will need to apply in advance for your entrance visa before you are allowed to enter the country. As a note, you will need to apply for a residence permit at the latest one week before your entrance visa expires.&nbsp;</p>",
+                "raw_text": "You will need to apply in advance for your entrance visa before you are allowed to enter the country. As a note, you will need to apply for a residence permit at the latest one week before your entrance visa expires. ",
+                "position": {
+                    "x": 558.1464566222814,
+                    "y": 2671.4562211227358
+                },
+                "type": "infoNode",
+                "tags": [
+                    "visa"
+                ],
+                "answers": [],
+                "questions": [
+                    {
+                        "id": "16971435121956147",
+                        "nodeId": "16940923274592932",
+                        "text": "What is the latest I can apply for my residence permit, if I need an entrance visa?"
+                    },
+                    {
+                        "id": "16971435626522656",
+                        "nodeId": "16940923274592932",
+                        "text": "I need an entrance visa for Germany, when should I start applying for a residence permit?"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "16940923542312967",
+            "type": "infoNode",
+            "position": {
+                "x": 552.3757300448445,
+                "y": 2917.869760001
+            },
+            "data": {
+                "id": "16940923542312967",
+                "markup": "<div class=\"page\" title=\"Page 12\">\n<div class=\"layoutArea\">\n<div class=\"column\">\n<p>Although you are allowed to enter Germany without a visa, you will need to apply for a residence permit at your place of residence upon arrival.</p>\n</div>\n</div>\n</div>",
+                "raw_text": " \n Although you are allowed to enter Germany without a visa, you will need to apply for a residence permit at your place of residence upon arrival. \n ",
+                "position": {
+                    "x": 552.3757300448445,
+                    "y": 2917.869760001
+                },
+                "type": "infoNode",
+                "tags": [
+                    "visa"
+                ],
+                "answers": [],
+                "questions": [
+                    {
+                        "id": "16971435962994331",
+                        "nodeId": "16940923542312967",
+                        "text": "When do I need to apply for a residence permit?"
+                    },
+                    {
+                        "id": "16971436438635015",
+                        "nodeId": "16940923542312967",
+                        "text": "Will I need a residence permit if I didn't need an entrance visa?"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "16940924496262932",
+            "type": "infoNode",
+            "position": {
+                "x": 1007.2591589804649,
+                "y": 2918.383037566328
+            },
+            "data": {
+                "id": "16940924496262932",
+                "markup": "<div class=\"page\" title=\"Page 11\">\n<div class=\"layoutArea\">\n<div class=\"column\">\n<p>You need to apply for your residence permit at the foreigners&rsquo; registration office at the place of your registered residence.</p>\n</div>\n</div>\n</div>",
+                "raw_text": " \n You need to apply for your residence permit at the foreigners ' registration office at the place of your registered residence. \n ",
+                "position": {
+                    "x": 1007.2591589804649,
+                    "y": 2918.383037566328
+                },
+                "type": "infoNode",
+                "tags": [
+                    "visa"
+                ],
+                "answers": [],
+                "questions": [
+                    {
+                        "id": "16971437275096031",
+                        "nodeId": "16940924496262932",
+                        "text": "Which foreigner's registration office should I go to to apply for a residence permit?"
+                    },
+                    {
+                        "id": "16971437485760793",
+                        "nodeId": "16940924496262932",
+                        "text": "Does it matter where I apply for my residence permit from?"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "16940929156411157",
+            "type": "infoNode",
+            "position": {
+                "x": 1405.6316385660061,
+                "y": 2991.0053970557015
+            },
+            "data": {
+                "id": "16940929156411157",
+                "markup": "<div class=\"page\" title=\"Page 12\">\n<div class=\"layoutArea\">\n<div class=\"column\">\n<p>The production of your residence permit takes about eight weeks. When applying for your residence permit, the foreigners&rsquo; registration office will let you know when you will receive it. Meanwhile the foreigners&rsquo; registration office provides a preliminary confirmation of an authorized residence permit. The residence permit usually consists of a chip card and the supplementary sheet.</p>\n</div>\n</div>\n</div>",
+                "raw_text": " \n The production of your residence permit takes about eight weeks. When applying for your residence permit, the foreigners ' registration office will let you know when you will receive it. Meanwhile the foreigners ' registration office provides a preliminary confirmation of an authorized residence permit. The residence permit usually consists of a chip card and the supplementary sheet. \n ",
+                "position": {
+                    "x": 1405.6316385660061,
+                    "y": 2991.0053970557015
+                },
+                "type": "infoNode",
+                "tags": [
+                    "visa"
+                ],
+                "answers": [],
+                "questions": [
+                    {
+                        "id": "16971437765243346",
+                        "nodeId": "16940929156411157",
+                        "text": "Roughly how long should I expect it to take to produce my residence permit?"
+                    },
+                    {
+                        "id": "16971438063488173",
+                        "nodeId": "16940929156411157",
+                        "text": "How will I now when I can expect to receive my residence permit?"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "16952109735520524",
+            "type": "infoNode",
+            "position": {
+                "x": 1732.1789423820696,
+                "y": 1450.5435369776717
+            },
+            "data": {
+                "id": "16952109735520524",
+                "markup": "<p>If you want to buy tickts at a later point, you can do this either in person, using a ticket machine at the station of your departure or online through the DB or VVS transportation apps.</p>",
+                "raw_text": "If you want to buy tickts at a later point, you can do this either in person, using a ticket machine at the station of your departure or online through the DB or VVS transportation apps.",
+                "position": {
+                    "x": 1732.1789423820696,
+                    "y": 1450.5435369776717
+                },
+                "type": "infoNode",
+                "tags": [
+                    "transit"
+                ],
+                "answers": [],
+                "questions": [
+                    {
+                        "id": "16971428814615093",
+                        "nodeId": "16952109735520524",
+                        "text": "I need to buy a train ticket"
+                    },
+                    {
+                        "id": "16971429097125853",
+                        "nodeId": "16952109735520524",
+                        "text": "Can I buy train tickets online?"
+                    }
+                ]
+            }
+        }
+    ],
+    "connections": [
+        {
+            "id": "0",
+            "source": "0",
+            "sourceHandle": "0",
+            "target": "16939903469335362",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407891097",
+            "source": "16939924040231869",
+            "sourceHandle": "16939924484347907",
+            "target": "16940900562189341",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407891244",
+            "source": "16940148771997902",
+            "sourceHandle": "16940148771997902",
+            "target": "16940143534063060",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407891418",
+            "source": "16940163965937206",
+            "sourceHandle": "16940164383845341",
+            "target": "16940164626701974",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407891563",
+            "source": "16939924040231869",
+            "sourceHandle": "16939924308109388",
+            "target": "16940840841874248",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407891666",
+            "source": "16940157565110395",
+            "sourceHandle": "16940158313753595",
+            "target": "16940165861719281",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407891774",
+            "source": "16940883273302735",
+            "sourceHandle": "16940883312692281",
+            "target": "16940870977108317",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407891887",
+            "source": "16940887586934492",
+            "sourceHandle": "16940887586937051",
+            "target": "16940885769698961",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407891921",
+            "source": "16940150228174128",
+            "sourceHandle": "16940150228174128",
+            "target": "16940143534063060",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407892162",
+            "source": "16940915397922172",
+            "sourceHandle": "16940915397922172",
+            "target": "16940912326494583",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407892199",
+            "source": "16939903469335362",
+            "sourceHandle": "16939912049114625",
+            "target": "16939923328235660",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407892207",
+            "source": "16940067542712571",
+            "sourceHandle": "16940067542712571",
+            "target": "16940075150645403",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407892216",
+            "source": "16940008677663898",
+            "sourceHandle": "16940008677669292",
+            "target": "16940009032438081",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407892515",
+            "source": "16940848148490903",
+            "sourceHandle": "16940848148490903",
+            "target": "16940848955726242",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407892629",
+            "source": "16940888497049676",
+            "sourceHandle": "16940888497058985",
+            "target": "16940889266672653",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407892637",
+            "source": "16940840841874248",
+            "sourceHandle": "16940841202571564",
+            "target": "16940842716694279",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407892655",
+            "source": "16940030269022060",
+            "sourceHandle": "16940030269022060",
+            "target": "16940062976746793",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407892658",
+            "source": "16940009032438081",
+            "sourceHandle": "16940009072175733",
+            "target": "16940099824902790",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407892845",
+            "source": "16940099824902790",
+            "sourceHandle": "16940109896655093",
+            "target": "16940123407705035",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407893125",
+            "source": "16940061789267558",
+            "sourceHandle": "16940061789267558",
+            "target": "16939963999650878",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407893269",
+            "source": "16940157565110395",
+            "sourceHandle": "16940158032227419",
+            "target": "16940162658496966",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407893352",
+            "source": "16940165861719281",
+            "sourceHandle": "16940166004684637",
+            "target": "16940163965937206",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407893431",
+            "source": "16940128782255012",
+            "sourceHandle": "16940128782255012",
+            "target": "16940120261630589",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407893444",
+            "source": "16939963999650878",
+            "sourceHandle": "16939964154911386",
+            "target": "16939964993871601",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407893447",
+            "source": "16940912326494583",
+            "sourceHandle": "16940913026335336",
+            "target": "16940915397922172",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407893690",
+            "source": "16940888497049676",
+            "sourceHandle": "16940888538695516",
+            "target": "16940888456052464",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407893745",
+            "source": "16940129305705732",
+            "sourceHandle": "16940131883029271",
+            "target": "16940131756409225",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407893762",
+            "source": "16939924040231869",
+            "sourceHandle": "16939924651091479",
+            "target": "16940858646301580",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407893947",
+            "source": "16940870977108317",
+            "sourceHandle": "16940870977108317",
+            "target": "16940888497049676",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407894048",
+            "source": "16940885769698961",
+            "sourceHandle": "16940886234142515",
+            "target": "16940881811685927",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407894118",
+            "source": "16940129305705732",
+            "sourceHandle": "16940129733853339",
+            "target": "16940131756409225",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407894375",
+            "source": "16940009283345803",
+            "sourceHandle": "16940009283345803",
+            "target": "16939963999650878",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407894483",
+            "source": "16940007049402970",
+            "sourceHandle": "16940007049402970",
+            "target": "16939963999650878",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407894492",
+            "source": "16940097447818842",
+            "sourceHandle": "16940097664505093",
+            "target": "16940106375155011",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407894498",
+            "source": "16940163965937206",
+            "sourceHandle": "16940164391346014",
+            "target": "16940158703345333",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407894523",
+            "source": "16940924496262932",
+            "sourceHandle": "16940924496262932",
+            "target": "16940929156411157",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407894581",
+            "source": "16940157565110395",
+            "sourceHandle": "16940785166291124",
+            "target": "16940785287497320",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407894596",
+            "source": "16940889107717111",
+            "sourceHandle": "16940889166743958",
+            "target": "16940889266672653",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407894706",
+            "source": "16940140109258011",
+            "sourceHandle": "16940140272888859",
+            "target": "16952109735520524",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407894748",
+            "source": "16940885769698961",
+            "sourceHandle": "16940886179228624",
+            "target": "16940883273302735",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407894797",
+            "source": "16940097447818842",
+            "sourceHandle": "16940097709000821",
+            "target": "16940098143630140",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407894870",
+            "source": "16939963999650878",
+            "sourceHandle": "16939966036739596",
+            "target": "16939998831328941",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407894901",
+            "source": "16939955837353087",
+            "sourceHandle": "16939955837353087",
+            "target": "16939959118260698",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407895008",
+            "source": "16939924040231869",
+            "sourceHandle": "16940139803270397",
+            "target": "16940081581023553",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407895023",
+            "source": "16940099824902790",
+            "sourceHandle": "16940100253612872",
+            "target": "16940104487612380",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407895068",
+            "source": "16940912326494583",
+            "sourceHandle": "16940913013355993",
+            "target": "16940923274592932",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407895102",
+            "source": "16939924040231869",
+            "sourceHandle": "16939924558739259",
+            "target": "16940061789267558",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407895133",
+            "source": "16940062976746793",
+            "sourceHandle": "16940062976746793",
+            "target": "16940072386917462",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407895160",
+            "source": "16940129305705732",
+            "sourceHandle": "16940129688619224",
+            "target": "16940131756409225",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407895236",
+            "source": "16940140825082634",
+            "sourceHandle": "16940141082206724",
+            "target": "16940143044016344",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407895396",
+            "source": "16939964993871601",
+            "sourceHandle": "16939964993871601",
+            "target": "16940085259147103",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407895407",
+            "source": "16940887586934492",
+            "sourceHandle": "16940887631323185",
+            "target": "16940883273302735",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407895414",
+            "source": "16940084038975879",
+            "sourceHandle": "16940084038975879",
+            "target": "16940140825082634",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407895509",
+            "source": "16940882887581703",
+            "sourceHandle": "16940882887587977",
+            "target": "16940887034114549",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407895606",
+            "source": "16940123407705035",
+            "sourceHandle": "16940123769907448",
+            "target": "16940129305705732",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407895653",
+            "source": "16940842716694279",
+            "sourceHandle": "16940842716694279",
+            "target": "16940848148490903",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407895694",
+            "source": "16940158703345333",
+            "sourceHandle": "16940158703345333",
+            "target": "16940157084530311",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407895704",
+            "source": "16940123407705035",
+            "sourceHandle": "16940123725568928",
+            "target": "16940128782255012",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407895916",
+            "source": "16940140825082634",
+            "sourceHandle": "16940141105212927",
+            "target": "16940150228174128",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407895926",
+            "source": "16939923328235660",
+            "sourceHandle": "16939923635329728",
+            "target": "16939963999650878",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407896008",
+            "source": "16940165861719281",
+            "sourceHandle": "16940165963363276",
+            "target": "16940166581560776",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407896119",
+            "source": "16940085259147103",
+            "sourceHandle": "16940085581804287",
+            "target": "16940030269022060",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407896159",
+            "source": "16940009032438081",
+            "sourceHandle": "16940009032432421",
+            "target": "16940009283345803",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407896188",
+            "source": "16940162658496966",
+            "sourceHandle": "16940162931654921",
+            "target": "16940162510604720",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407896196",
+            "source": "16940923274592932",
+            "sourceHandle": "16940923274592932",
+            "target": "16940924496262932",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407896510",
+            "source": "16940085259147103",
+            "sourceHandle": "16940085574315151",
+            "target": "16940110275154181",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407896559",
+            "source": "16940887034114549",
+            "sourceHandle": "16940887034115354",
+            "target": "16940887586934492",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407896570",
+            "source": "16940881134856675",
+            "sourceHandle": "16940881134856675",
+            "target": "16940888497049676",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407896681",
+            "source": "16940889107717111",
+            "sourceHandle": "16940889107718061",
+            "target": "16940889657476504",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407897069",
+            "source": "16939924040231869",
+            "sourceHandle": "16939927127743408",
+            "target": "16940895890871751",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407897115",
+            "source": "16939924040231869",
+            "sourceHandle": "16940089183408053",
+            "target": "16940030269022060",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407897132",
+            "source": "16940140109258011",
+            "sourceHandle": "16940140266058042",
+            "target": "16940084038975879",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407897166",
+            "source": "16939963999650878",
+            "sourceHandle": "16939964212012724",
+            "target": "16940008677663898",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407897282",
+            "source": "16940785287497320",
+            "sourceHandle": "16940785287497320",
+            "target": "16940157565110395",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407897330",
+            "source": "16940912326494583",
+            "sourceHandle": "16940913020019265",
+            "target": "16940923542312967",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407897372",
+            "source": "16940129305705732",
+            "sourceHandle": "16940129920308052",
+            "target": "16940131778732207",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407897532",
+            "source": "16940099824902790",
+            "sourceHandle": "16940109983988855",
+            "target": "16940136244110045",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407897598",
+            "source": "16940840841874248",
+            "sourceHandle": "16940841194105511",
+            "target": "16940841337722103",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407897612",
+            "source": "16940104487612380",
+            "sourceHandle": "16940104487612380",
+            "target": "16940105542993511",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407897629",
+            "source": "16940923542312967",
+            "sourceHandle": "16940923542312967",
+            "target": "16940924496262932",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407897676",
+            "source": "16940157565110395",
+            "sourceHandle": "16940158088455928",
+            "target": "16940832239906757",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407897781",
+            "source": "16940889657476504",
+            "sourceHandle": "16940889657476504",
+            "target": "16940889266672653",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407897817",
+            "source": "16939923328235660",
+            "sourceHandle": "16939923573475838",
+            "target": "16939955837353087",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407897937",
+            "source": "16939903469335362",
+            "sourceHandle": "16939919798263477",
+            "target": "16940912326494583",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407897969",
+            "source": "16939963999650878",
+            "sourceHandle": "16939964269424731",
+            "target": "16940055654220371",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407897970",
+            "source": "16940895890871751",
+            "sourceHandle": "16940895890871751",
+            "target": "16940897051904275",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407898079",
+            "source": "16939998831328941",
+            "sourceHandle": "16939998831328941",
+            "target": "16940003656556475",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407898162",
+            "source": "16939903469335362",
+            "sourceHandle": "16939912323240997",
+            "target": "16939924040231869",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407898204",
+            "source": "16940162658496966",
+            "sourceHandle": "16940162893485791",
+            "target": "16940163187913833",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407898398",
+            "source": "16940143044016344",
+            "sourceHandle": "16940143370392515",
+            "target": "16940143534063060",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407898616",
+            "source": "16940003656556475",
+            "sourceHandle": "16940003656556475",
+            "target": "16940007049402970",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407898946",
+            "source": "16940888456052464",
+            "sourceHandle": "16940888456052464",
+            "target": "16940889107717111",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407899117",
+            "source": "16940098143630140",
+            "sourceHandle": "16940098143630140",
+            "target": "16940106375155011",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407899149",
+            "source": "16940106375155011",
+            "sourceHandle": "16940106375155011",
+            "target": "16940030269022060",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407899196",
+            "source": "16940081581023553",
+            "sourceHandle": "16940081581023553",
+            "target": "16940140109258011",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407899223",
+            "source": "16939924040231869",
+            "sourceHandle": "16940138665420723",
+            "target": "16940882887581703",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407899246",
+            "source": "16940057750249450",
+            "sourceHandle": "16940057750249450",
+            "target": "16940085259147103",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407899437",
+            "source": "16939959118260698",
+            "sourceHandle": "16939959118260698",
+            "target": "16940085259147103",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407899445",
+            "source": "16940055654220371",
+            "sourceHandle": "16940055654220371",
+            "target": "16940057750249450",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407899682",
+            "source": "16940883273302735",
+            "sourceHandle": "16940883273301749",
+            "target": "16940881134856675",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407899696",
+            "source": "16940900562189341",
+            "sourceHandle": "16940900562189341",
+            "target": "16940904626778070",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407899814",
+            "source": "16940143044016344",
+            "sourceHandle": "16940143325295675",
+            "target": "16940146412041402",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407899870",
+            "source": "16940099824902790",
+            "sourceHandle": "16940100183728098",
+            "target": "16940097447818842",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407899955",
+            "source": "16940072386917462",
+            "sourceHandle": "16940072386917462",
+            "target": "16940067542712571",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407899964",
+            "source": "16939903469335362",
+            "sourceHandle": "16939919957853833",
+            "target": "16940081581023553",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407899968",
+            "source": "16939924040231869",
+            "sourceHandle": "16939924364114252",
+            "target": "16940157565110395",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971407899969",
+            "source": "16940140825082634",
+            "sourceHandle": "16940141089713987",
+            "target": "16940148771997902",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        }
+    ],
+    "tags": [
+        {
+            "id": "Health Insurance",
+            "color": "#6A4C93"
+        },
+        {
+            "id": "address registration",
+            "color": "#9E101C"
+        },
+        {
+            "id": "banking",
+            "color": "#EB860A"
+        },
+        {
+            "id": "enrollement",
+            "color": "#7b3e19"
+        },
+        {
+            "id": "housing",
+            "color": "#FF595E"
+        },
+        {
+            "id": "services",
+            "color": "#06BAD6"
+        },
+        {
+            "id": "shopping",
+            "color": "#8AC926"
+        },
+        {
+            "id": "sports",
+            "color": "#c3c3c3"
+        },
+        {
+            "id": "students",
+            "color": "#FFCA3A"
+        },
+        {
+            "id": "transit",
+            "color": "#1982C4"
+        },
+        {
+            "id": "visa",
+            "color": "#FF595E"
+        },
+        {
+            "id": "working",
+            "color": "#0E6495"
+        }
+    ]
+}
