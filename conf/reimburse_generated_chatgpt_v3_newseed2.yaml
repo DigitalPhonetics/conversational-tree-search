@@ -25,8 +25,8 @@ hydra:
 experiment:
   _target_: training.trainer.Trainer
   device: cuda:0
-  seed: 12345678
-  torch_compile: true
+  seed: 2451907
+  torch_compile: false
   cudnn_deterministic: false
   optimizer:
     class_path: torch.optim.Adam

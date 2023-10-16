@@ -155,7 +155,7 @@ experiment:
       answer_path: en/reimburse/generated/chatgpt/train_answers.json
       use_answer_synonyms: true
       augmentation: ARTIFICIAL_ONLY
-      augmentation_path: en/reimburse/generated/chatgpt/train_questions_v3.json
+      augmentation_path: en/reimburse/generated/chatgpt/train_questions_v1.json
     every_steps: 3
     noise: 0.1
     steps: ???
@@ -165,7 +165,7 @@ experiment:
       answer_path: en/reimburse/generated/chatgpt/train_answers.json
       use_answer_synonyms: true
       augmentation: ARTIFICIAL_ONLY
-      augmentation_path: en/reimburse/generated/chatgpt/train_questions_v3.json
+      augmentation_path: en/reimburse/generated/chatgpt/train_questions_v1.json
     every_steps: 15000
     noise: 0.0
     dialogs: 500

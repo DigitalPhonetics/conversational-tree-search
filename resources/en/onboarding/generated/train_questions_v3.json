@@ -508,7 +508,7 @@
         "dialog_node_key": 16940057750249450,
         "key": "1695221750720626",
         "text": "Why do housing management companies need a credit check before signing a rental contract?",
-        "node_text": "As a note, housing managment companies often require a credit check before allowing you to sign a rental contract.",
+        "node_text": "As a note, housing management companies often require a credit check before allowing you to sign a rental contract.",
         "node_type": "infoNode"
     },
     "16952217507206573": {
@@ -516,7 +516,7 @@
         "dialog_node_key": 16940057750249450,
         "key": "16952217507206573",
         "text": "What is the purpose of a credit check for renting a property?",
-        "node_text": "As a note, housing managment companies often require a credit check before allowing you to sign a rental contract.",
+        "node_text": "As a note, housing management companies often require a credit check before allowing you to sign a rental contract.",
         "node_type": "infoNode"
     },
     "1695221750720663": {
@@ -524,7 +524,7 @@
         "dialog_node_key": 16940057750249450,
         "key": "1695221750720663",
         "text": "Do housing management companies always require a credit check?",
-        "node_text": "As a note, housing managment companies often require a credit check before allowing you to sign a rental contract.",
+        "node_text": "As a note, housing management companies often require a credit check before allowing you to sign a rental contract.",
         "node_type": "infoNode"
     },
     "16952226352283037": {
@@ -556,7 +556,7 @@
         "dialog_node_key": 16940067542712571,
         "key": "16952234457747338",
         "text": "Can I complete the application form at home?",
-        "node_text": "You can fill out the application form at home, but you must submit it in person at any one of the registration offiices in the city. You can find a list of offices and a projection of the current waiting time here.",
+        "node_text": "You can fill out the application form at home, but you must submit it in person at any one of the registration offices in the city. You can find a list of offices and a projection of the current waiting time here.",
         "node_type": "infoNode"
     },
     "16952234457747476": {
@@ -564,7 +564,7 @@
         "dialog_node_key": 16940067542712571,
         "key": "16952234457747476",
         "text": "Do I have to submit my application in person?",
-        "node_text": "You can fill out the application form at home, but you must submit it in person at any one of the registration offiices in the city. You can find a list of offices and a projection of the current waiting time here.",
+        "node_text": "You can fill out the application form at home, but you must submit it in person at any one of the registration offices in the city. You can find a list of offices and a projection of the current waiting time here.",
         "node_type": "infoNode"
     },
     "16952234457747538": {
@@ -572,7 +572,7 @@
         "dialog_node_key": 16940067542712571,
         "key": "16952234457747538",
         "text": "Where can I submit my application in person?",
-        "node_text": "You can fill out the application form at home, but you must submit it in person at any one of the registration offiices in the city. You can find a list of offices and a projection of the current waiting time here.",
+        "node_text": "You can fill out the application form at home, but you must submit it in person at any one of the registration offices in the city. You can find a list of offices and a projection of the current waiting time here.",
         "node_type": "infoNode"
     },
     "16952238808947918": {
@@ -985,7 +985,7 @@
         "dialog_node_key": 16940105542993511,
         "key": "1695233951881313",
         "text": "Can I apply for housing before getting accepted into a university?",
-        "node_text": "You can apply for housing before you are admitted to a university, but must provide proof of acceptance before you can finalise your contract",
+        "node_text": "You can apply for housing before you are admitted to a university, but must provide proof of acceptance before you can finalize your contract",
         "node_type": "infoNode"
     },
     "16952339518813305": {
@@ -993,7 +993,7 @@
         "dialog_node_key": 16940105542993511,
         "key": "16952339518813305",
         "text": "Do I need to be admitted to a university before applying for housing?",
-        "node_text": "You can apply for housing before you are admitted to a university, but must provide proof of acceptance before you can finalise your contract",
+        "node_text": "You can apply for housing before you are admitted to a university, but must provide proof of acceptance before you can finalize your contract",
         "node_type": "infoNode"
     },
     "16952339518813355": {
@@ -1001,7 +1001,7 @@
         "dialog_node_key": 16940105542993511,
         "key": "16952339518813355",
         "text": "Is it necessary to provide proof of acceptance before finalizing a housing contract?",
-        "node_text": "You can apply for housing before you are admitted to a university, but must provide proof of acceptance before you can finalise your contract",
+        "node_text": "You can apply for housing before you are admitted to a university, but must provide proof of acceptance before you can finalize your contract",
         "node_type": "infoNode"
     },
     "16952354015993314": {
@@ -1424,7 +1424,7 @@
         "dialog_node_key": 16940143534063060,
         "key": "16952476564567888",
         "text": "What is the SSB network and what does it cover?",
-        "node_text": "If you plan to travel oustide the SSB/VVS network, you should look into the Deutschland ticket, which allows you unlimited use of regional transit across all of Germany. The ticket costs 49 euros per month. For more information please see the SSB website.",
+        "node_text": "If you plan to travel outside the SSB/VVS network, you should look into the Deutschland ticket, which allows you unlimited use of regional transit across all of Germany. The ticket costs 49 euros per month. For more information please see the SSB website.",
         "node_type": "infoNode"
     },
     "16952476564568038": {
@@ -1433,7 +1433,7 @@
         "dialog_node_key": 16940143534063060,
         "key": "16952476564568038",
         "text": "What is the Deutschland ticket and how much does it cost?",
-        "node_text": "If you plan to travel oustide the SSB/VVS network, you should look into the Deutschland ticket, which allows you unlimited use of regional transit across all of Germany. The ticket costs 49 euros per month. For more information please see the SSB website.",
+        "node_text": "If you plan to travel outside the SSB/VVS network, you should look into the Deutschland ticket, which allows you unlimited use of regional transit across all of Germany. The ticket costs 49 euros per month. For more information please see the SSB website.",
         "node_type": "infoNode"
     },
     "16952476564568105": {
@@ -1442,7 +1442,7 @@
         "dialog_node_key": 16940143534063060,
         "key": "16952476564568105",
         "text": "Where can I find more information about the Deutschland ticket and SSB network?",
-        "node_text": "If you plan to travel oustide the SSB/VVS network, you should look into the Deutschland ticket, which allows you unlimited use of regional transit across all of Germany. The ticket costs 49 euros per month. For more information please see the SSB website.",
+        "node_text": "If you plan to travel outside the SSB/VVS network, you should look into the Deutschland ticket, which allows you unlimited use of regional transit across all of Germany. The ticket costs 49 euros per month. For more information please see the SSB website.",
         "node_type": "infoNode"
     },
     "16952468785654986": {
@@ -1451,7 +1451,7 @@
         "dialog_node_key": 16940143534063060,
         "key": "16952468785654986",
         "text": "What is the Deutschland ticket and how much does it cost per month?",
-        "node_text": "If you plan to travel oustide the SSB/VVS network, you should look into the Deutschland ticket, which allows you unlimited use of regional transit across all of Germany. The ticket costs 49 euros per month. For more information please see the SSB website.",
+        "node_text": "If you plan to travel outside the SSB/VVS network, you should look into the Deutschland ticket, which allows you unlimited use of regional transit across all of Germany. The ticket costs 49 euros per month. For more information please see the SSB website.",
         "node_type": "infoNode"
     },
     "1695247150305803": {
@@ -1460,7 +1460,7 @@
         "dialog_node_key": 16940143534063060,
         "key": "1695247150305803",
         "text": "What does the Deutschland ticket allow you to do in Germany?",
-        "node_text": "If you plan to travel oustide the SSB/VVS network, you should look into the Deutschland ticket, which allows you unlimited use of regional transit across all of Germany. The ticket costs 49 euros per month. For more information please see the SSB website.",
+        "node_text": "If you plan to travel outside the SSB/VVS network, you should look into the Deutschland ticket, which allows you unlimited use of regional transit across all of Germany. The ticket costs 49 euros per month. For more information please see the SSB website.",
         "node_type": "infoNode"
     },
     "16952471503058093": {
@@ -1469,7 +1469,7 @@
         "dialog_node_key": 16940143534063060,
         "key": "16952471503058093",
         "text": "Where can you find more information about the Deutschland ticket?",
-        "node_text": "If you plan to travel oustide the SSB/VVS network, you should look into the Deutschland ticket, which allows you unlimited use of regional transit across all of Germany. The ticket costs 49 euros per month. For more information please see the SSB website.",
+        "node_text": "If you plan to travel outside the SSB/VVS network, you should look into the Deutschland ticket, which allows you unlimited use of regional transit across all of Germany. The ticket costs 49 euros per month. For more information please see the SSB website.",
         "node_type": "infoNode"
     },
     "16952478477107291": {
@@ -1477,7 +1477,7 @@
         "dialog_node_key": 16940143534063060,
         "key": "16952478477107291",
         "text": "How much does the Deutschland ticket cost for unlimited regional transit in Germany?",
-        "node_text": "If you plan to travel oustide the SSB/VVS network, you should look into the Deutschland ticket, which allows you unlimited use of regional transit across all of Germany. The ticket costs 49 euros per month. For more information please see the SSB website.",
+        "node_text": "If you plan to travel outside the SSB/VVS network, you should look into the Deutschland ticket, which allows you unlimited use of regional transit across all of Germany. The ticket costs 49 euros per month. For more information please see the SSB website.",
         "node_type": "infoNode"
     },
     "1695247441490891": {
@@ -1486,7 +1486,7 @@
         "dialog_node_key": 16940143534063060,
         "key": "1695247441490891",
         "text": "What is the price of the Deutschland ticket for a month of unlimited regional travel?",
-        "node_text": "If you plan to travel oustide the SSB/VVS network, you should look into the Deutschland ticket, which allows you unlimited use of regional transit across all of Germany. The ticket costs 49 euros per month. For more information please see the SSB website.",
+        "node_text": "If you plan to travel outside the SSB/VVS network, you should look into the Deutschland ticket, which allows you unlimited use of regional transit across all of Germany. The ticket costs 49 euros per month. For more information please see the SSB website.",
         "node_type": "infoNode"
     },
     "16952474414908953": {
@@ -1495,7 +1495,7 @@
         "dialog_node_key": 16940143534063060,
         "key": "16952474414908953",
         "text": "Can you tell me the cost of the ticket that allows unlimited regional transit in Germany?",
-        "node_text": "If you plan to travel oustide the SSB/VVS network, you should look into the Deutschland ticket, which allows you unlimited use of regional transit across all of Germany. The ticket costs 49 euros per month. For more information please see the SSB website.",
+        "node_text": "If you plan to travel outside the SSB/VVS network, you should look into the Deutschland ticket, which allows you unlimited use of regional transit across all of Germany. The ticket costs 49 euros per month. For more information please see the SSB website.",
         "node_type": "infoNode"
     },
     "16952478477107165": {
@@ -1503,7 +1503,7 @@
         "dialog_node_key": 16940143534063060,
         "key": "16952478477107165",
         "text": "What ticket should I get if I want to travel outside the SSB/VVS network in Germany?",
-        "node_text": "If you plan to travel oustide the SSB/VVS network, you should look into the Deutschland ticket, which allows you unlimited use of regional transit across all of Germany. The ticket costs 49 euros per month. For more information please see the SSB website.",
+        "node_text": "If you plan to travel outside the SSB/VVS network, you should look into the Deutschland ticket, which allows you unlimited use of regional transit across all of Germany. The ticket costs 49 euros per month. For more information please see the SSB website.",
         "node_type": "infoNode"
     },
     "1695247847710734": {
@@ -1511,7 +1511,7 @@
         "dialog_node_key": 16940143534063060,
         "key": "1695247847710734",
         "text": "Where can I find more information about the Deutschland ticket?",
-        "node_text": "If you plan to travel oustide the SSB/VVS network, you should look into the Deutschland ticket, which allows you unlimited use of regional transit across all of Germany. The ticket costs 49 euros per month. For more information please see the SSB website.",
+        "node_text": "If you plan to travel outside the SSB/VVS network, you should look into the Deutschland ticket, which allows you unlimited use of regional transit across all of Germany. The ticket costs 49 euros per month. For more information please see the SSB website.",
         "node_type": "infoNode"
     },
     "16952480487429962": {
@@ -3056,7 +3056,7 @@
         "dialog_node_key": 16940888456052464,
         "key": "16952791034889603",
         "text": "What is the difference between a research assistant and a student assistant in terms of qualifications?",
-        "node_text": "Students who have already earned a first university degree (e. g. Bachelor) may be employed as a research assistant (wis- senschaftliche Hilfskraft/Hiwi) instead of a student assistant (studentische Hilfs- kraft/Hiwi). The salary of a research as- sistant is higher than that of a studentassistant.",
+        "node_text": "Students who have already earned a first university degree (e. g. Bachelor) may be employed as a research assistant (wissenschaftliche Hilfskraft/Hiwi) instead of a student assistant (studentische Hilfskraft/Hiwi). The salary of a research as- sistant is higher than that of a studentassistant.",
         "node_type": "infoNode"
     },
     "16952791034889882": {
@@ -3065,7 +3065,7 @@
         "dialog_node_key": 16940888456052464,
         "key": "16952791034889882",
         "text": "Can students with a first university degree work as research assistants instead of student assistants?",
-        "node_text": "Students who have already earned a first university degree (e. g. Bachelor) may be employed as a research assistant (wis- senschaftliche Hilfskraft/Hiwi) instead of a student assistant (studentische Hilfs- kraft/Hiwi). The salary of a research as- sistant is higher than that of a studentassistant.",
+        "node_text": "Students who have already earned a first university degree (e. g. Bachelor) may be employed as a research assistant (wissenschaftliche Hilfskraft/Hiwi) instead of a student assistant (studentische Hilfskraft/Hiwi). The salary of a research as- sistant is higher than that of a studentassistant.",
         "node_type": "infoNode"
     },
     "16952786035163846": {
@@ -3074,7 +3074,7 @@
         "dialog_node_key": 16940888456052464,
         "key": "16952786035163846",
         "text": "Is the salary of a research assistant higher than that of a student assistant?",
-        "node_text": "Students who have already earned a first university degree (e. g. Bachelor) may be employed as a research assistant (wis- senschaftliche Hilfskraft/Hiwi) instead of a student assistant (studentische Hilfs- kraft/Hiwi). The salary of a research as- sistant is higher than that of a studentassistant.",
+        "node_text": "Students who have already earned a first university degree (e. g. Bachelor) may be employed as a research assistant (wissenschaftliche Hilfskraft/Hiwi) instead of a student assistant (studentische Hilfskraft/Hiwi). The salary of a research as- sistant is higher than that of a studentassistant.",
         "node_type": "infoNode"
     },
     "16952788865181541": {
@@ -3083,7 +3083,7 @@
         "dialog_node_key": 16940888456052464,
         "key": "16952788865181541",
         "text": "Can someone with a Bachelor's degree work as a research assistant instead of a student assistant?",
-        "node_text": "Students who have already earned a first university degree (e. g. Bachelor) may be employed as a research assistant (wis- senschaftliche Hilfskraft/Hiwi) instead of a student assistant (studentische Hilfs- kraft/Hiwi). The salary of a research as- sistant is higher than that of a studentassistant.",
+        "node_text": "Students who have already earned a first university degree (e. g. Bachelor) may be employed as a research assistant (wissenschaftliche Hilfskraft/Hiwi) instead of a student assistant (studentische Hilfskraft/Hiwi). The salary of a research as- sistant is higher than that of a studentassistant.",
         "node_type": "infoNode"
     },
     "16952792337942636": {
@@ -3091,7 +3091,7 @@
         "dialog_node_key": 16940888456052464,
         "key": "16952792337942636",
         "text": "What is the difference in salary between a research assistant and a student assistant?",
-        "node_text": "Students who have already earned a first university degree (e. g. Bachelor) may be employed as a research assistant (wis- senschaftliche Hilfskraft/Hiwi) instead of a student assistant (studentische Hilfs- kraft/Hiwi). The salary of a research as- sistant is higher than that of a studentassistant.",
+        "node_text": "Students who have already earned a first university degree (e. g. Bachelor) may be employed as a research assistant (wissenschaftliche Hilfskraft/Hiwi) instead of a student assistant (studentische Hilfskraft/Hiwi). The salary of a research as- sistant is higher than that of a studentassistant.",
         "node_type": "infoNode"
     },
     "16952788865181973": {
@@ -3100,7 +3100,7 @@
         "dialog_node_key": 16940888456052464,
         "key": "16952788865181973",
         "text": "Are students with a Bachelor's degree eligible for higher paying research assistant positions?",
-        "node_text": "Students who have already earned a first university degree (e. g. Bachelor) may be employed as a research assistant (wis- senschaftliche Hilfskraft/Hiwi) instead of a student assistant (studentische Hilfs- kraft/Hiwi). The salary of a research as- sistant is higher than that of a studentassistant.",
+        "node_text": "Students who have already earned a first university degree (e. g. Bachelor) may be employed as a research assistant (wissenschaftliche Hilfskraft/Hiwi) instead of a student assistant (studentische Hilfskraft/Hiwi). The salary of a research as- sistant is higher than that of a studentassistant.",
         "node_type": "infoNode"
     },
     "16952791034889815": {
@@ -3109,7 +3109,7 @@
         "dialog_node_key": 16940888456052464,
         "key": "16952791034889815",
         "text": "What is the main reason for a higher salary of a research assistant compared to a student assistant?",
-        "node_text": "Students who have already earned a first university degree (e. g. Bachelor) may be employed as a research assistant (wis- senschaftliche Hilfskraft/Hiwi) instead of a student assistant (studentische Hilfs- kraft/Hiwi). The salary of a research as- sistant is higher than that of a studentassistant.",
+        "node_text": "Students who have already earned a first university degree (e. g. Bachelor) may be employed as a research assistant (wissenschaftliche Hilfskraft/Hiwi) instead of a student assistant (studentische Hilfskraft/Hiwi). The salary of a research as- sistant is higher than that of a studentassistant.",
         "node_type": "infoNode"
     },
     "16952792337942493": {
@@ -3117,7 +3117,7 @@
         "dialog_node_key": 16940888456052464,
         "key": "16952792337942493",
         "text": "Can students with a first university degree work as a research assistant instead of a student assistant?",
-        "node_text": "Students who have already earned a first university degree (e. g. Bachelor) may be employed as a research assistant (wis- senschaftliche Hilfskraft/Hiwi) instead of a student assistant (studentische Hilfs- kraft/Hiwi). The salary of a research as- sistant is higher than that of a studentassistant.",
+        "node_text": "Students who have already earned a first university degree (e. g. Bachelor) may be employed as a research assistant (wissenschaftliche Hilfskraft/Hiwi) instead of a student assistant (studentische Hilfskraft/Hiwi). The salary of a research as- sistant is higher than that of a studentassistant.",
         "node_type": "infoNode"
     },
     "16952792337942698": {
@@ -3125,7 +3125,7 @@
         "dialog_node_key": 16940888456052464,
         "key": "16952792337942698",
         "text": "Is it possible for students with a Bachelor's degree to be employed as a research assistant?",
-        "node_text": "Students who have already earned a first university degree (e. g. Bachelor) may be employed as a research assistant (wis- senschaftliche Hilfskraft/Hiwi) instead of a student assistant (studentische Hilfs- kraft/Hiwi). The salary of a research as- sistant is higher than that of a studentassistant.",
+        "node_text": "Students who have already earned a first university degree (e. g. Bachelor) may be employed as a research assistant (wissenschaftliche Hilfskraft/Hiwi) instead of a student assistant (studentische Hilfskraft/Hiwi). The salary of a research as- sistant is higher than that of a studentassistant.",
         "node_type": "infoNode"
     },
     "16952794378694773": {
@@ -3424,7 +3424,7 @@
         "dialog_node_key": 16940904626778070,
         "key": "1695284883602676",
         "text": "What should I do before submitting my enrollment application?",
-        "node_text": "Before submitting your enrollement application, make sure your health insurance status is listed correctly! If not, please contact your state health insurance provider! If you don not have a health insurance policy, please contact any provider. Health insurance is required to enroll in the university.",
+        "node_text": "Before submitting your enrollment application, make sure your health insurance status is listed correctly! If not, please contact your state health insurance provider! If you don not have a health insurance policy, please contact any provider. Health insurance is required to enroll in the university.",
         "node_type": "infoNode"
     },
     "16952848836026905": {
@@ -3432,7 +3432,7 @@
         "dialog_node_key": 16940904626778070,
         "key": "16952848836026905",
         "text": "Why is health insurance important for enrolling in the university?",
-        "node_text": "Before submitting your enrollement application, make sure your health insurance status is listed correctly! If not, please contact your state health insurance provider! If you don not have a health insurance policy, please contact any provider. Health insurance is required to enroll in the university.",
+        "node_text": "Before submitting your enrollment application, make sure your health insurance status is listed correctly! If not, please contact your state health insurance provider! If you don not have a health insurance policy, please contact any provider. Health insurance is required to enroll in the university.",
         "node_type": "infoNode"
     },
     "1695284883602695": {
@@ -3440,7 +3440,7 @@
         "dialog_node_key": 16940904626778070,
         "key": "1695284883602695",
         "text": "How can I check if my health insurance status is listed correctly?",
-        "node_text": "Before submitting your enrollement application, make sure your health insurance status is listed correctly! If not, please contact your state health insurance provider! If you don not have a health insurance policy, please contact any provider. Health insurance is required to enroll in the university.",
+        "node_text": "Before submitting your enrollment application, make sure your health insurance status is listed correctly! If not, please contact your state health insurance provider! If you don not have a health insurance policy, please contact any provider. Health insurance is required to enroll in the university.",
         "node_type": "infoNode"
     },
     "16952852611171172": {
@@ -3794,7 +3794,7 @@
         "dialog_node_key": 16940131756409225,
         "key": "16956341949593399",
         "text": "Can students arrange for someone to collect their room keys before arriving at the dormitory?",
-        "node_text": "\\n \\n \\n For students moving into a dormitory of SWS, it is possible to have someone collect your room keys before arrival if you will have trouble making it to the office hours. To do this, you will need to arrange an appointment with the appropriate building caretaker (at best 14 days in advance) and you will need to send this person a filled out version of the authorisation form you received with you offer letter.\\n \\n \\n ",
+        "node_text": "\\n \\n \\n For students moving into a dormitory of SWS, it is possible to have someone collect your room keys before arrival if you will have trouble making it to the office hours. To do this, you will need to arrange an appointment with the appropriate building caretaker (at best 14 days in advance) and you will need to send this person a filled out version of the authorization form you received with you offer letter.\\n \\n \\n ",
         "node_type": "infoNode"
     },
     "16956341949593573": {
@@ -3803,7 +3803,7 @@
         "dialog_node_key": 16940131756409225,
         "key": "16956341949593573",
         "text": "How far in advance should students contact the building caretaker for key collection?",
-        "node_text": "\\n \\n \\n For students moving into a dormitory of SWS, it is possible to have someone collect your room keys before arrival if you will have trouble making it to the office hours. To do this, you will need to arrange an appointment with the appropriate building caretaker (at best 14 days in advance) and you will need to send this person a filled out version of the authorisation form you received with you offer letter.\\n \\n \\n ",
+        "node_text": "\\n \\n \\n For students moving into a dormitory of SWS, it is possible to have someone collect your room keys before arrival if you will have trouble making it to the office hours. To do this, you will need to arrange an appointment with the appropriate building caretaker (at best 14 days in advance) and you will need to send this person a filled out version of the authorization form you received with you offer letter.\\n \\n \\n ",
         "node_type": "infoNode"
     },
     "16956341949593616": {
@@ -3812,7 +3812,7 @@
         "dialog_node_key": 16940131756409225,
         "key": "16956341949593616",
         "text": "What form do students need to send to the person collecting their keys?",
-        "node_text": "\\n \\n \\n For students moving into a dormitory of SWS, it is possible to have someone collect your room keys before arrival if you will have trouble making it to the office hours. To do this, you will need to arrange an appointment with the appropriate building caretaker (at best 14 days in advance) and you will need to send this person a filled out version of the authorisation form you received with you offer letter.\\n \\n \\n ",
+        "node_text": "\\n \\n \\n For students moving into a dormitory of SWS, it is possible to have someone collect your room keys before arrival if you will have trouble making it to the office hours. To do this, you will need to arrange an appointment with the appropriate building caretaker (at best 14 days in advance) and you will need to send this person a filled out version of the authorization form you received with you offer letter.\\n \\n \\n ",
         "node_type": "infoNode"
     },
     "16956349469958851": {
@@ -3820,7 +3820,7 @@
         "dialog_node_key": 16940131756409225,
         "key": "16956349469958851",
         "text": "Can someone pick up my dorm room keys if I can't make it to the office during SWS move-in?",
-        "node_text": "\\n \\n \\n For students moving into a dormitory of SWS, it is possible to have someone collect your room keys before arrival if you will have trouble making it to the office hours. To do this, you will need to arrange an appointment with the appropriate building caretaker (at best 14 days in advance) and you will need to send this person a filled out version of the authorisation form you received with you offer letter.\\n \\n \\n ",
+        "node_text": "\\n \\n \\n For students moving into a dormitory of SWS, it is possible to have someone collect your room keys before arrival if you will have trouble making it to the office hours. To do this, you will need to arrange an appointment with the appropriate building caretaker (at best 14 days in advance) and you will need to send this person a filled out version of the authorization form you received with you offer letter.\\n \\n \\n ",
         "node_type": "infoNode"
     },
     "16956349469959006": {
@@ -3828,7 +3828,7 @@
         "dialog_node_key": 16940131756409225,
         "key": "16956349469959006",
         "text": "How far in advance should I arrange an appointment with the building caretaker for key collection?",
-        "node_text": "\\n \\n \\n For students moving into a dormitory of SWS, it is possible to have someone collect your room keys before arrival if you will have trouble making it to the office hours. To do this, you will need to arrange an appointment with the appropriate building caretaker (at best 14 days in advance) and you will need to send this person a filled out version of the authorisation form you received with you offer letter.\\n \\n \\n ",
+        "node_text": "\\n \\n \\n For students moving into a dormitory of SWS, it is possible to have someone collect your room keys before arrival if you will have trouble making it to the office hours. To do this, you will need to arrange an appointment with the appropriate building caretaker (at best 14 days in advance) and you will need to send this person a filled out version of the authorization form you received with you offer letter.\\n \\n \\n ",
         "node_type": "infoNode"
     },
     "16956349469959052": {
@@ -3836,7 +3836,7 @@
         "dialog_node_key": 16940131756409225,
         "key": "16956349469959052",
         "text": "What do I need to send to the person collecting my keys?",
-        "node_text": "\\n \\n \\n For students moving into a dormitory of SWS, it is possible to have someone collect your room keys before arrival if you will have trouble making it to the office hours. To do this, you will need to arrange an appointment with the appropriate building caretaker (at best 14 days in advance) and you will need to send this person a filled out version of the authorisation form you received with you offer letter.\\n \\n \\n ",
+        "node_text": "\\n \\n \\n For students moving into a dormitory of SWS, it is possible to have someone collect your room keys before arrival if you will have trouble making it to the office hours. To do this, you will need to arrange an appointment with the appropriate building caretaker (at best 14 days in advance) and you will need to send this person a filled out version of the authorization form you received with you offer letter.\\n \\n \\n ",
         "node_type": "infoNode"
     },
     "16956351972407491": {

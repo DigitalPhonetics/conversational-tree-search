@@ -72,8 +72,8 @@
             },
             "data": {
                 "id": "16939923328235660",
-                "markup": "<p>Are you looking for immediate short-term housing or somehwere long term?</p>",
-                "raw_text": "Are you looking for immediate short-term housing or somehwere long term?",
+                "markup": "<p>Are you looking for immediate short-term housing or somewhere long term?</p>",
+                "raw_text": "Are you looking for immediate short-term housing or somewhere long term?",
                 "position": {
                     "x": 90.82814576725173,
                     "y": -1822.0004801908458
@@ -140,7 +140,7 @@
                     {
                         "id": "16939927127743408",
                         "nodeId": "16939924040231869",
-                        "raw_text": "Sports organisations"
+                        "raw_text": "Sports organizations"
                     },
                     {
                         "id": "16940089183408053",
@@ -175,8 +175,8 @@
             },
             "data": {
                 "id": "16939955837353087",
-                "markup": "<p>For short stays, consider looking into one of the city's many hostels or hotels, which can be booked on a per night basis. Prices should start in the rnage of 40-150 euros per night.</p>",
-                "raw_text": "For short stays, consider looking into one of the city's many hostels or hotels, which can be booked on a per night basis. Prices should start in the rnage of 40-150 euros per night.",
+                "markup": "<p>For short stays, consider looking into one of the city's many hostels or hotels, which can be booked on a per night basis. Prices should start in the range of 40-150 euros per night.</p>",
+                "raw_text": "For short stays, consider looking into one of the city's many hostels or hotels, which can be booked on a per night basis. Prices should start in the range of 40-150 euros per night.",
                 "position": {
                     "x": 830.3283485681031,
                     "y": -1912.500449489934
@@ -538,8 +538,8 @@
             },
             "data": {
                 "id": "16940030269022060",
-                "markup": "<p>As a note: anyone staying in Germany for longer than 90 days is required to register with the residents&lsquo; registration office [Bu\u0308rgerbu\u0308ro] in their place of residence within fourteen days upon arrival.</p>",
-                "raw_text": "As a note: anyone staying in Germany for longer than 90 days is required to register with the residents ' registration office [Bu\u0308rgerbu\u0308ro] in their place of residence within fourteen days upon arrival.",
+                "markup": "<p>As a note: anyone staying in Germany for longer than 90 days is required to register with the residents&lsquo; registration office [Bürgerbüro] in their place of residence within fourteen days upon arrival.</p>",
+                "raw_text": "As a note: anyone staying in Germany for longer than 90 days is required to register with the residents ' registration office [Bürgerbüro] in their place of residence within fourteen days upon arrival.",
                 "position": {
                     "x": 4962.359814272009,
                     "y": 906.7499713710038
@@ -612,8 +612,8 @@
             },
             "data": {
                 "id": "16940057750249450",
-                "markup": "<p>As a note, housing managment companies often require a credit check before allowing you to sign a rental contract.</p>",
-                "raw_text": "As a note, housing managment companies often require a credit check before allowing you to sign a rental contract.",
+                "markup": "<p>As a note, housing management companies often require a credit check before allowing you to sign a rental contract.</p>",
+                "raw_text": "As a note, housing management companies often require a credit check before allowing you to sign a rental contract.",
                 "position": {
                     "x": 2248.328429938057,
                     "y": -1330.2502707422998
@@ -669,8 +669,8 @@
             },
             "data": {
                 "id": "16940062976746793",
-                "markup": "<div class=\"page\" title=\"Page 8\">\n<div class=\"layoutArea\">\n<div class=\"column\">\n<p>The registration office will provide you with a confirmation of your registration [Meldebesta\u0308tigung], which you will need for opening a bank account and for obtaining a residence permit (if applicable).</p>\n</div>\n</div>\n</div>",
-                "raw_text": " \n The registration office will provide you with a confirmation of your registration [Meldebesta\u0308tigung], which you will need for opening a bank account and for obtaining a residence permit (if applicable). \n ",
+                "markup": "<div class=\"page\" title=\"Page 8\">\n<div class=\"layoutArea\">\n<div class=\"column\">\n<p>The registration office will provide you with a confirmation of your registration [Meldebestätigung], which you will need for opening a bank account and for obtaining a residence permit (if applicable).</p>\n</div>\n</div>\n</div>",
+                "raw_text": " \n The registration office will provide you with a confirmation of your registration [Meldebestätigung], which you will need for opening a bank account and for obtaining a residence permit (if applicable). \n ",
                 "position": {
                     "x": 5458.359815520075,
                     "y": 891.7499956488505
@@ -704,8 +704,8 @@
             },
             "data": {
                 "id": "16940067542712571",
-                "markup": "<div class=\"page\" title=\"Page 8\">\n<div class=\"layoutArea\">\n<div class=\"column\">\n<p>You can fill out the application form at home, but you must submit it in person at any one of the registration offiices in the city.&nbsp;</p>\n<p>You can find a list of offices and a projection of the current waiting time <a href=\"https://www.stuttgart.de/service/buergerbueros.php\">here</a>.</p>\n</div>\n</div>\n</div>",
-                "raw_text": " \n You can fill out the application form at home, but you must submit it in person at any one of the registration offiices in the city. \n You can find a list of offices and a projection of the current waiting time here. \n ",
+                "markup": "<div class=\"page\" title=\"Page 8\">\n<div class=\"layoutArea\">\n<div class=\"column\">\n<p>You can fill out the application form at home, but you must submit it in person at any one of the registration offices in the city.&nbsp;</p>\n<p>You can find a list of offices and a projection of the current waiting time <a href=\"https://www.stuttgart.de/service/buergerbueros.php\">here</a>.</p>\n</div>\n</div>\n</div>",
+                "raw_text": " \n You can fill out the application form at home, but you must submit it in person at any one of the registration offices in the city. \n You can find a list of offices and a projection of the current waiting time here. \n ",
                 "position": {
                     "x": 6360.360012238981,
                     "y": 876.7499713710038
@@ -981,8 +981,8 @@
             },
             "data": {
                 "id": "16940099824902790",
-                "markup": "<p>Do you have questions about applying for housing, finalising an offer, moving in, or moving out?</p>",
-                "raw_text": "Do you have questions about applying for housing, finalising an offer, moving in, or moving out?",
+                "markup": "<p>Do you have questions about applying for housing, finalizing an offer, moving in, or moving out?</p>",
+                "raw_text": "Do you have questions about applying for housing, finalizing an offer, moving in, or moving out?",
                 "position": {
                     "x": 2747.828616914148,
                     "y": -1299.7504202365976
@@ -996,7 +996,7 @@
                     {
                         "id": "16940100183728098",
                         "nodeId": "16940099824902790",
-                        "raw_text": "Finalising an offer"
+                        "raw_text": "Finalizing an offer"
                     },
                     {
                         "id": "16940100253612872",
@@ -1061,8 +1061,8 @@
             },
             "data": {
                 "id": "16940105542993511",
-                "markup": "<p>You can apply for housing before you are admitted to a university, but must provide proof of acceptance before you can finalise your contract</p>",
-                "raw_text": "You can apply for housing before you are admitted to a university, but must provide proof of acceptance before you can finalise your contract",
+                "markup": "<p>You can apply for housing before you are admitted to a university, but must provide proof of acceptance before you can finalize your contract</p>",
+                "raw_text": "You can apply for housing before you are admitted to a university, but must provide proof of acceptance before you can finalize your contract",
                 "position": {
                     "x": 3723.8285854312808,
                     "y": -1251.7503965245774
@@ -1240,8 +1240,8 @@
             },
             "data": {
                 "id": "16940128782255012",
-                "markup": "<div class=\"page\" title=\"Page 3\">\n<div class=\"layoutArea\">\n<div class=\"column\">\n<p>As proof of your identity please present your passport and your moving-in letter at the caretaker&rsquo;s office [Hausmeisterbu\u0308ro]</p>\n</div>\n</div>\n</div>",
-                "raw_text": " \n As proof of your identity please present your passport and your moving-in letter at the caretaker 's office [Hausmeisterbu\u0308ro] \n ",
+                "markup": "<div class=\"page\" title=\"Page 3\">\n<div class=\"layoutArea\">\n<div class=\"column\">\n<p>As proof of your identity please present your passport and your moving-in letter at the caretaker&rsquo;s office [Hausmeisterbüro]</p>\n</div>\n</div>\n</div>",
+                "raw_text": " \n As proof of your identity please present your passport and your moving-in letter at the caretaker's office [Hausmeisterbüro] \n ",
                 "position": {
                     "x": 3723.8285854312808,
                     "y": -1055.5004339771126
@@ -1320,8 +1320,8 @@
             },
             "data": {
                 "id": "16940131756409225",
-                "markup": "<div class=\"page\" title=\"Page 4\">\n<div class=\"layoutArea\">\n<div class=\"column\">\n<p>For students moving into a dormitory of SWS, it is possible to have someone collect your room keys before arrival if you will have trouble making it to the office hours. To do this, you will need to arrange an appointment with the appropriate building caretaker (at best 14 days in advance) and you will need to send this person a filled out version of the authorisation form you received with you offer letter.</p>\n</div>\n</div>\n</div>",
-                "raw_text": " \n For students moving into a dormitory of SWS, it is possible to have someone collect your room keys before arrival if you will have trouble making it to the office hours. To do this, you will need to arrange an appointment with the appropriate building caretaker (at best 14 days in advance) and you will need to send this person a filled out version of the authorisation form you received with you offer letter. \n ",
+                "markup": "<div class=\"page\" title=\"Page 4\">\n<div class=\"layoutArea\">\n<div class=\"column\">\n<p>For students moving into a dormitory of SWS, it is possible to have someone collect your room keys before arrival if you will have trouble making it to the office hours. To do this, you will need to arrange an appointment with the appropriate building caretaker (at best 14 days in advance) and you will need to send this person a filled out version of the authorization form you received with you offer letter.</p>\n</div>\n</div>\n</div>",
+                "raw_text": " \n For students moving into a dormitory of SWS, it is possible to have someone collect your room keys before arrival if you will have trouble making it to the office hours. To do this, you will need to arrange an appointment with the appropriate building caretaker (at best 14 days in advance) and you will need to send this person a filled out version of the authorization form you received with you offer letter. \n ",
                 "position": {
                     "x": 4782.3597171606225,
                     "y": -850.2499779847676
@@ -1533,8 +1533,8 @@
             },
             "data": {
                 "id": "16940143534063060",
-                "markup": "<p>If you plan to travel oustide the SSB/VVS network, you should look into the Deutschland ticket, which allows you unlimited use of regional transit across all of Germany. The ticket costs 49 euros per month. For more information please see the SSB <a title=\"deutschland ticket\" href=\"https://www.ssb-ag.de/tickets/deutschland-ticket-fuer-49-euro-kommt/\">website</a>.</p>",
-                "raw_text": "If you plan to travel oustide the SSB/VVS network, you should look into the Deutschland ticket, which allows you unlimited use of regional transit across all of Germany. The ticket costs 49 euros per month. For more information please see the SSB website.",
+                "markup": "<p>If you plan to travel outside the SSB/VVS network, you should look into the Deutschland ticket, which allows you unlimited use of regional transit across all of Germany. The ticket costs 49 euros per month. For more information please see the SSB <a title=\"deutschland ticket\" href=\"https://www.ssb-ag.de/tickets/deutschland-ticket-fuer-49-euro-kommt/\">website</a>.</p>",
+                "raw_text": "If you plan to travel outside the SSB/VVS network, you should look into the Deutschland ticket, which allows you unlimited use of regional transit across all of Germany. The ticket costs 49 euros per month. For more information please see the SSB website.",
                 "position": {
                     "x": 3201.3286084193983,
                     "y": 1589.2500781003691
@@ -1548,7 +1548,7 @@
                     {
                         "id": "16971431344291165",
                         "nodeId": "16940143534063060",
-                        "text": "What train ticket options are there for travelling across germany?"
+                        "text": "What train ticket options are there for traveling across germany?"
                     },
                     {
                         "id": "16971431475977817",
@@ -1809,8 +1809,8 @@
             },
             "data": {
                 "id": "16940162658496966",
-                "markup": "<p>Are you planning to work at all during yoru study?</p>",
-                "raw_text": "Are you planning to work at all during yoru study?",
+                "markup": "<p>Are you planning to work at all during your study?</p>",
+                "raw_text": "Are you planning to work at all during your study?",
                 "position": {
                     "x": 1149.3311251356263,
                     "y": 1790.8714727126217
@@ -1844,8 +1844,8 @@
             },
             "data": {
                 "id": "16940163187913833",
-                "markup": "<div class=\"page\" title=\"Page 6\">\n<div class=\"section\">\n<div class=\"layoutArea\">\n<div class=\"column\">\n<p>For EU nationals who take on a minijob, a working student job or a paid internship during their studies, a German health insurance is mandatory.</p>\n</div>\n</div>\n</div>\n</div>",
-                "raw_text": " \n For EU nationals who take on a minijob, a working student job or a paid internship during their studies, a German health insurance is mandatory. \n ",
+                "markup": "<div class=\"page\" title=\"Page 6\">\n<div class=\"section\">\n<div class=\"layoutArea\">\n<div class=\"column\">\n<p>For EU nationals who take on a mini-job, a working student job or a paid internship during their studies, a German health insurance is mandatory.</p>\n</div>\n</div>\n</div>\n</div>",
+                "raw_text": " \n For EU nationals who take on a mini-job, a working student job or a paid internship during their studies, a German health insurance is mandatory. \n ",
                 "position": {
                     "x": 1760.8311980108306,
                     "y": 1682.871375014653
@@ -1868,8 +1868,8 @@
             },
             "data": {
                 "id": "16940163965937206",
-                "markup": "<p>Do you have private health insurance through a shcolarship program, e.g., DAAD?</p>",
-                "raw_text": "Do you have private health insurance through a shcolarship program, e.g., DAAD?",
+                "markup": "<p>Do you have private health insurance through a scholarship program, e.g., DAAD?</p>",
+                "raw_text": "Do you have private health insurance through a scholarship program, e.g., DAAD?",
                 "position": {
                     "x": 1944.331222247013,
                     "y": 2611.62131150377
@@ -2113,8 +2113,8 @@
             },
             "data": {
                 "id": "16940841337722103",
-                "markup": "<p>EU bank acounts can be used to pay bills and directly transfer money within Germany. Unless you plan to live in a SWS or VSSW dormitory, you will not need to create a separate German bank account.</p>",
-                "raw_text": "EU bank acounts can be used to pay bills and directly transfer money within Germany. Unless you plan to live in a SWS or VSSW dormitory, you will not need to create a separate German bank account.",
+                "markup": "<p>EU bank accounts can be used to pay bills and directly transfer money within Germany. Unless you plan to live in a SWS or VSSW dormitory, you will not need to create a separate German bank account.</p>",
+                "raw_text": "EU bank accounts can be used to pay bills and directly transfer money within Germany. Unless you plan to live in a SWS or VSSW dormitory, you will not need to create a separate German bank account.",
                 "position": {
                     "x": 1400.7720395866966,
                     "y": -662.4635912128451
@@ -2253,8 +2253,8 @@
             },
             "data": {
                 "id": "16940858646301580",
-                "markup": "<p>University Services include:</p>\n<ul>\n<li>Language center (with tandem partners)</li>\n<li>Internet, email, IT center</li>\n<li>A lawyer for initial consulations</li>\n<li>An ombudsperson&nbsp;</li>\n<li>A pyschological counseling service</li>\n<li>International student mentoring program</li>\n<li>Student clubs</li>\n<li>Sports programs</li>\n</ul>",
-                "raw_text": "University Services include: \n Language center (with tandem partners)\n Internet, email, IT center \n A lawyer for initial consulations \n An ombudsperson \n A pyschological counseling service \n International student mentoring program \n Student clubs \n Sports programs \n ",
+                "markup": "<p>University Services include:</p>\n<ul>\n<li>Language center (with tandem partners)</li>\n<li>Internet, email, IT center</li>\n<li>A lawyer for initial consultations</li>\n<li>An ombudsperson&nbsp;</li>\n<li>A psychological counseling service</li>\n<li>International student mentoring program</li>\n<li>Student clubs</li>\n<li>Sports programs</li>\n</ul>",
+                "raw_text": "University Services include: \n Language center (with tandem partners)\n Internet, email, IT center \n A lawyer for initial consultations \n An ombudsperson \n A psychological counseling service \n International student mentoring program \n Student clubs \n Sports programs \n ",
                 "position": {
                     "x": 937.9905000074336,
                     "y": -73.51883466283743
@@ -2555,8 +2555,8 @@
             },
             "data": {
                 "id": "16940888456052464",
-                "markup": "<div class=\"page\" title=\"Page 25\">\n<div class=\"section\">\n<div class=\"layoutArea\">\n<div class=\"column\">\n<p>Students who have already earned a first university degree (e. g. Bachelor) may be employed as a research assistant (wis- senschaftliche Hilfskraft/Hiwi) instead of a student assistant (studentische Hilfs- kraft/Hiwi). The salary of a research assistant is higher than that of a student assistant.</p>\n</div>\n</div>\n</div>\n</div>",
-                "raw_text": " \n Students who have already earned a first university degree (e. g. Bachelor) may be employed as a research assistant (wis- senschaftliche Hilfskraft/Hiwi) instead of a student assistant (studentische Hilfs- kraft/Hiwi). The salary of a research assistant is higher than that of a student assistant. \n ",
+                "markup": "<div class=\"page\" title=\"Page 25\">\n<div class=\"section\">\n<div class=\"layoutArea\">\n<div class=\"column\">\n<p>Students who have already earned a first university degree (e. g. Bachelor) may be employed as a research assistant (wissenschaftliche Hilfskraft/Hiwi) instead of a student assistant (studentische Hilfskraft/Hiwi). The salary of a research assistant is higher than that of a student assistant.</p>\n</div>\n</div>\n</div>\n</div>",
+                "raw_text": " \n Students who have already earned a first university degree (e. g. Bachelor) may be employed as a research assistant (wissenschaftliche Hilfskraft/Hiwi) instead of a student assistant (studentische Hilfskraft/Hiwi). The salary of a research assistant is higher than that of a student assistant. \n ",
                 "position": {
                     "x": 3035.3733093988517,
                     "y": 630.3295767854316
@@ -2676,7 +2676,7 @@
             "data": {
                 "id": "16940889657476504",
                 "markup": "<div class=\"page\" title=\"Page 25\">\n<div class=\"section\">\n<div class=\"layoutArea\">\n<div class=\"column\">\n<p>However, the visa/residence permit of non-EU students only allows the employment as a student assistant. Therefore, non-EU students need to request an addition to their visa/residence permit when they are offered a position as a research assistant at the university. The addition is requested from the foreign registration office [Ausla\u0308nderbeho\u0308rde].</p>\n</div>\n</div>\n</div>\n</div>",
-                "raw_text": " \n However, the visa/residence permit of non-EU students only allows the employment as a student assistant. Therefore, non-EU students need to request an addition to their visa/residence permit when they are offered a position as a research assistant at the university. The addition is requested from the foreign registration office [Ausla\u0308nderbeho\u0308rde]. \n ",
+                "raw_text": " \n However, the visa/residence permit of non-EU students only allows the employment as a student assistant. Therefore, non-EU students need to request an addition to their visa/residence permit when they are offered a position as a research assistant at the university. The addition is requested from the foreign registration office [Ausländerbehörde]. \n ",
                 "position": {
                     "x": 3561.196237730406,
                     "y": 822.281637039694
@@ -2710,8 +2710,8 @@
             },
             "data": {
                 "id": "16940895890871751",
-                "markup": "<div class=\"page\" title=\"Page 23\">\n<div class=\"layoutArea\">\n<div class=\"column\">\n<p>Each semester the university sports [Hochschulsport] offers a large range of sports activities. There are special registration periods. To gain one of the popular places, you have to register as soon as possible. Further information infomation please visit the <a title=\"Hochschulsport\" href=\"http://www.hochschulsport.uni-stuttgart.de/en/\">website</a>.</p>\n</div>\n</div>\n</div>",
-                "raw_text": " \n Each semester the university sports [Hochschulsport] offers a large range of sports activities. There are special registration periods. To gain one of the popular places, you have to register as soon as possible. Further information infomation please visit the website. \n ",
+                "markup": "<div class=\"page\" title=\"Page 23\">\n<div class=\"layoutArea\">\n<div class=\"column\">\n<p>Each semester the university sports [Hochschulsport] offers a large range of sports activities. There are special registration periods. To gain one of the popular places, you have to register as soon as possible. Further  information please visit the <a title=\"Hochschulsport\" href=\"http://www.hochschulsport.uni-stuttgart.de/en/\">website</a>.</p>\n</div>\n</div>\n</div>",
+                "raw_text": " \n Each semester the university sports [Hochschulsport] offers a large range of sports activities. There are special registration periods. To gain one of the popular places, you have to register as soon as possible. Further information please visit the website. \n ",
                 "position": {
                     "x": 769.4253780141003,
                     "y": 450.8486391117765
@@ -2788,7 +2788,7 @@
                 },
                 "type": "infoNode",
                 "tags": [
-                    "enrollement",
+                    "enrollment",
                     "students"
                 ],
                 "answers": [],
@@ -2823,7 +2823,7 @@
                 },
                 "type": "infoNode",
                 "tags": [
-                    "enrollement",
+                    "enrollment",
                     "students"
                 ],
                 "answers": [],
@@ -4064,7 +4064,7 @@
             "color": "#EB860A"
         },
         {
-            "id": "enrollement",
+            "id": "enrollment",
             "color": "#7b3e19"
         },
         {

@@ -88,19 +88,14 @@
                 "answers": [],
                 "questions": [
                     {
-                        "id": "16971898203896919",
+                        "id": "16971897388828504",
                         "nodeId": "16971227852021367",
-                        "text": "I've been diagnosed with seborrheic dermatitis, what is it?"
+                        "text": "What causes dandruff?"
                     },
                     {
-                        "id": "16971897912708778",
+                        "id": "16971897755736953",
                         "nodeId": "16971227852021367",
-                        "text": "Do I have to worry about seborrheic dermatitis becoming a chronic condition?"
-                    },
-                    {
-                        "id": "16971897202338804",
-                        "nodeId": "16971227852021367",
-                        "text": "What is seborrheic dermatitis?"
+                        "text": "Where does seborrheic dermatitis affect?"
                     }
                 ]
             }
@@ -198,19 +193,14 @@
                 "answers": [],
                 "questions": [
                     {
-                        "id": "16971908034881943",
+                        "id": "16971908176791003",
                         "nodeId": "16971230875957773",
-                        "text": "What are risk factors for seborrheic dermatitis?"
+                        "text": "Does having another skin condition make me more likely to get seborrheic dermatitis?"
                     },
                     {
-                        "id": "16971908503629584",
+                        "id": "16971907675491793",
                         "nodeId": "16971230875957773",
-                        "text": "What other conditions are linked to increase risk of seborrheic dermatitis?"
-                    },
-                    {
-                        "id": "16971907829917836",
-                        "nodeId": "16971230875957773",
-                        "text": "Does family history play a role in how likely I am to get seborrheic dermatitis?"
+                        "text": "What would increase my risk for seborrheic dermatitis?"
                     }
                 ]
             }
@@ -235,19 +225,14 @@
                 "answers": [],
                 "questions": [
                     {
-                        "id": "16971912480915443",
+                        "id": "16971911642686354",
                         "nodeId": "16971231890596859",
-                        "text": "What is the normal color of skin scales for Seborrheic dermatitis?"
+                        "text": "I have an itchy rash and scales on my skin, what are these symptoms of?"
                     },
                     {
-                        "id": "16971912289775071",
+                        "id": "16971912164380614",
                         "nodeId": "16971231890596859",
-                        "text": "Is it common to have dandruff as part of Seborrheic dermatitis?"
-                    },
-                    {
-                        "id": "16971911468889557",
-                        "nodeId": "16971231890596859",
-                        "text": "What are symptoms of seborrheic dermatitis?"
+                        "text": "Can you list the main symptoms of seborrheic dermatitis?"
                     }
                 ]
             }
@@ -272,19 +257,14 @@
                 "answers": [],
                 "questions": [
                     {
-                        "id": "16971904218589816",
+                        "id": "16971903586866073",
                         "nodeId": "16971232836336441",
-                        "text": "Are there any shampoos to help with seborrheic dermatitis?"
+                        "text": "Do I need a prescription to treat cradle cap?"
                     },
                     {
-                        "id": "16971904075084217",
+                        "id": "16971903402421065",
                         "nodeId": "16971232836336441",
-                        "text": "How do I treat seborrheic dermatitis?"
-                    },
-                    {
-                        "id": "16971903775097913",
-                        "nodeId": "16971232836336441",
-                        "text": "Should I use an anti fungal or cortisone to for my seborrheic dermatitis?"
+                        "text": "What treatment options are there for seborrheic dermatitis?"
                     }
                 ]
             }
@@ -309,19 +289,14 @@
                 "answers": [],
                 "questions": [
                     {
-                        "id": "16971913035153827",
+                        "id": "16971913709763313",
                         "nodeId": "16971234673877854",
-                        "text": "I think I have Seborrheic dermatitis is this something worth going to the doctor for?"
+                        "text": "Can I treat Seborrheic dermatitis at home or should I go to the doctor?"
                     },
                     {
-                        "id": "16971912861884184",
+                        "id": "16971913597888361",
                         "nodeId": "16971234673877854",
-                        "text": "Do I need to see a doctor for Seborrheic dermatitis?"
-                    },
-                    {
-                        "id": "16971913394825706",
-                        "nodeId": "16971234673877854",
-                        "text": "I have Seborrheic dermatitis and have an infection, can I treat this at home, or should I go to the doctor?"
+                        "text": "When should I consider going to the doctor for Seborrheic dermatitis?"
                     }
                 ]
             }
@@ -346,19 +321,14 @@
                 "answers": [],
                 "questions": [
                     {
-                        "id": "16971881723876766",
+                        "id": "16971881068571697",
                         "nodeId": "16971236282652786",
-                        "text": "I've been diagnosed with head lice, what is that?"
+                        "text": "How do lice spread?"
                     },
                     {
-                        "id": "16971881627155827",
+                        "id": "16971881127713433",
                         "nodeId": "16971236282652786",
-                        "text": "Why are lice so itchy?"
-                    },
-                    {
-                        "id": "16971880912793569",
-                        "nodeId": "16971236282652786",
-                        "text": "What are lice?"
+                        "text": "Which body parts should I check for lice?"
                     }
                 ]
             }
@@ -415,19 +385,14 @@
                 "answers": [],
                 "questions": [
                     {
-                        "id": "16971901047283118",
+                        "id": "16971901201797952",
                         "nodeId": "16971237950320938",
-                        "text": "Do I need any type of special shampoo for head lice?"
+                        "text": "Do I have to do anything besides taking medicine to get rid of head lice?"
                     },
                     {
-                        "id": "16971900722454763",
+                        "id": "16971900586170236",
                         "nodeId": "16971237950320938",
-                        "text": "What is the best treatment for head lice?"
-                    },
-                    {
-                        "id": "16971900807603814",
-                        "nodeId": "16971237950320938",
-                        "text": "Will I need a prescription for head lice?"
+                        "text": "How should I treat head lice?"
                     }
                 ]
             }
@@ -489,19 +454,14 @@
                 "answers": [],
                 "questions": [
                     {
-                        "id": "16971878429785895",
+                        "id": "16971878821227197",
                         "nodeId": "16971241136932313",
-                        "text": "Will I lose all of my hair if I have alopecia areata?"
+                        "text": "Will my hair grow back with alopecia?"
                     },
                     {
-                        "id": "16971878595407522",
+                        "id": "16971879093428735",
                         "nodeId": "16971241136932313",
-                        "text": "How much hair will I lose if I have alopecia?"
-                    },
-                    {
-                        "id": "16971878233830949",
-                        "nodeId": "16971241136932313",
-                        "text": "What is alopecia areata?"
+                        "text": "What type of disease is alopecia?"
                     }
                 ]
             }
@@ -526,19 +486,14 @@
                 "answers": [],
                 "questions": [
                     {
-                        "id": "16971879580103288",
+                        "id": "16971879779061923",
                         "nodeId": "16971246523271658",
-                        "text": "What different types of alopecia are there?"
+                        "text": "What are the differences between different types of alopecia?"
                     },
                     {
-                        "id": "16971880436104966",
+                        "id": "16971880226583522",
                         "nodeId": "16971246523271658",
-                        "text": "Is there a type of alopecia where you lose bands of hair and not just patches?"
-                    },
-                    {
-                        "id": "16971879991842234",
-                        "nodeId": "16971246523271658",
-                        "text": "Does alopecia only affect hair on your head?"
+                        "text": "Can it still be alopecia if I just have hair thinning, but not bald patches?"
                     }
                 ]
             }
@@ -615,19 +570,14 @@
                 "answers": [],
                 "questions": [
                     {
-                        "id": "16971877025147449",
+                        "id": "16971876743517037",
                         "nodeId": "16971246757447108",
-                        "text": "Will I need a biopsy for an alopecia diagnosis?"
+                        "text": "What type of doctor should I go to if I think I have alopecia areata?"
                     },
                     {
-                        "id": "16971876625555367",
+                        "id": "16971877410804166",
                         "nodeId": "16971246757447108",
-                        "text": "How is alopecia areata diagnosed?"
-                    },
-                    {
-                        "id": "16971877283242908",
-                        "nodeId": "16971246757447108",
-                        "text": "Are blood tests required to diagnose alopecia?"
+                        "text": "Can alopecia be detected through a hormone test?"
                     }
                 ]
             }
@@ -652,19 +602,14 @@
                 "answers": [],
                 "questions": [
                     {
-                        "id": "16971874885346258",
+                        "id": "16971873155858969",
                         "nodeId": "16971264647384061",
-                        "text": "How can I tell if I might have alopecia?"
+                        "text": "What are the symptoms of alopecia areata?"
                     },
                     {
-                        "id": "16971874989251203",
+                        "id": "16971874352363427",
                         "nodeId": "16971264647384061",
-                        "text": "I'm losing more hair when it's cold out, is this normal for alopecia?"
-                    },
-                    {
-                        "id": "16971874635275663",
-                        "nodeId": "16971264647384061",
-                        "text": "Are there other symptoms for alopecia besides hair loss?"
+                        "text": "I have several small bald patches, what could this be?"
                     }
                 ]
             }
@@ -689,19 +634,19 @@
                 "answers": [],
                 "questions": [
                     {
-                        "id": "16971871321893347",
+                        "id": "16971872035459536",
                         "nodeId": "16971265168522613",
-                        "text": "Is there a cure for alopecia areata?"
+                        "text": "When should I consider topical immunotherapy for my alopecia areata?"
                     },
                     {
-                        "id": "16971871725616307",
+                        "id": "16971871477346665",
                         "nodeId": "16971265168522613",
-                        "text": "What treatment options do I have for alopecia areata?"
+                        "text": "What medicines help against alopecia areata?"
                     },
                     {
-                        "id": "16971871139378956",
+                        "id": "16971871944051769",
                         "nodeId": "16971265168522613",
-                        "text": "What medicine can I take to treat my alopecia areata?"
+                        "text": "what are corticosteroids?"
                     }
                 ]
             }
@@ -726,19 +671,14 @@
                 "answers": [],
                 "questions": [
                     {
-                        "id": "16971870459228008",
+                        "id": "16971869662024224",
                         "nodeId": "16971266069412030",
-                        "text": "Who is most at risk for alopecia areata?"
+                        "text": "Who is at the highest risk for alopecia?"
                     },
                     {
-                        "id": "16971870857952433",
+                        "id": "16971870676216623",
                         "nodeId": "16971266069412030",
-                        "text": "Does alopecia areata run in families?"
-                    },
-                    {
-                        "id": "16971870214121083",
-                        "nodeId": "16971266069412030",
-                        "text": "What causes alopecia areata?"
+                        "text": "Am I more likely to get alopecia areata if I have a thyroid condition?"
                     }
                 ]
             }
@@ -763,19 +703,14 @@
                 "answers": [],
                 "questions": [
                     {
-                        "id": "16971857025069979",
+                        "id": "16971856693511474",
                         "nodeId": "16971267042921515",
-                        "text": "Why is it bad to have less thyroid hormone?"
+                        "text": "What is hypothyroidism?"
                     },
                     {
-                        "id": "16971857177739514",
+                        "id": "16971857519982925",
                         "nodeId": "16971267042921515",
-                        "text": "Why is thyroid hormone important?"
-                    },
-                    {
-                        "id": "16971856778955479",
-                        "nodeId": "16971267042921515",
-                        "text": "What is a thyroid?"
+                        "text": "What happens if my thyroid gland can't produce enough hormone?"
                     }
                 ]
             }
@@ -837,19 +772,14 @@
                 "answers": [],
                 "questions": [
                     {
-                        "id": "16971860685203486",
+                        "id": "16971863113956201",
                         "nodeId": "16971270615551732",
-                        "text": "What are the symptoms of hypothyroidism?"
+                        "text": "What symptoms are most associated with hypothyroidism?"
                     },
                     {
-                        "id": "16971862452019073",
+                        "id": "16971861654199586",
                         "nodeId": "16971270615551732",
-                        "text": "I have weight gain, weakness, and sensitivity to cold, what could these be symptoms of?"
-                    },
-                    {
-                        "id": "16971861925556452",
-                        "nodeId": "16971270615551732",
-                        "text": "What are the most common ways to tell you have hypothyroidism?"
+                        "text": "Could my weight gain and severe fatigue be associated with hypothyroidism?"
                     }
                 ]
             }
@@ -874,19 +804,14 @@
                 "answers": [],
                 "questions": [
                     {
-                        "id": "16971860267019197",
+                        "id": "16971860132621893",
                         "nodeId": "16971272823302492",
-                        "text": "Can hypothyroidism be treated?"
+                        "text": "How long will I have to take thyroid medication for?"
                     },
                     {
-                        "id": "16971860267019196",
+                        "id": "16971859845530186",
                         "nodeId": "16971272823302492",
-                        "text": "What medicine is there to treat hypothyroidism?"
-                    },
-                    {
-                        "id": "16971859664927783",
-                        "nodeId": "16971272823302492",
-                        "text": "How long does it take for hypothyroidism symptoms to go away?"
+                        "text": "What treatment options are there for hypothyroidism?"
                     }
                 ]
             }
@@ -911,19 +836,14 @@
                 "answers": [],
                 "questions": [
                     {
-                        "id": "16971855624162041",
+                        "id": "16971856427946755",
                         "nodeId": "16971273395332492",
-                        "text": "What is ringworm?"
+                        "text": "How does ringworm spread?"
                     },
                     {
-                        "id": "16971856277982075",
+                        "id": "16971855743836351",
                         "nodeId": "16971273395332492",
-                        "text": "Is ringworm contagious?"
-                    },
-                    {
-                        "id": "16971855899091246",
-                        "nodeId": "16971273395332492",
-                        "text": "Can adults get ringworm, or is it only children?"
+                        "text": "Where does ringworm grow best?"
                     }
                 ]
             }
@@ -1000,19 +920,14 @@
                 "answers": [],
                 "questions": [
                     {
-                        "id": "16971859253652586",
+                        "id": "16971859360430252",
                         "nodeId": "16971274371132669",
-                        "text": "What increases my risk of catching ringworm?"
+                        "text": "What factors make me more likely to get ringworm?"
                     },
                     {
-                        "id": "16971859360430253",
+                        "id": "16971859046129964",
                         "nodeId": "16971274371132669",
-                        "text": "Can I get ringworm by sharing a bath?"
-                    },
-                    {
-                        "id": "16971859131679593",
-                        "nodeId": "16971274371132669",
-                        "text": "Am I more at risk for ringworm if I'm already sick?"
+                        "text": "What are risk factors for ringworm?"
                     }
                 ]
             }
@@ -1037,19 +952,14 @@
                 "answers": [],
                 "questions": [
                     {
-                        "id": "16971858071177682",
+                        "id": "16971858613374435",
                         "nodeId": "16971274790582030",
-                        "text": "What type of treatments are there for ringworm?"
+                        "text": "Can I use OTC meds for my ringworm or do I need a prescription?"
                     },
                     {
-                        "id": "16971858199833895",
+                        "id": "16971858487253035",
                         "nodeId": "16971274790582030",
-                        "text": "What affects treatment options for ringworm?"
-                    },
-                    {
-                        "id": "16971857918273629",
-                        "nodeId": "16971274790582030",
-                        "text": "How is ringworm treated?"
+                        "text": "Will I need a prescription to treat my ringworm?"
                     }
                 ]
             }
@@ -1074,19 +984,14 @@
                 "answers": [],
                 "questions": [
                     {
-                        "id": "16971869033870953",
+                        "id": "16971867916114848",
                         "nodeId": "16971275363662808",
-                        "text": "What do ringworm patches look like?"
+                        "text": "What are symptoms of ringworm?"
                     },
                     {
-                        "id": "16971868507192604",
+                        "id": "16971868680347673",
                         "nodeId": "16971275363662808",
-                        "text": " I have red, scaly, itchy patches on my skin, what could they be?"
-                    },
-                    {
-                        "id": "16971869123394746",
-                        "nodeId": "16971275363662808",
-                        "text": "What should I look out for, if I'm worried I might have gotten ringworm?"
+                        "text": "I have a circular bald spot on my head, could this be something like ringworm?"
                     }
                 ]
             }
@@ -1111,19 +1016,14 @@
                 "answers": [],
                 "questions": [
                     {
-                        "id": "16971867638537307",
+                        "id": "16971863576376992",
                         "nodeId": "16971275655160790",
-                        "text": "My ringworm patch is showing swelling, warmth, and discharge, what should I do?"
+                        "text": "When is a ringworm infection concerning enough to call my doctor?"
                     },
                     {
-                        "id": "16971864381470312",
+                        "id": "16971864272660896",
                         "nodeId": "16971275655160790",
-                        "text": "I have ringworm on my scalp, do I need a doctor?"
-                    },
-                    {
-                        "id": "16971863814138345",
-                        "nodeId": "16971275655160790",
-                        "text": "What are signs my ringworm patch has gotten infected?"
+                        "text": "My ringworm hasn't gone away, what should I do?"
                     }
                 ]
             }
@@ -1190,19 +1090,14 @@
                 "answers": [],
                 "questions": [
                     {
-                        "id": "16971901891775493",
+                        "id": "16971902264601688",
                         "nodeId": "16971281607674116",
-                        "text": "What marks clinical depression as different from just being sad?"
+                        "text": "Is it normal to feel more depressed in the morning?"
                     },
                     {
-                        "id": "16971901678757006",
+                        "id": "16971902768971214",
                         "nodeId": "16971281607674116",
-                        "text": "What is endogenous depression?"
-                    },
-                    {
-                        "id": "16971902513488737",
-                        "nodeId": "16971281607674116",
-                        "text": "My doctor thinks I might have clinical depression, what is that?"
+                        "text": "How much of the day is normal to have a depressed mood?"
                     }
                 ]
             }
@@ -1274,19 +1169,14 @@
                 "answers": [],
                 "questions": [
                     {
-                        "id": "16971917794449283",
+                        "id": "16971917986723731",
                         "nodeId": "16971282620716864",
-                        "text": "I have been struggling with suicidal thoughts, is this a symptom of depression?"
+                        "text": "Is it normal for depression to be paired with insomnia?"
                     },
                     {
-                        "id": "16971918415864632",
+                        "id": "16971918248248713",
                         "nodeId": "16971282620716864",
-                        "text": "Can you tell me more about depression symptoms?"
-                    },
-                    {
-                        "id": "16971917449454541",
-                        "nodeId": "16971282620716864",
-                        "text": "What symptoms are common with depression?"
+                        "text": "What symptoms should I look out for if I'm worried I might have depression?"
                     }
                 ]
             }
@@ -1311,19 +1201,14 @@
                 "answers": [],
                 "questions": [
                     {
-                        "id": "16971918657669522",
+                        "id": "16971918761603174",
                         "nodeId": "16971282696084628",
-                        "text": "What risk factors are there for depression?"
+                        "text": "Is depression genetic?"
                     },
                     {
-                        "id": "16971919240574468",
+                        "id": "16971919041827234",
                         "nodeId": "16971282696084628",
-                        "text": "Can depression be caused by life events?"
-                    },
-                    {
-                        "id": "16971918897666126",
-                        "nodeId": "16971282696084628",
-                        "text": "Does a family history increase risk of depression?"
+                        "text": "What makes me more likely to get depression?"
                     }
                 ]
             }
@@ -1348,19 +1233,14 @@
                 "answers": [],
                 "questions": [
                     {
-                        "id": "16971915193033726",
+                        "id": "16971915969728994",
                         "nodeId": "16971283673195926",
-                        "text": "What is involved in diagnosing depression?"
+                        "text": "Is family history relevant when diagnosing depression?"
                     },
                     {
-                        "id": "16971915320280571",
+                        "id": "16971916098989161",
                         "nodeId": "16971283673195926",
-                        "text": "Who can diagnose depression?"
-                    },
-                    {
-                        "id": "16971915093957327",
-                        "nodeId": "16971283673195926",
-                        "text": "How can depression be diagnosed?"
+                        "text": "Are blood tests needed to diagnose depression?"
                     }
                 ]
             }
@@ -1385,19 +1265,14 @@
                 "answers": [],
                 "questions": [
                     {
-                        "id": "16971916408921644",
+                        "id": "16971916508750124",
                         "nodeId": "16971283945156906",
-                        "text": "Can clinical depression be treated?"
+                        "text": "What treatment options are there for depression?"
                     },
                     {
-                        "id": "16971916881697176",
+                        "id": "16971917256157437",
                         "nodeId": "16971283945156906",
-                        "text": "Are there other options besides anti-depressants, I can try for treating depression?"
-                    },
-                    {
-                        "id": "16971916653465897",
-                        "nodeId": "16971283945156906",
-                        "text": "What determines what treatment is used for depression?"
+                        "text": "What options do I have besides therapy for treating my depression?"
                     }
                 ]
             }
@@ -1422,17 +1297,17 @@
                 "answers": [],
                 "questions": [
                     {
-                        "id": "16971976426310665",
+                        "id": "16971976543672725",
                         "nodeId": "16971285001697389",
-                        "text": "Why are red blood cells important?"
+                        "text": "Why do I need iron?"
                     },
                     {
-                        "id": "16971976714858264",
+                        "id": "16971976954475195",
                         "nodeId": "16971285001697389",
-                        "text": "What causes anemia?"
+                        "text": "How long does it take to recover from anemia?"
                     },
                     {
-                        "id": "16971442842358063",
+                        "id": "16971976317847434",
                         "nodeId": "16971285001697389",
                         "text": "What is anemia?"
                     }
@@ -1459,19 +1334,14 @@
                 "answers": [],
                 "questions": [
                     {
-                        "id": "16972007493808738",
+                        "id": "16972003809509344",
                         "nodeId": "16971285332270447",
-                        "text": "Will chronic fatigue syndrome get better if I just rest more?"
+                        "text": "How long does chronic fatigue last?"
                     },
                     {
-                        "id": "16972007306920561",
+                        "id": "16972004098610708",
                         "nodeId": "16971285332270447",
-                        "text": "Is chronic fatigue syndrome caused by a virus or bacteria?"
-                    },
-                    {
-                        "id": "16972003714360211",
-                        "nodeId": "16971285332270447",
-                        "text": "What is chronic fatigue syndrome?"
+                        "text": "What causes chronic fatigue syndrome?"
                     }
                 ]
             }
@@ -1577,19 +1447,14 @@
                 "editMode": false,
                 "questions": [
                     {
-                        "id": "16971997606623664",
+                        "id": "16971996403645096",
                         "nodeId": "16971315102653044",
-                        "text": "Is a sore tongue a common symptom of anemia?"
+                        "text": "What should I look out for if I think I might have anemia?"
                     },
                     {
-                        "id": "16971996293740352",
+                        "id": "16971997101106026",
                         "nodeId": "16971315102653044",
-                        "text": "What are symptoms of anemia?"
-                    },
-                    {
-                        "id": "16971997779037786",
-                        "nodeId": "16971315102653044",
-                        "text": "How do I know if I have anemia?"
+                        "text": "I have brittle nails, dizziness, and fatigue, could this be related to anemia?"
                     }
                 ]
             },
@@ -1611,19 +1476,14 @@
                 "editMode": false,
                 "questions": [
                     {
-                        "id": "16971988740122435",
+                        "id": "16971995628215367",
                         "nodeId": "16971315288201564",
-                        "text": "What are risk factors for anemia?"
+                        "text": "What can increase my risk of anemia?"
                     },
                     {
-                        "id": "16971995397038752",
+                        "id": "16971995188563404",
                         "nodeId": "16971315288201564",
-                        "text": "Does my period affect how likely I am to get anemia?"
-                    },
-                    {
-                        "id": "16971995870733957",
-                        "nodeId": "16971315288201564",
-                        "text": "Does cancer put me more at risk for anemia?"
+                        "text": "How do I know if I am at higher risk for anemia?"
                     }
                 ]
             },
@@ -1645,19 +1505,14 @@
                 "editMode": false,
                 "questions": [
                     {
-                        "id": "16971983208128431",
+                        "id": "16971982696586496",
                         "nodeId": "16971315500860824",
-                        "text": "Is a physical exam enough to diagnose anemia?"
+                        "text": "What kinds of tests will my doctor need to do to find out if I have anemia?"
                     },
                     {
-                        "id": "16971982365015145",
+                        "id": "16971982925824174",
                         "nodeId": "16971315500860824",
-                        "text": "How can anemia be diagnosed?"
-                    },
-                    {
-                        "id": "16971982500663209",
-                        "nodeId": "16971315500860824",
-                        "text": "Will I need to do a blood test to find out if I have anemia?"
+                        "text": "What is the diagnostic process for anemia?"
                     }
                 ]
             },
@@ -1679,19 +1534,14 @@
                 "editMode": false,
                 "questions": [
                     {
-                        "id": "16971998575140541",
+                        "id": "16971998272378637",
                         "nodeId": "16971315642568230",
-                        "text": "What can be done to treat sever anemia?"
+                        "text": "What medicine should I take to combat anemia?"
                     },
                     {
-                        "id": "16971998836647151",
+                        "id": "16971997971699571",
                         "nodeId": "16971315642568230",
-                        "text": "How is anemia generally treated?"
-                    },
-                    {
-                        "id": "16971998430483038",
-                        "nodeId": "16971315642568230",
-                        "text": "Do vitamins help for anemia?"
+                        "text": "What can I do to treat my anemia?"
                     }
                 ]
             },
@@ -1713,19 +1563,14 @@
                 "editMode": false,
                 "questions": [
                     {
-                        "id": "16972017373490171",
+                        "id": "16972017036555435",
                         "nodeId": "16971317162103642",
-                        "text": "I am exhausted and don't feel refreshed after sleeping"
+                        "text": "What are the most common symptoms of chronic fatigue syndrome?"
                     },
                     {
-                        "id": "16972017902248325",
+                        "id": "16972017220538503",
                         "nodeId": "16971317162103642",
-                        "text": "What symptoms should I look out for if I think I might have chronic fatigue syndrome?"
-                    },
-                    {
-                        "id": "16972017714213174",
-                        "nodeId": "16971317162103642",
-                        "text": "Are muscle aches and joint pain normal symptoms for chronic fatigue syndrome?"
+                        "text": "How can I tell if I might have chronic fatigue syndrome?"
                     }
                 ]
             },
@@ -1747,19 +1592,14 @@
                 "editMode": false,
                 "questions": [
                     {
-                        "id": "16972016552214307",
+                        "id": "16972015441670785",
                         "nodeId": "16971317288774696",
-                        "text": "What age has the highest risk for chronic fatigue syndrome?"
+                        "text": "What could put me at greater risk for developing chronic fatigue syndrome?"
                     },
                     {
-                        "id": "16972015180949681",
+                        "id": "16972016679015442",
                         "nodeId": "16971317288774696",
-                        "text": "Am I more likely to get chronic fatigue syndrome as a woman?"
-                    },
-                    {
-                        "id": "16972015064856516",
-                        "nodeId": "16971317288774696",
-                        "text": "What are risk factors for chronic fatigue syndrome?"
+                        "text": "Is there anything that might put me at higher risk for chronic fatigue syndrome?"
                     }
                 ]
             },
@@ -1781,19 +1621,14 @@
                 "editMode": false,
                 "questions": [
                     {
-                        "id": "16972014183529561",
+                        "id": "16972014353805258",
                         "nodeId": "16971317441893170",
-                        "text": "What treatment is there for chronic fatigue syndrome?"
+                        "text": "Can chronic fatigue syndrome be cured?"
                     },
                     {
-                        "id": "16972014639942608",
+                        "id": "16972014870010017",
                         "nodeId": "16971317441893170",
-                        "text": "Can therapy be a viable treatment for chronic fatigue syndrome?"
-                    },
-                    {
-                        "id": "16972014537354015",
-                        "nodeId": "16971317441893170",
-                        "text": "What treatment options are there for chronic fatigue?"
+                        "text": "Are there treatments besides sleep management for chronic fatigue syndrome?"
                     }
                 ]
             },
@@ -1815,19 +1650,14 @@
                 "editMode": false,
                 "questions": [
                     {
-                        "id": "16972014014641191",
+                        "id": "16972007989535209",
                         "nodeId": "16971317780660165",
-                        "text": "Can seeing a doctor help with my fatigue?"
+                        "text": "Will chronic fatigue syndrome get better, or should I try to see a doctor?"
                     },
                     {
-                        "id": "16972007756801293",
+                        "id": "16972007867234943",
                         "nodeId": "16971317780660165",
-                        "text": "When should I see a doctor about fatigue?"
-                    },
-                    {
-                        "id": "16972008159945853",
-                        "nodeId": "16971317780660165",
-                        "text": "Is seeing a doctor a good idea if I think I might have chronic fatigue?"
+                        "text": "I'm tired all of the time, is this something I should see a doctor for?"
                     }
                 ]
             },
@@ -2057,19 +1887,14 @@
                 "editMode": false,
                 "questions": [
                     {
-                        "id": "16972018382264913",
+                        "id": "16972018845164056",
                         "nodeId": "16971360525553270",
-                        "text": "Where does bacterial pneumonia affect?"
+                        "text": "What happens to your lungs if you have bacterial pneumonia?"
                     },
                     {
-                        "id": "16972018496363298",
+                        "id": "16972018220043266",
                         "nodeId": "16971360525553270",
-                        "text": "Are all bacterial pneumonia infections caused by pneumococcus?"
-                    },
-                    {
-                        "id": "16972019478288966",
-                        "nodeId": "16971360525553270",
-                        "text": "My doctor said I have bacterial pneumonia, what is that?"
+                        "text": "What is bacterial pneumonia?"
                     }
                 ]
             },
@@ -2091,19 +1916,14 @@
                 "editMode": false,
                 "questions": [
                     {
-                        "id": "16972020812422861",
+                        "id": "16972021053855528",
                         "nodeId": "16971360906524504",
-                        "text": "What is viral pneumonia?"
+                        "text": "Is viral pneumonia or bacterial more common in children?"
                     },
                     {
-                        "id": "16972021201421248",
+                        "id": "16972021730471169",
                         "nodeId": "16971360906524504",
-                        "text": "My grandma is sick, is it more likely viral or bacterial pneumonia?"
-                    },
-                    {
-                        "id": "16972021465997583",
-                        "nodeId": "16971360906524504",
-                        "text": "Is viral pneumonia a serious condition?"
+                        "text": "My child has been diagnosed with viral pneumonia, what is it? "
                     }
                 ]
             },
@@ -2125,19 +1945,14 @@
                 "editMode": false,
                 "questions": [
                     {
-                        "id": "16972036568347948",
+                        "id": "16972036069697534",
                         "nodeId": "16971361604328003",
-                        "text": "Does having asthma increase my risk of bacterial pneumonia?"
+                        "text": "What increases my risk of catching bacterial pneumonia?"
                     },
                     {
-                        "id": "16972036954821456",
+                        "id": "16972036368892661",
                         "nodeId": "16971361604328003",
-                        "text": "What increases my likelihood of bacterial pneumonia?"
-                    },
-                    {
-                        "id": "16972036720182376",
-                        "nodeId": "16971361604328003",
-                        "text": "Am I more likely to get bacterial pneumonia if I have diabetes?"
+                        "text": "Is the risk of bacterial pneumonia higher with age?"
                     }
                 ]
             },
@@ -2159,19 +1974,14 @@
                 "editMode": false,
                 "questions": [
                     {
-                        "id": "16972043417081754",
+                        "id": "16972043071585695",
                         "nodeId": "16971361772408954",
-                        "text": "I have a pretty high fever and I'm coughing free mucous is that normal for bacterial pneumonia?"
+                        "text": "What are common symptoms of bacterial pneumonia?"
                     },
                     {
-                        "id": "16972043188460439",
+                        "id": "16972043678798388",
                         "nodeId": "16971361772408954",
-                        "text": "What symptoms should I look out for if I think I might have bacterial pneumonia?"
-                    },
-                    {
-                        "id": "16972043868129329",
-                        "nodeId": "16971361772408954",
-                        "text": "Do pneumonia symptoms appear at once or slowly?"
+                        "text": "How can I tell if I might have bacterial pneumonia?"
                     }
                 ]
             },
@@ -2193,19 +2003,14 @@
                 "editMode": false,
                 "questions": [
                     {
-                        "id": "16972022235180212",
+                        "id": "16972026385482283",
                         "nodeId": "16971362100358542",
-                        "text": "How can my doctor diagnose whether I have bacterial pneumonia or not?"
+                        "text": "Will I need a blood test to determine whether I have bacterial pneumonia?"
                     },
                     {
-                        "id": "16972024777545497",
+                        "id": "16972022109534889",
                         "nodeId": "16971362100358542",
-                        "text": "What type of tests can be run to find out if my pneumonia is bacterial?"
-                    },
-                    {
-                        "id": "16972026054923174",
-                        "nodeId": "16971362100358542",
-                        "text": "What will a doctor do to test whether I have bacterial pneumonia?"
+                        "text": "How is bacterial pneumonia diagnosed?"
                     }
                 ]
             },
@@ -2227,19 +2032,14 @@
                 "editMode": false,
                 "questions": [
                     {
-                        "id": "16972031558127823",
+                        "id": "16972031753402926",
                         "nodeId": "16971362368427994",
-                        "text": "Can antibiotics help against pneumonia?"
+                        "text": "Can I stop taking antibiotics after I start to feel better?"
                     },
                     {
-                        "id": "16972031991416705",
+                        "id": "16972029192930444",
                         "nodeId": "16971362368427994",
-                        "text": "Is there anything besides medicine which can help with bacterial pneumonia?"
-                    },
-                    {
-                        "id": "16972029288822176",
-                        "nodeId": "16971362368427994",
-                        "text": "What medicine helps against a bacterial pneumonia infection?"
+                        "text": "How is bacterial pneumonia treated?"
                     }
                 ]
             },
@@ -2261,19 +2061,14 @@
                 "editMode": false,
                 "questions": [
                     {
-                        "id": "16972048578582552",
+                        "id": "16972048754089347",
                         "nodeId": "16971363252460824",
-                        "text": "What things should I look out for if I'm worried I might have viral pneumonia?"
+                        "text": "Is chest pain and shortness of breath normal for viral pneumonia?"
                     },
                     {
-                        "id": "16972049103020567",
+                        "id": "16972048912652835",
                         "nodeId": "16971363252460824",
-                        "text": "What symptoms are associated with viral pneumonia?"
-                    },
-                    {
-                        "id": "16972048438461576",
-                        "nodeId": "16971363252460824",
-                        "text": "What are common symptoms of viral pneumonia?"
+                        "text": "I have a fever, chills, and chest pain"
                     }
                 ]
             },
@@ -2295,19 +2090,14 @@
                 "editMode": false,
                 "questions": [
                     {
-                        "id": "16972048033099892",
+                        "id": "16972047742002587",
                         "nodeId": "16971363393009777",
-                        "text": "What could put me more at risk for catching viral pneumonia?"
+                        "text": "What increases my risk of getting viral pneumonia?"
                     },
                     {
-                        "id": "16972047891393786",
+                        "id": "16972047608091335",
                         "nodeId": "16971363393009777",
-                        "text": "Does smoking affect my risk of viral pneumonia?"
-                    },
-                    {
-                        "id": "16972048193967851",
-                        "nodeId": "16971363393009777",
-                        "text": "What factors elevate my risk of viral pneumonia?"
+                        "text": "Who is more at risk for contracting viral pneumonia?"
                     }
                 ]
             },
@@ -2329,19 +2119,14 @@
                 "editMode": false,
                 "questions": [
                     {
-                        "id": "16972047236545411",
+                        "id": "16972047013343241",
                         "nodeId": "16971363747054800",
-                        "text": "Will I need an antiviral to treat my viral pneumonia?"
+                        "text": "What can be done to help me recover from viral pneumonia?"
                     },
                     {
-                        "id": "16972046908924838",
+                        "id": "16972046775658506",
                         "nodeId": "16971363747054800",
-                        "text": "Is there any medicine that can help against viral pneumonia?"
-                    },
-                    {
-                        "id": "16972046678648248",
-                        "nodeId": "16971363747054800",
-                        "text": "What treatments are there for viral pneumonia?"
+                        "text": "Will I need medicine to treat a viral pneumonia infection?"
                     }
                 ]
             },
@@ -2363,19 +2148,14 @@
                 "editMode": false,
                 "questions": [
                     {
-                        "id": "16972050389781398",
+                        "id": "16972050854310385",
                         "nodeId": "16971364013529087",
-                        "text": "I think I might have viral pneumonia, is this something that gets better on it's own or do I need to go to the doctor?"
+                        "text": "How long should I wait to go to the doctor if I think I might have viral pneumonia?"
                     },
                     {
-                        "id": "16972049684241973",
+                        "id": "16972050727001564",
                         "nodeId": "16971364013529087",
-                        "text": "Do I need to go to the doctor if I have symptoms for viral pneumonia?"
-                    },
-                    {
-                        "id": "16972049960678253",
-                        "nodeId": "16971364013529087",
-                        "text": "My cold symptoms have not been getting better, should I call a doctor?"
+                        "text": "Will shortness of breath go away, or should I contact a doctor?"
                     }
                 ]
             },
@@ -2397,19 +2177,14 @@
                 "editMode": false,
                 "questions": [
                     {
-                        "id": "16972046457481779",
+                        "id": "16972046250199716",
                         "nodeId": "16971364318819813",
-                        "text": "What is necessary to diagnose viral pneumonia?"
+                        "text": "Will I need an X-ray to find out if I have viral pneumonia?"
                     },
                     {
-                        "id": "16972045828115193",
+                        "id": "16972046118111775",
                         "nodeId": "16971364318819813",
-                        "text": "How can viral pneumonia be diagnosed?"
-                    },
-                    {
-                        "id": "16972045922162352",
-                        "nodeId": "16971364318819813",
-                        "text": "Is family history relevant in diagnosing viral pneumonia?"
+                        "text": "What tests can be run to determine if I have viral pneumonia?"
                     }
                 ]
             },
@@ -2431,19 +2206,19 @@
                 "editMode": false,
                 "questions": [
                     {
-                        "id": "16972052145173186",
+                        "id": "16972051913144365",
                         "nodeId": "16971366688183918",
-                        "text": "Is the flu a serious condition?"
+                        "text": "Can you tell me more about the flu?"
                     },
                     {
-                        "id": "16972051259401332",
+                        "id": "16972052563053955",
                         "nodeId": "16971366688183918",
-                        "text": "What is influenza?"
+                        "text": "Who is most likely to get complications from the flu?"
                     },
                     {
-                        "id": "16972052424951518",
+                        "id": "16972052977480934",
                         "nodeId": "16971366688183918",
-                        "text": "What complications can result from the flu?"
+                        "text": "My mom thinks I have the flu, what exactly is it?"
                     }
                 ]
             },
@@ -2514,19 +2289,14 @@
                 "editMode": false,
                 "questions": [
                     {
-                        "id": "16972068733579304",
+                        "id": "16972068735438099",
                         "nodeId": "16971367160601430",
-                        "text": "I have a fever, sore throat, and runny nose, is this the flu?"
+                        "text": "How can I tell if I might have the flu?"
                     },
                     {
-                        "id": "16972068756692722",
+                        "id": "16972068640865127",
                         "nodeId": "16971367160601430",
-                        "text": "Are muscle aches a common symptom of the flu?"
-                    },
-                    {
-                        "id": "16972068748616464",
-                        "nodeId": "16971367160601430",
-                        "text": "What should I look out for if I think I might have the flu?"
+                        "text": "What are typical flu symptoms?"
                     }
                 ]
             },
@@ -2548,19 +2318,19 @@
                 "editMode": false,
                 "questions": [
                     {
-                        "id": "16972068463169136",
+                        "id": "16972067885826503",
                         "nodeId": "16971367431973457",
-                        "text": "Am I more likely to catch the flu as a nurse?"
+                        "text": "Is there anything that increases my likelihood of catching the flu?"
                     },
                     {
-                        "id": "16972068258715844",
+                        "id": "16972067718640229",
                         "nodeId": "16971367431973457",
-                        "text": "What factors affect my likelihood to get the flu?"
+                        "text": "What things might make me more likely to get the flu?"
                     },
                     {
-                        "id": "16972067536422507",
+                        "id": "16972067438522378",
                         "nodeId": "16971367431973457",
-                        "text": "Can my risk for getting the flu increase if I smoke?"
+                        "text": "What increases my risk of catching the flu?"
                     }
                 ]
             },
@@ -2582,19 +2352,14 @@
                 "editMode": false,
                 "questions": [
                     {
-                        "id": "16972069920402033",
+                        "id": "16972069828934911",
                         "nodeId": "16971367584633082",
-                        "text": "Do I need a physical exam to find out if I have the flu?"
+                        "text": "Is there a test to tell if I have the flu?"
                     },
                     {
-                        "id": "16972069466321891",
+                        "id": "16972069634865327",
                         "nodeId": "16971367584633082",
-                        "text": "What will my doctor look for when deciding if I have the flu or not?"
-                    },
-                    {
-                        "id": "16972069322814905",
-                        "nodeId": "16971367584633082",
-                        "text": "How can I get diagnosed with the flu?"
+                        "text": "Does my medical history play a role in diagnosing whether I have the flu?"
                     }
                 ]
             },
@@ -2616,19 +2381,14 @@
                 "editMode": false,
                 "questions": [
                     {
-                        "id": "16972064525556728",
+                        "id": "16972064094691945",
                         "nodeId": "16971367714032135",
-                        "text": "Is it okay to take painkillers when I have the flu?"
+                        "text": "What medicine can help treat flu symptoms?"
                     },
                     {
-                        "id": "16972063923139167",
+                        "id": "16972064239771692",
                         "nodeId": "16971367714032135",
-                        "text": "What kind of treatment do I need for the flu?"
-                    },
-                    {
-                        "id": "16972064191512677",
-                        "nodeId": "16971367714032135",
-                        "text": "How long will it take to recover from the flu?"
+                        "text": "What things can help with flu recovery?"
                     }
                 ]
             },
@@ -2650,19 +2410,14 @@
                 "editMode": false,
                 "questions": [
                     {
-                        "id": "16972058645092985",
+                        "id": "16972058057094402",
                         "nodeId": "16971367915829707",
-                        "text": "After how many days of fever should I consider calling a doctor?"
+                        "text": "Are severe flu symptoms a reason to go the doctor?"
                     },
                     {
-                        "id": "16972058472707453",
+                        "id": "16972057846784436",
                         "nodeId": "16971367915829707",
-                        "text": "How do I know if my flu symptoms are sever enough that I should go to the doctor?"
-                    },
-                    {
-                        "id": "16972058208115846",
-                        "nodeId": "16971367915829707",
-                        "text": "Should I go to the doctor if I think I have the flu, or can I get better on my own?"
+                        "text": "When is it worth going to the doctor about the flu?"
                     }
                 ]
             },
@@ -2684,19 +2439,14 @@
                 "editMode": false,
                 "questions": [
                     {
-                        "id": "16972070243871933",
+                        "id": "16972070429799035",
                         "nodeId": "16971370237671451",
-                        "text": "What is strep throat?"
+                        "text": "How do strep symptoms compare to viral sore throat symptoms?"
                     },
                     {
-                        "id": "16972070317684711",
+                        "id": "16972070778728663",
                         "nodeId": "16971370237671451",
-                        "text": "What causes strep throat?"
-                    },
-                    {
-                        "id": "16972070668222164",
-                        "nodeId": "16971370237671451",
-                        "text": "Can adults get strep throat?"
+                        "text": "How is strep throat spread?"
                     }
                 ]
             },
@@ -2762,19 +2512,14 @@
                 "editMode": false,
                 "questions": [
                     {
-                        "id": "16972076056452195",
+                        "id": "16972075737082192",
                         "nodeId": "16971371495090021",
-                        "text": "Are muscle aches and chills common symptoms of strep?"
+                        "text": "I have throat pain and trouble swallowing, could this be strep?"
                     },
                     {
-                        "id": "16972075520298301",
+                        "id": "16972076296685372",
                         "nodeId": "16971371495090021",
-                        "text": "What are common symptoms of strep throat?"
-                    },
-                    {
-                        "id": "16972075859572765",
-                        "nodeId": "16971371495090021",
-                        "text": "What symptoms should I look out for if I think I might have strep throat?"
+                        "text": "Can you tell me what symptoms are associated with a strep throat infection?"
                     }
                 ]
             },
@@ -2796,19 +2541,14 @@
                 "editMode": false,
                 "questions": [
                     {
-                        "id": "16972074658335829",
+                        "id": "16972075058206633",
                         "nodeId": "16971371761773292",
-                        "text": "What risk factors are there for strep?"
+                        "text": "What factors increase my likelihood of getting strep throat?"
                     },
                     {
-                        "id": "16972074929222227",
+                        "id": "16972074755971259",
                         "nodeId": "16971371761773292",
-                        "text": "How does age affect my risk of strep throat?"
-                    },
-                    {
-                        "id": "16972075212597856",
-                        "nodeId": "16971371761773292",
-                        "text": "Is my risk of catching strep affected by anything?"
+                        "text": "Should I be worried about getting strep if I had contact to someone with it?"
                     }
                 ]
             },
@@ -2830,19 +2570,14 @@
                 "editMode": false,
                 "questions": [
                     {
-                        "id": "16972073993623038",
+                        "id": "16972074060752849",
                         "nodeId": "16971372010624116",
-                        "text": "How can strep be treated?"
+                        "text": "What treatment options are there for strep throat?"
                     },
                     {
-                        "id": "16972073894329236",
+                        "id": "16972074227999528",
                         "nodeId": "16971372010624116",
-                        "text": "What medicine do I need for strep throat?"
-                    },
-                    {
-                        "id": "16972074323483004",
-                        "nodeId": "16971372010624116",
-                        "text": "How long do I need to take antibiotics for strep before I'm no longer contagious?"
+                        "text": "Do I need antibiotics for strep throat?"
                     }
                 ]
             },
@@ -2864,19 +2599,14 @@
                 "editMode": false,
                 "questions": [
                     {
-                        "id": "16972077140699994",
+                        "id": "16972076805038637",
                         "nodeId": "16971372220226261",
-                        "text": "How many hours should I wait before going to the doctor if I start developing strep symptoms?"
+                        "text": "When should I go to the doctor about strep throat?"
                     },
                     {
-                        "id": "16972077349960342",
+                        "id": "16972076936449179",
                         "nodeId": "16971372220226261",
-                        "text": "Can I recover from strep throat on my own, or should I go to the doctor?"
-                    },
-                    {
-                        "id": "16972077632201239",
-                        "nodeId": "16971372220226261",
-                        "text": "When should I try to get emergency help with strep?"
+                        "text": "Should I go to the doctor if I just had contact with someone with strep?"
                     }
                 ]
             },
@@ -2898,19 +2628,14 @@
                 "editMode": false,
                 "questions": [
                     {
-                        "id": "16972078532818485",
+                        "id": "16972078282369311",
                         "nodeId": "16971373776716788",
-                        "text": "Can it be a cold if I've already had a cold before?"
+                        "text": "Where does a cold infection affect?"
                     },
                     {
-                        "id": "16972078700994579",
+                        "id": "16972078176129205",
                         "nodeId": "16971373776716788",
-                        "text": "Is it possible to build immunity to colds?"
-                    },
-                    {
-                        "id": "16972078091172702",
-                        "nodeId": "16971373776716788",
-                        "text": "What is the common cold?"
+                        "text": "How long does a cold normally last?"
                     }
                 ]
             },
@@ -2981,19 +2706,14 @@
                 "editMode": false,
                 "questions": [
                     {
-                        "id": "16972081897741949",
+                        "id": "16972081709216673",
                         "nodeId": "16971374352799866",
-                        "text": "What symptoms should I look out for if I think I have a cold?"
+                        "text": "Is a cough a common symptom for a cold?"
                     },
                     {
-                        "id": "16972081359671624",
+                        "id": "16972081545772689",
                         "nodeId": "16971374352799866",
-                        "text": "What types of symptoms can I expect from a cold?"
-                    },
-                    {
-                        "id": "16972081456326986",
-                        "nodeId": "16971374352799866",
-                        "text": "What are the most common cold symptoms?"
+                        "text": "I have a stuffy nose and a sore throat, could this be a cold?"
                     }
                 ]
             },
@@ -3015,19 +2735,14 @@
                 "editMode": false,
                 "questions": [
                     {
-                        "id": "16972080842583584",
+                        "id": "16972081170389303",
                         "nodeId": "16971374475730329",
-                        "text": "Does my job affect my risk of catching a cold?"
+                        "text": "Is there anything I can do to reduce my risk of getting a cold?"
                     },
                     {
-                        "id": "16972081013657313",
+                        "id": "16972080471007887",
                         "nodeId": "16971374475730329",
-                        "text": "What factors affect my risk of contracting a cold?"
-                    },
-                    {
-                        "id": "16972080590983477",
-                        "nodeId": "16971374475730329",
-                        "text": "My roommate caught a cold, does this mean I'll get sick too?"
+                        "text": "What things increase my risk of catching a cold?"
                     }
                 ]
             },
@@ -3049,19 +2764,14 @@
                 "editMode": false,
                 "questions": [
                     {
-                        "id": "16972083921076019",
+                        "id": "16972083516617331",
                         "nodeId": "16971374847435295",
-                        "text": "What tests are used to diagnose a cold?"
+                        "text": "What does a doctor look at to decide whether I have a cold?"
                     },
                     {
-                        "id": "16972083810752635",
+                        "id": "16972083659515371",
                         "nodeId": "16971374847435295",
-                        "text": "Do I need a physical exam to diagnose a cold?"
-                    },
-                    {
-                        "id": "16972084021707367",
-                        "nodeId": "16971374847435295",
-                        "text": "What are the diagnostic criteria for the common cold?"
+                        "text": "How can a cold be diagnosed?"
                     }
                 ]
             },
@@ -3083,19 +2793,14 @@
                 "editMode": false,
                 "questions": [
                     {
-                        "id": "16972079907334355",
+                        "id": "16972080131023297",
                         "nodeId": "16971374971064967",
-                        "text": "Can colds get better on their own?"
+                        "text": "What types of treatments can help reduce cold symptoms?"
                     },
                     {
-                        "id": "16972079798385712",
+                        "id": "16972080306063458",
                         "nodeId": "16971374971064967",
-                        "text": "How do you treat a cold?"
-                    },
-                    {
-                        "id": "16972079994590376",
-                        "nodeId": "16971374971064967",
-                        "text": "Do I need special medicine for a cold?"
+                        "text": "Do home remedies help with cold symptoms?"
                     }
                 ]
             },
@@ -3117,19 +2822,14 @@
                 "editMode": false,
                 "questions": [
                     {
-                        "id": "16972082913514005",
+                        "id": "16972083059105269",
                         "nodeId": "16971375234502538",
-                        "text": "Is shortness of breath with a cold a reason to call a doctor?"
+                        "text": "Under what conditions does it make sense to call a doctor during a common cold?"
                     },
                     {
-                        "id": "16972082538624437",
+                        "id": "16972082631174194",
                         "nodeId": "16971375234502538",
-                        "text": "Do I need to go to the doctor for a cold?"
-                    },
-                    {
-                        "id": "16972082326748606",
-                        "nodeId": "16971375234502538",
-                        "text": "I just have a cold, but my fever is over 102, should I call the doctor anyway?"
+                        "text": "When should I involve a doctor, I can't seem to get better from this cold."
                     }
                 ]
             },
@@ -3190,19 +2890,14 @@
                 "editMode": false,
                 "questions": [
                     {
-                        "id": "16972079205823837",
+                        "id": "16972078945337185",
                         "nodeId": "16971381252773555",
-                        "text": "What happens if appendicitis isn't treated?"
+                        "text": "Is appendicitis serious?"
                     },
                     {
-                        "id": "16972079022377327",
+                        "id": "16972079355347457",
                         "nodeId": "16971381252773555",
-                        "text": "What is affected by appendicitis?"
-                    },
-                    {
-                        "id": "16972078872395998",
-                        "nodeId": "16971381252773555",
-                        "text": "What is appendicitis?"
+                        "text": "Can you tell me more about appendicitis?"
                     }
                 ]
             },
@@ -3268,19 +2963,14 @@
                 "editMode": false,
                 "questions": [
                     {
-                        "id": "16972091221356172",
+                        "id": "16972090790063046",
                         "nodeId": "16971382127262621",
-                        "text": "Is it normal for appendicitis to also cause constipation?"
+                        "text": "What are the most common symptoms of appendicitis?"
                     },
                     {
-                        "id": "16972090566027086",
+                        "id": "16972091056504635",
                         "nodeId": "16971382127262621",
-                        "text": "I have sever abdominal pain, could this be appendicitis?"
-                    },
-                    {
-                        "id": "16972086902740309",
-                        "nodeId": "16971382127262621",
-                        "text": "What symptoms should I look out for if I think I might have appendicitis?"
+                        "text": "Can appendicitis cause nausea and fever?"
                     }
                 ]
             },
@@ -3302,19 +2992,14 @@
                 "editMode": false,
                 "questions": [
                     {
-                        "id": "16972092216540905",
+                        "id": "16972091989275011",
                         "nodeId": "16971382255408225",
-                        "text": "Is there a test to tell if I have appendicitis?"
+                        "text": "How can my doctor tell if I have appendicitis?"
                     },
                     {
-                        "id": "16972091450736391",
+                        "id": "16972092097623947",
                         "nodeId": "16971382255408225",
-                        "text": "Should I contact a doctor if I think I might have appendicitis?"
-                    },
-                    {
-                        "id": "16972091710882917",
-                        "nodeId": "16971382255408225",
-                        "text": "Can I get better from appendicitis on my own or do I need to go to the doctor?"
+                        "text": "How is appendicitis diagnosed?"
                     }
                 ]
             },
@@ -3336,19 +3021,14 @@
                 "editMode": false,
                 "questions": [
                     {
-                        "id": "16972086634045209",
+                        "id": "16972086367454508",
                         "nodeId": "16971382811535055",
-                        "text": "What happens in appendix removal surgery?"
+                        "text": "Can appendicitis be treated?"
                     },
                     {
-                        "id": "16972086290047373",
+                        "id": "16972086102242229",
                         "nodeId": "16971382811535055",
-                        "text": "How is appendicitis treated?"
-                    },
-                    {
-                        "id": "16972086439244708",
-                        "nodeId": "16971382811535055",
-                        "text": "Does treatment for appendicitis change if my appendix has already ruptured?"
+                        "text": "What will happen if my doctor thinks I have appendicitis?"
                     }
                 ]
             },
@@ -3370,19 +3050,14 @@
                 "editMode": false,
                 "questions": [
                     {
-                        "id": "16972084660691341",
+                        "id": "16972084395178327",
                         "nodeId": "16971383912316164",
-                        "text": "What happens during sepsis?"
+                        "text": "Is sepsis a serious condition?"
                     },
                     {
-                        "id": "16972084492705027",
+                        "id": "16972084271186322",
                         "nodeId": "16971383912316164",
-                        "text": "What can happen is serious cases of sepsis?"
-                    },
-                    {
-                        "id": "16972084314431093",
-                        "nodeId": "16971383912316164",
-                        "text": "What causes sepsis?"
+                        "text": "What is sepsis?"
                     }
                 ]
             },
@@ -3448,19 +3123,14 @@
                 "editMode": false,
                 "questions": [
                     {
-                        "id": "16972094045331194",
+                        "id": "16972093578094355",
                         "nodeId": "16971384400370384",
-                        "text": "Is sepsis always the result of one type of infection?"
+                        "text": "What factors influence my risk of contracting sepsis?"
                     },
                     {
-                        "id": "16972093126441983",
+                        "id": "16972093492024614",
                         "nodeId": "16971384400370384",
-                        "text": "What puts me at greater risk for sepsis?"
-                    },
-                    {
-                        "id": "16972094412500952",
-                        "nodeId": "16971384400370384",
-                        "text": "How does pregnancy affect my risk of sepsis?"
+                        "text": "Does age affect my risk of sepsis?"
                     }
                 ]
             },
@@ -3482,19 +3152,14 @@
                 "editMode": false,
                 "questions": [
                     {
-                        "id": "16972094721350149",
+                        "id": "16972094891411646",
                         "nodeId": "16971384611683638",
-                        "text": "Do all sepsis infections have similar symptoms?"
+                        "text": "What are the main symptoms of sepsis?"
                     },
                     {
-                        "id": "16972094577684907",
+                        "id": "16972095309608783",
                         "nodeId": "16971384611683638",
-                        "text": "Where does sepsis start in the body?"
-                    },
-                    {
-                        "id": "16972094983196478",
-                        "nodeId": "16971384611683638",
-                        "text": "What symptoms should I look out for if I'm worried I might have sepsis?"
+                        "text": "What are the first signs I might have sepsis?"
                     }
                 ]
             },
@@ -3516,19 +3181,14 @@
                 "editMode": false,
                 "questions": [
                     {
-                        "id": "16972095452006367",
+                        "id": "16972095541114753",
                         "nodeId": "16971384785455676",
-                        "text": "How do doctors diagnose sepsis?"
+                        "text": "Do you need a physical exam to diagnose sepsis?"
                     },
                     {
-                        "id": "16972095877975982",
+                        "id": "16972096200649013",
                         "nodeId": "16971384785455676",
-                        "text": "Will my doctor need to look at my blood to know if I have sepsis?"
-                    },
-                    {
-                        "id": "16972095744791354",
-                        "nodeId": "16971384785455676",
-                        "text": "What type of scans are needed to diagnose sepsis?"
+                        "text": "What diagnostic criteria are used to diagnose sepsis?"
                     }
                 ]
             },
@@ -3550,19 +3210,14 @@
                 "editMode": false,
                 "questions": [
                     {
-                        "id": "16972092752641418",
+                        "id": "16972092479564534",
                         "nodeId": "16971385756832842",
-                        "text": "What treatments are there for sepsis?"
+                        "text": "How is sepsis treated?"
                     },
                     {
-                        "id": "16972092964367893",
+                        "id": "16972092613655024",
                         "nodeId": "16971385756832842",
-                        "text": "Will I need antibiotics if I have sepsis?"
-                    },
-                    {
-                        "id": "16972092548774507",
-                        "nodeId": "16971385756832842",
-                        "text": "Can you recover from sepsis?"
+                        "text": "Is there a cure for sepsis?"
                     }
                 ]
             },

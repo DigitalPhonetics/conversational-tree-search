@@ -175,7 +175,7 @@ experiment:
     dialogs: 500
   testing:
     dataset:
-      _target_: data.dataset.StandardGraphDataset
+      _target_: data.dataset.GraphDataset
       graph_path: en/onboarding/test_graph.json
       answer_path: en/onboarding/test_answers.json
       use_answer_synonyms: true

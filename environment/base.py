@@ -279,7 +279,7 @@ class BaseEnv:
         # convert previous user answer synonym -> prototypical answer
         prev_user_answer_prototype = None
         for answer in origin_node.answers:
-            if prev_usr_utterance.replace("?", "") in map(lambda answer: answer.replace("?", ""), self.data.answer_synonyms[answer.text.lower()]):
+            if prev_usr_utterance.replace("?", "") in map(lambda answer: answer.replace("?", ""), self.data.answer_synonyms[answer.key]):
                 prev_user_answer_prototype = answer
                 break
         # check if skip index from previous answer would have let to current node

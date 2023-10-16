@@ -112,7 +112,7 @@ class FreeEnvironment(BaseEnv):
                         self.current_user_utterance = replayed_user_utterance
                     else:
                         answer = self.current_node.answer_by_key(response.answer_key)
-                        self.current_user_utterance = rand_remove_questionmark(random.choice(self.data.answer_synonyms[answer.text.lower()]))
+                        self.current_user_utterance = rand_remove_questionmark(random.choice(self.data.answer_synonyms[answer.key]))
                     self.coverage_answer_synonyms[self.current_user_utterance.lower().replace("?", "")] += 1
             # info nodes don't require special handling
 

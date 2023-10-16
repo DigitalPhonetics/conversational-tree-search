@@ -25,8 +25,8 @@ hydra:
 experiment:
   _target_: training.trainer.Trainer
   device: cuda:0
-  seed: 12345678
-  torch_compile: true
+  seed: 2451907
+  torch_compile: false
   cudnn_deterministic: false
   optimizer:
     class_path: torch.optim.Adam
@@ -152,20 +152,20 @@ experiment:
   training:
     dataset:
       graph_path: en/reimburse/train_graph.json
-      answer_path: en/reimburse/generated/chatgpt/train_answers.json
+      answer_path: en/reimburse/train_answers.json
       use_answer_synonyms: true
       augmentation: ARTIFICIAL_ONLY
-      augmentation_path: en/reimburse/generated/chatgpt/train_questions_v3.json
+      augmentation_path: en/reimburse/generated/train_questions_v3.json
     every_steps: 3
     noise: 0.1
     steps: ???
   validation:
     dataset:
       graph_path: en/reimburse/train_graph.json
-      answer_path: en/reimburse/generated/chatgpt/train_answers.json
+      answer_path: en/reimburse/train_answers.json
       use_answer_synonyms: true
       augmentation: ARTIFICIAL_ONLY
-      augmentation_path: en/reimburse/generated/chatgpt/train_questions_v3.json
+      augmentation_path: en/reimburse/generated/train_questions_v3.json
     every_steps: 15000
     noise: 0.0
     dialogs: 500

@@ -30,8 +30,8 @@
             },
             "data": {
                 "id": "16971221595667850",
-                "markup": "<p>Welcome to the symptom checker bot! I hope I can help you understand what symptoms you have, but please understand that I cannot give any medical advice, and when in doubt, you should always contact your healthcare provider. Which of the following is your main problem?</p>",
-                "raw_text": "Welcome to the symptom checker bot! I hope I can help you understand what symptoms you have, but please understand that I cannot give any medical advice, and when in doubt, you should always contact your healthcare provider. Which of the following is your main problem?",
+                "markup": "<p>Which of the following is your main problem?</p>",
+                "raw_text": "Which of the following is your main problem?",
                 "position": {
                     "x": 1110.1624314921098,
                     "y": -94.12775040277825
@@ -69,6 +69,27 @@
             }
         },
         {
+            "id": "16971222807189682",
+            "type": "infoNode",
+            "position": {
+                "x": -69.30794245176116,
+                "y": 425.65795067174474
+            },
+            "data": {
+                "id": "16971222807189682",
+                "markup": "<p>Welcome to the symptom checker bot! I hope I can help you understand what symptoms you have, but please understand that I cannot give any medical advice, and when in doubt, you should always contact your healthcare provider.</p>",
+                "raw_text": "Welcome to the symptom checker bot! I hope I can help you understand what symptoms you have, but please understand that I cannot give any medical advice, and when in doubt, you should always contact your healthcare provider.",
+                "position": {
+                    "x": 245.69205754823884,
+                    "y": 50.6579506717448
+                },
+                "type": "infoNode",
+                "tags": [],
+                "answers": [],
+                "questions": []
+            }
+        },
+        {
             "id": "16971227852021367",
             "type": "infoNode",
             "position": {
@@ -88,9 +109,19 @@
                 "answers": [],
                 "questions": [
                     {
-                        "id": "16971898203896919",
+                        "id": "16971897202338804",
                         "nodeId": "16971227852021367",
-                        "text": "I've been diagnosed with seborrheic dermatitis, what is it?"
+                        "text": "What is seborrheic dermatitis?"
+                    },
+                    {
+                        "id": "16971897388828504",
+                        "nodeId": "16971227852021367",
+                        "text": "What causes dandruff?"
+                    },
+                    {
+                        "id": "16971897755736953",
+                        "nodeId": "16971227852021367",
+                        "text": "Where does seborrheic dermatitis affect?"
                     },
                     {
                         "id": "16971897912708778",
@@ -98,9 +129,9 @@
                         "text": "Do I have to worry about seborrheic dermatitis becoming a chronic condition?"
                     },
                     {
-                        "id": "16971897202338804",
+                        "id": "16971898203896919",
                         "nodeId": "16971227852021367",
-                        "text": "What is seborrheic dermatitis?"
+                        "text": "I've been diagnosed with seborrheic dermatitis, what is it?"
                     }
                 ]
             }
@@ -198,19 +229,29 @@
                 "answers": [],
                 "questions": [
                     {
-                        "id": "16971908034881943",
+                        "id": "16971907675491793",
                         "nodeId": "16971230875957773",
-                        "text": "What are risk factors for seborrheic dermatitis?"
-                    },
-                    {
-                        "id": "16971908503629584",
-                        "nodeId": "16971230875957773",
-                        "text": "What other conditions are linked to increase risk of seborrheic dermatitis?"
+                        "text": "What would increase my risk for seborrheic dermatitis?"
                     },
                     {
                         "id": "16971907829917836",
                         "nodeId": "16971230875957773",
                         "text": "Does family history play a role in how likely I am to get seborrheic dermatitis?"
+                    },
+                    {
+                        "id": "16971908034881943",
+                        "nodeId": "16971230875957773",
+                        "text": "What are risk factors for seborrheic dermatitis?"
+                    },
+                    {
+                        "id": "16971908176791003",
+                        "nodeId": "16971230875957773",
+                        "text": "Does having another skin condition make me more likely to get seborrheic dermatitis?"
+                    },
+                    {
+                        "id": "16971908503629584",
+                        "nodeId": "16971230875957773",
+                        "text": "What other conditions are linked to increase risk of seborrheic dermatitis?"
                     }
                 ]
             }
@@ -235,9 +276,19 @@
                 "answers": [],
                 "questions": [
                     {
-                        "id": "16971912480915443",
+                        "id": "16971911468889557",
                         "nodeId": "16971231890596859",
-                        "text": "What is the normal color of skin scales for Seborrheic dermatitis?"
+                        "text": "What are symptoms of seborrheic dermatitis?"
+                    },
+                    {
+                        "id": "16971911642686354",
+                        "nodeId": "16971231890596859",
+                        "text": "I have an itchy rash and scales on my skin, what are these symptoms of?"
+                    },
+                    {
+                        "id": "16971912164380614",
+                        "nodeId": "16971231890596859",
+                        "text": "Can you list the main symptoms of seborrheic dermatitis?"
                     },
                     {
                         "id": "16971912289775071",
@@ -245,9 +296,9 @@
                         "text": "Is it common to have dandruff as part of Seborrheic dermatitis?"
                     },
                     {
-                        "id": "16971911468889557",
+                        "id": "16971912480915443",
                         "nodeId": "16971231890596859",
-                        "text": "What are symptoms of seborrheic dermatitis?"
+                        "text": "What is the normal color of skin scales for Seborrheic dermatitis?"
                     }
                 ]
             }
@@ -272,9 +323,19 @@
                 "answers": [],
                 "questions": [
                     {
-                        "id": "16971904218589816",
+                        "id": "16971903402421065",
                         "nodeId": "16971232836336441",
-                        "text": "Are there any shampoos to help with seborrheic dermatitis?"
+                        "text": "What treatment options are there for seborrheic dermatitis?"
+                    },
+                    {
+                        "id": "16971903586866073",
+                        "nodeId": "16971232836336441",
+                        "text": "Do I need a prescription to treat cradle cap?"
+                    },
+                    {
+                        "id": "16971903775097913",
+                        "nodeId": "16971232836336441",
+                        "text": "Should I use an anti fungal or cortisone to for my seborrheic dermatitis?"
                     },
                     {
                         "id": "16971904075084217",
@@ -282,9 +343,9 @@
                         "text": "How do I treat seborrheic dermatitis?"
                     },
                     {
-                        "id": "16971903775097913",
+                        "id": "16971904218589816",
                         "nodeId": "16971232836336441",
-                        "text": "Should I use an anti fungal or cortisone to for my seborrheic dermatitis?"
+                        "text": "Are there any shampoos to help with seborrheic dermatitis?"
                     }
                 ]
             }
@@ -309,19 +370,29 @@
                 "answers": [],
                 "questions": [
                     {
-                        "id": "16971913035153827",
-                        "nodeId": "16971234673877854",
-                        "text": "I think I have Seborrheic dermatitis is this something worth going to the doctor for?"
-                    },
-                    {
                         "id": "16971912861884184",
                         "nodeId": "16971234673877854",
                         "text": "Do I need to see a doctor for Seborrheic dermatitis?"
                     },
                     {
+                        "id": "16971913035153827",
+                        "nodeId": "16971234673877854",
+                        "text": "I think I have Seborrheic dermatitis is this something worth going to the doctor for?"
+                    },
+                    {
                         "id": "16971913394825706",
                         "nodeId": "16971234673877854",
                         "text": "I have Seborrheic dermatitis and have an infection, can I treat this at home, or should I go to the doctor?"
+                    },
+                    {
+                        "id": "16971913597888361",
+                        "nodeId": "16971234673877854",
+                        "text": "When should I consider going to the doctor for Seborrheic dermatitis?"
+                    },
+                    {
+                        "id": "16971913709763313",
+                        "nodeId": "16971234673877854",
+                        "text": "Can I treat Seborrheic dermatitis at home or should I go to the doctor?"
                     }
                 ]
             }
@@ -346,9 +417,19 @@
                 "answers": [],
                 "questions": [
                     {
-                        "id": "16971881723876766",
+                        "id": "16971880912793569",
                         "nodeId": "16971236282652786",
-                        "text": "I've been diagnosed with head lice, what is that?"
+                        "text": "What are lice?"
+                    },
+                    {
+                        "id": "16971881068571697",
+                        "nodeId": "16971236282652786",
+                        "text": "How do lice spread?"
+                    },
+                    {
+                        "id": "16971881127713433",
+                        "nodeId": "16971236282652786",
+                        "text": "Which body parts should I check for lice?"
                     },
                     {
                         "id": "16971881627155827",
@@ -356,9 +437,9 @@
                         "text": "Why are lice so itchy?"
                     },
                     {
-                        "id": "16971880912793569",
+                        "id": "16971881723876766",
                         "nodeId": "16971236282652786",
-                        "text": "What are lice?"
+                        "text": "I've been diagnosed with head lice, what is that?"
                     }
                 ]
             }
@@ -415,9 +496,9 @@
                 "answers": [],
                 "questions": [
                     {
-                        "id": "16971901047283118",
+                        "id": "16971900586170236",
                         "nodeId": "16971237950320938",
-                        "text": "Do I need any type of special shampoo for head lice?"
+                        "text": "How should I treat head lice?"
                     },
                     {
                         "id": "16971900722454763",
@@ -428,6 +509,16 @@
                         "id": "16971900807603814",
                         "nodeId": "16971237950320938",
                         "text": "Will I need a prescription for head lice?"
+                    },
+                    {
+                        "id": "16971901047283118",
+                        "nodeId": "16971237950320938",
+                        "text": "Do I need any type of special shampoo for head lice?"
+                    },
+                    {
+                        "id": "16971901201797952",
+                        "nodeId": "16971237950320938",
+                        "text": "Do I have to do anything besides taking medicine to get rid of head lice?"
                     }
                 ]
             }
@@ -489,6 +580,16 @@
                 "answers": [],
                 "questions": [
                     {
+                        "id": "16971879093428735",
+                        "nodeId": "16971241136932313",
+                        "text": "What type of disease is alopecia?"
+                    },
+                    {
+                        "id": "16971878233830949",
+                        "nodeId": "16971241136932313",
+                        "text": "What is alopecia areata?"
+                    },
+                    {
                         "id": "16971878429785895",
                         "nodeId": "16971241136932313",
                         "text": "Will I lose all of my hair if I have alopecia areata?"
@@ -499,9 +600,9 @@
                         "text": "How much hair will I lose if I have alopecia?"
                     },
                     {
-                        "id": "16971878233830949",
+                        "id": "16971878821227197",
                         "nodeId": "16971241136932313",
-                        "text": "What is alopecia areata?"
+                        "text": "Will my hair grow back with alopecia?"
                     }
                 ]
             }
@@ -531,14 +632,24 @@
                         "text": "What different types of alopecia are there?"
                     },
                     {
-                        "id": "16971880436104966",
+                        "id": "16971879779061923",
                         "nodeId": "16971246523271658",
-                        "text": "Is there a type of alopecia where you lose bands of hair and not just patches?"
+                        "text": "What are the differences between different types of alopecia?"
                     },
                     {
                         "id": "16971879991842234",
                         "nodeId": "16971246523271658",
                         "text": "Does alopecia only affect hair on your head?"
+                    },
+                    {
+                        "id": "16971880226583522",
+                        "nodeId": "16971246523271658",
+                        "text": "Can it still be alopecia if I just have hair thinning, but not bald patches?"
+                    },
+                    {
+                        "id": "16971880436104966",
+                        "nodeId": "16971246523271658",
+                        "text": "Is there a type of alopecia where you lose bands of hair and not just patches?"
                     }
                 ]
             }
@@ -615,19 +726,29 @@
                 "answers": [],
                 "questions": [
                     {
-                        "id": "16971877025147449",
-                        "nodeId": "16971246757447108",
-                        "text": "Will I need a biopsy for an alopecia diagnosis?"
-                    },
-                    {
                         "id": "16971876625555367",
                         "nodeId": "16971246757447108",
                         "text": "How is alopecia areata diagnosed?"
                     },
                     {
+                        "id": "16971876743517037",
+                        "nodeId": "16971246757447108",
+                        "text": "What type of doctor should I go to if I think I have alopecia areata?"
+                    },
+                    {
+                        "id": "16971877025147449",
+                        "nodeId": "16971246757447108",
+                        "text": "Will I need a biopsy for an alopecia diagnosis?"
+                    },
+                    {
                         "id": "16971877283242908",
                         "nodeId": "16971246757447108",
                         "text": "Are blood tests required to diagnose alopecia?"
+                    },
+                    {
+                        "id": "16971877410804166",
+                        "nodeId": "16971246757447108",
+                        "text": "Can alopecia be detected through a hormone test?"
                     }
                 ]
             }
@@ -652,6 +773,21 @@
                 "answers": [],
                 "questions": [
                     {
+                        "id": "16971873155858969",
+                        "nodeId": "16971264647384061",
+                        "text": "What are the symptoms of alopecia areata?"
+                    },
+                    {
+                        "id": "16971874352363427",
+                        "nodeId": "16971264647384061",
+                        "text": "I have several small bald patches, what could this be?"
+                    },
+                    {
+                        "id": "16971874635275663",
+                        "nodeId": "16971264647384061",
+                        "text": "Are there other symptoms for alopecia besides hair loss?"
+                    },
+                    {
                         "id": "16971874885346258",
                         "nodeId": "16971264647384061",
                         "text": "How can I tell if I might have alopecia?"
@@ -660,11 +796,6 @@
                         "id": "16971874989251203",
                         "nodeId": "16971264647384061",
                         "text": "I'm losing more hair when it's cold out, is this normal for alopecia?"
-                    },
-                    {
-                        "id": "16971874635275663",
-                        "nodeId": "16971264647384061",
-                        "text": "Are there other symptoms for alopecia besides hair loss?"
                     }
                 ]
             }
@@ -689,9 +820,19 @@
                 "answers": [],
                 "questions": [
                     {
+                        "id": "16971871139378956",
+                        "nodeId": "16971265168522613",
+                        "text": "What medicine can I take to treat my alopecia areata?"
+                    },
+                    {
                         "id": "16971871321893347",
                         "nodeId": "16971265168522613",
                         "text": "Is there a cure for alopecia areata?"
+                    },
+                    {
+                        "id": "16971871477346665",
+                        "nodeId": "16971265168522613",
+                        "text": "What medicines help against alopecia areata?"
                     },
                     {
                         "id": "16971871725616307",
@@ -699,9 +840,14 @@
                         "text": "What treatment options do I have for alopecia areata?"
                     },
                     {
-                        "id": "16971871139378956",
+                        "id": "16971871944051769",
                         "nodeId": "16971265168522613",
-                        "text": "What medicine can I take to treat my alopecia areata?"
+                        "text": "what are corticosteroids?"
+                    },
+                    {
+                        "id": "16971872035459536",
+                        "nodeId": "16971265168522613",
+                        "text": "When should I consider topical immunotherapy for my alopecia areata?"
                     }
                 ]
             }
@@ -724,11 +870,22 @@
                 "type": "infoNode",
                 "tags": [],
                 "answers": [],
-                "questions": [
+                "questions": 
+                [
+                    {
+                        "id": "16971870214121083",
+                        "nodeId": "16971266069412030",
+                        "text": "What causes alopecia areata?"
+                    },
                     {
                         "id": "16971870459228008",
                         "nodeId": "16971266069412030",
                         "text": "Who is most at risk for alopecia areata?"
+                    },
+                    {
+                        "id": "16971870676216623",
+                        "nodeId": "16971266069412030",
+                        "text": "Am I more likely to get alopecia areata if I have a thyroid condition?"
                     },
                     {
                         "id": "16971870857952433",
@@ -736,9 +893,9 @@
                         "text": "Does alopecia areata run in families?"
                     },
                     {
-                        "id": "16971870214121083",
+                        "id": "16971869662024224",
                         "nodeId": "16971266069412030",
-                        "text": "What causes alopecia areata?"
+                        "text": "Who is at the highest risk for alopecia?"
                     }
                 ]
             }
@@ -763,6 +920,16 @@
                 "answers": [],
                 "questions": [
                     {
+                        "id": "16971856693511474",
+                        "nodeId": "16971267042921515",
+                        "text": "What is hypothyroidism?"
+                    },
+                    {
+                        "id": "16971856778955479",
+                        "nodeId": "16971267042921515",
+                        "text": "What is a thyroid?"
+                    },
+                    {
                         "id": "16971857025069979",
                         "nodeId": "16971267042921515",
                         "text": "Why is it bad to have less thyroid hormone?"
@@ -773,9 +940,9 @@
                         "text": "Why is thyroid hormone important?"
                     },
                     {
-                        "id": "16971856778955479",
+                        "id": "16971857519982925",
                         "nodeId": "16971267042921515",
-                        "text": "What is a thyroid?"
+                        "text": "What happens if my thyroid gland can't produce enough hormone?"
                     }
                 ]
             }
@@ -842,14 +1009,24 @@
                         "text": "What are the symptoms of hypothyroidism?"
                     },
                     {
-                        "id": "16971862452019073",
+                        "id": "16971861654199586",
                         "nodeId": "16971270615551732",
-                        "text": "I have weight gain, weakness, and sensitivity to cold, what could these be symptoms of?"
+                        "text": "Could my weight gain and severe fatigue be associated with hypothyroidism?"
                     },
                     {
                         "id": "16971861925556452",
                         "nodeId": "16971270615551732",
                         "text": "What are the most common ways to tell you have hypothyroidism?"
+                    },
+                    {
+                        "id": "16971862452019073",
+                        "nodeId": "16971270615551732",
+                        "text": "I have weight gain, weakness, and sensitivity to cold, what could these be symptoms of?"
+                    },
+                    {
+                        "id": "16971863113956201",
+                        "nodeId": "16971270615551732",
+                        "text": "What symptoms are most associated with hypothyroidism?"
                     }
                 ]
             }
@@ -874,9 +1051,19 @@
                 "answers": [],
                 "questions": [
                     {
-                        "id": "16971860267019197",
+                        "id": "16971859664927783",
                         "nodeId": "16971272823302492",
-                        "text": "Can hypothyroidism be treated?"
+                        "text": "How long does it take for hypothyroidism symptoms to go away?"
+                    },
+                    {
+                        "id": "16971859845530186",
+                        "nodeId": "16971272823302492",
+                        "text": "What treatment options are there for hypothyroidism?"
+                    },
+                    {
+                        "id": "16971860132621893",
+                        "nodeId": "16971272823302492",
+                        "text": "How long will I have to take thyroid medication for?"
                     },
                     {
                         "id": "16971860267019196",
@@ -884,9 +1071,9 @@
                         "text": "What medicine is there to treat hypothyroidism?"
                     },
                     {
-                        "id": "16971859664927783",
+                        "id": "16971860267019197",
                         "nodeId": "16971272823302492",
-                        "text": "How long does it take for hypothyroidism symptoms to go away?"
+                        "text": "Can hypothyroidism be treated?"
                     }
                 ]
             }
@@ -916,14 +1103,24 @@
                         "text": "What is ringworm?"
                     },
                     {
-                        "id": "16971856277982075",
+                        "id": "16971855743836351",
                         "nodeId": "16971273395332492",
-                        "text": "Is ringworm contagious?"
+                        "text": "Where does ringworm grow best?"
                     },
                     {
                         "id": "16971855899091246",
                         "nodeId": "16971273395332492",
                         "text": "Can adults get ringworm, or is it only children?"
+                    },
+                    {
+                        "id": "16971856277982075",
+                        "nodeId": "16971273395332492",
+                        "text": "Is ringworm contagious?"
+                    },
+                    {
+                        "id": "16971856427946755",
+                        "nodeId": "16971273395332492",
+                        "text": "How does ringworm spread?"
                     }
                 ]
             }
@@ -1000,19 +1197,29 @@
                 "answers": [],
                 "questions": [
                     {
-                        "id": "16971859253652586",
+                        "id": "16971859046129964",
                         "nodeId": "16971274371132669",
-                        "text": "What increases my risk of catching ringworm?"
-                    },
-                    {
-                        "id": "16971859360430253",
-                        "nodeId": "16971274371132669",
-                        "text": "Can I get ringworm by sharing a bath?"
+                        "text": "What are risk factors for ringworm?"
                     },
                     {
                         "id": "16971859131679593",
                         "nodeId": "16971274371132669",
                         "text": "Am I more at risk for ringworm if I'm already sick?"
+                    },
+                    {
+                        "id": "16971859253652586",
+                        "nodeId": "16971274371132669",
+                        "text": "What increases my risk of catching ringworm?"
+                    },
+                    {
+                        "id": "16971859360430252",
+                        "nodeId": "16971274371132669",
+                        "text": "What factors make me more likely to get ringworm?"
+                    },
+                    {
+                        "id": "16971859360430253",
+                        "nodeId": "16971274371132669",
+                        "text": "Can I get ringworm by sharing a bath?"
                     }
                 ]
             }
@@ -1042,14 +1249,24 @@
                         "text": "What type of treatments are there for ringworm?"
                     },
                     {
+                        "id": "16971857918273629",
+                        "nodeId": "16971274790582030",
+                        "text": "How is ringworm treated?"
+                    },
+                    {
                         "id": "16971858199833895",
                         "nodeId": "16971274790582030",
                         "text": "What affects treatment options for ringworm?"
                     },
                     {
-                        "id": "16971857918273629",
+                        "id": "16971858487253035",
                         "nodeId": "16971274790582030",
-                        "text": "How is ringworm treated?"
+                        "text": "Will I need a prescription to treat my ringworm?"
+                    },
+                    {
+                        "id": "16971858613374435",
+                        "nodeId": "16971274790582030",
+                        "text": "Can I use OTC meds for my ringworm or do I need a prescription?"
                     }
                 ]
             }
@@ -1074,14 +1291,24 @@
                 "answers": [],
                 "questions": [
                     {
-                        "id": "16971869033870953",
+                        "id": "16971867916114848",
                         "nodeId": "16971275363662808",
-                        "text": "What do ringworm patches look like?"
+                        "text": "What are symptoms of ringworm?"
                     },
                     {
                         "id": "16971868507192604",
                         "nodeId": "16971275363662808",
                         "text": " I have red, scaly, itchy patches on my skin, what could they be?"
+                    },
+                    {
+                        "id": "16971868680347673",
+                        "nodeId": "16971275363662808",
+                        "text": "I have a circular bald spot on my head, could this be something like ringworm?"
+                    },
+                    {
+                        "id": "16971869033870953",
+                        "nodeId": "16971275363662808",
+                        "text": "What do ringworm patches look like?"
                     },
                     {
                         "id": "16971869123394746",
@@ -1111,9 +1338,14 @@
                 "answers": [],
                 "questions": [
                     {
-                        "id": "16971867638537307",
+                        "id": "16971863576376992",
                         "nodeId": "16971275655160790",
-                        "text": "My ringworm patch is showing swelling, warmth, and discharge, what should I do?"
+                        "text": "When is a ringworm infection concerning enough to call my doctor?"
+                    },
+                    {
+                        "id": "16971864272660896",
+                        "nodeId": "16971275655160790",
+                        "text": "My ringworm hasn't gone away, what should I do?"
                     },
                     {
                         "id": "16971864381470312",
@@ -1124,6 +1356,11 @@
                         "id": "16971863814138345",
                         "nodeId": "16971275655160790",
                         "text": "What are signs my ringworm patch has gotten infected?"
+                    },
+                    {
+                        "id": "16971867638537307",
+                        "nodeId": "16971275655160790",
+                        "text": "My ringworm patch is showing swelling, warmth, and discharge, what should I do?"
                     }
                 ]
             }
@@ -1190,19 +1427,29 @@
                 "answers": [],
                 "questions": [
                     {
-                        "id": "16971901891775493",
-                        "nodeId": "16971281607674116",
-                        "text": "What marks clinical depression as different from just being sad?"
-                    },
-                    {
                         "id": "16971901678757006",
                         "nodeId": "16971281607674116",
                         "text": "What is endogenous depression?"
                     },
                     {
+                        "id": "16971901891775493",
+                        "nodeId": "16971281607674116",
+                        "text": "What marks clinical depression as different from just being sad?"
+                    },
+                    {
+                        "id": "16971902264601688",
+                        "nodeId": "16971281607674116",
+                        "text": "Is it normal to feel more depressed in the morning?"
+                    },
+                    {
                         "id": "16971902513488737",
                         "nodeId": "16971281607674116",
                         "text": "My doctor thinks I might have clinical depression, what is that?"
+                    },
+                    {
+                        "id": "16971902768971214",
+                        "nodeId": "16971281607674116",
+                        "text": "How much of the day is normal to have a depressed mood?"
                     }
                 ]
             }
@@ -1274,19 +1521,29 @@
                 "answers": [],
                 "questions": [
                     {
+                        "id": "16971917449454541",
+                        "nodeId": "16971282620716864",
+                        "text": "What symptoms are common with depression?"
+                    },
+                    {
                         "id": "16971917794449283",
                         "nodeId": "16971282620716864",
                         "text": "I have been struggling with suicidal thoughts, is this a symptom of depression?"
                     },
                     {
+                        "id": "16971917986723731",
+                        "nodeId": "16971282620716864",
+                        "text": "Is it normal for depression to be paired with insomnia?"
+                    },
+                    {
+                        "id": "16971918248248713",
+                        "nodeId": "16971282620716864",
+                        "text": "What symptoms should I look out for if I'm worried I might have depression?"
+                    },
+                    {
                         "id": "16971918415864632",
                         "nodeId": "16971282620716864",
                         "text": "Can you tell me more about depression symptoms?"
-                    },
-                    {
-                        "id": "16971917449454541",
-                        "nodeId": "16971282620716864",
-                        "text": "What symptoms are common with depression?"
                     }
                 ]
             }
@@ -1316,14 +1573,24 @@
                         "text": "What risk factors are there for depression?"
                     },
                     {
-                        "id": "16971919240574468",
+                        "id": "16971918761603174",
                         "nodeId": "16971282696084628",
-                        "text": "Can depression be caused by life events?"
+                        "text": "Is depression genetic?"
                     },
                     {
                         "id": "16971918897666126",
                         "nodeId": "16971282696084628",
                         "text": "Does a family history increase risk of depression?"
+                    },
+                    {
+                        "id": "16971919041827234",
+                        "nodeId": "16971282696084628",
+                        "text": "What makes me more likely to get depression?"
+                    },
+                    {
+                        "id": "16971919240574468",
+                        "nodeId": "16971282696084628",
+                        "text": "Can depression be caused by life events?"
                     }
                 ]
             }
@@ -1348,6 +1615,11 @@
                 "answers": [],
                 "questions": [
                     {
+                        "id": "16971915093957327",
+                        "nodeId": "16971283673195926",
+                        "text": "How can depression be diagnosed?"
+                    },
+                    {
                         "id": "16971915193033726",
                         "nodeId": "16971283673195926",
                         "text": "What is involved in diagnosing depression?"
@@ -1358,9 +1630,14 @@
                         "text": "Who can diagnose depression?"
                     },
                     {
-                        "id": "16971915093957327",
+                        "id": "16971915969728994",
                         "nodeId": "16971283673195926",
-                        "text": "How can depression be diagnosed?"
+                        "text": "Is family history relevant when diagnosing depression?"
+                    },
+                    {
+                        "id": "16971916098989161",
+                        "nodeId": "16971283673195926",
+                        "text": "Are blood tests needed to diagnose depression?"
                     }
                 ]
             }
@@ -1390,14 +1667,24 @@
                         "text": "Can clinical depression be treated?"
                     },
                     {
-                        "id": "16971916881697176",
+                        "id": "16971916508750124",
                         "nodeId": "16971283945156906",
-                        "text": "Are there other options besides anti-depressants, I can try for treating depression?"
+                        "text": "What treatment options are there for depression?"
                     },
                     {
                         "id": "16971916653465897",
                         "nodeId": "16971283945156906",
                         "text": "What determines what treatment is used for depression?"
+                    },
+                    {
+                        "id": "16971916881697176",
+                        "nodeId": "16971283945156906",
+                        "text": "Are there other options besides anti-depressants, I can try for treating depression?"
+                    },
+                    {
+                        "id": "16971917256157437",
+                        "nodeId": "16971283945156906",
+                        "text": "What options do I have besides therapy for treating my depression?"
                     }
                 ]
             }
@@ -1422,9 +1709,24 @@
                 "answers": [],
                 "questions": [
                     {
+                        "id": "16971442842358063",
+                        "nodeId": "16971285001697389",
+                        "text": "What is anemia?"
+                    },
+                    {
+                        "id": "16971976317847434",
+                        "nodeId": "16971285001697389",
+                        "text": "What is anemia?"
+                    },
+                    {
                         "id": "16971976426310665",
                         "nodeId": "16971285001697389",
                         "text": "Why are red blood cells important?"
+                    },
+                    {
+                        "id": "16971976543672725",
+                        "nodeId": "16971285001697389",
+                        "text": "Why do I need iron?"
                     },
                     {
                         "id": "16971976714858264",
@@ -1432,9 +1734,9 @@
                         "text": "What causes anemia?"
                     },
                     {
-                        "id": "16971442842358063",
+                        "id": "16971976954475195",
                         "nodeId": "16971285001697389",
-                        "text": "What is anemia?"
+                        "text": "How long does it take to recover from anemia?"
                     }
                 ]
             }
@@ -1459,9 +1761,19 @@
                 "answers": [],
                 "questions": [
                     {
-                        "id": "16972007493808738",
+                        "id": "16972003714360211",
                         "nodeId": "16971285332270447",
-                        "text": "Will chronic fatigue syndrome get better if I just rest more?"
+                        "text": "What is chronic fatigue syndrome?"
+                    },
+                    {
+                        "id": "16972003809509344",
+                        "nodeId": "16971285332270447",
+                        "text": "How long does chronic fatigue last?"
+                    },
+                    {
+                        "id": "16972004098610708",
+                        "nodeId": "16971285332270447",
+                        "text": "What causes chronic fatigue syndrome?"
                     },
                     {
                         "id": "16972007306920561",
@@ -1469,9 +1781,9 @@
                         "text": "Is chronic fatigue syndrome caused by a virus or bacteria?"
                     },
                     {
-                        "id": "16972003714360211",
+                        "id": "16972007493808738",
                         "nodeId": "16971285332270447",
-                        "text": "What is chronic fatigue syndrome?"
+                        "text": "Will chronic fatigue syndrome get better if I just rest more?"
                     }
                 ]
             }
@@ -1573,25 +1885,35 @@
                 "markup": "<p>Anemia symptoms include fatigue, pale skin and gums, blue color in the whites of the eyes, brittle nails, irritability, dizziness, sore tongue, shortness of breath, unusual food cravings, and headache.</p>",
                 "raw_text": "Anemia symptoms include fatigue, pale skin and gums, blue color in the whites of the eyes, brittle nails, irritability, dizziness, sore tongue, shortness of breath, unusual food cravings, and headache.",
                 "answers": [],
-                "tags": [],
-                "editMode": false,
                 "questions": [
-                    {
-                        "id": "16971997606623664",
-                        "nodeId": "16971315102653044",
-                        "text": "Is a sore tongue a common symptom of anemia?"
-                    },
                     {
                         "id": "16971996293740352",
                         "nodeId": "16971315102653044",
                         "text": "What are symptoms of anemia?"
                     },
                     {
+                        "id": "16971996403645096",
+                        "nodeId": "16971315102653044",
+                        "text": "What should I look out for if I think I might have anemia?"
+                    },
+                    {
+                        "id": "16971997101106026",
+                        "nodeId": "16971315102653044",
+                        "text": "I have brittle nails, dizziness, and fatigue, could this be related to anemia?"
+                    },
+                    {
+                        "id": "16971997606623664",
+                        "nodeId": "16971315102653044",
+                        "text": "Is a sore tongue a common symptom of anemia?"
+                    },
+                    {
                         "id": "16971997779037786",
                         "nodeId": "16971315102653044",
                         "text": "How do I know if I have anemia?"
                     }
-                ]
+                ],
+                "tags": [],
+                "editMode": false
             },
             "position": {
                 "x": 3027.5776292183978,
@@ -1607,8 +1929,6 @@
                 "markup": "<p>You are at higher risk for iron deficiency anemia if you are a woman with menstrual periods, or have gastrointestinal bleeding from polyps, ulcers, or a chronic disease, including cancer.</p>",
                 "raw_text": "You are at higher risk for iron deficiency anemia if you are a woman with menstrual periods, or have gastrointestinal bleeding from polyps, ulcers, or a chronic disease, including cancer.",
                 "answers": [],
-                "tags": [],
-                "editMode": false,
                 "questions": [
                     {
                         "id": "16971988740122435",
@@ -1616,16 +1936,28 @@
                         "text": "What are risk factors for anemia?"
                     },
                     {
+                        "id": "16971995188563404",
+                        "nodeId": "16971315288201564",
+                        "text": "How do I know if I am at higher risk for anemia?"
+                    },
+                    {
                         "id": "16971995397038752",
                         "nodeId": "16971315288201564",
                         "text": "Does my period affect how likely I am to get anemia?"
+                    },
+                    {
+                        "id": "16971995628215367",
+                        "nodeId": "16971315288201564",
+                        "text": "What can increase my risk of anemia?"
                     },
                     {
                         "id": "16971995870733957",
                         "nodeId": "16971315288201564",
                         "text": "Does cancer put me more at risk for anemia?"
                     }
-                ]
+                ],
+                "tags": [],
+                "editMode": false
             },
             "position": {
                 "x": 3018.606300501995,
@@ -1641,14 +1973,7 @@
                 "markup": "<p>Your doctor will diagnose anemia by taking your medical history and doing a physical exam and blood tests. If needed, the doctor will do a bone marrow biopsy or intestinal exams to find the source of bleeding.</p>",
                 "raw_text": "Your doctor will diagnose anemia by taking your medical history and doing a physical exam and blood tests. If needed, the doctor will do a bone marrow biopsy or intestinal exams to find the source of bleeding.",
                 "answers": [],
-                "tags": [],
-                "editMode": false,
                 "questions": [
-                    {
-                        "id": "16971983208128431",
-                        "nodeId": "16971315500860824",
-                        "text": "Is a physical exam enough to diagnose anemia?"
-                    },
                     {
                         "id": "16971982365015145",
                         "nodeId": "16971315500860824",
@@ -1658,8 +1983,25 @@
                         "id": "16971982500663209",
                         "nodeId": "16971315500860824",
                         "text": "Will I need to do a blood test to find out if I have anemia?"
+                    },
+                    {
+                        "id": "16971982696586496",
+                        "nodeId": "16971315500860824",
+                        "text": "What kinds of tests will my doctor need to do to find out if I have anemia?"
+                    },
+                    {
+                        "id": "16971982925824174",
+                        "nodeId": "16971315500860824",
+                        "text": "What is the diagnostic process for anemia?"
+                    },
+                    {
+                        "id": "16971983208128431",
+                        "nodeId": "16971315500860824",
+                        "text": "Is a physical exam enough to diagnose anemia?"
                     }
-                ]
+                ],
+                "tags": [],
+                "editMode": false
             },
             "position": {
                 "x": 2998.460850369145,
@@ -1675,9 +2017,22 @@
                 "markup": "<div class=\"article-section\">\n<div>\n<p>Anemia treatment may include: </p>\n<ul>\n<li>Iron and vitamin supplements </li>\n<li>Red blood cell transfusion for severe anemia </li>\n<li>Treating the source of blood loss</li>\n</ul>\n</div>\n</div>",
                 "raw_text": "Anemia treatment may include: \nIron and vitamin supplements \nRed blood cell transfusion for severe anemia \nTreating the source of blood loss",
                 "answers": [],
-                "tags": [],
-                "editMode": false,
                 "questions": [
+                    {
+                        "id": "16971997971699571",
+                        "nodeId": "16971315642568230",
+                        "text": "What can I do to treat my anemia?"
+                    },
+                    {
+                        "id": "16971998272378637",
+                        "nodeId": "16971315642568230",
+                        "text": "What medicine should I take to combat anemia?"
+                    },
+                    {
+                        "id": "16971998430483038",
+                        "nodeId": "16971315642568230",
+                        "text": "Do vitamins help for anemia?"
+                    },
                     {
                         "id": "16971998575140541",
                         "nodeId": "16971315642568230",
@@ -1687,13 +2042,10 @@
                         "id": "16971998836647151",
                         "nodeId": "16971315642568230",
                         "text": "How is anemia generally treated?"
-                    },
-                    {
-                        "id": "16971998430483038",
-                        "nodeId": "16971315642568230",
-                        "text": "Do vitamins help for anemia?"
                     }
-                ]
+                ],
+                "tags": [],
+                "editMode": false
             },
             "position": {
                 "x": 3423.8592550035023,
@@ -1709,25 +2061,35 @@
                 "markup": "<p>Symptoms of chronic fatigue may include extreme fatigue, not feeling refreshed after sleep, trouble concentrating, a sore throat, muscle aches, joint pain without swelling or redness, enlarged lymph nodes, extreme tiredness after exercise, and headaches.</p>",
                 "raw_text": "Symptoms of chronic fatigue may include extreme fatigue, not feeling refreshed after sleep, trouble concentrating, a sore throat, muscle aches, joint pain without swelling or redness, enlarged lymph nodes, extreme tiredness after exercise, and headaches.",
                 "answers": [],
-                "tags": [],
-                "editMode": false,
                 "questions": [
+                    {
+                        "id": "16972017036555435",
+                        "nodeId": "16971317162103642",
+                        "text": "What are the most common symptoms of chronic fatigue syndrome?"
+                    },
+                    {
+                        "id": "16972017220538503",
+                        "nodeId": "16971317162103642",
+                        "text": "How can I tell if I might have chronic fatigue syndrome?"
+                    },
                     {
                         "id": "16972017373490171",
                         "nodeId": "16971317162103642",
                         "text": "I am exhausted and don't feel refreshed after sleeping"
                     },
                     {
-                        "id": "16972017902248325",
-                        "nodeId": "16971317162103642",
-                        "text": "What symptoms should I look out for if I think I might have chronic fatigue syndrome?"
-                    },
-                    {
                         "id": "16972017714213174",
                         "nodeId": "16971317162103642",
                         "text": "Are muscle aches and joint pain normal symptoms for chronic fatigue syndrome?"
+                    },
+                    {
+                        "id": "16972017902248325",
+                        "nodeId": "16971317162103642",
+                        "text": "What symptoms should I look out for if I think I might have chronic fatigue syndrome?"
                     }
-                ]
+                ],
+                "tags": [],
+                "editMode": false
             },
             "position": {
                 "x": 2970.0613471699903,
@@ -1743,13 +2105,11 @@
                 "markup": "<p>You may be at higher risk for Chronic Fatigue Syndrome if you are a woman in your 40s or 50s.</p>",
                 "raw_text": "You may be at higher risk for Chronic Fatigue Syndrome if you are a woman in your 40s or 50s.",
                 "answers": [],
-                "tags": [],
-                "editMode": false,
                 "questions": [
                     {
-                        "id": "16972016552214307",
+                        "id": "16972015064856516",
                         "nodeId": "16971317288774696",
-                        "text": "What age has the highest risk for chronic fatigue syndrome?"
+                        "text": "What are risk factors for chronic fatigue syndrome?"
                     },
                     {
                         "id": "16972015180949681",
@@ -1757,11 +2117,23 @@
                         "text": "Am I more likely to get chronic fatigue syndrome as a woman?"
                     },
                     {
-                        "id": "16972015064856516",
+                        "id": "16972015441670785",
                         "nodeId": "16971317288774696",
-                        "text": "What are risk factors for chronic fatigue syndrome?"
+                        "text": "What could put me at greater risk for developing chronic fatigue syndrome?"
+                    },
+                    {
+                        "id": "16972016552214307",
+                        "nodeId": "16971317288774696",
+                        "text": "What age has the highest risk for chronic fatigue syndrome?"
+                    },
+                    {
+                        "id": "16972016679015442",
+                        "nodeId": "16971317288774696",
+                        "text": "Is there anything that might put me at higher risk for chronic fatigue syndrome?"
                     }
-                ]
+                ],
+                "tags": [],
+                "editMode": false
             },
             "position": {
                 "x": 2993.830521137305,
@@ -1777,8 +2149,6 @@
                 "markup": "<p>There is no specific treatment for Chronic Fatigue Syndrome, but there are treatments to help relieve symptoms. These treatments may include:</p>\n<ul>\n<li>Cognitive-behavioral therapy</li>\n<li>Antidepressant medication, which may also improve sleep and reduce pain</li>\n<li>Pain relievers</li>\n<li>Anti-anxiety medications</li>\n<li>Stress-reduction techniques</li>\n<li>Exercise</li>\n<li>Allergy medications</li>\n<li>Sleep management techniques</li>\n</ul>",
                 "raw_text": "There is no specific treatment for Chronic Fatigue Syndrome, but there are treatments to help relieve symptoms. These treatments may include:\nCognitive-behavioral therapy\nAntidepressant medication, which may also improve sleep and reduce pain\nPain relievers\nAnti-anxiety medications\nStress-reduction techniques\nExercise\nAllergy medications\nSleep management techniques",
                 "answers": [],
-                "tags": [],
-                "editMode": false,
                 "questions": [
                     {
                         "id": "16972014183529561",
@@ -1786,16 +2156,28 @@
                         "text": "What treatment is there for chronic fatigue syndrome?"
                     },
                     {
-                        "id": "16972014639942608",
+                        "id": "16972014353805258",
                         "nodeId": "16971317441893170",
-                        "text": "Can therapy be a viable treatment for chronic fatigue syndrome?"
+                        "text": "Can chronic fatigue syndrome be cured?"
                     },
                     {
                         "id": "16972014537354015",
                         "nodeId": "16971317441893170",
                         "text": "What treatment options are there for chronic fatigue?"
+                    },
+                    {
+                        "id": "16972014639942608",
+                        "nodeId": "16971317441893170",
+                        "text": "Can therapy be a viable treatment for chronic fatigue syndrome?"
+                    },
+                    {
+                        "id": "16972014870010017",
+                        "nodeId": "16971317441893170",
+                        "text": "Are there treatments besides sleep management for chronic fatigue syndrome?"
                     }
-                ]
+                ],
+                "tags": [],
+                "editMode": false
             },
             "position": {
                 "x": 3013.0281197870972,
@@ -1811,25 +2193,35 @@
                 "markup": "<div class=\"article-section\">\n<div>\n<p>See your doctor if you have fatigue that doesn't go away.</p>\n</div>\n</div>",
                 "raw_text": "See your doctor if you have fatigue that doesn't go away.",
                 "answers": [],
-                "tags": [],
-                "editMode": false,
                 "questions": [
-                    {
-                        "id": "16972014014641191",
-                        "nodeId": "16971317780660165",
-                        "text": "Can seeing a doctor help with my fatigue?"
-                    },
                     {
                         "id": "16972007756801293",
                         "nodeId": "16971317780660165",
                         "text": "When should I see a doctor about fatigue?"
                     },
                     {
+                        "id": "16972007867234943",
+                        "nodeId": "16971317780660165",
+                        "text": "I'm tired all of the time, is this something I should see a doctor for?"
+                    },
+                    {
+                        "id": "16972007989535209",
+                        "nodeId": "16971317780660165",
+                        "text": "Will chronic fatigue syndrome get better, or should I try to see a doctor?"
+                    },
+                    {
                         "id": "16972008159945853",
                         "nodeId": "16971317780660165",
                         "text": "Is seeing a doctor a good idea if I think I might have chronic fatigue?"
+                    },
+                    {
+                        "id": "16972014014641191",
+                        "nodeId": "16971317780660165",
+                        "text": "Can seeing a doctor help with my fatigue?"
                     }
-                ]
+                ],
+                "tags": [],
+                "editMode": false
             },
             "position": {
                 "x": 3019.0670937398454,
@@ -2053,9 +2445,12 @@
                 "markup": "<p><a href=\"https://www.webmd.com/lung/bacterial-pneumonia\" data-crosslink-type=\"article\" data-metrics-link=\"\">Bacterial pneumonia</a> is an infection of your <a href=\"https://www.webmd.com/lung/healthy-lungs-smokers-lungs\" data-crosslink-type=\"article\" data-metrics-link=\"\">lungs</a> caused by certain bacteria. The most common one is <a href=\"https://www.webmd.com/a-to-z-guides/streptococcus-group-b\" data-crosslink-type=\"article\" data-metrics-link=\"\"><em>Streptococcus</em></a><em> (pneumococcus), </em>but other bacteria can cause it too. If you're young and basically healthy, these bacteria can live in your throat without causing any trouble. But if your body's defenses (immune system) become weak for some reason, the bacteria can go down into your <a href=\"https://www.webmd.com/lung/rm-quiz-lungs-quiz\" data-crosslink-type=\"tools\" data-metrics-link=\"\">lungs</a>. When this happens, the air sacs in your lungs get infected and inflamed. They fill up with fluid, and that causes <a href=\"https://www.webmd.com/lung/tc/pneumonia-topic-overview\" data-crosslink-type=\"article\" data-metrics-link=\"\">pneumonia</a>.</p>",
                 "raw_text": "Bacterial pneumonia is an infection of your lungs caused by certain bacteria. The most common one is Streptococcus (pneumococcus), but other bacteria can cause it too. If you're young and basically healthy, these bacteria can live in your throat without causing any trouble. But if your body's defenses (immune system) become weak for some reason, the bacteria can go down into your lungs. When this happens, the air sacs in your lungs get infected and inflamed. They fill up with fluid, and that causes pneumonia.",
                 "answers": [],
-                "tags": [],
-                "editMode": false,
                 "questions": [
+                    {
+                        "id": "16972018220043266",
+                        "nodeId": "16971360525553270",
+                        "text": "What is bacterial pneumonia?"
+                    },
                     {
                         "id": "16972018382264913",
                         "nodeId": "16971360525553270",
@@ -2067,11 +2462,18 @@
                         "text": "Are all bacterial pneumonia infections caused by pneumococcus?"
                     },
                     {
+                        "id": "16972018845164056",
+                        "nodeId": "16971360525553270",
+                        "text": "What happens to your lungs if you have bacterial pneumonia?"
+                    },
+                    {
                         "id": "16972019478288966",
                         "nodeId": "16971360525553270",
                         "text": "My doctor said I have bacterial pneumonia, what is that?"
                     }
-                ]
+                ],
+                "tags": [],
+                "editMode": false
             },
             "position": {
                 "x": 2948.6303072251376,
@@ -2087,13 +2489,16 @@
                 "markup": "<p>Viral pneumonia is a lung infection caused by viruses. Children and older adults more commonly get viral pneumonia. Bacteria cause most cases of pneumonia in adults. Viral pneumonia symptoms can be mild or life-threatening.</p>",
                 "raw_text": "Viral pneumonia is a lung infection caused by viruses. Children and older adults more commonly get viral pneumonia. Bacteria cause most cases of pneumonia in adults. Viral pneumonia symptoms can be mild or life-threatening.",
                 "answers": [],
-                "tags": [],
-                "editMode": false,
                 "questions": [
                     {
                         "id": "16972020812422861",
                         "nodeId": "16971360906524504",
                         "text": "What is viral pneumonia?"
+                    },
+                    {
+                        "id": "16972021053855528",
+                        "nodeId": "16971360906524504",
+                        "text": "Is viral pneumonia or bacterial more common in children?"
                     },
                     {
                         "id": "16972021201421248",
@@ -2104,8 +2509,15 @@
                         "id": "16972021465997583",
                         "nodeId": "16971360906524504",
                         "text": "Is viral pneumonia a serious condition?"
+                    },
+                    {
+                        "id": "16972021730471169",
+                        "nodeId": "16971360906524504",
+                        "text": "My child has been diagnosed with viral pneumonia, what is it? "
                     }
-                ]
+                ],
+                "tags": [],
+                "editMode": false
             },
             "position": {
                 "x": 2943.6100356810175,
@@ -2121,25 +2533,35 @@
                 "markup": "<p>You have a higher risk of getting bacteria pneumonia if you:</p>\n<ul>\n<li>Are 65 or older</li>\n<li>Have other conditions like <a href=\"https://www.webmd.com/asthma/default.htm\" data-crosslink-type=\"article\" data-metrics-link=\"\">asthma</a>, <a href=\"https://www.webmd.com/diabetes/default.htm\" data-crosslink-type=\"article\" data-metrics-link=\"\">diabetes</a>, or <a href=\"https://www.webmd.com/heart-disease/default.htm\" data-crosslink-type=\"article\" data-metrics-link=\"\">heart disease</a></li>\n<li>Are recovering from surgery</li>\n<li>Don't eat right or get enough <a href=\"https://www.webmd.com/vitamins-and-supplements/lifestyle-guide-11/default.htm\" data-crosslink-type=\"article\" data-metrics-link=\"\">vitamins</a> and minerals</li>\n<li>Have another condition that weakens your body's defenses</li>\n<li>Smoke</li>\n<li>Drink too much alcohol</li>\n<li>Have viral pneumonia</li>\n</ul>\n<p> </p>\n<p>People who have a weakened immune system also have an increased risk for bacterial pneumonia. These include those who recently had an <a href=\"https://www.webmd.com/a-to-z-guides/organ-transplant-donor-information\" data-crosslink-type=\"article\" data-metrics-link=\"\">organ transplant</a>. People who are <a href=\"https://www.webmd.com/hiv-aids/understanding-aids-hiv-symptoms\" data-metrics-link=\"\">HIV</a> positive, or who have <a href=\"https://www.webmd.com/cancer/lymphoma/understanding-leukemia-basics\" data-crosslink-type=\"article\" data-metrics-link=\"\">leukemia</a>, <a href=\"https://www.webmd.com/cancer/lymphoma/lymphoma-cancer\" data-crosslink-type=\"article\" data-metrics-link=\"\">lymphoma</a>, or severe <a href=\"https://www.webmd.com/a-to-z-guides/understanding-kidney-disease-basic-information\" data-crosslink-type=\"article\" data-metrics-link=\"\">kidney disease</a> also stand a greater chance of developing the infection.</p>",
                 "raw_text": "You have a higher risk of getting bacteria pneumonia if you:\nAre 65 or older\nHave other conditions like asthma, diabetes, or heart disease\nAre recovering from surgery\nDon't eat right or get enough vitamins and minerals\nHave another condition that weakens your body's defenses\nSmoke\nDrink too much alcohol\nHave viral pneumonia\n \nPeople who have a weakened immune system also have an increased risk for bacterial pneumonia. These include those who recently had an organ transplant. People who are HIV positive, or who have leukemia, lymphoma, or severe kidney disease also stand a greater chance of developing the infection.",
                 "answers": [],
-                "tags": [],
-                "editMode": false,
                 "questions": [
+                    {
+                        "id": "16972036069697534",
+                        "nodeId": "16971361604328003",
+                        "text": "What increases my risk of catching bacterial pneumonia?"
+                    },
+                    {
+                        "id": "16972036368892661",
+                        "nodeId": "16971361604328003",
+                        "text": "Is the risk of bacterial pneumonia higher with age?"
+                    },
                     {
                         "id": "16972036568347948",
                         "nodeId": "16971361604328003",
                         "text": "Does having asthma increase my risk of bacterial pneumonia?"
                     },
                     {
-                        "id": "16972036954821456",
-                        "nodeId": "16971361604328003",
-                        "text": "What increases my likelihood of bacterial pneumonia?"
-                    },
-                    {
                         "id": "16972036720182376",
                         "nodeId": "16971361604328003",
                         "text": "Am I more likely to get bacterial pneumonia if I have diabetes?"
+                    },
+                    {
+                        "id": "16972036954821456",
+                        "nodeId": "16971361604328003",
+                        "text": "What increases my likelihood of bacterial pneumonia?"
                     }
-                ]
+                ],
+                "tags": [],
+                "editMode": false
             },
             "position": {
                 "x": 3720.720551110704,
@@ -2155,13 +2577,11 @@
                 "markup": "<p>Symptoms of bacterial pneumonia may have a sudden onset, or they can creep up on you over a few days. Common symptoms are:</p>\n<ul>\n<li><a href=\"https://www.webmd.com/first-aid/fevers-causes-symptoms-treatments\" data-crosslink-type=\"article\" data-metrics-link=\"\">High fever</a> up to 105 F</li>\n<li><a href=\"https://www.webmd.com/first-aid/coughs\" data-crosslink-type=\"article\" data-metrics-link=\"\">Coughing</a> out greenish, yellow, or bloody mucus</li>\n<li>Chills that make you shake</li>\n<li>Feeling like you can't catch your breath, especially when you move around a lot</li>\n<li>Feeling very tired</li>\n<li>Low appetite</li>\n<li>Sharp or stabby <a href=\"https://www.webmd.com/pain-management/whats-causing-my-chest-pain\" data-crosslink-type=\"article\" data-metrics-link=\"\">chest pain</a>, especially when you <a href=\"https://www.webmd.com/cold-and-flu/cough-relief-12/slideshow-cough-treatments\" data-crosslink-type=\"slideshow\" data-metrics-link=\"\">cough</a> or take a deep breath</li>\n<li><a href=\"https://www.webmd.com/skin-problems-and-treatments/hyperhidrosis2\" data-crosslink-type=\"article\" data-metrics-link=\"\">Sweating</a> a lot</li>\n<li>Fast breathing and heartbeat</li>\n<li>Lips and <a href=\"https://www.webmd.com/skin-problems-and-treatments/ss/slideshow-nails-and-health\" data-crosslink-type=\"slideshow\" data-metrics-link=\"\">fingernails</a> turning blue</li>\n<li>Confusion, especially if you're older</li>\n</ul>",
                 "raw_text": "Symptoms of bacterial pneumonia may have a sudden onset, or they can creep up on you over a few days. Common symptoms are:\nHigh fever up to 105 F\nCoughing out greenish, yellow, or bloody mucus\nChills that make you shake\nFeeling like you can't catch your breath, especially when you move around a lot\nFeeling very tired\nLow appetite\nSharp or stabby chest pain, especially when you cough or take a deep breath\nSweating a lot\nFast breathing and heartbeat\nLips and fingernails turning blue\nConfusion, especially if you're older",
                 "answers": [],
-                "tags": [],
-                "editMode": false,
                 "questions": [
                     {
-                        "id": "16972043417081754",
+                        "id": "16972043071585695",
                         "nodeId": "16971361772408954",
-                        "text": "I have a pretty high fever and I'm coughing free mucous is that normal for bacterial pneumonia?"
+                        "text": "What are common symptoms of bacterial pneumonia?"
                     },
                     {
                         "id": "16972043188460439",
@@ -2169,11 +2589,23 @@
                         "text": "What symptoms should I look out for if I think I might have bacterial pneumonia?"
                     },
                     {
+                        "id": "16972043417081754",
+                        "nodeId": "16971361772408954",
+                        "text": "I have a pretty high fever and I'm coughing free mucous is that normal for bacterial pneumonia?"
+                    },
+                    {
+                        "id": "16972043678798388",
+                        "nodeId": "16971361772408954",
+                        "text": "How can I tell if I might have bacterial pneumonia?"
+                    },
+                    {
                         "id": "16972043868129329",
                         "nodeId": "16971361772408954",
                         "text": "Do pneumonia symptoms appear at once or slowly?"
                     }
-                ]
+                ],
+                "tags": [],
+                "editMode": false
             },
             "position": {
                 "x": 3726.4856616169423,
@@ -2189,9 +2621,12 @@
                 "markup": "<p>Your doctor might be able to tell if you have bacterial pneumonia just by examining you and asking questions about your symptoms and general health. They'll probably listen to your lungs with a stethoscope. That will allow them to hear sounds that show there's fluid in your lungs. But if they are not sure, you might have to get a chest X-ray.</p>\n<p>Some people may need extra tests. These might include:</p>\n<ul>\n<li><a href=\"https://www.webmd.com/heart-disease/pulse-measurement\" data-crosslink-type=\"article\" data-metrics-link=\"\">Pulse</a> oximetry (a small gizmo clipped to your finger that checks for enough oxygen in your <a href=\"https://www.webmd.com/heart/anatomy-picture-of-blood\" data-crosslink-type=\"article\" data-metrics-link=\"\">blood</a>)</li>\n<li><a href=\"https://www.webmd.com/a-to-z-guides/rm-quiz-blood-basics\" data-crosslink-type=\"tools\" data-metrics-link=\"\">Blood</a> tests</li>\n<li>Tests of the gunk you <a href=\"https://www.webmd.com/cold-and-flu/rm-quiz-nighttime-cough\" data-crosslink-type=\"tools\" data-metrics-link=\"\">cough</a> up (`sputum`)</li>\n<li><a href=\"https://www.webmd.com/a-to-z-guides/computed-tomography-ct-scan-of-the-body\" data-crosslink-type=\"article\" data-metrics-link=\"\">CT scan</a> to look more closely at your lungs</li>\n</ul>",
                 "raw_text": "Your doctor might be able to tell if you have bacterial pneumonia just by examining you and asking questions about your symptoms and general health. They'll probably listen to your lungs with a stethoscope. That will allow them to hear sounds that show there's fluid in your lungs. But if they are not sure, you might have to get a chest X-ray. \n Some people may need extra tests. These might include:\nPulse oximetry (a small gizmo clipped to your finger that checks for enough oxygen in your blood)\nBlood tests\nTests of the gunk you cough up (`sputum`)\nCT scan to look more closely at your lungs",
                 "answers": [],
-                "tags": [],
-                "editMode": false,
                 "questions": [
+                    {
+                        "id": "16972022109534889",
+                        "nodeId": "16971362100358542",
+                        "text": "How is bacterial pneumonia diagnosed?"
+                    },
                     {
                         "id": "16972022235180212",
                         "nodeId": "16971362100358542",
@@ -2206,8 +2641,15 @@
                         "id": "16972026054923174",
                         "nodeId": "16971362100358542",
                         "text": "What will a doctor do to test whether I have bacterial pneumonia?"
+                    },
+                    {
+                        "id": "16972026385482283",
+                        "nodeId": "16971362100358542",
+                        "text": "Will I need a blood test to determine whether I have bacterial pneumonia?"
                     }
-                ]
+                ],
+                "tags": [],
+                "editMode": false
             },
             "position": {
                 "x": 3731.6975265349756,
@@ -2223,25 +2665,35 @@
                 "markup": "<p>If you have bacterial pneumonia, your doctor probably will prescribe <a href=\"https://www.webmd.com/cold-and-flu/rm-quiz-antibiotics-myths-facts\" data-crosslink-type=\"tools\" data-metrics-link=\"\">antibiotics</a>. It's very important that you finish all of these. Otherwise the bacteria may not all be killed and you could get sick all over again. Your doctor might also suggest <a href=\"https://www.webmd.com/drugs/index-drugs.aspx\" data-crosslink-type=\"article\" data-metrics-link=\"\">medication</a> for pain and fever.</p>\n<p>Other things you can do to help yourself get better:</p>\n<ul>\n<li>Get lots of rest.</li>\n<li>Drink plenty of fluids (they'll loosen up the gunk in your lungs so you can cough it out).</li>\n<li>Use a humidifier or take a warm bath (more gunk-loosening).</li>\n<li>Don't smoke.</li>\n<li>Stay home until your fever goes down and you aren't coughing anything out.</li>\n</ul>",
                 "raw_text": "If you have bacterial pneumonia, your doctor probably will prescribe antibiotics. It's very important that you finish all of these. Otherwise the bacteria may not all be killed and you could get sick all over again. Your doctor might also suggest medication for pain and fever. \n Other things you can do to help yourself get better:\nGet lots of rest. \n Drink plenty of fluids (they'll loosen up the gunk in your lungs so you can cough it out). \n Use a humidifier or take a warm bath (more gunk-loosening). \n Don't smoke. \n Stay home until your fever goes down and you aren't coughing anything out.",
                 "answers": [],
-                "tags": [],
-                "editMode": false,
                 "questions": [
+                    {
+                        "id": "16972029192930444",
+                        "nodeId": "16971362368427994",
+                        "text": "How is bacterial pneumonia treated?"
+                    },
+                    {
+                        "id": "16972029288822176",
+                        "nodeId": "16971362368427994",
+                        "text": "What medicine helps against a bacterial pneumonia infection?"
+                    },
                     {
                         "id": "16972031558127823",
                         "nodeId": "16971362368427994",
                         "text": "Can antibiotics help against pneumonia?"
                     },
                     {
+                        "id": "16972031753402926",
+                        "nodeId": "16971362368427994",
+                        "text": "Can I stop taking antibiotics after I start to feel better?"
+                    },
+                    {
                         "id": "16972031991416705",
                         "nodeId": "16971362368427994",
                         "text": "Is there anything besides medicine which can help with bacterial pneumonia?"
-                    },
-                    {
-                        "id": "16972029288822176",
-                        "nodeId": "16971362368427994",
-                        "text": "What medicine helps against a bacterial pneumonia infection?"
                     }
-                ]
+                ],
+                "tags": [],
+                "editMode": false
             },
             "position": {
                 "x": 3728.6087035924047,
@@ -2257,25 +2709,35 @@
                 "markup": "<p>Viral pneumonia symptoms include cough, chest pain, headache, sore throat, shortness of breath, wheezing, fever, chills, sweating, confusion, and fatigue.</p>",
                 "raw_text": "Viral pneumonia symptoms include cough, chest pain, headache, sore throat, shortness of breath, wheezing, fever, chills, sweating, confusion, and fatigue.",
                 "answers": [],
-                "tags": [],
-                "editMode": false,
                 "questions": [
+                    {
+                        "id": "16972048438461576",
+                        "nodeId": "16971363252460824",
+                        "text": "What are common symptoms of viral pneumonia?"
+                    },
                     {
                         "id": "16972048578582552",
                         "nodeId": "16971363252460824",
                         "text": "What things should I look out for if I'm worried I might have viral pneumonia?"
                     },
                     {
+                        "id": "16972048754089347",
+                        "nodeId": "16971363252460824",
+                        "text": "Is chest pain and shortness of breath normal for viral pneumonia?"
+                    },
+                    {
+                        "id": "16972048912652835",
+                        "nodeId": "16971363252460824",
+                        "text": "I have a fever, chills, and chest pain"
+                    },
+                    {
                         "id": "16972049103020567",
                         "nodeId": "16971363252460824",
                         "text": "What symptoms are associated with viral pneumonia?"
-                    },
-                    {
-                        "id": "16972048438461576",
-                        "nodeId": "16971363252460824",
-                        "text": "What are common symptoms of viral pneumonia?"
                     }
-                ]
+                ],
+                "tags": [],
+                "editMode": false
             },
             "position": {
                 "x": 3724.537748588839,
@@ -2291,13 +2753,16 @@
                 "markup": "<p>Risk factores for viral pneumonia include: being an older adult or young child, smoking, having a cold or the flu, having a chronic lung disease such as asthma or COPD, having a weak immune system or other health problem such as heart disease, recent injury or surgery, living in a nursing home</p>",
                 "raw_text": "Risk factores for viral pneumonia include: being an older adult or young child, smoking, having a cold or the flu, having a chronic lung disease such as asthma or COPD, having a weak immune system or other health problem such as heart disease, recent injury or surgery, living in a nursing home",
                 "answers": [],
-                "tags": [],
-                "editMode": false,
                 "questions": [
                     {
-                        "id": "16972048033099892",
+                        "id": "16972047608091335",
                         "nodeId": "16971363393009777",
-                        "text": "What could put me more at risk for catching viral pneumonia?"
+                        "text": "Who is more at risk for contracting viral pneumonia?"
+                    },
+                    {
+                        "id": "16972047742002587",
+                        "nodeId": "16971363393009777",
+                        "text": "What increases my risk of getting viral pneumonia?"
                     },
                     {
                         "id": "16972047891393786",
@@ -2305,11 +2770,18 @@
                         "text": "Does smoking affect my risk of viral pneumonia?"
                     },
                     {
+                        "id": "16972048033099892",
+                        "nodeId": "16971363393009777",
+                        "text": "What could put me more at risk for catching viral pneumonia?"
+                    },
+                    {
                         "id": "16972048193967851",
                         "nodeId": "16971363393009777",
                         "text": "What factors elevate my risk of viral pneumonia?"
                     }
-                ]
+                ],
+                "tags": [],
+                "editMode": false
             },
             "position": {
                 "x": 3732.942545706964,
@@ -2325,13 +2797,16 @@
                 "markup": "<p>Treatment for viral pneumonia may include: </p>\n<ul>\n<li>Antiviral therapy </li>\n<li>Oxygen</li>\n</ul>",
                 "raw_text": "Treatment for viral pneumonia may include: \nAntiviral therapy \nOxygen",
                 "answers": [],
-                "tags": [],
-                "editMode": false,
                 "questions": [
                     {
-                        "id": "16972047236545411",
+                        "id": "16972046678648248",
                         "nodeId": "16971363747054800",
-                        "text": "Will I need an antiviral to treat my viral pneumonia?"
+                        "text": "What treatments are there for viral pneumonia?"
+                    },
+                    {
+                        "id": "16972046775658506",
+                        "nodeId": "16971363747054800",
+                        "text": "Will I need medicine to treat a viral pneumonia infection?"
                     },
                     {
                         "id": "16972046908924838",
@@ -2339,11 +2814,18 @@
                         "text": "Is there any medicine that can help against viral pneumonia?"
                     },
                     {
-                        "id": "16972046678648248",
+                        "id": "16972047013343241",
                         "nodeId": "16971363747054800",
-                        "text": "What treatments are there for viral pneumonia?"
+                        "text": "What can be done to help me recover from viral pneumonia?"
+                    },
+                    {
+                        "id": "16972047236545411",
+                        "nodeId": "16971363747054800",
+                        "text": "Will I need an antiviral to treat my viral pneumonia?"
                     }
-                ]
+                ],
+                "tags": [],
+                "editMode": false
             },
             "position": {
                 "x": 3740.19242964999,
@@ -2359,14 +2841,7 @@
                 "markup": "<p>If you have symptoms of viral pneumonia, call your doctor. Also call your doctor if symptoms of cold or flu don't improve or get worse. Seek immediate medical help if you have difficulty breathing, extreme weakness, severe chest pain, cough up blood, or become dehydrated.</p>",
                 "raw_text": "If you have symptoms of viral pneumonia, call your doctor. Also call your doctor if symptoms of cold or flu don't improve or get worse. Seek immediate medical help if you have difficulty breathing, extreme weakness, severe chest pain, cough up blood, or become dehydrated.",
                 "answers": [],
-                "tags": [],
-                "editMode": false,
                 "questions": [
-                    {
-                        "id": "16972050389781398",
-                        "nodeId": "16971364013529087",
-                        "text": "I think I might have viral pneumonia, is this something that gets better on it's own or do I need to go to the doctor?"
-                    },
                     {
                         "id": "16972049684241973",
                         "nodeId": "16971364013529087",
@@ -2376,8 +2851,25 @@
                         "id": "16972049960678253",
                         "nodeId": "16971364013529087",
                         "text": "My cold symptoms have not been getting better, should I call a doctor?"
+                    },
+                    {
+                        "id": "16972050389781398",
+                        "nodeId": "16971364013529087",
+                        "text": "I think I might have viral pneumonia, is this something that gets better on it's own or do I need to go to the doctor?"
+                    },
+                    {
+                        "id": "16972050727001564",
+                        "nodeId": "16971364013529087",
+                        "text": "Will shortness of breath go away, or should I contact a doctor?"
+                    },
+                    {
+                        "id": "16972050854310385",
+                        "nodeId": "16971364013529087",
+                        "text": "How long should I wait to go to the doctor if I think I might have viral pneumonia?"
                     }
-                ]
+                ],
+                "tags": [],
+                "editMode": false
             },
             "position": {
                 "x": 3721.1158362018095,
@@ -2393,14 +2885,7 @@
                 "markup": "<p>Your doctor can diagnose viral pneumonia by taking your medical history and doing a physical exam. Other tests may include blood tests, chest X-ray, and sputum testing.</p>",
                 "raw_text": "Your doctor can diagnose viral pneumonia by taking your medical history and doing a physical exam. Other tests may include blood tests, chest X-ray, and sputum testing.",
                 "answers": [],
-                "tags": [],
-                "editMode": false,
                 "questions": [
-                    {
-                        "id": "16972046457481779",
-                        "nodeId": "16971364318819813",
-                        "text": "What is necessary to diagnose viral pneumonia?"
-                    },
                     {
                         "id": "16972045828115193",
                         "nodeId": "16971364318819813",
@@ -2410,8 +2895,25 @@
                         "id": "16972045922162352",
                         "nodeId": "16971364318819813",
                         "text": "Is family history relevant in diagnosing viral pneumonia?"
+                    },
+                    {
+                        "id": "16972046118111775",
+                        "nodeId": "16971364318819813",
+                        "text": "What tests can be run to determine if I have viral pneumonia?"
+                    },
+                    {
+                        "id": "16972046250199716",
+                        "nodeId": "16971364318819813",
+                        "text": "Will I need an X-ray to find out if I have viral pneumonia?"
+                    },
+                    {
+                        "id": "16972046457481779",
+                        "nodeId": "16971364318819813",
+                        "text": "What is necessary to diagnose viral pneumonia?"
                     }
-                ]
+                ],
+                "tags": [],
+                "editMode": false
             },
             "position": {
                 "x": 3738.0974820559377,
@@ -2427,25 +2929,40 @@
                 "markup": "<p>You may have influenza.</p>\n<p>The flu is a respiratory tract infection caused by the influenza virus. Flu symptoms include fever, sore throat, runny nose, headache, cough, muscle aches, and fatigue. The flu spreads easily from person to person. Most people recover at home with rest and over-the-counter medications, but for some people flu can be severe and even life-threatening. Young children, older adults, pregnant women, and people with health problems are at risk for complications from the flu, such as pneumonia. </p>",
                 "raw_text": "You may have influenza. \n The flu is a respiratory tract infection caused by the influenza virus. Flu symptoms include fever, sore throat, runny nose, headache, cough, muscle aches, and fatigue. The flu spreads easily from person to person. Most people recover at home with rest and over-the-counter medications, but for some people flu can be severe and even life-threatening. Young children, older adults, pregnant women, and people with health problems are at risk for complications from the flu, such as pneumonia. ",
                 "answers": [],
-                "tags": [],
-                "editMode": false,
                 "questions": [
-                    {
-                        "id": "16972052145173186",
-                        "nodeId": "16971366688183918",
-                        "text": "Is the flu a serious condition?"
-                    },
                     {
                         "id": "16972051259401332",
                         "nodeId": "16971366688183918",
                         "text": "What is influenza?"
                     },
                     {
+                        "id": "16972051913144365",
+                        "nodeId": "16971366688183918",
+                        "text": "Can you tell me more about the flu?"
+                    },
+                    {
+                        "id": "16972052145173186",
+                        "nodeId": "16971366688183918",
+                        "text": "Is the flu a serious condition?"
+                    },
+                    {
                         "id": "16972052424951518",
                         "nodeId": "16971366688183918",
                         "text": "What complications can result from the flu?"
+                    },
+                    {
+                        "id": "16972052563053955",
+                        "nodeId": "16971366688183918",
+                        "text": "Who is most likely to get complications from the flu?"
+                    },
+                    {
+                        "id": "16972052977480934",
+                        "nodeId": "16971366688183918",
+                        "text": "My mom thinks I have the flu, what exactly is it?"
                     }
-                ]
+                ],
+                "tags": [],
+                "editMode": false
             },
             "position": {
                 "x": 1985.3222221496276,
@@ -2510,25 +3027,35 @@
                 "markup": "<p>Flu symptoms include: Fever, sore throat, runny nose, headache, muscle aches, cough, tiredness</p>",
                 "raw_text": "Flu symptoms include: Fever, sore throat, runny nose, headache, muscle aches, cough, tiredness",
                 "answers": [],
-                "tags": [],
-                "editMode": false,
                 "questions": [
+                    {
+                        "id": "16972068640865127",
+                        "nodeId": "16971367160601430",
+                        "text": "What are typical flu symptoms?"
+                    },
                     {
                         "id": "16972068733579304",
                         "nodeId": "16971367160601430",
                         "text": "I have a fever, sore throat, and runny nose, is this the flu?"
                     },
                     {
-                        "id": "16972068756692722",
+                        "id": "16972068735438099",
                         "nodeId": "16971367160601430",
-                        "text": "Are muscle aches a common symptom of the flu?"
+                        "text": "How can I tell if I might have the flu?"
                     },
                     {
                         "id": "16972068748616464",
                         "nodeId": "16971367160601430",
                         "text": "What should I look out for if I think I might have the flu?"
+                    },
+                    {
+                        "id": "16972068756692722",
+                        "nodeId": "16971367160601430",
+                        "text": "Are muscle aches a common symptom of the flu?"
                     }
-                ]
+                ],
+                "tags": [],
+                "editMode": false
             },
             "position": {
                 "x": 2729.0291314489705,
@@ -2544,13 +3071,26 @@
                 "markup": "<div>\n<p>Risk factors for the flu include: smoking, having a weak immune system, being exposed to someone with the virus, having a job that involves contact with many people, such as a teacher or nurse</p>\n</div>",
                 "raw_text": "Risk factors for the flu include: smoking, having a weak immune system, being exposed to someone with the virus, having a job that involves contact with many people, such as a teacher or nurse",
                 "answers": [],
-                "tags": [],
-                "editMode": false,
                 "questions": [
                     {
-                        "id": "16972068463169136",
+                        "id": "16972067438522378",
                         "nodeId": "16971367431973457",
-                        "text": "Am I more likely to catch the flu as a nurse?"
+                        "text": "What increases my risk of catching the flu?"
+                    },
+                    {
+                        "id": "16972067536422507",
+                        "nodeId": "16971367431973457",
+                        "text": "Can my risk for getting the flu increase if I smoke?"
+                    },
+                    {
+                        "id": "16972067718640229",
+                        "nodeId": "16971367431973457",
+                        "text": "What things might make me more likely to get the flu?"
+                    },
+                    {
+                        "id": "16972067885826503",
+                        "nodeId": "16971367431973457",
+                        "text": "Is there anything that increases my likelihood of catching the flu?"
                     },
                     {
                         "id": "16972068258715844",
@@ -2558,11 +3098,13 @@
                         "text": "What factors affect my likelihood to get the flu?"
                     },
                     {
-                        "id": "16972067536422507",
+                        "id": "16972068463169136",
                         "nodeId": "16971367431973457",
-                        "text": "Can my risk for getting the flu increase if I smoke?"
+                        "text": "Am I more likely to catch the flu as a nurse?"
                     }
-                ]
+                ],
+                "tags": [],
+                "editMode": false
             },
             "position": {
                 "x": 2734.5432181518677,
@@ -2578,13 +3120,11 @@
                 "markup": "<p>Your doctor can diagnose the flu by taking your medical history and doing a physical exam. The doctor may do a rapid flu test to confirm that you have the flu virus.</p>",
                 "raw_text": "Your doctor can diagnose the flu by taking your medical history and doing a physical exam. The doctor may do a rapid flu test to confirm that you have the flu virus.",
                 "answers": [],
-                "tags": [],
-                "editMode": false,
                 "questions": [
                     {
-                        "id": "16972069920402033",
+                        "id": "16972069322814905",
                         "nodeId": "16971367584633082",
-                        "text": "Do I need a physical exam to find out if I have the flu?"
+                        "text": "How can I get diagnosed with the flu?"
                     },
                     {
                         "id": "16972069466321891",
@@ -2592,11 +3132,23 @@
                         "text": "What will my doctor look for when deciding if I have the flu or not?"
                     },
                     {
-                        "id": "16972069322814905",
+                        "id": "16972069634865327",
                         "nodeId": "16971367584633082",
-                        "text": "How can I get diagnosed with the flu?"
+                        "text": "Does my medical history play a role in diagnosing whether I have the flu?"
+                    },
+                    {
+                        "id": "16972069828934911",
+                        "nodeId": "16971367584633082",
+                        "text": "Is there a test to tell if I have the flu?"
+                    },
+                    {
+                        "id": "16972069920402033",
+                        "nodeId": "16971367584633082",
+                        "text": "Do I need a physical exam to find out if I have the flu?"
                     }
-                ]
+                ],
+                "tags": [],
+                "editMode": false
             },
             "position": {
                 "x": 2734.5030467776082,
@@ -2612,25 +3164,35 @@
                 "markup": "<p><span style=\"font-weight: 400;\">The flu usually gets better on its own in one to two weeks with rest. Antihistamines, decongestants, pain relievers, drinking plenty of fluids, and inhaling steam may help ease symptoms. For people at risk for complications and those with severe symptoms, antiviral medications such as oseltamivir (Tamiflu), baloxavir</span> <span style=\"font-weight: 400;\">(Xofluza),</span><span style=\"font-weight: 400;\">peramivir (Rapivar), or orzanamivir (Relenza) may help reduce the duration of symptoms, shorten the illness, and prevent complications if they are taken soon after symptoms appear.</span></p>",
                 "raw_text": "The flu usually gets better on its own in one to two weeks with rest. Antihistamines, decongestants, pain relievers, drinking plenty of fluids, and inhaling steam may help ease symptoms. For people at risk for complications and those with severe symptoms, antiviral medications such as oseltamivir (Tamiflu), baloxavir (Xofluza),peramivir (Rapivar), or orzanamivir (Relenza) may help reduce the duration of symptoms, shorten the illness, and prevent complications if they are taken soon after symptoms appear.",
                 "answers": [],
-                "tags": [],
-                "editMode": false,
                 "questions": [
-                    {
-                        "id": "16972064525556728",
-                        "nodeId": "16971367714032135",
-                        "text": "Is it okay to take painkillers when I have the flu?"
-                    },
                     {
                         "id": "16972063923139167",
                         "nodeId": "16971367714032135",
                         "text": "What kind of treatment do I need for the flu?"
                     },
                     {
+                        "id": "16972064094691945",
+                        "nodeId": "16971367714032135",
+                        "text": "What medicine can help treat flu symptoms?"
+                    },
+                    {
                         "id": "16972064191512677",
                         "nodeId": "16971367714032135",
                         "text": "How long will it take to recover from the flu?"
+                    },
+                    {
+                        "id": "16972064239771692",
+                        "nodeId": "16971367714032135",
+                        "text": "What things can help with flu recovery?"
+                    },
+                    {
+                        "id": "16972064525556728",
+                        "nodeId": "16971367714032135",
+                        "text": "Is it okay to take painkillers when I have the flu?"
                     }
-                ]
+                ],
+                "tags": [],
+                "editMode": false
             },
             "position": {
                 "x": 2734.7039036489055,
@@ -2646,13 +3208,21 @@
                 "markup": "<p>Call your doctorif you are at risk forcomplications from the flu or if flu symptoms are severe or getting worse. Get immediate medical help or call 911 if you have trouble breathing, shortness of breath, chest<strong> </strong>or abdominal pain, confusion, dizziness, severe vomiting, symptoms that rebound, or call your doctor forhigh fever that lasts 3 days or more.</p>",
                 "raw_text": "Call your doctorif you are at risk forcomplications from the flu or if flu symptoms are severe or getting worse. Get immediate medical help or call 911 if you have trouble breathing, shortness of breath, chest or abdominal pain, confusion, dizziness, severe vomiting, symptoms that rebound, or call your doctor forhigh fever that lasts 3 days or more.",
                 "answers": [],
-                "tags": [],
-                "editMode": false,
                 "questions": [
                     {
-                        "id": "16972058645092985",
+                        "id": "16972057846784436",
                         "nodeId": "16971367915829707",
-                        "text": "After how many days of fever should I consider calling a doctor?"
+                        "text": "When is it worth going to the doctor about the flu?"
+                    },
+                    {
+                        "id": "16972058057094402",
+                        "nodeId": "16971367915829707",
+                        "text": "Are severe flu symptoms a reason to go the doctor?"
+                    },
+                    {
+                        "id": "16972058208115846",
+                        "nodeId": "16971367915829707",
+                        "text": "Should I go to the doctor if I think I have the flu, or can I get better on my own?"
                     },
                     {
                         "id": "16972058472707453",
@@ -2660,11 +3230,13 @@
                         "text": "How do I know if my flu symptoms are sever enough that I should go to the doctor?"
                     },
                     {
-                        "id": "16972058208115846",
+                        "id": "16972058645092985",
                         "nodeId": "16971367915829707",
-                        "text": "Should I go to the doctor if I think I have the flu, or can I get better on my own?"
+                        "text": "After how many days of fever should I consider calling a doctor?"
                     }
-                ]
+                ],
+                "tags": [],
+                "editMode": false
             },
             "position": {
                 "x": 2733.603528657069,
@@ -2680,8 +3252,6 @@
                 "markup": "<p>You may have strep throat.</p>\n<div class=\"article-section\">\n<div>\n<p>Strep throat is a throat infection caused by streptococcal bacteria. Symptoms are often more severe than with a viral sore throat. Strep throat occurs most often in children ages 5-15, but anyone can get it. Some children have a reaction to the strep bacteria that causes a rash called scarlet fever. Strep throat spreads from person to person from contact with saliva or nasal secretions. If not treated, strep throat may lead to serious health problems such as rheumatic fever, kidney problems, middle ear infections, meningitis, and throat abscess. </p>\n</div>\n<div class=\"learnmore-link\"> </div>\n</div>\n<p> </p>",
                 "raw_text": "You may have strep throat. \n Strep throat is a throat infection caused by streptococcal bacteria. Symptoms are often more severe than with a viral sore throat. Strep throat occurs most often in children ages 5-15, but anyone can get it. Some children have a reaction to the strep bacteria that causes a rash called scarlet fever. Strep throat spreads from person to person from contact with saliva or nasal secretions. If not treated, strep throat may lead to serious health problems such as rheumatic fever, kidney problems, middle ear infections, meningitis, and throat abscess.",
                 "answers": [],
-                "tags": [],
-                "editMode": false,
                 "questions": [
                     {
                         "id": "16972070243871933",
@@ -2694,11 +3264,23 @@
                         "text": "What causes strep throat?"
                     },
                     {
+                        "id": "16972070429799035",
+                        "nodeId": "16971370237671451",
+                        "text": "How do strep symptoms compare to viral sore throat symptoms?"
+                    },
+                    {
                         "id": "16972070668222164",
                         "nodeId": "16971370237671451",
                         "text": "Can adults get strep throat?"
+                    },
+                    {
+                        "id": "16972070778728663",
+                        "nodeId": "16971370237671451",
+                        "text": "How is strep throat spread?"
                     }
-                ]
+                ],
+                "tags": [],
+                "editMode": false
             },
             "position": {
                 "x": 1667.027117884279,
@@ -2758,25 +3340,35 @@
                 "markup": "<p>Symptoms of strep throat include: red throat, white patches on throat, throat pain, trouble swallowing, swollen lymph glands, nausea, fever, chills, muscle aches, stomach ache, rash, headache</p>",
                 "raw_text": "Symptoms of strep throat include: red throat, white patches on throat, throat pain, trouble swallowing, swollen lymph glands, nausea, fever, chills, muscle aches, stomach ache, rash, headache",
                 "answers": [],
-                "tags": [],
-                "editMode": false,
                 "questions": [
-                    {
-                        "id": "16972076056452195",
-                        "nodeId": "16971371495090021",
-                        "text": "Are muscle aches and chills common symptoms of strep?"
-                    },
                     {
                         "id": "16972075520298301",
                         "nodeId": "16971371495090021",
                         "text": "What are common symptoms of strep throat?"
                     },
                     {
+                        "id": "16972075737082192",
+                        "nodeId": "16971371495090021",
+                        "text": "I have throat pain and trouble swallowing, could this be strep?"
+                    },
+                    {
                         "id": "16972075859572765",
                         "nodeId": "16971371495090021",
                         "text": "What symptoms should I look out for if I think I might have strep throat?"
+                    },
+                    {
+                        "id": "16972076056452195",
+                        "nodeId": "16971371495090021",
+                        "text": "Are muscle aches and chills common symptoms of strep?"
+                    },
+                    {
+                        "id": "16972076296685372",
+                        "nodeId": "16971371495090021",
+                        "text": "Can you tell me what symptoms are associated with a strep throat infection?"
                     }
-                ]
+                ],
+                "tags": [],
+                "editMode": false
             },
             "position": {
                 "x": 2355.5475728696347,
@@ -2792,8 +3384,6 @@
                 "markup": "<p>Risk factors for strep throat include: young age, being exposed to someone with strep throat</p>",
                 "raw_text": "Risk factors for strep throat include: young age, being exposed to someone with strep throat",
                 "answers": [],
-                "tags": [],
-                "editMode": false,
                 "questions": [
                     {
                         "id": "16972074658335829",
@@ -2801,16 +3391,28 @@
                         "text": "What risk factors are there for strep?"
                     },
                     {
+                        "id": "16972074755971259",
+                        "nodeId": "16971371761773292",
+                        "text": "Should I be worried about getting strep if I had contact to someone with it?"
+                    },
+                    {
                         "id": "16972074929222227",
                         "nodeId": "16971371761773292",
                         "text": "How does age affect my risk of strep throat?"
+                    },
+                    {
+                        "id": "16972075058206633",
+                        "nodeId": "16971371761773292",
+                        "text": "What factors increase my likelihood of getting strep throat?"
                     },
                     {
                         "id": "16972075212597856",
                         "nodeId": "16971371761773292",
                         "text": "Is my risk of catching strep affected by anything?"
                     }
-                ]
+                ],
+                "tags": [],
+                "editMode": false
             },
             "position": {
                 "x": 2362.3309325866994,
@@ -2826,25 +3428,35 @@
                 "markup": "<p>Strep throat should be treated with antibiotics to shorten the disease and prevent potentially serious complications. Antibiotics also make strep throat less contagious after 48 hours of treatment.</p>",
                 "raw_text": "Strep throat should be treated with antibiotics to shorten the disease and prevent potentially serious complications. Antibiotics also make strep throat less contagious after 48 hours of treatment.",
                 "answers": [],
-                "tags": [],
-                "editMode": false,
                 "questions": [
-                    {
-                        "id": "16972073993623038",
-                        "nodeId": "16971372010624116",
-                        "text": "How can strep be treated?"
-                    },
                     {
                         "id": "16972073894329236",
                         "nodeId": "16971372010624116",
                         "text": "What medicine do I need for strep throat?"
                     },
                     {
+                        "id": "16972073993623038",
+                        "nodeId": "16971372010624116",
+                        "text": "How can strep be treated?"
+                    },
+                    {
+                        "id": "16972074060752849",
+                        "nodeId": "16971372010624116",
+                        "text": "What treatment options are there for strep throat?"
+                    },
+                    {
+                        "id": "16972074227999528",
+                        "nodeId": "16971372010624116",
+                        "text": "Do I need antibiotics for strep throat?"
+                    },
+                    {
                         "id": "16972074323483004",
                         "nodeId": "16971372010624116",
                         "text": "How long do I need to take antibiotics for strep before I'm no longer contagious?"
                     }
-                ]
+                ],
+                "tags": [],
+                "editMode": false
             },
             "position": {
                 "x": 2373.457317732612,
@@ -2860,9 +3472,17 @@
                 "markup": "<p>Call your doctor if you have symptoms of strep throat or think you came in contact with someone with the illness. Also contact your doctor if treatment for strep throat doesn't ease symptoms in 24 to 48 hours. Get immediate medical attention if you have difficulty breathing or swallowing, severe throat pain, bleeding in the throat, redness or swelling of the neck, severe or worsening rash, or you drool or can't swallow saliva.</p>",
                 "raw_text": "Call your doctor if you have symptoms of strep throat or think you came in contact with someone with the illness. Also contact your doctor if treatment for strep throat doesn't ease symptoms in 24 to 48 hours. Get immediate medical attention if you have difficulty breathing or swallowing, severe throat pain, bleeding in the throat, redness or swelling of the neck, severe or worsening rash, or you drool or can't swallow saliva.",
                 "answers": [],
-                "tags": [],
-                "editMode": false,
                 "questions": [
+                    {
+                        "id": "16972076805038637",
+                        "nodeId": "16971372220226261",
+                        "text": "When should I go to the doctor about strep throat?"
+                    },
+                    {
+                        "id": "16972076936449179",
+                        "nodeId": "16971372220226261",
+                        "text": "Should I go to the doctor if I just had contact with someone with strep?"
+                    },
                     {
                         "id": "16972077140699994",
                         "nodeId": "16971372220226261",
@@ -2878,7 +3498,9 @@
                         "nodeId": "16971372220226261",
                         "text": "When should I try to get emergency help with strep?"
                     }
-                ]
+                ],
+                "tags": [],
+                "editMode": false
             },
             "position": {
                 "x": 2363.1617944081254,
@@ -2894,9 +3516,22 @@
                 "markup": "<p>You might have the common cold.</p>\n<p>The common cold is a short-lived viral infection of the upper respiratory tract, which includes the nose and sinuses, mouth, and throat. Because more than 200 viruses cause colds, and new ones develop all the time, the body can't build immunity to colds. Colds spread easily from person to person and are the most common illness in the world. Most colds go away within a few days and don't cause serious health problems.</p>",
                 "raw_text": "You might have the common cold. \n The common cold is a short-lived viral infection of the upper respiratory tract, which includes the nose and sinuses, mouth, and throat. Because more than 200 viruses cause colds, and new ones develop all the time, the body can't build immunity to colds. Colds spread easily from person to person and are the most common illness in the world. Most colds go away within a few days and don't cause serious health problems.",
                 "answers": [],
-                "tags": [],
-                "editMode": false,
                 "questions": [
+                    {
+                        "id": "16972078091172702",
+                        "nodeId": "16971373776716788",
+                        "text": "What is the common cold?"
+                    },
+                    {
+                        "id": "16972078176129205",
+                        "nodeId": "16971373776716788",
+                        "text": "How long does a cold normally last?"
+                    },
+                    {
+                        "id": "16972078282369311",
+                        "nodeId": "16971373776716788",
+                        "text": "Where does a cold infection affect?"
+                    },
                     {
                         "id": "16972078532818485",
                         "nodeId": "16971373776716788",
@@ -2906,13 +3541,10 @@
                         "id": "16972078700994579",
                         "nodeId": "16971373776716788",
                         "text": "Is it possible to build immunity to colds?"
-                    },
-                    {
-                        "id": "16972078091172702",
-                        "nodeId": "16971373776716788",
-                        "text": "What is the common cold?"
                     }
-                ]
+                ],
+                "tags": [],
+                "editMode": false
             },
             "position": {
                 "x": 1560.1486312533418,
@@ -2977,14 +3609,7 @@
                 "markup": "<p>Symptoms of a common cold may include throat pain and sensitivity, sneezing, runny or stuffy nose, low-grade fever, headache, muscle aches, cough, and tiredness.</p>",
                 "raw_text": "Symptoms of a common cold may include throat pain and sensitivity, sneezing, runny or stuffy nose, low-grade fever, headache, muscle aches, cough, and tiredness.",
                 "answers": [],
-                "tags": [],
-                "editMode": false,
                 "questions": [
-                    {
-                        "id": "16972081897741949",
-                        "nodeId": "16971374352799866",
-                        "text": "What symptoms should I look out for if I think I have a cold?"
-                    },
                     {
                         "id": "16972081359671624",
                         "nodeId": "16971374352799866",
@@ -2994,8 +3619,25 @@
                         "id": "16972081456326986",
                         "nodeId": "16971374352799866",
                         "text": "What are the most common cold symptoms?"
+                    },
+                    {
+                        "id": "16972081545772689",
+                        "nodeId": "16971374352799866",
+                        "text": "I have a stuffy nose and a sore throat, could this be a cold?"
+                    },
+                    {
+                        "id": "16972081709216673",
+                        "nodeId": "16971374352799866",
+                        "text": "Is a cough a common symptom for a cold?"
+                    },
+                    {
+                        "id": "16972081897741949",
+                        "nodeId": "16971374352799866",
+                        "text": "What symptoms should I look out for if I think I have a cold?"
                     }
-                ]
+                ],
+                "tags": [],
+                "editMode": false
             },
             "position": {
                 "x": 2400.1916995094975,
@@ -3011,9 +3653,17 @@
                 "markup": "<div>\n<p>risk factors for the common cold include: smoking, being exposed to someone with the virus, or being a teacher, health care worker, or other job that involves contact with many people</p>\n</div>\n<div>\n<p> </p>\n</div>",
                 "raw_text": "risk factors for the common cold include: smoking, being exposed to someone with the virus, or being a teacher, health care worker, or other job that involves contact with many people\n ",
                 "answers": [],
-                "tags": [],
-                "editMode": false,
                 "questions": [
+                    {
+                        "id": "16972080471007887",
+                        "nodeId": "16971374475730329",
+                        "text": "What things increase my risk of catching a cold?"
+                    },
+                    {
+                        "id": "16972080590983477",
+                        "nodeId": "16971374475730329",
+                        "text": "My roommate caught a cold, does this mean I'll get sick too?"
+                    },
                     {
                         "id": "16972080842583584",
                         "nodeId": "16971374475730329",
@@ -3025,11 +3675,13 @@
                         "text": "What factors affect my risk of contracting a cold?"
                     },
                     {
-                        "id": "16972080590983477",
+                        "id": "16972081170389303",
                         "nodeId": "16971374475730329",
-                        "text": "My roommate caught a cold, does this mean I'll get sick too?"
+                        "text": "Is there anything I can do to reduce my risk of getting a cold?"
                     }
-                ]
+                ],
+                "tags": [],
+                "editMode": false
             },
             "position": {
                 "x": 2410.779910697485,
@@ -3045,13 +3697,16 @@
                 "markup": "<p>Your doctor can diagnose a cold by taking your medical history and doing a physical exam. He or she may want to do a throat culture or blood tests to rule out infections. </p>",
                 "raw_text": "Your doctor can diagnose a cold by taking your medical history and doing a physical exam. He or she may want to do a throat culture or blood tests to rule out infections. ",
                 "answers": [],
-                "tags": [],
-                "editMode": false,
                 "questions": [
                     {
-                        "id": "16972083921076019",
+                        "id": "16972083516617331",
                         "nodeId": "16971374847435295",
-                        "text": "What tests are used to diagnose a cold?"
+                        "text": "What does a doctor look at to decide whether I have a cold?"
+                    },
+                    {
+                        "id": "16972083659515371",
+                        "nodeId": "16971374847435295",
+                        "text": "How can a cold be diagnosed?"
                     },
                     {
                         "id": "16972083810752635",
@@ -3059,11 +3714,18 @@
                         "text": "Do I need a physical exam to diagnose a cold?"
                     },
                     {
+                        "id": "16972083921076019",
+                        "nodeId": "16971374847435295",
+                        "text": "What tests are used to diagnose a cold?"
+                    },
+                    {
                         "id": "16972084021707367",
                         "nodeId": "16971374847435295",
                         "text": "What are the diagnostic criteria for the common cold?"
                     }
-                ]
+                ],
+                "tags": [],
+                "editMode": false
             },
             "position": {
                 "x": 2409.2672017695236,
@@ -3079,25 +3741,35 @@
                 "markup": "<p>Colds usually get better on their own in a few days. Antihistamines, decongestants, pain relievers, drinking plenty of fluids, and breathing in steam may help ease symptoms.</p>",
                 "raw_text": "Colds usually get better on their own in a few days. Antihistamines, decongestants, pain relievers, drinking plenty of fluids, and breathing in steam may help ease symptoms.",
                 "answers": [],
-                "tags": [],
-                "editMode": false,
                 "questions": [
-                    {
-                        "id": "16972079907334355",
-                        "nodeId": "16971374971064967",
-                        "text": "Can colds get better on their own?"
-                    },
                     {
                         "id": "16972079798385712",
                         "nodeId": "16971374971064967",
                         "text": "How do you treat a cold?"
                     },
                     {
+                        "id": "16972079907334355",
+                        "nodeId": "16971374971064967",
+                        "text": "Can colds get better on their own?"
+                    },
+                    {
                         "id": "16972079994590376",
                         "nodeId": "16971374971064967",
                         "text": "Do I need special medicine for a cold?"
+                    },
+                    {
+                        "id": "16972080131023297",
+                        "nodeId": "16971374971064967",
+                        "text": "What types of treatments can help reduce cold symptoms?"
+                    },
+                    {
+                        "id": "16972080306063458",
+                        "nodeId": "16971374971064967",
+                        "text": "Do home remedies help with cold symptoms?"
                     }
-                ]
+                ],
+                "tags": [],
+                "editMode": false
             },
             "position": {
                 "x": 2379.141137000468,
@@ -3113,13 +3785,11 @@
                 "markup": "<p>If you have a cold, you should call your doctor if you have a fever above 102 degrees Fahrenheit, chills, vomiting, shortness of breath, stomach pain, or don't get better after 10 days. Also call your doctor if you have a sore throat and fever but no other cold symptoms, which can be signs of strep throat.</p>",
                 "raw_text": "If you have a cold, you should call your doctor if you have a fever above 102 degrees Fahrenheit, chills, vomiting, shortness of breath, stomach pain, or don't get better after 10 days. Also call your doctor if you have a sore throat and fever but no other cold symptoms, which can be signs of strep throat.",
                 "answers": [],
-                "tags": [],
-                "editMode": false,
                 "questions": [
                     {
-                        "id": "16972082913514005",
+                        "id": "16972082326748606",
                         "nodeId": "16971375234502538",
-                        "text": "Is shortness of breath with a cold a reason to call a doctor?"
+                        "text": "I just have a cold, but my fever is over 102, should I call the doctor anyway?"
                     },
                     {
                         "id": "16972082538624437",
@@ -3127,11 +3797,23 @@
                         "text": "Do I need to go to the doctor for a cold?"
                     },
                     {
-                        "id": "16972082326748606",
+                        "id": "16972082631174194",
                         "nodeId": "16971375234502538",
-                        "text": "I just have a cold, but my fever is over 102, should I call the doctor anyway?"
+                        "text": "When should I involve a doctor, I can't seem to get better from this cold."
+                    },
+                    {
+                        "id": "16972082913514005",
+                        "nodeId": "16971375234502538",
+                        "text": "Is shortness of breath with a cold a reason to call a doctor?"
+                    },
+                    {
+                        "id": "16972083059105269",
+                        "nodeId": "16971375234502538",
+                        "text": "Under what conditions does it make sense to call a doctor during a common cold?"
                     }
-                ]
+                ],
+                "tags": [],
+                "editMode": false
             },
             "position": {
                 "x": 2411.662227479465,
@@ -3186,13 +3868,16 @@
                 "markup": "<p>You might have appendicitis.</p>\n<p>Appendicitis is a serious infection of the appendix, a small fingerlike tube located where the large and small intestine join. About half of people who have appendicitis feel abdominal pain that begins near the belly button and moves to the lower right. If not treated rapidly, the appendix will likely burst, spreading infection throughout the abdomen, a dangerous condition known as peritonitis. Surgery to remove the appendix, called an appendectomy, can prevent this. People 10 years old to 30 years old are most likely to have appendicitis.</p>",
                 "raw_text": "You might have appendicitis. \n Appendicitis is a serious infection of the appendix, a small fingerlike tube located where the large and small intestine join. About half of people who have appendicitis feel abdominal pain that begins near the belly button and moves to the lower right. If not treated rapidly, the appendix will likely burst, spreading infection throughout the abdomen, a dangerous condition known as peritonitis. Surgery to remove the appendix, called an appendectomy, can prevent this. People 10 years old to 30 years old are most likely to have appendicitis.",
                 "answers": [],
-                "tags": [],
-                "editMode": false,
                 "questions": [
                     {
-                        "id": "16972079205823837",
+                        "id": "16972078872395998",
                         "nodeId": "16971381252773555",
-                        "text": "What happens if appendicitis isn't treated?"
+                        "text": "What is appendicitis?"
+                    },
+                    {
+                        "id": "16972078945337185",
+                        "nodeId": "16971381252773555",
+                        "text": "Is appendicitis serious?"
                     },
                     {
                         "id": "16972079022377327",
@@ -3200,11 +3885,18 @@
                         "text": "What is affected by appendicitis?"
                     },
                     {
-                        "id": "16972078872395998",
+                        "id": "16972079205823837",
                         "nodeId": "16971381252773555",
-                        "text": "What is appendicitis?"
+                        "text": "What happens if appendicitis isn't treated?"
+                    },
+                    {
+                        "id": "16972079355347457",
+                        "nodeId": "16971381252773555",
+                        "text": "Can you tell me more about appendicitis?"
                     }
-                ]
+                ],
+                "tags": [],
+                "editMode": false
             },
             "position": {
                 "x": 1557.332610109108,
@@ -3264,13 +3956,11 @@
                 "markup": "<div class=\"article-section\">\n<div>\n<p>Symptoms of appendicitis include abdominal pain that may occur suddenly near the belly button and move to the lower right, nausea, vomiting, loss of appetite, low-grade fever (after other symptoms), constipation, abdominal swelling, and inability to pass gas.</p>\n</div>\n</div>",
                 "raw_text": "Symptoms of appendicitis include abdominal pain that may occur suddenly near the belly button and move to the lower right, nausea, vomiting, loss of appetite, low-grade fever (after other symptoms), constipation, abdominal swelling, and inability to pass gas.",
                 "answers": [],
-                "tags": [],
-                "editMode": false,
                 "questions": [
                     {
-                        "id": "16972091221356172",
+                        "id": "16972086902740309",
                         "nodeId": "16971382127262621",
-                        "text": "Is it normal for appendicitis to also cause constipation?"
+                        "text": "What symptoms should I look out for if I think I might have appendicitis?"
                     },
                     {
                         "id": "16972090566027086",
@@ -3278,11 +3968,23 @@
                         "text": "I have sever abdominal pain, could this be appendicitis?"
                     },
                     {
-                        "id": "16972086902740309",
+                        "id": "16972090790063046",
                         "nodeId": "16971382127262621",
-                        "text": "What symptoms should I look out for if I think I might have appendicitis?"
+                        "text": "What are the most common symptoms of appendicitis?"
+                    },
+                    {
+                        "id": "16972091056504635",
+                        "nodeId": "16971382127262621",
+                        "text": "Can appendicitis cause nausea and fever?"
+                    },
+                    {
+                        "id": "16972091221356172",
+                        "nodeId": "16971382127262621",
+                        "text": "Is it normal for appendicitis to also cause constipation?"
                     }
-                ]
+                ],
+                "tags": [],
+                "editMode": false
             },
             "position": {
                 "x": 2305.8197645797313,
@@ -3298,14 +4000,7 @@
                 "markup": "<p>Appendicitis often begins with vague pain that may get worse with moving, coughing, sneezing, or taking deep breaths. Loss of appetite, vomiting, low-grade fever, worsening pain, and constipation or diarrhea also may develop. You should get an urgent evaluation at your doctor's office or a hospital emergency room. If the diagnosis is not certain, the doctor may do tests and closely observe you for several hours, in or out of the hospital, to see if more conclusive signs develop.</p>",
                 "raw_text": "Appendicitis often begins with vague pain that may get worse with moving, coughing, sneezing, or taking deep breaths. Loss of appetite, vomiting, low-grade fever, worsening pain, and constipation or diarrhea also may develop. You should get an urgent evaluation at your doctor's office or a hospital emergency room. If the diagnosis is not certain, the doctor may do tests and closely observe you for several hours, in or out of the hospital, to see if more conclusive signs develop.",
                 "answers": [],
-                "tags": [],
-                "editMode": false,
                 "questions": [
-                    {
-                        "id": "16972092216540905",
-                        "nodeId": "16971382255408225",
-                        "text": "Is there a test to tell if I have appendicitis?"
-                    },
                     {
                         "id": "16972091450736391",
                         "nodeId": "16971382255408225",
@@ -3315,8 +4010,25 @@
                         "id": "16972091710882917",
                         "nodeId": "16971382255408225",
                         "text": "Can I get better from appendicitis on my own or do I need to go to the doctor?"
+                    },
+                    {
+                        "id": "16972091989275011",
+                        "nodeId": "16971382255408225",
+                        "text": "How can my doctor tell if I have appendicitis?"
+                    },
+                    {
+                        "id": "16972092097623947",
+                        "nodeId": "16971382255408225",
+                        "text": "How is appendicitis diagnosed?"
+                    },
+                    {
+                        "id": "16972092216540905",
+                        "nodeId": "16971382255408225",
+                        "text": "Is there a test to tell if I have appendicitis?"
                     }
-                ]
+                ],
+                "tags": [],
+                "editMode": false
             },
             "position": {
                 "x": 2310.3576181608014,
@@ -3332,13 +4044,11 @@
                 "markup": "<p>If your doctor thinks you have appendicitis, you'll get immediate surgery to remove the appendix. If you have surgery and the appendix has burst, the doctor will insert a tube to drain fluid from the abdomen for a few days. After an appendectomy, you need to restrict physical activity and diet over the next two to four weeks. Recovery time is longer if the appendix has burst.</p>",
                 "raw_text": "If your doctor thinks you have appendicitis, you'll get immediate surgery to remove the appendix. If you have surgery and the appendix has burst, the doctor will insert a tube to drain fluid from the abdomen for a few days. After an appendectomy, you need to restrict physical activity and diet over the next two to four weeks. Recovery time is longer if the appendix has burst.",
                 "answers": [],
-                "tags": [],
-                "editMode": false,
                 "questions": [
                     {
-                        "id": "16972086634045209",
+                        "id": "16972086102242229",
                         "nodeId": "16971382811535055",
-                        "text": "What happens in appendix removal surgery?"
+                        "text": "What will happen if my doctor thinks I have appendicitis?"
                     },
                     {
                         "id": "16972086290047373",
@@ -3346,11 +4056,23 @@
                         "text": "How is appendicitis treated?"
                     },
                     {
+                        "id": "16972086367454508",
+                        "nodeId": "16971382811535055",
+                        "text": "Can appendicitis be treated?"
+                    },
+                    {
                         "id": "16972086439244708",
                         "nodeId": "16971382811535055",
                         "text": "Does treatment for appendicitis change if my appendix has already ruptured?"
+                    },
+                    {
+                        "id": "16972086634045209",
+                        "nodeId": "16971382811535055",
+                        "text": "What happens in appendix removal surgery?"
                     }
-                ]
+                ],
+                "tags": [],
+                "editMode": false
             },
             "position": {
                 "x": 2308.088588919207,
@@ -3366,13 +4088,21 @@
                 "markup": "<p>You may have sepsis.</p>\n<p><a href=\"https://www.webmd.com/a-to-z-guides/ss/slideshow-sepsis-101\">Sepsis</a> is when your body has an unusually severe response to an infection. It's sometimes called septicemia.</p>\n<p>During sepsis, your immune system, which defends you from germs, releases a lot of chemicals into your <a href=\"https://www.webmd.com/heart/anatomy-picture-of-blood\">blood</a>. This triggers widespread <a href=\"https://www.webmd.com/arthritis/about-inflammation\">inflammation</a> that can lead to organ damage. Clots reduce <a href=\"https://www.webmd.com/heart/anatomy-picture-of-blood\">blood</a> flow to your limbs and internal organs, so they don't get the nutrients and oxygen they need.</p>\n<p>In severe cases, <a href=\"https://www.webmd.com/a-to-z-guides/ss/slideshow-sepsis-101\">sepsis</a> causes a dangerous drop in <a href=\"https://www.webmd.com/hypertension-high-blood-pressure/guide/diastolic-and-systolic-blood-pressure-know-your-numbers\">blood pressure</a>. Doctors call this `<a href=\"https://www.webmd.com/a-to-z-guides/sepsis-septicemia-blood-infection\">septic shock</a>.` It can quickly lead to organ failure, such as your <a href=\"https://www.webmd.com/lung/picture-of-the-lungs\">lungs</a>, <a href=\"https://www.webmd.com/urinary-incontinence-oab/picture-of-the-kidneys\">kidneys</a>, and <a href=\"https://www.webmd.com/digestive-disorders/picture-of-the-liver\">liver</a>. This can be deadly.</p>",
                 "raw_text": "You may have sepsis. \n Sepsis is when your body has an unusually severe response to an infection. It's sometimes called septicemia. \n During sepsis, your immune system, which defends you from germs, releases a lot of chemicals into your blood. This triggers widespread inflammation that can lead to organ damage. Clots reduce blood flow to your limbs and internal organs, so they don't get the nutrients and oxygen they need. \n In severe cases, sepsis causes a dangerous drop in blood pressure. Doctors call this `septic shock.` It can quickly lead to organ failure, such as your lungs, kidneys, and liver. This can be deadly.",
                 "answers": [],
-                "tags": [],
-                "editMode": false,
                 "questions": [
                     {
-                        "id": "16972084660691341",
+                        "id": "16972084271186322",
                         "nodeId": "16971383912316164",
-                        "text": "What happens during sepsis?"
+                        "text": "What is sepsis?"
+                    },
+                    {
+                        "id": "16972084314431093",
+                        "nodeId": "16971383912316164",
+                        "text": "What causes sepsis?"
+                    },
+                    {
+                        "id": "16972084395178327",
+                        "nodeId": "16971383912316164",
+                        "text": "Is sepsis a serious condition?"
                     },
                     {
                         "id": "16972084492705027",
@@ -3380,11 +4110,13 @@
                         "text": "What can happen is serious cases of sepsis?"
                     },
                     {
-                        "id": "16972084314431093",
+                        "id": "16972084660691341",
                         "nodeId": "16971383912316164",
-                        "text": "What causes sepsis?"
+                        "text": "What happens during sepsis?"
                     }
-                ]
+                ],
+                "tags": [],
+                "editMode": false
             },
             "position": {
                 "x": 1363.2278541985777,
@@ -3444,25 +4176,35 @@
                 "markup": "<div class=\"no-article-desc\">\n<div class=\"article-section\">\n<div>\n<p><a href=\"https://www.webmd.com/a-to-z-guides/bacterial-and-viral-infections\">Bacterial infections</a> are most often to blame for sepsis. But it can also happen because of other infections. It can begin anywhere bacteria, parasites, fungi, or viruses enter your body, even something as small as a hangnail.</p>\n<p>An infection of the <a href=\"https://www.webmd.com/osteoporosis/features/building-stronger-bones\">bone</a>, called <a href=\"https://www.webmd.com/pain-management/osteomyeltis-treatment-diagnosis-symptoms\">osteomyelitis</a>, could lead to sepsis. In people who are hospitalized, bacteria may enter through IV lines, surgical wounds, urinary catheters, and bed sores.</p>\n<p>People at greater risk for sepsis include people who:</p>\n<ul>\n<li>Have weakened immune systems because of conditions like <a href=\"https://https//www.webmd.com/hiv-aids/understanding-aids-hiv-symptoms\">HIV</a> or <a href=\"https://www.webmd.com/cancer/default.htm\">cancer</a> or because they take <a href=\"https://www.webmd.com/drugs/index-drugs.aspx\">drugs</a> such as <a href=\"https://www.webmd.com/a-to-z-guides/ss/slideshow-steroids-101\">steroids</a> or those that prevent rejection of transplanted organs</li>\n<li>Are pregnant</li>\n<li>Are very young</li>\n<li>Are elderly, especially if they have other health problems</li>\n<li>Were recently hospitalized or had major surgeries</li>\n<li>Use catheters or breathing tubes</li>\n<li>Have <a href=\"https://www.webmd.com/diabetes/default.htm\">diabetes</a></li>\n<li>Have a serious medical condition such as appendicitis, pneumonia, meningitis, cirrhosis, or a urinary tract infection</li>\n</ul>\n</div>\n</div>\n</div>\n<div class=\"no-article-desc\">\n<div class=\"article-section\"> </div>\n</div>",
                 "raw_text": "Bacterial infections are most often to blame for sepsis. But it can also happen because of other infections. It can begin anywhere bacteria, parasites, fungi, or viruses enter your body, even something as small as a hangnail. \n An infection of the bone, called osteomyelitis, could lead to sepsis. In people who are hospitalized, bacteria may enter through IV lines, surgical wounds, urinary catheters, and bed sores. \n People at greater risk for sepsis include people who:\nHave weakened immune systems because of conditions like HIV or cancer or because they take drugs such as steroids or those that prevent rejection of transplanted organs\nAre pregnant\nAre very young\nAre elderly, especially if they have other health problems\nWere recently hospitalized or had major surgeries\nUse catheters or breathing tubes\nHave diabetes\nHave a serious medical condition such as appendicitis, pneumonia, meningitis, cirrhosis, or a urinary tract infection.",
                 "answers": [],
-                "tags": [],
-                "editMode": false,
                 "questions": [
-                    {
-                        "id": "16972094045331194",
-                        "nodeId": "16971384400370384",
-                        "text": "Is sepsis always the result of one type of infection?"
-                    },
                     {
                         "id": "16972093126441983",
                         "nodeId": "16971384400370384",
                         "text": "What puts me at greater risk for sepsis?"
                     },
                     {
+                        "id": "16972093492024614",
+                        "nodeId": "16971384400370384",
+                        "text": "Does age affect my risk of sepsis?"
+                    },
+                    {
+                        "id": "16972093578094355",
+                        "nodeId": "16971384400370384",
+                        "text": "What factors influence my risk of contracting sepsis?"
+                    },
+                    {
+                        "id": "16972094045331194",
+                        "nodeId": "16971384400370384",
+                        "text": "Is sepsis always the result of one type of infection?"
+                    },
+                    {
                         "id": "16972094412500952",
                         "nodeId": "16971384400370384",
                         "text": "How does pregnancy affect my risk of sepsis?"
                     }
-                ]
+                ],
+                "tags": [],
+                "editMode": false
             },
             "position": {
                 "x": 2323.7756986293143,
@@ -3478,25 +4220,35 @@
                 "markup": "<p>Because it can begin in different parts of your body, sepsis can have many different symptoms. The first signs may include rapid <a href=\"https://www.webmd.com/lung/how-we-breathe\">breathing</a> and confusion. Other common symptoms include:</p>\n<ul>\n<li><a href=\"https://www.webmd.com/first-aid/fevers-causes-symptoms-treatments\">Fever and chills</a></li>\n<li>Very low <a href=\"https://www.webmd.com/first-aid/body-temperature\">body temperature</a></li>\n<li>Peeing less than usual</li>\n<li>Fast heartbeat</li>\n<li><a href=\"https://www.webmd.com/digestive-disorders/digestive-diseases-nausea-vomiting\">Nausea and vomiting</a></li>\n<li><a href=\"https://www.webmd.com/digestive-disorders/digestive-diseases-diarrhea\">Diarrhea</a></li>\n<li>Fatigue or weakness</li>\n<li>Blotchy or discolored skin</li>\n<li>Sweating or clammy skin</li>\n<li>Severe pain</li>\n</ul>",
                 "raw_text": "Because it can begin in different parts of your body, sepsis can have many different symptoms. The first signs may include rapid breathing and confusion. Other common symptoms include:\nFever and chills\nVery low body temperature\nPeeing less than usual\nFast heartbeat\nNausea and vomiting\nDiarrhea\nFatigue or weakness\nBlotchy or discolored skin\nSweating or clammy skin\nSevere pain",
                 "answers": [],
-                "tags": [],
-                "editMode": false,
                 "questions": [
-                    {
-                        "id": "16972094721350149",
-                        "nodeId": "16971384611683638",
-                        "text": "Do all sepsis infections have similar symptoms?"
-                    },
                     {
                         "id": "16972094577684907",
                         "nodeId": "16971384611683638",
                         "text": "Where does sepsis start in the body?"
                     },
                     {
+                        "id": "16972094721350149",
+                        "nodeId": "16971384611683638",
+                        "text": "Do all sepsis infections have similar symptoms?"
+                    },
+                    {
+                        "id": "16972094891411646",
+                        "nodeId": "16971384611683638",
+                        "text": "What are the main symptoms of sepsis?"
+                    },
+                    {
                         "id": "16972094983196478",
                         "nodeId": "16971384611683638",
                         "text": "What symptoms should I look out for if I'm worried I might have sepsis?"
+                    },
+                    {
+                        "id": "16972095309608783",
+                        "nodeId": "16971384611683638",
+                        "text": "What are the first signs I might have sepsis?"
                     }
-                ]
+                ],
+                "tags": [],
+                "editMode": false
             },
             "position": {
                 "x": 2324.559378280802,
@@ -3512,8 +4264,6 @@
                 "markup": "<div class=\"article-page active-page\" data-page=\"1\">\n<section>\n<p>To diagnose sepsis, your doctor will do a physical exam and run tests to look for things like:</p>\n<ul>\n<li>Bacteria in your <a href=\"https://www.webmd.com/a-to-z-guides/rm-quiz-blood-basics\" data-metrics-link=\"\">blood</a> or other body fluids</li>\n<li>Signs of infection on an X-ray, <a href=\"https://www.webmd.com/a-to-z-guides/computed-tomography-ct-scan-of-the-body\" data-metrics-link=\"\">CT scan</a>, or <a href=\"https://www.webmd.com/a-to-z-guides/what-is-an-ultrasound\" data-metrics-link=\"\">ultrasound</a></li>\n<li>A high or low <a href=\"https://www.webmd.com/a-to-z-guides/complete-blood-count-cbc\" data-metrics-link=\"\">white blood cell count</a></li>\n<li>A low number of platelets in your blood</li>\n<li><a href=\"https://www.webmd.com/heart/understanding-low-blood-pressure-basics\" data-metrics-link=\"\">Low blood pressure</a></li>\n<li>Too much acid in your blood (acidosis)</li>\n<li>A lack of oxygen in your blood</li>\n<li>Problems with how your blood clots</li>\n<li>Uneven levels of electrolytes</li>\n<li><a href=\"https://www.webmd.com/a-to-z-guides/rm-quiz-kidneys\" data-metrics-link=\"\">Kidney</a> or <a href=\"https://www.webmd.com/hepatitis/hepc-guide/liver-function-test-lft\" data-metrics-link=\"\">liver problems</a></li>\n</ul>\n</section>\n</div>\n<div class=\"article-page active-page\" data-page=\"2\">\n<div id=\"instream-related-mod-2\" class=\"instream-related-mod\"></div>\n</div>",
                 "raw_text": "To diagnose sepsis, your doctor will do a physical exam and run tests to look for things like:\nBacteria in your blood or other body fluids\nSigns of infection on an X-ray, CT scan, or ultrasound\nA high or low white blood cell count\nA low number of platelets in your blood\nLow blood pressure\nToo much acid in your blood (acidosis)\nA lack of oxygen in your blood\nProblems with how your blood clots\nUneven levels of electrolytes\nKidney or liver problems ",
                 "answers": [],
-                "tags": [],
-                "editMode": false,
                 "questions": [
                     {
                         "id": "16972095452006367",
@@ -3521,16 +4271,28 @@
                         "text": "How do doctors diagnose sepsis?"
                     },
                     {
-                        "id": "16972095877975982",
+                        "id": "16972095541114753",
                         "nodeId": "16971384785455676",
-                        "text": "Will my doctor need to look at my blood to know if I have sepsis?"
+                        "text": "Do you need a physical exam to diagnose sepsis?"
                     },
                     {
                         "id": "16972095744791354",
                         "nodeId": "16971384785455676",
                         "text": "What type of scans are needed to diagnose sepsis?"
+                    },
+                    {
+                        "id": "16972095877975982",
+                        "nodeId": "16971384785455676",
+                        "text": "Will my doctor need to look at my blood to know if I have sepsis?"
+                    },
+                    {
+                        "id": "16972096200649013",
+                        "nodeId": "16971384785455676",
+                        "text": "What diagnostic criteria are used to diagnose sepsis?"
                     }
-                ]
+                ],
+                "tags": [],
+                "editMode": false
             },
             "position": {
                 "x": 2319.6548600480382,
@@ -3546,9 +4308,22 @@
                 "markup": "<section>\n<p>If you have sepsis, your doctor will probably keep you in the hospital's intensive care unit (ICU). Your medical team will try to stop the infection, keep your organs working, and manage your <a href=\"https://www.webmd.com/hypertension-high-blood-pressure/guide/diastolic-and-systolic-blood-pressure-know-your-numbers\" data-metrics-link=\"\">blood pressure</a>. IV fluids and extra oxygen can help with this.</p>\n</section>\n<section>\n<p>Broad-spectrum antibiotics may fight infections caused by bacteria early on. Once your doctor knows what's causing your sepsis, they can give you medicine that targets that specific germ. Often, doctors prescribe vasopressors (which make your blood vessels narrow) to improve blood pressure. You could also get corticosteroids to fight inflammation or insulin to keep control of your blood sugar.</p>\n<p>If your case is severe, you might need other types of treatment, like a breathing machine or <a href=\"https://www.webmd.com/a-to-z-guides/kidney-dialysis\" data-metrics-link=\"\">kidney dialysis</a>. Or you may need surgery to drain or clean out an infection.</p>\n</section>",
                 "raw_text": "If you have sepsis, your doctor will probably keep you in the hospital's intensive care unit (ICU). Your medical team will try to stop the infection, keep your organs working, and manage your blood pressure. IV fluids and extra oxygen can help with this. \n Broad-spectrum antibiotics may fight infections caused by bacteria early on. Once your doctor knows what's causing your sepsis, they can give you medicine that targets that specific germ. Often, doctors prescribe vasopressors (which make your blood vessels narrow) to improve blood pressure. You could also get corticosteroids to fight inflammation or insulin to keep control of your blood sugar. \n If your case is severe, you might need other types of treatment, like a breathing machine or kidney dialysis. Or you may need surgery to drain or clean out an infection.",
                 "answers": [],
-                "tags": [],
-                "editMode": false,
                 "questions": [
+                    {
+                        "id": "16972092479564534",
+                        "nodeId": "16971385756832842",
+                        "text": "How is sepsis treated?"
+                    },
+                    {
+                        "id": "16972092548774507",
+                        "nodeId": "16971385756832842",
+                        "text": "Can you recover from sepsis?"
+                    },
+                    {
+                        "id": "16972092613655024",
+                        "nodeId": "16971385756832842",
+                        "text": "Is there a cure for sepsis?"
+                    },
                     {
                         "id": "16972092752641418",
                         "nodeId": "16971385756832842",
@@ -3558,13 +4333,10 @@
                         "id": "16972092964367893",
                         "nodeId": "16971385756832842",
                         "text": "Will I need antibiotics if I have sepsis?"
-                    },
-                    {
-                        "id": "16972092548774507",
-                        "nodeId": "16971385756832842",
-                        "text": "Can you recover from sepsis?"
                     }
-                ]
+                ],
+                "tags": [],
+                "editMode": false
             },
             "position": {
                 "x": 2312.618440633107,
@@ -3577,7 +4349,7 @@
             "id": "0",
             "source": "0",
             "sourceHandle": "0",
-            "target": "16971221595667850",
+            "target": "16971222807189682",
             "targetHandle": null,
             "type": "customBezierEdge",
             "arrowHeadType": "arrowclosed"
@@ -4361,6 +5133,15 @@
             "source": "16971382255408225",
             "sourceHandle": "16971382255408225",
             "target": "16971230613518403",
+            "targetHandle": null,
+            "type": "customBezierEdge",
+            "arrowHeadType": "arrowclosed"
+        },
+        {
+            "id": "16971990839226",
+            "source": "16971222807189682",
+            "sourceHandle": "16971222807189682",
+            "target": "16971221595667850",
             "targetHandle": null,
             "type": "customBezierEdge",
             "arrowHeadType": "arrowclosed"

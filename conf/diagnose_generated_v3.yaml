@@ -2,9 +2,6 @@ defaults:
   - config_schema
   # overwrite defaults loaded above with the following content from this file
   # dataset choice: train, test, joint (train + test)
-  - dataset/reimburse@experiment.training.dataset : train
-  - dataset/reimburse@experiment.validation.dataset: train
-  - dataset/reimburse@experiment.testing.dataset: test
   
   # model, algorithm & optimizer
   - optimizer@experiment.optimizer: adam
@@ -151,30 +148,41 @@ experiment:
       _target_: encoding.text.sbert.SentenceEmbeddings
   training:
     dataset:
-      graph_path: en/reimburse/train_graph.json
-      answer_path: en/reimburse/generated/chatgpt/train_answers.json
+      _target_: data.dataset.StandardGraphDataset
+      graph_path: en/diagnose/train_graph.json
+      answer_path: en/diagnose/train_answers.json
       use_answer_synonyms: true
-      augmentation: ARTIFICIAL_ONLY
-      augmentation_path: en/reimburse/generated/chatgpt/train_questions_v3.json
+      augmentation: DataAugmentationLevel.ARTIFICIAL_ONLY
+      augmentation_path: en/diagnose/generated/train_questions_v3.json
+      question_limit: 0
+      answer_limit: 0
+      language: en
     every_steps: 3
     noise: 0.1
-    steps: ???
   validation:
     dataset:
-      graph_path: en/reimburse/train_graph.json
-      answer_path: en/reimburse/generated/chatgpt/train_answers.json
+      _target_: data.dataset.StandardGraphDataset
+      graph_path: en/diagnose/train_graph.json
+      answer_path: en/diagnose/train_answers.json
       use_answer_synonyms: true
-      augmentation: ARTIFICIAL_ONLY
-      augmentation_path: en/reimburse/generated/chatgpt/train_questions_v3.json
+      augmentation: DataAugmentationLevel.ARTIFICIAL_ONLY
+      augmentation_path: en/diagnose/generated/train_questions_v3.json
+      question_limit: 0
+      answer_limit: 0
+      language: en
     every_steps: 15000
     noise: 0.0
     dialogs: 500
   testing:
     dataset:
-      graph_path: en/reimburse/test_graph.json
-      answer_path: en/reimburse/test_answers.json
+      _target_: data.dataset.GraphDataset
+      graph_path: en/diagnose/test_graph.json
+      answer_path: en/diagnose/test_answers.json
       use_answer_synonyms: true
-      augmentation: NONE
+      augmentation: DataAugmentationLevel.NONE
+      question_limit: 0
+      answer_limit: 0
+      language: en
     every_steps: 15000
     noise: 0.0
     dialogs: 500
