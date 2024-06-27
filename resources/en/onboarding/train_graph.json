@@ -987,7 +987,7 @@
                     {
                         "id": "16953819553173654",
                         "nodeId": "16940098143630140",
-                        "text": "Can I pay rent via direkt deposit?"
+                        "text": "Can I pay rent via direct deposit?"
                     }
                 ]
             }
@@ -1016,7 +1016,7 @@
                     {
                         "id": "16940100183728098",
                         "nodeId": "16940099824902790",
-                        "raw_text": "Finalising an offer"
+                        "raw_text": "Finalizing an offer"
                     },
                     {
                         "id": "16940100253612872",
@@ -1081,8 +1081,8 @@
             },
             "data": {
                 "id": "16940105542993511",
-                "markup": "<p>You can apply for housing before you are admitted to a university, but must provide proof of acceptance before you can finalise your contract</p>",
-                "raw_text": "You can apply for housing before you are admitted to a university, but must provide proof of acceptance before you can finalise your contract",
+                "markup": "<p>You can apply for housing before you are admitted to a university, but must provide proof of acceptance before you can finalize your contract</p>",
+                "raw_text": "You can apply for housing before you are admitted to a university, but must provide proof of acceptance before you can finalize your contract",
                 "position": {
                     "x": 3723.8285854312808,
                     "y": -1251.7503965245774
@@ -1137,12 +1137,12 @@
                     {
                         "id": "16953820063073572",
                         "nodeId": "16940106375155011",
-                        "text": "How do I set up SEPA direkt deposit?"
+                        "text": "How do I set up SEPA direct deposit?"
                     },
                     {
                         "id": "16953820313968372",
                         "nodeId": "16940106375155011",
-                        "text": "Where do I need to submit the SEPA authorisation form?"
+                        "text": "Where do I need to submit the SEPA authorization form?"
                     }
                 ]
             }
@@ -1662,7 +1662,7 @@
                     {
                         "id": "16953864805423584",
                         "nodeId": "16940148771997902",
-                        "text": "Can my job subsidise my train pass?"
+                        "text": "Can my job subsidize my train pass?"
                     }
                 ]
             }
@@ -1895,8 +1895,8 @@
             },
             "data": {
                 "id": "16940163187913833",
-                "markup": "<div class=\"page\" title=\"Page 6\">\n <div class=\"section\">\n <div class=\"layoutArea\">\n <div class=\"column\">\n <p>For EU nationals who take on a minijob, a working student job or a paid internship during their studies, a German health insurance is mandatory.</p>\n </div>\n </div>\n </div>\n </div>",
-                "raw_text": " \n For EU nationals who take on a minijob, a working student job or a paid internship during their studies, a German health insurance is mandatory. \n ",
+                "markup": "<div class=\"page\" title=\"Page 6\">\n <div class=\"section\">\n <div class=\"layoutArea\">\n <div class=\"column\">\n <p>For EU nationals who take on a mini-job, a working student job or a paid internship during their studies, a German health insurance is mandatory.</p>\n </div>\n </div>\n </div>\n </div>",
+                "raw_text": " \n For EU nationals who take on a mini-job, a working student job or a paid internship during their studies, a German health insurance is mandatory. \n ",
                 "position": {
                     "x": 1760.8311980108306,
                     "y": 1682.871375014653
@@ -2797,8 +2797,8 @@
             },
             "data": {
                 "id": "16940895890871751",
-                "markup": "<div class=\"page\" title=\"Page 23\">\n <div class=\"layoutArea\">\n <div class=\"column\">\n <p>Each semester the university sports [Hochschulsport] offers a large range of sports activities. There are special registration periods. To gain one of the popular places, you have to register as soon as possible. Further information information please visit the <a title=\"Hochschulsport\" href=\"http://www.hochschulsport.uni-stuttgart.de/en/\">website</a>.</p>\n </div>\n </div>\n </div>",
-                "raw_text": " \n Each semester the university sports [Hochschulsport] offers a large range of sports activities. There are special registration periods. To gain one of the popular places, you have to register as soon as possible. Further information information please visit the website. \n ",
+                "markup": "<div class=\"page\" title=\"Page 23\">\n <div class=\"layoutArea\">\n <div class=\"column\">\n <p>Each semester the university sports [Hochschulsport] offers a large range of sports activities. There are special registration periods. To gain one of the popular places, you have to register as soon as possible. For further information please visit the <a title=\"Hochschulsport\" href=\"http://www.hochschulsport.uni-stuttgart.de/en/\">website</a>.</p>\n </div>\n </div>\n </div>",
+                "raw_text": " \n Each semester the university sports [Hochschulsport] offers a large range of sports activities. There are special registration periods. To gain one of the popular places, you have to register as soon as possible. For further information please visit the website. \n ",
                 "position": {
                     "x": 769.4253780141003,
                     "y": 450.8486391117765
@@ -2885,7 +2885,7 @@
                 },
                 "type": "infoNode",
                 "tags": [
-                    "enrollement",
+                    "enrollment",
                     "students"
                 ],
                 "answers": [],
@@ -2920,7 +2920,7 @@
                 },
                 "type": "infoNode",
                 "tags": [
-                    "enrollement",
+                    "enrollment",
                     "students"
                 ],
                 "answers": [],
@@ -4186,7 +4186,7 @@
             "color": "#EB860A"
         },
         {
-            "id": "enrollement",
+            "id": "enrollment",
             "color": "#7b3e19"
         },
         {

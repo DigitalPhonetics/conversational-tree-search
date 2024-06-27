@@ -67,7 +67,7 @@ class GuidedEnvironment(BaseEnv):
         if not done:        
             if self.last_action_idx == ActionType.ASK:
                 if self.auto_skip_mode != AutoSkipMode.NONE:
-                    reward += 2 # ask is also skip
+                    reward += 3 # ask is also skip
                     # last ask brought us to correct goal
                     # if not self.choose_next_goal_node_guided():
                     #     done = True
@@ -75,7 +75,7 @@ class GuidedEnvironment(BaseEnv):
                     reward -= 1 # don't ask multiple times in a row!
             else:
                 # last action == SKIP, current action = ASK 
-                reward += 2 # important to ask each node
+                reward += 3 # important to ask each node
 
             if self.current_node.node_type == NodeType.VARIABLE:
                 # get variable name and value
@@ -128,7 +128,7 @@ class GuidedEnvironment(BaseEnv):
                         self.current_user_utterance = replayed_user_utterance
                     else:
                         answer = self.current_node.answer_by_key(response.answer_key)
-                        self.current_user_utterance = rand_remove_questionmark(random.choice(self.data.answer_synonyms[answer.text.lower()]))
+                        self.current_user_utterance = rand_remove_questionmark(random.choice(self.data.answer_synonyms[answer.key]))
                     self.coverage_answer_synonyms[self.current_user_utterance.lower().replace("?", "")] += 1
         return done, reward
     
@@ -143,7 +143,7 @@ class GuidedEnvironment(BaseEnv):
 
         next_node = self.get_transition(answer_index)
         skip_correct_globally = True
-        if (not next_node) or((next_node.node_type != NodeType.LOGIC) and (next_node.key not in self.goal.visited_ids)):
+        if (not next_node) or ((next_node.node_type != NodeType.LOGIC) and (next_node.key not in self.goal.visited_ids)):
             # skipping is good after ask, but followup-node is wrong!
             reward -= self.max_reward / 4
             self.actioncount_skip_invalid += 1
@@ -167,16 +167,16 @@ class GuidedEnvironment(BaseEnv):
                     # check if variable was already asked
                     if var.name in self.bst:    
                         # it is good to skip this node since variable is already known!
-                        reward += 3
+                        reward += 4
                         self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> SKIPPED ALREADY KNOWN VARIABLE')
                     else:
-                        reward -= 3
+                        reward -= 4
                         self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> SKIPPED VARIABLE NODE W/O ASKING')
                 else:
                     reward -= 2  # last action was skip: punish, should have asked this turn
                     self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> SKIPPED TO NEXT NODE, BUT W/O ASKING')
             else: 
-                reward += 3 # skipping is good after ask, and we chose next node correctly
+                reward += 4 # skipping is good after ask, and we chose next node correctly
 
                 # check if skip was locally correct (after knowing it wasn't correct globally)
                 # -> still reward local correctness, since a path of locally correct skips => global correctness

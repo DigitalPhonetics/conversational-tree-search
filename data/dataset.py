@@ -112,7 +112,7 @@ class GraphDataset:
 
         self.num_guided_goal_nodes = sum([1 for node in self.node_list if (node.node_type in [NodeType.INFO, NodeType.QUESTION, NodeType.VARIABLE] and len(node.answers) > 0) or (node.node_type == NodeType.INFO)])
         self.num_free_goal_nodes = sum([1 for node in self.node_list if len(node.questions) > 0])
-        self.num_answer_synonyms = sum([len(self.answer_synonyms[answer]) for answer in self.answer_synonyms])
+        self.num_answer_synonyms = sum([len(self.answer_synonyms[answer_key]) for answer_key in self.answer_synonyms])
         self._max_tree_depth = None
         self._max_node_degree = None
 
@@ -127,7 +127,7 @@ class GraphDataset:
         print("- loaded original data:", self._should_load_original_data(augmentation))
         print("- loaded generated data:", self._should_load_generated_data(augmentation))
         print("- question limit:", question_limit, " - maximum loaded: ", max([len(node.questions) for node in self.node_list]))
-        print("- answer limit:", answer_limit, " - maximum loaded: ", max([len(self.answer_synonyms[answer]) for answer in self.answer_synonyms]))
+        print("- answer limit:", answer_limit, " - maximum loaded: ", max([len(self.answer_synonyms[answer_key]) for answer_key in self.answer_synonyms]))
 
     def _should_load_original_data(self, augmentation: DataAugmentationLevel) -> bool:
         return augmentation in [DataAugmentationLevel.NONE, DataAugmentationLevel.MIXED]
@@ -141,7 +141,14 @@ class GraphDataset:
             data = json.load(f)
 
             self.nodes_by_key: Dict[str, DialogNode] = {}
-            self.nodes_by_type: Dict[NodeType, List[DialogNode]] = {}
+            self.nodes_by_type: Dict[NodeType, List[DialogNode]] = {
+                NodeType.INFO: [],
+                NodeType.LOGIC: [],
+                NodeType.QUESTION: [],
+                NodeType.START: [],
+                NodeType.VARIABLE: [],
+                NodeType.VARIABLE_UPDATE: []
+            }
             self.node_list: List[DialogNode] = []
             self.answers_by_key: Dict[str, Answer] = {}
             self.questions_by_key: Dict[str, Question] = {}
@@ -158,8 +165,6 @@ class GraphDataset:
                                 connected_node=None)
                 assert not node.key in self.nodes_by_key, f"Node {node.key} already in dataset"
                 self.nodes_by_key[node.key] = node
-                if not node.node_type in self.nodes_by_type:
-                    self.nodes_by_type[node.node_type] = []
                 self.nodes_by_type[node.node_type].append(node)
                 self.node_list.append(node)
                 if node.node_type == NodeType.START:
@@ -174,7 +179,7 @@ class GraphDataset:
                         connected_node=None,
                         parent=node) # store answers in correct order
                     node.answers.append(answer)
-                    self.answers_by_key[answer.key] = answer
+                    self.answers_by_key[int(answer.key)] = answer
                 # sort answers
                 node.answers.sort(key=lambda ans: ans.index)
                 
@@ -218,24 +223,24 @@ class GraphDataset:
     def _load_answer_synonyms(self, resource_dir: str, answer_path: str, use_answer_synonyms: bool, augmentation: DataAugmentationLevel, augmentation_path: str, answer_limit: int):
         # load synonyms
         with open(answer_path, "r") as f:
-            answers = json.load(f)
-            answer_data = {answer.lower(): answers[answer] for answer in answers}
+            data = json.load(f)
+            answer_data = {int(key): data[key] for key in data}
             if not use_answer_synonyms or augmentation == DataAugmentationLevel.ARTIFICIAL_ONLY:
                 if not use_answer_synonyms:
                     print("- not using synonyms")
                 else:
                     print("- only artificial answers")
                 # key is also the only possible value
-                answer_data = {answer.lower(): [answer] for answer in answer_data}
+                answer_data = {int(key): [self.answers_by_key[int(key)].text] for key in answer_data}   
         if use_answer_synonyms and self._should_load_generated_data(augmentation):
             answer_augmentation_path = f"{resource_dir}/{os.path.dirname(augmentation_path)}/train_answers.json"
             with open(answer_augmentation_path, "r") as f:
                 print(f"Loading augmentation answers from {answer_augmentation_path}")
                 generated_answers = json.load(f)
-                for key in generated_answers:
-                    for syn in generated_answers[key.lower()]:
-                        if answer_limit == 0 or (answer_limit > 0 and len(answer_data[key.lower()]) < answer_limit):
-                            answer_data[key.lower()].append(syn)
+                for answer_key in generated_answers:
+                    for syn in generated_answers[answer_key]:
+                        if answer_limit == 0 or (answer_limit > 0 and len(answer_data[int(answer_key)]) < answer_limit):
+                            answer_data[int(answer_key)].append(syn)
         return answer_data
 
     def _calculate_action_masks(self) -> Dict[int, torch.IntTensor]:
@@ -375,7 +380,7 @@ class StandardGraphDataset(GraphDataset):
 
     def _load_answer_synonyms(self, resource_dir: str, answer_path: str, use_answer_synonyms: bool, augmentation: DataAugmentationLevel, augmentation_path: str, answer_limit: int):
         # we don't have synonyms here - extract answers from graph file instead (answer_path == train graph!)
-        answer_data = {answer.text.lower(): [answer.text] for answer in self.answers_by_key.values()} # key is also the only possible value
+        answer_data = {int(answer.key): [answer.text] for answer in self.answers_by_key.values()} # key is also the only possible value
         if not use_answer_synonyms or augmentation == DataAugmentationLevel.ARTIFICIAL_ONLY:
             if not use_answer_synonyms:
                 print("- not using synonyms")
@@ -386,10 +391,9 @@ class StandardGraphDataset(GraphDataset):
             with open(answer_augmentation_path, "r") as f:
                 print(f"Loading augmentation answers from {answer_augmentation_path}")
                 generated_answers = json.load(f)
-                for key in generated_answers:
-                    for syn in generated_answers[key.lower()]:
-                        if answer_limit == 0 or (answer_limit > 0 and len(answer_data[key.lower()]) < answer_limit):
-                            answer_data[key].append(syn)
+                for answer_key in generated_answers:
+                    for syn in generated_answers[answer_key]:
+                        if answer_limit == 0 or (answer_limit > 0 and len(answer_data[int(answer_key)]) < answer_limit):
+                            answer_data[int(answer_key)].append(syn)
         return answer_data
 
-   

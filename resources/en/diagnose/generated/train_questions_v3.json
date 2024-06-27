@@ -1,28 +1,4 @@
 {
-    "16971439327255433": {
-        "context": "node",
-        "dialog_node_key": 16971222807189682,
-        "key": "16971439327255433",
-        "text": "What is the purpose of the symptom checker bot?",
-        "node_text": "Welcome to the symptom checker bot! I hope I can help you understand what symptoms you have, but please understand that I cannot give any medical advice, and when in doubt, you should always contact your healthcare provider.",
-        "node_type": "infoNode"
-    },
-    "16971439327255569": {
-        "context": "node",
-        "dialog_node_key": 16971222807189682,
-        "key": "16971439327255569",
-        "text": "Can the symptom checker bot provide medical advice?",
-        "node_text": "Welcome to the symptom checker bot! I hope I can help you understand what symptoms you have, but please understand that I cannot give any medical advice, and when in doubt, you should always contact your healthcare provider.",
-        "node_type": "infoNode"
-    },
-    "16971439327255592": {
-        "context": "node",
-        "dialog_node_key": 16971222807189682,
-        "key": "16971439327255592",
-        "text": "What should you do if you're unsure about your symptoms?",
-        "node_text": "Welcome to the symptom checker bot! I hope I can help you understand what symptoms you have, but please understand that I cannot give any medical advice, and when in doubt, you should always contact your healthcare provider.",
-        "node_type": "infoNode"
-    },
     "1697144227289305": {
         "context": "node",
         "dialog_node_key": 16971227852021367,

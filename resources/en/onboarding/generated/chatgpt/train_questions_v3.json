@@ -4,7 +4,7 @@
         "context": "ner",
         "entity": "one",
         "dialog_node_key": 16939955837353087,
-        "node_text": "For short stays, consider looking into one of the city's many hostels or hotels, which can be booked on a per night basis. Prices should start in the rnage of 40-150 euros per night.",
+        "node_text": "For short stays, consider looking into one of the city's many hostels or hotels, which can be booked on a per night basis. Prices should start in the range of 40-150 euros per night.",
         "text": "How much does a one-night stay at a hostel or hotel in the city typically cost?"
     },
     "16971374529290648": {
@@ -12,7 +12,7 @@
         "context": "ner",
         "entity": "one",
         "dialog_node_key": 16939955837353087,
-        "node_text": "For short stays, consider looking into one of the city's many hostels or hotels, which can be booked on a per night basis. Prices should start in the rnage of 40-150 euros per night.",
+        "node_text": "For short stays, consider looking into one of the city's many hostels or hotels, which can be booked on a per night basis. Prices should start in the range of 40-150 euros per night.",
         "text": "What is the price range for a per night stay at one of the city's hostels or hotels?"
     },
     "16971374529290667": {
@@ -20,7 +20,7 @@
         "context": "ner",
         "entity": "one",
         "dialog_node_key": 16939955837353087,
-        "node_text": "For short stays, consider looking into one of the city's many hostels or hotels, which can be booked on a per night basis. Prices should start in the rnage of 40-150 euros per night.",
+        "node_text": "For short stays, consider looking into one of the city's many hostels or hotels, which can be booked on a per night basis. Prices should start in the range of 40-150 euros per night.",
         "text": "Where can one find affordable short-term accommodations in the city?"
     },
     "16971374598676958": {
@@ -28,7 +28,7 @@
         "context": "ner",
         "entity": "40-150 euros",
         "dialog_node_key": 16939955837353087,
-        "node_text": "For short stays, consider looking into one of the city's many hostels or hotels, which can be booked on a per night basis. Prices should start in the rnage of 40-150 euros per night.",
+        "node_text": "For short stays, consider looking into one of the city's many hostels or hotels, which can be booked on a per night basis. Prices should start in the range of 40-150 euros per night.",
         "text": "What is the price range for short stays in the city's hostels or hotels?"
     },
     "16971374598677058": {
@@ -36,7 +36,7 @@
         "context": "ner",
         "entity": "40-150 euros",
         "dialog_node_key": 16939955837353087,
-        "node_text": "For short stays, consider looking into one of the city's many hostels or hotels, which can be booked on a per night basis. Prices should start in the rnage of 40-150 euros per night.",
+        "node_text": "For short stays, consider looking into one of the city's many hostels or hotels, which can be booked on a per night basis. Prices should start in the range of 40-150 euros per night.",
         "text": "How much can one expect to pay per night for a stay in one of the city's hostels or hotels?"
     },
     "16971374598677087": {
@@ -44,35 +44,35 @@
         "context": "ner",
         "entity": "40-150 euros",
         "dialog_node_key": 16939955837353087,
-        "node_text": "For short stays, consider looking into one of the city's many hostels or hotels, which can be booked on a per night basis. Prices should start in the rnage of 40-150 euros per night.",
+        "node_text": "For short stays, consider looking into one of the city's many hostels or hotels, which can be booked on a per night basis. Prices should start in the range of 40-150 euros per night.",
         "text": "Between what price range can accommodations in the city's hostels or hotels be booked for per night stays?"
     },
     "16971374656648512": {
         "key": "16971374656648512",
         "context": "node",
         "dialog_node_key": 16939955837353087,
-        "node_text": "For short stays, consider looking into one of the city's many hostels or hotels, which can be booked on a per night basis. Prices should start in the rnage of 40-150 euros per night.",
+        "node_text": "For short stays, consider looking into one of the city's many hostels or hotels, which can be booked on a per night basis. Prices should start in the range of 40-150 euros per night.",
         "text": "What are some options for short stays in the city?"
     },
     "16971374656648624": {
         "key": "16971374656648624",
         "context": "node",
         "dialog_node_key": 16939955837353087,
-        "node_text": "For short stays, consider looking into one of the city's many hostels or hotels, which can be booked on a per night basis. Prices should start in the rnage of 40-150 euros per night.",
+        "node_text": "For short stays, consider looking into one of the city's many hostels or hotels, which can be booked on a per night basis. Prices should start in the range of 40-150 euros per night.",
         "text": "How much do hostels or hotels typically charge per night?"
     },
     "16971374656648662": {
         "key": "16971374656648662",
         "context": "node",
         "dialog_node_key": 16939955837353087,
-        "node_text": "For short stays, consider looking into one of the city's many hostels or hotels, which can be booked on a per night basis. Prices should start in the rnage of 40-150 euros per night.",
+        "node_text": "For short stays, consider looking into one of the city's many hostels or hotels, which can be booked on a per night basis. Prices should start in the range of 40-150 euros per night.",
         "text": "Where can I find affordable accommodation for short stays?"
     },
     "16971374656648695": {
         "key": "16971374656648695",
         "context": "node",
         "dialog_node_key": 16939955837353087,
-        "node_text": "For short stays, consider looking into one of the city's many hostels or hotels, which can be booked on a per night basis. Prices should start in the rnage of 40-150 euros per night.",
+        "node_text": "For short stays, consider looking into one of the city's many hostels or hotels, which can be booked on a per night basis. Prices should start in the range of 40-150 euros per night.",
         "text": "What is the price range for staying in hostels or hotels in the city?"
     },
     "16971374718535798": {
@@ -524,7 +524,7 @@
         "context": "ner",
         "entity": "Germany",
         "dialog_node_key": 16940030269022060,
-        "node_text": "As a note: anyone staying in Germany for longer than 90 days is required to register with the residents ' registration office [Bu\u0308rgerbu\u0308ro] in their place of residence within fourteen days upon arrival.",
+        "node_text": "As a note: anyone staying in Germany for longer than 90 days is required to register with the residents ' registration office [Bürgerbüro] in their place of residence within fourteen days upon arrival.",
         "text": "What is the time frame for registering with the residents' registration office in Germany?"
     },
     "1697137571144543": {
@@ -532,7 +532,7 @@
         "context": "ner",
         "entity": "Germany",
         "dialog_node_key": 16940030269022060,
-        "node_text": "As a note: anyone staying in Germany for longer than 90 days is required to register with the residents ' registration office [Bu\u0308rgerbu\u0308ro] in their place of residence within fourteen days upon arrival.",
+        "node_text": "As a note: anyone staying in Germany for longer than 90 days is required to register with the residents ' registration office [Bürgerbüro] in their place of residence within fourteen days upon arrival.",
         "text": "Who is required to register with the residents' registration office in Germany?"
     },
     "16971375711445448": {
@@ -540,7 +540,7 @@
         "context": "ner",
         "entity": "Germany",
         "dialog_node_key": 16940030269022060,
-        "node_text": "As a note: anyone staying in Germany for longer than 90 days is required to register with the residents ' registration office [Bu\u0308rgerbu\u0308ro] in their place of residence within fourteen days upon arrival.",
+        "node_text": "As a note: anyone staying in Germany for longer than 90 days is required to register with the residents ' registration office [Bürgerbüro] in their place of residence within fourteen days upon arrival.",
         "text": "What is the purpose of registering with the residents' registration office in Germany?"
     },
     "1697137579452447": {
@@ -548,7 +548,7 @@
         "context": "ner",
         "entity": "longer than 90 days",
         "dialog_node_key": 16940030269022060,
-        "node_text": "As a note: anyone staying in Germany for longer than 90 days is required to register with the residents ' registration office [Bu\u0308rgerbu\u0308ro] in their place of residence within fourteen days upon arrival.",
+        "node_text": "As a note: anyone staying in Germany for longer than 90 days is required to register with the residents ' registration office [Bürgerbüro] in their place of residence within fourteen days upon arrival.",
         "text": "How long can someone stay in Germany without having to register with the residents' registration office?"
     },
     "1697137579452456": {
@@ -556,7 +556,7 @@
         "context": "ner",
         "entity": "longer than 90 days",
         "dialog_node_key": 16940030269022060,
-        "node_text": "As a note: anyone staying in Germany for longer than 90 days is required to register with the residents ' registration office [Bu\u0308rgerbu\u0308ro] in their place of residence within fourteen days upon arrival.",
+        "node_text": "As a note: anyone staying in Germany for longer than 90 days is required to register with the residents ' registration office [Bürgerbüro] in their place of residence within fourteen days upon arrival.",
         "text": "What is the time frame within which individuals must register with the residents' registration office in Germany if they plan to stay longer than 90 days?"
     },
     "16971375794524581": {
@@ -564,39 +564,39 @@
         "context": "ner",
         "entity": "longer than 90 days",
         "dialog_node_key": 16940030269022060,
-        "node_text": "As a note: anyone staying in Germany for longer than 90 days is required to register with the residents ' registration office [Bu\u0308rgerbu\u0308ro] in their place of residence within fourteen days upon arrival.",
+        "node_text": "As a note: anyone staying in Germany for longer than 90 days is required to register with the residents ' registration office [Bürgerbüro] in their place of residence within fourteen days upon arrival.",
         "text": "Is it mandatory for all individuals intending to stay longer than 90 days in Germany to register with the residents' registration office?"
     },
     "1697137588133235": {
         "key": "1697137588133235",
         "context": "ner",
-        "entity": "Bu\u0308rgerbu\u0308ro",
+        "entity": "Bürgerbüro",
         "dialog_node_key": 16940030269022060,
-        "node_text": "As a note: anyone staying in Germany for longer than 90 days is required to register with the residents ' registration office [Bu\u0308rgerbu\u0308ro] in their place of residence within fourteen days upon arrival.",
-        "text": "How long do I have to register with the Bu\u0308rgerbu\u0308ro in Germany if I plan on staying for more than 90 days?"
+        "node_text": "As a note: anyone staying in Germany for longer than 90 days is required to register with the residents ' registration office [Bürgerbüro] in their place of residence within fourteen days upon arrival.",
+        "text": "How long do I have to register with the Bürgerbüro in Germany if I plan on staying for more than 90 days?"
     },
     "16971375881332464": {
         "key": "16971375881332464",
         "context": "ner",
-        "entity": "Bu\u0308rgerbu\u0308ro",
+        "entity": "Bürgerbüro",
         "dialog_node_key": 16940030269022060,
-        "node_text": "As a note: anyone staying in Germany for longer than 90 days is required to register with the residents ' registration office [Bu\u0308rgerbu\u0308ro] in their place of residence within fourteen days upon arrival.",
+        "node_text": "As a note: anyone staying in Germany for longer than 90 days is required to register with the residents ' registration office [Bürgerbüro] in their place of residence within fourteen days upon arrival.",
         "text": "Where am I supposed to register if I stay in Germany for longer than 90 days?"
     },
     "16971375881332483": {
         "key": "16971375881332483",
         "context": "ner",
-        "entity": "Bu\u0308rgerbu\u0308ro",
+        "entity": "Bürgerbüro",
         "dialog_node_key": 16940030269022060,
-        "node_text": "As a note: anyone staying in Germany for longer than 90 days is required to register with the residents ' registration office [Bu\u0308rgerbu\u0308ro] in their place of residence within fourteen days upon arrival.",
-        "text": "What is the purpose of the residents' registration office, also known as the Bu\u0308rgerbu\u0308ro, in Germany?"
+        "node_text": "As a note: anyone staying in Germany for longer than 90 days is required to register with the residents ' registration office [Bürgerbüro] in their place of residence within fourteen days upon arrival.",
+        "text": "What is the purpose of the residents' registration office, also known as the Bürgerbüro, in Germany?"
     },
     "169713759535766": {
         "key": "169713759535766",
         "context": "ner",
         "entity": "fourteen days",
         "dialog_node_key": 16940030269022060,
-        "node_text": "As a note: anyone staying in Germany for longer than 90 days is required to register with the residents ' registration office [Bu\u0308rgerbu\u0308ro] in their place of residence within fourteen days upon arrival.",
+        "node_text": "As a note: anyone staying in Germany for longer than 90 days is required to register with the residents ' registration office [Bürgerbüro] in their place of residence within fourteen days upon arrival.",
         "text": "How long is the grace period for registering with the residents' registration office in Germany?"
     },
     "16971375953576686": {
@@ -604,7 +604,7 @@
         "context": "ner",
         "entity": "fourteen days",
         "dialog_node_key": 16940030269022060,
-        "node_text": "As a note: anyone staying in Germany for longer than 90 days is required to register with the residents ' registration office [Bu\u0308rgerbu\u0308ro] in their place of residence within fourteen days upon arrival.",
+        "node_text": "As a note: anyone staying in Germany for longer than 90 days is required to register with the residents ' registration office [Bürgerbüro] in their place of residence within fourteen days upon arrival.",
         "text": "What is the maximum duration of stay in Germany before one must register with the residents' registration office?"
     },
     "1697137595357671": {
@@ -612,21 +612,21 @@
         "context": "ner",
         "entity": "fourteen days",
         "dialog_node_key": 16940030269022060,
-        "node_text": "As a note: anyone staying in Germany for longer than 90 days is required to register with the residents ' registration office [Bu\u0308rgerbu\u0308ro] in their place of residence within fourteen days upon arrival.",
+        "node_text": "As a note: anyone staying in Germany for longer than 90 days is required to register with the residents ' registration office [Bürgerbüro] in their place of residence within fourteen days upon arrival.",
         "text": "After how many days in Germany is it mandatory for individuals to register with the residents' registration office in their place of residence?"
     },
     "16971376009775093": {
         "key": "16971376009775093",
         "context": "node",
         "dialog_node_key": 16940030269022060,
-        "node_text": "As a note: anyone staying in Germany for longer than 90 days is required to register with the residents ' registration office [Bu\u0308rgerbu\u0308ro] in their place of residence within fourteen days upon arrival.",
+        "node_text": "As a note: anyone staying in Germany for longer than 90 days is required to register with the residents ' registration office [Bürgerbüro] in their place of residence within fourteen days upon arrival.",
         "text": "What is the time limit for registering with the residents' registration office in Germany?"
     },
     "16971376009775207": {
         "key": "16971376009775207",
         "context": "node",
         "dialog_node_key": 16940030269022060,
-        "node_text": "As a note: anyone staying in Germany for longer than 90 days is required to register with the residents ' registration office [Bu\u0308rgerbu\u0308ro] in their place of residence within fourteen days upon arrival.",
+        "node_text": "As a note: anyone staying in Germany for longer than 90 days is required to register with the residents ' registration office [Bürgerbüro] in their place of residence within fourteen days upon arrival.",
         "text": "What is the name of the office where residents in Germany need to register their residence?"
     },
     "16971376058238146": {
@@ -706,210 +706,210 @@
         "key": "16971376336984522",
         "context": "node",
         "dialog_node_key": 16940057750249450,
-        "node_text": "As a note, housing managment companies often require a credit check before allowing you to sign a rental contract.",
+        "node_text": "As a note, housing management companies often require a credit check before allowing you to sign a rental contract.",
         "text": "Why do housing management companies require a credit check before renting?"
     },
     "16971376336984594": {
         "key": "16971376336984594",
         "context": "node",
         "dialog_node_key": 16940057750249450,
-        "node_text": "As a note, housing managment companies often require a credit check before allowing you to sign a rental contract.",
+        "node_text": "As a note, housing management companies often require a credit check before allowing you to sign a rental contract.",
         "text": "What is the common requirement to sign a rental contract with housing management companies?"
     },
     "16971376336984615": {
         "key": "16971376336984615",
         "context": "node",
         "dialog_node_key": 16940057750249450,
-        "node_text": "As a note, housing managment companies often require a credit check before allowing you to sign a rental contract.",
+        "node_text": "As a note, housing management companies often require a credit check before allowing you to sign a rental contract.",
         "text": "What type of documentation do housing management companies typically request before signing a rental agreement?"
     },
     "16971376336984627": {
         "key": "16971376336984627",
         "context": "node",
         "dialog_node_key": 16940057750249450,
-        "node_text": "As a note, housing managment companies often require a credit check before allowing you to sign a rental contract.",
+        "node_text": "As a note, housing management companies often require a credit check before allowing you to sign a rental contract.",
         "text": "Do all housing management companies conduct credit checks before approving rental applications?"
     },
     "16971376336984642": {
         "key": "16971376336984642",
         "context": "node",
         "dialog_node_key": 16940057750249450,
-        "node_text": "As a note, housing managment companies often require a credit check before allowing you to sign a rental contract.",
+        "node_text": "As a note, housing management companies often require a credit check before allowing you to sign a rental contract.",
         "text": "Can a person rent a property without undergoing a credit check by the housing management company?"
     },
     "16971376336984656": {
         "key": "16971376336984656",
         "context": "node",
         "dialog_node_key": 16940057750249450,
-        "node_text": "As a note, housing managment companies often require a credit check before allowing you to sign a rental contract.",
+        "node_text": "As a note, housing management companies often require a credit check before allowing you to sign a rental contract.",
         "text": "How does a credit check determine whether a person is allowed to sign a rental contract?"
     },
     "1697137633698467": {
         "key": "1697137633698467",
         "context": "node",
         "dialog_node_key": 16940057750249450,
-        "node_text": "As a note, housing managment companies often require a credit check before allowing you to sign a rental contract.",
+        "node_text": "As a note, housing management companies often require a credit check before allowing you to sign a rental contract.",
         "text": "Is the credit check a mandatory procedure for housing management companies when renting out their properties?"
     },
     "16971376336984684": {
         "key": "16971376336984684",
         "context": "node",
         "dialog_node_key": 16940057750249450,
-        "node_text": "As a note, housing managment companies often require a credit check before allowing you to sign a rental contract.",
+        "node_text": "As a note, housing management companies often require a credit check before allowing you to sign a rental contract.",
         "text": "Are there any alternative options to a credit check that housing management companies may consider before signing a rental contract?"
     },
     "16971376336984699": {
         "key": "16971376336984699",
         "context": "node",
         "dialog_node_key": 16940057750249450,
-        "node_text": "As a note, housing managment companies often require a credit check before allowing you to sign a rental contract.",
+        "node_text": "As a note, housing management companies often require a credit check before allowing you to sign a rental contract.",
         "text": "What are the potential risks of not passing a credit check for rental property?"
     },
     "16971376336984713": {
         "key": "16971376336984713",
         "context": "node",
         "dialog_node_key": 16940057750249450,
-        "node_text": "As a note, housing managment companies often require a credit check before allowing you to sign a rental contract.",
+        "node_text": "As a note, housing management companies often require a credit check before allowing you to sign a rental contract.",
         "text": "Is a good credit score the only factor that housing management companies consider before allowing someone to sign a rental contract?"
     },
     "16971376463738089": {
         "key": "16971376463738089",
         "context": "node",
         "dialog_node_key": 16940062976746793,
-        "node_text": " \n The registration office will provide you with a confirmation of your registration [Meldebesta\u0308tigung], which you will need for opening a bank account and for obtaining a residence permit (if applicable). \n ",
+        "node_text": " \n The registration office will provide you with a confirmation of your registration [Meldebestätigung], which you will need for opening a bank account and for obtaining a residence permit (if applicable). \n ",
         "text": "What document will I receive from the registration office?"
     },
     "169713764637382": {
         "key": "169713764637382",
         "context": "node",
         "dialog_node_key": 16940062976746793,
-        "node_text": " \n The registration office will provide you with a confirmation of your registration [Meldebesta\u0308tigung], which you will need for opening a bank account and for obtaining a residence permit (if applicable). \n ",
+        "node_text": " \n The registration office will provide you with a confirmation of your registration [Meldebestätigung], which you will need for opening a bank account and for obtaining a residence permit (if applicable). \n ",
         "text": "Why do I need a confirmation of registration?"
     },
     "1697137646373822": {
         "key": "1697137646373822",
         "context": "node",
         "dialog_node_key": 16940062976746793,
-        "node_text": " \n The registration office will provide you with a confirmation of your registration [Meldebesta\u0308tigung], which you will need for opening a bank account and for obtaining a residence permit (if applicable). \n ",
+        "node_text": " \n The registration office will provide you with a confirmation of your registration [Meldebestätigung], which you will need for opening a bank account and for obtaining a residence permit (if applicable). \n ",
         "text": "Which institutions require a confirmation of registration?"
     },
     "16971376463738234": {
         "key": "16971376463738234",
         "context": "node",
         "dialog_node_key": 16940062976746793,
-        "node_text": " \n The registration office will provide you with a confirmation of your registration [Meldebesta\u0308tigung], which you will need for opening a bank account and for obtaining a residence permit (if applicable). \n ",
+        "node_text": " \n The registration office will provide you with a confirmation of your registration [Meldebestätigung], which you will need for opening a bank account and for obtaining a residence permit (if applicable). \n ",
         "text": "What is the purpose of a confirmation of registration?"
     },
     "1697137646373825": {
         "key": "1697137646373825",
         "context": "node",
         "dialog_node_key": 16940062976746793,
-        "node_text": " \n The registration office will provide you with a confirmation of your registration [Meldebesta\u0308tigung], which you will need for opening a bank account and for obtaining a residence permit (if applicable). \n ",
+        "node_text": " \n The registration office will provide you with a confirmation of your registration [Meldebestätigung], which you will need for opening a bank account and for obtaining a residence permit (if applicable). \n ",
         "text": "Can I open a bank account without a confirmation of registration?"
     },
     "16971376463738267": {
         "key": "16971376463738267",
         "context": "node",
         "dialog_node_key": 16940062976746793,
-        "node_text": " \n The registration office will provide you with a confirmation of your registration [Meldebesta\u0308tigung], which you will need for opening a bank account and for obtaining a residence permit (if applicable). \n ",
+        "node_text": " \n The registration office will provide you with a confirmation of your registration [Meldebestätigung], which you will need for opening a bank account and for obtaining a residence permit (if applicable). \n ",
         "text": "How can a confirmation of registration help me obtain a residence permit?"
     },
     "16971376463738284": {
         "key": "16971376463738284",
         "context": "node",
         "dialog_node_key": 16940062976746793,
-        "node_text": " \n The registration office will provide you with a confirmation of your registration [Meldebesta\u0308tigung], which you will need for opening a bank account and for obtaining a residence permit (if applicable). \n ",
+        "node_text": " \n The registration office will provide you with a confirmation of your registration [Meldebestätigung], which you will need for opening a bank account and for obtaining a residence permit (if applicable). \n ",
         "text": "Do I need a confirmation of registration for a temporary residence permit?"
     },
     "16971376463738296": {
         "key": "16971376463738296",
         "context": "node",
         "dialog_node_key": 16940062976746793,
-        "node_text": " \n The registration office will provide you with a confirmation of your registration [Meldebesta\u0308tigung], which you will need for opening a bank account and for obtaining a residence permit (if applicable). \n ",
+        "node_text": " \n The registration office will provide you with a confirmation of your registration [Meldebestätigung], which you will need for opening a bank account and for obtaining a residence permit (if applicable). \n ",
         "text": "Is a confirmation of registration mandatory for all residents?"
     },
     "16971376463738317": {
         "key": "16971376463738317",
         "context": "node",
         "dialog_node_key": 16940062976746793,
-        "node_text": " \n The registration office will provide you with a confirmation of your registration [Meldebesta\u0308tigung], which you will need for opening a bank account and for obtaining a residence permit (if applicable). \n ",
+        "node_text": " \n The registration office will provide you with a confirmation of your registration [Meldebestätigung], which you will need for opening a bank account and for obtaining a residence permit (if applicable). \n ",
         "text": "What is the official term for a confirmation of registration?"
     },
     "1697137646373833": {
         "key": "1697137646373833",
         "context": "node",
         "dialog_node_key": 16940062976746793,
-        "node_text": " \n The registration office will provide you with a confirmation of your registration [Meldebesta\u0308tigung], which you will need for opening a bank account and for obtaining a residence permit (if applicable). \n ",
+        "node_text": " \n The registration office will provide you with a confirmation of your registration [Meldebestätigung], which you will need for opening a bank account and for obtaining a residence permit (if applicable). \n ",
         "text": "Are there any benefits to having a confirmation of registration?"
     },
     "1697137660971365": {
         "key": "1697137660971365",
         "context": "node",
         "dialog_node_key": 16940067542712571,
-        "node_text": " \n You can fill out the application form at home, but you must submit it in person at any one of the registration offiices in the city. \n You can find a list of offices and a projection of the current waiting time here. \n ",
+        "node_text": " \n You can fill out the application form at home, but you must submit it in person at any one of the registration offices in the city. \n You can find a list of offices and a projection of the current waiting time here. \n ",
         "text": "Can I fill out the application form from home?"
     },
     "16971376609713736": {
         "key": "16971376609713736",
         "context": "node",
         "dialog_node_key": 16940067542712571,
-        "node_text": " \n You can fill out the application form at home, but you must submit it in person at any one of the registration offiices in the city. \n You can find a list of offices and a projection of the current waiting time here. \n ",
+        "node_text": " \n You can fill out the application form at home, but you must submit it in person at any one of the registration offices in the city. \n You can find a list of offices and a projection of the current waiting time here. \n ",
         "text": "Do I have to submit the application form in person?"
     },
     "16971376609713755": {
         "key": "16971376609713755",
         "context": "node",
         "dialog_node_key": 16940067542712571,
-        "node_text": " \n You can fill out the application form at home, but you must submit it in person at any one of the registration offiices in the city. \n You can find a list of offices and a projection of the current waiting time here. \n ",
+        "node_text": " \n You can fill out the application form at home, but you must submit it in person at any one of the registration offices in the city. \n You can find a list of offices and a projection of the current waiting time here. \n ",
         "text": "Where can I find a list of registration offices in the city?"
     },
     "1697137660971377": {
         "key": "1697137660971377",
         "context": "node",
         "dialog_node_key": 16940067542712571,
-        "node_text": " \n You can fill out the application form at home, but you must submit it in person at any one of the registration offiices in the city. \n You can find a list of offices and a projection of the current waiting time here. \n ",
+        "node_text": " \n You can fill out the application form at home, but you must submit it in person at any one of the registration offices in the city. \n You can find a list of offices and a projection of the current waiting time here. \n ",
         "text": "Can I submit the application form online?"
     },
     "16971376609713783": {
         "key": "16971376609713783",
         "context": "node",
         "dialog_node_key": 16940067542712571,
-        "node_text": " \n You can fill out the application form at home, but you must submit it in person at any one of the registration offiices in the city. \n You can find a list of offices and a projection of the current waiting time here. \n ",
+        "node_text": " \n You can fill out the application form at home, but you must submit it in person at any one of the registration offices in the city. \n You can find a list of offices and a projection of the current waiting time here. \n ",
         "text": "Is there a way to know the current waiting time at the registration offices?"
     },
     "169713766097138": {
         "key": "169713766097138",
         "context": "node",
         "dialog_node_key": 16940067542712571,
-        "node_text": " \n You can fill out the application form at home, but you must submit it in person at any one of the registration offiices in the city. \n You can find a list of offices and a projection of the current waiting time here. \n ",
+        "node_text": " \n You can fill out the application form at home, but you must submit it in person at any one of the registration offices in the city. \n You can find a list of offices and a projection of the current waiting time here. \n ",
         "text": "Do I need to go to a specific registration office or can I choose any?"
     },
     "16971376609713814": {
         "key": "16971376609713814",
         "context": "node",
         "dialog_node_key": 16940067542712571,
-        "node_text": " \n You can fill out the application form at home, but you must submit it in person at any one of the registration offiices in the city. \n You can find a list of offices and a projection of the current waiting time here. \n ",
+        "node_text": " \n You can fill out the application form at home, but you must submit it in person at any one of the registration offices in the city. \n You can find a list of offices and a projection of the current waiting time here. \n ",
         "text": "Can I submit the application form through mail or email?"
     },
     "1697137660971383": {
         "key": "1697137660971383",
         "context": "node",
         "dialog_node_key": 16940067542712571,
-        "node_text": " \n You can fill out the application form at home, but you must submit it in person at any one of the registration offiices in the city. \n You can find a list of offices and a projection of the current waiting time here. \n ",
+        "node_text": " \n You can fill out the application form at home, but you must submit it in person at any one of the registration offices in the city. \n You can find a list of offices and a projection of the current waiting time here. \n ",
         "text": "Is it possible to check the waiting time at the registration offices before going?"
     },
     "16971376609713845": {
         "key": "16971376609713845",
         "context": "node",
         "dialog_node_key": 16940067542712571,
-        "node_text": " \n You can fill out the application form at home, but you must submit it in person at any one of the registration offiices in the city. \n You can find a list of offices and a projection of the current waiting time here. \n ",
+        "node_text": " \n You can fill out the application form at home, but you must submit it in person at any one of the registration offices in the city. \n You can find a list of offices and a projection of the current waiting time here. \n ",
         "text": "Can I fill out the application form at the registration offices?"
     },
     "16971376609713864": {
         "key": "16971376609713864",
         "context": "node",
         "dialog_node_key": 16940067542712571,
-        "node_text": " \n You can fill out the application form at home, but you must submit it in person at any one of the registration offiices in the city. \n You can find a list of offices and a projection of the current waiting time here. \n ",
+        "node_text": " \n You can fill out the application form at home, but you must submit it in person at any one of the registration offices in the city. \n You can find a list of offices and a projection of the current waiting time here. \n ",
         "text": "Are there any alternatives to submitting the application form in person?"
     },
     "16971376690081973": {
@@ -1466,70 +1466,70 @@
         "key": "16971378248895924",
         "context": "node",
         "dialog_node_key": 16940105542993511,
-        "node_text": "You can apply for housing before you are admitted to a university, but must provide proof of acceptance before you can finalise your contract",
+        "node_text": "You can apply for housing before you are admitted to a university, but must provide proof of acceptance before you can finalize your contract",
         "text": "Can I apply for housing before being admitted to a university?"
     },
     "16971378248896005": {
         "key": "16971378248896005",
         "context": "node",
         "dialog_node_key": 16940105542993511,
-        "node_text": "You can apply for housing before you are admitted to a university, but must provide proof of acceptance before you can finalise your contract",
+        "node_text": "You can apply for housing before you are admitted to a university, but must provide proof of acceptance before you can finalize your contract",
         "text": "Is it possible to finalize a housing contract prior to receiving a university acceptance letter?"
     },
     "16971378248896027": {
         "key": "16971378248896027",
         "context": "node",
         "dialog_node_key": 16940105542993511,
-        "node_text": "You can apply for housing before you are admitted to a university, but must provide proof of acceptance before you can finalise your contract",
+        "node_text": "You can apply for housing before you are admitted to a university, but must provide proof of acceptance before you can finalize your contract",
         "text": "Do I need to provide proof of acceptance to secure a housing contract?"
     },
     "16971378248896039": {
         "key": "16971378248896039",
         "context": "node",
         "dialog_node_key": 16940105542993511,
-        "node_text": "You can apply for housing before you are admitted to a university, but must provide proof of acceptance before you can finalise your contract",
+        "node_text": "You can apply for housing before you are admitted to a university, but must provide proof of acceptance before you can finalize your contract",
         "text": "Can I apply for housing without having confirmation of admission from the university?"
     },
     "16971378248896053": {
         "key": "16971378248896053",
         "context": "node",
         "dialog_node_key": 16940105542993511,
-        "node_text": "You can apply for housing before you are admitted to a university, but must provide proof of acceptance before you can finalise your contract",
+        "node_text": "You can apply for housing before you are admitted to a university, but must provide proof of acceptance before you can finalize your contract",
         "text": "What is the process for applying for housing before being accepted to a university?"
     },
     "16971378248896067": {
         "key": "16971378248896067",
         "context": "node",
         "dialog_node_key": 16940105542993511,
-        "node_text": "You can apply for housing before you are admitted to a university, but must provide proof of acceptance before you can finalise your contract",
+        "node_text": "You can apply for housing before you are admitted to a university, but must provide proof of acceptance before you can finalize your contract",
         "text": "Are there any requirements to submit proof of acceptance in order to secure a housing contract?"
     },
     "16971378248896081": {
         "key": "16971378248896081",
         "context": "node",
         "dialog_node_key": 16940105542993511,
-        "node_text": "You can apply for housing before you are admitted to a university, but must provide proof of acceptance before you can finalise your contract",
+        "node_text": "You can apply for housing before you are admitted to a university, but must provide proof of acceptance before you can finalize your contract",
         "text": "Is it necessary to have a university acceptance letter to apply for housing?"
     },
     "16971378248896096": {
         "key": "16971378248896096",
         "context": "node",
         "dialog_node_key": 16940105542993511,
-        "node_text": "You can apply for housing before you are admitted to a university, but must provide proof of acceptance before you can finalise your contract",
+        "node_text": "You can apply for housing before you are admitted to a university, but must provide proof of acceptance before you can finalize your contract",
         "text": "Can I reserve housing accommodations without having official confirmation of admission?"
     },
     "1697137824889611": {
         "key": "1697137824889611",
         "context": "node",
         "dialog_node_key": 16940105542993511,
-        "node_text": "You can apply for housing before you are admitted to a university, but must provide proof of acceptance before you can finalise your contract",
+        "node_text": "You can apply for housing before you are admitted to a university, but must provide proof of acceptance before you can finalize your contract",
         "text": "How does the housing application process work if I haven't received acceptance from the university yet?"
     },
     "16971378248896124": {
         "key": "16971378248896124",
         "context": "node",
         "dialog_node_key": 16940105542993511,
-        "node_text": "You can apply for housing before you are admitted to a university, but must provide proof of acceptance before you can finalise your contract",
+        "node_text": "You can apply for housing before you are admitted to a university, but must provide proof of acceptance before you can finalize your contract",
         "text": "Do I need proof of acceptance in order to sign a contract for student housing?"
     },
     "16971378314273179": {
@@ -1853,70 +1853,70 @@
         "key": "16971379224130542",
         "context": "node",
         "dialog_node_key": 16940128782255012,
-        "node_text": " \n As proof of your identity please present your passport and your moving-in letter at the caretaker 's office [Hausmeisterbu\u0308ro] \n ",
+        "node_text": " \n As proof of your identity please present your passport and your moving-in letter at the caretaker 's office [Hausmeisterbüro] \n ",
         "text": "What documents are required to prove your identity at the caretaker's office?"
     },
     "16971379224130652": {
         "key": "16971379224130652",
         "context": "node",
         "dialog_node_key": 16940128782255012,
-        "node_text": " \n As proof of your identity please present your passport and your moving-in letter at the caretaker 's office [Hausmeisterbu\u0308ro] \n ",
+        "node_text": " \n As proof of your identity please present your passport and your moving-in letter at the caretaker 's office [Hausmeisterbüro] \n ",
         "text": "Where should you go to present your passport and moving-in letter?"
     },
     "1697137922413067": {
         "key": "1697137922413067",
         "context": "node",
         "dialog_node_key": 16940128782255012,
-        "node_text": " \n As proof of your identity please present your passport and your moving-in letter at the caretaker 's office [Hausmeisterbu\u0308ro] \n ",
+        "node_text": " \n As proof of your identity please present your passport and your moving-in letter at the caretaker 's office [Hausmeisterbüro] \n ",
         "text": "What is the purpose of presenting your passport and moving-in letter at the caretaker's office?"
     },
     "16971379224130685": {
         "key": "16971379224130685",
         "context": "node",
         "dialog_node_key": 16940128782255012,
-        "node_text": " \n As proof of your identity please present your passport and your moving-in letter at the caretaker 's office [Hausmeisterbu\u0308ro] \n ",
+        "node_text": " \n As proof of your identity please present your passport and your moving-in letter at the caretaker 's office [Hausmeisterbüro] \n ",
         "text": "Which specific office should you visit to provide proof of identity?"
     },
     "169713792241307": {
         "key": "169713792241307",
         "context": "node",
         "dialog_node_key": 16940128782255012,
-        "node_text": " \n As proof of your identity please present your passport and your moving-in letter at the caretaker 's office [Hausmeisterbu\u0308ro] \n ",
+        "node_text": " \n As proof of your identity please present your passport and your moving-in letter at the caretaker 's office [Hausmeisterbüro] \n ",
         "text": "Can you present alternative documents instead of your passport and moving-in letter?"
     },
     "16971379224130716": {
         "key": "16971379224130716",
         "context": "node",
         "dialog_node_key": 16940128782255012,
-        "node_text": " \n As proof of your identity please present your passport and your moving-in letter at the caretaker 's office [Hausmeisterbu\u0308ro] \n ",
+        "node_text": " \n As proof of your identity please present your passport and your moving-in letter at the caretaker 's office [Hausmeisterbüro] \n ",
         "text": "Is it mandatory to visit the caretaker's office to prove your identity?"
     },
     "1697137922413073": {
         "key": "1697137922413073",
         "context": "node",
         "dialog_node_key": 16940128782255012,
-        "node_text": " \n As proof of your identity please present your passport and your moving-in letter at the caretaker 's office [Hausmeisterbu\u0308ro] \n ",
+        "node_text": " \n As proof of your identity please present your passport and your moving-in letter at the caretaker 's office [Hausmeisterbüro] \n ",
         "text": "What actions are necessary after presenting your passport and moving-in letter to the caretaker's office?"
     },
     "16971379224130747": {
         "key": "16971379224130747",
         "context": "node",
         "dialog_node_key": 16940128782255012,
-        "node_text": " \n As proof of your identity please present your passport and your moving-in letter at the caretaker 's office [Hausmeisterbu\u0308ro] \n ",
+        "node_text": " \n As proof of your identity please present your passport and your moving-in letter at the caretaker 's office [Hausmeisterbüro] \n ",
         "text": "Why is presenting a moving-in letter necessary in addition to a passport?"
     },
     "1697137922413076": {
         "key": "1697137922413076",
         "context": "node",
         "dialog_node_key": 16940128782255012,
-        "node_text": " \n As proof of your identity please present your passport and your moving-in letter at the caretaker 's office [Hausmeisterbu\u0308ro] \n ",
+        "node_text": " \n As proof of your identity please present your passport and your moving-in letter at the caretaker 's office [Hausmeisterbüro] \n ",
         "text": "Are there any specific requirements for the passport that you need to present at the caretaker's office?"
     },
     "16971379224130776": {
         "key": "16971379224130776",
         "context": "node",
         "dialog_node_key": 16940128782255012,
-        "node_text": " \n As proof of your identity please present your passport and your moving-in letter at the caretaker 's office [Hausmeisterbu\u0308ro] \n ",
+        "node_text": " \n As proof of your identity please present your passport and your moving-in letter at the caretaker 's office [Hausmeisterbüro] \n ",
         "text": "Can someone else present your passport and moving-in letter on your behalf at the caretaker's office?"
     },
     "16971379312951043": {
@@ -1924,7 +1924,7 @@
         "context": "ner",
         "entity": "14 days",
         "dialog_node_key": 16940131756409225,
-        "node_text": " \n For students moving into a dormitory of SWS, it is possible to have someone collect your room keys before arrival if you will have trouble making it to the office hours. To do this, you will need to arrange an appointment with the appropriate building caretaker (at best 14 days in advance) and you will need to send this person a filled out version of the authorisation form you received with you offer letter. \n ",
+        "node_text": " \n For students moving into a dormitory of SWS, it is possible to have someone collect your room keys before arrival if you will have trouble making it to the office hours. To do this, you will need to arrange an appointment with the appropriate building caretaker (at best 14 days in advance) and you will need to send this person a filled out version of the authorization form you received with you offer letter. \n ",
         "text": "How far in advance should I arrange an appointment with the building caretaker to have someone collect my room keys for me?"
     },
     "16971379312951148": {
@@ -1932,7 +1932,7 @@
         "context": "ner",
         "entity": "14 days",
         "dialog_node_key": 16940131756409225,
-        "node_text": " \n For students moving into a dormitory of SWS, it is possible to have someone collect your room keys before arrival if you will have trouble making it to the office hours. To do this, you will need to arrange an appointment with the appropriate building caretaker (at best 14 days in advance) and you will need to send this person a filled out version of the authorisation form you received with you offer letter. \n ",
+        "node_text": " \n For students moving into a dormitory of SWS, it is possible to have someone collect your room keys before arrival if you will have trouble making it to the office hours. To do this, you will need to arrange an appointment with the appropriate building caretaker (at best 14 days in advance) and you will need to send this person a filled out version of the authorization form you received with you offer letter. \n ",
         "text": "What is the maximum number of days you should arrange an appointment with the building caretaker in advance to have someone collect your room keys before arrival?"
     },
     "16971379312951167": {
@@ -1940,56 +1940,56 @@
         "context": "ner",
         "entity": "14 days",
         "dialog_node_key": 16940131756409225,
-        "node_text": " \n For students moving into a dormitory of SWS, it is possible to have someone collect your room keys before arrival if you will have trouble making it to the office hours. To do this, you will need to arrange an appointment with the appropriate building caretaker (at best 14 days in advance) and you will need to send this person a filled out version of the authorisation form you received with you offer letter. \n ",
+        "node_text": " \n For students moving into a dormitory of SWS, it is possible to have someone collect your room keys before arrival if you will have trouble making it to the office hours. To do this, you will need to arrange an appointment with the appropriate building caretaker (at best 14 days in advance) and you will need to send this person a filled out version of the authorization form you received with you offer letter. \n ",
         "text": "In order to have someone collect my room keys for me, when should I ideally contact the building caretaker?"
     },
     "16971379477981224": {
         "key": "16971379477981224",
         "context": "node",
         "dialog_node_key": 16940131756409225,
-        "node_text": " \n For students moving into a dormitory of SWS, it is possible to have someone collect your room keys before arrival if you will have trouble making it to the office hours. To do this, you will need to arrange an appointment with the appropriate building caretaker (at best 14 days in advance) and you will need to send this person a filled out version of the authorisation form you received with you offer letter. \n ",
+        "node_text": " \n For students moving into a dormitory of SWS, it is possible to have someone collect your room keys before arrival if you will have trouble making it to the office hours. To do this, you will need to arrange an appointment with the appropriate building caretaker (at best 14 days in advance) and you will need to send this person a filled out version of the authorization form you received with you offer letter. \n ",
         "text": "Is it possible for students moving into a dormitory of SWS to have someone else collect their room keys?"
     },
     "16971379477981346": {
         "key": "16971379477981346",
         "context": "node",
         "dialog_node_key": 16940131756409225,
-        "node_text": " \n For students moving into a dormitory of SWS, it is possible to have someone collect your room keys before arrival if you will have trouble making it to the office hours. To do this, you will need to arrange an appointment with the appropriate building caretaker (at best 14 days in advance) and you will need to send this person a filled out version of the authorisation form you received with you offer letter. \n ",
+        "node_text": " \n For students moving into a dormitory of SWS, it is possible to have someone collect your room keys before arrival if you will have trouble making it to the office hours. To do this, you will need to arrange an appointment with the appropriate building caretaker (at best 14 days in advance) and you will need to send this person a filled out version of the authorization form you received with you offer letter. \n ",
         "text": "How can I arrange for someone else to collect my room keys at SWS if I can't make it to the office hours?"
     },
     "16971379477981365": {
         "key": "16971379477981365",
         "context": "node",
         "dialog_node_key": 16940131756409225,
-        "node_text": " \n For students moving into a dormitory of SWS, it is possible to have someone collect your room keys before arrival if you will have trouble making it to the office hours. To do this, you will need to arrange an appointment with the appropriate building caretaker (at best 14 days in advance) and you will need to send this person a filled out version of the authorisation form you received with you offer letter. \n ",
+        "node_text": " \n For students moving into a dormitory of SWS, it is possible to have someone collect your room keys before arrival if you will have trouble making it to the office hours. To do this, you will need to arrange an appointment with the appropriate building caretaker (at best 14 days in advance) and you will need to send this person a filled out version of the authorization form you received with you offer letter. \n ",
         "text": "Is it necessary to make an appointment with the appropriate building caretaker to have someone collect my room keys at SWS?"
     },
     "16971379477981381": {
         "key": "16971379477981381",
         "context": "node",
         "dialog_node_key": 16940131756409225,
-        "node_text": " \n For students moving into a dormitory of SWS, it is possible to have someone collect your room keys before arrival if you will have trouble making it to the office hours. To do this, you will need to arrange an appointment with the appropriate building caretaker (at best 14 days in advance) and you will need to send this person a filled out version of the authorisation form you received with you offer letter. \n ",
+        "node_text": " \n For students moving into a dormitory of SWS, it is possible to have someone collect your room keys before arrival if you will have trouble making it to the office hours. To do this, you will need to arrange an appointment with the appropriate building caretaker (at best 14 days in advance) and you will need to send this person a filled out version of the authorization form you received with you offer letter. \n ",
         "text": "What is the recommended advance notice for arranging an appointment with the building caretaker to collect room keys at SWS?"
     },
     "16971379477981398": {
         "key": "16971379477981398",
         "context": "node",
         "dialog_node_key": 16940131756409225,
-        "node_text": " \n For students moving into a dormitory of SWS, it is possible to have someone collect your room keys before arrival if you will have trouble making it to the office hours. To do this, you will need to arrange an appointment with the appropriate building caretaker (at best 14 days in advance) and you will need to send this person a filled out version of the authorisation form you received with you offer letter. \n ",
+        "node_text": " \n For students moving into a dormitory of SWS, it is possible to have someone collect your room keys before arrival if you will have trouble making it to the office hours. To do this, you will need to arrange an appointment with the appropriate building caretaker (at best 14 days in advance) and you will need to send this person a filled out version of the authorization form you received with you offer letter. \n ",
         "text": "Is there an authorization form provided with the offer letter for SWS dormitory?"
     },
     "16971379477981417": {
         "key": "16971379477981417",
         "context": "node",
         "dialog_node_key": 16940131756409225,
-        "node_text": " \n For students moving into a dormitory of SWS, it is possible to have someone collect your room keys before arrival if you will have trouble making it to the office hours. To do this, you will need to arrange an appointment with the appropriate building caretaker (at best 14 days in advance) and you will need to send this person a filled out version of the authorisation form you received with you offer letter. \n ",
+        "node_text": " \n For students moving into a dormitory of SWS, it is possible to have someone collect your room keys before arrival if you will have trouble making it to the office hours. To do this, you will need to arrange an appointment with the appropriate building caretaker (at best 14 days in advance) and you will need to send this person a filled out version of the authorization form you received with you offer letter. \n ",
         "text": "How can I send the filled out authorization form for someone to collect my room keys at SWS?"
     },
     "16971379477981431": {
         "key": "16971379477981431",
         "context": "node",
         "dialog_node_key": 16940131756409225,
-        "node_text": " \n For students moving into a dormitory of SWS, it is possible to have someone collect your room keys before arrival if you will have trouble making it to the office hours. To do this, you will need to arrange an appointment with the appropriate building caretaker (at best 14 days in advance) and you will need to send this person a filled out version of the authorisation form you received with you offer letter. \n ",
+        "node_text": " \n For students moving into a dormitory of SWS, it is possible to have someone collect your room keys before arrival if you will have trouble making it to the office hours. To do this, you will need to arrange an appointment with the appropriate building caretaker (at best 14 days in advance) and you will need to send this person a filled out version of the authorization form you received with you offer letter. \n ",
         "text": "Are there any specific requirements for arranging an appointment with the building caretaker to collect room keys at SWS?"
     },
     "169713795442347": {
@@ -2143,7 +2143,7 @@
         "context": "ner",
         "entity": "SSB",
         "dialog_node_key": 16940143534063060,
-        "node_text": "If you plan to travel oustide the SSB/VVS network, you should look into the Deutschland ticket, which allows you unlimited use of regional transit across all of Germany. The ticket costs 49 euros per month. For more information please see the SSB website.",
+        "node_text": "If you plan to travel outside the SSB/VVS network, you should look into the Deutschland ticket, which allows you unlimited use of regional transit across all of Germany. The ticket costs 49 euros per month. For more information please see the SSB website.",
         "text": "What is the price of the Deutschland ticket offered by SSB?"
     },
     "1697137990278484": {
@@ -2151,7 +2151,7 @@
         "context": "ner",
         "entity": "SSB",
         "dialog_node_key": 16940143534063060,
-        "node_text": "If you plan to travel oustide the SSB/VVS network, you should look into the Deutschland ticket, which allows you unlimited use of regional transit across all of Germany. The ticket costs 49 euros per month. For more information please see the SSB website.",
+        "node_text": "If you plan to travel outside the SSB/VVS network, you should look into the Deutschland ticket, which allows you unlimited use of regional transit across all of Germany. The ticket costs 49 euros per month. For more information please see the SSB website.",
         "text": "Where can I find more information about the Deutschland ticket provided by SSB?"
     },
     "1697137990278486": {
@@ -2159,7 +2159,7 @@
         "context": "ner",
         "entity": "SSB",
         "dialog_node_key": 16940143534063060,
-        "node_text": "If you plan to travel oustide the SSB/VVS network, you should look into the Deutschland ticket, which allows you unlimited use of regional transit across all of Germany. The ticket costs 49 euros per month. For more information please see the SSB website.",
+        "node_text": "If you plan to travel outside the SSB/VVS network, you should look into the Deutschland ticket, which allows you unlimited use of regional transit across all of Germany. The ticket costs 49 euros per month. For more information please see the SSB website.",
         "text": "What does SSB stand for in relation to the network that offers the Deutschland ticket?"
     },
     "16971379952987487": {
@@ -2167,7 +2167,7 @@
         "context": "ner",
         "entity": "Deutschland",
         "dialog_node_key": 16940143534063060,
-        "node_text": "If you plan to travel oustide the SSB/VVS network, you should look into the Deutschland ticket, which allows you unlimited use of regional transit across all of Germany. The ticket costs 49 euros per month. For more information please see the SSB website.",
+        "node_text": "If you plan to travel outside the SSB/VVS network, you should look into the Deutschland ticket, which allows you unlimited use of regional transit across all of Germany. The ticket costs 49 euros per month. For more information please see the SSB website.",
         "text": "How much does the Deutschland ticket, which allows unlimited use of regional transit across all of Germany, cost?"
     },
     "16971379952987595": {
@@ -2175,7 +2175,7 @@
         "context": "ner",
         "entity": "Deutschland",
         "dialog_node_key": 16940143534063060,
-        "node_text": "If you plan to travel oustide the SSB/VVS network, you should look into the Deutschland ticket, which allows you unlimited use of regional transit across all of Germany. The ticket costs 49 euros per month. For more information please see the SSB website.",
+        "node_text": "If you plan to travel outside the SSB/VVS network, you should look into the Deutschland ticket, which allows you unlimited use of regional transit across all of Germany. The ticket costs 49 euros per month. For more information please see the SSB website.",
         "text": "What is the purpose of the Deutschland ticket?"
     },
     "1697137995298762": {
@@ -2183,7 +2183,7 @@
         "context": "ner",
         "entity": "Deutschland",
         "dialog_node_key": 16940143534063060,
-        "node_text": "If you plan to travel oustide the SSB/VVS network, you should look into the Deutschland ticket, which allows you unlimited use of regional transit across all of Germany. The ticket costs 49 euros per month. For more information please see the SSB website.",
+        "node_text": "If you plan to travel outside the SSB/VVS network, you should look into the Deutschland ticket, which allows you unlimited use of regional transit across all of Germany. The ticket costs 49 euros per month. For more information please see the SSB website.",
         "text": "Where can I find more information about the Deutschland ticket?"
     },
     "16971379991815853": {
@@ -2191,7 +2191,7 @@
         "context": "ner",
         "entity": "Germany",
         "dialog_node_key": 16940143534063060,
-        "node_text": "If you plan to travel oustide the SSB/VVS network, you should look into the Deutschland ticket, which allows you unlimited use of regional transit across all of Germany. The ticket costs 49 euros per month. For more information please see the SSB website.",
+        "node_text": "If you plan to travel outside the SSB/VVS network, you should look into the Deutschland ticket, which allows you unlimited use of regional transit across all of Germany. The ticket costs 49 euros per month. For more information please see the SSB website.",
         "text": "How much does the Deutschland ticket cost?"
     },
     "16971380039607425": {
@@ -2199,7 +2199,7 @@
         "context": "ner",
         "entity": "49 euros",
         "dialog_node_key": 16940143534063060,
-        "node_text": "If you plan to travel oustide the SSB/VVS network, you should look into the Deutschland ticket, which allows you unlimited use of regional transit across all of Germany. The ticket costs 49 euros per month. For more information please see the SSB website.",
+        "node_text": "If you plan to travel outside the SSB/VVS network, you should look into the Deutschland ticket, which allows you unlimited use of regional transit across all of Germany. The ticket costs 49 euros per month. For more information please see the SSB website.",
         "text": "How much does the Deutschland ticket cost per month?"
     },
     "16971380039607544": {
@@ -2207,7 +2207,7 @@
         "context": "ner",
         "entity": "49 euros",
         "dialog_node_key": 16940143534063060,
-        "node_text": "If you plan to travel oustide the SSB/VVS network, you should look into the Deutschland ticket, which allows you unlimited use of regional transit across all of Germany. The ticket costs 49 euros per month. For more information please see the SSB website.",
+        "node_text": "If you plan to travel outside the SSB/VVS network, you should look into the Deutschland ticket, which allows you unlimited use of regional transit across all of Germany. The ticket costs 49 euros per month. For more information please see the SSB website.",
         "text": "What is the price of the ticket that allows unlimited use of regional transit across Germany?"
     },
     "1697138003960757": {
@@ -2215,7 +2215,7 @@
         "context": "ner",
         "entity": "49 euros",
         "dialog_node_key": 16940143534063060,
-        "node_text": "If you plan to travel oustide the SSB/VVS network, you should look into the Deutschland ticket, which allows you unlimited use of regional transit across all of Germany. The ticket costs 49 euros per month. For more information please see the SSB website.",
+        "node_text": "If you plan to travel outside the SSB/VVS network, you should look into the Deutschland ticket, which allows you unlimited use of regional transit across all of Germany. The ticket costs 49 euros per month. For more information please see the SSB website.",
         "text": "How much do you have to pay for the Deutschland ticket?"
     },
     "16971380092124484": {
@@ -2223,7 +2223,7 @@
         "context": "ner",
         "entity": "SSB",
         "dialog_node_key": 16940143534063060,
-        "node_text": "If you plan to travel oustide the SSB/VVS network, you should look into the Deutschland ticket, which allows you unlimited use of regional transit across all of Germany. The ticket costs 49 euros per month. For more information please see the SSB website.",
+        "node_text": "If you plan to travel outside the SSB/VVS network, you should look into the Deutschland ticket, which allows you unlimited use of regional transit across all of Germany. The ticket costs 49 euros per month. For more information please see the SSB website.",
         "text": "What is the cost of the Deutschland ticket offered by SSB?"
     },
     "1697138009212458": {
@@ -2231,7 +2231,7 @@
         "context": "ner",
         "entity": "SSB",
         "dialog_node_key": 16940143534063060,
-        "node_text": "If you plan to travel oustide the SSB/VVS network, you should look into the Deutschland ticket, which allows you unlimited use of regional transit across all of Germany. The ticket costs 49 euros per month. For more information please see the SSB website.",
+        "node_text": "If you plan to travel outside the SSB/VVS network, you should look into the Deutschland ticket, which allows you unlimited use of regional transit across all of Germany. The ticket costs 49 euros per month. For more information please see the SSB website.",
         "text": "Where can I find more information about the Deutschland ticket offered by SSB?"
     },
     "16971380092124598": {
@@ -2239,14 +2239,14 @@
         "context": "ner",
         "entity": "SSB",
         "dialog_node_key": 16940143534063060,
-        "node_text": "If you plan to travel oustide the SSB/VVS network, you should look into the Deutschland ticket, which allows you unlimited use of regional transit across all of Germany. The ticket costs 49 euros per month. For more information please see the SSB website.",
+        "node_text": "If you plan to travel outside the SSB/VVS network, you should look into the Deutschland ticket, which allows you unlimited use of regional transit across all of Germany. The ticket costs 49 euros per month. For more information please see the SSB website.",
         "text": "When should I consider looking into the Deutschland ticket offered by SSB?"
     },
     "16971380136422276": {
         "key": "16971380136422276",
         "context": "node",
         "dialog_node_key": 16940143534063060,
-        "node_text": "If you plan to travel oustide the SSB/VVS network, you should look into the Deutschland ticket, which allows you unlimited use of regional transit across all of Germany. The ticket costs 49 euros per month. For more information please see the SSB website.",
+        "node_text": "If you plan to travel outside the SSB/VVS network, you should look into the Deutschland ticket, which allows you unlimited use of regional transit across all of Germany. The ticket costs 49 euros per month. For more information please see the SSB website.",
         "text": "What does the Deutschland ticket allow you to do when travelling in Germany?"
     },
     "1697138020189194": {
@@ -4094,7 +4094,7 @@
         "context": "ner",
         "entity": "first",
         "dialog_node_key": 16940888456052464,
-        "node_text": " \n Students who have already earned a first university degree (e. g. Bachelor) may be employed as a research assistant (wis- senschaftliche Hilfskraft/Hiwi) instead of a student assistant (studentische Hilfs- kraft/Hiwi). The salary of a research assistant is higher than that of a student assistant. \n ",
+        "node_text": " \n Students who have already earned a first university degree (e. g. Bachelor) may be employed as a research assistant (wissenschaftliche Hilfskraft/Hiwi) instead of a student assistant (studentische Hilfskraft/Hiwi). The salary of a research assistant is higher than that of a student assistant. \n ",
         "text": "What is the criteria for being employed as a research assistant instead of a student assistant?"
     },
     "169713856470226": {
@@ -4102,7 +4102,7 @@
         "context": "ner",
         "entity": "first",
         "dialog_node_key": 16940888456052464,
-        "node_text": " \n Students who have already earned a first university degree (e. g. Bachelor) may be employed as a research assistant (wis- senschaftliche Hilfskraft/Hiwi) instead of a student assistant (studentische Hilfs- kraft/Hiwi). The salary of a research assistant is higher than that of a student assistant. \n ",
+        "node_text": " \n Students who have already earned a first university degree (e. g. Bachelor) may be employed as a research assistant (wissenschaftliche Hilfskraft/Hiwi) instead of a student assistant (studentische Hilfskraft/Hiwi). The salary of a research assistant is higher than that of a student assistant. \n ",
         "text": "How does the salary of a research assistant compare to that of a student assistant?"
     },
     "16971385647022626": {
@@ -4110,7 +4110,7 @@
         "context": "ner",
         "entity": "first",
         "dialog_node_key": 16940888456052464,
-        "node_text": " \n Students who have already earned a first university degree (e. g. Bachelor) may be employed as a research assistant (wis- senschaftliche Hilfskraft/Hiwi) instead of a student assistant (studentische Hilfs- kraft/Hiwi). The salary of a research assistant is higher than that of a student assistant. \n ",
+        "node_text": " \n Students who have already earned a first university degree (e. g. Bachelor) may be employed as a research assistant (wissenschaftliche Hilfskraft/Hiwi) instead of a student assistant (studentische Hilfskraft/Hiwi). The salary of a research assistant is higher than that of a student assistant. \n ",
         "text": "Can students who have already earned a first university degree, like a Bachelor's degree, work as research assistants instead of student assistants?"
     },
     "16971385698911378": {
@@ -4118,7 +4118,7 @@
         "context": "ner",
         "entity": "Bachelor",
         "dialog_node_key": 16940888456052464,
-        "node_text": " \n Students who have already earned a first university degree (e. g. Bachelor) may be employed as a research assistant (wis- senschaftliche Hilfskraft/Hiwi) instead of a student assistant (studentische Hilfs- kraft/Hiwi). The salary of a research assistant is higher than that of a student assistant. \n ",
+        "node_text": " \n Students who have already earned a first university degree (e. g. Bachelor) may be employed as a research assistant (wissenschaftliche Hilfskraft/Hiwi) instead of a student assistant (studentische Hilfskraft/Hiwi). The salary of a research assistant is higher than that of a student assistant. \n ",
         "text": "What is the difference in salary between a research assistant and a student assistant?"
     },
     "16971385698911474": {
@@ -4126,7 +4126,7 @@
         "context": "ner",
         "entity": "Bachelor",
         "dialog_node_key": 16940888456052464,
-        "node_text": " \n Students who have already earned a first university degree (e. g. Bachelor) may be employed as a research assistant (wis- senschaftliche Hilfskraft/Hiwi) instead of a student assistant (studentische Hilfs- kraft/Hiwi). The salary of a research assistant is higher than that of a student assistant. \n ",
+        "node_text": " \n Students who have already earned a first university degree (e. g. Bachelor) may be employed as a research assistant (wissenschaftliche Hilfskraft/Hiwi) instead of a student assistant (studentische Hilfskraft/Hiwi). The salary of a research assistant is higher than that of a student assistant. \n ",
         "text": "Can students with a Bachelor's degree work as research assistants?"
     },
     "16971385698911493": {
@@ -4134,7 +4134,7 @@
         "context": "ner",
         "entity": "Bachelor",
         "dialog_node_key": 16940888456052464,
-        "node_text": " \n Students who have already earned a first university degree (e. g. Bachelor) may be employed as a research assistant (wis- senschaftliche Hilfskraft/Hiwi) instead of a student assistant (studentische Hilfs- kraft/Hiwi). The salary of a research assistant is higher than that of a student assistant. \n ",
+        "node_text": " \n Students who have already earned a first university degree (e. g. Bachelor) may be employed as a research assistant (wissenschaftliche Hilfskraft/Hiwi) instead of a student assistant (studentische Hilfskraft/Hiwi). The salary of a research assistant is higher than that of a student assistant. \n ",
         "text": "What are the job opportunities available for students who have earned a Bachelor's degree?"
     },
     "16971385768155942": {
@@ -4142,7 +4142,7 @@
         "context": "ner",
         "entity": "Hiwi",
         "dialog_node_key": 16940888456052464,
-        "node_text": " \n Students who have already earned a first university degree (e. g. Bachelor) may be employed as a research assistant (wis- senschaftliche Hilfskraft/Hiwi) instead of a student assistant (studentische Hilfs- kraft/Hiwi). The salary of a research assistant is higher than that of a student assistant. \n ",
+        "node_text": " \n Students who have already earned a first university degree (e. g. Bachelor) may be employed as a research assistant (wissenschaftliche Hilfskraft/Hiwi) instead of a student assistant (studentische Hilfskraft/Hiwi). The salary of a research assistant is higher than that of a student assistant. \n ",
         "text": "What is the difference in salary between a student assistant (Hiwi) and a research assistant (Hiwi)?"
     },
     "1697138576815603": {
@@ -4150,7 +4150,7 @@
         "context": "ner",
         "entity": "Hiwi",
         "dialog_node_key": 16940888456052464,
-        "node_text": " \n Students who have already earned a first university degree (e. g. Bachelor) may be employed as a research assistant (wis- senschaftliche Hilfskraft/Hiwi) instead of a student assistant (studentische Hilfs- kraft/Hiwi). The salary of a research assistant is higher than that of a student assistant. \n ",
+        "node_text": " \n Students who have already earned a first university degree (e. g. Bachelor) may be employed as a research assistant (wissenschaftliche Hilfskraft/Hiwi) instead of a student assistant (studentische Hilfskraft/Hiwi). The salary of a research assistant is higher than that of a student assistant. \n ",
         "text": "Can students who have already earned a first university degree work as research assistants (Hiwis)?"
     },
     "16971385768156047": {
@@ -4158,21 +4158,21 @@
         "context": "ner",
         "entity": "Hiwi",
         "dialog_node_key": 16940888456052464,
-        "node_text": " \n Students who have already earned a first university degree (e. g. Bachelor) may be employed as a research assistant (wis- senschaftliche Hilfskraft/Hiwi) instead of a student assistant (studentische Hilfs- kraft/Hiwi). The salary of a research assistant is higher than that of a student assistant. \n ",
+        "node_text": " \n Students who have already earned a first university degree (e. g. Bachelor) may be employed as a research assistant (wissenschaftliche Hilfskraft/Hiwi) instead of a student assistant (studentische Hilfskraft/Hiwi). The salary of a research assistant is higher than that of a student assistant. \n ",
         "text": "How does the position of a research assistant (Hiwi) differ from that of a student assistant (Hiwi)?"
     },
     "16971385829344137": {
         "key": "16971385829344137",
         "context": "node",
         "dialog_node_key": 16940888456052464,
-        "node_text": " \n Students who have already earned a first university degree (e. g. Bachelor) may be employed as a research assistant (wis- senschaftliche Hilfskraft/Hiwi) instead of a student assistant (studentische Hilfs- kraft/Hiwi). The salary of a research assistant is higher than that of a student assistant. \n ",
+        "node_text": " \n Students who have already earned a first university degree (e. g. Bachelor) may be employed as a research assistant (wissenschaftliche Hilfskraft/Hiwi) instead of a student assistant (studentische Hilfskraft/Hiwi). The salary of a research assistant is higher than that of a student assistant. \n ",
         "text": "What are the qualifications required to be employed as a research assistant instead of a student assistant?"
     },
     "16971385829344265": {
         "key": "16971385829344265",
         "context": "node",
         "dialog_node_key": 16940888456052464,
-        "node_text": " \n Students who have already earned a first university degree (e. g. Bachelor) may be employed as a research assistant (wis- senschaftliche Hilfskraft/Hiwi) instead of a student assistant (studentische Hilfs- kraft/Hiwi). The salary of a research assistant is higher than that of a student assistant. \n ",
+        "node_text": " \n Students who have already earned a first university degree (e. g. Bachelor) may be employed as a research assistant (wissenschaftliche Hilfskraft/Hiwi) instead of a student assistant (studentische Hilfskraft/Hiwi). The salary of a research assistant is higher than that of a student assistant. \n ",
         "text": "What is the role and responsibilities of a research assistant compared to a student assistant?"
     },
     "16971385977250698": {

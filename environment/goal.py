@@ -489,7 +489,7 @@ class UserGoalGenerator:
                         answer_parser=self.answer_parser, system_parser=self.system_parser, value_backend=self.value_backend)
         # get initial user utterance from first transition
         initial_answer: Answer = self.graph.answers_by_key[goal.get_user_response(self.graph.start_node.connected_node).answer_key]
-        goal.delexicalised_initial_user_utterance = rand_remove_questionmark(random.choice(self.graph.answer_synonyms[initial_answer.text.lower()]))
+        goal.delexicalised_initial_user_utterance = rand_remove_questionmark(random.choice(self.graph.answer_synonyms[initial_answer.key]))
         goal.initial_user_utterance = deepcopy(goal.delexicalised_initial_user_utterance)
         return goal
 

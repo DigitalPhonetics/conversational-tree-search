@@ -1,343 +1,268 @@
 {
     "16939912049114625": [
-        "Apartment shopping",
-        "Looking for accommodation",
-        "I need a Flat",
         "Somewhere to live",
-        "Finding Housing"
+        "Finding Housing",
+        "I need a Flat"
     ],
     "16939912323240997": [
-        "Information for international students",
+        "International student info",
         "Information for non-german students",
-        "Foreign student info",
-        "International student info"
+        "Guidance for international students"
     ],
     "16939919957853833": [
-        "Train",
-        "Public transportation",
         "Public transit",
-        "Mass transit"
+        "Train",
+        "Information about the train system"
     ],
     "16939919798263477": [
-        "Work permits, residence permits, and visas",
-        "I need a residence permit",
         "Visa",
-        "I need a work permit"
+        "I need a work permit",
+        "Visa information"
     ],
     "16939923573475838": [
-        "Temporary accommodation",
-        "Short term stay",
-        "Hotels",
+        "Book a hotel",
+        "Motel",
         "Hotel room"
     ],
     "16939923635329728": [
-        "Long-term housing",
-        "Long-term rental",
         "A place to stay long-term",
+        "I'm looking for a flat",
         "Rental housing"
     ],
     "16939924558739259": [
-        "Apartment shopping",
-        "Looking for accommodation",
         "I need a Flat",
-        "Finding housing",
-        "Somewhere to live"
+        "Looking for accommodation",
+        "Apartment shopping"
     ],
     "16939924308109388": [
+        "Creating a bank account",
         "Register with bank",
-        "Opening a bank account",
-        "Opening new account",
-        "Bank account"
+        "I need a new account"
     ],
     "16939924651091479": [
-        "University offerings",
+        "Resources by the University",
         "University resources",
-        "University services",
         "Service"
     ],
     "16939924484347907": [
-        "Student enrollement",
-        "Enrolling in a study program",
-        "Matriculation",
-        "Enrolling in the university"
+        "I need to enroll",
+        "Student enrollment",
+        "How can I matriculate"
     ],
     "16939927127743408": [
-        "Sports",
         "University sport program",
-        "Sports organisations",
-        "Sport offers"
+        "Sports organizations",
+        "How can I sign up for sports?"
     ],
     "16940089183408053": [
+        "I need to register my address",
         "Registering a new address",
-        "How to register my address with the city",
-        "Updating my address with the city",
-        "I need to register my address"
+        "Updating my address with the city"
     ],
     "16940138665420723": [
-        "I want a job",
-        "Working",
-        "Job offer",
-        "Work opportunities"
+        "Employment options",
+        "Work opportunities",
+        "I want a job"
     ],
     "16940139803270397": [
-        "Transportation",
         "Travel options",
-        "What transportation options are available?",
-        "Public transit"
+        "How can I get around in the city?",
+        "Local transportation",
+        "What transportation options are available?"
     ],
     "16939924364114252": [
-        "I need health insurance",
-        "Insurance",
-        "How to get health insurance?",
-        "Getting health insurance"
+        "Getting health insurance",
+        "How do I sign up for health insurance?",
+        "Insurance"
     ],
     "16939964154911386": [
-        "Flat share",
-        "Shared apartment",
         "Living with roommates",
-        "Sharing a flat"
+        "I want to live with friends"
     ],
     "16939964269424731": [
-        "Renting a flat",
         "Rental apartment",
         "Private apartment",
-        "Renting"
+        "I want to live alone"
     ],
     "16939964212012724": [
         "On-campus housing",
-        "Student housing",
-        "Student dorms",
-        "Dorms"
+        "A place in the student dorms",
+        "I want to live on campus"
     ],
     "16939966036739596": [
         "Any differences?",
         "What's different?",
-        "What are the differences?",
-        "How are they different?"
+        "I don't know the differences"
     ],
     "16940085574315151": [
         "Sure",
-        "Yeah",
-        "Yup",
-        "yes"
+        "I do"
     ],
     "16940085581804287": [
-        "Definitely not",
-        "Nope",
-        "no",
-        "Nah"
+        "I don't",
+        "Nope"
     ],
     "16940097664505093": [
-        "Sure",
-        "Yeah",
         "Yup",
-        "yes"
+        "I do"
     ],
     "16940097709000821": [
-        "Definitely not",
-        "Nope",
-        "no",
-        "Nah"
+        "Nah",
+        "Nope"
     ],
     "16940100183728098": [
-        "Signing a contract",
-        "Finalising an offer",
-        "Accepting an offer",
-        "Formalizing a contract"
+        "How do I accept an offer?",
+        "Formalizing a contract",
+        "Finalizing an offer"
     ],
     "16940100253612872": [
-        "I want to apply for student housing",
-        "Apply for on-campus housing",
         "I need student housing",
-        "I want a dorm room"
+        "Apply for on-campus housing",
+        "How can I sign up for student dorms?"
     ],
     "16940109896655093": [
-        "Moving in",
         "How to move in",
-        "Day of moving in",
-        "Move in day"
+        "Move in day",
+        "Moving in"
     ],
     "16940109983988855": [
-        "Day of moving out",
         "Move out day",
-        "How to move out",
-        "Moving out"
+        "Day of moving out",
+        "How to move out"
     ],
     "16940123725568928": [
-        "Sure",
-        "Yeah",
-        "Yup",
-        "yes"
+        "I will be able to",
+        "Yes, I can collect them",
+        "Yeah"
     ],
     "16940123769907448": [
-        "Definitely not",
-        "Nope",
         "no",
-        "Nah"
+        "Nope",
+        "Definitely not"
     ],
     "16940129688619224": [
-        "Studierendenwerk Stuttgart",
-        "SWS",
-        "Studierendenwerk",
-        "Student minitstry"
+        "Student ministry",
+        "Studierendenwerk"
     ],
     "16940129733853339": [
-        "Student ministry",
-        "Studierendenwerk Stuttgart",
-        "Studierendenwerk",
-        "SWS"
+        "SWS",
+        "Student ministry"
     ],
     "16940131883029271": [
         "SWS",
-        "Studierendenwerk Stuttgart",
-        "Studierendenwerk",
-        "Student minitstry"
+        "Studierendenwerk"
     ],
     "16940129920308052": [
+        "Stuttgart student residences",
         "VSSW"
     ],
     "16940140266058042": [
-        "Sure",
-        "Yeah",
+        "Yes, I want info",
         "Yup",
         "yes"
     ],
     "16940140272888859": [
+        "I don't",
         "Definitely not",
-        "Nope",
-        "no",
-        "Nah"
+        "Nope"
     ],
     "16940141082206724": [
-        "Graduate student",
-        "University student",
         "I'm a student",
-        "Student "
+        "Student",
+        "Graduate student"
     ],
     "16940141089713987": [
-        "Scientific employee",
         "University employee",
-        "University staff",
+        "I'm working for the university",
         "Employee"
     ],
     "16940141105212927": [
-        "No",
-        "Nope",
         "Definitely not",
-        "Nah"
+        "None of the above",
+        "Nope"
     ],
     "16940143325295675": [
-        "Close by",
+        "I don't plan to travel",
         "Stay in the area",
-        "Within the city",
-        "In this area"
+        "I want to stay here"
     ],
     "16940143370392515": [
-        "Travel outside the region",
-        "Leaving the city",
+        "I want to explore the country",
         "Explore the whole state",
         "travel farther"
     ],
     "16940158032227419": [
-        "From the EU",
-        "EU citizen",
-        "EU member",
-        "EU Country"
+        "EU Country",
+        "EU member"
     ],
     "16940158088455928": [
-        "I am from a country with a special exception",
-        "I have a special exception",
         "My country has an exception",
         "What if I'm from a country which is exempt"
     ],
     "16940785166291124": [
         "What countries have a special status?",
-        "Who has a special status?",
-        "Countries with special status?",
         "What is a special status?"
     ],
     "16940158313753595": [
-        "No",
+        "Nah",
         "Nope",
-        "Definitely not",
-        "Nah"
+        "No"
     ],
     "16940162893485791": [
-        "Sure",
-        "Yeah",
-        "Yup",
-        "yes"
+        "yes",
+        "Yup"
     ],
     "16940162931654921": [
-        "Definitely not",
         "Nope",
-        "no",
-        "Nah"
+        "I don't want to work"
     ],
     "16940164383845341": [
-        "Sure",
-        "Yeah",
+        "I do",
         "Yup",
-        "yes"
+        "I am privately insured"
     ],
     "16940164391346014": [
-        "Definitely not",
+        "I don't",
         "Nope",
-        "no",
-        "Nah"
+        "Definitely not"
     ],
     "16940165963363276": [
-        "Sure",
         "Yeah",
-        "Yup",
-        "yes"
+        "Sure"
     ],
     "16940166004684637": [
         "Definitely not",
-        "Nope",
-        "no",
-        "Nah"
+        "No, I'm older"
     ],
     "16940841194105511": [
-        "Sure",
-        "Yeah",
-        "Yup",
-        "yes"
+        "yes",
+        "Yup"
     ],
     "16940841202571564": [
         "Definitely not",
-        "Nope",
-        "no",
-        "Nah"
+        "no"
     ],
     "16940886179228624": [
-        "I'm pursuing a degree",
-        "Enrolled student",
-        "degree student",
+        "I want a degree",
         "I'm a degree student"
     ],
     "16940886234142515": [
-        "I'm doing an exchange semester",
-        "I'm studying abroad",
-        "I'm here on exchange",
-        "exchange student"
+        "exchange student",
+        "I'm here on exchange"
     ],
     "16940913013355993": [
-        "Sure",
         "Yeah",
         "Yup",
-        "yes"
+        "I do need a Visa"
     ],
     "16940913020019265": [
-        "Definitely not",
-        "Nope",
         "no",
-        "Nah"
+        "Nope",
+        "I don't need a Visa"
     ],
     "16940913026335336": [
-        "Where do I find out if i should get one?",
-        "how do I know if I need one?",
         "How to tell if I require one?",
-        "Do I need one?"
+        "How can I find out?",
+        "how do I know if I need one?"
     ]
 }

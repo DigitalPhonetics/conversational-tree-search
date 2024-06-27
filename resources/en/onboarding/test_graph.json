@@ -538,8 +538,8 @@
             },
             "data": {
                 "id": "16940030269022060",
-                "markup": "<p>As a note: anyone staying in Germany for longer than 90 days is required to register with the residents&lsquo; registration office [Bu\u0308rgerbu\u0308ro] in their place of residence within fourteen days upon arrival.</p>",
-                "raw_text": "As a note: anyone staying in Germany for longer than 90 days is required to register with the residents ' registration office [Bu\u0308rgerbu\u0308ro] in their place of residence within fourteen days upon arrival.",
+                "markup": "<p>As a note: anyone staying in Germany for longer than 90 days is required to register with the residents&lsquo; registration office [Bürgerbüro] in their place of residence within fourteen days upon arrival.</p>",
+                "raw_text": "As a note: anyone staying in Germany for longer than 90 days is required to register with the residents ' registration office [Bürgerbüro] in their place of residence within fourteen days upon arrival.",
                 "position": {
                     "x": 4962.359814272009,
                     "y": 906.7499713710038
@@ -669,8 +669,8 @@
             },
             "data": {
                 "id": "16940062976746793",
-                "markup": "<div class=\"page\" title=\"Page 8\">\n<div class=\"layoutArea\">\n<div class=\"column\">\n<p>The registration office will provide you with a confirmation of your registration [Meldebesta\u0308tigung], which you will need for opening a bank account and for obtaining a residence permit (if applicable).</p>\n</div>\n</div>\n</div>",
-                "raw_text": " \n The registration office will provide you with a confirmation of your registration [Meldebesta\u0308tigung], which you will need for opening a bank account and for obtaining a residence permit (if applicable). \n ",
+                "markup": "<div class=\"page\" title=\"Page 8\">\n<div class=\"layoutArea\">\n<div class=\"column\">\n<p>The registration office will provide you with a confirmation of your registration [Meldebestätigung], which you will need for opening a bank account and for obtaining a residence permit (if applicable).</p>\n</div>\n</div>\n</div>",
+                "raw_text": " \n The registration office will provide you with a confirmation of your registration [Meldebestätigung], which you will need for opening a bank account and for obtaining a residence permit (if applicable). \n ",
                 "position": {
                     "x": 5458.359815520075,
                     "y": 891.7499956488505
@@ -996,7 +996,7 @@
                     {
                         "id": "16940100183728098",
                         "nodeId": "16940099824902790",
-                        "raw_text": "Finalising an offer"
+                        "raw_text": "Finalizing an offer"
                     },
                     {
                         "id": "16940100253612872",
@@ -1240,8 +1240,8 @@
             },
             "data": {
                 "id": "16940128782255012",
-                "markup": "<div class=\"page\" title=\"Page 3\">\n<div class=\"layoutArea\">\n<div class=\"column\">\n<p>As proof of your identity please present your passport and your moving-in letter at the caretaker&rsquo;s office [Hausmeisterbu\u0308ro]</p>\n</div>\n</div>\n</div>",
-                "raw_text": " \n As proof of your identity please present your passport and your moving-in letter at the caretaker 's office [Hausmeisterbu\u0308ro] \n ",
+                "markup": "<div class=\"page\" title=\"Page 3\">\n<div class=\"layoutArea\">\n<div class=\"column\">\n<p>As proof of your identity please present your passport and your moving-in letter at the caretaker&rsquo;s office [Hausmeisterbüro]</p>\n</div>\n</div>\n</div>",
+                "raw_text": " \n As proof of your identity please present your passport and your moving-in letter at the caretaker's office [Hausmeisterbüro] \n ",
                 "position": {
                     "x": 3723.8285854312808,
                     "y": -1055.5004339771126
@@ -1548,7 +1548,7 @@
                     {
                         "id": "16971431344291165",
                         "nodeId": "16940143534063060",
-                        "text": "What train ticket options are there for travelling across germany?"
+                        "text": "What train ticket options are there for traveling across germany?"
                     },
                     {
                         "id": "16971431475977817",
@@ -1844,8 +1844,8 @@
             },
             "data": {
                 "id": "16940163187913833",
-                "markup": "<div class=\"page\" title=\"Page 6\">\n<div class=\"section\">\n<div class=\"layoutArea\">\n<div class=\"column\">\n<p>For EU nationals who take on a minijob, a working student job or a paid internship during their studies, a German health insurance is mandatory.</p>\n</div>\n</div>\n</div>\n</div>",
-                "raw_text": " \n For EU nationals who take on a minijob, a working student job or a paid internship during their studies, a German health insurance is mandatory. \n ",
+                "markup": "<div class=\"page\" title=\"Page 6\">\n<div class=\"section\">\n<div class=\"layoutArea\">\n<div class=\"column\">\n<p>For EU nationals who take on a mini-job, a working student job or a paid internship during their studies, a German health insurance is mandatory.</p>\n</div>\n</div>\n</div>\n</div>",
+                "raw_text": " \n For EU nationals who take on a mini-job, a working student job or a paid internship during their studies, a German health insurance is mandatory. \n ",
                 "position": {
                     "x": 1760.8311980108306,
                     "y": 1682.871375014653
@@ -2676,7 +2676,7 @@
             "data": {
                 "id": "16940889657476504",
                 "markup": "<div class=\"page\" title=\"Page 25\">\n<div class=\"section\">\n<div class=\"layoutArea\">\n<div class=\"column\">\n<p>However, the visa/residence permit of non-EU students only allows the employment as a student assistant. Therefore, non-EU students need to request an addition to their visa/residence permit when they are offered a position as a research assistant at the university. The addition is requested from the foreign registration office [Ausla\u0308nderbeho\u0308rde].</p>\n</div>\n</div>\n</div>\n</div>",
-                "raw_text": " \n However, the visa/residence permit of non-EU students only allows the employment as a student assistant. Therefore, non-EU students need to request an addition to their visa/residence permit when they are offered a position as a research assistant at the university. The addition is requested from the foreign registration office [Ausla\u0308nderbeho\u0308rde]. \n ",
+                "raw_text": " \n However, the visa/residence permit of non-EU students only allows the employment as a student assistant. Therefore, non-EU students need to request an addition to their visa/residence permit when they are offered a position as a research assistant at the university. The addition is requested from the foreign registration office [Ausländerbehörde]. \n ",
                 "position": {
                     "x": 3561.196237730406,
                     "y": 822.281637039694
@@ -2710,8 +2710,8 @@
             },
             "data": {
                 "id": "16940895890871751",
-                "markup": "<div class=\"page\" title=\"Page 23\">\n<div class=\"layoutArea\">\n<div class=\"column\">\n<p>Each semester the university sports [Hochschulsport] offers a large range of sports activities. There are special registration periods. To gain one of the popular places, you have to register as soon as possible. Further information information please visit the <a title=\"Hochschulsport\" href=\"http://www.hochschulsport.uni-stuttgart.de/en/\">website</a>.</p>\n</div>\n</div>\n</div>",
-                "raw_text": " \n Each semester the university sports [Hochschulsport] offers a large range of sports activities. There are special registration periods. To gain one of the popular places, you have to register as soon as possible. Further information information please visit the website. \n ",
+                "markup": "<div class=\"page\" title=\"Page 23\">\n<div class=\"layoutArea\">\n<div class=\"column\">\n<p>Each semester the university sports [Hochschulsport] offers a large range of sports activities. There are special registration periods. To gain one of the popular places, you have to register as soon as possible. For further information please visit the <a title=\"Hochschulsport\" href=\"http://www.hochschulsport.uni-stuttgart.de/en/\">website</a>.</p>\n</div>\n</div>\n</div>",
+                "raw_text": " \n Each semester the university sports [Hochschulsport] offers a large range of sports activities. There are special registration periods. To gain one of the popular places, you have to register as soon as possible. For further information please visit the website. \n ",
                 "position": {
                     "x": 769.4253780141003,
                     "y": 450.8486391117765
@@ -2788,7 +2788,7 @@
                 },
                 "type": "infoNode",
                 "tags": [
-                    "enrollement",
+                    "enrollment",
                     "students"
                 ],
                 "answers": [],
@@ -4064,7 +4064,7 @@
             "color": "#EB860A"
         },
         {
-            "id": "enrollement",
+            "id": "enrollment",
             "color": "#7b3e19"
         },
         {
