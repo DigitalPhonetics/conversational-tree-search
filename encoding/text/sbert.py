@@ -17,7 +17,9 @@ class SentenceEmbeddings(TextEmbeddings):
         super().__init__(device, ckpt_name, embedding_dim, torch_compile)
         self.bert_sentence_embedder = SentenceTransformer(ckpt_name, device=device, cache_folder = "/mount/arbeitsdaten/asr-2/vaethdk/resources/weights").to(device)
         if torch_compile:
+            print("COMPILE EMBEDDING=TRUE")
             self.bert_sentence_embedder = torch.compile(self.bert_sentence_embedder)
+        print("COMPILE EMBEDDING=FALSE")
 
     @torch.no_grad()
     def _encode(self, text: Union[str, None]) -> torch.FloatTensor:

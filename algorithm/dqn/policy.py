@@ -81,7 +81,10 @@ class CustomDQNPolicy(DQNPolicy):
         
         model = net_cls(**net_args, **arch).to(self.device)
         if self.torch_compile:
+            print("COMPILE=TRUE")
             model = th.compile(model)
+        else:
+            print("COMPILE=FALSE")
         self.intent_prediction = model.intent_prediction
         print("ARCHITECUTRE", model)
         return model

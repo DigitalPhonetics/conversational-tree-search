@@ -33,8 +33,9 @@ from environment.cts import CTSEnvironment
 
 import os
 
-run_id = "run_1694965093"
-cfg_name = "reimburse_eval_debug.yaml"
+run_id = "run_1695726565"
+cfg_name = "onboarding_realdata.yaml"
+ckpt_name = "ckpt_52.zip"
 DEVICE = "cuda:0"
 
 print("EVALUATING for run with id", run_id)
@@ -51,23 +52,23 @@ cs = ConfigStore.instance()
 register_configs()
 
 
-def get_latest_checkpoint_name(ckpt_path: str) -> str:
-    highest_number = -1
-    for file in os.listdir(ckpt_path):
-        if ".pt" in file or ".zip" in file:
-            number = int(file.strip("ckpt_").strip(".pt").strip(".zip"))
-            if number > highest_number:
-                highest_number = number
-    if os.path.isfile(f"{ckpt_path}/ckpt_{highest_number}.pt"):
-        return f"ckpt_{highest_number}.pt"
-    elif os.path.isfile(f"{ckpt_path}/ckpt_{highest_number}.zip"):
-        return f"ckpt_{highest_number}.zip"
-    else:
-        assert False, f"File not found in {ckpt_path} with ckpt num {highest_number}"
+# def get_latest_checkpoint_name(ckpt_path: str) -> str:
+#     highest_number = -1
+#     for file in os.listdir(ckpt_path):
+#         if ".pt" in file or ".zip" in file:
+#             number = int(file.strip("ckpt_").strip(".pt").strip(".pth").strip(".zip"))
+#             if number > highest_number:
+#                 highest_number = number
+#     if os.path.isfile(f"{ckpt_path}/ckpt_{highest_number}.pt"):
+#         return f"ckpt_{highest_number}.pt"
+#     elif os.path.isfile(f"{ckpt_path}/ckpt_{highest_number}.zip"):
+#         return f"ckpt_{highest_number}.zip"
+#     else:
+#         assert False, f"File not found in {ckpt_path} with ckpt num {highest_number}"
 
 path = f"/mount/arbeitsdaten/asr-2/vaethdk/cts_newcodebase_weights/{run_id}/best_eval/weights"
 ckpt_dir = os.path.join(path, 'tmp')
-ckpt_name = get_latest_checkpoint_name(path)
+# ckpt_name = get_latest_checkpoint_name(path)
 print("Latest checkpoint:", ckpt_name)
 zip_path = f"{path}/{ckpt_name}"
 

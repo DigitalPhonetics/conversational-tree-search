@@ -31,9 +31,9 @@ from environment.cts import CTSEnvironment
 import os
 
 
-run_id = "run_1695028123"
-cfg_name = "reimburse_generated_v2_terminalobs_ling.yaml"
-wandb_id = "w6mrhdf2"
+run_id = "run_1697223807"
+cfg_name = "onboarding_generated_v3"
+wandb_id = "m89m2prf"
 DEVICE = "cuda:0"
 
 print("Continue run for id", run_id)
@@ -266,7 +266,15 @@ def load_cfg(cfg):
     print("INIT COMPLETE!")
     # load weights
     print("Loading weights...")
-    model.policy.load_state_dict(th.load(f"{ckpt_dir}/policy.pth", map_location=lambda storage, loc: storage.cuda(0)))
+    if cfg.experiment.torch_compile == False:
+        state_dict = th.load(f"{ckpt_dir}/policy.pth", map_location=lambda storage, loc: storage.cuda(0))
+        unwanted_prefix = '_orig_mod.'
+        for k,v in list(state_dict.items()):
+            if unwanted_prefix in k:
+                state_dict[k.replace(unwanted_prefix, "")] = state_dict.pop(k)
+        model.policy.load_state_dict(state_dict)
+    else:
+        model.policy.load_state_dict(th.load(f"{ckpt_dir}/policy.pth", map_location=lambda storage, loc: storage.cuda(0)))
     # model_weights = th.load(f"{ckpt_dir}/policy.pth", map_location=lambda storage, loc: storage.cuda(0))
     # model.policy.q_net.load_state_dict({key.replace("q_net.", ""): model_weights[key] for key in model_weights if "q_net." in key })
     # model.policy.q_net_target.load_state_dict({key.replace("q_net_target."): model_weights[key] for key in model_weights if "q_net_target." in key })

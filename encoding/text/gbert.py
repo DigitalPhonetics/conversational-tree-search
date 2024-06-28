@@ -53,8 +53,9 @@ class FinetunedGBertEmbeddings(TextEmbeddings):
         self.tokenizer = AutoTokenizer.from_pretrained(ckpt_name, use_fast=True, cache_dir="/mount/arbeitsdaten/asr-2/vaethdk/resources/weights", truncation_side='left')
         self.bert = AutoModelForMaskedLM.from_pretrained(ckpt_name, cache_dir="/mount/arbeitsdaten/asr-2/vaethdk/resources/weights", output_hidden_states = True).to(device)
         if torch_compile:
+            print("COMPILE EMBEDDING=TRUE")
             self.bert = torch.compile(self.bert)
-
+        print("COMPILE EMBEDDING=FALSE")
 
     @torch.no_grad()
     def _encode(self, text: Union[str, None]) -> torch.FloatTensor:

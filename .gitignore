@@ -1,6 +1,9 @@
 dialogmanagement/static/dialogmanagement/dialogdesigner
 
+open_ai_key.sh
 logs/
+paper logs/
+BLEURT-20/
 runs/
 wandb/
 *.arrow
@@ -27,7 +30,7 @@ debug/
 newruns/
 study_data/
 outputs/
-
+testing
 
 Cargo.lock
 CACHEDIR.TAG
