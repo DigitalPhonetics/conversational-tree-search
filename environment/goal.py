@@ -24,14 +24,18 @@ class VariableValue:
         self.geq_condition = None
 
     def __str__(self) -> str:
-        return f"""Variable '{self.var_name}': {self.var_type}
-            - < {self.lt_condition}
-            - <= {self.leq_condition}
-            - = {self.eq_condition}
-            - >= {self.geq_condition}
-            - > {self.gt_condition}
-        """
-        
+        text = [f"Variable {self.var_name}' ({self.var_type}), constraints: "]
+        if not isinstance(self.lt_condition, type(None)):
+            text.append(f" - < {self.lt_condition}")
+        if not isinstance(self.leq_condition, type(None)):
+            text.append(f" - <= {self.leq_condition}")
+        if not isinstance(self.eq_condition, type(None)):
+            text.append(f" - = {self.eq_condition}")
+        if not isinstance(self.geq_condition, type(None)):
+            text.append(f" - >= {self.geq_condition}")
+        if not isinstance(self.gt_condition, type(None)):
+            text.append(f" - > {self.gt_condition}")
+        return "\n".join(text)
 
     def add_default_condition(self, other_branch_conditions: List[Tuple[str, Any]]) -> bool:
         # invert conditions in same branch statement (DEFAULT is always == condition)
@@ -258,21 +262,24 @@ class UserGoal:
 
         # substitute values for delexicalised faq questions (not in bst)
         substitution_vars = {}
-        required_vars = system_parser.find_variables(initial_user_utterance)
-        for var in required_vars:
-            if not var in self.variables:
-                # draw random value
-                value = None
-                if var == "COUNTRY":
-                    value = data.countries[random.choice(list(data.countries.keys()))]
-                elif var == "CITY":
-                    value = data.cities[random.choice(list(data.cities.keys()))]
-                substitution_vars[var] = value
-            else:
-                substitution_vars[var] = self.variables[var]
+        if "{{" in initial_user_utterance:
+            required_vars = system_parser.find_variables(initial_user_utterance)
+            for var in required_vars:
+                if not var in self.variables:
+                    # draw random value
+                    value = None
+                    if var == "COUNTRY":
+                        value = data.countries[random.choice(list(data.countries.keys()))]
+                    elif var == "CITY":
+                        value = data.cities[random.choice(list(data.cities.keys()))]
+                    substitution_vars[var] = value
+                else:
+                    substitution_vars[var] = self.variables[var]
+            self.initial_user_utterance = system_parser.parse_template(initial_user_utterance, value_backend, substitution_vars)
+        else:
+            self.initial_user_utterance = initial_user_utterance
         self.constraints = self.path.constraints
         self.delexicalised_initial_user_utterance = initial_user_utterance
-        self.initial_user_utterance = system_parser.parse_template(initial_user_utterance, value_backend, substitution_vars)
 
 
     def expand_path(self, goal_node: DialogNode, start_node: DialogNode, answerParser: AnswerTemplateParser):

@@ -139,10 +139,3 @@ class EnvironmentMode(Enum):
     TRAIN = 0,
     EVAL = 1
     TEST = 2
-
-
-class NodeType(Enum):
-    INFO = "infoNode"
-    VARIABLE = "userInputNode"
-    QUESTION = "userResponseNode"
-    LOGIC = "logicNode"

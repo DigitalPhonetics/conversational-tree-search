@@ -52,8 +52,9 @@ class OldCTSEnv(gym.Env):
                 goal_distance_mode: GoalDistanceMode,
                 goal_distance_increment: int,
                 **kwargs):
-                 
-            
+        
+        assert isinstance(auto_skip, AutoSkipMode)
+        assert isinstance(goal_distance_mode, GoalDistanceMode) 
         self.mode = mode
      
         self.max_steps = max_steps if max_steps else 2 * dataset.get_max_tree_depth() # if no max step is set, choose automatically 2*tree depth
@@ -606,6 +607,7 @@ class OldCTSEnv(gym.Env):
             reward -= self.max_steps
             done = True
             self.actioncount_stop_prematurely += 1
+            self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> STOP ACTION')
         elif action == 1:
             assert self.current_node.node_type != NodeType.LOGIC
 
@@ -619,6 +621,7 @@ class OldCTSEnv(gym.Env):
                     # last ask brought us to correct goal
                     if not self._choose_next_goal_node_guided():
                         done = True
+                        self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> FAILED CHOOSING NEW GUIDED GOAL NODE')
             else:
                 reward += 2 # important to ask each node
                 self.asked_goals.append(1.0 * (self.reached_goals and self.reached_goals[-1] == 1)) # only asked correct goal if we jumped to the correct node in the previous transition
@@ -627,6 +630,7 @@ class OldCTSEnv(gym.Env):
                     # -> draw new goal
                     if not self._choose_next_goal_node_guided():
                         done = True
+                        self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> FAILED CHOOSING NEW GUIDED GOAL NODE')
 
             if self.current_node.node_type == NodeType.VARIABLE:
                 # get variable name and value
@@ -650,6 +654,7 @@ class OldCTSEnv(gym.Env):
                 if not self.goal_node:
                     # there are no more options to visit new nodes from current node -> stop dialog
                     done = True
+                    self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> GOAL NODE = NONE')
                 else:
                     answer = self.current_node.answer_by_connected_node(self.goal_node)
                     self.current_user_utterance = rand_remove_questionmark(random.choice(self.data.answer_synonyms[answer.text.lower()]))
@@ -690,9 +695,11 @@ class OldCTSEnv(gym.Env):
                 if self.reached_goals[-1] == 0:
                     if not self._choose_next_goal_node_guided():
                         done = True
+                        self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> FAILED CHOOSING NEW GUIDED GOAL NODE')
                     if not self.goal_node:
                         # there are no more options to visit new nodes from current node -> stop dialog
                         done = True
+                        self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> FAILED CHOOSING NEW GUIDED GOAL NODE')
         return reward, done
 
     def _step_free(self, action: int, _replayed_user_utterance: Union[str, None]) -> Tuple[float, bool]:
@@ -709,6 +716,7 @@ class OldCTSEnv(gym.Env):
                 reward -= self.max_reward # we are stopping without having asked goal node and stopping on non-goal node
                 self.actioncount_stop_prematurely += 1
             done = True
+            self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> STOP ACTION')
         elif action == 1:
             # ASK
             if not self.asked_goal and self.goal.has_reached_goal_node(self.current_node):

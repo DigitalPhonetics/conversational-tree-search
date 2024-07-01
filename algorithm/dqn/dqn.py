@@ -1,34 +1,113 @@
 
+from collections import deque
+import io
+import os
+import pathlib
+import shutil
 from statistics import mean
-from typing import Tuple, TypeVar, Union, Dict, Optional, Type, Any
-from stable_baselines3 import DQN
+from typing import Iterable, Set, Tuple, TypeVar, Union, Dict, Optional, Type, Any
+
+from omegaconf import DictConfig
 
 import torch as th
 import torch.nn.functional as F
-
-from gymnasium import spaces
-from stable_baselines3.dqn.policies import QNetwork
-from stable_baselines3.common.type_aliases import Schedule
-
-from typing import Any, Dict, Optional, Tuple, Type, Union
-
 import numpy as np
-import torch as th
-from gymnasium import spaces
-from torch.nn import functional as F
 
+from gymnasium import spaces
+
+import stable_baselines3 as sb3
+from stable_baselines3 import DQN
 from stable_baselines3.common.buffers import ReplayBuffer
 from stable_baselines3.common.type_aliases import GymEnv, Schedule
 from stable_baselines3.dqn.policies import QNetwork
-from algorithm.dqn.her import HindsightExperienceReplayWrapper
+from stable_baselines3.common.save_util import recursive_getattr, data_to_json
+from stable_baselines3.common.utils import get_system_info
 
+from algorithm.dqn.her import HindsightExperienceReplayWrapper
 from algorithm.dqn.policy import CustomDQNPolicy
-from algorithm.dqn.targets import DQNTarget, StandardTarget
+from algorithm.dqn.targets import DQNTarget
 from environment.old.her import OldHindsightExperienceReplayWrapper
 from utils.utils import EnvInfo
 import config as cfg
 
 SelfDQN = TypeVar("SelfDQN", bound="CustomDQN")
+
+
+from datetime import datetime
+from stat import S_IFREG
+from stream_zip import ZIP_64, stream_zip
+
+
+def _local_files(names):
+    now  = datetime.now()
+    def contents(name):
+        with open(name, 'rb') as f:
+            while chunk := f.read(65536):
+                yield chunk
+
+    return (
+        (name, now, S_IFREG | 0o600, ZIP_64, contents(name))
+        for name in names
+    )
+
+def save_to_zip_file(
+    save_path: Union[str, pathlib.Path, io.BufferedIOBase],
+    data: Optional[Dict[str, Any]] = None,
+    params: Optional[Dict[str, Any]] = None,
+    pytorch_variables: Optional[Dict[str, Any]] = None,
+    replay_buffer = None,
+    verbose: int = 0,
+) -> None:
+    """
+    Save model data to a zip archive.
+
+    :param save_path: Where to store the model.
+        if save_path is a str or pathlib.Path ensures that the path actually exists.
+    :param data: Class parameters being stored (non-PyTorch variables)
+    :param params: Model parameters being stored expected to contain an entry for every
+                   state_dict with its name and the state_dict.
+    :param pytorch_variables: Other PyTorch variables expected to contain name and value of the variable.
+    :param verbose: Verbosity level: 0 for no output, 1 for info messages, 2 for debug messages
+    """
+
+    # First, write individual files to disk
+
+    # data/params can be None, so do not
+    # try to serialize them blindly
+    os.makedirs(save_path, exist_ok=True)
+    filenames = []
+    if data is not None:
+        serialized_data = data_to_json(data)
+        f_data = f"{save_path}/data"
+        with open(f_data, "w") as f:
+            f.write(serialized_data)
+        filenames.append(f_data)
+    if pytorch_variables is not None:
+        f_pytorch_vars = f"{save_path}/pytorch_variables.pth"
+        th.save(pytorch_variables, f_pytorch_vars)
+        filenames.append(f_pytorch_vars)
+    if params is not None:
+       for file_name, dict_ in params.items():
+           f_param = f"{save_path}/{file_name}.pth"
+           th.save(dict_, f_param)
+           filenames.append(f_param)
+    if replay_buffer is not None:
+        f_replay = f"{save_path}/replay_buffer.pth"
+        th.save(replay_buffer.save_params(), f_replay)
+        filenames.append(f_replay) 
+    f_sys_info = f"{save_path}/system_info.txt"
+    with open(f_sys_info, "w") as f:
+        f.write(get_system_info(print_info=False)[1])
+        f.write(f"\n_stable_baselines3_version: {sb3.__version__}")
+
+    # Create a zip-archive and write our objects there.
+    with open(f"{save_path}.pt", 'wb') as f:
+        for chunk in stream_zip(_local_files(filenames)):
+            f.write(chunk)
+            
+    # Cleanup
+    shutil.rmtree(save_path)
+        
 
 
 class CustomDQN(DQN):
@@ -85,6 +164,7 @@ class CustomDQN(DQN):
 
     def __init__(
         self,
+        configuration: DictConfig,
         policy: Union[str, Type[CustomDQNPolicy]],
         env: Union[GymEnv, str],
         target: DQNTarget,
@@ -144,13 +224,12 @@ class CustomDQN(DQN):
         self.action_masking = action_masking
         self.actions_in_state_space = actions_in_state_space
         self.target = target
+        self.configuration = configuration
 
         self.global_step = 0
+        self.current_resets = 0
 
     def train(self, gradient_steps: int, batch_size: int = 100) -> None:
-        for env in self.env.envs:
-            env.reset_episode_log()
-        
         # Switch to train mode (this affects batch norm / dropout)
         self.policy.set_training_mode(True)
         # Update learning rate according to schedule
@@ -223,6 +302,8 @@ class CustomDQN(DQN):
         self.logger.record("train/max_goal_distance", cfg.INSTANCES[cfg.InstanceArgs.MAX_DISTANCE])
         self.logger.record("train/buffer_size", len(self.replay_buffer))
         self.logger.record("train/q_values", mean(q_values))
+        self.logger.record("train/epsilon", self.exploration_rate)
+        self.logger.record("train/resets", self.current_resets)
         if self.policy.intent_prediction:
             self.logger.record("train/intent_loss", np.mean(intent_losses))
         if self.replay_buffer_class in [HindsightExperienceReplayWrapper, OldHindsightExperienceReplayWrapper]:
@@ -320,3 +401,209 @@ class CustomDQN(DQN):
             buffer_action = unscaled_action
             action = buffer_action
         return action, buffer_action
+    
+    def _update_current_progress_remaining(self, num_timesteps: int, total_timesteps: int) -> None:
+        """
+        Compute current progress remaining (starts from 1 and ends to 0)
+
+        :param num_timesteps: current number of timesteps
+        :param total_timesteps:
+        """
+        self._current_progress_remaining = 1.0 - float(num_timesteps % total_timesteps ) / float(total_timesteps)
+        self.logger.record('train/progress_remaining', self._current_progress_remaining)
+
+    def reset_exploration(self, reset_idx: int, clear_buffer: bool):
+        self.current_resets = reset_idx
+        if reset_idx == 0:
+            # first exploration round, don't need to reset anything
+            return
+        # second or later exploration round, reset things:
+        # reset info + success buffers
+        self.ep_info_buffer = deque(maxlen=self._stats_window_size)
+        self.ep_success_buffer = deque(maxlen=self._stats_window_size)
+        if clear_buffer:
+            self.replay_buffer.clear()
+        # trigger environment reset
+        self._last_obs = None
+
+    def learn(self,
+        total_timesteps: int,
+        reset_exploration_times: int = 0,
+        clear_buffer_on_reset: bool = False,
+        callback = None,
+        log_interval: int = 4,
+        progress_bar: bool = False
+    ):
+        
+        for reset_idx in range(reset_exploration_times+1):
+            self.reset_exploration(reset_idx, clear_buffer_on_reset)
+            end_timestep_of_reset = (reset_idx + 1) * total_timesteps
+
+            _, callback = self._setup_learn(
+                total_timesteps,
+                callback,
+                reset_num_timesteps=False,
+                tb_log_name="DQN",
+                progress_bar=progress_bar,
+            )
+            # reset total timesteps, because stable-baselines will increase it by the current number of steps - this would destroy the idea of the modulo operation in _update_current_progress_remaining  
+            self._total_timesteps = total_timesteps
+
+            callback.on_training_start(locals(), globals())
+
+            while self.num_timesteps < end_timestep_of_reset:
+                rollout = self.collect_rollouts(
+                    self.env,
+                    train_freq=self.train_freq,
+                    action_noise=self.action_noise,
+                    callback=callback,
+                    learning_starts=self.learning_starts,
+                    replay_buffer=self.replay_buffer,
+                    log_interval=log_interval,
+                )
+
+                if rollout.continue_training is False:
+                    break
+
+                if self.num_timesteps > 0 and self.num_timesteps > self.learning_starts:
+                    # If no `gradient_steps` is specified,
+                    # do as many gradients steps as steps performed during the rollout
+                    gradient_steps = self.gradient_steps if self.gradient_steps >= 0 else rollout.episode_timesteps
+                    # Special case when the user passes `gradient_steps=0`
+                    if gradient_steps > 0:
+                        self.train(batch_size=self.batch_size, gradient_steps=gradient_steps)
+
+            callback.on_training_end()
+
+
+    def continue_learning(self,
+        current_steps, 
+        current_timesteps_at_start,
+        current_episode_num,
+        current_progress_remaining,
+        current_n_updates,
+        current_n_calls,
+        current_exploration_rate,
+        current_global_step,
+        current_resets,
+        total_timesteps: int,
+        reset_exploration_times: int = 0,
+        clear_buffer_on_reset: bool = False,
+        callback = None,
+        log_interval: int = 4,
+        progress_bar: bool = False):
+
+        self.num_timesteps = current_steps
+        self._num_timesteps_at_start=current_timesteps_at_start
+        self._episode_num = current_episode_num
+        self._current_progress_remaining = current_progress_remaining
+        self._n_updates = current_n_updates
+        self._n_calls = current_n_calls
+        self.exploration_rate = current_exploration_rate
+        self.global_step = current_global_step
+
+        for reset_idx in range(current_resets, reset_exploration_times+1):
+            self.reset_exploration(reset_idx, clear_buffer_on_reset)
+            end_timestep_of_reset = (reset_idx + 1) * total_timesteps
+
+            _, callback = self._setup_learn(
+                total_timesteps,
+                callback,
+                reset_num_timesteps=False,
+                tb_log_name="DQN",
+                progress_bar=progress_bar,
+            )
+
+            if reset_idx == current_resets:
+                self.num_timesteps = current_steps
+                self._num_timesteps_at_start=current_timesteps_at_start
+                self._episode_num = current_episode_num
+                self._current_progress_remaining = current_progress_remaining
+                self._n_updates = current_n_updates
+                self._n_calls = current_n_calls
+                self.exploration_rate = current_exploration_rate
+                self.global_step = current_global_step
+
+            # reset total timesteps, because stable-baselines will increase it by the current number of steps - this would destroy the idea of the modulo operation in _update_current_progress_remaining  
+            self._total_timesteps = total_timesteps
+
+            callback.on_training_start(locals(), globals())
+
+            while self.num_timesteps < end_timestep_of_reset:
+                rollout = self.collect_rollouts(
+                    self.env,
+                    train_freq=self.train_freq,
+                    action_noise=self.action_noise,
+                    callback=callback,
+                    learning_starts=self.learning_starts,
+                    replay_buffer=self.replay_buffer,
+                    log_interval=log_interval,
+                )
+
+                if rollout.continue_training is False:
+                    break
+
+                if self.num_timesteps > 0 and self.num_timesteps > self.learning_starts:
+                    # If no `gradient_steps` is specified,
+                    # do as many gradients steps as steps performed during the rollout
+                    gradient_steps = self.gradient_steps if self.gradient_steps >= 0 else rollout.episode_timesteps
+                    # Special case when the user passes `gradient_steps=0`
+                    if gradient_steps > 0:
+                        self.train(batch_size=self.batch_size, gradient_steps=gradient_steps)
+
+            callback.on_training_end()
+
+    def save(
+        self,
+        path: Union[str, pathlib.Path, io.BufferedIOBase],
+        exclude: Optional[Iterable[str]] = None,
+        include: Optional[Set[str]] = None,
+    ) -> None:
+        """
+        Save all the attributes of the object and the model parameters in a zip-file.
+
+        :param path: path to the file where the rl agent should be saved
+        :param exclude: name of parameters that should be excluded in addition to the default ones
+        :param include: name of parameters that might be excluded but should be included anyway
+        """
+        # Copy parameter list so we don't mutate the original dict
+        data = self.__dict__.copy()
+        replay_buffer = None
+
+        # Exclude is union of specified parameters (if any) and standard exclusions
+        if exclude is None:
+            exclude = []
+        exclude = set(exclude).union(self._excluded_save_params())
+
+        # Do not exclude params if they are specifically included
+        if include is not None:
+            # DON'T INCLUDE REPLAY BUGGER - would be converted to JSON string in memory -> overflow!
+            if "replay_buffer" in include:
+                include.remove("replay_buffer")
+                replay_buffer = self.replay_buffer
+            exclude = exclude.difference(include)
+
+        state_dicts_names, torch_variable_names = self._get_torch_save_params()
+        all_pytorch_variables = state_dicts_names + torch_variable_names
+        for torch_var in all_pytorch_variables:
+            # We need to get only the name of the top most module as we'll remove that
+            var_name = torch_var.split(".")[0]
+            # Any params that are in the save vars must not be saved by data
+            exclude.add(var_name)
+
+        # Remove parameter entries of parameters which are to be excluded
+        for param_name in exclude:
+            data.pop(param_name, None)
+
+        # Build dict of torch variables
+        pytorch_variables = None
+        if torch_variable_names is not None:
+            pytorch_variables = {}
+            for name in torch_variable_names:
+                attr = recursive_getattr(self, name)
+                pytorch_variables[name] = attr
+
+        # Build dict of state_dicts
+        params_to_save = self.get_parameters()
+
+        save_to_zip_file(path, data=data, params=params_to_save, pytorch_variables=pytorch_variables, replay_buffer=replay_buffer)

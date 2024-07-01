@@ -74,7 +74,6 @@ class CustomDQNPolicy(DQNPolicy):
         del net_args['normalize_images']
         del net_args['features_extractor']
         del net_args['features_dim']
-        del net_args['activation_fn']
         
         arch = net_args.pop('net_arch')
         net_cls = to_class(arch.pop('net_cls'))

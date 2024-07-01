@@ -61,6 +61,8 @@ class HindsightExperienceReplayWrapper(object):
                     device: Union[th.device, str] = "cpu",
                     **kwargs):
         
+        assert isinstance(auto_skip, AutoSkipMode)
+        
         self.append_ask_action = append_ask_action
         self.replay_buffer = PrioritizedLAPReplayBuffer(buffer_size=buffer_size, observation_space=observation_space, action_space=action_space, alpha=alpha, beta=beta, device=device, **kwargs)
         # self.replay_buffer = RecencyReplayBuffer(buffer_size=buffer_size, observation_space=observation_space, action_space=action_space, device=device, **kwargs)
@@ -75,6 +77,7 @@ class HindsightExperienceReplayWrapper(object):
                                     sys_token=sys_token, usr_token=usr_token, sep_token=sep_token)
 
         # Buffer for storing transitions of the current episode, for vectorized environment
+        self.num_train_envs = num_train_envs
         self.episode_transitions: List[List[HERReplaySample]] = [list() for _ in range(num_train_envs)]
         # Buffer for storing artificial transitions until we have enough to process a full batch
         self.artificial_transition_buffer: List[HERReplaySample] = []
@@ -87,6 +90,35 @@ class HindsightExperienceReplayWrapper(object):
 
     def reset_last_transition_indices(self):
         self.replay_buffer.reset_last_transition_indices()
+
+    def save_params(self) -> Dict[str, Any]:
+        return {
+            "replay_buffer": self.replay_buffer.save_params(),
+            "episode_transitions": self.episode_transitions,
+            "artificial_transition_buffer": self.artificial_transition_buffer,
+            "artifical_rewards_free": self.artifical_rewards_free,
+            "artifical_rewards_guided": self.artifical_rewards_guided,
+            "replay_success_free": self.replay_success_free,
+            "replay_success_guided": self.replay_success_guided
+        }
+    
+    def load_params(self, data):
+        self.replay_buffer.load_params(data['replay_buffer'])
+        # self.episode_transitions = data['episode_transitions']
+        self.artificial_transition_buffer = data['artificial_transition_buffer']
+        self.artifical_rewards_free = data['artifical_rewards_free']
+        self.artifical_rewards_guided = data['artifical_rewards_guided']
+        self.replay_success_free = data['replay_success_free'] 
+        self.replay_success_guided = data['replay_success_guided']
+
+    def clear(self):
+        self.replay_buffer.clear()
+        self.episode_transitions = [list() for _ in range(self.num_train_envs)]
+        self.artificial_transition_buffer = []
+        self.artifical_rewards_free.clear()
+        self.artifical_rewards_guided.clear()
+        self.replay_success_free.clear()
+        self.replay_success_guided.clear()
 
     @property
     def artificial_episodes(self):
@@ -135,7 +167,6 @@ class HindsightExperienceReplayWrapper(object):
 
     def update_weights(self, batch_inds: np.ndarray, weights: np.ndarray):
         self.replay_buffer.update_weights(batch_inds=batch_inds, weights=weights)
-
 
     def sample(self, *args, **kwargs):
         return self.replay_buffer.sample(*args, **kwargs)
@@ -197,8 +228,12 @@ class HindsightExperienceReplayWrapper(object):
     
     def _replay_episode(self, mode: str, original_transitions: List[HERReplaySample], artificial_goal: DummyGoal, final_transition_idx: int) -> float:
         # replay episode with new goal
+        # print("\n\n\n")
+        # print("======== RESET =========")
         episode_reward = 0.0
         obs = self.env.reset(mode=mode, replayed_goal=artificial_goal)
+        # print("Goal node:", self.data.nodes_by_key[artificial_goal.goal_node_key].text[:50])
+        # print(f'            ({self.data.nodes_by_key[artificial_goal.goal_node_key].key})')
         done = False
         transition_idx = 0
         while not done and transition_idx <= final_transition_idx:
@@ -206,13 +241,21 @@ class HindsightExperienceReplayWrapper(object):
             original_transition = original_transitions[transition_idx]
             # recover original action
             original_action = original_transition.action
+            # print(f"- Transition {transition_idx}:")
+            # print(f"     - ORIGINAL ACTION = {original_action}")
+            # print(f"     - ORIGINAL NODE = {self.data.nodes_by_key[original_transition.info[EnvInfo.DIALOG_NODE_KEY]].text[:50]}")
+            # print(f"     -                 ({original_transition.info[EnvInfo.DIALOG_NODE_KEY]})")
             # replay action
             next_obs, reward, done, info = self.env.step(original_action, replayed_user_utterance=original_transition.info[EnvInfo.CURRENT_USER_UTTERANCE] if transition_idx > 0 else artificial_goal.initial_user_utterance)
             # record new observations
+            # print(f"    => NEW NODE = {self.data.nodes_by_key[info[EnvInfo.DIALOG_NODE_KEY]].text[:50]}")
+            # print(f"    =>            {info[EnvInfo.DIALOG_NODE_KEY]}")
             self._store_aritificial_transition(obs, next_obs, original_action, reward, done, info)
             episode_reward += reward
             transition_idx += 1
 
+        # print(" -> REACHED GOAL:", info[EnvInfo.REACHED_GOAL_ONCE])
+        # print(" -> ASKED GOAL", info[EnvInfo.ASKED_GOAL])
         assert info[EnvInfo.REACHED_GOAL_ONCE] == True
         if self.append_ask_action and not (original_action == ActionType.ASK):
             # append an artificial ASK action as last action, if replayed episode didn't end in one
@@ -254,19 +297,22 @@ class HindsightExperienceReplayWrapper(object):
             question = goal_node.random_question()
             # create dummy goal
             goal.delexicalised_initial_user_utterance = rand_remove_questionmark(question.text)
-            try:
-                goal.initial_user_utterance = self.system_parser.parse_template(goal.delexicalised_initial_user_utterance, self.env.free_env.value_backend, goal.constraints)
-            except:
-                print(f"HER ERROR: parser on retry {retry}", goal.delexicalised_initial_user_utterance, goal.constraints)
-                offset = 1
-                if original_transitions[final_transition_idx].action == ActionType.ASK:
-                    # have to backward to previous node
-                    offset += 1
-                if final_transition_idx - offset > 1:
-                    self._replay_free(original_transitions[:final_transition_idx-1], retry=retry+1)
-                else:
-                    self.replay_success_free.append(0.0)
-                    return
+            if "{{" in goal.delexicalised_initial_user_utterance:
+                try:
+                        goal.initial_user_utterance = self.system_parser.parse_template(goal.delexicalised_initial_user_utterance, self.env.free_env.value_backend, goal.constraints)
+                except:
+                    print(f"HER ERROR: parser on retry {retry}", goal.delexicalised_initial_user_utterance, goal.constraints)
+                    offset = 1
+                    if original_transitions[final_transition_idx].action == ActionType.ASK:
+                        # have to backward to previous node
+                        offset += 1
+                    if final_transition_idx - offset > 1:
+                        self._replay_free(original_transitions[:final_transition_idx-1], retry=retry+1)
+                    else:
+                        self.replay_success_free.append(0.0)
+                        return
+            else:
+                goal.initial_user_utterance = goal.delexicalised_initial_user_utterance
 
         # replay
         total_reward = self._replay_episode(mode='free', original_transitions=original_transitions, artificial_goal=goal, final_transition_idx=final_transition_idx)

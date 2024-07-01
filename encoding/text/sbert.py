@@ -15,9 +15,7 @@ class SentenceEmbeddings(TextEmbeddings):
     def __init__(self, device: str, ckpt_name: str, embedding_dim: int, torch_compile: bool) -> None:
         from sentence_transformers import SentenceTransformer
         super().__init__(device, ckpt_name, embedding_dim, torch_compile)
-        path = f".models/{ckpt_name.replace('/', '_')}"
-        name_or_path = path if os.path.exists(path) else ckpt_name
-        self.bert_sentence_embedder = SentenceTransformer(path, device=device, cache_folder = '.models').to(device)
+        self.bert_sentence_embedder = SentenceTransformer(ckpt_name, device=device, cache_folder = "/mount/arbeitsdaten/asr-2/vaethdk/resources/weights").to(device)
         if torch_compile:
             self.bert_sentence_embedder = torch.compile(self.bert_sentence_embedder)
 

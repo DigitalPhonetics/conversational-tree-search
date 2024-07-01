@@ -12,8 +12,8 @@ class GBertEmbeddings(TextEmbeddings):
         from transformers import AutoTokenizer
         from transformers import AutoModelForMaskedLM
         super().__init__(device, ckpt_name, embedding_dim, torch_compile)
-        self.tokenizer = AutoTokenizer.from_pretrained(ckpt_name, use_fast=True, cache_dir=".models/gbert", truncation_side='left')
-        self.bert = AutoModelForMaskedLM.from_pretrained(ckpt_name, cache_dir=".models/gbert-tokenizer", output_hidden_states = True).to(device)
+        self.tokenizer = AutoTokenizer.from_pretrained(ckpt_name, use_fast=True, cache_dir="/mount/arbeitsdaten/asr-2/vaethdk/resources/weights", truncation_side='left')
+        self.bert = AutoModelForMaskedLM.from_pretrained(ckpt_name, cache_dir="/mount/arbeitsdaten/asr-2/vaethdk/resources/weights", output_hidden_states = True).to(device)
         if torch_compile:
             self.bert = torch.compile(self.bert)
 
@@ -50,8 +50,8 @@ class FinetunedGBertEmbeddings(TextEmbeddings):
         from transformers import AutoTokenizer
         from transformers import AutoModelForMaskedLM
         super().__init__(device, ckpt_name, embedding_dim, torch_compile)
-        self.tokenizer = AutoTokenizer.from_pretrained('deepset/gbert-large', use_fast=True, cache_dir=".models/gbert", truncation_side='left')
-        self.bert = AutoModelForMaskedLM.from_pretrained('.models/' + ckpt_name, output_hidden_states = True).to(device)
+        self.tokenizer = AutoTokenizer.from_pretrained(ckpt_name, use_fast=True, cache_dir="/mount/arbeitsdaten/asr-2/vaethdk/resources/weights", truncation_side='left')
+        self.bert = AutoModelForMaskedLM.from_pretrained(ckpt_name, cache_dir="/mount/arbeitsdaten/asr-2/vaethdk/resources/weights", output_hidden_states = True).to(device)
         if torch_compile:
             self.bert = torch.compile(self.bert)
 

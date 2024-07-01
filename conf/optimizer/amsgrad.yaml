@@ -1,2 +1,5 @@
+defaults:
+- scheduler/constant
+
 class_path: torch.optim.Adam
 amsgrad: true

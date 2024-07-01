@@ -36,6 +36,7 @@ class OldCTSHEREnvironment:
                 stop_on_invalid_skip: bool,
                 sys_token: str, usr_token: str, sep_token: str,
                 **kwargs):
+        assert isinstance(auto_skip, AutoSkipMode)
         # self.env_id = env_id
         self.data = dataset
         self.sys_token = sys_token
@@ -106,7 +107,7 @@ class OldHindsightExperienceReplayWrapper(object):
                     beta: float,
                     device: Union[th.device, str] = "cpu",
                     **kwargs):
-        
+        assert isinstance(auto_skip, AutoSkipMode)
         self.append_ask_action = append_ask_action
         self.replay_buffer = PrioritizedLAPReplayBuffer(buffer_size=buffer_size, observation_space=observation_space, action_space=action_space, device=device,
                                                         alpha=alpha, beta=beta, **kwargs)

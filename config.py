@@ -104,6 +104,7 @@ class LoggingConfig:
     dialog_log: DialogLogLevel
     wandb_log: WandbLogLevel
     log_interval: int
+    keep_checkpoints: int
 
 @dataclass
 class Experiment:
