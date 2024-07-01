@@ -5,7 +5,7 @@ from typing import Any, Dict, List, NamedTuple, Tuple, Union
 
 import numpy as np
 import torch as th
-from algorithm.dqn.buffer import PrioritizedLAPReplayBuffer
+from algorithm.dqn.buffer import PrioritizedLAPReplayBuffer, RecencyReplayBuffer
 from environment.goal import DummyGoal
 
 from utils.utils import AutoSkipMode, EnvInfo
@@ -63,6 +63,7 @@ class HindsightExperienceReplayWrapper(object):
         
         self.append_ask_action = append_ask_action
         self.replay_buffer = PrioritizedLAPReplayBuffer(buffer_size=buffer_size, observation_space=observation_space, action_space=action_space, alpha=alpha, beta=beta, device=device, **kwargs)
+        # self.replay_buffer = RecencyReplayBuffer(buffer_size=buffer_size, observation_space=observation_space, action_space=action_space, device=device, **kwargs)
         print("HER BUFFER BACKEND", self.replay_buffer.__class__.__name__)
         self.batch_size = batch_size
         self.data = dataset
@@ -83,6 +84,9 @@ class HindsightExperienceReplayWrapper(object):
         self.artifical_rewards_guided = deque([], maxlen=AVERAGE_WINDOW) # reward over last n episodes
         self.replay_success_free = deque([], maxlen=AVERAGE_WINDOW) # successful replays over last n episodes
         self.replay_success_guided = deque([], maxlen=AVERAGE_WINDOW) # successful replays over last n episodes
+
+    def reset_last_transition_indices(self):
+        self.replay_buffer.reset_last_transition_indices()
 
     @property
     def artificial_episodes(self):

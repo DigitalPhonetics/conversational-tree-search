@@ -151,7 +151,87 @@ class CustomReplayBuffer:
             self.reward[batch_inds].clone().detach().to(self.device).view(-1, 1),
             [self.infos[batch_idx] for batch_idx in batch_inds.tolist()]
         )
+
+    def reset_last_transition_indices(self):
+        pass
+
+class RecencyReplayBuffer(CustomReplayBuffer):
+    """
+    A replay buffer that always samples half of the batch from the most recent transitions, the other half from the full buffer
+    """
+    def __init__(self, buffer_size: int, observation_space, action_space, device: Union[th.device, str] = "cpu", **kwargs):
+        super().__init__(buffer_size, observation_space, action_space, device, **kwargs)
+        self.last_transition_indices = []
+
+    def add(
+        self,
+        obs: th.Tensor,
+        next_obs: th.Tensor,
+        action: np.ndarray,
+        reward: np.ndarray,
+        done: np.ndarray,
+        infos: List[Dict[str, Any]],
+        is_aritificial: bool = False,
+    ) -> None:
+        batch_size = len(infos)
+        end_pos = self.pos + batch_size
+        if end_pos >= self.capacity:
+            # doesn't fit completely - split batch
+            for batch_idx, info in enumerate(infos):
+                self.last_transition_indices.append(self.pos)
+                self.add_single_transition(obs[batch_idx], next_obs[batch_idx],
+                                            action[batch_idx], reward[batch_idx],
+                                            done[batch_idx], info, is_aritificial)
+        else:
+            # does fit - add batch
+            self.obs[self.pos:end_pos] = obs.clone().detach()
+            self.next_obs[self.pos:end_pos] = next_obs.clone().detach()
+            self.action[self.pos:end_pos] = th.from_numpy(action)
+            self.reward[self.pos:end_pos] = th.from_numpy(reward)
+            self.done[self.pos:end_pos] = th.from_numpy(done)
+            self.artificial_transition[self.pos:end_pos] = int(is_aritificial)
+            # Copy to avoid mutation by reference
+            for batch_idx, info in enumerate(infos):
+                self.infos[self.pos+batch_idx] = deepcopy(info)
+            self.last_transition_indices = list(range(self.pos, end_pos))
+            self.pos = end_pos
+            if end_pos == self.capacity:
+                self.full = True
+                self.pos = 0 
     
+    def reset_last_transition_indices(self):
+        self.last_transition_indices = []
+
+    def sample(self, batch_size: int, env: Optional[VecNormalize] = None) -> CustomReplayBufferSamples:
+        """
+        Sample elements from the replay buffer.
+
+        :param batch_size: Number of element to sample
+        :param env: associated gym VecEnv
+            to normalize the observations/rewards when sampling
+        :return:
+        """
+        assert batch_size % 2 == 0, "batch size has to be divisble by 2"
+        upper_bound = self.capacity if self.full else self.pos
+        # sample half of the batch from the full buffer
+        batch_inds = th.randint(low=0, high=upper_bound, size=(batch_size//2,)).tolist()
+        # sample the other half of the batch from the most recent transitions
+        batch_inds.extend(random.choices(self.last_transition_indices, k=batch_size//2))
+       
+        # Sample randomly the env idx
+        result = CustomReplayBufferSamples(
+            self.obs[batch_inds].clone().detach().to(self.device),
+            self.action[batch_inds].clone().detach().to(self.device).view(-1, 1),
+            self.next_obs[batch_inds].clone().detach().to(self.device),
+            self.done[batch_inds].clone().detach().to(self.device).view(-1, 1),
+            self.reward[batch_inds].clone().detach().to(self.device).view(-1, 1),
+            [self.infos[batch_idx] for batch_idx in batch_inds]
+        )
+        return result
+    
+
+
+
 
 
 class PrioritizedReplayBufferSamples(NamedTuple):
