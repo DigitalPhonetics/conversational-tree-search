@@ -11,7 +11,7 @@ class IntentEncoding(Encoding):
     def __init__(self, device: str, ckpt_dir: str = './.models/intentpredictor') -> None:
         super().__init__(device)
         self.device = device
-        self.tokenizer = AutoTokenizer.from_pretrained('deepset/gbert-large', use_fast=True, cache_dir=".models/gbert", truncation_side='left')
+        self.tokenizer = AutoTokenizer.from_pretrained('deepset/gbert-large', use_fast=True, cache_dir="/mount/arbeitsdaten/asr-2/vaethdk/resources/weights", truncation_side='left')
         self.model = AutoModelForSequenceClassification.from_pretrained(ckpt_dir, output_hidden_states = True).to(device)
 
     def get_encoding_dim(self) -> int:

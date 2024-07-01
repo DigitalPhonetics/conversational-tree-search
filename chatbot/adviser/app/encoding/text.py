@@ -65,7 +65,7 @@ class SentenceEmbeddings(TextEmbeddings):
         from sentence_transformers import SentenceTransformer
         super().__init__(device, embedding_dim)
         self.pretrained_name = pretrained_name
-        self.bert_sentence_embedder = torch.compile(SentenceTransformer(pretrained_name, device=device, cache_folder = '.models').to(device))
+        self.bert_sentence_embedder = torch.compile(SentenceTransformer(pretrained_name, device=device, cache_folder = '/mount/arbeitsdaten/asr-2/vaethdk/resources/weights').to(device))
 
     def _encode(self, text: Union[str, None]) -> torch.FloatTensor:
         """
@@ -96,8 +96,8 @@ class GBertEmbeddings(TextEmbeddings):
         from transformers import AutoModelForMaskedLM
         super().__init__(device, embedding_dim)
         self.pretrained_name = pretrained_name
-        self.tokenizer = AutoTokenizer.from_pretrained(pretrained_name, use_fast=True, cache_dir=".models/gbert", truncation_side='left')
-        self.bert = torch.compile(AutoModelForMaskedLM.from_pretrained(pretrained_name, cache_dir=".models/gbert-tokenizer", output_hidden_states = True).to(device))
+        self.tokenizer = AutoTokenizer.from_pretrained(pretrained_name, use_fast=True, cache_dir="/mount/arbeitsdaten/asr-2/vaethdk/resources/weights", truncation_side='left')
+        self.bert = torch.compile(AutoModelForMaskedLM.from_pretrained(pretrained_name, cache_dir="/mount/arbeitsdaten/asr-2/vaethdk/resources/weights", output_hidden_states = True).to(device))
 
 
     def _encode(self, text: Union[str, None]) -> torch.FloatTensor:
@@ -131,7 +131,7 @@ class FinetunedGBertEmbeddings(TextEmbeddings):
         from transformers import AutoModelForMaskedLM
         super().__init__(device, embedding_dim)
         self.pretrained_name = pretrained_name
-        self.tokenizer = AutoTokenizer.from_pretrained('deepset/gbert-large', use_fast=True, cache_dir=".models/gbert", truncation_side='left')
+        self.tokenizer = AutoTokenizer.from_pretrained('deepset/gbert-large', use_fast=True, cache_dir="/mount/arbeitsdaten/asr-2/vaethdk/resources/weights", truncation_side='left')
         self.bert = torch.compile(AutoModelForMaskedLM.from_pretrained('.models/' + pretrained_name, output_hidden_states = True).to(device))
 
 
