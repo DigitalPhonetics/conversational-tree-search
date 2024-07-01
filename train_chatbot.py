@@ -53,7 +53,7 @@ class Trainer:
         # ADD stop_action ARG TO CONFIGURATION
         # ADD noise ARG TO STATE TEXT INPUTSAi
         seed = 9546370
-        self.exp_name_prefix = "V3_GENERATEDONLY"
+        self.exp_name_prefix = "GENERATEDONLY_V2"
    
         self.args = {
             "language": LANGAUGE,
