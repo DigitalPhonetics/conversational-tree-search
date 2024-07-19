@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+
+{% block css %}
+
+<style>
+    .btn-secondary.active, .btn-secondary:active {
+        color: white !important;
+        background: #00BEFF !important;
+        border-color: #00BEFF !important;
+    }
+    .header {
+        position:absolute;
+        top: 0px;
+        width: 80%;
+        height: 3%;
+        text-align: right;
+        padding-right: 10px;
+        }
+</style>
+
+{% end %}
+
+{% block scripts %}
+<script>
+    function validate_form() {
+        var elements = document.getElementById("survey_form").elements;
+        for (var i = 0, element; element = elements[i++];) {
+            if (element.type == "radio"){
+            var valid = element.checkValidity()
+            if (!valid){
+                var table = document.getElementById(element.name + '_table');
+                // Handles the additional questions which are hidden and optional
+                if (table){
+                table.style.borderStyle = 'dotted';
+                table.style.borderWidth = '2px';
+                table.style.borderColor = 'red';
+                };
+            }
+            }
+            else if (element.type == "textarea"){
+            var valid = element.checkValidity()
+            if (!valid){
+                element.style.borderStyle = 'solid';
+                element.style.borderColor = 'red';
+            }
+            else {
+                element.style.borderColor = 'grey';
+            }
+            };
+        };
+    };
+    </script> 
+
+{% end %}
+
+{% block content %}
+<div class="container">
+    <!-- <h1 class="mb-4 mt-4">Pre-Survey</h1> -->
+    <form id="survey_form" onsubmit="return submit_form(event)" method="POST" action="/log_pre_survey">
+     
+        <div class="card mt-5 mb-3">
+            <div class="card-header">
+                <h4>Expectations of Chatbots</h4>
+            </div>
+            <div class="card-body">           
+
+                <p class="card-title" style="padding-top: 2%"><b>Please mark how you would complete the following statement:</b></p>
+                <table
+            class="table table-striped"
+            style="width: 70%; margin-top: 2%; margin-left: 15%; margin-bottom: 2%">
+            <thead>
+            <tr>
+                <td scope="col" />
+                <td scope="col" style="text-align: center">
+                Very Informal/Casual
+                </td>
+                <td scope="col" style="text-align: center">
+                Informal/Casual
+                </td>
+                <td scope="col" style="text-align: center">
+                Formal
+                </td>
+                <td scope="col" style="text-align: center">
+                Very Formal
+                </td>          
+            </tr>
+            </thead>
+            <tbody>
+                <tr id="exp_formality">
+                    <td scope="row">
+                        In general I think that the language used by a chatbot should be 
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="exp_formality" id="exp_formality_1" value="1" required>
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="exp_formality" id="exp_formality_2" value="2" required>
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="exp_formality" id="exp_formality_3" value="3" required>
+                    </td>
+                    <td style="text-align: center">
+                    <input class="form-check-input" type="radio" name="exp_formality" id="exp_formality_4" value="4" required>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        </div>
+        </div>
+
+        
+
+        <button type="submit" class="btn btn-success mb-4" onclick="validate_form()">Submit</button>
+    </form>
+    <div class="header">
+        <a href="https://www.uni-stuttgart.de/impressum/">Impressum</a>
+    </div> 
+</div>
+{% end %}

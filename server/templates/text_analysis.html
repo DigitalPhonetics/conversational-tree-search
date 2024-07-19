@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+
+{% block css %}
+
+<style>
+    .btn-secondary.active, .btn-secondary:active {
+        color: white !important;
+        background: #00BEFF !important;
+        border-color: #00BEFF !important;
+    }
+    .header {
+        position:absolute;
+        top: 0px;
+        width: 80%;
+        height: 3%;
+        text-align: right;
+        padding-right: 10px;
+        }
+</style>
+
+{% end %}
+
+{% block scripts %}
+<script>
+    function validate_form() {
+        var elements = document.getElementById("survey_form").elements;
+        for (var i = 0, element; element = elements[i++];) {
+            if (element.type == "radio"){
+            var valid = element.checkValidity()
+            if (!valid){
+                var table = document.getElementById(element.name + '_table');
+                // Handles the additional questions which are hidden and optional
+                if (table){
+                table.style.borderStyle = 'dotted';
+                table.style.borderWidth = '2px';
+                table.style.borderColor = 'red';
+                };
+            }
+            }
+            else if (element.type == "textarea"){
+            var valid = element.checkValidity()
+            if (!valid){
+                element.style.borderStyle = 'solid';
+                element.style.borderColor = 'red';
+            }
+            else {
+                element.style.borderColor = 'grey';
+            }
+            };
+        };
+    };
+    </script> 
+
+{% end %}
+
+{% block content %}
+<div class="container">
+    <!-- <h1 class="mb-4 mt-4">Pre-Survey</h1> -->
+    <form id="survey_form" onsubmit="return submit_form(event)" method="POST" action="/log_preferences">
+     
+        <div class="card mt-5 mb-3">
+            <div class="card-header">
+                <h4>Impressions of different linguistic styles</h4>
+            </div>
+            <div class="card-body">
+                <div> Below you will find four different versions of the same text to be used for a business travel chatbot. Please write the adjectives you would use to describe each text.</div>
+                <br/>
+                <h6><b>Style A:</b> {{template1}}</h6>
+                <div class="form-group">
+                    <textarea class="form-control" name="impressions1" id="impressions1" rows="4" placeholder="What adjectives come to mind?" required></textarea>
+                </div>
+                <br/>
+                <h6><b>Style B:</b> {{template2}}</h6>
+                <div class="form-group">
+                    <textarea class="form-control" name="impressions2" id="impressions2" rows="4" placeholder="What adjectives come to mind?" required></textarea>
+                </div>
+                <br/>
+                <h6><b>Style C: </b> {{template3}}</h6>
+                <div class="form-group">
+                    <textarea class="form-control" name="impressions3" id="impressions3" rows="4" placeholder="What adjectives come to mind?" required></textarea>
+                </div>
+                <br/>
+                <h6><b>Style D: </b> {{template4}}</h6>
+                <div class="form-group">
+                    <textarea class="form-control" name="impressions4" id="impressions4" rows="4" placeholder="What adjectives come to mind?" required></textarea>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="card mt-5 mb-3">
+            <div class="card-header">
+                <h4>Rank the templates in order of how professional you found them </h4>
+            </div>
+            <div class="card-body">
+                <h6>Please rank the styles from the previous section, starting with the one you perceive as most formal and ending with the one you perceive as least formal. Please enter the letter associated with each style, separated by a comma.</h6>
+                <div class="form-group">
+                    <textarea class="form-control" name="impressions1" id="impressions1" rows="4" placeholder="Formality Ranking (separated by commas)" required></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mt-5 mb-3">
+            <div class="card-header">
+                Which style is most appropriate for a chatbot?
+            </div>
+            <div class="card-body">
+                <h6>Select the style you would find most appropriate for a chatbot</h6>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="best_template" id="best_template1" value="A">
+                    <label class="form-check-label" for="best_template1">Style A</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="best_template" id="best_template2" value="b">
+                    <label class="form-check-label" for="best_template1">Style B</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="best_template" id="best_template1" value="C">
+                    <label class="form-check-label" for="best_template1">Style C</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="best_template" id="best_template1" value="D">
+                    <label class="form-check-label" for="best_template1">Style D</label>
+                </div>
+            </div>
+        </div>        
+
+        <button type="submit" class="btn btn-success mb-4" onclick="validate_form()">Submit</button>
+    </form>
+    <div class="header">
+        <a href="https://www.uni-stuttgart.de/impressum/">Impressum</a>
+    </div> 
+</div>
+{% end %}
