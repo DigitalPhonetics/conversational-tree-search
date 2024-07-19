@@ -22,6 +22,8 @@ NODE_IDS = [
     16387868859695624]
 COMPLETION_LINK = "www.to_change.com"
 
+DISTRIBUTION = {id: [] for id in NODE_IDS}
+
 
 class BaseHandler(RequestHandler):
     def get_current_user(self):
@@ -108,8 +110,6 @@ class PilotDataAgreement(BaseHandler):
 class PilotTextAnalysis(BaseHandler):
     @tornado.web.authenticated
     def get(self):
-        global NODE_ID
-        logging.getLogger("survey").info(f"USER: {self.current_user} || NODE_ID: {NODE_ID}")
         order = np.random.permutation(4)
         conditions = ["FRIENDLY", "PERSONAL", "BASE", "FORMAL"]
         user_conditions = [conditions[i-1] for i in order]
@@ -118,7 +118,6 @@ class PilotTextAnalysis(BaseHandler):
         self.render("./templates/text_analysis.html", template1=user_texts[0], template2=user_texts[1], template3=user_texts[2], template4=user_texts[3])
 
     def get_node_texts(self, user_conditions):
-        global NODE_ID
         node_texts = []
         for condition in user_conditions:
             if condition == "BASE":
@@ -129,11 +128,21 @@ class PilotTextAnalysis(BaseHandler):
                 graph = ReimburseGraphDataset('en/reimburse/linguistic_variations/personal_graph.json', 'en/reimburse/test_answers.json', False, augmentation=DataAugmentationLevel.NONE)
             elif condition == "FRIENDLY":
                 graph = ReimburseGraphDataset('en/reimburse/linguistic_variations/friendly_graph.json', 'en/reimburse/test_answers.json', False, augmentation=DataAugmentationLevel.NONE)
-            node = graph.nodes_by_key[NODE_ID].text
+            node_id = self.get_node_assignment()
+            logging.getLogger("survey").info(f"USER: {self.current_user} || NODE_ID: {node_id}")
+            node = graph.nodes_by_key[node_id].text
             if node.startswith("In"):
                 node = "In Japan" + node[16:]
             node_texts.append(node)
-        return node_texts        
+        return node_texts
+
+    def get_node_assignment(self):
+        global DISTRIBUTION
+        global NODE_ID
+        user = self.current_user
+        next_node = sorted(DISTRIBUTION.items(), key=lambda item: item[1])[0][0]
+        # return next_node
+        return NODE_ID
 
 class PilotStylePreference(BaseHandler):
     @tornado.web.authenticated
