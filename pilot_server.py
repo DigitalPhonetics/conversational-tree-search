@@ -30,10 +30,10 @@ multiprocessing.set_start_method("spawn")
 
 class CheckLogin(RequestHandler):
     def post(self):
-        global NODE_ID
         username = self.get_body_argument("username").encode()
-        h = hashlib.shake_256(username)
-        user_id = h.hexdigest(15)
+        # h = hashlib.shake_256(username)
+        # user_id = h.hexdigest(15)
+        user_id = username
         # NOTE: disallow users who already participated in other versions of this task via Prolific UI
         # if user_id in known_users:
         #     self.redirect("/known_entry")
@@ -44,7 +44,6 @@ class CheckLogin(RequestHandler):
 
 class UserAgreed(BaseHandler):
     def post(self):
-        global NODE_ID
         logging.getLogger("survey").info(f"USER: {self.current_user} || AGREED: True")
         self.redirect(f"/style_preference")
 
