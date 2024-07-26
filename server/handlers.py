@@ -7,20 +7,17 @@ from tornado.websocket import WebSocketHandler
 
 from data.dataset import DataAugmentationLevel, ReimburseGraphDataset
 
-NODE_ID = 16363755463439219
 
 NODE_IDS = [
-    16365521324065600,
-    16460328708250870,
-    16378349334755637,
-    16370483534787100,
-    16363755463439219,
-    16363834594338823,
     16384329210117153,
     16457053159041482,
     16365525829145685,
-    16387868859695624]
-COMPLETION_LINK = "www.to_change.com"
+    16387868859695624
+    ]
+
+# Finished: 16363755463439219, 16365521324065600, 16460328708250870, 16378349334755637, 16370483534787100, 16363834594338823,
+
+COMPLETION_LINK = "https://app.prolific.com/submissions/complete?cc=CI2IXVA3"
 
 DISTRIBUTION = {id: [] for id in NODE_IDS}
 
@@ -119,6 +116,8 @@ class PilotTextAnalysis(BaseHandler):
 
     def get_node_texts(self, user_conditions):
         node_texts = []
+        node_id = self.get_node_assignment()
+        logging.getLogger("survey").info(f"USER: {self.current_user} || NODE_ID: {node_id}")
         for condition in user_conditions:
             if condition == "BASE":
                 graph = ReimburseGraphDataset('en/reimburse/test_graph.json', 'en/reimburse/test_answers.json', False, augmentation=DataAugmentationLevel.NONE)
@@ -128,8 +127,6 @@ class PilotTextAnalysis(BaseHandler):
                 graph = ReimburseGraphDataset('en/reimburse/linguistic_variations/personal_graph.json', 'en/reimburse/test_answers.json', False, augmentation=DataAugmentationLevel.NONE)
             elif condition == "FRIENDLY":
                 graph = ReimburseGraphDataset('en/reimburse/linguistic_variations/friendly_graph.json', 'en/reimburse/test_answers.json', False, augmentation=DataAugmentationLevel.NONE)
-            node_id = self.get_node_assignment()
-            logging.getLogger("survey").info(f"USER: {self.current_user} || NODE_ID: {node_id}")
             node = graph.nodes_by_key[node_id].text
             if node.startswith("In"):
                 node = "In Japan" + node[16:]
@@ -138,11 +135,10 @@ class PilotTextAnalysis(BaseHandler):
 
     def get_node_assignment(self):
         global DISTRIBUTION
-        global NODE_ID
         user = self.current_user
-        next_node = sorted(DISTRIBUTION.items(), key=lambda item: item[1])[0][0]
-        # return next_node
-        return NODE_ID
+        next_node = list(sorted(DISTRIBUTION.items(), key=lambda item: len(item[1])))[0][0]
+        DISTRIBUTION[next_node].append(user)
+        return next_node
 
 class PilotStylePreference(BaseHandler):
     @tornado.web.authenticated
