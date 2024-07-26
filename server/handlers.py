@@ -12,10 +12,14 @@ NODE_IDS = [
     16384329210117153,
     16457053159041482,
     16365525829145685,
-    16387868859695624
+    16387868859695624,
+    16363755463439219, 
+    16365521324065600,
+    16460328708250870,
+    16378349334755637,
+    16370483534787100,
+    16363834594338823
     ]
-
-# Finished: 16363755463439219, 16365521324065600, 16460328708250870, 16378349334755637, 16370483534787100, 16363834594338823,
 
 COMPLETION_LINK = "https://app.prolific.com/submissions/complete?cc=CI2IXVA3"
 
@@ -63,6 +67,15 @@ class LogPreSurvey(BaseHandler):
         results = self.request.body_arguments
         results = {key : str(results[key][0])[2:-1] for key in results}
         logging.getLogger("survey").info(f"USER: {self.current_user} || PRE-SURVEY: {results}")
+        self.redirect(f"/style_survey")
+
+class LogStyleSurvey(BaseHandler):
+    @tornado.web.authenticated
+    def post(self):
+        results = self.request.body_arguments
+        results = {key : str(results[key][0])[2:-1] for key in results}
+        logging.getLogger("survey").info(f"USER: {self.current_user} || PREFERRED_STYLE: {results}")
+        self.set_cookie("preferred_style", results["best_template"])
         self.redirect(f"/chat")
 
 
@@ -87,6 +100,24 @@ class PreSurvey(BaseHandler):
     def get(self):
         self.render("./templates/pre_survey.html")
 
+class ChoosePreferredTemplate(BaseHandler):
+    @tornado.web.authenticated
+    def get(self):
+        node_id = 16351710117855351
+        node_texts = []
+        for condition in ["FORMAL", "BASE", "PERSONAL", "FRIENDLY"]:
+            if condition == "BASE":
+                graph = ReimburseGraphDataset('en/reimburse/test_graph.json', 'en/reimburse/test_answers.json', False, augmentation=DataAugmentationLevel.NONE)
+            elif condition == "FORMAL":
+                graph = ReimburseGraphDataset('en/reimburse/linguistic_variations/formal_graph.json', 'en/reimburse/test_answers.json', False, augmentation=DataAugmentationLevel.NONE)
+            elif condition == "PERSONAL":
+                graph = ReimburseGraphDataset('en/reimburse/linguistic_variations/personal_graph.json', 'en/reimburse/test_answers.json', False, augmentation=DataAugmentationLevel.NONE)
+            elif condition == "FRIENDLY":
+                graph = ReimburseGraphDataset('en/reimburse/linguistic_variations/friendly_graph.json', 'en/reimburse/test_answers.json', False, augmentation=DataAugmentationLevel.NONE)
+            node_texts.append(graph.nodes_by_key[node_id].text)
+            
+        self.render("./templates/style_choice.html", style1=node_texts[0], style2=node_texts[1], style3=node_texts[2], style4=node_texts[3])
+
 class ThankYou(BaseHandler):
     @tornado.web.authenticated
     def get(self):
@@ -101,7 +132,6 @@ class AuthenticatedWebSocketHandler(WebSocketHandler):
 class PilotDataAgreement(BaseHandler):
     @tornado.web.authenticated
     def get(self):
-        print(self.current_user)
         self.render("./templates/pilot_data_agreement.html")
 
 class PilotTextAnalysis(BaseHandler):

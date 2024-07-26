@@ -17,7 +17,7 @@ from data.parsers.answerTemplateParser import AnswerTemplateParser
 from data.parsers.systemTemplateParser import SystemTemplateParser
 from data.parsers.logicParser import LogicTemplateParser
 from server.formattedDataset import FormattedReimburseGraphDataset
-from server.handlers import AuthenticatedWebSocketHandler, BaseHandler, ChatIndex, DataAgreement, LogPostSurvey, LogPreSurvey, LoginHandler, PostSurvey, PreSurvey, ThankYou, KnownEntry
+from server.handlers import AuthenticatedWebSocketHandler, BaseHandler, ChatIndex, ChoosePreferredTemplate, DataAgreement, LogPostSurvey, LogPreSurvey, LogStyleSurvey, LoginHandler, PostSurvey, PreSurvey, ThankYou, KnownEntry
 from tornado.web import RequestHandler
 from server.policies import CTSPolicy, FAQBaselinePolicy, GuidedBaselinePolicy
 
@@ -60,7 +60,7 @@ OPEN_GOALS = [
     ("You want more information about how to plan a research semester.", 16387868859695624),
     ("You want to inform yourself what to do in case of an emergency during travel.", 16387868859695624)
     ]
-POLICY_ASSIGNMENT = {"hdc": [], "faq": [], "cts": []}
+POLICY_ASSIGNMENT = {"hdc": []}  # {"hdc": [], "faq": [], "cts": []}
 USER_GOAL_GROUPS_OPEN = {i: [] for i in range(len(OPEN_GOALS))}
 USER_GOAL_GROUPS_EASY = {i: [] for i in range(len(EASY_GOALS))}
 USER_GOAL_GROUPS_HARD = {i: [] for i in range(len(HARD_GOALS))}
@@ -108,7 +108,7 @@ register_configs()
 
 ## NOTE: assumes already unzipped checkpoint at cfg_path!
 cfg_name = "reimburse_realdata_terminalobs_noise"
-ckpt_path = '/home/ubuntu/cts/models/realdata_noise'
+ckpt_path = '~/Documents/conversational-tree-search/models/ckpt_47'
 
 multiprocessing.set_start_method("spawn")
 
@@ -224,18 +224,32 @@ def load_model(ckpt_path: str, cfg_name: str, device: str, data: GraphDataset) -
 
 # setup data
 nlu = NLU()
-data = FormattedReimburseGraphDataset('en/reimburse/test_graph.json', 'en/reimburse/test_answers.json', use_answer_synonyms=True, augmentation=DataAugmentationLevel.NONE, resource_dir='resources')
+
+base_data = FormattedReimburseGraphDataset('en/reimburse/test_graph.json', 'en/reimburse/test_answers.json', use_answer_synonyms=True, augmentation=DataAugmentationLevel.NONE, resource_dir='resources')
+# Add in graphs with different markup for the nodes, based on style (shown to user), but same raw text (seen by system)
+formal_data = FormattedReimburseGraphDataset('en/reimburse/linguistic_variations/formal_graph2.json', 'en/reimburse/test_answers.json', use_answer_synonyms=True, augmentation=DataAugmentationLevel.NONE, resource_dir='resources')
+personal_data = FormattedReimburseGraphDataset('en/reimburse/linguistic_variations/personal_graph2.json', 'en/reimburse/test_answers.json', use_answer_synonyms=True, augmentation=DataAugmentationLevel.NONE, resource_dir='resources')
+friendly_data = FormattedReimburseGraphDataset('en/reimburse/linguistic_variations/friendly_graph2.json', 'en/reimburse/test_answers.json', use_answer_synonyms=True, augmentation=DataAugmentationLevel.NONE, resource_dir='resources')
+all_data = [formal_data, base_data, personal_data, friendly_data]
 # setup data & parsers
 answerParser = AnswerTemplateParser()
 logicParser = LogicTemplateParser()
 sysParser = SystemTemplateParser()
-valueBackend = ReimbursementRealValueBackend(a1_laender=data.a1_countries, data=data)
+valueBackend = ReimbursementRealValueBackend(a1_laender=base_data.a1_countries, data=base_data)
 # setup model and encoding
-cfg, cts_policy, state_encoding = load_model(ckpt_path=ckpt_path, cfg_name=cfg_name, device=DEVICE, data=data)
+cfg, base_cts_policy, state_encoding = load_model(ckpt_path=ckpt_path, cfg_name=cfg_name, device=DEVICE, data=base_data)
+_, formal_cts_policy, _ = load_model(ckpt_path=ckpt_path, cfg_name=cfg_name, device=DEVICE, data=formal_data)
+_, personal_cts_policy, _ = load_model(ckpt_path=ckpt_path, cfg_name=cfg_name, device=DEVICE, data=personal_data)
+_, friendly_cts_policy, _ = load_model(ckpt_path=ckpt_path, cfg_name=cfg_name, device=DEVICE, data=friendly_data)
+all_cts_policies = [formal_cts_policy, base_cts_policy, personal_cts_policy, friendly_cts_policy]
 # pre-load faq embeddings
 print("Preloading FAQ embeddings...")
-country_list, country_city_list = FAQBaselinePolicy.get_country_city_map(data=data)
-node_idx_mapping, node_embeddings, node_markup = FAQBaselinePolicy.embed_node_texts(data=data, state_encoding=state_encoding, system_parser=sysParser, country_list=country_list, country_city_list=country_city_list, value_backend=valueBackend)
+country_list, country_city_list = FAQBaselinePolicy.get_country_city_map(data=base_data)
+node_idx_mapping, node_embeddings, base_node_markup = FAQBaselinePolicy.embed_node_texts(data=base_data, state_encoding=state_encoding, system_parser=sysParser, country_list=country_list, country_city_list=country_city_list, value_backend=valueBackend)
+_, _, formal_node_markup = FAQBaselinePolicy.embed_node_texts(data=formal_data, state_encoding=state_encoding, system_parser=sysParser, country_list=country_list, country_city_list=country_city_list, value_backend=valueBackend)
+_, _, personal_node_markup = FAQBaselinePolicy.embed_node_texts(data=personal_data, state_encoding=state_encoding, system_parser=sysParser, country_list=country_list, country_city_list=country_city_list, value_backend=valueBackend)
+_, _, friendly_node_markup = FAQBaselinePolicy.embed_node_texts(data=friendly_data, state_encoding=state_encoding, system_parser=sysParser, country_list=country_list, country_city_list=country_city_list, value_backend=valueBackend)
+all_markup = [formal_node_markup, base_node_markup, personal_node_markup, friendly_node_markup]
 print("Done")
 
 class CheckLogin(RequestHandler):
@@ -291,13 +305,14 @@ class UserChatSocket(AuthenticatedWebSocketHandler):
         logging.getLogger("chat").info(f"==== NEW DIALOG STARTED FOR USER {self.current_user} ====")
         if not self.current_user in CHAT_ENGINES:
             # Create policy for group assignment and user
-            group = self.get_cookie("policy_assignment") 
+            group = self.get_cookie("policy_assignment")
+            style = int(self.get_cookie("preferred_style"))
             if group == "hdc":
-               CHAT_ENGINES[self.current_user] = GuidedBaselinePolicy(user_id=self.current_user,  socket=self, data=data, state_encoding=state_encoding, nlu=nlu, sysParser=sysParser, answerParser=answerParser, logicParser=logicParser, valueBackend=valueBackend)
+               CHAT_ENGINES[self.current_user] = GuidedBaselinePolicy(user_id=self.current_user,  socket=self, data=all_data[style], state_encoding=state_encoding, nlu=nlu, sysParser=sysParser, answerParser=answerParser, logicParser=logicParser, valueBackend=valueBackend)
             elif group == "faq":
-                CHAT_ENGINES[self.current_user] = FAQBaselinePolicy(user_id=self.current_user, socket=self, data=data, state_encoding=state_encoding, nlu=nlu, sysParser=sysParser, answerParser=answerParser, logicParser=logicParser, valueBackend=valueBackend, node_idx_mapping=node_idx_mapping, node_embeddings=node_embeddings, node_markup=node_markup, country_list=country_list, country_city_list=country_city_list)
+                CHAT_ENGINES[self.current_user] = FAQBaselinePolicy(user_id=self.current_user, socket=self, data=all_data[style], state_encoding=state_encoding, nlu=nlu, sysParser=sysParser, answerParser=answerParser, logicParser=logicParser, valueBackend=valueBackend, node_idx_mapping=node_idx_mapping, node_embeddings=node_embeddings, node_markup=all_markup[style], country_list=country_list, country_city_list=country_city_list)
             elif group == "cts":
-                CHAT_ENGINES[self.current_user] = CTSPolicy(user_id=self.current_user,  socket=self, data=data, state_encoding=state_encoding, nlu=nlu, sysParser=sysParser, answerParser=answerParser, logicParser=logicParser, valueBackend=valueBackend, model=cts_policy)
+                CHAT_ENGINES[self.current_user] = CTSPolicy(user_id=self.current_user,  socket=self, data=all_data[style], state_encoding=state_encoding, nlu=nlu, sysParser=sysParser, answerParser=answerParser, logicParser=logicParser, valueBackend=valueBackend, model=all_cts_policies[style])
             else:
                 raise f"UNKNOWN POLICY ASSIGNMENT {group} FOR USER {self.current_user}"
         else:
@@ -397,10 +412,12 @@ if __name__ == "__main__":
         (r"/", LoginHandler),
         (r"/post_survey", PostSurvey),
         (r"/pre_survey", PreSurvey),
+        (r"/style_survey", ChoosePreferredTemplate),
         (r"/check_login", CheckLogin),
         (r"/chat", ChatIndex),
         (r"/channel", UserChatSocket),
         (r"/log_pre_survey", LogPreSurvey),
+        (r"/log_style_survey", LogStyleSurvey),
         (r"/log_post_survey", LogPostSurvey),
         (r"/data_agreement", DataAgreement),
         (r"/thank_you", ThankYou),
