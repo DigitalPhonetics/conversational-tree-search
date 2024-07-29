@@ -21,7 +21,7 @@ NODE_IDS = [
     16363834594338823
     ]
 
-COMPLETION_LINK = "https://app.prolific.com/submissions/complete?cc=CI2IXVA3"
+COMPLETION_LINK = "https://app.prolific.com/submissions/complete?cc=C1JV6QPY"
 
 DISTRIBUTION = {id: [] for id in NODE_IDS}
 
@@ -72,9 +72,10 @@ class LogPreSurvey(BaseHandler):
 class LogStyleSurvey(BaseHandler):
     @tornado.web.authenticated
     def post(self):
+        conditions = ["FORMAL", "BASE", "PERSONAL", "FRIENDLY"]
         results = self.request.body_arguments
         results = {key : str(results[key][0])[2:-1] for key in results}
-        logging.getLogger("survey").info(f"USER: {self.current_user} || PREFERRED_STYLE: {results}")
+        logging.getLogger("survey").info(f"USER: {self.current_user} || PREFERRED_STYLE: {conditions[int(results['best_template'])]}")
         self.set_cookie("preferred_style", results["best_template"])
         self.redirect(f"/chat")
 

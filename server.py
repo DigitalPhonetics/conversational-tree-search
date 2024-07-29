@@ -6,12 +6,13 @@ import os
 import random
 import traceback
 
+from algorithm.dqn.her import HindsightExperienceReplayWrapper
 import tornado
 import tornado.httpserver
 from tornado.web import Application
 
 from typing import Tuple
-from data.dataset import GraphDataset, DataAugmentationLevel
+from data.dataset import GraphDataset, DataAugmentationLevel, ReimburseGraphDataset
 from data.parsers.parserValueProvider import ReimbursementRealValueBackend
 from data.parsers.answerTemplateParser import AnswerTemplateParser
 from data.parsers.systemTemplateParser import SystemTemplateParser
@@ -35,7 +36,7 @@ import gymnasium as gym
 from hydra import compose, initialize
 from omegaconf import DictConfig, OmegaConf
 from hydra.core.config_store import ConfigStore
-from config import register_configs, DialogLogLevel, WandbLogLevel
+from config import ActiveLearningConfig, register_configs, DialogLogLevel, WandbLogLevel
 
 DEBUG = False
 NUM_GOALS = 3
@@ -60,7 +61,7 @@ OPEN_GOALS = [
     ("You want more information about how to plan a research semester.", 16387868859695624),
     ("You want to inform yourself what to do in case of an emergency during travel.", 16387868859695624)
     ]
-POLICY_ASSIGNMENT = {"hdc": []}  # {"hdc": [], "faq": [], "cts": []}
+POLICY_ASSIGNMENT = {"faq": []}  # {"hdc": [], "faq": [], "cts": []}
 USER_GOAL_GROUPS_OPEN = {i: [] for i in range(len(OPEN_GOALS))}
 USER_GOAL_GROUPS_EASY = {i: [] for i in range(len(EASY_GOALS))}
 USER_GOAL_GROUPS_HARD = {i: [] for i in range(len(HARD_GOALS))}
@@ -108,12 +109,10 @@ register_configs()
 
 ## NOTE: assumes already unzipped checkpoint at cfg_path!
 cfg_name = "reimburse_realdata_terminalobs_noise"
-ckpt_path = '~/Documents/conversational-tree-search/models/ckpt_47'
+ckpt_path = './models'
 
 multiprocessing.set_start_method("spawn")
-
-
-def load_model(ckpt_path: str, cfg_name: str, device: str, data: GraphDataset) -> Tuple[DictConfig, CustomDQN, StateEncoding]:
+def load_model(ckpt_path: str, cfg_name: str, device: str, data: GraphDataset):
     # load config
     cfg_path = "./conf/"
 
@@ -123,102 +122,128 @@ def load_model(ckpt_path: str, cfg_name: str, device: str, data: GraphDataset) -
         cfg = compose(config_name=cfg_name)
         # print(OmegaConf.to_yaml(cfg))
 
-        # disable logging
-        cfg.experiment.logging.dialog_log = DialogLogLevel.NONE
-        cfg.experiment.logging.wandb_log = WandbLogLevel.NONE
-        cfg.experiment.logging.log_interval = 9999999
-        cfg.experiment.logging.keep_checkpoints = 9
+    # parse config
+    print("Parsing config...")
+    # print(OmegaConf.to_yaml(cfg))
 
-        # load encodings
-        print("Loading encodings...")
-        state_cfg = cfg.experiment.state
-        action_cfg = cfg.experiment.actions
-        cache = Cache(device=device, data=data, state_config=state_cfg, torch_compile=False)
-        encoding = StateEncoding(cache=cache, state_config=state_cfg, action_config=action_cfg, data=data)
+    # disable logging
+    cfg.experiment.logging.dialog_log = DialogLogLevel.NONE
+    cfg.experiment.logging.wandb_log = WandbLogLevel.NONE
+    cfg.experiment.logging.log_interval = 9999999
+    cfg.experiment.logging.keep_checkpoints = 9
 
-        # setup spaces
-        action_space = gym.spaces.Discrete(encoding.space_dims.num_actions)
-        if encoding.action_config.in_state_space == True:
-            # state space: max. node degree (#actions) x state dim
-            observation_space = gym.spaces.Box(low=float('-inf'), high=float('inf'), shape=(encoding.space_dims.num_actions, encoding.space_dims.state_vector,)) #, dtype=np.float32)
-        else:
-            observation_space = gym.spaces.Box(low=float('-inf'), high=float('inf'), shape=(encoding.space_dims.state_vector,)) #, dtype=np.float32)
+    # load encodings
+    print("Loading encodings...")
+    state_cfg = cfg.experiment.state
+    action_cfg = cfg.experiment.actions
+    device = "cpu"
+    cache = Cache(device=device, data=data, state_config=state_cfg, torch_compile=False)
+    encoding = StateEncoding(cache=cache, state_config=state_cfg, action_config=action_cfg, data=data)
 
-        class CustomEnv(Env):
-            def __init__(self, observation_space, action_space) -> None:
-                self.observation_space = observation_space
-                self.action_space = action_space
-        dummy_env = CustomEnv(observation_space=observation_space, action_space=action_space)
+    # setup spaces
+    action_space = gym.spaces.Discrete(encoding.space_dims.num_actions)
+    if encoding.action_config.in_state_space == True:
+        # state space: max. node degree (#actions) x state dim
+        observation_space = gym.spaces.Box(low=float('-inf'), high=float('inf'), shape=(encoding.space_dims.num_actions, encoding.space_dims.state_vector,)) #, dtype=np.float32)
+    else:
+        observation_space = gym.spaces.Box(low=float('-inf'), high=float('inf'), shape=(encoding.space_dims.state_vector,)) #, dtype=np.float32)
 
-        # setup model
-        print("Setting up model...")
-        net_arch = OmegaConf.to_container(cfg.experiment.policy.net_arch)
-        net_arch['state_dims'] = encoding.space_dims # patch arguments
-        optim = OmegaConf.to_container(cfg.experiment.optimizer)
-        optim_class = to_class(optim.pop('class_path'))
-        lr = optim.pop('lr')
-        print("Optim ARGS:", optim_class, lr, optim)
-        policy_kwargs = {
-            "activation_fn": to_class(cfg.experiment.policy.activation_fn),   
-            "net_arch": net_arch,
-            "torch_compile": cfg.experiment.torch_compile,
-            "optimizer_class": optim_class,
-            "optimizer_kwargs": optim
-        }
-        print("Replay buffer kwargs")
-        replay_buffer_kwargs = {
-            "num_train_envs": cfg.experiment.environment.num_train_envs,
-            "batch_size": cfg.experiment.algorithm.dqn.batch_size,
-            "dataset": data,
-            "append_ask_action": False,
-            # "state_encoding": state_encoding,
-            "auto_skip": AutoSkipMode.NONE,
-            "normalize_rewards": True,
-            "stop_when_reaching_goal": cfg.experiment.environment.stop_when_reaching_goal,
-            "stop_on_invalid_skip": cfg.experiment.environment.stop_on_invalid_skip,
-            "max_steps": cfg.experiment.environment.max_steps,
-            "user_patience": cfg.experiment.environment.user_patience,
-            "sys_token": cfg.experiment.environment.sys_token,
-            "usr_token": cfg.experiment.environment.usr_token,
-            "sep_token": cfg.experiment.environment.sep_token,
-            "alpha": cfg.experiment.algorithm.dqn.buffer.backend.alpha,
-            "beta": cfg.experiment.algorithm.dqn.buffer.backend.beta,
-            "use_lap": cfg.experiment.algorithm.dqn.buffer.backend.use_lap ,
-        }
-        replay_buffer_class = CustomReplayBuffer
-        dqn_target_cls =  to_class(cfg.experiment.algorithm.dqn.targets._target_)
-        dqn_target_args = {'gamma': cfg.experiment.algorithm.dqn.gamma}
-        dqn_target_args.update(cfg.experiment.algorithm.dqn.targets) 
-        print("Create model instance...")
-        model = CustomDQN(policy=to_class(cfg.experiment.policy._target_), policy_kwargs=policy_kwargs,
-                    target=dqn_target_cls(**dqn_target_args),
-                    seed=cfg.experiment.seed,
-                    env=dummy_env, 
-                    batch_size=cfg.experiment.algorithm.dqn.batch_size,
-                    verbose=1, device=cfg.experiment.device,  
-                    learning_rate=lr, 
-                    exploration_initial_eps=cfg.experiment.algorithm.dqn.eps_start, exploration_final_eps=cfg.experiment.algorithm.dqn.eps_end, exploration_fraction=cfg.experiment.algorithm.dqn.exploration_fraction,
-                    buffer_size=1, # we don't need to store experience, will only increase RAM usage 
-                    learning_starts=cfg.experiment.algorithm.dqn.warmup_turns,
-                    gamma=cfg.experiment.algorithm.dqn.gamma,
-                    train_freq=1, # how many rollouts to perform before training once (one rollout = num_train_envs steps)
-                    gradient_steps=max(cfg.experiment.environment.num_train_envs // cfg.experiment.training.every_steps, 1),
-                    target_update_interval=cfg.experiment.algorithm.dqn.target_network_update_frequency * cfg.experiment.environment.num_train_envs,
-                    max_grad_norm=cfg.experiment.algorithm.dqn.max_grad_norm,
-                    tensorboard_log=None,
-                    replay_buffer_class=replay_buffer_class,
-                    optimize_memory_usage=False,
-                    replay_buffer_kwargs=replay_buffer_kwargs,
-                    action_masking=cfg.experiment.actions.action_masking,
-                    actions_in_state_space=cfg.experiment.actions.in_state_space
-                )
-        
-        # restore weights
-        print("Restoring weights...")
-        ckpt_params = torch.load(f"{ckpt_path}/policy.pth", map_location=device)
-        model.policy.load_state_dict(ckpt_params)
-        model.policy.set_training_mode(False)
-        model.policy.eval()
+    class CustomEnv(Env):
+        def __init__(self, observation_space, action_space) -> None:
+            self.observation_space = observation_space
+            self.action_space = action_space
+    dummy_env = CustomEnv(observation_space=observation_space, action_space=action_space)
+
+    # setup model
+    print("Setting up model...")
+    net_arch = OmegaConf.to_container(cfg.experiment.policy.net_arch)
+    net_arch['state_dims'] = encoding.space_dims # patch arguments
+    optim = OmegaConf.to_container(cfg.experiment.optimizer)
+    optim_class = to_class(optim.pop('class_path'))
+    lr = optim.pop('lr')
+    print("Optim ARGS:", optim_class, lr, optim)
+
+
+    if "num_prediction_heads" in cfg.experiment.policy.net_arch:
+        num_prediction_heads = cfg.experiment.policy.net_arch.num_prediction_heads
+    else:
+        num_prediction_heads = 1
+    if "bernoulli_p_train_heads" in cfg.experiment.policy.net_arch:
+        bernoulli_p_train_heads =  cfg.experiment.policy.net_arch.bernoulli_p_train_heads
+    else:
+        bernoulli_p_train_heads = 1
+    if "noise_std_init" in cfg.experiment.policy.net_arch:
+        noise_std_init = cfg.experiment.policy.net_arch.noise_std_init
+    else:
+        noise_std_init = 0
+
+    active_learning_args =  ActiveLearningConfig()
+    
+    policy_kwargs = {
+        "activation_fn": to_class(cfg.experiment.policy.activation_fn),   
+        "net_arch": net_arch,
+        "torch_compile": cfg.experiment.torch_compile,
+        "optimizer_class": optim_class,
+        "optimizer_kwargs": optim
+    }
+
+    print("Replay buffer kwargs")
+    replay_buffer_kwargs = {
+        "num_train_envs": cfg.experiment.environment.num_train_envs,
+        "batch_size": cfg.experiment.algorithm.dqn.batch_size,
+        "dataset": data,
+        "append_ask_action": False,
+        # "state_encoding": state_encoding,
+        "auto_skip": AutoSkipMode.NONE,
+        "normalize_rewards": True,
+        "stop_when_reaching_goal": cfg.experiment.environment.stop_when_reaching_goal,
+        "stop_on_invalid_skip": cfg.experiment.environment.stop_on_invalid_skip,
+        "max_steps": cfg.experiment.environment.max_steps,
+        "user_patience": cfg.experiment.environment.user_patience,
+        "sys_token": cfg.experiment.environment.sys_token,
+        "usr_token": cfg.experiment.environment.usr_token,
+        "sep_token": cfg.experiment.environment.sep_token,
+        "alpha": cfg.experiment.algorithm.dqn.buffer.backend.alpha,
+        "beta": cfg.experiment.algorithm.dqn.buffer.backend.beta,
+        "use_lap": cfg.experiment.algorithm.dqn.buffer.backend.use_lap,
+        "noise": cfg.experiment.training.noise,
+    }
+    replay_buffer_class = HindsightExperienceReplayWrapper
+    dqn_target_cls =  to_class(cfg.experiment.algorithm.dqn.targets._target_)
+    dqn_target_args = {'gamma': cfg.experiment.algorithm.dqn.gamma}
+    dqn_target_args.update(cfg.experiment.algorithm.dqn.targets) 
+    print("Create model instance...")
+    model = CustomDQN(policy=to_class(cfg.experiment.policy._target_), policy_kwargs=policy_kwargs,
+                target=dqn_target_cls(**dqn_target_args),
+                seed=cfg.experiment.seed,
+                env=dummy_env, 
+                batch_size=cfg.experiment.algorithm.dqn.batch_size,
+                verbose=1, device=cfg.experiment.device,  
+                learning_rate=lr, 
+                exploration_initial_eps=cfg.experiment.algorithm.dqn.eps_start, exploration_final_eps=cfg.experiment.algorithm.dqn.eps_end, exploration_fraction=cfg.experiment.algorithm.dqn.exploration_fraction,
+                buffer_size=1, # we don't need to store experience, will only increase RAM usage 
+                learning_starts=cfg.experiment.algorithm.dqn.warmup_turns,
+                gamma=cfg.experiment.algorithm.dqn.gamma,
+                train_freq=1, # how many rollouts to perform before training once (one rollout = num_train_envs steps)
+                gradient_steps=max(cfg.experiment.environment.num_train_envs // cfg.experiment.training.every_steps, 1),
+                target_update_interval=cfg.experiment.algorithm.dqn.target_network_update_frequency * cfg.experiment.environment.num_train_envs,
+                max_grad_norm=cfg.experiment.algorithm.dqn.max_grad_norm,
+                tensorboard_log=None,
+                replay_buffer_class=replay_buffer_class,
+                optimize_memory_usage=False,
+                replay_buffer_kwargs=replay_buffer_kwargs,
+                action_masking=cfg.experiment.actions.action_masking,
+                actions_in_state_space=cfg.experiment.actions.in_state_space
+            )
+    
+    # restore weights
+    # print("Restoring weights...")
+    # ckpt_params = torch.load(f"{ckpt_path}/policy.pth", map_location="cpu")
+    # model.policy.load_state_dict(ckpt_params)
+    # model.policy.set_training_mode(False)
+    # model.policy.eval()
+
+    print("done")
     return cfg, model, encoding
 
 
@@ -238,18 +263,20 @@ sysParser = SystemTemplateParser()
 valueBackend = ReimbursementRealValueBackend(a1_laender=base_data.a1_countries, data=base_data)
 # setup model and encoding
 cfg, base_cts_policy, state_encoding = load_model(ckpt_path=ckpt_path, cfg_name=cfg_name, device=DEVICE, data=base_data)
-_, formal_cts_policy, _ = load_model(ckpt_path=ckpt_path, cfg_name=cfg_name, device=DEVICE, data=formal_data)
-_, personal_cts_policy, _ = load_model(ckpt_path=ckpt_path, cfg_name=cfg_name, device=DEVICE, data=personal_data)
-_, friendly_cts_policy, _ = load_model(ckpt_path=ckpt_path, cfg_name=cfg_name, device=DEVICE, data=friendly_data)
-all_cts_policies = [formal_cts_policy, base_cts_policy, personal_cts_policy, friendly_cts_policy]
+# _, formal_cts_policy, _ = load_model(ckpt_path=ckpt_path, cfg_name=cfg_name, device=DEVICE, data=formal_data)
+# _, personal_cts_policy, _ = load_model(ckpt_path=ckpt_path, cfg_name=cfg_name, device=DEVICE, data=personal_data)
+# _, friendly_cts_policy, _ = load_model(ckpt_path=ckpt_path, cfg_name=cfg_name, device=DEVICE, data=friendly_data)
+# all_cts_policies = [formal_cts_policy, base_cts_policy, personal_cts_policy, friendly_cts_policy]
 # pre-load faq embeddings
 print("Preloading FAQ embeddings...")
 country_list, country_city_list = FAQBaselinePolicy.get_country_city_map(data=base_data)
-node_idx_mapping, node_embeddings, base_node_markup = FAQBaselinePolicy.embed_node_texts(data=base_data, state_encoding=state_encoding, system_parser=sysParser, country_list=country_list, country_city_list=country_city_list, value_backend=valueBackend)
-_, _, formal_node_markup = FAQBaselinePolicy.embed_node_texts(data=formal_data, state_encoding=state_encoding, system_parser=sysParser, country_list=country_list, country_city_list=country_city_list, value_backend=valueBackend)
-_, _, personal_node_markup = FAQBaselinePolicy.embed_node_texts(data=personal_data, state_encoding=state_encoding, system_parser=sysParser, country_list=country_list, country_city_list=country_city_list, value_backend=valueBackend)
-_, _, friendly_node_markup = FAQBaselinePolicy.embed_node_texts(data=friendly_data, state_encoding=state_encoding, system_parser=sysParser, country_list=country_list, country_city_list=country_city_list, value_backend=valueBackend)
+base_node_idx_mapping, node_embeddings, base_node_markup = FAQBaselinePolicy.embed_node_texts(data=base_data, state_encoding=state_encoding, system_parser=sysParser, country_list=country_list, country_city_list=country_city_list, value_backend=valueBackend)
+formal_node_idx_mapping, formal_node_markup = FAQBaselinePolicy.get_markdown(data=formal_data, system_parser=sysParser, country_list=country_list, country_city_list=country_city_list, value_backend=valueBackend)
+personal_node_idx_mapping, personal_node_markup = FAQBaselinePolicy.get_markdown(data=personal_data, system_parser=sysParser, country_list=country_list, country_city_list=country_city_list, value_backend=valueBackend)
+friendly_nod_idx_mapping, friendly_node_markup = FAQBaselinePolicy.get_markdown(data=friendly_data, system_parser=sysParser, country_list=country_list, country_city_list=country_city_list, value_backend=valueBackend)
+
 all_markup = [formal_node_markup, base_node_markup, personal_node_markup, friendly_node_markup]
+all_idx_mappings = [formal_node_idx_mapping, base_node_idx_mapping, personal_node_idx_mapping, friendly_nod_idx_mapping]
 print("Done")
 
 class CheckLogin(RequestHandler):
@@ -310,9 +337,9 @@ class UserChatSocket(AuthenticatedWebSocketHandler):
             if group == "hdc":
                CHAT_ENGINES[self.current_user] = GuidedBaselinePolicy(user_id=self.current_user,  socket=self, data=all_data[style], state_encoding=state_encoding, nlu=nlu, sysParser=sysParser, answerParser=answerParser, logicParser=logicParser, valueBackend=valueBackend)
             elif group == "faq":
-                CHAT_ENGINES[self.current_user] = FAQBaselinePolicy(user_id=self.current_user, socket=self, data=all_data[style], state_encoding=state_encoding, nlu=nlu, sysParser=sysParser, answerParser=answerParser, logicParser=logicParser, valueBackend=valueBackend, node_idx_mapping=node_idx_mapping, node_embeddings=node_embeddings, node_markup=all_markup[style], country_list=country_list, country_city_list=country_city_list)
-            elif group == "cts":
-                CHAT_ENGINES[self.current_user] = CTSPolicy(user_id=self.current_user,  socket=self, data=all_data[style], state_encoding=state_encoding, nlu=nlu, sysParser=sysParser, answerParser=answerParser, logicParser=logicParser, valueBackend=valueBackend, model=all_cts_policies[style])
+                CHAT_ENGINES[self.current_user] = FAQBaselinePolicy(user_id=self.current_user, socket=self, data=all_data[style], state_encoding=state_encoding, nlu=nlu, sysParser=sysParser, answerParser=answerParser, logicParser=logicParser, valueBackend=valueBackend, node_idx_mapping=all_idx_mappings[style], node_embeddings=node_embeddings, node_markup=all_markup[style], country_list=country_list, country_city_list=country_city_list)
+            # elif group == "cts":
+            #     CHAT_ENGINES[self.current_user] = CTSPolicy(user_id=self.current_user,  socket=self, data=all_data[style], state_encoding=state_encoding, nlu=nlu, sysParser=sysParser, answerParser=answerParser, logicParser=logicParser, valueBackend=valueBackend, model=all_cts_policies[style])
             else:
                 raise f"UNKNOWN POLICY ASSIGNMENT {group} FOR USER {self.current_user}"
         else:

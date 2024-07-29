@@ -138,6 +138,36 @@ class FAQBaselinePolicy(ChatEngine):
             country_list.add(country)
             country_city_list.append((country, city))
         return list(country_list), country_city_list
+    
+    @staticmethod
+    def get_markdown(data: GraphDataset, system_parser, country_list, country_city_list, value_backend):
+            node_idx_mapping = {} # mapping from node id -> embedding index
+            node_text_idx = 0
+            node_markup = []
+            for node in data.nodes_by_type[NodeType.INFO]:
+                variables = system_parser.find_variables(node.text)
+                if "CITY" in variables:
+                    # replace country and city
+                    for country, city in country_city_list:
+                        text = system_parser.parse_template(node.text, value_backend, {"COUNTRY": country, "CITY": city})
+                        node_idx_mapping[node_text_idx] = node.key
+                        node_markup.append(system_parser.parse_template(node.markup, value_backend, {"COUNTRY": country, "CITY": city}))
+                        node_text_idx += 1
+                elif "COUNTRY" in variables:
+                    # replace country only
+                    for country in country_list:
+                        text = system_parser.parse_template(node.text, value_backend, {"COUNTRY": country})
+                        node_idx_mapping[node_text_idx] = node.key
+                        node_markup.append(system_parser.parse_template(node.markup, value_backend, {"COUNTRY": country}))
+                        node_text_idx += 1
+                else:
+                    # normal text, don't replace anything
+                    node_idx_mapping[node_text_idx] = node.key
+                    node_markup.append(node.markup)
+                    node_text_idx += 1
+            print("Done")
+            return node_idx_mapping, node_markup
+
 
     @staticmethod
     def embed_node_texts(data: GraphDataset, state_encoding, system_parser, country_list, country_city_list, value_backend) -> Tuple[Dict[int, int], torch.FloatTensor]:
