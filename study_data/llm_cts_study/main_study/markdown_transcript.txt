@@ -1,0 +1,1681 @@
+USER: c7bb706cdb623739bf9e80c638e4eb (POLICY: cts_llm)
+GOAL TEXT: You want to know how to book a hotel
+RESET
+GOAL NODE: (16387868859695624) Thank you for using the business travel chatbot.Please let us know about yo
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: Hi, can you tell me how to book a hotel please?
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: book a trip
+SYSTEM: (NODE: 16363752591243585) <p>What country are you traveling to?</p>
+USER: uk
+SYSTEM: (NODE: 16363812426270449) <p>Hotels can be booked using the <a title="E-Mail address travel agency DER" href="mailto:redacted.com">university's partner travel agency</a>, through a booking portal, or booked directly</p>
+ <p>The contact for the partner travel agency can be found <a title="contact travel agency DER" href="https://www.redacted.pdf">here</a>.</p>
+ <p>The university recommends <a title="Hotel recommendation list Germany" href="https://www.redacted.xlsx">these hotels</a>.</p>
+SYSTEM: (NODE: 16365521324065600) <p>In {{ COUNTRY }} you have a budget of up to 90€ (or 120€ in cities with a population of more than 100,000 or generally/seasonally high hotel prices) for accommodations, so long as you present proof of a paid invoice. </p>
+SYSTEM: (NODE: 16363810595542638) <p>Exceeding the accommodation allowance can be allowed on a case-by-case basis<strong> when justified</strong> as necessary, e.g.,</p>
+ <ul>
+ <li>If there were no cheaper hotels near the event location</li>
+ <li>A cheaper hotel farther away would have resulted in higher transportation costs</li>
+ </ul>
+SYSTEM: (NODE: 16378355894189764) <p>When traveling alone, you may book a double bed room in cases where no single bed rooms are available, or where a double bed room does not cost more.</p>
+DIALOG END: SUCCESS
+SUBJECTIVE QUALITY: 4
+SUBJECTIVE LENGTH: 3
+
+USER: c7bb706cdb623739bf9e80c638e4eb (POLICY: cts_llm)
+GOAL TEXT: You are planning to book a trip, and want to know If you can get reimbursed for taking a taxi during your trip.
+RESET
+GOAL NODE: (16365525829145685) A taxi is only reimbursable if there is a business related reason or a pres
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: Can I claim for taxi journeys during my trip?
+SYSTEM: (NODE: 16348100109577394) <p>What type of transportation would you like?</p>
+USER: taxi
+SYSTEM: (NODE: 16365525829145685) <p>A taxi is only reimbursable if there is a business related reason or a pressing personal reason, e.g.:</p>
+ <ul>
+ <li>insufficient public transportation</li>
+ <li>Health reasons</li>
+ <li>Disability</li>
+ </ul>
+DIALOG END: SUCCESS
+SUBJECTIVE QUALITY: 3
+SUBJECTIVE LENGTH: 4
+
+USER: c7bb706cdb623739bf9e80c638e4eb (POLICY: cts_llm)
+GOAL TEXT: You want to figure out how much money you can get for your travel. <ul><li>You used your own car</li><li>You took two colleagues with you</li></ul>
+GOAL NODE: (16460328708250870) If you are also transporting other coworkers, you are entitled to 2 Cent pe
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: Hi, on my recent trip I took my own car and carried two colleagues, how much money can i claim back for this please?
+SYSTEM: (NODE: 16460325754790153) <p>If you used your car for a  <strong>pressing reason  </strong>, you are entitled to <strong>0,25€ per</strong> kilometer driven.</p>
+SYSTEM: (NODE: 16460328708250870) <p>If you are also transporting <strong>other coworkers</strong>, you are entitled to <strong>2 Cent per person und kilometer, </strong>  for each passenger who is also eligible for travel reimbursement. <br />(To claim a passenger, they must also sign your travel reimbursement request.)</p>
+ <p>If you are transporting <strong>business related items</strong> (e.g., files) <strong>weighing more than 50 Kg </strong>you are eligible for <strong>2 Cent per 50 Kg and Kilometer</strong>.</p>
+ <p>(Changes coming in 2022)</p>
+DIALOG END: SUCCESS
+SUBJECTIVE QUALITY: 3
+SUBJECTIVE LENGTH: 2
+
+USER: c017850ef3e9fd55350d0c8374859f (POLICY: cts_llm)
+GOAL TEXT: You want to inform yourself what to do in case of an emergency during travel.
+RESET
+GOAL NODE: (16387868859695624) Thank you for using the business travel chatbot.Please let us know about yo
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: What do I do if there is an emergency during a business trip
+SYSTEM: (NODE: 16460436532310883) <p>What emergency are you experiencing?</p>
+USER: safety emergency
+SYSTEM: (NODE: 16370679473901470) <h4 id="id-2cd3fd7d-head2"><strong>What do I do in an emergency on a business trip?</strong></h4>
+ <p> </p>
+ <div class="absatz">
+ <p>Please call the number listed on the <a title="Emergency Card" href="https://www.redacted.pdf"><span style="text-decoration: underline;"><strong>Emergency-Card</strong></span> </a>:<strong> </strong><span style="text-decoration: underline;"><strong> </strong></span><strong>+123456789.</strong></p>
+ <p>The Emergency-Card is also available in business card format. For more information, please enquire with the business travel department or your institute.</p>
+ <p>This phone number is <strong>for emergencies only!</strong> Do not distribute it.</p>
+ </div>
+ <p><span style="text-decoration: underline;"><strong>Emergency App<br /></strong></span>24/7 Emergency calling, Text chat, Video advice per the Emergency call Business App for iOS and Android<br /><strong>Download link</strong>: <a title="Emergency-App" href="https://redacted"><span style="text-decoration: underline;">Notfall-App</span></a></p>
+ <p>QR-Code:<br /><img src="https://www.redacted.jpeg" alt="QR Code Emergency app" width="150" height="150" /></p>
+ <p><strong>Registration code</strong>: </p>
+ <p>Note: distributing the registration code to third parties is strictly prohibited.</p>
+SYSTEM: (NODE: 16384313191857195) <p>Do you have any further questions?</p>
+USER: Yes
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: Do you have any advice on what to do if I have an emergency during my business trip
+SYSTEM: (NODE: 16460436532310883) <p>What emergency are you experiencing?</p>
+USER: medical emergency
+SYSTEM: (NODE: 16370679473901470) <h4 id="id-2cd3fd7d-head2"><strong>What do I do in an emergency on a business trip?</strong></h4>
+ <p> </p>
+ <div class="absatz">
+ <p>Please call the number listed on the <a title="Emergency Card" href="https://www.redacted.pdf"><span style="text-decoration: underline;"><strong>Emergency-Card</strong></span> </a>:<strong> </strong><span style="text-decoration: underline;"><strong> </strong></span><strong>+123456789.</strong></p>
+ <p>The Emergency-Card is also available in business card format. For more information, please enquire with the business travel department or your institute.</p>
+ <p>This phone number is <strong>for emergencies only!</strong> Do not distribute it.</p>
+ </div>
+ <p><span style="text-decoration: underline;"><strong>Emergency App<br /></strong></span>24/7 Emergency calling, Text chat, Video advice per the Emergency call Business App for iOS and Android<br /><strong>Download link</strong>: <a title="Emergency-App" href="https://redacted"><span style="text-decoration: underline;">Notfall-App</span></a></p>
+ <p>QR-Code:<br /><img src="https://www.redacted.jpeg" alt="QR Code Emergency app" width="150" height="150" /></p>
+ <p><strong>Registration code</strong>: </p>
+ <p>Note: distributing the registration code to third parties is strictly prohibited.</p>
+SYSTEM: (NODE: 16384313191857195) <p>Do you have any further questions?</p>
+USER: no
+SYSTEM: (NODE: 16387868859695624) <p>Thank you for using the business travel chatbot.</p>
+ <p>Please let us know about your experience by filling out a quick survey, that way we can improve our performance and your experience.</p></p>
+DIALOG END: SUCCESS
+SUBJECTIVE QUALITY: 3
+SUBJECTIVE LENGTH: 2
+
+USER: c017850ef3e9fd55350d0c8374859f (POLICY: cts_llm)
+GOAL TEXT: You are planning to book a trip, and want to know If you can get reimbursed for taking a taxi during your trip.
+RESET
+GOAL NODE: (16365525829145685) A taxi is only reimbursable if there is a business related reason or a pres
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: can i get reimbursed for cost of taxi
+SYSTEM: (NODE: 16365525829145685) <p>A taxi is only reimbursable if there is a business related reason or a pressing personal reason, e.g.:</p>
+ <ul>
+ <li>insufficient public transportation</li>
+ <li>Health reasons</li>
+ <li>Disability</li>
+ </ul>
+DIALOG END: SUCCESS
+SUBJECTIVE QUALITY: 2
+SUBJECTIVE LENGTH: 2
+
+USER: c017850ef3e9fd55350d0c8374859f (POLICY: cts_llm)
+GOAL TEXT: You want to know how the reimbursement process works for research semester.<ul><li>You plan to bring your family with you</li></ul>
+RESET
+GOAL NODE: (16370483534787100) Your business trip must be planned as though you were traveling alone (with
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: research semester
+SYSTEM: (NODE: 16370487978253782) <p>How long will your research semester last?</p>
+USER: 2 days
+SYSTEM: (NODE: 16353297472197738) <p>Is this as part of a reallocation?  </p>
+USER: no
+SYSTEM: (NODE: 16370501863636503) <p>As there has been no reallocation, your research semester counts as a business trip.</p>
+SYSTEM: (NODE: 16353303012891903) <p>Are you traveling alone or with your family?</p>
+USER: with family
+SYSTEM: (NODE: 16370483534787100) <p>Your business trip must be planned as though you were traveling alone (without your family).</p>
+ <p>How doe that work?</p>
+ <ul>
+ <li>Provide receipts for only the costs associated with purchases for yourself</li>
+ <li>Collect comparison offers where necessary (e.g., transportation costs and accommodation) for what the costs would have been for only one person</li>
+ <li>Personal expenses must be strictly separated from business expenses</li>
+ </ul>
+ <p><strong>You are responsible for paying all additional costs that result from bringing your family along.</strong></p>
+DIALOG END: SUCCESS
+SUBJECTIVE QUALITY: 1
+SUBJECTIVE LENGTH: 2
+
+USER: 26436abe3d8cf85d7547e499256e3a (POLICY: cts_llm)
+GOAL TEXT: You want more information about how to plan a research semester.
+RESET
+GOAL NODE: (16387868859695624) Thank you for using the business travel chatbot.Please let us know about yo
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: What should I do to plan out a research semester for a business trip.
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: Research semester
+SYSTEM: (NODE: 16460422136134149) <p>If you are traveling for more than 4 weeks and need help finding accommodations, please contact <a title="E-Mail address business travel department" href="mailto:redacted.de">the business travel department</a>.</p>
+SYSTEM: (NODE: 16370501863636503) <p>As there has been no reallocation, your research semester counts as a business trip.</p>
+SYSTEM: (NODE: 16370483534787100) <p>Your business trip must be planned as though you were traveling alone (without your family).</p>
+ <p>How doe that work?</p>
+ <ul>
+ <li>Provide receipts for only the costs associated with purchases for yourself</li>
+ <li>Collect comparison offers where necessary (e.g., transportation costs and accommodation) for what the costs would have been for only one person</li>
+ <li>Personal expenses must be strictly separated from business expenses</li>
+ </ul>
+ <p><strong>You are responsible for paying all additional costs that result from bringing your family along.</strong></p>
+SYSTEM: (NODE: 16363754793760356) <p>A private extension to a trip must remain in proportion to the length of business-related travel. Business interests must remain the priority. For questions, please contact <a title="E-Mail address of the travel department" href="mailto:redacted.de">the travel department</a>.</p>
+SYSTEM: (NODE: 16348097487038694) <p>Which topic do you want to know more about?</p>
+USER: Accommodation
+SYSTEM: (NODE: 16363834981763431) <p>A trip taken for purely business reasons is tax free. <strong>This needs to be proven to your accommodation by the time you check-out at the latest</strong> (e.g., invoice recipient is the university or the accommodation was booked through the university).</p>
+DIALOG END: SUCCESS
+SUBJECTIVE QUALITY: 4
+SUBJECTIVE LENGTH: 4
+
+USER: 26436abe3d8cf85d7547e499256e3a (POLICY: cts_llm)
+GOAL TEXT: You have to cancel your trip. You want to know if the money you have already paid can be reimbursed
+RESET
+GOAL NODE: (16457053159041482) You should try to cancel anything which has already been booked as quickly
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: cancel a trip
+SYSTEM: (NODE: 16457053159041482) <p>You should try to cancel anything which has already been booked as quickly as possible.</p>
+ <p><strong>Necessary expenses as a result of the planned Business trip, which cannot be cancelled will be reimbursed. </p>
+ <p>Cancellation costs can also be reimbursed using the <a title="Form for travel reimbursement" href="https://www.redacted.pdf">Form for travel reimbursement</a>.</p>
+DIALOG END: SUCCESS
+SUBJECTIVE QUALITY: 4
+SUBJECTIVE LENGTH: 3
+
+USER: 6248a541d241dda06d678a24a511ce (POLICY: cts_llm)
+GOAL TEXT: You want to know how to book a hotel
+RESET
+GOAL NODE: (16387868859695624) Thank you for using the business travel chatbot.Please let us know about yo
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: I need help booking a hotel
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: How do I book a hotel
+SYSTEM: (NODE: 16363752591243585) <p>What country are you traveling to?</p>
+USER: UK
+SYSTEM: (NODE: 16363812426270449) <p>Hotels can be booked using the <a title="E-Mail address travel agency DER" href="mailto:redacted.com">university's partner travel agency</a>, through a booking portal, or booked directly</p>
+ <p>The contact for the partner travel agency can be found <a title="contact travel agency DER" href="https://www.redacted.pdf">here</a>.</p>
+ <p>The university recommends <a title="Hotel recommendation list Germany" href="https://www.redacted.xlsx">these hotels</a>.</p>
+SYSTEM: (NODE: 16365521324065600) <p>In {{ COUNTRY }} you have a budget of up to 90€ (or 120€ in cities with a population of more than 100,000 or generally/seasonally high hotel prices) for accommodations, so long as you present proof of a paid invoice. </p>
+SYSTEM: (NODE: 16363810595542638) <p>Exceeding the accommodation allowance can be allowed on a case-by-case basis<strong> when justified</strong> as necessary, e.g.,</p>
+ <ul>
+ <li>If there were no cheaper hotels near the event location</li>
+ <li>A cheaper hotel farther away would have resulted in higher transportation costs</li>
+ </ul>
+SYSTEM: (NODE: 16378355894189764) <p>When traveling alone, you may book a double bed room in cases where no single bed rooms are available, or where a double bed room does not cost more.</p>
+DIALOG END: SUCCESS
+SUBJECTIVE QUALITY: 3
+SUBJECTIVE LENGTH: 3
+
+USER: 6248a541d241dda06d678a24a511ce (POLICY: cts_llm)
+GOAL TEXT: You want to know if you can get reimbursed if you reserve a seat for yourself on the train
+RESET
+GOAL NODE: (16363756478730906) Seat reservations are allowed for train travel
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: I want to book a seat on the train. Can I get a refund if needed
+SYSTEM: (NODE: 16348100109577394) <p>What type of transportation would you like?</p>
+USER: Train
+SYSTEM: (NODE: 16363756478730906) <p>Seat reservations are allowed for train travel</p>
+DIALOG END: SUCCESS
+SUBJECTIVE QUALITY: 2
+SUBJECTIVE LENGTH: 3
+
+USER: 6248a541d241dda06d678a24a511ce (POLICY: cts_llm)
+GOAL TEXT: You want to know how to book your flight.<ul><li>You plan to extend your stay with private vacation before flying back</li></ul>
+RESET
+GOAL NODE: (16363755463439219) Costs which occur as part of the business aspect of a trip are reimbursable
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: How do I book a flight I would like to extend my holiday
+SYSTEM: (NODE: 16363754793760356) <p>A private extension to a trip must remain in proportion to the length of business-related travel. Business interests must remain the priority. For questions, please contact <a title="E-Mail address of the travel department" href="mailto:redacted.de">the travel department</a>.</p>
+SYSTEM: (NODE: 16348097487038694) <p>Which topic do you want to know more about?</p>
+USER: Book a flight
+SYSTEM: (NODE: 16351710117855351) <p>Flights must be booked through the <a title="Contact to travel agency DER" href="mailto:redacted.com">university's Partner Travel Agency</a> (Tel. +123456789). It is not possible to book through an alternative agency. You can find more information on the business travel website.</p>
+ <p>Contact information for the partner travel agency can be found <a title="Contact for travel agency DER" href="https://www.redacted.pdf">here</a>.</p>
+DIALOG END: FAILURE
+SUBJECTIVE QUALITY: 3
+SUBJECTIVE LENGTH: 3
+
+USER: e87d3ef50c5eb08a51f6e25cdd413a (POLICY: cts_llm)
+GOAL TEXT: You want to inform yourself what to do in case of an emergency during travel.
+RESET
+GOAL NODE: (16387868859695624) Thank you for using the business travel chatbot.Please let us know about yo
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: What do I do if I have an emergency during a business trip?
+SYSTEM: (NODE: 16460436532310883) <p>What emergency are you experiencing?</p>
+USER: A medical emergency
+SYSTEM: (NODE: 16370679473901470) <h4 id="id-2cd3fd7d-head2"><strong>What do I do in an emergency on a business trip?</strong></h4>
+ <p> </p>
+ <div class="absatz">
+ <p>Please call the number listed on the <a title="Emergency Card" href="https://www.redacted.pdf"><span style="text-decoration: underline;"><strong>Emergency-Card</strong></span> </a>:<strong> </strong><span style="text-decoration: underline;"><strong> </strong></span><strong>+123456789.</strong></p>
+ <p>The Emergency-Card is also available in business card format. For more information, please enquire with the business travel department or your institute.</p>
+ <p>This phone number is <strong>for emergencies only!</strong> Do not distribute it.</p>
+ </div>
+ <p><span style="text-decoration: underline;"><strong>Emergency App<br /></strong></span>24/7 Emergency calling, Text chat, Video advice per the Emergency call Business App for iOS and Android<br /><strong>Download link</strong>: <a title="Emergency-App" href="https://redacted"><span style="text-decoration: underline;">Notfall-App</span></a></p>
+ <p>QR-Code:<br /><img src="https://www.redacted.jpeg" alt="QR Code Emergency app" width="150" height="150" /></p>
+ <p><strong>Registration code</strong>: </p>
+ <p>Note: distributing the registration code to third parties is strictly prohibited.</p>
+SYSTEM: (NODE: 16384313191857195) <p>Do you have any further questions?</p>
+USER: No
+SYSTEM: (NODE: 16387868859695624) <p>Thank you for using the business travel chatbot.</p>
+ <p>Please let us know about your experience by filling out a quick survey, that way we can improve our performance and your experience.</p></p>
+DIALOG END: SUCCESS
+SUBJECTIVE QUALITY: 4
+SUBJECTIVE LENGTH: 3
+
+USER: e87d3ef50c5eb08a51f6e25cdd413a (POLICY: cts_llm)
+GOAL TEXT: You are planning to book a trip, and want to know If you can get reimbursed for taking a taxi during your trip.
+RESET
+GOAL NODE: (16365525829145685) A taxi is only reimbursable if there is a business related reason or a pres
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: Can I get reimbursed for a taxi trip?
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: Book a trip
+SYSTEM: (NODE: 16365525829145685) <p>A taxi is only reimbursable if there is a business related reason or a pressing personal reason, e.g.:</p>
+ <ul>
+ <li>insufficient public transportation</li>
+ <li>Health reasons</li>
+ <li>Disability</li>
+ </ul>
+DIALOG END: SUCCESS
+SUBJECTIVE QUALITY: 4
+SUBJECTIVE LENGTH: 3
+
+USER: e87d3ef50c5eb08a51f6e25cdd413a (POLICY: cts_llm)
+GOAL TEXT: You want to know how the reimbursement process works for research semester.<ul><li>You plan to bring your family with you</li></ul>
+RESET
+GOAL NODE: (16370483534787100) Your business trip must be planned as though you were traveling alone (with
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: Research semester
+SYSTEM: (NODE: 16370487978253782) <p>How long will your research semester last?</p>
+ <p> </p>
+ <p> </p>
+USER: 1 week
+SYSTEM: (NODE: 16353297472197738) <p>Is this as part of a reallocation?  </p>
+USER: No
+SYSTEM: (NODE: 16370501863636503) <p>As there has been no reallocation, your research semester counts as a business trip.</p>
+SYSTEM: (NODE: 16353303012891903) <p>Are you traveling alone or with your family?</p>
+USER: With family
+SYSTEM: (NODE: 16370483534787100) <p>Your business trip must be planned as though you were traveling alone (without your family).</p>
+ <p>How doe that work?</p>
+ <ul>
+ <li>Provide receipts for only the costs associated with purchases for yourself</li>
+ <li>Collect comparison offers where necessary (e.g., transportation costs and accommodation) for what the costs would have been for only one person</li>
+ <li>Personal expenses must be strictly separated from business expenses</li>
+ </ul>
+ <p><strong>You are responsible for paying all additional costs that result from bringing your family along.</strong></p>
+DIALOG END: SUCCESS
+SUBJECTIVE QUALITY: 4
+SUBJECTIVE LENGTH: 3
+
+USER: f94646ef8880a873c626e0b7300352 (POLICY: cts_llm)
+GOAL TEXT: You want to know how much money you can get for your accommodations. <ul><li>You are traveling to France for your next trip</li><li>You plan to stay with your brother in his apartment. </li></ul>
+RESET
+GOAL NODE: (16378349334755637) Outside of Germany, you are entitled to 30€ if you are staying with friends
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: how much money you can get for your accommodations
+SYSTEM: (NODE: 16363752591243585) <p>What country are you traveling to?</p>
+USER: UK
+SYSTEM: (NODE: 16378350683837525) <p>If the trip is being paid for by a third party (not from the university) or was offered to be paid for by one, no money can be reimbursed.</p>
+SYSTEM: (NODE: 16370471522263677) <p>Where do you plan to stay</p>
+USER: With family
+SYSTEM: (NODE: 16378349334755637) <p>Outside of Germany, you are entitled to 30€ if you are staying with friends or family.</p>
+DIALOG END: SUCCESS
+SUBJECTIVE QUALITY: 4
+SUBJECTIVE LENGTH: 3
+
+USER: 73ea4eee3beb783446d5e7ab391055 (POLICY: cts_llm)
+GOAL TEXT: You want to know how to book a hotel
+RESET
+GOAL NODE: (16387868859695624) Thank you for using the business travel chatbot.Please let us know about yo
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: Hi, I would like to book a hotel for my business trip
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: Book a trip
+SYSTEM: (NODE: 16363752591243585) <p>What country are you traveling to?</p>
+USER: UK
+SYSTEM: (NODE: 16348097487038694) <p>Which topic do you want to know more about?</p>
+USER: Accommodation
+SYSTEM: (NODE: 16363812426270449) <p>Hotels can be booked using the <a title="E-Mail address travel agency DER" href="mailto:redacted.com">university's partner travel agency</a>, through a booking portal, or booked directly</p>
+ <p>The contact for the partner travel agency can be found <a title="contact travel agency DER" href="https://www.redacted.pdf">here</a>.</p>
+ <p>The university recommends <a title="Hotel recommendation list Germany" href="https://www.redacted.xlsx">these hotels</a>.</p>
+SYSTEM: (NODE: 16389574258367592) <p>In order to book trips through the partner travel agency, you will need to use an institute specific client number. You can ask for this number either from your institute's secretariat or from the business travel department.</p>
+ <p> </p>
+SYSTEM: (NODE: 16365521324065600) <p>In {{ COUNTRY }} you have a budget of up to 90€ (or 120€ in cities with a population of more than 100,000 or generally/seasonally high hotel prices) for accommodations, so long as you present proof of a paid invoice. </p>
+DIALOG END: SUCCESS
+SUBJECTIVE QUALITY: 3
+SUBJECTIVE LENGTH: 3
+
+USER: 73ea4eee3beb783446d5e7ab391055 (POLICY: cts_llm)
+GOAL TEXT: You have to cancel your trip. You want to know if the money you have already paid can be reimbursed
+RESET
+GOAL NODE: (16457053159041482) You should try to cancel anything which has already been booked as quickly
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: cancel a trip
+SYSTEM: (NODE: 16457053159041482) <p>You should try to cancel anything which has already been booked as quickly as possible.</p>
+ <p><strong>Necessary expenses as a result of the planned Business trip, which cannot be cancelled will be reimbursed. </p>
+ <p>Cancellation costs can also be reimbursed using the <a title="Form for travel reimbursement" href="https://www.redacted.pdf">Form for travel reimbursement</a>.</p>
+DIALOG END: SUCCESS
+SUBJECTIVE QUALITY: 2
+SUBJECTIVE LENGTH: 1
+
+USER: 73ea4eee3beb783446d5e7ab391055 (POLICY: cts_llm)
+GOAL TEXT: You want to know how the reimbursement process works for research semester.<ul><li>You plan to bring your family with you</li></ul>
+RESET
+GOAL NODE: (16370483534787100) Your business trip must be planned as though you were traveling alone (with
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: I want to know how the reimbursement process works
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: Research semester
+SYSTEM: (NODE: 16353297472197738) <p>Is this as part of a reallocation?  </p>
+USER: yes
+SYSTEM: (NODE: 16437227645843044) <p>If there was a reallocation/delegation, only the travel to the new location and the return trip can be reimbursed</p>
+DIALOG END: SUCCESS - OTHER QUESTION
+SUBJECTIVE QUALITY: 1
+SUBJECTIVE LENGTH: 2
+
+USER: 0b7848a9e1bfef18f523ef0a9d4485 (POLICY: cts_llm)
+GOAL TEXT: You want to inform yourself what to do in case of an emergency during travel.
+RESET
+GOAL NODE: (16387868859695624) Thank you for using the business travel chatbot.Please let us know about yo
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: Problem/emergency during a business trip
+SYSTEM: (NODE: 16460436532310883) <p>What emergency are you experiencing?</p>
+USER: Transport missed or cancelled
+SYSTEM: (NODE: 16460439592347465) <p>If you are at fault, costs cannot be reimbursed.<br /><br /></p>
+SYSTEM: (NODE: 16460439966919842) <p>If you are not at fault (e.g., a conference ran over), costs can be reimbursed if a suitable justification is presented</p>
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: Travel Risk Management
+SYSTEM: (NODE: 16353412627443913) <p><strong>Travel Safety/ Travel Risk Management</strong></p>
+ <p>What would you like to know about?</p>
+ <ul>
+ <li>Emergency help</li>
+ <li>What to consider when planning a trip?</li>
+ <li>Service-Offers</li>
+ <li>General information and links</li>
+ <li>Training opportunities</li>
+ </ul>
+USER: What to consider when planning a trip?
+SYSTEM: (NODE: 16354038874355911) <p>What would you like to know about?</p>
+ <ul>
+ <li>Information <strong>Before the start of a Business trip</strong></li>
+ <li>An <strong>Emergency during your Business trip</strong></li>
+ <li>Information about the <strong>Country risk categories</strong></li>
+ </ul>
+USER: Information Before the start of a Business trip
+SYSTEM: (NODE: 16389562608833278) <p>Please note the  <span style="color: #000000;">current</span><strong><span style="color: #e03e2d;"> <span style="color: #ba372a;">COVID-19 travel warnings posted by the </span></span><span style="color: #ba372a;"> </span></strong>and restrictions <a title="foreign ministry travel warnings" href="https://www.auswaertiges-amt.de/de/ReiseUndSicherheit/covid-19/2296762">foreign ministry</a> and the <a title="travel warnings from the Robert Koch Institute" href="https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Risikogebiete_neu.html">RKI</a>.</p>
+ <p><br /><strong>Business trips to high risk or variant areas are generally not allowed. In extreme cases, permission can be petitioned for through the leadership of Department 4 (administrative department).</strong></p>
+SYSTEM: (NODE: 16370678190615289) <p>Please use the <strong>country database </strong> to inform yourself about possible  <strong>Risks </strong>related to your trip.<br /><br /></p>
+ <p>It is required<strong>to confirm that you have checked this information and gotten necessary advice as part of your <a title="Form for travel application" href="https://www.redacted.pdf">travel application</a></strong>.  Your supervisor will confirm this when signing the form giving you permission to travel</p>
+SYSTEM: (NODE: 16370678856758681) <p>The country database is available in German and English.  Countries are divided into<strong>risk classes: green, yellow, and red</stron>.<br />You can find more information here: <a title="Risik classes in the country database" href="https://www.redacted">Risk classes in the country database</a></p>
+ <p>If you would like information about the <strong>Risk class of your destination</strong>, click <a title="Risiko Klasse des Reiseziels" href="http://redacted">here</a></p>
+SYSTEM: (NODE: 16384313191857195) <p>Do you have any further questions?</p>
+USER: No
+SYSTEM: (NODE: 16387868859695624) <p>Thank you for using the business travel chatbot.</p>
+ <p>Please let us know about your experience by filling out a quick survey, that way we can improve our performance and your experience.</p></p>
+DIALOG END: SUCCESS
+SUBJECTIVE QUALITY: 4
+SUBJECTIVE LENGTH: 3
+
+USER: 0b7848a9e1bfef18f523ef0a9d4485 (POLICY: cts_llm)
+GOAL TEXT: You are planning to book a trip, and want to know If you can get reimbursed for taking a taxi during your trip.
+RESET
+GOAL NODE: (16365525829145685) A taxi is only reimbursable if there is a business related reason or a pres
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: Book a trip
+SYSTEM: (NODE: 16348058588084537) <p>Are you going on an intracity trip or a business trip?</p>
+USER: If I happen to use a taxi, will I be reimbursed?
+SYSTEM: (NODE: 16348064261907944) <p>Did you get <strong>written</strong> permission from your supervisor?</p>
+USER: No
+SYSTEM: (NODE: 16363751447148919) <p>Please use this <a title="Permission form for business trip" href="https://www.redacted.pdf">form </a> written permission from your supervisor.<strong> This is required before starting to book a trip.</strong></p>
+SYSTEM: (NODE: 16363752591243585) <p>What country are you traveling to?</p>
+USER: China
+SYSTEM: (NODE: 16363753123487784) <p>What city are you traveling to?</p>
+USER: Beijing
+SYSTEM: (NODE: 16389695846089108) <p><span style="color: #333333; font-family: 'Univers LT W01 45 Light', arial, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">For<strong>all </strong> business trips (even for short trips or ones lasting only a single day) <strong>outside the country</strong> to EU-countries, Iceland, Norway, Liechtenstein or Switzerland, you will need to fill out an <a title="Formular A1-form" href="https://redacted.pdf"><strong>A1 Form</strong> </a>, which must be brought with you when you leave the country. </span></p>
+ <p><span style="color: #333333; font-family: 'Univers LT W01 45 Light', arial, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">You will need to fill out a new A1 for each business trip you take. Filling the form out once, does not allow it to apply for subsequent trips you tak.</span></p>
+SYSTEM: (NODE: 16363753477187975) <p>Please check the current <strong><span style="color: #ba372a;">COVID-19 travel warnings</span></strong> travel restrictions from the <a title="travel warnings from foreign ministry" href="https://www.auswaertiges-amt.de/de/ReiseUndSicherheit/covid-19/2296762">foreign ministry</a> and the <a title="travel warnings from Robert Koch Institute" href="https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Risikogebiete_neu.html">RKI</a>.</p>
+ <p><br /><strong>Business trips to high risk areas or virus variation areas are not generally not allowed. In In extreme cases, authorization can be given by the leadership of Department 4 (Administrative Department).</strong></p>
+SYSTEM: (NODE: 16363754346769013) <p><span style="color: #ba372a;"><strong>COVID-19:</strong></span> Business trips should be reduced to an absolute minimum and are only allowed when they are <strong>absolutely necessary</strong>.</p>
+ <p>The decision for necessity can be made by the leaders of the administrative department (see <a title="Hygiene concept of the Uni " href="https://www.redacted.pdf">Hygiene concept</a>, 2.4).</p>
+SYSTEM: (NODE: 16348093549280346) <p>Are you planning to extend your trip with private travel?</p>
+USER: Yes
+SYSTEM: (NODE: 16363754793760356) <p>A private extension to a trip must remain in proportion to the length of business-related travel. Business interests must remain the priority. For questions, please contact <a title="E-Mail address of the travel department" href="mailto:redacted.de">the travel department</a>.</p>
+SYSTEM: (NODE: 16348097487038694) <p>Which topic do you want to know more about?</p>
+USER: Transportation
+SYSTEM: (NODE: 16348100109577394) <p>What type of transportation would you like?</p>
+USER: Train
+SYSTEM: (NODE: 16363756478730906) <p>Seat reservations are allowed for train travel</p>
+SYSTEM: (NODE: 16365527610579139) <p>Booking a first class train ticket is only allowed for distances of more than 100km.</p>
+SYSTEM: (NODE: 16351756063145903) <p>You can book train tickets yourself (through the <a title="Deutsche Bahn" href="https://www.bahn.de/">DB website</a>, at their counter / ticket machine) or through the <a title="contact for travel agency DER" href="mailto:redacted.com">university's partner travel agency</a> (Tel. +123456789).</p>
+ <p>You can find contact information for the partner travel agency <a title="contact info for travel agency DER" href="https://www.redacted.pdf">here</a>.</p>
+SYSTEM: (NODE: 16351756667261880) <p>Do you have any other questions about booking transportation?</p>
+USER: No
+SYSTEM: (NODE: 16384313191857195) <p>Do you have any further questions?</p>
+USER: No
+SYSTEM: (NODE: 16387868859695624) <p>Thank you for using the business travel chatbot.</p>
+ <p>Please let us know about your experience by filling out a quick survey, that way we can improve our performance and your experience.</p></p>
+DIALOG END: SUCCESS - OTHER QUESTION
+SUBJECTIVE QUALITY: 3
+SUBJECTIVE LENGTH: 3
+
+USER: 0b7848a9e1bfef18f523ef0a9d4485 (POLICY: cts_llm)
+GOAL TEXT: You want to know how to book your flight.<ul><li>You plan to extend your stay with private vacation before flying back</li></ul>
+RESET
+GOAL NODE: (16363755463439219) Costs which occur as part of the business aspect of a trip are reimbursable
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: How do I book to and fro tickets if I'm planning to extend my stay?
+SYSTEM: (NODE: 16460422136134149) <p>If you are traveling for more than 4 weeks and need help finding accommodations, please contact <a title="E-Mail address business travel department" href="mailto:redacted.de">the business travel department</a>.</p>
+SYSTEM: (NODE: 16363754793760356) <p>A private extension to a trip must remain in proportion to the length of business-related travel. Business interests must remain the priority. For questions, please contact <a title="E-Mail address of the travel department" href="mailto:redacted.de">the travel department</a>.</p>
+SYSTEM: (NODE: 16348097487038694) <p>Which topic do you want to know more about?</p>
+USER: Accommodation
+SYSTEM: (NODE: 16363812426270449) <p>Hotels can be booked using the <a title="E-Mail address travel agency DER" href="mailto:redacted.com">university's partner travel agency</a>, through a booking portal, or booked directly</p>
+ <p>The contact for the partner travel agency can be found <a title="contact travel agency DER" href="https://www.redacted.pdf">here</a>.</p>
+ <p>The university recommends <a title="Hotel recommendation list Germany" href="https://www.redacted.xlsx">these hotels</a>.</p>
+DIALOG END: FAILURE
+SUBJECTIVE QUALITY: 4
+SUBJECTIVE LENGTH: 3
+
+USER: d4627c2d60993f6c2df67458967a99 (POLICY: cts_llm)
+GOAL TEXT: You want to inform yourself what to do in case of an emergency during travel.
+RESET
+GOAL NODE: (16387868859695624) Thank you for using the business travel chatbot.Please let us know about yo
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: where should i go
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: what would i do in emergency during travel
+SYSTEM: (NODE: 16370678190615289) <p>Please use the <strong>country database </strong> to inform yourself about possible  <strong>Risks </strong>related to your trip.<br /><br /></p>
+ <p>It is required<strong>to confirm that you have checked this information and gotten necessary advice as part of your <a title="Form for travel application" href="https://www.redacted.pdf">travel application</a></strong>.  Your supervisor will confirm this when signing the form giving you permission to travel</p>
+SYSTEM: (NODE: 16370678856758681) <p>The country database is available in German and English.  Countries are divided into<strong>risk classes: green, yellow, and red</stron>.<br />You can find more information here: <a title="Risik classes in the country database" href="https://www.redacted">Risk classes in the country database</a></p>
+ <p>If you would like information about the <strong>Risk class of your destination</strong>, click <a title="Risiko Klasse des Reiseziels" href="http://redacted">here</a></p>
+DIALOG END: FAILURE
+SUBJECTIVE QUALITY: 3
+SUBJECTIVE LENGTH: 3
+
+USER: d4627c2d60993f6c2df67458967a99 (POLICY: cts_llm)
+GOAL TEXT: You are planning to book a trip, and want to know If you can get reimbursed for taking a taxi during your trip.
+RESET
+GOAL NODE: (16365525829145685) A taxi is only reimbursable if there is a business related reason or a pres
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: can i get reimbursed for taking a taxi during a trip
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: trip
+SYSTEM: (NODE: 16365525829145685) <p>A taxi is only reimbursable if there is a business related reason or a pressing personal reason, e.g.:</p>
+ <ul>
+ <li>insufficient public transportation</li>
+ <li>Health reasons</li>
+ <li>Disability</li>
+ </ul>
+DIALOG END: SUCCESS
+SUBJECTIVE QUALITY: 2
+SUBJECTIVE LENGTH: 2
+
+USER: d4627c2d60993f6c2df67458967a99 (POLICY: cts_llm)
+GOAL TEXT: You want to know how much money you can get for your accommodations. <ul><li>You are traveling to France for your next trip</li><li>You plan to stay with your brother in his apartment. </li></ul>
+RESET
+GOAL NODE: (16378349334755637) Outside of Germany, you are entitled to 30€ if you are staying with friends
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: how much money you can get for your accommodations. if WE are traveling to France for your next trip AND I plan to stay with your brother in his apartment.
+SYSTEM: (NODE: 16370471522263677) <p>Where do you plan to stay</p>
+USER: With family
+SYSTEM: (NODE: 16378349334755637) <p>Outside of Germany, you are entitled to 30€ if you are staying with friends or family.</p>
+DIALOG END: SUCCESS
+SUBJECTIVE QUALITY: 3
+SUBJECTIVE LENGTH: 3
+
+USER: 421203b41777bdbe17c87832aa4397 (POLICY: cts_llm)
+GOAL TEXT: You want to know how to book a flight
+RESET
+GOAL NODE: (16387868859695624) Thank you for using the business travel chatbot.Please let us know about yo
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: Book a trip from hungary to canada
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: Book a trip
+SYSTEM: (NODE: 16363751447148919) <p>Please use this <a title="Permission form for business trip" href="https://www.redacted.pdf">form </a> written permission from your supervisor.<strong> This is required before starting to book a trip.</strong></p>
+SYSTEM: (NODE: 16348097487038694) <p>Which topic do you want to know more about?</p>
+USER: Transportation
+SYSTEM: (NODE: 16351710117855351) <p>Flights must be booked through the <a title="Contact to travel agency DER" href="mailto:redacted.com">university's Partner Travel Agency</a> (Tel. +123456789). It is not possible to book through an alternative agency. You can find more information on the business travel website.</p>
+ <p>Contact information for the partner travel agency can be found <a title="Contact for travel agency DER" href="https://www.redacted.pdf">here</a>.</p>
+DIALOG END: SUCCESS
+SUBJECTIVE QUALITY: 3
+SUBJECTIVE LENGTH: 3
+
+USER: 421203b41777bdbe17c87832aa4397 (POLICY: cts_llm)
+GOAL TEXT: You want to know if you can get reimbursed if you reserve a seat for yourself on the train
+RESET
+GOAL NODE: (16363756478730906) Seat reservations are allowed for train travel
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: Travel Risk Management
+SYSTEM: (NODE: 16353412627443913) <p><strong>Travel Safety/ Travel Risk Management</strong></p>
+ <p>What would you like to know about?</p>
+ <ul>
+ <li>Emergency help</li>
+ <li>What to consider when planning a trip?</li>
+ <li>Service-Offers</li>
+ <li>General information and links</li>
+ <li>Training opportunities</li>
+ </ul>
+USER: Training opportunities
+SYSTEM: (NODE: 16354905244322603) <p>Content:</p>
+ <ul>
+ <li>Why was it introduced:</li>
+ <li>To show the services provided both internally and from MDMedicus</li>
+ <li>Necessary changes to the process</li>
+ <li>Question round</li>
+ </ul>
+ <p>Right now there are no offers available.</p>
+SYSTEM: (NODE: 16384313191857195) <p>Do you have any further questions?</p>
+USER: No
+SYSTEM: (NODE: 16387868859695624) <p>Thank you for using the business travel chatbot.</p>
+ <p>Please let us know about your experience by filling out a quick survey, that way we can improve our performance and your experience.</p></p>
+DIALOG END: SUCCESS - OTHER QUESTION
+SUBJECTIVE QUALITY: 3
+SUBJECTIVE LENGTH: 2
+
+USER: 421203b41777bdbe17c87832aa4397 (POLICY: cts_llm)
+GOAL TEXT: You want to figure out how much money you can get for your travel. <ul><li>You used your own car</li><li>You took two colleagues with you</li></ul>
+RESET
+GOAL NODE: (16460328708250870) If you are also transporting other coworkers, you are entitled to 2 Cent pe
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: Problem/emergency during a business trip
+SYSTEM: (NODE: 16460436532310883) <p>What emergency are you experiencing?</p>
+USER: Safety emergency
+SYSTEM: (NODE: 16370679473901470) <h4 id="id-2cd3fd7d-head2"><strong>What do I do in an emergency on a business trip?</strong></h4>
+ <p> </p>
+ <div class="absatz">
+ <p>Please call the number listed on the <a title="Emergency Card" href="https://www.redacted.pdf"><span style="text-decoration: underline;"><strong>Emergency-Card</strong></span> </a>:<strong> </strong><span style="text-decoration: underline;"><strong> </strong></span><strong>+123456789.</strong></p>
+ <p>The Emergency-Card is also available in business card format. For more information, please enquire with the business travel department or your institute.</p>
+ <p>This phone number is <strong>for emergencies only!</strong> Do not distribute it.</p>
+ </div>
+ <p><span style="text-decoration: underline;"><strong>Emergency App<br /></strong></span>24/7 Emergency calling, Text chat, Video advice per the Emergency call Business App for iOS and Android<br /><strong>Download link</strong>: <a title="Emergency-App" href="https://redacted"><span style="text-decoration: underline;">Notfall-App</span></a></p>
+ <p>QR-Code:<br /><img src="https://www.redacted.jpeg" alt="QR Code Emergency app" width="150" height="150" /></p>
+ <p><strong>Registration code</strong>: </p>
+ <p>Note: distributing the registration code to third parties is strictly prohibited.</p>
+SYSTEM: (NODE: 16384313191857195) <p>Do you have any further questions?</p>
+USER: Yes
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: cancel a trip
+SYSTEM: (NODE: 16457053159041482) <p>You should try to cancel anything which has already been booked as quickly as possible.</p>
+ <p><strong>Necessary expenses as a result of the planned Business trip, which cannot be cancelled will be reimbursed. </p>
+ <p>Cancellation costs can also be reimbursed using the <a title="Form for travel reimbursement" href="https://www.redacted.pdf">Form for travel reimbursement</a>.</p>
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: Research semester
+SYSTEM: (NODE: 16370487978253782) <p>How long will your research semester last?</p>
+ <p> </p>
+ <p> </p>
+USER: 1 month
+SYSTEM: (NODE: 16460422136134149) <p>If you are traveling for more than 4 weeks and need help finding accommodations, please contact <a title="E-Mail address business travel department" href="mailto:redacted.de">the business travel department</a>.</p>
+SYSTEM: (NODE: 16353297472197738) <p>Is this as part of a reallocation?  </p>
+USER: Yes
+SYSTEM: (NODE: 16437227645843044) <p>If there was a reallocation/delegation, only the travel to the new location and the return trip can be reimbursed</p>
+SYSTEM: (NODE: 16384313191857195) <p>Do you have any further questions?</p>
+USER: No
+SYSTEM: (NODE: 16387868859695624) <p>Thank you for using the business travel chatbot.</p>
+ <p>Please let us know about your experience by filling out a quick survey, that way we can improve our performance and your experience.</p></p>
+DIALOG END: SUCCESS - OTHER QUESTION
+SUBJECTIVE QUALITY: 3
+SUBJECTIVE LENGTH: 4
+
+USER: e0172ae6660ce8f7cee3f64ce83f52 (POLICY: cts_llm)
+GOAL TEXT: You want more information about how to plan a research semester.
+RESET
+GOAL NODE: (16387868859695624) Thank you for using the business travel chatbot.Please let us know about yo
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: I want more information about how to plan a research semester.
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: more information about how to plan a research semester.
+SYSTEM: (NODE: 16370501863636503) <p>As there has been no reallocation, your research semester counts as a business trip.</p>
+SYSTEM: (NODE: 16370483534787100) <p>Your business trip must be planned as though you were traveling alone (without your family).</p>
+ <p>How doe that work?</p>
+ <ul>
+ <li>Provide receipts for only the costs associated with purchases for yourself</li>
+ <li>Collect comparison offers where necessary (e.g., transportation costs and accommodation) for what the costs would have been for only one person</li>
+ <li>Personal expenses must be strictly separated from business expenses</li>
+ </ul>
+ <p><strong>You are responsible for paying all additional costs that result from bringing your family along.</strong></p>
+SYSTEM: (NODE: 16363752591243585) <p>What country are you traveling to?</p>
+USER: JAMAICA
+SYSTEM: (NODE: 16348097487038694) <p>Which topic do you want to know more about?</p>
+USER: TRANSPORT AND ACCOMODATION
+SYSTEM: (NODE: 16363812426270449) <p>Hotels can be booked using the <a title="E-Mail address travel agency DER" href="mailto:redacted.com">university's partner travel agency</a>, through a booking portal, or booked directly</p>
+ <p>The contact for the partner travel agency can be found <a title="contact travel agency DER" href="https://www.redacted.pdf">here</a>.</p>
+ <p>The university recommends <a title="Hotel recommendation list Germany" href="https://www.redacted.xlsx">these hotels</a>.</p>
+SYSTEM: (NODE: 16365521324065600) <p>In {{ COUNTRY }} you have a budget of up to 90€ (or 120€ in cities with a population of more than 100,000 or generally/seasonally high hotel prices) for accommodations, so long as you present proof of a paid invoice. </p>
+DIALOG END: SUCCESS
+SUBJECTIVE QUALITY: 3
+SUBJECTIVE LENGTH: 1
+
+USER: e0172ae6660ce8f7cee3f64ce83f52 (POLICY: cts_llm)
+GOAL TEXT: You are traveling with another colleague and want to know if you have to share a room or if each of you can book your own
+RESET
+GOAL NODE: (16363834594338823) Yes, staying in a room by yourself is allowed
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: I am traveling with another colleague and want to know if I have to share a room or if each of you can book your own
+SYSTEM: (NODE: 16370483534787100) <p>Your business trip must be planned as though you were traveling alone (without your family).</p>
+ <p>How doe that work?</p>
+ <ul>
+ <li>Provide receipts for only the costs associated with purchases for yourself</li>
+ <li>Collect comparison offers where necessary (e.g., transportation costs and accommodation) for what the costs would have been for only one person</li>
+ <li>Personal expenses must be strictly separated from business expenses</li>
+ </ul>
+ <p><strong>You are responsible for paying all additional costs that result from bringing your family along.</strong></p>
+SYSTEM: (NODE: 16370471523444253) <p>Do have any more questions about booking an accommodation</p>
+USER: Can I book a double bed room even if I'm traveling alone?
+SYSTEM: (NODE: 16378355894189764) <p>When traveling alone, you may book a double bed room in cases where no single bed rooms are available, or where a double bed room does not cost more.</p>
+SYSTEM: (NODE: 16363834594338823) <p>Yes, staying in a room by yourself is allowed</p>
+DIALOG END: SUCCESS
+SUBJECTIVE QUALITY: 3
+SUBJECTIVE LENGTH: 1
+
+USER: e0172ae6660ce8f7cee3f64ce83f52 (POLICY: cts_llm)
+GOAL TEXT: You want to know how the reimbursement process works for research semester.<ul><li>You plan to bring your family with you</li></ul>
+RESET
+GOAL NODE: (16370483534787100) Your business trip must be planned as though you were traveling alone (with
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: I want to know how the reimbursement process works for research semester, I am plan to bring my family with along
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: Research semester
+SYSTEM: (NODE: 16370501863636503) <p>As there has been no reallocation, your research semester counts as a business trip.</p>
+SYSTEM: (NODE: 16370483534787100) <p>Your business trip must be planned as though you were traveling alone (without your family).</p>
+ <p>How doe that work?</p>
+ <ul>
+ <li>Provide receipts for only the costs associated with purchases for yourself</li>
+ <li>Collect comparison offers where necessary (e.g., transportation costs and accommodation) for what the costs would have been for only one person</li>
+ <li>Personal expenses must be strictly separated from business expenses</li>
+ </ul>
+ <p><strong>You are responsible for paying all additional costs that result from bringing your family along.</strong></p>
+DIALOG END: SUCCESS
+SUBJECTIVE QUALITY: 2
+SUBJECTIVE LENGTH: 2
+
+USER: 34ed72f1fa250d0b32a405d1749d28 (POLICY: cts_llm)
+GOAL TEXT: You want to inform yourself what to do in case of an emergency during travel.
+RESET
+GOAL NODE: (16387868859695624) Thank you for using the business travel chatbot.Please let us know about yo
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: Book a trip
+SYSTEM: (NODE: 16348058588084537) <p>Are you going on an intracity trip or a business trip?</p>
+USER: Bussiness trip
+SYSTEM: (NODE: 16348064261907944) <p>Did you get <strong>written</strong> permission from your supervisor?</p>
+USER: Yes
+SYSTEM: (NODE: 16363752591243585) <p>What country are you traveling to?</p>
+USER: Zimbabwe
+SYSTEM: (NODE: 16363753123487784) <p>What city are you traveling to?</p>
+USER: Bulawayo
+SYSTEM: (NODE: 16389695846089108) <p><span style="color: #333333; font-family: 'Univers LT W01 45 Light', arial, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">For<strong>all </strong> business trips (even for short trips or ones lasting only a single day) <strong>outside the country</strong> to EU-countries, Iceland, Norway, Liechtenstein or Switzerland, you will need to fill out an <a title="Formular A1-form" href="https://redacted.pdf"><strong>A1 Form</strong> </a>, which must be brought with you when you leave the country. </span></p>
+ <p><span style="color: #333333; font-family: 'Univers LT W01 45 Light', arial, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">You will need to fill out a new A1 for each business trip you take. Filling the form out once, does not allow it to apply for subsequent trips you tak.</span></p>
+SYSTEM: (NODE: 16363753477187975) <p>Please check the current <strong><span style="color: #ba372a;">COVID-19 travel warnings</span></strong> travel restrictions from the <a title="travel warnings from foreign ministry" href="https://www.auswaertiges-amt.de/de/ReiseUndSicherheit/covid-19/2296762">foreign ministry</a> and the <a title="travel warnings from Robert Koch Institute" href="https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Risikogebiete_neu.html">RKI</a>.</p>
+ <p><br /><strong>Business trips to high risk areas or virus variation areas are not generally not allowed. In In extreme cases, authorization can be given by the leadership of Department 4 (Administrative Department).</strong></p>
+SYSTEM: (NODE: 16363754346769013) <p><span style="color: #ba372a;"><strong>COVID-19:</strong></span> Business trips should be reduced to an absolute minimum and are only allowed when they are <strong>absolutely necessary</strong>.</p>
+ <p>The decision for necessity can be made by the leaders of the administrative department (see <a title="Hygiene concept of the Uni " href="https://www.redacted.pdf">Hygiene concept</a>, 2.4).</p>
+SYSTEM: (NODE: 16348093549280346) <p>Are you planning to extend your trip with private travel?</p>
+USER: Yes
+SYSTEM: (NODE: 16363754793760356) <p>A private extension to a trip must remain in proportion to the length of business-related travel. Business interests must remain the priority. For questions, please contact <a title="E-Mail address of the travel department" href="mailto:redacted.de">the travel department</a>.</p>
+SYSTEM: (NODE: 16348097487038694) <p>Which topic do you want to know more about?</p>
+USER: Accommodation
+SYSTEM: (NODE: 16378350683837525) <p>If the trip is being paid for by a third party (not from the university) or was offered to be paid for by one, no money can be reimbursed.</p>
+SYSTEM: (NODE: 16370471522263677) <p>Where do you plan to stay</p>
+USER: Friends
+SYSTEM: (NODE: 16378349334755637) <p>Outside of Germany, you are entitled to 30€ if you are staying with friends or family.</p>
+SYSTEM: (NODE: 16370471523444253) <p>Do have any more questions about booking an accommodation</p>
+USER: Is there any other information I need to know about hotel
+SYSTEM: (NODE: 16370471522263677) <p>Where do you plan to stay</p>
+USER: With friends
+SYSTEM: (NODE: 16378349334755637) <p>Outside of Germany, you are entitled to 30€ if you are staying with friends or family.</p>
+SYSTEM: (NODE: 16370471523444253) <p>Do have any more questions about booking an accommodation</p>
+USER: No
+SYSTEM: (NODE: 16384313191857195) <p>Do you have any further questions?</p>
+USER: No
+SYSTEM: (NODE: 16387868859695624) <p>Thank you for using the business travel chatbot.</p>
+ <p>Please let us know about your experience by filling out a quick survey, that way we can improve our performance and your experience.</p></p>
+DIALOG END: SUCCESS
+SUBJECTIVE QUALITY: 4
+SUBJECTIVE LENGTH: 5
+
+USER: 34ed72f1fa250d0b32a405d1749d28 (POLICY: cts_llm)
+GOAL TEXT: You are traveling with another colleague and want to know if you have to share a room or if each of you can book your own
+RESET
+GOAL NODE: (16363834594338823) Yes, staying in a room by yourself is allowed
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: Travel with other colleague
+SYSTEM: (NODE: 16370483534787100) <p>Your business trip must be planned as though you were traveling alone (without your family).</p>
+ <p>How doe that work?</p>
+ <ul>
+ <li>Provide receipts for only the costs associated with purchases for yourself</li>
+ <li>Collect comparison offers where necessary (e.g., transportation costs and accommodation) for what the costs would have been for only one person</li>
+ <li>Personal expenses must be strictly separated from business expenses</li>
+ </ul>
+ <p><strong>You are responsible for paying all additional costs that result from bringing your family along.</strong></p>
+SYSTEM: (NODE: 16460328708250870) <p>If you are also transporting <strong>other coworkers</strong>, you are entitled to <strong>2 Cent per person und kilometer, </strong>  for each passenger who is also eligible for travel reimbursement. <br />(To claim a passenger, they must also sign your travel reimbursement request.)</p>
+ <p>If you are transporting <strong>business related items</strong> (e.g., files) <strong>weighing more than 50 Kg </strong>you are eligible for <strong>2 Cent per 50 Kg and Kilometer</strong>.</p>
+ <p>(Changes coming in 2022)</p>
+DIALOG END: FAILURE
+SUBJECTIVE QUALITY: 4
+SUBJECTIVE LENGTH: 3
+
+USER: 34ed72f1fa250d0b32a405d1749d28 (POLICY: cts_llm)
+GOAL TEXT: You want to figure out how much money you can get for your travel. <ul><li>You used your own car</li><li>You took two colleagues with you</li></ul>
+RESET
+GOAL NODE: (16460328708250870) If you are also transporting other coworkers, you are entitled to 2 Cent pe
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: Book trip with two colleagues by my car
+SYSTEM: (NODE: 16460325754790153) <p>If you used your car for a  <strong>pressing reason  </strong>, you are entitled to <strong>0,25€ per</strong> kilometer driven.</p>
+SYSTEM: (NODE: 16460328708250870) <p>If you are also transporting <strong>other coworkers</strong>, you are entitled to <strong>2 Cent per person und kilometer, </strong>  for each passenger who is also eligible for travel reimbursement. <br />(To claim a passenger, they must also sign your travel reimbursement request.)</p>
+ <p>If you are transporting <strong>business related items</strong> (e.g., files) <strong>weighing more than 50 Kg </strong>you are eligible for <strong>2 Cent per 50 Kg and Kilometer</strong>.</p>
+ <p>(Changes coming in 2022)</p>
+DIALOG END: SUCCESS
+SUBJECTIVE QUALITY: 4
+SUBJECTIVE LENGTH: 3
+
+USER: 80da8de576df3be6d03a234c3eaf5d (POLICY: cts_llm)
+GOAL TEXT: You want to know how to book a hotel
+RESET
+GOAL NODE: (16387868859695624) Thank you for using the business travel chatbot.Please let us know about yo
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: How do you book a hotel?
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: Book a trip
+SYSTEM: (NODE: 16363812426270449) <p>Hotels can be booked using the <a title="E-Mail address travel agency DER" href="mailto:redacted.com">university's partner travel agency</a>, through a booking portal, or booked directly</p>
+ <p>The contact for the partner travel agency can be found <a title="contact travel agency DER" href="https://www.redacted.pdf">here</a>.</p>
+ <p>The university recommends <a title="Hotel recommendation list Germany" href="https://www.redacted.xlsx">these hotels</a>.</p>
+SYSTEM: (NODE: 16378355894189764) <p>When traveling alone, you may book a double bed room in cases where no single bed rooms are available, or where a double bed room does not cost more.</p>
+DIALOG END: SUCCESS
+SUBJECTIVE QUALITY: 3
+SUBJECTIVE LENGTH: 4
+
+USER: 80da8de576df3be6d03a234c3eaf5d (POLICY: cts_llm)
+GOAL TEXT: You are planning to book a trip, and want to know If you can get reimbursed for taking a taxi during your trip.
+RESET
+GOAL NODE: (16365525829145685) A taxi is only reimbursable if there is a business related reason or a pres
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: book a trip
+SYSTEM: (NODE: 16348058588084537) <p>Are you going on an intracity trip or a business trip?</p>
+USER: what is the difference between an intracity business trip and a business trip?
+SYSTEM: (NODE: 16363751845458600) <p><strong>Business trips</strong> are business related travel <strong>outside of the city</strong>.</p>
+ <p>The following are<span style="color: #e03e2d;"><strong>not</strong></span> business trips:</p>
+ <ul>
+ <li>Company outings</li>
+ <li>Trips for a side job</li>
+ <li>Travel to a continuing education training (if it is done out of private interest)</li>
+ </ul>
+SYSTEM: (NODE: 16363752201349915) <p><strong>Intracity business trips</strong> are business related travel <strong>within the city</strong>.</p>
+SYSTEM: (NODE: 16348058588084537) <p>Are you going on an intracity trip or a business trip?</p>
+USER: Intracity business trip
+SYSTEM: (NODE: 16348070558358676) <p>Did you get <strong>verbal</strong> permission from your supervisor?</p>
+USER: Yes
+SYSTEM: (NODE: 16348071239272239) <p>Do you want to know more about booking <strong>Transportation</strong> or about <strong>ancillary</strong> costs?</p>
+USER: Transportation
+SYSTEM: (NODE: 16348100109577394) <p>What type of transportation would you like?</p>
+USER: taxi
+SYSTEM: (NODE: 16365525829145685) <p>A taxi is only reimbursable if there is a business related reason or a pressing personal reason, e.g.:</p>
+ <ul>
+ <li>insufficient public transportation</li>
+ <li>Health reasons</li>
+ <li>Disability</li>
+ </ul>
+DIALOG END: SUCCESS
+SUBJECTIVE QUALITY: 4
+SUBJECTIVE LENGTH: 5
+
+USER: 80da8de576df3be6d03a234c3eaf5d (POLICY: cts_llm)
+GOAL TEXT: You want to know how much money you can get for your accommodations. <ul><li>You are traveling to France for your next trip</li><li>You plan to stay with your brother in his apartment. </li></ul>
+RESET
+GOAL NODE: (16378349334755637) Outside of Germany, you are entitled to 30€ if you are staying with friends
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: book a trip
+SYSTEM: (NODE: 16348058588084537) <p>Are you going on an intracity trip or a business trip?</p>
+USER: business trip
+SYSTEM: (NODE: 16348064261907944) <p>Did you get <strong>written</strong> permission from your supervisor?</p>
+USER: yes
+SYSTEM: (NODE: 16363752591243585) <p>What country are you traveling to?</p>
+USER: France
+SYSTEM: (NODE: 16363753123487784) <p>What city are you traveling to?</p>
+USER: Paris
+SYSTEM: (NODE: 16389695846089108) <p><span style="color: #333333; font-family: 'Univers LT W01 45 Light', arial, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">For<strong>all </strong> business trips (even for short trips or ones lasting only a single day) <strong>outside the country</strong> to EU-countries, Iceland, Norway, Liechtenstein or Switzerland, you will need to fill out an <a title="Formular A1-form" href="https://redacted.pdf"><strong>A1 Form</strong> </a>, which must be brought with you when you leave the country. </span></p>
+ <p><span style="color: #333333; font-family: 'Univers LT W01 45 Light', arial, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">You will need to fill out a new A1 for each business trip you take. Filling the form out once, does not allow it to apply for subsequent trips you tak.</span></p>
+SYSTEM: (NODE: 16363753477187975) <p>Please check the current <strong><span style="color: #ba372a;">COVID-19 travel warnings</span></strong> travel restrictions from the <a title="travel warnings from foreign ministry" href="https://www.auswaertiges-amt.de/de/ReiseUndSicherheit/covid-19/2296762">foreign ministry</a> and the <a title="travel warnings from Robert Koch Institute" href="https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Risikogebiete_neu.html">RKI</a>.</p>
+ <p><br /><strong>Business trips to high risk areas or virus variation areas are not generally not allowed. In In extreme cases, authorization can be given by the leadership of Department 4 (Administrative Department).</strong></p>
+SYSTEM: (NODE: 16363754346769013) <p><span style="color: #ba372a;"><strong>COVID-19:</strong></span> Business trips should be reduced to an absolute minimum and are only allowed when they are <strong>absolutely necessary</strong>.</p>
+ <p>The decision for necessity can be made by the leaders of the administrative department (see <a title="Hygiene concept of the Uni " href="https://www.redacted.pdf">Hygiene concept</a>, 2.4).</p>
+SYSTEM: (NODE: 16348093549280346) <p>Are you planning to extend your trip with private travel?</p>
+USER: no
+SYSTEM: (NODE: 16348097487038694) <p>Which topic do you want to know more about?</p>
+USER: accommodation
+SYSTEM: (NODE: 16378350683837525) <p>If the trip is being paid for by a third party (not from the university) or was offered to be paid for by one, no money can be reimbursed.</p>
+SYSTEM: (NODE: 16370471522263677) <p>Where do you plan to stay</p>
+USER: with family
+SYSTEM: (NODE: 16378349334755637) <p>Outside of Germany, you are entitled to 30€ if you are staying with friends or family.</p>
+DIALOG END: SUCCESS
+SUBJECTIVE QUALITY: 4
+SUBJECTIVE LENGTH: 5
+
+
+USER: 575594d011bc94309bfd8e13775e75 (POLICY: cts_llm)
+GOAL TEXT: You are traveling with another colleague and want to know if you have to share a room or if each of you can book your own
+RESET
+GOAL NODE: (16363834594338823) Yes, staying in a room by yourself is allowed
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: Do me and my colleague have to share a room or can I book my own
+SYSTEM: (NODE: 16363810595542638) <p>Exceeding the accommodation allowance can be allowed on a case-by-case basis<strong> when justified</strong> as necessary, e.g.,</p>
+ <ul>
+ <li>If there were no cheaper hotels near the event location</li>
+ <li>A cheaper hotel farther away would have resulted in higher transportation costs</li>
+ </ul>
+SYSTEM: (NODE: 16370471523444253) <p>Do have any more questions about booking an accommodation</p>
+USER: Can I book a room just for myself
+SYSTEM: (NODE: 16363834594338823) <p>Yes, staying in a room by yourself is allowed</p>
+DIALOG END: SUCCESS
+SUBJECTIVE QUALITY: 4
+SUBJECTIVE LENGTH: 3
+
+USER: 575594d011bc94309bfd8e13775e75 (POLICY: cts_llm)
+GOAL TEXT: You want to know how to book your flight.<ul><li>You plan to extend your stay with private vacation before flying back</li></ul>
+RESET
+GOAL NODE: (16363755463439219) Costs which occur as part of the business aspect of a trip are reimbursable
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: Can I extend my stay
+SYSTEM: (NODE: 16460422136134149) <p>If you are traveling for more than 4 weeks and need help finding accommodations, please contact <a title="E-Mail address business travel department" href="mailto:redacted.de">the business travel department</a>.</p>
+SYSTEM: (NODE: 16363754793760356) <p>A private extension to a trip must remain in proportion to the length of business-related travel. Business interests must remain the priority. For questions, please contact <a title="E-Mail address of the travel department" href="mailto:redacted.de">the travel department</a>.</p>
+DIALOG END: SUCCESS - OTHER QUESTION
+SUBJECTIVE QUALITY: 4
+SUBJECTIVE LENGTH: 3
+
+USER: d76c5a35e00463a004b636773cace9 (POLICY: cts_llm)
+GOAL TEXT: You want to know how to book a flight
+RESET
+GOAL NODE: (16387868859695624) Thank you for using the business travel chatbot.Please let us know about yo
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: How can I book a flight
+SYSTEM: (NODE: 16363751447148919) <p>Please use this <a title="Permission form for business trip" href="https://www.redacted.pdf">form </a> written permission from your supervisor.<strong> This is required before starting to book a trip.</strong></p>
+SYSTEM: (NODE: 16348097487038694) <p>Which topic do you want to know more about?</p>
+USER: How can I get tickets for the plane trip
+SYSTEM: (NODE: 16351719713796576) <p>Booking a "Business"  class ticket is allowed on flights which last more than 10 uninterrupted hours. Otherwise, only the cheapest flight class is reimbursable. </p>
+ <p>A seat reservation is not reimbursable.</p>
+SYSTEM: (NODE: 16351710117855351) <p>Flights must be booked through the <a title="Contact to travel agency DER" href="mailto:redacted.com">university's Partner Travel Agency</a> (Tel. +123456789). It is not possible to book through an alternative agency. You can find more information on the business travel website.</p>
+ <p>Contact information for the partner travel agency can be found <a title="Contact for travel agency DER" href="https://www.redacted.pdf">here</a>.</p>
+DIALOG END: SUCCESS
+SUBJECTIVE QUALITY: 2
+SUBJECTIVE LENGTH: 2
+
+USER: d76c5a35e00463a004b636773cace9 (POLICY: cts_llm)
+GOAL TEXT: You want to know if you can get reimbursed if you reserve a seat for yourself on the train
+RESET
+GOAL NODE: (16363756478730906) Seat reservations are allowed for train travel
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: can i be reimbursed if i reserve a seat for myself on the train
+SYSTEM: (NODE: 16348100109577394) <p>What type of transportation would you like?</p>
+USER: train
+SYSTEM: (NODE: 16363756478730906) <p>Seat reservations are allowed for train travel</p>
+DIALOG END: SUCCESS
+
+USER: d76c5a35e00463a004b636773cace9 (POLICY: cts_llm)
+GOAL NODE: (16363756478730906) Seat reservations are allowed for train travel
+RESET
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: i am not asking if seat reservations can be reserved, can i be reimbursed if i have a train reservation
+SYSTEM: (NODE: 16348100109577394) <p>What type of transportation would you like?</p>
+USER: train
+SYSTEM: (NODE: 16363756478730906) <p>Seat reservations are allowed for train travel</p>
+DIALOG END: SUCCESS
+SUBJECTIVE QUALITY: 1
+SUBJECTIVE LENGTH: 2
+
+USER: d76c5a35e00463a004b636773cace9 (POLICY: cts_llm)
+GOAL TEXT: You want to know how the reimbursement process works for research semester.<ul><li>You plan to bring your family with you</li></ul>
+RESET
+GOAL NODE: (16370483534787100) Your business trip must be planned as though you were traveling alone (with
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: how does the reimbursement process works for research semester
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: research semester reimbursement
+SYSTEM: (NODE: 16353297472197738) <p>Is this as part of a reallocation?  </p>
+USER: no
+SYSTEM: (NODE: 16370501863636503) <p>As there has been no reallocation, your research semester counts as a business trip.</p>
+SYSTEM: (NODE: 16348097487038694) <p>Which topic do you want to know more about?</p>
+USER: I plan to bring my family with me, how does the reimbursement process works for research semester
+SYSTEM: (NODE: 16378350683837525) <p>If the trip is being paid for by a third party (not from the university) or was offered to be paid for by one, no money can be reimbursed.</p>
+SYSTEM: (NODE: 16363835964385427) <p>If tax exemption is not possible, taxes on overnight stays can be reimbursed as long as proof of payment is provided</p>
+DIALOG END: FAILURE
+SUBJECTIVE QUALITY: 3
+SUBJECTIVE LENGTH: 3
+
+USER: 362227b24c235dd4519e7e832e57c5 (POLICY: cts_llm)
+GOAL TEXT: You want more information about how to plan a research semester.
+RESET
+GOAL NODE: (16387868859695624) Thank you for using the business travel chatbot.Please let us know about yo
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: I would like to book a trip
+SYSTEM: (NODE: 16348058588084537) <p>Are you going on an intracity trip or a business trip?</p>
+RESET
+GOAL NODE: (16387868859695624) Thank you for using the business travel chatbot.Please let us know about yo
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: I want information about how i can plan a research semester
+SYSTEM: (NODE: 16370487978253782) <p>How long will your research semester last?</p>
+ <p> </p>
+ <p> </p>
+USER: 3 weeks
+SYSTEM: (NODE: 16353297472197738) <p>Is this as part of a reallocation?  </p>
+USER: what is a reallocation
+SYSTEM: (NODE: 16370481846790432) <p>As part of a reallocation/delegation, your office is relocated (no longer in your city) </p>
+SYSTEM: (NODE: 16353297472197738) <p>Is this as part of a reallocation?  </p>
+USER: no
+SYSTEM: (NODE: 16370501863636503) <p>As there has been no reallocation, your research semester counts as a business trip.</p>
+SYSTEM: (NODE: 16353303012891903) <p>Are you traveling alone or with your family?</p>
+USER: alone
+SYSTEM: (NODE: 16370483570980906) <p>Business traveler can receive reimbursement for business related expenses by submitting the following <a title="Form for travel reimbursement" href="https://www.redacted.pdf">form</a>.</p>
+SYSTEM: (NODE: 16363752591243585) <p>What country are you traveling to?</p>
+DIALOG END: SUCCESS
+
+USER: 362227b24c235dd4519e7e832e57c5 (POLICY: cts_llm)
+GOAL TEXT: You want more information about how to plan a research semester.
+RESET
+GOAL NODE: (16387868859695624) Thank you for using the business travel chatbot.Please let us know about yo
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: i want to plan a research semester
+SYSTEM: (NODE: 16370487978253782) <p>How long will your research semester last?</p>
+ <p> </p>
+ <p> </p>
+USER: 3 weeks
+SYSTEM: (NODE: 16353297472197738) <p>Is this as part of a reallocation?  </p>
+USER: no
+SYSTEM: (NODE: 16370501863636503) <p>As there has been no reallocation, your research semester counts as a business trip.</p>
+SYSTEM: (NODE: 16353303012891903) <p>Are you traveling alone or with your family?</p>
+USER: alone
+SYSTEM: (NODE: 16370483570980906) <p>Business traveler can receive reimbursement for business related expenses by submitting the following <a title="Form for travel reimbursement" href="https://www.redacted.pdf">form</a>.</p>
+SYSTEM: (NODE: 16363752591243585) <p>What country are you traveling to?</p>
+USER: Germany
+SYSTEM: (NODE: 16363753123487784) <p>What city are you traveling to?</p>
+USER: Munich
+SYSTEM: (NODE: 16363754346769013) <p><span style="color: #ba372a;"><strong>COVID-19:</strong></span> Business trips should be reduced to an absolute minimum and are only allowed when they are <strong>absolutely necessary</strong>.</p>
+ <p>The decision for necessity can be made by the leaders of the administrative department (see <a title="Hygiene concept of the Uni " href="https://www.redacted.pdf">Hygiene concept</a>, 2.4).</p>
+SYSTEM: (NODE: 16348093549280346) <p>Are you planning to extend your trip with private travel?</p>
+USER: no
+SYSTEM: (NODE: 16348097487038694) <p>Which topic do you want to know more about?</p>
+USER: accommondation and transportation
+SYSTEM: (NODE: 16378350683837525) <p>If the trip is being paid for by a third party (not from the university) or was offered to be paid for by one, no money can be reimbursed.</p>
+SYSTEM: (NODE: 16370471522263677) <p>Where do you plan to stay</p>
+USER: hotel
+SYSTEM: (NODE: 16363812426270449) <p>Hotels can be booked using the <a title="E-Mail address travel agency DER" href="mailto:redacted.com">university's partner travel agency</a>, through a booking portal, or booked directly</p>
+ <p>The contact for the partner travel agency can be found <a title="contact travel agency DER" href="https://www.redacted.pdf">here</a>.</p>
+ <p>The university recommends <a title="Hotel recommendation list Germany" href="https://www.redacted.xlsx">these hotels</a>.</p>
+SYSTEM: (NODE: 16389574258367592) <p>In order to book trips through the partner travel agency, you will need to use an institute specific client number. You can ask for this number either from your institute's secretariat or from the business travel department.</p>
+ <p> </p>
+SYSTEM: (NODE: 16363811629822245) <p>It is required that the <strong>bill is addressed to your employer</strong> with <strong>your name entered as the guest</strong>.</p>
+SYSTEM: (NODE: 16365520936325006) <p>In Germany hotel costs can be reimbursed up to 60€ (or 80€ in cities with a population of more than 100,000 or general/seasonal high prices) with the submission of a paid invoice.</p>
+SYSTEM: (NODE: 16363810595542638) <p>Exceeding the accommodation allowance can be allowed on a case-by-case basis<strong> when justified</strong> as necessary, e.g.,</p>
+ <ul>
+ <li>If there were no cheaper hotels near the event location</li>
+ <li>A cheaper hotel farther away would have resulted in higher transportation costs</li>
+ </ul>
+SYSTEM: (NODE: 16370471523444253) <p>Do have any more questions about booking an accommodation</p>
+USER: no
+SYSTEM: (NODE: 16384313191857195) <p>Do you have any further questions?</p>
+USER: no
+SYSTEM: (NODE: 16387868859695624) <p>Thank you for using the business travel chatbot.</p>
+ <p>Please let us know about your experience by filling out a quick survey, that way we can improve our performance and your experience.</p></p>
+DIALOG END: SUCCESS
+SUBJECTIVE QUALITY: 3
+SUBJECTIVE LENGTH: 2
+
+USER: 362227b24c235dd4519e7e832e57c5 (POLICY: cts_llm)
+GOAL TEXT: You are booking a trip where you plan to attend a conference and want to know if the conference fee can be reimbursed
+RESET
+GOAL NODE: (16384329210117153) Conference fees are reimbursable.
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: I want to book a trip. In that trip i plan to attend a conference and i want to know whether the fee of the conference can be reimbursed
+SYSTEM: (NODE: 16348071239272239) <p>Do you want to know more about booking <strong>Transportation</strong> or about <strong>ancillary</strong> costs?</p>
+USER: both
+SYSTEM: (NODE: 16366214877516370) <p>Which incidental costs ocurred during your trip or do you anticipate occurring</p>
+USER: I want to know whether the conference fee can be reimbursed
+SYSTEM: (NODE: 16369654648166968) <p>Entrance fees are <strong>reimbursable so long</strong> as they are for <strong>business related activities</strong>.</p>
+DIALOG END: FAILURE
+SUBJECTIVE QUALITY: 3
+SUBJECTIVE LENGTH: 3
+
+USER: 362227b24c235dd4519e7e832e57c5 (POLICY: cts_llm)
+GOAL TEXT: You want to know how to book your flight.<ul><li>You plan to extend your stay with private vacation before flying back</li></ul>
+RESET
+GOAL NODE: (16363755463439219) Costs which occur as part of the business aspect of a trip are reimbursable
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: How to book a flight
+SYSTEM: (NODE: 16363751447148919) <p>Please use this <a title="Permission form for business trip" href="https://www.redacted.pdf">form </a> written permission from your supervisor.<strong> This is required before starting to book a trip.</strong></p>
+SYSTEM: (NODE: 16348097487038694) <p>Which topic do you want to know more about?</p>
+USER: how to book my flight, so transportation
+SYSTEM: (NODE: 16351700401033947) <p>Flights are reimbursable there is a compelling <a title="requirements for air travel" href="https://www.redacted"> business or economic reason</a>, e.g.:</p>
+ <ul>
+ <li>Ability to attend multiple sequential meetings </li>
+ <li>Health reasons</li>
+ <li>Saving work time</li>
+ <li>Flying is less expensive</li>
+ </ul>
+ <p style="text-align: left;"></p>
+SYSTEM: (NODE: 16351719713796576) <p>Booking a "Business"  class ticket is allowed on flights which last more than 10 uninterrupted hours. Otherwise, only the cheapest flight class is reimbursable. </p>
+ <p>A seat reservation is not reimbursable.</p>
+SYSTEM: (NODE: 16351710117855351) <p>Flights must be booked through the <a title="Contact to travel agency DER" href="mailto:redacted.com">university's Partner Travel Agency</a> (Tel. +123456789). It is not possible to book through an alternative agency. You can find more information on the business travel website.</p>
+ <p>Contact information for the partner travel agency can be found <a title="Contact for travel agency DER" href="https://www.redacted.pdf">here</a>.</p>
+RESET
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: Book a trip (flight)
+SYSTEM: (NODE: 16348058588084537) <p>Are you going on an intracity trip or a business trip?</p>
+USER: what is an intracity trip
+SYSTEM: (NODE: 16348070558358676) <p>Did you get <strong>verbal</strong> permission from your supervisor?</p>
+USER: what is an intracity trip
+SYSTEM: (NODE: 16363751039893796) <p><strong>Verbal permission</strong> is required from your supervisor for an intracity business trip.<br />Please don't forget to get this. Written permission is not necessary</p>
+SYSTEM: (NODE: 16348071239272239) <p>Do you want to know more about booking <strong>Transportation</strong> or about <strong>ancillary</strong> costs?</p>
+USER: Yes i got permission, explain me what is an intracity trip
+SYSTEM: (NODE: 16348100109577394) <p>What type of transportation would you like?</p>
+USER: flight
+SYSTEM: (NODE: 16478798353898107) <p>Are you planning to extend your trip with private travel?</p>
+USER: yes
+SYSTEM: (NODE: 16363755463439219) <p>Costs which occur as part of the business aspect of a trip are reimbursable. Therefore, you will need to collect a comparison offer calculating what the costs would be for only the business related aspects of the trip.</p>
+DIALOG END: SUCCESS
+SUBJECTIVE QUALITY: 1
+SUBJECTIVE LENGTH: 3
+
+USER: 8b5bd577fb760f1b57593c5b20255f (POLICY: cts_llm)
+GOAL TEXT: You want to know how to book a flight
+RESET
+GOAL NODE: (16387868859695624) Thank you for using the business travel chatbot.Please let us know about yo
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: Book a trip
+SYSTEM: (NODE: 16348058588084537) <p>Are you going on an intracity trip or a business trip?</p>
+USER: Business trip
+SYSTEM: (NODE: 16348064261907944) <p>Did you get <strong>written</strong> permission from your supervisor?</p>
+USER: yes
+SYSTEM: (NODE: 16363752591243585) <p>What country are you traveling to?</p>
+USER: UK
+SYSTEM: (NODE: 16363753123487784) <p>What city are you traveling to?</p>
+USER: UK
+SYSTEM: (NODE: 16389695846089108) <p><span style="color: #333333; font-family: 'Univers LT W01 45 Light', arial, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">For<strong>all </strong> business trips (even for short trips or ones lasting only a single day) <strong>outside the country</strong> to EU-countries, Iceland, Norway, Liechtenstein or Switzerland, you will need to fill out an <a title="Formular A1-form" href="https://redacted.pdf"><strong>A1 Form</strong> </a>, which must be brought with you when you leave the country. </span></p>
+ <p><span style="color: #333333; font-family: 'Univers LT W01 45 Light', arial, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">You will need to fill out a new A1 for each business trip you take. Filling the form out once, does not allow it to apply for subsequent trips you tak.</span></p>
+SYSTEM: (NODE: 16363753477187975) <p>Please check the current <strong><span style="color: #ba372a;">COVID-19 travel warnings</span></strong> travel restrictions from the <a title="travel warnings from foreign ministry" href="https://www.auswaertiges-amt.de/de/ReiseUndSicherheit/covid-19/2296762">foreign ministry</a> and the <a title="travel warnings from Robert Koch Institute" href="https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Risikogebiete_neu.html">RKI</a>.</p>
+ <p><br /><strong>Business trips to high risk areas or virus variation areas are not generally not allowed. In In extreme cases, authorization can be given by the leadership of Department 4 (Administrative Department).</strong></p>
+SYSTEM: (NODE: 16363754346769013) <p><span style="color: #ba372a;"><strong>COVID-19:</strong></span> Business trips should be reduced to an absolute minimum and are only allowed when they are <strong>absolutely necessary</strong>.</p>
+ <p>The decision for necessity can be made by the leaders of the administrative department (see <a title="Hygiene concept of the Uni " href="https://www.redacted.pdf">Hygiene concept</a>, 2.4).</p>
+SYSTEM: (NODE: 16348093549280346) <p>Are you planning to extend your trip with private travel?</p>
+USER: yes
+SYSTEM: (NODE: 16363754793760356) <p>A private extension to a trip must remain in proportion to the length of business-related travel. Business interests must remain the priority. For questions, please contact <a title="E-Mail address of the travel department" href="mailto:redacted.de">the travel department</a>.</p>
+SYSTEM: (NODE: 16348097487038694) <p>Which topic do you want to know more about?</p>
+USER: transportation
+SYSTEM: (NODE: 16348100109577394) <p>What type of transportation would you like?</p>
+USER: flight
+SYSTEM: (NODE: 16363755463439219) <p>Costs which occur as part of the business aspect of a trip are reimbursable. Therefore, you will need to collect a comparison offer calculating what the costs would be for only the business related aspects of the trip.</p>
+SYSTEM: (NODE: 16351700401033947) <p>Flights are reimbursable there is a compelling <a title="requirements for air travel" href="https://www.redacted"> business or economic reason</a>, e.g.:</p>
+ <ul>
+ <li>Ability to attend multiple sequential meetings </li>
+ <li>Health reasons</li>
+ <li>Saving work time</li>
+ <li>Flying is less expensive</li>
+ </ul>
+ <p style="text-align: left;"></p>
+SYSTEM: (NODE: 16351719713796576) <p>Booking a "Business"  class ticket is allowed on flights which last more than 10 uninterrupted hours. Otherwise, only the cheapest flight class is reimbursable. </p>
+ <p>A seat reservation is not reimbursable.</p>
+SYSTEM: (NODE: 16351710117855351) <p>Flights must be booked through the <a title="Contact to travel agency DER" href="mailto:redacted.com">university's Partner Travel Agency</a> (Tel. +123456789). It is not possible to book through an alternative agency. You can find more information on the business travel website.</p>
+ <p>Contact information for the partner travel agency can be found <a title="Contact for travel agency DER" href="https://www.redacted.pdf">here</a>.</p>
+SYSTEM: (NODE: 16389605006407473) <p>In order to book trips through the partner travel agency, you will need to use an institute specific client number. You can ask for this number either from your institute's secretariat or from the business travel department.</p>
+ <p> </p>
+SYSTEM: (NODE: 16351756667261880) <p>Do you have any other questions about booking transportation?</p>
+USER: no
+SYSTEM: (NODE: 16384313191857195) <p>Do you have any further questions?</p>
+USER: no
+SYSTEM: (NODE: 16387868859695624) <p>Thank you for using the business travel chatbot.</p>
+ <p>Please let us know about your experience by filling out a quick survey, that way we can improve our performance and your experience.</p></p>
+DIALOG END: SUCCESS
+SUBJECTIVE QUALITY: 4
+SUBJECTIVE LENGTH: 3
+
+USER: 8b5bd577fb760f1b57593c5b20255f (POLICY: cts_llm)
+GOAL TEXT: You have to cancel your trip. You want to know if the money you have already paid can be reimbursed
+RESET
+GOAL NODE: (16457053159041482) You should try to cancel anything which has already been booked as quickly
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: cancel a trip
+SYSTEM: (NODE: 16457053159041482) <p>You should try to cancel anything which has already been booked as quickly as possible.</p>
+ <p><strong>Necessary expenses as a result of the planned Business trip, which cannot be cancelled will be reimbursed. </p>
+ <p>Cancellation costs can also be reimbursed using the <a title="Form for travel reimbursement" href="https://www.redacted.pdf">Form for travel reimbursement</a>.</p>
+DIALOG END: SUCCESS
+SUBJECTIVE QUALITY: 4
+SUBJECTIVE LENGTH: 3
+
+USER: 8b5bd577fb760f1b57593c5b20255f (POLICY: cts_llm)
+GOAL TEXT: You are trying to figure out how much money you get for booking somewhere to stay on your trip. <ul><li>Your trip is to Tokyo, Japan</li><li>Your trip should take 10 days</li><li>You plan to stay in a hotel</li></ul>
+RESET
+GOAL NODE: (16365521324065600) In {{ COUNTRY }} you have a budget of up to 90€ (or 120€ in cities with a p
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: book a trip
+SYSTEM: (NODE: 16348058588084537) <p>Are you going on an intracity trip or a business trip?</p>
+USER: business trip
+SYSTEM: (NODE: 16348064261907944) <p>Did you get <strong>written</strong> permission from your supervisor?</p>
+USER: yes
+SYSTEM: (NODE: 16363752591243585) <p>What country are you traveling to?</p>
+USER: UK
+SYSTEM: (NODE: 16363753123487784) <p>What city are you traveling to?</p>
+USER: UK
+SYSTEM: (NODE: 16389695846089108) <p><span style="color: #333333; font-family: 'Univers LT W01 45 Light', arial, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">For<strong>all </strong> business trips (even for short trips or ones lasting only a single day) <strong>outside the country</strong> to EU-countries, Iceland, Norway, Liechtenstein or Switzerland, you will need to fill out an <a title="Formular A1-form" href="https://redacted.pdf"><strong>A1 Form</strong> </a>, which must be brought with you when you leave the country. </span></p>
+ <p><span style="color: #333333; font-family: 'Univers LT W01 45 Light', arial, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">You will need to fill out a new A1 for each business trip you take. Filling the form out once, does not allow it to apply for subsequent trips you tak.</span></p>
+SYSTEM: (NODE: 16363753477187975) <p>Please check the current <strong><span style="color: #ba372a;">COVID-19 travel warnings</span></strong> travel restrictions from the <a title="travel warnings from foreign ministry" href="https://www.auswaertiges-amt.de/de/ReiseUndSicherheit/covid-19/2296762">foreign ministry</a> and the <a title="travel warnings from Robert Koch Institute" href="https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Risikogebiete_neu.html">RKI</a>.</p>
+ <p><br /><strong>Business trips to high risk areas or virus variation areas are not generally not allowed. In In extreme cases, authorization can be given by the leadership of Department 4 (Administrative Department).</strong></p>
+SYSTEM: (NODE: 16363754346769013) <p><span style="color: #ba372a;"><strong>COVID-19:</strong></span> Business trips should be reduced to an absolute minimum and are only allowed when they are <strong>absolutely necessary</strong>.</p>
+ <p>The decision for necessity can be made by the leaders of the administrative department (see <a title="Hygiene concept of the Uni " href="https://www.redacted.pdf">Hygiene concept</a>, 2.4).</p>
+SYSTEM: (NODE: 16348093549280346) <p>Are you planning to extend your trip with private travel?</p>
+USER: yes
+SYSTEM: (NODE: 16363754793760356) <p>A private extension to a trip must remain in proportion to the length of business-related travel. Business interests must remain the priority. For questions, please contact <a title="E-Mail address of the travel department" href="mailto:redacted.de">the travel department</a>.</p>
+SYSTEM: (NODE: 16348097487038694) <p>Which topic do you want to know more about?</p>
+USER: accommodation
+SYSTEM: (NODE: 16378350683837525) <p>If the trip is being paid for by a third party (not from the university) or was offered to be paid for by one, no money can be reimbursed.</p>
+SYSTEM: (NODE: 16370471522263677) <p>Where do you plan to stay</p>
+RESET
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: book a trip
+SYSTEM: (NODE: 16348058588084537) <p>Are you going on an intracity trip or a business trip?</p>
+USER: business trip
+SYSTEM: (NODE: 16348064261907944) <p>Did you get <strong>written</strong> permission from your supervisor?</p>
+USER: yes
+SYSTEM: (NODE: 16363752591243585) <p>What country are you traveling to?</p>
+USER: Japan
+SYSTEM: (NODE: 16363753123487784) <p>What city are you traveling to?</p>
+USER: Tokyo
+SYSTEM: (NODE: 16389695846089108) <p><span style="color: #333333; font-family: 'Univers LT W01 45 Light', arial, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">For<strong>all </strong> business trips (even for short trips or ones lasting only a single day) <strong>outside the country</strong> to EU-countries, Iceland, Norway, Liechtenstein or Switzerland, you will need to fill out an <a title="Formular A1-form" href="https://redacted.pdf"><strong>A1 Form</strong> </a>, which must be brought with you when you leave the country. </span></p>
+ <p><span style="color: #333333; font-family: 'Univers LT W01 45 Light', arial, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">You will need to fill out a new A1 for each business trip you take. Filling the form out once, does not allow it to apply for subsequent trips you tak.</span></p>
+SYSTEM: (NODE: 16363753477187975) <p>Please check the current <strong><span style="color: #ba372a;">COVID-19 travel warnings</span></strong> travel restrictions from the <a title="travel warnings from foreign ministry" href="https://www.auswaertiges-amt.de/de/ReiseUndSicherheit/covid-19/2296762">foreign ministry</a> and the <a title="travel warnings from Robert Koch Institute" href="https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Risikogebiete_neu.html">RKI</a>.</p>
+ <p><br /><strong>Business trips to high risk areas or virus variation areas are not generally not allowed. In In extreme cases, authorization can be given by the leadership of Department 4 (Administrative Department).</strong></p>
+SYSTEM: (NODE: 16363754346769013) <p><span style="color: #ba372a;"><strong>COVID-19:</strong></span> Business trips should be reduced to an absolute minimum and are only allowed when they are <strong>absolutely necessary</strong>.</p>
+ <p>The decision for necessity can be made by the leaders of the administrative department (see <a title="Hygiene concept of the Uni " href="https://www.redacted.pdf">Hygiene concept</a>, 2.4).</p>
+SYSTEM: (NODE: 16348093549280346) <p>Are you planning to extend your trip with private travel?</p>
+USER: yes
+SYSTEM: (NODE: 16363754793760356) <p>A private extension to a trip must remain in proportion to the length of business-related travel. Business interests must remain the priority. For questions, please contact <a title="E-Mail address of the travel department" href="mailto:redacted.de">the travel department</a>.</p>
+SYSTEM: (NODE: 16348097487038694) <p>Which topic do you want to know more about?</p>
+USER: accommodation
+SYSTEM: (NODE: 16378350683837525) <p>If the trip is being paid for by a third party (not from the university) or was offered to be paid for by one, no money can be reimbursed.</p>
+SYSTEM: (NODE: 16370471522263677) <p>Where do you plan to stay</p>
+USER: hotel
+SYSTEM: (NODE: 16363812426270449) <p>Hotels can be booked using the <a title="E-Mail address travel agency DER" href="mailto:redacted.com">university's partner travel agency</a>, through a booking portal, or booked directly</p>
+ <p>The contact for the partner travel agency can be found <a title="contact travel agency DER" href="https://www.redacted.pdf">here</a>.</p>
+ <p>The university recommends <a title="Hotel recommendation list Germany" href="https://www.redacted.xlsx">these hotels</a>.</p>
+SYSTEM: (NODE: 16389574258367592) <p>In order to book trips through the partner travel agency, you will need to use an institute specific client number. You can ask for this number either from your institute's secretariat or from the business travel department.</p>
+ <p> </p>
+SYSTEM: (NODE: 16363811629822245) <p>It is required that the <strong>bill is addressed to your employer</strong> with <strong>your name entered as the guest</strong>.</p>
+SYSTEM: (NODE: 16365521324065600) <p>In {{ COUNTRY }} you have a budget of up to 90€ (or 120€ in cities with a population of more than 100,000 or generally/seasonally high hotel prices) for accommodations, so long as you present proof of a paid invoice. </p>
+DIALOG END: SUCCESS
+SUBJECTIVE QUALITY: 4
+SUBJECTIVE LENGTH: 3
+
+USER: 1cdb32b200c91cee6c37b37cb4fcd8 (POLICY: cts_llm)
+GOAL TEXT: You want to know how to book a hotel
+RESET
+GOAL NODE: (16387868859695624) Thank you for using the business travel chatbot.Please let us know about yo
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: How can I book a hotel
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: book a trip
+SYSTEM: (NODE: 16363812426270449) <p>Hotels can be booked using the <a title="E-Mail address travel agency DER" href="mailto:redacted.com">university's partner travel agency</a>, through a booking portal, or booked directly</p>
+ <p>The contact for the partner travel agency can be found <a title="contact travel agency DER" href="https://www.redacted.pdf">here</a>.</p>
+ <p>The university recommends <a title="Hotel recommendation list Germany" href="https://www.redacted.xlsx">these hotels</a>.</p>
+DIALOG END: SUCCESS
+SUBJECTIVE QUALITY: 3
+SUBJECTIVE LENGTH: 3
+
+USER: 1cdb32b200c91cee6c37b37cb4fcd8 (POLICY: cts_llm)
+GOAL TEXT: You want to know if you can get reimbursed if you reserve a seat for yourself on the train
+RESET
+GOAL NODE: (16363756478730906) Seat reservations are allowed for train travel
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: can i get reumbursed if i reserve a seat for myself on a train
+SYSTEM: (NODE: 16348100109577394) <p>What type of transportation would you like?</p>
+USER: train
+SYSTEM: (NODE: 16363756478730906) <p>Seat reservations are allowed for train travel</p>
+DIALOG END: SUCCESS
+SUBJECTIVE QUALITY: 1
+SUBJECTIVE LENGTH: 3
+
+USER: 1cdb32b200c91cee6c37b37cb4fcd8 (POLICY: cts_llm)
+GOAL TEXT: You are trying to figure out how much money you get for booking somewhere to stay on your trip. <ul><li>Your trip is to Tokyo, Japan</li><li>Your trip should take 10 days</li><li>You plan to stay in a hotel</li></ul>
+RESET
+GOAL NODE: (16365521324065600) In {{ COUNTRY }} you have a budget of up to 90€ (or 120€ in cities with a p
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: how much money should i get for my trip to japan, for 10 days, in a hotel, in tokyo
+SYSTEM: (NODE: 16348097487038694) <p>Which topic do you want to know more about?</p>
+USER: accomodation
+SYSTEM: (NODE: 16365521324065600) <p>In {{ COUNTRY }} you have a budget of up to 90€ (or 120€ in cities with a population of more than 100,000 or generally/seasonally high hotel prices) for accommodations, so long as you present proof of a paid invoice. </p>
+DIALOG END: SUCCESS
+SUBJECTIVE QUALITY: 2
+SUBJECTIVE LENGTH: 3
+
+USER: 1fd04ab59fa554cb8a0b0e2940dc56 (POLICY: cts_llm)
+GOAL TEXT: You want to know how to book a hotel
+RESET
+GOAL NODE: (16387868859695624) Thank you for using the business travel chatbot.Please let us know about yo
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: hey, can you tell me how can I book a hotel
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: Book a trip
+SYSTEM: (NODE: 16363752591243585) <p>What country are you traveling to?</p>
+USER: I want to know in general
+SYSTEM: Sorry, but the country you entered is unknown to the system. Please check spelling or try another value.
+USER: USA
+SYSTEM: (NODE: 16363812426270449) <p>Hotels can be booked using the <a title="E-Mail address travel agency DER" href="mailto:redacted.com">university's partner travel agency</a>, through a booking portal, or booked directly</p>
+ <p>The contact for the partner travel agency can be found <a title="contact travel agency DER" href="https://www.redacted.pdf">here</a>.</p>
+ <p>The university recommends <a title="Hotel recommendation list Germany" href="https://www.redacted.xlsx">these hotels</a>.</p>
+SYSTEM: (NODE: 16389574258367592) <p>In order to book trips through the partner travel agency, you will need to use an institute specific client number. You can ask for this number either from your institute's secretariat or from the business travel department.</p>
+ <p> </p>
+SYSTEM: (NODE: 16365521324065600) <p>In {{ COUNTRY }} you have a budget of up to 90€ (or 120€ in cities with a population of more than 100,000 or generally/seasonally high hotel prices) for accommodations, so long as you present proof of a paid invoice. </p>
+SYSTEM: (NODE: 16363810595542638) <p>Exceeding the accommodation allowance can be allowed on a case-by-case basis<strong> when justified</strong> as necessary, e.g.,</p>
+ <ul>
+ <li>If there were no cheaper hotels near the event location</li>
+ <li>A cheaper hotel farther away would have resulted in higher transportation costs</li>
+ </ul>
+SYSTEM: (NODE: 16378355894189764) <p>When traveling alone, you may book a double bed room in cases where no single bed rooms are available, or where a double bed room does not cost more.</p>
+DIALOG END: SUCCESS
+SUBJECTIVE QUALITY: 2
+SUBJECTIVE LENGTH: 3
+
+USER: 1fd04ab59fa554cb8a0b0e2940dc56 (POLICY: cts_llm)
+GOAL TEXT: You are traveling with another colleague and want to know if you have to share a room or if each of you can book your own
+RESET
+GOAL NODE: (16363834594338823) Yes, staying in a room by yourself is allowed
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: hey, I am traveling with my colleague on a buissness trip, I want to know whether we have to share a room or we can each book our own
+SYSTEM: (NODE: 16370471523444253) <p>Do have any more questions about booking an accommodation</p>
+USER: can I book a room for just myself
+SYSTEM: (NODE: 16363834594338823) <p>Yes, staying in a room by yourself is allowed</p>
+DIALOG END: SUCCESS
+SUBJECTIVE QUALITY: 1
+SUBJECTIVE LENGTH: 4
+
+USER: 1fd04ab59fa554cb8a0b0e2940dc56 (POLICY: cts_llm)
+GOAL TEXT: You are trying to figure out how much money you get for booking somewhere to stay on your trip. <ul><li>Your trip is to Tokyo, Japan</li><li>Your trip should take 10 days</li><li>You plan to stay in a hotel</li></ul>
+RESET
+GOAL NODE: (16365521324065600) In {{ COUNTRY }} you have a budget of up to 90€ (or 120€ in cities with a p
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: How much will it cost to me book a 10 day stay in a hotel in Tokyo
+SYSTEM: (NODE: 16363752591243585) <p>What country are you traveling to?</p>
+USER: Japan
+SYSTEM: (NODE: 16348097487038694) <p>Which topic do you want to know more about?</p>
+USER: cost
+SYSTEM: (NODE: 16365521324065600) <p>In {{ COUNTRY }} you have a budget of up to 90€ (or 120€ in cities with a population of more than 100,000 or generally/seasonally high hotel prices) for accommodations, so long as you present proof of a paid invoice. </p>
+DIALOG END: SUCCESS
+SUBJECTIVE QUALITY: 2
+SUBJECTIVE LENGTH: 4
+
+USER: ea86552babcc89b8c31c83263d75bc (POLICY: cts_llm)
+GOAL TEXT: You want more information about how to plan a research semester.
+RESET
+GOAL NODE: (16387868859695624) Thank you for using the business travel chatbot.Please let us know about yo
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: How can i plan my research semester?
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: Research semester
+SYSTEM: (NODE: 16460422136134149) <p>If you are traveling for more than 4 weeks and need help finding accommodations, please contact <a title="E-Mail address business travel department" href="mailto:redacted.de">the business travel department</a>.</p>
+SYSTEM: (NODE: 16370501863636503) <p>As there has been no reallocation, your research semester counts as a business trip.</p>
+SYSTEM: (NODE: 16370483534787100) <p>Your business trip must be planned as though you were traveling alone (without your family).</p>
+ <p>How doe that work?</p>
+ <ul>
+ <li>Provide receipts for only the costs associated with purchases for yourself</li>
+ <li>Collect comparison offers where necessary (e.g., transportation costs and accommodation) for what the costs would have been for only one person</li>
+ <li>Personal expenses must be strictly separated from business expenses</li>
+ </ul>
+ <p><strong>You are responsible for paying all additional costs that result from bringing your family along.</strong></p>
+SYSTEM: (NODE: 16348097487038694) <p>Which topic do you want to know more about?</p>
+USER: Accomodation
+SYSTEM: (NODE: 16363812426270449) <p>Hotels can be booked using the <a title="E-Mail address travel agency DER" href="mailto:redacted.com">university's partner travel agency</a>, through a booking portal, or booked directly</p>
+ <p>The contact for the partner travel agency can be found <a title="contact travel agency DER" href="https://www.redacted.pdf">here</a>.</p>
+ <p>The university recommends <a title="Hotel recommendation list Germany" href="https://www.redacted.xlsx">these hotels</a>.</p>
+SYSTEM: (NODE: 16478801254732768) <p>What country are you traveling to?</p>
+USER: USA
+SYSTEM: (NODE: 16365521324065600) <p>In {{ COUNTRY }} you have a budget of up to 90€ (or 120€ in cities with a population of more than 100,000 or generally/seasonally high hotel prices) for accommodations, so long as you present proof of a paid invoice. </p>
+DIALOG END: SUCCESS
+SUBJECTIVE QUALITY: 3
+SUBJECTIVE LENGTH: 3
+
+USER: ea86552babcc89b8c31c83263d75bc (POLICY: cts_llm)
+GOAL TEXT: You are traveling with another colleague and want to know if you have to share a room or if each of you can book your own
+RESET
+GOAL NODE: (16363834594338823) Yes, staying in a room by yourself is allowed
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: Do i need to share a room with my colleague?
+SYSTEM: (NODE: 16370471523444253) <p>Do have any more questions about booking an accommodation</p>
+USER: Can I book a room for just myself?
+SYSTEM: (NODE: 16363834594338823) <p>Yes, staying in a room by yourself is allowed</p>
+DIALOG END: SUCCESS
+SUBJECTIVE QUALITY: 4
+SUBJECTIVE LENGTH: 3
+
+USER: ea86552babcc89b8c31c83263d75bc (POLICY: cts_llm)
+GOAL TEXT: You want to figure out how much money you can get for your travel. <ul><li>You used your own car</li><li>You took two colleagues with you</li></ul>
+RESET
+GOAL NODE: (16460328708250870) If you are also transporting other coworkers, you are entitled to 2 Cent pe
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: How much in expenses can i claim if i use my own car and bring two colleagues?
+SYSTEM: (NODE: 16460325754790153) <p>If you used your car for a  <strong>pressing reason  </strong>, you are entitled to <strong>0,25€ per</strong> kilometer driven.</p>
+SYSTEM: (NODE: 16460328708250870) <p>If you are also transporting <strong>other coworkers</strong>, you are entitled to <strong>2 Cent per person und kilometer, </strong>  for each passenger who is also eligible for travel reimbursement. <br />(To claim a passenger, they must also sign your travel reimbursement request.)</p>
+ <p>If you are transporting <strong>business related items</strong> (e.g., files) <strong>weighing more than 50 Kg </strong>you are eligible for <strong>2 Cent per 50 Kg and Kilometer</strong>.</p>
+ <p>(Changes coming in 2022)</p>
+DIALOG END: SUCCESS
+SUBJECTIVE QUALITY: 4
+SUBJECTIVE LENGTH: 3
+
+USER: e12730a6828fd845263539ac3fa727 (POLICY: cts_llm)
+GOAL TEXT: You want to inform yourself what to do in case of an emergency during travel.
+RESET
+GOAL NODE: (16387868859695624) Thank you for using the business travel chatbot.Please let us know about yo
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: hello, i'm currently on a business trip and was wondering what to do in case of an emergency
+SYSTEM: (NODE: 16460436532310883) <p>What emergency are you experiencing?</p>
+USER: medical emergency
+SYSTEM: (NODE: 16370679473901470) <h4 id="id-2cd3fd7d-head2"><strong>What do I do in an emergency on a business trip?</strong></h4>
+ <p> </p>
+ <div class="absatz">
+ <p>Please call the number listed on the <a title="Emergency Card" href="https://www.redacted.pdf"><span style="text-decoration: underline;"><strong>Emergency-Card</strong></span> </a>:<strong> </strong><span style="text-decoration: underline;"><strong> </strong></span><strong>+123456789.</strong></p>
+ <p>The Emergency-Card is also available in business card format. For more information, please enquire with the business travel department or your institute.</p>
+ <p>This phone number is <strong>for emergencies only!</strong> Do not distribute it.</p>
+ </div>
+ <p><span style="text-decoration: underline;"><strong>Emergency App<br /></strong></span>24/7 Emergency calling, Text chat, Video advice per the Emergency call Business App for iOS and Android<br /><strong>Download link</strong>: <a title="Emergency-App" href="https://redacted"><span style="text-decoration: underline;">Notfall-App</span></a></p>
+ <p>QR-Code:<br /><img src="https://www.redacted.jpeg" alt="QR Code Emergency app" width="150" height="150" /></p>
+ <p><strong>Registration code</strong>: </p>
+ <p>Note: distributing the registration code to third parties is strictly prohibited.</p>
+SYSTEM: (NODE: 16384313191857195) <p>Do you have any further questions?</p>
+USER: yes, that doesn't seem to be tailored to a medical emergency, is that app for all types of emergencies?
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+DIALOG END: SUCCESS
+DIALOG LENGTH: 5
+SUBJECTIVE QUALITY: 3
+SUBJECTIVE LENGTH: 2
+
+USER: e12730a6828fd845263539ac3fa727 (POLICY: cts_llm)
+GOAL TEXT: You are trying to figure out how much money you get for booking somewhere to stay on your trip. <ul><li>Your trip is to Tokyo, Japan</li><li>Your trip should take 10 days</li><li>You plan to stay in a hotel</li></ul>
+RESET
+GOAL NODE: (16365521324065600) In {{ COUNTRY }} you have a budget of up to 90€ (or 120€ in cities with a p
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: how much would it cost me to book a stay for ten days at a hotel in japan
+SYSTEM: (NODE: 16348097487038694) <p>Which topic do you want to know more about?</p>
+USER: accomodation
+SYSTEM: (NODE: 16365521324065600) <p>In {{ COUNTRY }} you have a budget of up to 90€ (or 120€ in cities with a population of more than 100,000 or generally/seasonally high hotel prices) for accommodations, so long as you present proof of a paid invoice. </p>
+DIALOG END: SUCCESS
+SUBJECTIVE QUALITY: 3
+SUBJECTIVE LENGTH: 2
+
+USER: 4431d165a7ed77a50955730983b048 (POLICY: cts_llm)
+GOAL TEXT: You are traveling with another colleague and want to know if you have to share a room or if each of you can book your own
+RESET
+GOAL NODE: (16363834594338823) Yes, staying in a room by yourself is allowed
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: I’m travelling with colleague so I want to ask if should I book my own room or we gonna share?
+SYSTEM: (NODE: 16370483534787100) <p>Your business trip must be planned as though you were traveling alone (without your family).</p>
+ <p>How doe that work?</p>
+ <ul>
+ <li>Provide receipts for only the costs associated with purchases for yourself</li>
+ <li>Collect comparison offers where necessary (e.g., transportation costs and accommodation) for what the costs would have been for only one person</li>
+ <li>Personal expenses must be strictly separated from business expenses</li>
+ </ul>
+ <p><strong>You are responsible for paying all additional costs that result from bringing your family along.</strong></p>
+SYSTEM: (NODE: 16370471523444253) <p>Do have any more questions about booking an accommodation</p>
+DIALOG END: FAILURE
+DIALOG LENGTH: 3
+SUBJECTIVE QUALITY: 3
+SUBJECTIVE LENGTH: 3
+
+USER: 4431d165a7ed77a50955730983b048 (POLICY: cts_llm)
+GOAL TEXT: You want to figure out how much money you can get for your travel. <ul><li>You used your own car</li><li>You took two colleagues with you</li></ul>
+RESET
+GOAL NODE: (16460328708250870) If you are also transporting other coworkers, you are entitled to 2 Cent pe
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: How much is the trip if I’m driving my own car and bringing along my two colleagues
+SYSTEM: (NODE: 16460325754790153) <p>If you used your car for a  <strong>pressing reason  </strong>, you are entitled to <strong>0,25€ per</strong> kilometer driven.</p>
+SYSTEM: (NODE: 16460328708250870) <p>If you are also transporting <strong>other coworkers</strong>, you are entitled to <strong>2 Cent per person und kilometer, </strong>  for each passenger who is also eligible for travel reimbursement. <br />(To claim a passenger, they must also sign your travel reimbursement request.)</p>
+ <p>If you are transporting <strong>business related items</strong> (e.g., files) <strong>weighing more than 50 Kg </strong>you are eligible for <strong>2 Cent per 50 Kg and Kilometer</strong>.</p>
+ <p>(Changes coming in 2022)</p>
+DIALOG END: SUCCESS
+SUBJECTIVE QUALITY: 4
+SUBJECTIVE LENGTH: 4
+
+USER: f2ce14e9fd88e1656b5949769be466 (POLICY: cts_llm)
+GOAL TEXT: You want more information about how to plan a research semester.
+RESET
+GOAL NODE: (16387868859695624) Thank you for using the business travel chatbot.Please let us know about yo
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: Travel Risk Management
+SYSTEM: (NODE: 16353412627443913) <p><strong>Travel Safety/ Travel Risk Management</strong></p>
+ <p>What would you like to know about?</p>
+ <ul>
+ <li>Emergency help</li>
+ <li>What to consider when planning a trip?</li>
+ <li>Service-Offers</li>
+ <li>General information and links</li>
+ <li>Training opportunities</li>
+ </ul>
+USER: Emergency Help
+SYSTEM: (NODE: 16389550594484927) <p><strong>Emergencies</strong> are, e.g.,</p>
+ <ul>
+ <li>Evacuations</li>
+ <li>Theft</li>
+ <li>Unf&auml;lle</li>
+ <li>Public unrest</li>
+ <li>Natural disasters</li>
+ <li>Security threats (e.g., robbery, threats, blackmail)</li>
+ <li>Restrictions entering or leaving a country (e.g., not being allowed to leave a country because of corona)</li>
+ </ul>
+SYSTEM: (NODE: 16370679473901470) <h4 id="id-2cd3fd7d-head2"><strong>What do I do in an emergency on a business trip?</strong></h4>
+ <p> </p>
+ <div class="absatz">
+ <p>Please call the number listed on the <a title="Emergency Card" href="https://www.redacted.pdf"><span style="text-decoration: underline;"><strong>Emergency-Card</strong></span> </a>:<strong> </strong><span style="text-decoration: underline;"><strong> </strong></span><strong>+123456789.</strong></p>
+ <p>The Emergency-Card is also available in business card format. For more information, please enquire with the business travel department or your institute.</p>
+ <p>This phone number is <strong>for emergencies only!</strong> Do not distribute it.</p>
+ </div>
+ <p><span style="text-decoration: underline;"><strong>Emergency App<br /></strong></span>24/7 Emergency calling, Text chat, Video advice per the Emergency call Business App for iOS and Android<br /><strong>Download link</strong>: <a title="Emergency-App" href="https://redacted"><span style="text-decoration: underline;">Notfall-App</span></a></p>
+ <p>QR-Code:<br /><img src="https://www.redacted.jpeg" alt="QR Code Emergency app" width="150" height="150" /></p>
+ <p><strong>Registration code</strong>: </p>
+ <p>Note: distributing the registration code to third parties is strictly prohibited.</p>
+SYSTEM: (NODE: 16384313191857195) <p>Do you have any further questions?</p>
+USER: No
+SYSTEM: (NODE: 16387868859695624) <p>Thank you for using the business travel chatbot.</p>
+ <p>Please let us know about your experience by filling out a quick survey, that way we can improve our performance and your experience.</p></p>
+DIALOG END: SUCCESS - OTHER QUESTION
+SUBJECTIVE QUALITY: 4
+SUBJECTIVE LENGTH: 2
+
+USER: f2ce14e9fd88e1656b5949769be466 (POLICY: cts_llm)
+GOAL TEXT: You have to cancel your trip. You want to know if the money you have already paid can be reimbursed
+RESET
+GOAL NODE: (16457053159041482) You should try to cancel anything which has already been booked as quickly
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: Cancel a trip
+SYSTEM: (NODE: 16457053159041482) <p>You should try to cancel anything which has already been booked as quickly as possible.</p>
+ <p><strong>Necessary expenses as a result of the planned Business trip, which cannot be cancelled will be reimbursed. </p>
+ <p>Cancellation costs can also be reimbursed using the <a title="Form for travel reimbursement" href="https://www.redacted.pdf">Form for travel reimbursement</a>.</p>
+DIALOG END: SUCCESS
+SUBJECTIVE QUALITY: 4
+SUBJECTIVE LENGTH: 1
+
+USER: f2ce14e9fd88e1656b5949769be466 (POLICY: cts_llm)
+GOAL TEXT: You want to know how to book your flight.<ul><li>You plan to extend your stay with private vacation before flying back</li></ul>
+RESET
+GOAL NODE: (16363755463439219) Costs which occur as part of the business aspect of a trip are reimbursable
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: Book a Flight
+SYSTEM: (NODE: 16363751447148919) <p>Please use this <a title="Permission form for business trip" href="https://www.redacted.pdf">form </a> written permission from your supervisor.<strong> This is required before starting to book a trip.</strong></p>
+SYSTEM: (NODE: 16351700401033947) <p>Flights are reimbursable there is a compelling <a title="requirements for air travel" href="https://www.redacted"> business or economic reason</a>, e.g.:</p>
+ <ul>
+ <li>Ability to attend multiple sequential meetings </li>
+ <li>Health reasons</li>
+ <li>Saving work time</li>
+ <li>Flying is less expensive</li>
+ </ul>
+ <p style="text-align: left;"></p>
+SYSTEM: (NODE: 16351719713796576) <p>Booking a "Business"  class ticket is allowed on flights which last more than 10 uninterrupted hours. Otherwise, only the cheapest flight class is reimbursable. </p>
+ <p>A seat reservation is not reimbursable.</p>
+SYSTEM: (NODE: 16351710117855351) <p>Flights must be booked through the <a title="Contact to travel agency DER" href="mailto:redacted.com">university's Partner Travel Agency</a> (Tel. +123456789). It is not possible to book through an alternative agency. You can find more information on the business travel website.</p>
+ <p>Contact information for the partner travel agency can be found <a title="Contact for travel agency DER" href="https://www.redacted.pdf">here</a>.</p>
+DIALOG END: SUCCESS - OTHER QUESTION
+SUBJECTIVE QUALITY: 4
+SUBJECTIVE LENGTH: 3
+
+USER: 403e80998148a2f25a07a3a46aaeb1 (POLICY: cts_llm)
+GOAL TEXT: You want to inform yourself what to do in case of an emergency during travel.
+RESET
+GOAL NODE: (16387868859695624) Thank you for using the business travel chatbot.Please let us know about yo
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: Book a trip
+SYSTEM: (NODE: 16348058588084537) <p>Are you going on an intracity trip or a business trip?</p>
+SYSTEM: (NODE: 16363751447148919) <p>Please use this <a title="Permission form for business trip" href="https://www.redacted.pdf">form </a> written permission from your supervisor.<strong> This is required before starting to book a trip.</strong></p>
+SYSTEM: (NODE: 16348097487038694) <p>Which topic do you want to know more about?</p>
+USER: Accommodation
+SYSTEM: (NODE: 16389574258367592) <p>In order to book trips through the partner travel agency, you will need to use an institute specific client number. You can ask for this number either from your institute's secretariat or from the business travel department.</p>
+ <p> </p>
+DIALOG END: SUCCESS - OTHER
+SUBJECTIVE QUALITY: 2
+SUBJECTIVE LENGTH: 2
+
+USER: 403e80998148a2f25a07a3a46aaeb1 (POLICY: cts_llm)
+GOAL TEXT: You are booking a trip where you plan to attend a conference and want to know if the conference fee can be reimbursed
+RESET
+GOAL NODE: (16384329210117153) Conference fees are reimbursable.
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: Book a trip
+SYSTEM: (NODE: 16348058588084537) <p>Are you going on an intracity trip or a business trip?</p>
+USER: Business trip
+SYSTEM: (NODE: 16348064261907944) <p>Did you get <strong>written</strong> permission from your supervisor?</p>
+USER: no
+SYSTEM: (NODE: 16363751447148919) <p>Please use this <a title="Permission form for business trip" href="https://www.redacted.pdf">form </a> written permission from your supervisor.<strong> This is required before starting to book a trip.</strong></p>
+SYSTEM: (NODE: 16363752591243585) <p>What country are you traveling to?</p>
+USER: USA
+SYSTEM: (NODE: 16363753123487784) <p>What city are you traveling to?</p>
+USER: Newyork
+SYSTEM: (NODE: 16389695846089108) <p><span style="color: #333333; font-family: 'Univers LT W01 45 Light', arial, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">For<strong>all </strong> business trips (even for short trips or ones lasting only a single day) <strong>outside the country</strong> to EU-countries, Iceland, Norway, Liechtenstein or Switzerland, you will need to fill out an <a title="Formular A1-form" href="https://redacted.pdf"><strong>A1 Form</strong> </a>, which must be brought with you when you leave the country. </span></p>
+ <p><span style="color: #333333; font-family: 'Univers LT W01 45 Light', arial, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">You will need to fill out a new A1 for each business trip you take. Filling the form out once, does not allow it to apply for subsequent trips you tak.</span></p>
+SYSTEM: (NODE: 16363753477187975) <p>Please check the current <strong><span style="color: #ba372a;">COVID-19 travel warnings</span></strong> travel restrictions from the <a title="travel warnings from foreign ministry" href="https://www.auswaertiges-amt.de/de/ReiseUndSicherheit/covid-19/2296762">foreign ministry</a> and the <a title="travel warnings from Robert Koch Institute" href="https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Risikogebiete_neu.html">RKI</a>.</p>
+ <p><br /><strong>Business trips to high risk areas or virus variation areas are not generally not allowed. In In extreme cases, authorization can be given by the leadership of Department 4 (Administrative Department).</strong></p>
+SYSTEM: (NODE: 16363754346769013) <p><span style="color: #ba372a;"><strong>COVID-19:</strong></span> Business trips should be reduced to an absolute minimum and are only allowed when they are <strong>absolutely necessary</strong>.</p>
+ <p>The decision for necessity can be made by the leaders of the administrative department (see <a title="Hygiene concept of the Uni " href="https://www.redacted.pdf">Hygiene concept</a>, 2.4).</p>
+SYSTEM: (NODE: 16348093549280346) <p>Are you planning to extend your trip with private travel?</p>
+USER: yes
+SYSTEM: (NODE: 16363754793760356) <p>A private extension to a trip must remain in proportion to the length of business-related travel. Business interests must remain the priority. For questions, please contact <a title="E-Mail address of the travel department" href="mailto:redacted.de">the travel department</a>.</p>
+SYSTEM: (NODE: 16348097487038694) <p>Which topic do you want to know more about?</p>
+USER: will the conference fee be reimbursed
+SYSTEM: (NODE: 16366214877516370) <p>Which incidental costs ocurred during your trip or do you anticipate occurring</p>
+USER: conferences
+SYSTEM: (NODE: 16384329210117153) <p>Conference fees are <strong>reimbursable</strong>.</p>
+DIALOG END: SUCCESS
+SUBJECTIVE QUALITY: 3
+SUBJECTIVE LENGTH: 3
+
+USER: 403e80998148a2f25a07a3a46aaeb1 (POLICY: cts_llm)
+GOAL TEXT: You want to figure out how much money you can get for your travel. <ul><li>You used your own car</li><li>You took two colleagues with you</li></ul>
+RESET
+GOAL NODE: (16460328708250870) If you are also transporting other coworkers, you are entitled to 2 Cent pe
+SYSTEM: (NODE: 16348058621438633) <p><strong>What topic do you have questions about? </strong></p>
+ <p>You can either click on an answer from the suggested topics or enter your own text.</p>
+USER: Book a trip
+SYSTEM: (NODE: 16348058588084537) <p>Are you going on an intracity trip or a business trip?</p>
+USER: Business trip
+SYSTEM: (NODE: 16348064261907944) <p>Did you get <strong>written</strong> permission from your supervisor?</p>
+USER: no
+SYSTEM: (NODE: 16363751447148919) <p>Please use this <a title="Permission form for business trip" href="https://www.redacted.pdf">form </a> written permission from your supervisor.<strong> This is required before starting to book a trip.</strong></p>
+SYSTEM: (NODE: 16363752591243585) <p>What country are you traveling to?</p>
+USER: China
+SYSTEM: (NODE: 16363753123487784) <p>What city are you traveling to?</p>
+USER: Beijing
+SYSTEM: (NODE: 16389695846089108) <p><span style="color: #333333; font-family: 'Univers LT W01 45 Light', arial, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">For<strong>all </strong> business trips (even for short trips or ones lasting only a single day) <strong>outside the country</strong> to EU-countries, Iceland, Norway, Liechtenstein or Switzerland, you will need to fill out an <a title="Formular A1-form" href="https://redacted.pdf"><strong>A1 Form</strong> </a>, which must be brought with you when you leave the country. </span></p>
+ <p><span style="color: #333333; font-family: 'Univers LT W01 45 Light', arial, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">You will need to fill out a new A1 for each business trip you take. Filling the form out once, does not allow it to apply for subsequent trips you tak.</span></p>
+SYSTEM: (NODE: 16363753477187975) <p>Please check the current <strong><span style="color: #ba372a;">COVID-19 travel warnings</span></strong> travel restrictions from the <a title="travel warnings from foreign ministry" href="https://www.auswaertiges-amt.de/de/ReiseUndSicherheit/covid-19/2296762">foreign ministry</a> and the <a title="travel warnings from Robert Koch Institute" href="https://www.rki.de/DE/Content/InfAZ/N/Neuartiges_Coronavirus/Risikogebiete_neu.html">RKI</a>.</p>
+ <p><br /><strong>Business trips to high risk areas or virus variation areas are not generally not allowed. In In extreme cases, authorization can be given by the leadership of Department 4 (Administrative Department).</strong></p>
+SYSTEM: (NODE: 16363754346769013) <p><span style="color: #ba372a;"><strong>COVID-19:</strong></span> Business trips should be reduced to an absolute minimum and are only allowed when they are <strong>absolutely necessary</strong>.</p>
+ <p>The decision for necessity can be made by the leaders of the administrative department (see <a title="Hygiene concept of the Uni " href="https://www.redacted.pdf">Hygiene concept</a>, 2.4).</p>
+SYSTEM: (NODE: 16348093549280346) <p>Are you planning to extend your trip with private travel?</p>
+USER: yes
+SYSTEM: (NODE: 16363754793760356) <p>A private extension to a trip must remain in proportion to the length of business-related travel. Business interests must remain the priority. For questions, please contact <a title="E-Mail address of the travel department" href="mailto:redacted.de">the travel department</a>.</p>
+SYSTEM: (NODE: 16348097487038694) <p>Which topic do you want to know more about?</p>
+USER: how much money i can
+SYSTEM: (NODE: 16370471520148677) <p>How long is the business related portion of your travel?</p>
+USER: how much money i can get for my travel ,if i use my own can and i took two colleagues with me
+SYSTEM: Sorry, but the time span you entered was not recognized by the system. Please rephrase.
+USER: rephrase
+SYSTEM: Sorry, but the time span you entered was not recognized by the system. Please rephrase.
+DIALOG END: FAILURE
+DIALOG LENGTH: 13
+SUBJECTIVE QUALITY: 2
+SUBJECTIVE LENGTH: 2
+

@@ -1,0 +1,264 @@
+USER: 4b9924c0c8ce326ac3c1e1688937c6 (POLICY: cts)
+GOAL TEXT: You want more information about how to plan a research semester.
+RESET
+GOAL NODE: 16387868859695624 Thank you for using the business travel chatbot.Please let us know about your experience by filling
+USER: Could you tell me how to plan a research semester?
+How long will your research semester last?
+USER: (PRE-NLU) 2 months.
+USER: (POST-NLU) 1440
+SYSTEM: (NODE: 16460422136134149) If you are traveling for more than 4 weeks and need help finding accommodations, please contact the
+SYSTEM: (NODE: 16353297472197738) Is this as part of a reallocation?
+USER: No
+SYSTEM: (NODE: 16370501863636503) As there has been no reallocation, your research semester counts as a business trip.
+SYSTEM: (NODE: 16353303012891903) Are you traveling alone or with your family?
+USER: Alone
+SYSTEM: (NODE: 16370483570980906) Business traveler can receive reimbursement for business related expenses by submitting the followin
+What country are you traveling to?
+USER: (PRE-NLU) UK
+USER: (POST-NLU) Great Britain
+What city are you traveling to?
+USER: (PRE-NLU) London
+USER: (POST-NLU) London
+SYSTEM: (NODE: 16389695846089108) For all  business trips (even for short trips or ones lasting only a single day) outside the country
+SYSTEM: (NODE: 16363753477187975) Please check the current COVID-19 travel warnings travel restrictions from the foreign ministry and
+SYSTEM: (NODE: 16363754346769013) COVID-19: Business trips should be reduced to an absolute minimum and are only allowed when they are
+Are you planning to extend your trip with private travel?
+USER: (PRE-NLU) no
+USER: (POST-NLU) False
+DIALOG LENGTH: 13
+
+USER: 4b9924c0c8ce326ac3c1e1688937c6 (POLICY: cts)
+GOAL TEXT: You have to cancel your trip. You want to know if the money you have already paid can be reimbursed
+RESET
+GOAL NODE: 16457053159041482 You should try to cancel anything which has already been booked as quickly as possible. Necessary ex
+USER: I would like to cancel my trip. Can I receive a refund?
+SYSTEM: (NODE: 16457053159041482) You should try to cancel anything which has already been booked as quickly as possible. Necessary ex
+DIALOG END: SUCCESS
+DIALOG LENGTH: 2
+
+USER: 4b9924c0c8ce326ac3c1e1688937c6 (POLICY: cts)
+GOAL TEXT: You want to figure out how much money you can get for your travel. <ul><li>You used your own car</li><li>You took two colleagues with you</li></ul>
+RESET
+GOAL NODE: 16460328708250870 If you are also transporting other coworkers, you are entitled to 2 Cent per person und kilometer, f
+USER: How much money can I get for my travel? I used my own car and took two colleagues with me.
+What country are you traveling to?
+USER: (PRE-NLU) UK
+USER: (POST-NLU) Great Britain
+Are you planning to extend your trip with private travel?
+USER: (PRE-NLU) no
+USER: (POST-NLU) False
+How long is the business related portion of your travel?
+USER: (PRE-NLU) 2 weeks
+USER: (POST-NLU) 336
+SYSTEM: (NODE: 16370471522950468) In {{ COUNTRY }}, you are entitled to {{ PERDIEM.AMOUNT(COUNTRY, CITY) }} €  per day, minus any free
+DIALOG END: FAILURE
+DIALOG LENGTH: 5
+
+USER: e5de0b4b0679651ef175fceeb3413f (POLICY: cts)
+GOAL TEXT: You want to inform yourself what to do in case of an emergency during travel.
+RESET
+GOAL NODE: 16387868859695624 Thank you for using the business travel chatbot.Please let us know about your experience by filling
+USER: What happens in an emmergency?
+DIALOG LENGTH: 1
+
+USER: e5de0b4b0679651ef175fceeb3413f (POLICY: cts)
+GOAL TEXT: You are planning on attending a conference and want to know if the conference fee can be reimbursed
+RESET
+GOAL NODE: 16384329210117153 Conference fees are reimbursable.
+USER: Is there a conference reimbursement option?
+SYSTEM: (NODE: 16369666626028975) Meals which are part of a conference are reimbursable, as long as the conference is being attended o
+SYSTEM: (NODE: 16460405343775029) Telephone and/or internet fees are reimbursable if they were needed for business reasons.
+DIALOG END: FAILURE
+DIALOG LENGTH: 3
+
+USER: e5de0b4b0679651ef175fceeb3413f (POLICY: cts)
+GOAL TEXT: You want to know how you can get reimbursed for your flight.<ul><li>You plan to extend your stay with private vacation before flying back</li></ul>
+RESET
+GOAL NODE: 16363755463439219 Costs which occur as part of the business aspect of a trip are reimbursable. Therefore, you will nee
+USER: Flight Reimbursement?
+Are you planning to extend your trip with private travel?
+USER: (PRE-NLU) Yes
+USER: (POST-NLU) True
+SYSTEM: (NODE: 16363755463439219) Costs which occur as part of the business aspect of a trip are reimbursable. Therefore, you will nee
+DIALOG END: SUCCESS
+DIALOG LENGTH: 3
+
+USER: 7224eb019715bd25cc799d87862cf7 (POLICY: cts)
+GOAL TEXT: You want to inform yourself what to do in case of an emergency during travel.
+RESET
+GOAL NODE: 16387868859695624 Thank you for using the business travel chatbot.Please let us know about your experience by filling
+USER: what to do in case of an emergency during travel
+SYSTEM: (NODE: 16460436532310883) What emergency are you experiencing?
+USER: general emergency situations
+SYSTEM: (NODE: 16370679473901470) What do I do in an emergency on a business trip? Please call the number listed on the Emergency-Card
+SYSTEM: (NODE: 16389550594484927) Emergencies are, e.g.: Evacuations
+DIALOG LENGTH: 4
+
+USER: 7224eb019715bd25cc799d87862cf7 (POLICY: cts)
+GOAL TEXT: You want to know if you can get reimbursed if you reserve a seat for yourself on the train
+RESET
+GOAL NODE: 16363756478730906 Seat reservations are allowed for train travel
+USER: can i get reimbursed if i reserved a seat for yourself on the train
+SYSTEM: (NODE: 16363756478730906) Seat reservations are allowed for train travel
+DIALOG END: SUCCESS
+DIALOG LENGTH: 2
+
+USER: 7224eb019715bd25cc799d87862cf7 (POLICY: cts)
+GOAL TEXT: You want to figure out how much money you can get for your travel. <ul><li>You used your own car</li><li>You took two colleagues with you</li></ul>
+RESET
+GOAL NODE: 16460328708250870 If you are also transporting other coworkers, you are entitled to 2 Cent per person und kilometer, f
+USER: how much money can i get  for my travel.
+What country are you traveling to?
+USER: (PRE-NLU) usa
+USER: (POST-NLU) USA
+DIALOG END: FAILURE
+DIALOG LENGTH: 2
+RESET
+GOAL NODE: 16460328708250870 If you are also transporting other coworkers, you are entitled to 2 Cent per person und kilometer, f
+USER: how much money can i get for my travel. i used my own car. i took two colleagues with me
+SYSTEM: (NODE: 16460325754790153) If you used your car for a pressing reason, you are entitled to 0,25€ per kilometer driven.
+SYSTEM: (NODE: 16460328708250870) If you are also transporting other coworkers, you are entitled to 2 Cent per person und kilometer, f
+DIALOG END: SUCCESS
+DIALOG LENGTH: 3
+
+USER: 1fd4736bcd456d02458c2a32944e60 (POLICY: cts)
+GOAL TEXT: You want to know how to book a flight
+RESET
+GOAL NODE: 16387868859695624 Thank you for using the business travel chatbot.Please let us know about your experience by filling
+USER: How do I book a travel flight
+DIALOG LENGTH: 1
+
+USER: 1fd4736bcd456d02458c2a32944e60 (POLICY: cts)
+GOAL TEXT: You are traveling with another colleague and want to know if you have to share a room or if each of you can book your own
+RESET
+GOAL NODE: 16363834594338823 Yes, staying in a room by yourself is allowed
+USER: I am travelling with a colleague and can I either share a room or book my own room
+RESET
+GOAL NODE: 16363834594338823 Yes, staying in a room by yourself is allowed
+USER: Book a trip
+DIALOG END: FAILURE
+DIALOG LENGTH: 1
+
+USER: 1fd4736bcd456d02458c2a32944e60 (POLICY: cts)
+GOAL TEXT: You want to know how much money you can get for your accommodations. <ul><li>You are traveling to France for your next trip</li><li>You plan to stay with your brother in his apartment. </li></ul>
+RESET
+GOAL NODE: 16378349334755637 Outside of Germany, you are entitled to 30€ if you are staying with friends or family.
+USER: I am travelling to France to stay with my brother's apartment
+DIALOG END: FAILURE
+DIALOG LENGTH: 1
+
+USER: 273666715e559c45c6cc9a2e7f5033 (POLICY: cts)
+GOAL TEXT: You want to know how to book a flight
+RESET
+GOAL NODE: 16387868859695624 Thank you for using the business travel chatbot.Please let us know about your experience by filling
+USER: how do i book a flight?
+Are you planning to extend your trip with private travel?
+USER: (PRE-NLU) No
+USER: (POST-NLU) False
+SYSTEM: (NODE: 16351710117855351) Flights must be booked through the university's Partner Travel Agency (Tel. +123456789). It is not p
+DIALOG LENGTH: 3
+
+USER: 273666715e559c45c6cc9a2e7f5033 (POLICY: cts)
+GOAL TEXT: You are traveling with another colleague and want to know if you have to share a room or if each of you can book your own
+DIALOG END: FAILURE
+DIALOG LENGTH: 3
+RESET
+GOAL NODE: 16363834594338823 Yes, staying in a room by yourself is allowed
+USER: I am travelling with a colleague. Is it possible to book separate rooms?
+What country are you traveling to?
+USER: (PRE-NLU) Germany
+USER: (POST-NLU) Germany
+Are you planning to extend your trip with private travel?
+USER: (PRE-NLU) No
+USER: (POST-NLU) False
+SYSTEM: (NODE: 16363834594338823) Yes, staying in a room by yourself is allowed
+DIALOG END: SUCCESS
+DIALOG LENGTH: 4
+
+USER: 273666715e559c45c6cc9a2e7f5033 (POLICY: cts)
+GOAL TEXT: You want to know how much money you can get for your accommodations. <ul><li>You are traveling to France for your next trip</li><li>You plan to stay with your brother in his apartment. </li></ul>
+RESET
+GOAL NODE: 16378349334755637 Outside of Germany, you are entitled to 30€ if you are staying with friends or family.
+USER: I am travelling to France. Can you tell me how much my accommodation allowance will be?
+Are you planning to extend your trip with private travel?
+USER: (PRE-NLU) No
+USER: (POST-NLU) False
+SYSTEM: (NODE: 16365521324065600) In {{ COUNTRY }} you have a budget of up to 90€ (or 120€ in cities with a population of more than 10
+DIALOG END: FAILURE
+DIALOG LENGTH: 3
+RESET
+GOAL NODE: 16378349334755637 Outside of Germany, you are entitled to 30€ if you are staying with friends or family.
+USER: I am traveling to France and will be staying at my brother's apartment. Can you tell me how much my accommodation allowance will be
+Are you planning to extend your trip with private travel?
+USER: (PRE-NLU) no
+USER: (POST-NLU) False
+SYSTEM: (NODE: 16365521324065600) In {{ COUNTRY }} you have a budget of up to 90€ (or 120€ in cities with a population of more than 10
+DIALOG END: FAILURE
+DIALOG LENGTH: 3
+
+USER: 2e4bd44563cdfd591a0a4bd566c308 (POLICY: cts)
+GOAL TEXT: You want to know how to book a flight
+RESET
+GOAL NODE: 16387868859695624 Thank you for using the business travel chatbot.Please let us know about your experience by filling
+USER: how to book a flight
+Are you planning to extend your trip with private travel?
+USER: (PRE-NLU) no
+USER: (POST-NLU) False
+SYSTEM: (NODE: 16351710117855351) Flights must be booked through the university's Partner Travel Agency (Tel. +123456789). It is not p
+DIALOG LENGTH: 3
+
+USER: 2e4bd44563cdfd591a0a4bd566c308 (POLICY: cts)
+GOAL TEXT: You are planning on attending a conference and want to know if the conference fee can be reimbursed
+RESET
+GOAL NODE: 16384329210117153 Conference fees are reimbursable.
+USER: can conference fee be reimbursed
+SYSTEM: (NODE: 16384329210117153) Conference fees are reimbursable.
+DIALOG END: SUCCESS
+DIALOG LENGTH: 2
+
+USER: 2e4bd44563cdfd591a0a4bd566c308 (POLICY: cts)
+GOAL TEXT: You want to know how the reimbursement process works for research semester.<ul><li>You plan to bring your family with you</li></ul>
+RESET
+GOAL NODE: 16370483534787100 Your business trip must be planned as though you were traveling alone (without your family). How doe
+USER: can i bring my family
+DIALOG END: FAILURE
+DIALOG LENGTH: 1
+
+USER: d9a101002e1d23b86bf785bab7b5e3 (POLICY: cts)
+GOAL TEXT: You want to know how to book a hotel
+RESET
+GOAL NODE: 16387868859695624 Thank you for using the business travel chatbot.Please let us know about your experience by filling
+USER: How can I book a hotel?
+What country are you traveling to?
+USER: (PRE-NLU) UK
+USER: (POST-NLU) Great Britain
+Are you planning to extend your trip with private travel?
+USER: (PRE-NLU) Yes
+USER: (POST-NLU) True
+SYSTEM: (NODE: 16363812426270449) Hotels can be booked using the university's partner travel agency, through a booking portal, or book
+DIALOG LENGTH: 4
+
+USER: d9a101002e1d23b86bf785bab7b5e3 (POLICY: cts)
+GOAL TEXT: You want to know if you can be reimbursed if you need to book a taxi during your trip.
+RESET
+GOAL NODE: 16365525829145685 A taxi is only reimbursable if there is a business related reason or a pressing personal reason, e.g
+USER: Can I reimburse my taxi fare during my trip?
+SYSTEM: (NODE: 16365525829145685) A taxi is only reimbursable if there is a business related reason or a pressing personal reason, e.g
+DIALOG END: SUCCESS
+DIALOG LENGTH: 2
+
+USER: d9a101002e1d23b86bf785bab7b5e3 (POLICY: cts)
+GOAL TEXT: You are trying to figure out how much money you get for booking somewhere to stay on your trip. <ul><li>Your trip is to Tokyo, Japan</li><li>Your trip should take 10 days</li><li>You plan to stay in a hotel</li></ul>
+RESET
+GOAL NODE: 16365521324065600 In {{ COUNTRY }} you have a budget of up to 90€ (or 120€ in cities with a population of more than 10
+USER: How much money do I get for going on a business trip to Tokyo for 10 days and I prefer to stay in a hotel?
+What country are you traveling to?
+USER: (PRE-NLU) Japan
+USER: (POST-NLU) Japan
+Are you planning to extend your trip with private travel?
+USER: (PRE-NLU) No
+USER: (POST-NLU) False
+SYSTEM: (NODE: 16365521324065600) In {{ COUNTRY }} you have a budget of up to 90€ (or 120€ in cities with a population of more than 10
+DIALOG END: SUCCESS
+DIALOG LENGTH: 4
+

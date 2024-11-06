@@ -1,0 +1,157 @@
+USER: 6d44179da1563592c5e344b692971e || GROUP: faq
+USER: 9ca122597c1202b50061404326cd1d || GROUP: faq
+USER: c334bbab21038ec5b0e8ef2532ca98 || GROUP: faq
+==== NEW DIALOG STARTED FOR USER 6d44179da1563592c5e344b692971e ====
+USER: 6d44179da1563592c5e344b692971e || GOAL: You want more information about how to plan a research semester. || NODE_ID: 16387868859695624
+6d44179da1563592c5e344b692971e-1$ ======== RESET =========
+6d44179da1563592c5e344b692971e-1$ GOAL: 16387868859695624 Thank you for using the business travel chatbot.Please let us know about your experience by filling 
+6d44179da1563592c5e344b692971e-1$ CONSTRAINTS: {}
+6d44179da1563592c5e344b692971e-1$ INITIAL UTTERANCE: Book a trip
+6d44179da1563592c5e344b692971e-1$: SKIP + ASK: Node 16363751447148919, Please use this form  written permission from your
+6d44179da1563592c5e344b692971e-1$=> REACHED GOAL ONCE: False
+6d44179da1563592c5e344b692971e-1$=> ASKED GOAL ONCE: False
+6d44179da1563592c5e344b692971e-1$=> PERCIEVED LENGTH: 1
+=== USER (6d44179da1563592c5e344b692971e) RESTART === 
+6d44179da1563592c5e344b692971e-2$ ======== RESET =========
+6d44179da1563592c5e344b692971e-2$ GOAL: 16387868859695624 Thank you for using the business travel chatbot.Please let us know about your experience by filling 
+6d44179da1563592c5e344b692971e-2$ CONSTRAINTS: {}
+6d44179da1563592c5e344b692971e-2$ INITIAL UTTERANCE: how to play a research semester
+6d44179da1563592c5e344b692971e-2$: SKIP + ASK: Node 16370501863636503, As there has been no reallocation, your research s
+6d44179da1563592c5e344b692971e-2$=> REACHED GOAL ONCE: False
+6d44179da1563592c5e344b692971e-2$=> ASKED GOAL ONCE: False
+6d44179da1563592c5e344b692971e-2$=> PERCIEVED LENGTH: 1
+=== USER (6d44179da1563592c5e344b692971e) RESTART === 
+6d44179da1563592c5e344b692971e-3$ ======== RESET =========
+6d44179da1563592c5e344b692971e-3$ GOAL: 16387868859695624 Thank you for using the business travel chatbot.Please let us know about your experience by filling 
+6d44179da1563592c5e344b692971e-3$ CONSTRAINTS: {}
+6d44179da1563592c5e344b692971e-3$ INITIAL UTTERANCE: how do i plan a business trip
+6d44179da1563592c5e344b692971e-3$: SKIP + ASK: Node 16370483534787100, Your business trip must be planned as though you w
+6d44179da1563592c5e344b692971e-3$=> REACHED GOAL ONCE: False
+6d44179da1563592c5e344b692971e-3$=> ASKED GOAL ONCE: False
+6d44179da1563592c5e344b692971e-3$=> PERCIEVED LENGTH: 1
+USER: 6d44179da1563592c5e344b692971e || QUALITY: 3
+USER: 6d44179da1563592c5e344b692971e || LENGTH: 3
+==== NEW DIALOG STARTED FOR USER 6d44179da1563592c5e344b692971e ====
+USER: 6d44179da1563592c5e344b692971e || GOAL: You are traveling with another colleague and want to know if you have to share a room or if each of you can book your own || NODE_ID: 16363834594338823
+6d44179da1563592c5e344b692971e-4$ ======== RESET =========
+6d44179da1563592c5e344b692971e-4$ GOAL: 16363834594338823 Yes, staying in a room by yourself is allowed
+6d44179da1563592c5e344b692971e-4$ CONSTRAINTS: {}
+6d44179da1563592c5e344b692971e-4$ INITIAL UTTERANCE: if i travel with a colleague do i have to share a room
+6d44179da1563592c5e344b692971e-4$: SKIP + ASK: Node 16378355894189764, When traveling alone, you may book a double bed ro
+6d44179da1563592c5e344b692971e-4$=> REACHED GOAL ONCE: False
+6d44179da1563592c5e344b692971e-4$=> ASKED GOAL ONCE: False
+6d44179da1563592c5e344b692971e-4$=> PERCIEVED LENGTH: 1
+=== USER (6d44179da1563592c5e344b692971e) RESTART === 
+6d44179da1563592c5e344b692971e-5$ ======== RESET =========
+6d44179da1563592c5e344b692971e-5$ GOAL: 16363834594338823 Yes, staying in a room by yourself is allowed
+6d44179da1563592c5e344b692971e-5$ CONSTRAINTS: {}
+6d44179da1563592c5e344b692971e-5$ INITIAL UTTERANCE: travelling with more than one person
+6d44179da1563592c5e344b692971e-5$: SKIP + ASK: Node 16460328708250870, If you are also transporting other coworkers, you 
+6d44179da1563592c5e344b692971e-5$=> REACHED GOAL ONCE: False
+6d44179da1563592c5e344b692971e-5$=> ASKED GOAL ONCE: False
+6d44179da1563592c5e344b692971e-5$=> PERCIEVED LENGTH: 1
+=== USER (6d44179da1563592c5e344b692971e) RESTART === 
+6d44179da1563592c5e344b692971e-6$ ======== RESET =========
+6d44179da1563592c5e344b692971e-6$ GOAL: 16363834594338823 Yes, staying in a room by yourself is allowed
+6d44179da1563592c5e344b692971e-6$ CONSTRAINTS: {}
+6d44179da1563592c5e344b692971e-6$ INITIAL UTTERANCE: accomodation for 2 people
+6d44179da1563592c5e344b692971e-6$: SKIP + ASK: Node 16378355894189764, When traveling alone, you may book a double bed ro
+6d44179da1563592c5e344b692971e-6$=> REACHED GOAL ONCE: False
+6d44179da1563592c5e344b692971e-6$=> ASKED GOAL ONCE: False
+6d44179da1563592c5e344b692971e-6$=> PERCIEVED LENGTH: 1
+USER: 6d44179da1563592c5e344b692971e || QUALITY: 1
+USER: 6d44179da1563592c5e344b692971e || LENGTH: 2
+==== NEW DIALOG STARTED FOR USER 6d44179da1563592c5e344b692971e ====
+USER: 6d44179da1563592c5e344b692971e || GOAL: You want to figure out how much money you can get for your travel. <ul><li>You used your own car</li><li>You took two colleagues with you</li></ul> || NODE_ID: 16460328708250870
+6d44179da1563592c5e344b692971e-7$ ======== RESET =========
+6d44179da1563592c5e344b692971e-7$ GOAL: 16460328708250870 If you are also transporting other coworkers, you are entitled to 2 Cent per person und kilometer, f
+6d44179da1563592c5e344b692971e-7$ CONSTRAINTS: {}
+6d44179da1563592c5e344b692971e-7$ INITIAL UTTERANCE: car allowance if i take other
+6d44179da1563592c5e344b692971e-7$: SKIP + ASK: Node 16460325754790153, If you used your car for a pressing reason, you ar
+6d44179da1563592c5e344b692971e-7$=> REACHED GOAL ONCE: False
+6d44179da1563592c5e344b692971e-7$=> ASKED GOAL ONCE: False
+6d44179da1563592c5e344b692971e-7$=> PERCIEVED LENGTH: 1
+=== USER (6d44179da1563592c5e344b692971e) RESTART === 
+6d44179da1563592c5e344b692971e-8$ ======== RESET =========
+6d44179da1563592c5e344b692971e-8$ GOAL: 16460328708250870 If you are also transporting other coworkers, you are entitled to 2 Cent per person und kilometer, f
+6d44179da1563592c5e344b692971e-8$ CONSTRAINTS: {}
+6d44179da1563592c5e344b692971e-8$ INITIAL UTTERANCE: car reimbursement
+6d44179da1563592c5e344b692971e-8$: SKIP + ASK: Node 16365524053616136, Rental cars can be reimbursed if there is a pressi
+6d44179da1563592c5e344b692971e-8$=> REACHED GOAL ONCE: False
+6d44179da1563592c5e344b692971e-8$=> ASKED GOAL ONCE: False
+6d44179da1563592c5e344b692971e-8$=> PERCIEVED LENGTH: 1
+=== USER (6d44179da1563592c5e344b692971e) RESTART === 
+6d44179da1563592c5e344b692971e-9$ ======== RESET =========
+6d44179da1563592c5e344b692971e-9$ GOAL: 16460328708250870 If you are also transporting other coworkers, you are entitled to 2 Cent per person und kilometer, f
+6d44179da1563592c5e344b692971e-9$ CONSTRAINTS: {}
+6d44179da1563592c5e344b692971e-9$ INITIAL UTTERANCE: can i get car reimbursement if traveling with others
+6d44179da1563592c5e344b692971e-9$: SKIP + ASK: Node 16365524053616136, Rental cars can be reimbursed if there is a pressi
+6d44179da1563592c5e344b692971e-9$=> REACHED GOAL ONCE: False
+6d44179da1563592c5e344b692971e-9$=> ASKED GOAL ONCE: False
+6d44179da1563592c5e344b692971e-9$=> PERCIEVED LENGTH: 1
+USER: 6d44179da1563592c5e344b692971e || QUALITY: 1
+USER: 6d44179da1563592c5e344b692971e || LENGTH: 2
+==== NEW DIALOG STARTED FOR USER 9ca122597c1202b50061404326cd1d ====
+USER: 9ca122597c1202b50061404326cd1d || GOAL: You want more information about how to plan a research semester. || NODE_ID: 16387868859695624
+9ca122597c1202b50061404326cd1d-1$ ======== RESET =========
+9ca122597c1202b50061404326cd1d-1$ GOAL: 16387868859695624 Thank you for using the business travel chatbot.Please let us know about your experience by filling 
+9ca122597c1202b50061404326cd1d-1$ CONSTRAINTS: {}
+9ca122597c1202b50061404326cd1d-1$ INITIAL UTTERANCE: Plan a research semester
+9ca122597c1202b50061404326cd1d-1$: SKIP + ASK: Node 16370501863636503, As there has been no reallocation, your research s
+9ca122597c1202b50061404326cd1d-1$=> REACHED GOAL ONCE: False
+9ca122597c1202b50061404326cd1d-1$=> ASKED GOAL ONCE: False
+9ca122597c1202b50061404326cd1d-1$=> PERCIEVED LENGTH: 1
+USER: 9ca122597c1202b50061404326cd1d || QUALITY: 2
+USER: 9ca122597c1202b50061404326cd1d || LENGTH: 2
+==== NEW DIALOG STARTED FOR USER 9ca122597c1202b50061404326cd1d ====
+USER: 9ca122597c1202b50061404326cd1d || GOAL: You have to cancel your trip. You want to know if the money you have already paid can be reimbursed || NODE_ID: 16457053159041482
+9ca122597c1202b50061404326cd1d-2$ ======== RESET =========
+9ca122597c1202b50061404326cd1d-2$ GOAL: 16457053159041482 You should try to cancel anything which has already been booked as quickly as possible. Necessary ex
+9ca122597c1202b50061404326cd1d-2$ CONSTRAINTS: {}
+9ca122597c1202b50061404326cd1d-2$ INITIAL UTTERANCE: Cancel trip and reimburse money
+9ca122597c1202b50061404326cd1d-2$: SKIP + ASK: Node 16457053159041482, You should try to cancel anything which has alread
+9ca122597c1202b50061404326cd1d-2$=> REACHED GOAL ONCE: True
+9ca122597c1202b50061404326cd1d-2$=> ASKED GOAL ONCE: True
+9ca122597c1202b50061404326cd1d-2$=> PERCIEVED LENGTH: 1
+USER: 9ca122597c1202b50061404326cd1d || QUALITY: 4
+USER: 9ca122597c1202b50061404326cd1d || LENGTH: 3
+==== NEW DIALOG STARTED FOR USER 9ca122597c1202b50061404326cd1d ====
+USER: 9ca122597c1202b50061404326cd1d || GOAL: You want to know how you can get reimbursed for your flight.<ul><li>You plan to extend your stay with private vacation before flying back</li></ul> || NODE_ID: 16363755463439219
+9ca122597c1202b50061404326cd1d-3$ ======== RESET =========
+9ca122597c1202b50061404326cd1d-3$ GOAL: 16363755463439219 Costs which occur as part of the business aspect of a trip are reimbursable. Therefore, you will nee
+9ca122597c1202b50061404326cd1d-3$ CONSTRAINTS: {}
+9ca122597c1202b50061404326cd1d-3$ INITIAL UTTERANCE: How can I get reimbursed for my flight? Also, I would like to extend my stay with private vacation before flying back
+9ca122597c1202b50061404326cd1d-3$: SKIP + ASK: Node 16370483570980906, Business traveler can receive reimbursement for bu
+9ca122597c1202b50061404326cd1d-3$=> REACHED GOAL ONCE: False
+9ca122597c1202b50061404326cd1d-3$=> ASKED GOAL ONCE: False
+9ca122597c1202b50061404326cd1d-3$=> PERCIEVED LENGTH: 1
+USER: 9ca122597c1202b50061404326cd1d || QUALITY: 4
+USER: 9ca122597c1202b50061404326cd1d || LENGTH: 3
+==== NEW DIALOG STARTED FOR USER c334bbab21038ec5b0e8ef2532ca98 ====
+USER: c334bbab21038ec5b0e8ef2532ca98 || GOAL: You want to know how to book a hotel || NODE_ID: 16387868859695624
+==== NEW DIALOG STARTED FOR USER c334bbab21038ec5b0e8ef2532ca98 ====
+USER: c334bbab21038ec5b0e8ef2532ca98 || GOAL: You want to know how to book a hotel || NODE_ID: 16387868859695624
+c334bbab21038ec5b0e8ef2532ca98-1$ ======== RESET =========
+c334bbab21038ec5b0e8ef2532ca98-1$ GOAL: 16387868859695624 Thank you for using the business travel chatbot.Please let us know about your experience by filling 
+c334bbab21038ec5b0e8ef2532ca98-1$ CONSTRAINTS: {}
+c334bbab21038ec5b0e8ef2532ca98-1$ INITIAL UTTERANCE: Book a trip
+c334bbab21038ec5b0e8ef2532ca98-1$: SKIP + ASK: Node 16363751447148919, Please use this form  written permission from your
+c334bbab21038ec5b0e8ef2532ca98-1$=> REACHED GOAL ONCE: False
+c334bbab21038ec5b0e8ef2532ca98-1$=> ASKED GOAL ONCE: False
+c334bbab21038ec5b0e8ef2532ca98-1$=> PERCIEVED LENGTH: 1
+USER: c334bbab21038ec5b0e8ef2532ca98 || QUALITY: 3
+USER: c334bbab21038ec5b0e8ef2532ca98 || LENGTH: 4
+==== NEW DIALOG STARTED FOR USER c334bbab21038ec5b0e8ef2532ca98 ====
+USER: c334bbab21038ec5b0e8ef2532ca98 || GOAL: You are traveling with another colleague and want to know if you have to share a room or if each of you can book your own || NODE_ID: 16363834594338823
+==== NEW DIALOG STARTED FOR USER c334bbab21038ec5b0e8ef2532ca98 ====
+USER: c334bbab21038ec5b0e8ef2532ca98 || GOAL: You are trying to figure out how much money you get for booking somewhere to stay on your trip. <ul><li>Your trip is to Tokyo, Japan</li><li>Your trip should take 10 days</li><li>You plan to stay in a hotel</li></ul> || NODE_ID: 16365521324065600
+c334bbab21038ec5b0e8ef2532ca98-2$ ======== RESET =========
+c334bbab21038ec5b0e8ef2532ca98-2$ GOAL: 16365521324065600 In {{ COUNTRY }} you have a budget of up to 90€ (or 120€ in cities with a population of more than 10
+c334bbab21038ec5b0e8ef2532ca98-2$ CONSTRAINTS: {}
+c334bbab21038ec5b0e8ef2532ca98-2$ INITIAL UTTERANCE: Book a trip
+c334bbab21038ec5b0e8ef2532ca98-2$: SKIP + ASK: Node 16363751447148919, Please use this form  written permission from your
+c334bbab21038ec5b0e8ef2532ca98-2$=> REACHED GOAL ONCE: False
+c334bbab21038ec5b0e8ef2532ca98-2$=> ASKED GOAL ONCE: False
+c334bbab21038ec5b0e8ef2532ca98-2$=> PERCIEVED LENGTH: 1
+USER: c334bbab21038ec5b0e8ef2532ca98 || QUALITY: 3
+USER: c334bbab21038ec5b0e8ef2532ca98 || LENGTH: 4

@@ -1,0 +1,184 @@
+USER: e1ef143c6b2b325fcadd875a993150 (POLICY: cts) (GOAL-TYPE: OPEN)
+GOAL TEXT: You want more information about how to plan a research semester.
+GOAL NODE: 16387868859695624 Thank you for using the business travel chatbot.Please let us know about your experience by filling
+USER: Research semester
+SYSTEM: (NODE: 16370487978253782) How long will your research semester last?
+USER: (PRE-NLU) 3 Weeks
+USER: (POST-NLU) 504
+SYSTEM: (NODE: 16353297472197738) Is this as part of a reallocation?
+USER: yes
+SYSTEM: (NODE: 16437227645843044) If there was a reallocation/delegation, only the travel to the new location and the return trip can
+SYSTEM: (NODE: 16384313191857195) Do you have any further questions?
+USER: no
+DIALOG END: SUCCESS
+DIALOG LENGTH: 5
+SUBJECTIVE QUALITY: 3
+SUBJECTIVE LENGTH: 3
+
+USER: e1ef143c6b2b325fcadd875a993150 (POLICY: cts) (GOAL-TYPE: EASY)
+GOAL TEXT: You have to cancel your trip. You want to know if the money you have already paid can be reimbursed
+GOAL NODE: 16457053159041482 You should try to cancel anything which has already been booked as quickly as possible. Necessary ex
+USER: cancel a trip
+SYSTEM: (NODE: 16457053159041482) You should try to cancel anything which has already been booked as quickly as possible. Necessary ex
+DIALOG END: SUCCESS
+DIALOG LENGTH: 2
+SUBJECTIVE QUALITY: 3
+SUBJECTIVE LENGTH: 3
+
+USER: e1ef143c6b2b325fcadd875a993150 (POLICY: cts) (GOAL-TYPE: HARD)
+GOAL TEXT: You want to figure out how much money you can get for your travel. <ul><li>You used your own car</li><li>You took two colleagues with you</li></ul>
+GOAL NODE: 16460328708250870 If you are also transporting other coworkers, you are entitled to 2 Cent per person und kilometer, f
+USER: Travel Risk Management
+SYSTEM: (NODE: 16457053159041482) You should try to cancel anything which has already been booked as quickly as possible. Necessary ex
+SYSTEM: (NODE: 16348058621438633) What topic do you have questions about? You can either click on an answer from the suggested topics
+USER: Forms, deadlines, and procedures
+SYSTEM: (NODE: 16353412627443913) Travel Safety/ Travel Risk Management: What would you like to know about? Emergency help
+USER: Form for travel reimbursement.
+SYSTEM: (NODE: 16354905244322603) Content: Why was it introduced: To show the services provided both internally and from MDMedicus
+DIALOG END: FAILURE - OTHER
+DIALOG LENGTH: 5
+SUBJECTIVE QUALITY: 2
+SUBJECTIVE LENGTH: 2
+
+USER: 771c1aa8236ed0b89237798362bc7e (POLICY: cts) (GOAL-TYPE: OPEN)
+GOAL TEXT: You want to know how to book a flight
+GOAL NODE: 16387868859695624 Thank you for using the business travel chatbot.Please let us know about your experience by filling
+USER: book a trip
+SYSTEM: (NODE: 16348058588084537) Are you going on an intracity trip or a business trip?
+USER: business trip
+SYSTEM: (NODE: 16348064261907944) Did you get written permission from your supervisor?
+USER: yes
+SYSTEM: (NODE: 16363752591243585) What country are you traveling to?
+USER: (PRE-NLU) Germany
+USER: (POST-NLU) Germany
+SYSTEM: (NODE: 16363753123487784) What city are you traveling to?
+USER: (PRE-NLU) Berlin
+USER: (POST-NLU) $REST
+SYSTEM: (NODE: 16363754346769013) COVID-19: Business trips should be reduced to an absolute minimum and are only allowed when they are
+SYSTEM: (NODE: 16348093549280346) Are you planning to extend your trip with private travel?
+USER: (PRE-NLU) no
+USER: (POST-NLU) False
+SYSTEM: (NODE: 16348097487038694) Which topic do you want to know more about?
+USER: transportation
+SYSTEM: (NODE: 16363756478730906) Seat reservations are allowed for train travel
+SYSTEM: (NODE: 16365527610579139) Booking a first class train ticket is only allowed for distances of more than 100km.
+SYSTEM: (NODE: 16351756063145903) You can book train tickets yourself (through the DB website, at their counter / ticket machine) or t
+SYSTEM: (NODE: 16351756667261880) Do you have any other questions about booking transportation?
+USER: I want to book a flight
+SYSTEM: (NODE: 16363756478730906) Seat reservations are allowed for train travel
+DIALOG END: FAILURE
+DIALOG LENGTH: 13
+SUBJECTIVE QUALITY: 1
+SUBJECTIVE LENGTH: 3
+
+USER: 771c1aa8236ed0b89237798362bc7e (POLICY: cts) (GOAL-TYPE: EASY)
+GOAL TEXT: You are planning on attending a conference and want to know if the conference fee can be reimbursed
+GOAL NODE: 16384329210117153 Conference fees are reimbursable.
+USER: fee reimbursment
+SYSTEM: (NODE: 16460405343775029) Telephone and/or internet fees are reimbursable if they were needed for business reasons.
+DIALOG END: FAILURE
+DIALOG LENGTH: 2
+SUBJECTIVE QUALITY: 1
+SUBJECTIVE LENGTH: 2
+
+USER: 771c1aa8236ed0b89237798362bc7e (POLICY: cts) (GOAL-TYPE: HARD)
+GOAL TEXT: You want to know how the reimbursement process works for research semester.<ul><li>You plan to bring your family with you</li></ul>
+GOAL NODE: 16370483534787100 Your business trip must be planned as though you were traveling alone (without your family). How doe
+USER: research semester
+SYSTEM: (NODE: 16370487978253782) How long will your research semester last?
+USER: (PRE-NLU) 1 month
+USER: (POST-NLU) 720
+SYSTEM: (NODE: 16460422136134149) If you are traveling for more than 4 weeks and need help finding accommodations, please contact the
+SYSTEM: (NODE: 16353297472197738) Is this as part of a reallocation?
+USER: no
+SYSTEM: (NODE: 16370501863636503) As there has been no reallocation, your research semester counts as a business trip.
+SYSTEM: (NODE: 16353303012891903) Are you traveling alone or with your family?
+USER: with family
+SYSTEM: (NODE: 16370483534787100) Your business trip must be planned as though you were traveling alone (without your family). How doe
+DIALOG END: SUCCESS
+DIALOG LENGTH: 7
+SUBJECTIVE QUALITY: 4
+SUBJECTIVE LENGTH: 3
+
+USER: 7fed2ffe05c4e0feb7180eca0d51e3 (POLICY: cts) (GOAL-TYPE: OPEN)
+GOAL TEXT: You want more information about how to plan a research semester.
+GOAL NODE: 16387868859695624 Thank you for using the business travel chatbot.Please let us know about your experience by filling
+USER: I'm looking to go on a research semester.  Can you advise what my options are please?
+SYSTEM: (NODE: 16370487978253782) How long will your research semester last?
+USER: (PRE-NLU) I'm not sure.  Possibly up to 1 month
+USER: (POST-NLU) 720
+SYSTEM: (NODE: 16460422136134149) If you are traveling for more than 4 weeks and need help finding accommodations, please contact the
+SYSTEM: (NODE: 16353297472197738) Is this as part of a reallocation?
+USER: What is a reallocation?
+SYSTEM: (NODE: 16370481846790432) As part of a reallocation/delegation, your office is relocated (no longer in CITY)
+DAILOG END: SUCCESS
+DIALOG LENGTH: 5
+SUBJECTIVE QUALITY: 2
+SUBJECTIVE LENGTH: 1
+
+USER: 7fed2ffe05c4e0feb7180eca0d51e3 (POLICY: cts) (GOAL-TYPE: EASY)
+GOAL TEXT: You have to cancel your trip. You want to know if the money you have already paid can be reimbursed
+GOAL NODE: 16457053159041482 You should try to cancel anything which has already been booked as quickly as possible. Necessary ex
+USER: I have to cancel a trip and want to know if my deposit is refundable
+SYSTEM: (NODE: 16457053159041482) You should try to cancel anything which has already been booked as quickly as possible. Necessary ex
+DIALOG END: SUCCESS
+DIALOG LENGTH: 2
+SUBJECTIVE QUALITY: 3
+SUBJECTIVE LENGTH: 2
+
+USER: 7fed2ffe05c4e0feb7180eca0d51e3 (POLICY: cts) (GOAL-TYPE: HARD)
+GOAL TEXT: You want to figure out how much money you can get for your travel. <ul><li>You used your own car</li><li>You took two colleagues with you</li></ul>
+GOAL NODE: 16460328708250870 If you are also transporting other coworkers, you are entitled to 2 Cent per person und kilometer, f
+USER: I'd like to enquire about how much I can reclaim for a business trip?
+SYSTEM: (NODE: 16363752591243585) What country are you traveling to?
+USER: (PRE-NLU) I have already travelled.  It was within the UK
+USER: (POST-NLU) Great Britain
+SYSTEM: (NODE: 16348093549280346) Are you planning to extend your trip with private travel?
+USER: (PRE-NLU) No
+USER: (POST-NLU) False
+SYSTEM: (NODE: 16363811629822245) It is required that the bill is addressed to your employer with your name entered as the guest.
+SYSTEM: (NODE: 16365623179506925) Resort taxes may be applied to trips outside of Germany.
+DIALOG END: FAILURE
+DIALOG LENGTH: 5
+SUBJECTIVE QUALITY: 1
+SUBJECTIVE LENGTH: 1
+
+USER: 6ccda091abddea0ad23d6951d33513 (POLICY: cts) (GOAL-TYPE: OPEN)
+GOAL TEXT: You want to know how to book a flight
+GOAL NODE: 16387868859695624 Thank you for using the business travel chatbot.Please let us know about your experience by filling
+USER: How can I book a flight?
+SYSTEM: (NODE: 16478798353898107) Are you planning to extend your trip with private travel?
+USER: (PRE-NLU) yes
+USER: (POST-NLU) True
+SYSTEM: (NODE: 16351710117855351) Flights must be booked through the university's Partner Travel Agency (Tel. +123456789). It is not p
+DIALOG END: SUCCESS
+DIALOG LENGTH: 3
+SUBJECTIVE QUALITY: 3
+SUBJECTIVE LENGTH: 3
+
+USER: 6ccda091abddea0ad23d6951d33513 (POLICY: cts) (GOAL-TYPE: EASY)
+GOAL TEXT: You are planning on attending a conference and want to know if the conference fee can be reimbursed
+GOAL NODE: 16384329210117153 Conference fees are reimbursable.
+USER: Can I reimbursed conference fee?
+SYSTEM: (NODE: 16384329210117153) Conference fees are reimbursable.
+DIALOG END: SUCCESS
+DIALOG LENGTH: 2
+SUBJECTIVE QUALITY: 3
+SUBJECTIVE LENGTH: 2
+
+USER: 6ccda091abddea0ad23d6951d33513 (POLICY: cts) (GOAL-TYPE: HARD)
+GOAL TEXT: You want to know how the reimbursement process works for research semester.<ul><li>You plan to bring your family with you</li></ul>
+GOAL NODE: 16370483534787100 Your business trip must be planned as though you were traveling alone (without your family). How doe
+USER: Research semester
+SYSTEM: (NODE: 16370487978253782) How long will your research semester last?
+USER: (PRE-NLU) 1 month
+USER: (POST-NLU) 720
+SYSTEM: (NODE: 16460422136134149) If you are traveling for more than 4 weeks and need help finding accommodations, please contact the
+SYSTEM: (NODE: 16353297472197738) Is this as part of a reallocation?
+USER: I want to bring my family. How the reimbursement process will work?
+SYSTEM: (NODE: 16370481846790432) As part of a reallocation/delegation, your office is relocated (no longer in CITY)
+DIALOG END: FAILURE
+DIALOG LENGTH: 5
+SUBJECTIVE QUALITY: 1
+SUBJECTIVE LENGTH: 4
+

@@ -1,0 +1,177 @@
+USER: 665d745228d846bea3c49b0e || AGREED: True
+USER: 5cfaf97eadb3da00013c1eaa || AGREED: True
+USER: 665d745228d846bea3c49b0e || PRE-SURVEY: {'exp_formality': '2'}
+USER: 665d745228d846bea3c49b0e || ORDER: ['FORMAL', 'PERSONAL', 'FRIENDLY', 'BASE']
+USER: 665d745228d846bea3c49b0e || NODE_ID: 16363755463439219
+USER: 5cfaf97eadb3da00013c1eaa || PRE-SURVEY: {'exp_formality': '2'}
+USER: 5cfaf97eadb3da00013c1eaa || ORDER: ['BASE', 'FORMAL', 'FRIENDLY', 'PERSONAL']
+USER: 5cfaf97eadb3da00013c1eaa || NODE_ID: 16363755463439219
+USER: 665d745228d846bea3c49b0e || Preferences: {'impressions1': 'Wordy, boring, unnecessary ', 'impressions2': 'Better, to the point, snappy, normal', 'impressions3': 'Inaccurate', 'impressions4': 'Succinct ', 'user_ranking': 'B,d,c,a', 'best_template': 'b'}
+USER: 5cfaf97eadb3da00013c1eaa || Preferences: {'impressions1': 'expensive, formal, business', 'impressions2': 'accounting, money, reimbursment', 'impressions3': 'clear, informal, comprehensive', 'impressions4': 'understandable, clear', 'user_ranking': 'd,c,b,a', 'best_template': 'D'}
+USER: 5e9d7f715597de04e33079d5 || AGREED: True
+USER: 5e9d7f715597de04e33079d5 || PRE-SURVEY: {'exp_formality': '2'}
+USER: 5e9d7f715597de04e33079d5 || ORDER: ['PERSONAL', 'FORMAL', 'FRIENDLY', 'BASE']
+USER: 5e9d7f715597de04e33079d5 || NODE_ID: 16363755463439219
+USER: 5e9d7f715597de04e33079d5 || Preferences: {'impressions1': 'Simple, understandable', 'impressions2': 'Clear, precise ', 'impressions3': 'Straight to the point, clear, understandable', 'impressions4': 'Clear, understandable', 'user_ranking': 'B, D, A, C', 'best_template': 'A'}
+USER: 5efa27ec1c76730eff3dad8e || AGREED: True
+USER: 5efa27ec1c76730eff3dad8e || PRE-SURVEY: {'exp_formality': '3'}
+USER: 5efa27ec1c76730eff3dad8e || ORDER: ['FRIENDLY', 'BASE', 'PERSONAL', 'FORMAL']
+USER: 5efa27ec1c76730eff3dad8e || NODE_ID: 16365521324065600
+USER: 611cebd71927a2491a39f942 || AGREED: True
+USER: 611cebd71927a2491a39f942 || PRE-SURVEY: {'exp_formality': '2'}
+USER: 669b90a5fd33b2a8e2502f4f || AGREED: True
+USER: 611cebd71927a2491a39f942 || ORDER: ['BASE', 'FRIENDLY', 'FORMAL', 'PERSONAL']
+USER: 611cebd71927a2491a39f942 || NODE_ID: 16460328708250870
+USER: 669b90a5fd33b2a8e2502f4f || PRE-SURVEY: {'exp_formality': '3'}
+USER: 669b90a5fd33b2a8e2502f4f || ORDER: ['FRIENDLY', 'PERSONAL', 'BASE', 'FORMAL']
+USER: 669b90a5fd33b2a8e2502f4f || NODE_ID: 16365521324065600
+USER: 5efa27ec1c76730eff3dad8e || Preferences: {'impressions1': 'Informal, friendly.', 'impressions2': 'Formal, informative.', 'impressions3': 'Informal, informative, friendly.', 'impressions4': 'Formal, too complicated.', 'user_ranking': 'D, B, C, A', 'best_template': 'C'}
+USER: 64c12183ab9cf635c69df81b || AGREED: True
+USER: 66952252774b98ac79dec71a@email.prolific.com || AGREED: True
+USER: 64c12183ab9cf635c69df81b || PRE-SURVEY: {'exp_formality': '3'}
+USER: 64c12183ab9cf635c69df81b || ORDER: ['FRIENDLY', 'FORMAL', 'PERSONAL', 'BASE']
+USER: 64c12183ab9cf635c69df81b || NODE_ID: 16460328708250870
+USER: 66952252774b98ac79dec71a@email.prolific.com || PRE-SURVEY: {'exp_formality': '4'}
+USER: 66952252774b98ac79dec71a@email.prolific.com || ORDER: ['BASE', 'FORMAL', 'PERSONAL', 'FRIENDLY']
+USER: 66952252774b98ac79dec71a@email.prolific.com || NODE_ID: 16365521324065600
+USER: 66952252774b98ac79dec71a@email.prolific.com || ORDER: ['FORMAL', 'PERSONAL', 'BASE', 'FRIENDLY']
+USER: 66952252774b98ac79dec71a@email.prolific.com || NODE_ID: 16460328708250870
+USER: 661a51225587ca83a6f23a5c || AGREED: True
+USER: 661a51225587ca83a6f23a5c || PRE-SURVEY: {'exp_formality': '3'}
+USER: 661a51225587ca83a6f23a5c || ORDER: ['PERSONAL', 'FRIENDLY', 'FORMAL', 'BASE']
+USER: 661a51225587ca83a6f23a5c || NODE_ID: 16365521324065600
+USER: 64c12183ab9cf635c69df81b || Preferences: {'impressions1': 'casual', 'impressions2': 'formal', 'impressions3': 'casual', 'impressions4': 'formal', 'user_ranking': 'B,D,A,C', 'best_template': 'D'}
+USER: 66952252774b98ac79dec71a@email.prolific.com || Preferences: {'impressions1': 'entitled, weighing', 'impressions2': 'Travel, kilometer ', 'impressions3': 'Transport, business, request ', 'impressions4': 'Ride, hauling, files', 'user_ranking': 'Transport, hauling,files, business, request, kilometer, travel, weighing, entitled ', 'best_template': 'b'}
+USER: 669b90a5fd33b2a8e2502f4f || Preferences: {'impressions1': 'Accommodation and Documentation.', 'impressions2': 'Specific and Practical', 'impressions3': 'Flexible and Clear', 'impressions4': 'Reasonable', 'user_ranking': 'D, B, C, A', 'best_template': 'D'}
+USER: 661a51225587ca83a6f23a5c || Preferences: {'impressions1': 'Formal, informative and useful.', 'impressions2': 'Sincere and welcoming.', 'impressions3': 'Too formal, intimidating and soulless. ', 'impressions4': 'Too informal, not very clear.', 'user_ranking': 'C, A, D, B', 'best_template': 'b'}
+USER: 5f7b241d63e1da06afec1b30 || AGREED: True
+USER: 5f7b241d63e1da06afec1b30 || PRE-SURVEY: {'exp_formality': '2'}
+USER: 5f7b241d63e1da06afec1b30 || ORDER: ['FORMAL', 'PERSONAL', 'BASE', 'FRIENDLY']
+USER: 5f7b241d63e1da06afec1b30 || NODE_ID: 16460328708250870
+USER: 669a6464014b2bcfcfecd213 || AGREED: True
+USER: 669a6464014b2bcfcfecd213 || PRE-SURVEY: {'exp_formality': '3'}
+USER: 669a6464014b2bcfcfecd213 || ORDER: ['FORMAL', 'PERSONAL', 'FRIENDLY', 'BASE']
+USER: 669a6464014b2bcfcfecd213 || NODE_ID: 16365521324065600
+USER: 669a6464014b2bcfcfecd213 || Preferences: {'impressions1': 'easy, informative, formal, long', 'impressions2': 'perfect, plain, easy to understand, ', 'impressions3': 'friendly, kind, happy', 'impressions4': 'fine, fair, ', 'user_ranking': 'A, D, B, C', 'best_template': 'b'}
+USER: 6102824749c381682b462dfb || AGREED: True
+USER: 614765848e321d1e9635a23d || AGREED: True
+USER: 645cf23cf9229b8dd5453a6e || AGREED: True
+USER: 6102824749c381682b462dfb || PRE-SURVEY: {'exp_formality': '3'}
+USER: 6102824749c381682b462dfb || ORDER: ['PERSONAL', 'BASE', 'FORMAL', 'FRIENDLY']
+USER: 6102824749c381682b462dfb || NODE_ID: 16460328708250870
+USER: 6151d0a5582003a8d242f7c6 || AGREED: True
+USER: 645cf23cf9229b8dd5453a6e || PRE-SURVEY: {'exp_formality': '3'}
+USER: 6151d0a5582003a8d242f7c6 || PRE-SURVEY: {'exp_formality': '2'}
+USER: 6151d0a5582003a8d242f7c6 || ORDER: ['FORMAL', 'BASE', 'PERSONAL', 'FRIENDLY']
+USER: 6151d0a5582003a8d242f7c6 || NODE_ID: 16365521324065600
+USER: 645cf23cf9229b8dd5453a6e || ORDER: ['PERSONAL', 'BASE', 'FRIENDLY', 'FORMAL']
+USER: 645cf23cf9229b8dd5453a6e || NODE_ID: 16460328708250870
+USER: 642959fe58cb911e8d7d644e || AGREED: True
+USER: 614765848e321d1e9635a23d || PRE-SURVEY: {'exp_formality': '3'}
+USER: 614765848e321d1e9635a23d || ORDER: ['PERSONAL', 'FORMAL', 'FRIENDLY', 'BASE']
+USER: 614765848e321d1e9635a23d || NODE_ID: 16365521324065600
+USER: 60c919c5d09f37d9ba277afd || AGREED: True
+USER: 64fead10d35271cb8eafc1c2 || AGREED: True
+USER: 642959fe58cb911e8d7d644e || PRE-SURVEY: {'exp_formality': '3'}
+USER: 642959fe58cb911e8d7d644e || ORDER: ['BASE', 'FORMAL', 'PERSONAL', 'FRIENDLY']
+USER: 642959fe58cb911e8d7d644e || NODE_ID: 16460328708250870
+USER: 60c919c5d09f37d9ba277afd || PRE-SURVEY: {'exp_formality': '2'}
+USER: 60c919c5d09f37d9ba277afd || ORDER: ['PERSONAL', 'FORMAL', 'FRIENDLY', 'BASE']
+USER: 60c919c5d09f37d9ba277afd || NODE_ID: 16378349334755637
+USER: 6033b9a844141b0ac09c60cf || AGREED: True
+USER: 64fead10d35271cb8eafc1c2 || PRE-SURVEY: {'exp_formality': '3'}
+USER: 64fead10d35271cb8eafc1c2 || ORDER: ['FORMAL', 'BASE', 'PERSONAL', 'FRIENDLY']
+USER: 64fead10d35271cb8eafc1c2 || NODE_ID: 16370483534787100
+USER: 6102824749c381682b462dfb || ORDER: ['FORMAL', 'BASE', 'FRIENDLY', 'PERSONAL']
+USER: 6102824749c381682b462dfb || NODE_ID: 16363834594338823
+USER: 6033b9a844141b0ac09c60cf || PRE-SURVEY: {'exp_formality': '3'}
+USER: 6033b9a844141b0ac09c60cf || ORDER: ['FORMAL', 'BASE', 'FRIENDLY', 'PERSONAL']
+USER: 6033b9a844141b0ac09c60cf || NODE_ID: 16378349334755637
+USER: 64fead10d35271cb8eafc1c2 || PRE-SURVEY: {'exp_formality': '2'}
+USER: 64fead10d35271cb8eafc1c2 || ORDER: ['FORMAL', 'BASE', 'PERSONAL', 'FRIENDLY']
+USER: 64fead10d35271cb8eafc1c2 || NODE_ID: 16370483534787100
+USER: 660eda76f3216b44e3783e81 || AGREED: True
+USER: 660eda76f3216b44e3783e81 || PRE-SURVEY: {'exp_formality': '3'}
+USER: 660eda76f3216b44e3783e81 || ORDER: ['BASE', 'PERSONAL', 'FORMAL', 'FRIENDLY']
+USER: 660eda76f3216b44e3783e81 || NODE_ID: 16363834594338823
+USER: 66742f788c454487df3a1a2a || AGREED: True
+USER: 66742f788c454487df3a1a2a || PRE-SURVEY: {'exp_formality': '2'}
+USER: 66742f788c454487df3a1a2a || ORDER: ['BASE', 'PERSONAL', 'FRIENDLY', 'FORMAL']
+USER: 66742f788c454487df3a1a2a || NODE_ID: 16378349334755637
+USER: 642959fe58cb911e8d7d644e || Preferences: {'impressions1': 'Robotic, untidy', 'impressions2': 'formal, clean', 'impressions3': 'Informal, rushed', 'impressions4': 'Semi-Formal, polite', 'user_ranking': 'B, D, A, C', 'best_template': 'D'}
+USER: 614765848e321d1e9635a23d || Preferences: {'impressions1': 'Casual', 'impressions2': 'Formal and professional', 'impressions3': 'Friendly and casual', 'impressions4': 'Informal and Straight to the point.', 'user_ranking': 'B, A, D, C', 'best_template': 'C'}
+USER: 6151d0a5582003a8d242f7c6 || Preferences: {'impressions1': 'Formal, rigid, governmental, ', 'impressions2': 'Very informal, not serious ', 'impressions3': 'Informal, casual, easy to understand, serious enough. ', 'impressions4': 'Informal, casual, friendly, kind of serious', 'user_ranking': 'C, D, A, B', 'best_template': 'C'}
+USER: 6033b9a844141b0ac09c60cf || Preferences: {'impressions1': 'Amazing', 'impressions2': 'Awesome', 'impressions3': 'Crazy', 'impressions4': 'Great', 'user_ranking': 'A ,D ,B ,C', 'best_template': 'D'}
+USER: 60c919c5d09f37d9ba277afd || Preferences: {'impressions1': 'Generous, handy, friendly', 'impressions2': 'standard, uniform, assured', 'impressions3': 'Perky, casual, informal, ', 'impressions4': 'Formal, standard', 'user_ranking': 'B, D, A, C', 'best_template': 'A'}
+USER: 660eda76f3216b44e3783e81 || Preferences: {'impressions1': 'Permissible', 'impressions2': 'Acceptable', 'impressions3': 'Allowed', 'impressions4': 'Unrestricted', 'user_ranking': 'A, C, B, D', 'best_template': 'A'}
+USER: 66742f788c454487df3a1a2a || Preferences: {'impressions1': 'Clear, straightforward, informative, concise', 'impressions2': 'Inclusive, explanatory, considerate, detailed', 'impressions3': 'Casual, informal, playful, friendly, engaging', 'impressions4': 'Adjectives: Formal, precise, informative, professional, clear', 'user_ranking': 'D, B, A, C', 'best_template': 'C'}
+USER: 645cf23cf9229b8dd5453a6e || Preferences: {'impressions1': 'Simple and informal', 'impressions2': 'Good and more formal', 'impressions3': 'Simple and informal', 'impressions4': 'Informative and formal ', 'user_ranking': 'D, B, C, A', 'best_template': 'D'}
+USER: 64fead10d35271cb8eafc1c2 || Preferences: {'impressions1': 'distinct, thought-provoking, deep, fancy', 'impressions2': 'sensible, classic, decent, firm', 'impressions3': 'charismatic, composed, well-formed', 'impressions4': 'clear, easy, witty, chatty, audible, joyful', 'user_ranking': 'A, B, C, D', 'best_template': 'C'}
+USER: 669bc3adbc7be494c80aaeae || AGREED: True
+USER: 650aedb786bfc02e22ec64d6 || AGREED: True
+USER: 650aedb786bfc02e22ec64d6 || PRE-SURVEY: {'exp_formality': '1'}
+USER: 650aedb786bfc02e22ec64d6 || ORDER: ['PERSONAL', 'BASE', 'FRIENDLY', 'FORMAL']
+USER: 650aedb786bfc02e22ec64d6 || NODE_ID: 16384329210117153
+USER: 64e8b4b5321fee55646ee79f || AGREED: True
+USER: 66347b1d3b38023debe2ddb2 || AGREED: True
+USER: 660d5600a14b438ee47bbb70 || AGREED: True
+USER: 669bc3adbc7be494c80aaeae || PRE-SURVEY: {'exp_formality': '3'}
+USER: 669bc3adbc7be494c80aaeae || ORDER: ['BASE', 'PERSONAL', 'FORMAL', 'FRIENDLY']
+USER: 669bc3adbc7be494c80aaeae || NODE_ID: 16457053159041482
+USER: 60f3ced4d6311de0d32e6786 || AGREED: True
+USER: 60db4aed5dd7b87124f51341 || AGREED: True
+USER: 64e8b4b5321fee55646ee79f || PRE-SURVEY: {'exp_formality': '3'}
+USER: 64e8b4b5321fee55646ee79f || ORDER: ['FORMAL', 'BASE', 'PERSONAL', 'FRIENDLY']
+USER: 64e8b4b5321fee55646ee79f || NODE_ID: 16365525829145685
+USER: 666c5c9b4303c721222ae6d0 || AGREED: True
+USER: 660d5600a14b438ee47bbb70 || PRE-SURVEY: {'exp_formality': '3'}
+USER: 660d5600a14b438ee47bbb70 || ORDER: ['FRIENDLY', 'BASE', 'FORMAL', 'PERSONAL']
+USER: 660d5600a14b438ee47bbb70 || NODE_ID: 16387868859695624
+USER: 60db4aed5dd7b87124f51341 || PRE-SURVEY: {'exp_formality': '3'}
+USER: 60db4aed5dd7b87124f51341 || ORDER: ['FRIENDLY', 'BASE', 'FORMAL', 'PERSONAL']
+USER: 60db4aed5dd7b87124f51341 || NODE_ID: 16384329210117153
+USER: 66347b1d3b38023debe2ddb2 || PRE-SURVEY: {'exp_formality': '3'}
+USER: 66347b1d3b38023debe2ddb2 || ORDER: ['PERSONAL', 'BASE', 'FORMAL', 'FRIENDLY']
+USER: 66347b1d3b38023debe2ddb2 || NODE_ID: 16457053159041482
+USER: 5fa0091ec747500252d2891f || AGREED: True
+USER: 60f3ced4d6311de0d32e6786 || PRE-SURVEY: {'exp_formality': '3'}
+USER: 60f3ced4d6311de0d32e6786 || ORDER: ['FORMAL', 'PERSONAL', 'FRIENDLY', 'BASE']
+USER: 60f3ced4d6311de0d32e6786 || NODE_ID: 16365525829145685
+USER: 665c4593e57fa1dd158da1e4 || AGREED: True
+USER: 666c5c9b4303c721222ae6d0 || PRE-SURVEY: {'exp_formality': '2'}
+USER: 666c5c9b4303c721222ae6d0 || ORDER: ['BASE', 'FRIENDLY', 'PERSONAL', 'FORMAL']
+USER: 666c5c9b4303c721222ae6d0 || NODE_ID: 16387868859695624
+USER: 5fa0091ec747500252d2891f || PRE-SURVEY: {'exp_formality': '3'}
+USER: 5fa0091ec747500252d2891f || ORDER: ['PERSONAL', 'BASE', 'FORMAL', 'FRIENDLY']
+USER: 5fa0091ec747500252d2891f || NODE_ID: 16384329210117153
+USER: 665c4593e57fa1dd158da1e4 || PRE-SURVEY: {'exp_formality': '3'}
+USER: 665c4593e57fa1dd158da1e4 || ORDER: ['PERSONAL', 'BASE', 'FORMAL', 'FRIENDLY']
+USER: 665c4593e57fa1dd158da1e4 || NODE_ID: 16457053159041482
+USER: 5bbcf0fc6b9c97000189f6bb || AGREED: True
+USER: 650aedb786bfc02e22ec64d6 || Preferences: {'impressions1': 'Expensive ', 'impressions2': 'Good idea', 'impressions3': 'Good service', 'impressions4': 'Nice', 'user_ranking': 'C,D,A,B', 'best_template': 'C'}
+USER: 5bbcf0fc6b9c97000189f6bb || PRE-SURVEY: {'exp_formality': '3'}
+USER: 5bbcf0fc6b9c97000189f6bb || ORDER: ['FRIENDLY', 'PERSONAL', 'BASE', 'FORMAL']
+USER: 5bbcf0fc6b9c97000189f6bb || NODE_ID: 16365525829145685
+USER: 6672c305775c70ed4186890a || AGREED: True
+USER: 6672c305775c70ed4186890a || PRE-SURVEY: {'exp_formality': '2'}
+USER: 6672c305775c70ed4186890a || ORDER: ['PERSONAL', 'FORMAL', 'FRIENDLY', 'BASE']
+USER: 6672c305775c70ed4186890a || NODE_ID: 16387868859695624
+USER: 60db4aed5dd7b87124f51341 || Preferences: {'impressions1': 'casual', 'impressions2': 'formal ', 'impressions3': 'formal', 'impressions4': 'informal casual', 'user_ranking': 'C,B,D,A', 'best_template': 'b'}
+USER: 5e28b99e1aacba092acd8cbd || AGREED: True
+USER: 5e28b99e1aacba092acd8cbd || PRE-SURVEY: {'exp_formality': '3'}
+USER: 5e28b99e1aacba092acd8cbd || ORDER: ['FRIENDLY', 'PERSONAL', 'FORMAL', 'BASE']
+USER: 5e28b99e1aacba092acd8cbd || NODE_ID: 16384329210117153
+USER: 66854d5e7dfe9cf62529321e || AGREED: True
+USER: 64e8b4b5321fee55646ee79f || Preferences: {'impressions1': 'time-consuming\\r\\nstressful', 'impressions2': 'simple\\r\\ncomprehendible \\r\\n', 'impressions3': 'helpful\\r\\nunderstanding\\r\\ncompassionate', 'impressions4': 'decent\\r\\ninformative', 'user_ranking': 'A, D, B, C', 'best_template': 'b'}
+USER: 66854d5e7dfe9cf62529321e || PRE-SURVEY: {'exp_formality': '4'}
+USER: 66854d5e7dfe9cf62529321e || ORDER: ['FRIENDLY', 'PERSONAL', 'BASE', 'FORMAL']
+USER: 66854d5e7dfe9cf62529321e || NODE_ID: 16457053159041482
+USER: 5e28b99e1aacba092acd8cbd || Preferences: {'impressions1': 'Informal, relaxed', 'impressions2': 'Formal, appropriate ', 'impressions3': 'Formal', 'impressions4': 'Boring. Bland ', 'user_ranking': 'C, d, b, a', 'best_template': 'b'}
+USER: 660d5600a14b438ee47bbb70 || Preferences: {'impressions1': 'Chill, semi-professional, Open, Honest, Kind, Grateful', 'impressions2': 'Technical, Cold, Formal', 'impressions3': 'Absurd, Professional, Wordy', 'impressions4': 'Friendly, Kind, Honest, Concise, Professional', 'user_ranking': 'C, B, D, A', 'best_template': 'D'}
+USER: 66347b1d3b38023debe2ddb2 || Preferences: {'impressions1': 'Direct, clear, considerate', 'impressions2': 'Urgent, formal, bureaucratic', 'impressions3': 'Polite, efficient, accommodating.', 'impressions4': 'Formal, detailed, procedural', 'user_ranking': 'Concise, proactive, reassuring.', 'best_template': 'A'}
+USER: 60f3ced4d6311de0d32e6786 || Preferences: {'impressions1': 'Taxi', 'impressions2': 'Taxi', 'impressions3': 'Money', 'impressions4': 'Taxi', 'user_ranking': 'D, A, C, B ', 'best_template': 'D'}
+USER: 5fa0091ec747500252d2891f || Preferences: {'impressions1': 'Expensive', 'impressions2': 'Refundable', 'impressions3': 'Eligible', 'impressions4': 'Compensable', 'user_ranking': 'C,B,A,D', 'best_template': 'C'}
+USER: 6672c305775c70ed4186890a || Preferences: {'impressions1': 'simple and understandable', 'impressions2': 'difficult words, some people may not understand', 'impressions3': 'really kind, expressively', 'impressions4': 'formal ', 'user_ranking': 'B, D, A, C', 'best_template': 'A'}
+USER: 665c4593e57fa1dd158da1e4 || Preferences: {'impressions1': 'descriptive ', 'impressions2': 'coordinate ', 'impressions3': 'cumulative ', 'impressions4': 'proper ', 'user_ranking': 'C,A,B,D', 'best_template': 'D'}
+USER: 66854d5e7dfe9cf62529321e || Preferences: {'impressions1': 'Informal,Reassuring,concise,friendly', 'impressions2': 'Direct,formal,objective,reassuring,authoritative', 'impressions3': 'Formal,detailed,precise,official,comprehensive', 'impressions4': 'Polite,formal,clear,precise,structured and professional', 'user_ranking': 'D,C,B,A', 'best_template': 'D'}
+USER: 669bc3adbc7be494c80aaeae || Preferences: {'impressions1': 'Necessary -highlights essential expenses that cannot be avoided.\\r\\nReimbursable - indicates that certain costs will be covered.\\r\\nPrompt - emphasizes the need for quick action.\\r\\nFormal - suggests a professional and official tone.\\r\\nInstructional - provides clear guidelines on what actions to take.', 'impressions2': 'Clear - straightforward and easy to understand.\\r\\nConcise - brief and to the point.\\r\\nFriendly - uses a more casual and approachable tone.\\r\\nInformal - adopts a relaxed and conversational style.\\r\\nDirect - provides direct instructions without unnecessary detail.', 'impressions3': 'Formal - maintains a professional tone.\\r\\nDetailed - provides specific instructions.\\r\\nAssuring - offers assurance about reimbursement.\\r\\nStructured - follows a clear and organized format.\\r\\nProfessional - conveys a sense of professionalism and authority.', 'impressions4': 'Casual - uses informal language and relaxed tone.\\r\\nDirect - straightforward and to the point.\\r\\nFriendly - approachable.\\r\\nSimplified - easy to understand without complex language.\\r\\nInformal - adopts a laid back and unpretentious language style.\\r\\n', 'user_ranking': 'C,A,B,D', 'best_template': 'b'}

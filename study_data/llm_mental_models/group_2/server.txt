@@ -1,0 +1,21 @@
+/home/ubuntu/cts_activelearning/.env/lib/python3.10/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+/home/ubuntu/cts_activelearning/.env/lib/python3.10/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+/home/ubuntu/cts_activelearning/server.py:130: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  node_text_embeddings = torch.load("embedding_cache.pt")
+SSL Error on 18 ('18.212.155.249', 3073): [SSL: UNSUPPORTED_PROTOCOL] unsupported protocol (_ssl.c:1007)
+SSL Error on 14 ('18.212.155.249', 21168): [SSL: UNSUPPORTED_PROTOCOL] unsupported protocol (_ssl.c:1007)
+SSL Error on 13 ('18.212.155.249', 22928): [SSL: VERSION_TOO_LOW] version too low (_ssl.c:1007)
+SSL Error on 15 ('18.212.155.249', 21518): [SSL: NO_SHARED_CIPHER] no shared cipher (_ssl.c:1007)
+SSL Error on 17 ('18.212.155.249', 28823): [SSL: UNKNOWN_PROTOCOL] unknown protocol (_ssl.c:1007)
+404 GET /favicon.ico (219.104.139.72) 1.59ms
+404 GET /favicon.ico (154.119.69.114) 0.61ms
+404 GET /favicon.ico (105.247.137.12) 0.74ms
+404 GET /index.asp (92.249.48.232) 0.64ms
+404 GET /favicon.ico (91.225.135.59) 0.66ms
+404 GET /favicon.ico (41.76.96.194) 0.63ms
+404 GET /favicon.ico (41.13.70.102) 0.64ms
+SSL Error on 17 ('13.64.107.205', 49930): [SSL: UNSUPPORTED_PROTOCOL] unsupported protocol (_ssl.c:1007)
+404 GET /web/function/init.js (185.224.128.52) 1.24ms
+SSL Error on 14 ('185.224.128.52', 35876): [SSL: HTTP_REQUEST] http request (_ssl.c:1007)

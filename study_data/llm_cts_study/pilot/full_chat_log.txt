@@ -1,0 +1,1391 @@
+USER: 2cb999ea8f6e2d08ed51fbec5b48f2 || GROUP: cts_llm
+==== NEW DIALOG STARTED FOR USER 2cb999ea8f6e2d08ed51fbec5b48f2 ====
+USER: 2cb999ea8f6e2d08ed51fbec5b48f2 || GOAL: You want to know how to book a flight || NODE_ID: 16387868859695624
+2cb999ea8f6e2d08ed51fbec5b48f2-0$ RESET
+2cb999ea8f6e2d08ed51fbec5b48f2-0$ GOAL (16387868859695624): Thank you for using the business travel chatbot.Please let us know about yo
+2cb999ea8f6e2d08ed51fbec5b48f2-1$ SYSTEM (ASK, 16348058621438633): What topic do you have questions about? You can either click on an answer f
+2cb999ea8f6e2d08ed51fbec5b48f2-1$ USER: Book a trip
+2cb999ea8f6e2d08ed51fbec5b48f2-1$ INTENT: 0
+2cb999ea8f6e2d08ed51fbec5b48f2-1$ SYSTEM (SKIP, 16348058588084537): Are you going on an intracity trip or a business trip?
+2cb999ea8f6e2d08ed51fbec5b48f2-1$ SYSTEM (ASK, 16348058588084537): Are you going on an intracity trip or a business trip?
+2cb999ea8f6e2d08ed51fbec5b48f2-1$ USER: Intracity business trip
+2cb999ea8f6e2d08ed51fbec5b48f2-1$ SYSTEM (SKIP, 16348070558358676): Did you get verbal permission from your supervisor?
+2cb999ea8f6e2d08ed51fbec5b48f2-1$ SYSTEM (ASK, 16348070558358676): Did you get verbal permission from your supervisor?
+2cb999ea8f6e2d08ed51fbec5b48f2-1$ USER: Yes
+2cb999ea8f6e2d08ed51fbec5b48f2-1$ SYSTEM (SKIP, 16348071239272239): Do you want to know more about booking Transportation or about ancillary co
+2cb999ea8f6e2d08ed51fbec5b48f2-1$ SYSTEM (ASK, 16348071239272239): Do you want to know more about booking Transportation or about ancillary co
+2cb999ea8f6e2d08ed51fbec5b48f2-1$ USER: Transportation
+2cb999ea8f6e2d08ed51fbec5b48f2-1$ SYSTEM (SKIP, 16348100109577394): What type of transportation would you like?
+2cb999ea8f6e2d08ed51fbec5b48f2-1$ SYSTEM (ASK, 16348100109577394): What type of transportation would you like?
+2cb999ea8f6e2d08ed51fbec5b48f2-1$ USER: Flight
+2cb999ea8f6e2d08ed51fbec5b48f2-1$ SYSTEM (SKIP, 16478798353898107): Are you planning to extend your trip with private travel?
+2cb999ea8f6e2d08ed51fbec5b48f2-1$ SYSTEM (ASK, 16478798353898107): Are you planning to extend your trip with private travel?
+2cb999ea8f6e2d08ed51fbec5b48f2-1$ USER: Yes
+2cb999ea8f6e2d08ed51fbec5b48f2-1$ SYSTEM (SKIP, 16378317000884236): {{PRIVATE_EXTENSION
+2cb999ea8f6e2d08ed51fbec5b48f2-1$ SYSTEM (SKIP, 16363755463439219): Costs which occur as part of the business aspect of a trip are reimbursable
+2cb999ea8f6e2d08ed51fbec5b48f2-1$ SYSTEM (ASK, 16363755463439219): Costs which occur as part of the business aspect of a trip are reimbursable
+2cb999ea8f6e2d08ed51fbec5b48f2-1$ SYSTEM (SKIP, 16351700401033947): Flights are reimbursable there is a compelling  business or economic reason
+2cb999ea8f6e2d08ed51fbec5b48f2-1$ SYSTEM (ASK, 16351700401033947): Flights are reimbursable there is a compelling  business or economic reason
+2cb999ea8f6e2d08ed51fbec5b48f2-1$ SYSTEM (SKIP, 16351719713796576): Booking a "Business"  class ticket is allowed on flights which last more th
+2cb999ea8f6e2d08ed51fbec5b48f2-1$ SYSTEM (ASK, 16351719713796576): Booking a "Business"  class ticket is allowed on flights which last more th
+2cb999ea8f6e2d08ed51fbec5b48f2-1$ SYSTEM (SKIP, 16351710117855351): Flights must be booked through the university's Partner Travel Agency (Tel.
+2cb999ea8f6e2d08ed51fbec5b48f2-1$ SYSTEM (ASK, 16351710117855351): Flights must be booked through the university's Partner Travel Agency (Tel.
+2cb999ea8f6e2d08ed51fbec5b48f2-1$ SYSTEM (SKIP, 16389605006407473): In order to book trips through the partner travel agency, you will need to 
+2cb999ea8f6e2d08ed51fbec5b48f2-1$ SYSTEM (ASK, 16389605006407473): In order to book trips through the partner travel agency, you will need to 
+2cb999ea8f6e2d08ed51fbec5b48f2-1$ SYSTEM (SKIP, 16351756667261880): Do you have any other questions about booking transportation?
+2cb999ea8f6e2d08ed51fbec5b48f2-1$ SYSTEM (ASK, 16351756667261880): Do you have any other questions about booking transportation?
+2cb999ea8f6e2d08ed51fbec5b48f2-1$ USER: No
+2cb999ea8f6e2d08ed51fbec5b48f2-1$ SYSTEM (SKIP, 16384313191857195): Do you have any further questions?
+2cb999ea8f6e2d08ed51fbec5b48f2-1$ SYSTEM (ASK, 16384313191857195): Do you have any further questions?
+2cb999ea8f6e2d08ed51fbec5b48f2-1$ USER: No
+2cb999ea8f6e2d08ed51fbec5b48f2-1$ SYSTEM (SKIP, 16387868859695624): Thank you for using the business travel chatbot.Please let us know about yo
+2cb999ea8f6e2d08ed51fbec5b48f2-1$ REACHED GOAL ONCE
+2cb999ea8f6e2d08ed51fbec5b48f2-1$ SYSTEM (ASK, 16387868859695624): Thank you for using the business travel chatbot.Please let us know about yo
+2cb999ea8f6e2d08ed51fbec5b48f2-1$ ASKED GOAL ONCE
+2cb999ea8f6e2d08ed51fbec5b48f2-1$ BST: {"PRIVATE_EXTENSION": true}
+2cb999ea8f6e2d08ed51fbec5b48f2-1$ REACHED GOAL ONCE: True
+2cb999ea8f6e2d08ed51fbec5b48f2-1$ ASKED GOAL ONCE: True
+2cb999ea8f6e2d08ed51fbec5b48f2-1$ TOTAL LENGTH: 28
+2cb999ea8f6e2d08ed51fbec5b48f2-1$ PERCEIVED LENGTH: 14
+USER: 2cb999ea8f6e2d08ed51fbec5b48f2 || QUALITY: 1
+USER: 2cb999ea8f6e2d08ed51fbec5b48f2 || LENGTH: 1
+==== NEW DIALOG STARTED FOR USER 2cb999ea8f6e2d08ed51fbec5b48f2 ====
+USER: 2cb999ea8f6e2d08ed51fbec5b48f2 || GOAL: You want to know if you can be reimbursed if you need to book a taxi during your trip. || NODE_ID: 16365525829145685
+2cb999ea8f6e2d08ed51fbec5b48f2-1$ RESET
+2cb999ea8f6e2d08ed51fbec5b48f2-1$ GOAL (16365525829145685): A taxi is only reimbursable if there is a business related reason or a pres
+2cb999ea8f6e2d08ed51fbec5b48f2-2$ SYSTEM (ASK, 16348058621438633): What topic do you have questions about? You can either click on an answer f
+USER: 4fbef22136fc434f86bcea23375367 || GROUP: cts_llm
+2cb999ea8f6e2d08ed51fbec5b48f2-2$ USER: Reimbursement
+2cb999ea8f6e2d08ed51fbec5b48f2-2$ INTENT: 1
+2cb999ea8f6e2d08ed51fbec5b48f2-2$ SYSTEM (ASK, 16348058621438633): What topic do you have questions about? You can either click on an answer f
+2cb999ea8f6e2d08ed51fbec5b48f2-2$=> REACHED GOAL ONCE: False
+2cb999ea8f6e2d08ed51fbec5b48f2-2$=> ASKED GOAL ONCE: False
+2cb999ea8f6e2d08ed51fbec5b48f2-2$=> PERCIEVED LENGTH: 2
+=== USER (2cb999ea8f6e2d08ed51fbec5b48f2) RESTART === 
+2cb999ea8f6e2d08ed51fbec5b48f2-2$ RESET
+2cb999ea8f6e2d08ed51fbec5b48f2-2$ GOAL (16365525829145685): A taxi is only reimbursable if there is a business related reason or a pres
+2cb999ea8f6e2d08ed51fbec5b48f2-3$ SYSTEM (ASK, 16348058621438633): What topic do you have questions about? You can either click on an answer f
+2cb999ea8f6e2d08ed51fbec5b48f2-3$ USER: Book a trip
+2cb999ea8f6e2d08ed51fbec5b48f2-3$ INTENT: 0
+2cb999ea8f6e2d08ed51fbec5b48f2-3$ SYSTEM (SKIP, 16348058588084537): Are you going on an intracity trip or a business trip?
+2cb999ea8f6e2d08ed51fbec5b48f2-3$ SYSTEM (ASK, 16348058588084537): Are you going on an intracity trip or a business trip?
+2cb999ea8f6e2d08ed51fbec5b48f2-3$=> REACHED GOAL ONCE: False
+2cb999ea8f6e2d08ed51fbec5b48f2-3$=> ASKED GOAL ONCE: False
+2cb999ea8f6e2d08ed51fbec5b48f2-3$=> PERCIEVED LENGTH: 2
+=== USER (2cb999ea8f6e2d08ed51fbec5b48f2) RESTART === 
+2cb999ea8f6e2d08ed51fbec5b48f2-3$ RESET
+2cb999ea8f6e2d08ed51fbec5b48f2-3$ GOAL (16365525829145685): A taxi is only reimbursable if there is a business related reason or a pres
+2cb999ea8f6e2d08ed51fbec5b48f2-4$ SYSTEM (ASK, 16348058621438633): What topic do you have questions about? You can either click on an answer f
+Closing connection for user 2cb999ea8f6e2d08ed51fbec5b48f2
+==== NEW DIALOG STARTED FOR USER 2cb999ea8f6e2d08ed51fbec5b48f2 ====
+USER: 2cb999ea8f6e2d08ed51fbec5b48f2 || GOAL: You want to know if you can be reimbursed if you need to book a taxi during your trip. || NODE_ID: 16365525829145685
+2cb999ea8f6e2d08ed51fbec5b48f2-4$ RESET
+2cb999ea8f6e2d08ed51fbec5b48f2-4$ GOAL (16365525829145685): A taxi is only reimbursable if there is a business related reason or a pres
+2cb999ea8f6e2d08ed51fbec5b48f2-5$ SYSTEM (ASK, 16348058621438633): What topic do you have questions about? You can either click on an answer f
+USER: 4fbef22136fc434f86bcea23375367 || GROUP: cts_llm
+==== NEW DIALOG STARTED FOR USER 4fbef22136fc434f86bcea23375367 ====
+USER: 4fbef22136fc434f86bcea23375367 || GOAL: You want to inform yourself what to do in case of an emergency during travel. || NODE_ID: 16387868859695624
+4fbef22136fc434f86bcea23375367-0$ RESET
+4fbef22136fc434f86bcea23375367-0$ GOAL (16387868859695624): Thank you for using the business travel chatbot.Please let us know about yo
+4fbef22136fc434f86bcea23375367-1$ SYSTEM (ASK, 16348058621438633): What topic do you have questions about? You can either click on an answer f
+2cb999ea8f6e2d08ed51fbec5b48f2-5$ USER: Problem/emergency during a business trip
+2cb999ea8f6e2d08ed51fbec5b48f2-5$ INTENT: 0
+2cb999ea8f6e2d08ed51fbec5b48f2-5$ SYSTEM (SKIP, 16460436532310883): What emergency are you experiencing?
+2cb999ea8f6e2d08ed51fbec5b48f2-5$ SYSTEM (ASK, 16460436532310883): What emergency are you experiencing?
+2cb999ea8f6e2d08ed51fbec5b48f2-5$ USER: Transport missed or cancelled
+2cb999ea8f6e2d08ed51fbec5b48f2-5$ SYSTEM (SKIP, 16460439592347465): If you are at fault, costs cannot be reimbursed.
+2cb999ea8f6e2d08ed51fbec5b48f2-5$ SYSTEM (ASK, 16460439592347465): If you are at fault, costs cannot be reimbursed.
+2cb999ea8f6e2d08ed51fbec5b48f2-5$ SYSTEM (SKIP, 16460439966919842): If you are not at fault (e.g., a conference ran over), costs can be reimbur
+2cb999ea8f6e2d08ed51fbec5b48f2-5$ SYSTEM (ASK, 16460439966919842): If you are not at fault (e.g., a conference ran over), costs can be reimbur
+2cb999ea8f6e2d08ed51fbec5b48f2-5$ SYSTEM (SKIP, 16348058621438633): What topic do you have questions about? You can either click on an answer f
+2cb999ea8f6e2d08ed51fbec5b48f2-5$ SYSTEM (ASK, 16348058621438633): What topic do you have questions about? You can either click on an answer f
+2cb999ea8f6e2d08ed51fbec5b48f2-5$=> REACHED GOAL ONCE: False
+2cb999ea8f6e2d08ed51fbec5b48f2-5$=> ASKED GOAL ONCE: False
+2cb999ea8f6e2d08ed51fbec5b48f2-5$=> PERCIEVED LENGTH: 5
+USER: 2cb999ea8f6e2d08ed51fbec5b48f2 || QUALITY: 3
+USER: 2cb999ea8f6e2d08ed51fbec5b48f2 || LENGTH: 1
+==== NEW DIALOG STARTED FOR USER 2cb999ea8f6e2d08ed51fbec5b48f2 ====
+USER: 2cb999ea8f6e2d08ed51fbec5b48f2 || GOAL: You are trying to figure out how much money you get for booking somewhere to stay on your trip. <ul><li>Your trip is to Tokyo, Japan</li><li>Your trip should take 10 days</li><li>You plan to stay in a hotel</li></ul> || NODE_ID: 16365521324065600
+2cb999ea8f6e2d08ed51fbec5b48f2-5$ RESET
+2cb999ea8f6e2d08ed51fbec5b48f2-5$ GOAL (16365521324065600): In {{ COUNTRY }} you have a budget of up to 90€ (or 120€ in cities with a p
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ SYSTEM (ASK, 16348058621438633): What topic do you have questions about? You can either click on an answer f
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ USER: Book a trip
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ INTENT: 0
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ SYSTEM (SKIP, 16348058588084537): Are you going on an intracity trip or a business trip?
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ SYSTEM (ASK, 16348058588084537): Are you going on an intracity trip or a business trip?
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ USER: Business trip
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ SYSTEM (SKIP, 16348064261907944): Did you get written permission from your supervisor?
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ SYSTEM (ASK, 16348064261907944): Did you get written permission from your supervisor?
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ USER: Yes
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ SYSTEM (SKIP, 16363752591243585): What country are you traveling to?
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ SYSTEM (ASK, 16363752591243585): What country are you traveling to?
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ USER: Japan
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ SYSTEM (SKIP, 16363753123487784): What city are you traveling to?
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ SYSTEM (ASK, 16363753123487784): What city are you traveling to?
+4fbef22136fc434f86bcea23375367-1$ USER: Hello, could you tell me about Travel Risk Management? What should I do in case of emergancy during travel?
+Traceback (most recent call last):
+  File "/home/ubuntu/cts_activelearning/server.py", line 215, in on_message
+    CHAT_ENGINES[self.current_user].user_reply(value)
+  File "/home/ubuntu/cts_activelearning/server/cts_llm_policy.py", line 687, in user_reply
+    self.dialog_loop(user_utterance=msg)
+  File "/home/ubuntu/cts_activelearning/server/cts_llm_policy.py", line 595, in dialog_loop
+    action, intent = self.predict(current_node=self.current_node, user_utterance=user_utterance)
+  File "/home/ubuntu/cts_activelearning/server/cts_llm_policy.py", line 861, in predict
+    intent = self.get_user_intent(user_utterance=user_utterance, model=self.model, seed=self.seed, temperature=self.temperature)
+  File "/home/ubuntu/cts_activelearning/server/cts_llm_policy.py", line 486, in get_user_intent
+    return UserIntent.STATEMENT if results["statement"] else UserIntent.QUESTION
+TypeError: list indices must be integers or slices, not str
+
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ USER: Tokyo
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ SYSTEM (SKIP, 16391575204698838): {{COUNTRY
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ SYSTEM (SKIP, 16389695846089108): For all  business trips (even for short trips or ones lasting only a single
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ SYSTEM (ASK, 16389695846089108): For all  business trips (even for short trips or ones lasting only a single
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ SYSTEM (SKIP, 16363753477187975): Please check the current COVID-19 travel warnings travel restrictions from 
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ SYSTEM (ASK, 16363753477187975): Please check the current COVID-19 travel warnings travel restrictions from 
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ SYSTEM (SKIP, 16363754346769013): COVID-19: Business trips should be reduced to an absolute minimum and are o
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ SYSTEM (ASK, 16363754346769013): COVID-19: Business trips should be reduced to an absolute minimum and are o
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ SYSTEM (SKIP, 16348093549280346): Are you planning to extend your trip with private travel?
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ SYSTEM (ASK, 16348093549280346): Are you planning to extend your trip with private travel?
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ USER: No
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ SYSTEM (SKIP, 16378316272591567): {{PRIVATE_EXTENSION
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ SYSTEM (SKIP, 16348097487038694): Which topic do you want to know more about?
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ SYSTEM (ASK, 16348097487038694): Which topic do you want to know more about?
+4fbef22136fc434f86bcea23375367-1$=> REACHED GOAL ONCE: False
+4fbef22136fc434f86bcea23375367-1$=> ASKED GOAL ONCE: False
+4fbef22136fc434f86bcea23375367-1$=> PERCIEVED LENGTH: 1
+=== USER (4fbef22136fc434f86bcea23375367) RESTART === 
+4fbef22136fc434f86bcea23375367-1$ RESET
+4fbef22136fc434f86bcea23375367-1$ GOAL (16387868859695624): Thank you for using the business travel chatbot.Please let us know about yo
+4fbef22136fc434f86bcea23375367-2$ SYSTEM (ASK, 16348058621438633): What topic do you have questions about? You can either click on an answer f
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ USER: Per diem
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ SYSTEM (SKIP, 16370471520148677): How long is the business related portion of your travel?
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ SYSTEM (ASK, 16370471520148677): How long is the business related portion of your travel?
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ USER: 10 days
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ SYSTEM (SKIP, 16478799587660558): What country are you traveling to?
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ SYSTEM (SKIP, 16370471521305491): {{COUNTRY
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ SYSTEM (SKIP, 16370471522950468): In {{ COUNTRY }}, you are entitled to {{ PERDIEM.AMOUNT(COUNTRY, CITY) }} €
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ SYSTEM (ASK, 16370471522950468): In {{ COUNTRY }}, you are entitled to {{ PERDIEM.AMOUNT(COUNTRY, CITY) }} €
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ SYSTEM (SKIP, 16370471520700766): {{TRIP_LENGTH
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ SYSTEM (SKIP, 16384313191857195): Do you have any further questions?
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ SYSTEM (ASK, 16384313191857195): Do you have any further questions?
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ USER: Yes
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ SYSTEM (SKIP, 16348058621438633): What topic do you have questions about? You can either click on an answer f
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ SYSTEM (ASK, 16348058621438633): What topic do you have questions about? You can either click on an answer f
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ USER: Book a trip
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ SYSTEM (SKIP, 16348058588084537): Are you going on an intracity trip or a business trip?
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ SYSTEM (ASK, 16348058588084537): Are you going on an intracity trip or a business trip?
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ USER: Business trip
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ SYSTEM (SKIP, 16348064261907944): Did you get written permission from your supervisor?
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ SYSTEM (ASK, 16348064261907944): Did you get written permission from your supervisor?
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ USER: Yes
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ SYSTEM (SKIP, 16363752591243585): What country are you traveling to?
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ SYSTEM (SKIP, 16363753123487784): What city are you traveling to?
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ SYSTEM (SKIP, 16391575204698838): {{COUNTRY
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ SYSTEM (SKIP, 16389695846089108): For all  business trips (even for short trips or ones lasting only a single
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ SYSTEM (ASK, 16389695846089108): For all  business trips (even for short trips or ones lasting only a single
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ SYSTEM (SKIP, 16363753477187975): Please check the current COVID-19 travel warnings travel restrictions from 
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ SYSTEM (ASK, 16363753477187975): Please check the current COVID-19 travel warnings travel restrictions from 
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ SYSTEM (SKIP, 16363754346769013): COVID-19: Business trips should be reduced to an absolute minimum and are o
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ SYSTEM (ASK, 16363754346769013): COVID-19: Business trips should be reduced to an absolute minimum and are o
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ SYSTEM (SKIP, 16348093549280346): Are you planning to extend your trip with private travel?
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ SYSTEM (SKIP, 16378316272591567): {{PRIVATE_EXTENSION
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ SYSTEM (SKIP, 16348097487038694): Which topic do you want to know more about?
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ SYSTEM (ASK, 16348097487038694): Which topic do you want to know more about?
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ USER: Accommodation
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ SYSTEM (SKIP, 16378350683837525): If the trip is being paid for by a third party (not from the university) or
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ SYSTEM (ASK, 16378350683837525): If the trip is being paid for by a third party (not from the university) or
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ SYSTEM (SKIP, 16478801254732768): What country are you traveling to?
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ SYSTEM (SKIP, 16370471522263677): Where do you plan to stay
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ SYSTEM (ASK, 16370471522263677): Where do you plan to stay
+4fbef22136fc434f86bcea23375367-2$ USER: Hello, could you tell me about Travel Risk Management? What should I do in case of emergancy during travel?
+Traceback (most recent call last):
+  File "/home/ubuntu/cts_activelearning/server.py", line 215, in on_message
+    CHAT_ENGINES[self.current_user].user_reply(value)
+  File "/home/ubuntu/cts_activelearning/server/cts_llm_policy.py", line 687, in user_reply
+    self.dialog_loop(user_utterance=msg)
+  File "/home/ubuntu/cts_activelearning/server/cts_llm_policy.py", line 595, in dialog_loop
+    action, intent = self.predict(current_node=self.current_node, user_utterance=user_utterance)
+  File "/home/ubuntu/cts_activelearning/server/cts_llm_policy.py", line 861, in predict
+    intent = self.get_user_intent(user_utterance=user_utterance, model=self.model, seed=self.seed, temperature=self.temperature)
+  File "/home/ubuntu/cts_activelearning/server/cts_llm_policy.py", line 486, in get_user_intent
+    return UserIntent.STATEMENT if results["statement"] else UserIntent.QUESTION
+TypeError: list indices must be integers or slices, not str
+
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ USER: Hotel
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ SYSTEM (SKIP, 16363812426270449): Hotels can be booked using the university's partner travel agency, through 
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ SYSTEM (ASK, 16363812426270449): Hotels can be booked using the university's partner travel agency, through 
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ SYSTEM (SKIP, 16389574258367592): In order to book trips through the partner travel agency, you will need to 
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ SYSTEM (ASK, 16389574258367592): In order to book trips through the partner travel agency, you will need to 
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ SYSTEM (SKIP, 16363811629822245): It is required that the bill is addressed to your employer with your name e
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ SYSTEM (ASK, 16363811629822245): It is required that the bill is addressed to your employer with your name e
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ SYSTEM (SKIP, 16370471520509009): {{COUNTRY
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ SYSTEM (SKIP, 16365521324065600): In {{ COUNTRY }} you have a budget of up to 90€ (or 120€ in cities with a p
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ REACHED GOAL ONCE
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ SYSTEM (ASK, 16365521324065600): In {{ COUNTRY }} you have a budget of up to 90€ (or 120€ in cities with a p
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ ASKED GOAL ONCE
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ BST: {"COUNTRY": "Japan", "CITY": "Tokyo", "PRIVATE_EXTENSION": false, "TRIP_LENGTH": 240}
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ REACHED GOAL ONCE: True
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ ASKED GOAL ONCE: True
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ TOTAL LENGTH: 63
+2cb999ea8f6e2d08ed51fbec5b48f2-6$ PERCEIVED LENGTH: 26
+USER: 2cb999ea8f6e2d08ed51fbec5b48f2 || QUALITY: 3
+USER: 2cb999ea8f6e2d08ed51fbec5b48f2 || LENGTH: 2
+Closing connection for user 2cb999ea8f6e2d08ed51fbec5b48f2
+4fbef22136fc434f86bcea23375367-2$=> REACHED GOAL ONCE: False
+4fbef22136fc434f86bcea23375367-2$=> ASKED GOAL ONCE: False
+4fbef22136fc434f86bcea23375367-2$=> PERCIEVED LENGTH: 1
+=== USER (4fbef22136fc434f86bcea23375367) RESTART === 
+4fbef22136fc434f86bcea23375367-2$ RESET
+4fbef22136fc434f86bcea23375367-2$ GOAL (16387868859695624): Thank you for using the business travel chatbot.Please let us know about yo
+4fbef22136fc434f86bcea23375367-3$ SYSTEM (ASK, 16348058621438633): What topic do you have questions about? You can either click on an answer f
+4fbef22136fc434f86bcea23375367-3$ USER: Hello, could you tell me about Travel Risk Management? What should I do in case of emergancy during travel?
+Traceback (most recent call last):
+  File "/home/ubuntu/cts_activelearning/server.py", line 215, in on_message
+    CHAT_ENGINES[self.current_user].user_reply(value)
+  File "/home/ubuntu/cts_activelearning/server/cts_llm_policy.py", line 687, in user_reply
+    self.dialog_loop(user_utterance=msg)
+  File "/home/ubuntu/cts_activelearning/server/cts_llm_policy.py", line 595, in dialog_loop
+    action, intent = self.predict(current_node=self.current_node, user_utterance=user_utterance)
+  File "/home/ubuntu/cts_activelearning/server/cts_llm_policy.py", line 861, in predict
+    intent = self.get_user_intent(user_utterance=user_utterance, model=self.model, seed=self.seed, temperature=self.temperature)
+  File "/home/ubuntu/cts_activelearning/server/cts_llm_policy.py", line 486, in get_user_intent
+    return UserIntent.STATEMENT if results["statement"] else UserIntent.QUESTION
+TypeError: list indices must be integers or slices, not str
+
+USER: e04e17c62ac9cd37416aa4cb781f43 || GROUP: cts_llm
+==== NEW DIALOG STARTED FOR USER e04e17c62ac9cd37416aa4cb781f43 ====
+USER: e04e17c62ac9cd37416aa4cb781f43 || GOAL: You want to know how to book a hotel || NODE_ID: 16387868859695624
+e04e17c62ac9cd37416aa4cb781f43-0$ RESET
+e04e17c62ac9cd37416aa4cb781f43-0$ GOAL (16387868859695624): Thank you for using the business travel chatbot.Please let us know about yo
+e04e17c62ac9cd37416aa4cb781f43-1$ SYSTEM (ASK, 16348058621438633): What topic do you have questions about? You can either click on an answer f
+e04e17c62ac9cd37416aa4cb781f43-1$ USER: Book a trip
+e04e17c62ac9cd37416aa4cb781f43-1$ INTENT: 0
+e04e17c62ac9cd37416aa4cb781f43-1$ SYSTEM (SKIP, 16348058588084537): Are you going on an intracity trip or a business trip?
+e04e17c62ac9cd37416aa4cb781f43-1$ SYSTEM (ASK, 16348058588084537): Are you going on an intracity trip or a business trip?
+4fbef22136fc434f86bcea23375367-3$=> REACHED GOAL ONCE: False
+4fbef22136fc434f86bcea23375367-3$=> ASKED GOAL ONCE: False
+4fbef22136fc434f86bcea23375367-3$=> PERCIEVED LENGTH: 1
+=== USER (4fbef22136fc434f86bcea23375367) RESTART === 
+4fbef22136fc434f86bcea23375367-3$ RESET
+4fbef22136fc434f86bcea23375367-3$ GOAL (16387868859695624): Thank you for using the business travel chatbot.Please let us know about yo
+4fbef22136fc434f86bcea23375367-4$ SYSTEM (ASK, 16348058621438633): What topic do you have questions about? You can either click on an answer f
+4fbef22136fc434f86bcea23375367-4$ USER: Hello, could you tell me about Travel Risk Management? What should I do in case of emergancy during travel?
+Traceback (most recent call last):
+  File "/home/ubuntu/cts_activelearning/server.py", line 215, in on_message
+    CHAT_ENGINES[self.current_user].user_reply(value)
+  File "/home/ubuntu/cts_activelearning/server/cts_llm_policy.py", line 687, in user_reply
+    self.dialog_loop(user_utterance=msg)
+  File "/home/ubuntu/cts_activelearning/server/cts_llm_policy.py", line 595, in dialog_loop
+    action, intent = self.predict(current_node=self.current_node, user_utterance=user_utterance)
+  File "/home/ubuntu/cts_activelearning/server/cts_llm_policy.py", line 861, in predict
+    intent = self.get_user_intent(user_utterance=user_utterance, model=self.model, seed=self.seed, temperature=self.temperature)
+  File "/home/ubuntu/cts_activelearning/server/cts_llm_policy.py", line 486, in get_user_intent
+    return UserIntent.STATEMENT if results["statement"] else UserIntent.QUESTION
+TypeError: list indices must be integers or slices, not str
+
+Closing connection for user 4fbef22136fc434f86bcea23375367
+==== NEW DIALOG STARTED FOR USER 4fbef22136fc434f86bcea23375367 ====
+USER: 4fbef22136fc434f86bcea23375367 || GOAL: You want to inform yourself what to do in case of an emergency during travel. || NODE_ID: 16387868859695624
+4fbef22136fc434f86bcea23375367-4$ RESET
+4fbef22136fc434f86bcea23375367-4$ GOAL (16387868859695624): Thank you for using the business travel chatbot.Please let us know about yo
+4fbef22136fc434f86bcea23375367-5$ SYSTEM (ASK, 16348058621438633): What topic do you have questions about? You can either click on an answer f
+4fbef22136fc434f86bcea23375367-5$ USER: Hello, could you tell me about Travel Risk Management? What should I do in case of emergancy during travel?
+Traceback (most recent call last):
+  File "/home/ubuntu/cts_activelearning/server.py", line 215, in on_message
+    CHAT_ENGINES[self.current_user].user_reply(value)
+  File "/home/ubuntu/cts_activelearning/server/cts_llm_policy.py", line 687, in user_reply
+    self.dialog_loop(user_utterance=msg)
+  File "/home/ubuntu/cts_activelearning/server/cts_llm_policy.py", line 595, in dialog_loop
+    action, intent = self.predict(current_node=self.current_node, user_utterance=user_utterance)
+  File "/home/ubuntu/cts_activelearning/server/cts_llm_policy.py", line 861, in predict
+    intent = self.get_user_intent(user_utterance=user_utterance, model=self.model, seed=self.seed, temperature=self.temperature)
+  File "/home/ubuntu/cts_activelearning/server/cts_llm_policy.py", line 486, in get_user_intent
+    return UserIntent.STATEMENT if results["statement"] else UserIntent.QUESTION
+TypeError: list indices must be integers or slices, not str
+
+e04e17c62ac9cd37416aa4cb781f43-1$ USER: Business trip
+e04e17c62ac9cd37416aa4cb781f43-1$ SYSTEM (SKIP, 16348064261907944): Did you get written permission from your supervisor?
+e04e17c62ac9cd37416aa4cb781f43-1$ SYSTEM (ASK, 16348064261907944): Did you get written permission from your supervisor?
+e04e17c62ac9cd37416aa4cb781f43-1$ USER: Yes
+e04e17c62ac9cd37416aa4cb781f43-1$ SYSTEM (SKIP, 16363752591243585): What country are you traveling to?
+e04e17c62ac9cd37416aa4cb781f43-1$ SYSTEM (ASK, 16363752591243585): What country are you traveling to?
+4fbef22136fc434f86bcea23375367-5$=> REACHED GOAL ONCE: False
+4fbef22136fc434f86bcea23375367-5$=> ASKED GOAL ONCE: False
+4fbef22136fc434f86bcea23375367-5$=> PERCIEVED LENGTH: 1
+USER: 4fbef22136fc434f86bcea23375367 || QUALITY: 1
+USER: 4fbef22136fc434f86bcea23375367 || LENGTH: 1
+==== NEW DIALOG STARTED FOR USER 4fbef22136fc434f86bcea23375367 ====
+USER: 4fbef22136fc434f86bcea23375367 || GOAL: You want to know if you can be reimbursed if you need to book a taxi during your trip. || NODE_ID: 16365525829145685
+4fbef22136fc434f86bcea23375367-5$ RESET
+4fbef22136fc434f86bcea23375367-5$ GOAL (16365525829145685): A taxi is only reimbursable if there is a business related reason or a pres
+4fbef22136fc434f86bcea23375367-6$ SYSTEM (ASK, 16348058621438633): What topic do you have questions about? You can either click on an answer f
+e04e17c62ac9cd37416aa4cb781f43-1$ USER: China 
+e04e17c62ac9cd37416aa4cb781f43-1$ SYSTEM (SKIP, 16363753123487784): What city are you traveling to?
+e04e17c62ac9cd37416aa4cb781f43-1$ SYSTEM (ASK, 16363753123487784): What city are you traveling to?
+4fbef22136fc434f86bcea23375367-6$ USER: Hello, I want to know if Ican be reimbursed if I need to book a taxi during your trip.
+4fbef22136fc434f86bcea23375367-6$ INTENT: 1
+4fbef22136fc434f86bcea23375367-6$ SYSTEM (SKIP, 16348058588084537): Are you going on an intracity trip or a business trip?
+4fbef22136fc434f86bcea23375367-6$ SYSTEM (SKIP, 16348070558358676): Did you get verbal permission from your supervisor?
+4fbef22136fc434f86bcea23375367-6$ SYSTEM (SKIP, 16348071239272239): Do you want to know more about booking Transportation or about ancillary co
+4fbef22136fc434f86bcea23375367-6$ SYSTEM (SKIP, 16348100109577394): What type of transportation would you like?
+4fbef22136fc434f86bcea23375367-6$ SYSTEM (ASK, 16348100109577394): What type of transportation would you like?
+e04e17c62ac9cd37416aa4cb781f43-1$ USER: China 
+e04e17c62ac9cd37416aa4cb781f43-1$ SYSTEM (SKIP, 16391575204698838): {{COUNTRY
+e04e17c62ac9cd37416aa4cb781f43-1$ SYSTEM (SKIP, 16389695846089108): For all  business trips (even for short trips or ones lasting only a single
+e04e17c62ac9cd37416aa4cb781f43-1$ SYSTEM (ASK, 16389695846089108): For all  business trips (even for short trips or ones lasting only a single
+e04e17c62ac9cd37416aa4cb781f43-1$ SYSTEM (SKIP, 16363753477187975): Please check the current COVID-19 travel warnings travel restrictions from 
+e04e17c62ac9cd37416aa4cb781f43-1$ SYSTEM (ASK, 16363753477187975): Please check the current COVID-19 travel warnings travel restrictions from 
+e04e17c62ac9cd37416aa4cb781f43-1$ SYSTEM (SKIP, 16363754346769013): COVID-19: Business trips should be reduced to an absolute minimum and are o
+e04e17c62ac9cd37416aa4cb781f43-1$ SYSTEM (ASK, 16363754346769013): COVID-19: Business trips should be reduced to an absolute minimum and are o
+e04e17c62ac9cd37416aa4cb781f43-1$ SYSTEM (SKIP, 16348093549280346): Are you planning to extend your trip with private travel?
+e04e17c62ac9cd37416aa4cb781f43-1$ SYSTEM (ASK, 16348093549280346): Are you planning to extend your trip with private travel?
+4fbef22136fc434f86bcea23375367-6$ USER: Taxi
+4fbef22136fc434f86bcea23375367-6$ SYSTEM (SKIP, 16365525829145685): A taxi is only reimbursable if there is a business related reason or a pres
+4fbef22136fc434f86bcea23375367-6$ REACHED GOAL ONCE
+4fbef22136fc434f86bcea23375367-6$ SYSTEM (ASK, 16365525829145685): A taxi is only reimbursable if there is a business related reason or a pres
+4fbef22136fc434f86bcea23375367-6$ ASKED GOAL ONCE
+4fbef22136fc434f86bcea23375367-6$ BST: {}
+4fbef22136fc434f86bcea23375367-6$ REACHED GOAL ONCE: True
+4fbef22136fc434f86bcea23375367-6$ ASKED GOAL ONCE: True
+4fbef22136fc434f86bcea23375367-6$ TOTAL LENGTH: 8
+4fbef22136fc434f86bcea23375367-6$ PERCEIVED LENGTH: 3
+e04e17c62ac9cd37416aa4cb781f43-1$ USER: No
+e04e17c62ac9cd37416aa4cb781f43-1$ SYSTEM (SKIP, 16378316272591567): {{PRIVATE_EXTENSION
+e04e17c62ac9cd37416aa4cb781f43-1$ SYSTEM (SKIP, 16348097487038694): Which topic do you want to know more about?
+e04e17c62ac9cd37416aa4cb781f43-1$ SYSTEM (ASK, 16348097487038694): Which topic do you want to know more about?
+USER: 4fbef22136fc434f86bcea23375367 || QUALITY: 4
+USER: 4fbef22136fc434f86bcea23375367 || LENGTH: 3
+==== NEW DIALOG STARTED FOR USER 4fbef22136fc434f86bcea23375367 ====
+USER: 4fbef22136fc434f86bcea23375367 || GOAL: You are trying to figure out how much money you get for booking somewhere to stay on your trip. <ul><li>Your trip is to Tokyo, Japan</li><li>Your trip should take 10 days</li><li>You plan to stay in a hotel</li></ul> || NODE_ID: 16365521324065600
+4fbef22136fc434f86bcea23375367-6$ RESET
+4fbef22136fc434f86bcea23375367-6$ GOAL (16365521324065600): In {{ COUNTRY }} you have a budget of up to 90€ (or 120€ in cities with a p
+4fbef22136fc434f86bcea23375367-7$ SYSTEM (ASK, 16348058621438633): What topic do you have questions about? You can either click on an answer f
+e04e17c62ac9cd37416aa4cb781f43-1$ USER: Transportation 
+e04e17c62ac9cd37416aa4cb781f43-1$ SYSTEM (SKIP, 16348100109577394): What type of transportation would you like?
+e04e17c62ac9cd37416aa4cb781f43-1$ SYSTEM (ASK, 16348100109577394): What type of transportation would you like?
+e04e17c62ac9cd37416aa4cb781f43-1$ USER: Flight 
+e04e17c62ac9cd37416aa4cb781f43-1$ SYSTEM (SKIP, 16478798353898107): Are you planning to extend your trip with private travel?
+e04e17c62ac9cd37416aa4cb781f43-1$ SYSTEM (SKIP, 16378317000884236): {{PRIVATE_EXTENSION
+e04e17c62ac9cd37416aa4cb781f43-1$ SYSTEM (SKIP, 16351700401033947): Flights are reimbursable there is a compelling  business or economic reason
+e04e17c62ac9cd37416aa4cb781f43-1$ SYSTEM (ASK, 16351700401033947): Flights are reimbursable there is a compelling  business or economic reason
+e04e17c62ac9cd37416aa4cb781f43-1$ SYSTEM (SKIP, 16351719713796576): Booking a "Business"  class ticket is allowed on flights which last more th
+e04e17c62ac9cd37416aa4cb781f43-1$ SYSTEM (ASK, 16351719713796576): Booking a "Business"  class ticket is allowed on flights which last more th
+e04e17c62ac9cd37416aa4cb781f43-1$ SYSTEM (SKIP, 16351710117855351): Flights must be booked through the university's Partner Travel Agency (Tel.
+e04e17c62ac9cd37416aa4cb781f43-1$ SYSTEM (ASK, 16351710117855351): Flights must be booked through the university's Partner Travel Agency (Tel.
+e04e17c62ac9cd37416aa4cb781f43-1$ SYSTEM (SKIP, 16389605006407473): In order to book trips through the partner travel agency, you will need to 
+e04e17c62ac9cd37416aa4cb781f43-1$ SYSTEM (ASK, 16389605006407473): In order to book trips through the partner travel agency, you will need to 
+e04e17c62ac9cd37416aa4cb781f43-1$ SYSTEM (SKIP, 16351756667261880): Do you have any other questions about booking transportation?
+e04e17c62ac9cd37416aa4cb781f43-1$ SYSTEM (ASK, 16351756667261880): Do you have any other questions about booking transportation?
+4fbef22136fc434f86bcea23375367-7$ USER: Hello,  how much money Iget for booking somewhere to stay on my trip. My trip is to Tokyo, Japan my trip should take 10 days and I plan to stay in a hotel
+4fbef22136fc434f86bcea23375367-7$ INTENT: 1
+4fbef22136fc434f86bcea23375367-7$ SYSTEM (SKIP, 16348058588084537): Are you going on an intracity trip or a business trip?
+4fbef22136fc434f86bcea23375367-7$ SYSTEM (SKIP, 16348064261907944): Did you get written permission from your supervisor?
+4fbef22136fc434f86bcea23375367-7$ SYSTEM (SKIP, 16363752591243585): What country are you traveling to?
+4fbef22136fc434f86bcea23375367-7$ SYSTEM (SKIP, 16363753123487784): What city are you traveling to?
+4fbef22136fc434f86bcea23375367-7$ SYSTEM (SKIP, 16391575204698838): {{COUNTRY
+4fbef22136fc434f86bcea23375367-7$ SYSTEM (SKIP, 16389695846089108): For all  business trips (even for short trips or ones lasting only a single
+4fbef22136fc434f86bcea23375367-7$ SYSTEM (SKIP, 16363753477187975): Please check the current COVID-19 travel warnings travel restrictions from 
+4fbef22136fc434f86bcea23375367-7$ SYSTEM (SKIP, 16363754346769013): COVID-19: Business trips should be reduced to an absolute minimum and are o
+4fbef22136fc434f86bcea23375367-7$ SYSTEM (SKIP, 16348093549280346): Are you planning to extend your trip with private travel?
+4fbef22136fc434f86bcea23375367-7$ SYSTEM (SKIP, 16378316272591567): {{PRIVATE_EXTENSION
+4fbef22136fc434f86bcea23375367-7$ SYSTEM (SKIP, 16348097487038694): Which topic do you want to know more about?
+4fbef22136fc434f86bcea23375367-7$ SYSTEM (ASK, 16348097487038694): Which topic do you want to know more about?
+e04e17c62ac9cd37416aa4cb781f43-1$ USER: No
+e04e17c62ac9cd37416aa4cb781f43-1$ SYSTEM (SKIP, 16384313191857195): Do you have any further questions?
+e04e17c62ac9cd37416aa4cb781f43-1$ SYSTEM (ASK, 16384313191857195): Do you have any further questions?
+4fbef22136fc434f86bcea23375367-7$ USER: Per diem
+4fbef22136fc434f86bcea23375367-7$ SYSTEM (SKIP, 16370471520148677): How long is the business related portion of your travel?
+4fbef22136fc434f86bcea23375367-7$ SYSTEM (SKIP, 16478799587660558): What country are you traveling to?
+4fbef22136fc434f86bcea23375367-7$ SYSTEM (SKIP, 16370471521305491): {{COUNTRY
+4fbef22136fc434f86bcea23375367-7$ SYSTEM (SKIP, 16370471522950468): In {{ COUNTRY }}, you are entitled to {{ PERDIEM.AMOUNT(COUNTRY, CITY) }} €
+4fbef22136fc434f86bcea23375367-7$ SYSTEM (ASK, 16370471522950468): In {{ COUNTRY }}, you are entitled to {{ PERDIEM.AMOUNT(COUNTRY, CITY) }} €
+4fbef22136fc434f86bcea23375367-7$ BST: {"CITY": "$REST", "COUNTRY": "Japan", "TRIP_LENGTH": 240}
+4fbef22136fc434f86bcea23375367-7$ REACHED GOAL ONCE: False
+4fbef22136fc434f86bcea23375367-7$ ASKED GOAL ONCE: False
+4fbef22136fc434f86bcea23375367-7$ TOTAL LENGTH: 18
+4fbef22136fc434f86bcea23375367-7$ PERCEIVED LENGTH: 3
+e04e17c62ac9cd37416aa4cb781f43-1$ USER: No
+e04e17c62ac9cd37416aa4cb781f43-1$ SYSTEM (SKIP, 16387868859695624): Thank you for using the business travel chatbot.Please let us know about yo
+e04e17c62ac9cd37416aa4cb781f43-1$ REACHED GOAL ONCE
+e04e17c62ac9cd37416aa4cb781f43-1$ SYSTEM (ASK, 16387868859695624): Thank you for using the business travel chatbot.Please let us know about yo
+e04e17c62ac9cd37416aa4cb781f43-1$ ASKED GOAL ONCE
+e04e17c62ac9cd37416aa4cb781f43-1$ BST: {"COUNTRY": "China", "CITY": "$REST", "PRIVATE_EXTENSION": false}
+e04e17c62ac9cd37416aa4cb781f43-1$ REACHED GOAL ONCE: True
+e04e17c62ac9cd37416aa4cb781f43-1$ ASKED GOAL ONCE: True
+e04e17c62ac9cd37416aa4cb781f43-1$ TOTAL LENGTH: 39
+e04e17c62ac9cd37416aa4cb781f43-1$ PERCEIVED LENGTH: 18
+USER: 4fbef22136fc434f86bcea23375367 || QUALITY: 3
+USER: 4fbef22136fc434f86bcea23375367 || LENGTH: 3
+Closing connection for user 4fbef22136fc434f86bcea23375367
+USER: e04e17c62ac9cd37416aa4cb781f43 || QUALITY: 4
+USER: e04e17c62ac9cd37416aa4cb781f43 || LENGTH: 3
+==== NEW DIALOG STARTED FOR USER e04e17c62ac9cd37416aa4cb781f43 ====
+USER: e04e17c62ac9cd37416aa4cb781f43 || GOAL: You have to cancel your trip. You want to know if the money you have already paid can be reimbursed || NODE_ID: 16457053159041482
+e04e17c62ac9cd37416aa4cb781f43-1$ RESET
+e04e17c62ac9cd37416aa4cb781f43-1$ GOAL (16457053159041482): You should try to cancel anything which has already been booked as quickly 
+e04e17c62ac9cd37416aa4cb781f43-2$ SYSTEM (ASK, 16348058621438633): What topic do you have questions about? You can either click on an answer f
+e04e17c62ac9cd37416aa4cb781f43-2$ USER: Cancel trip
+e04e17c62ac9cd37416aa4cb781f43-2$ INTENT: 0
+e04e17c62ac9cd37416aa4cb781f43-2$ SYSTEM (SKIP, 16457053159041482): You should try to cancel anything which has already been booked as quickly 
+e04e17c62ac9cd37416aa4cb781f43-2$ REACHED GOAL ONCE
+e04e17c62ac9cd37416aa4cb781f43-2$ SYSTEM (ASK, 16457053159041482): You should try to cancel anything which has already been booked as quickly 
+e04e17c62ac9cd37416aa4cb781f43-2$ ASKED GOAL ONCE
+e04e17c62ac9cd37416aa4cb781f43-2$ BST: {}
+e04e17c62ac9cd37416aa4cb781f43-2$ REACHED GOAL ONCE: True
+e04e17c62ac9cd37416aa4cb781f43-2$ ASKED GOAL ONCE: True
+e04e17c62ac9cd37416aa4cb781f43-2$ TOTAL LENGTH: 3
+e04e17c62ac9cd37416aa4cb781f43-2$ PERCEIVED LENGTH: 2
+USER: e04e17c62ac9cd37416aa4cb781f43 || QUALITY: 4
+USER: e04e17c62ac9cd37416aa4cb781f43 || LENGTH: 3
+==== NEW DIALOG STARTED FOR USER e04e17c62ac9cd37416aa4cb781f43 ====
+USER: e04e17c62ac9cd37416aa4cb781f43 || GOAL: You want to know how to book your flight.<ul><li>You plan to extend your stay with private vacation before flying back</li></ul> || NODE_ID: 16363755463439219
+e04e17c62ac9cd37416aa4cb781f43-2$ RESET
+e04e17c62ac9cd37416aa4cb781f43-2$ GOAL (16363755463439219): Costs which occur as part of the business aspect of a trip are reimbursable
+e04e17c62ac9cd37416aa4cb781f43-3$ SYSTEM (ASK, 16348058621438633): What topic do you have questions about? You can either click on an answer f
+e04e17c62ac9cd37416aa4cb781f43-3$ USER: You plan to extend your stay with private vacation before flying 
+e04e17c62ac9cd37416aa4cb781f43-3$ INTENT: 1
+e04e17c62ac9cd37416aa4cb781f43-3$ SYSTEM (SKIP, 16348058588084537): Are you going on an intracity trip or a business trip?
+e04e17c62ac9cd37416aa4cb781f43-3$ SYSTEM (SKIP, 16348064261907944): Did you get written permission from your supervisor?
+e04e17c62ac9cd37416aa4cb781f43-3$ SYSTEM (SKIP, 16363752591243585): What country are you traveling to?
+e04e17c62ac9cd37416aa4cb781f43-3$ SYSTEM (SKIP, 16363753123487784): What city are you traveling to?
+e04e17c62ac9cd37416aa4cb781f43-3$ SYSTEM (SKIP, 16391575204698838): {{COUNTRY
+e04e17c62ac9cd37416aa4cb781f43-3$ SYSTEM (SKIP, 16363754346769013): COVID-19: Business trips should be reduced to an absolute minimum and are o
+e04e17c62ac9cd37416aa4cb781f43-3$ SYSTEM (SKIP, 16348093549280346): Are you planning to extend your trip with private travel?
+e04e17c62ac9cd37416aa4cb781f43-3$ SYSTEM (SKIP, 16378316272591567): {{PRIVATE_EXTENSION
+e04e17c62ac9cd37416aa4cb781f43-3$ SYSTEM (SKIP, 16363754793760356): A private extension to a trip must remain in proportion to the length of bu
+e04e17c62ac9cd37416aa4cb781f43-3$ SYSTEM (ASK, 16363754793760356): A private extension to a trip must remain in proportion to the length of bu
+e04e17c62ac9cd37416aa4cb781f43-3$ SYSTEM (SKIP, 16348097487038694): Which topic do you want to know more about?
+e04e17c62ac9cd37416aa4cb781f43-3$ SYSTEM (SKIP, 16370471520148677): How long is the business related portion of your travel?
+e04e17c62ac9cd37416aa4cb781f43-3$ SYSTEM (SKIP, 16478799587660558): What country are you traveling to?
+e04e17c62ac9cd37416aa4cb781f43-3$ SYSTEM (SKIP, 16370471521305491): {{COUNTRY
+e04e17c62ac9cd37416aa4cb781f43-3$ SYSTEM (SKIP, 16457019833290892): {{TRIP_LENGTH
+e04e17c62ac9cd37416aa4cb781f43-3$ SYSTEM (SKIP, 16572909323943762): {{TRIP_LENGTH
+e04e17c62ac9cd37416aa4cb781f43-3$ SYSTEM (SKIP, 16572908886396643): Within Germany, you are entitled to 24€ per day, minus costs for free meals
+e04e17c62ac9cd37416aa4cb781f43-3$ SYSTEM (SKIP, 16370471520325965): {{TRIP_LENGTH
+e04e17c62ac9cd37416aa4cb781f43-3$ SYSTEM (SKIP, 16370471523750267): After the 8th day, depending on your case, the per diem may be reduced. For
+e04e17c62ac9cd37416aa4cb781f43-3$ SYSTEM (ASK, 16370471523750267): After the 8th day, depending on your case, the per diem may be reduced. For
+e04e17c62ac9cd37416aa4cb781f43-3$ BST: {}
+e04e17c62ac9cd37416aa4cb781f43-3$ REACHED GOAL ONCE: False
+e04e17c62ac9cd37416aa4cb781f43-3$ ASKED GOAL ONCE: False
+e04e17c62ac9cd37416aa4cb781f43-3$ TOTAL LENGTH: 21
+e04e17c62ac9cd37416aa4cb781f43-3$ PERCEIVED LENGTH: 3
+USER: e04e17c62ac9cd37416aa4cb781f43 || QUALITY: 4
+USER: e04e17c62ac9cd37416aa4cb781f43 || LENGTH: 3
+Closing connection for user e04e17c62ac9cd37416aa4cb781f43
+USER: a487f65ef4d356755ba5f896b4e452 || GROUP: cts_llm
+==== NEW DIALOG STARTED FOR USER a487f65ef4d356755ba5f896b4e452 ====
+USER: a487f65ef4d356755ba5f896b4e452 || GOAL: You want to inform yourself what to do in case of an emergency during travel. || NODE_ID: 16387868859695624
+a487f65ef4d356755ba5f896b4e452-0$ RESET
+a487f65ef4d356755ba5f896b4e452-0$ GOAL (16387868859695624): Thank you for using the business travel chatbot.Please let us know about yo
+a487f65ef4d356755ba5f896b4e452-1$ SYSTEM (ASK, 16348058621438633): What topic do you have questions about? You can either click on an answer f
+USER: 0873d6b838eecdd434786c450ecab5 || GROUP: cts_llm
+==== NEW DIALOG STARTED FOR USER 0873d6b838eecdd434786c450ecab5 ====
+USER: 0873d6b838eecdd434786c450ecab5 || GOAL: You want to know how to book a flight || NODE_ID: 16387868859695624
+0873d6b838eecdd434786c450ecab5-0$ RESET
+0873d6b838eecdd434786c450ecab5-0$ GOAL (16387868859695624): Thank you for using the business travel chatbot.Please let us know about yo
+0873d6b838eecdd434786c450ecab5-1$ SYSTEM (ASK, 16348058621438633): What topic do you have questions about? You can either click on an answer f
+a487f65ef4d356755ba5f896b4e452-1$ USER: please could you explain what to do in case of emergencies during travel
+a487f65ef4d356755ba5f896b4e452-1$ INTENT: 1
+a487f65ef4d356755ba5f896b4e452-1$ SYSTEM (ASK, 16348058621438633): What topic do you have questions about? You can either click on an answer f
+0873d6b838eecdd434786c450ecab5-1$ USER: Hi.I would like some information on how to book a flight
+0873d6b838eecdd434786c450ecab5-1$ INTENT: 1
+0873d6b838eecdd434786c450ecab5-1$ SYSTEM (SKIP, 16348058588084537): Are you going on an intracity trip or a business trip?
+0873d6b838eecdd434786c450ecab5-1$ SYSTEM (SKIP, 16348064261907944): Did you get written permission from your supervisor?
+0873d6b838eecdd434786c450ecab5-1$ SYSTEM (SKIP, 16363751447148919): Please use this form  written permission from your supervisor. This is requ
+0873d6b838eecdd434786c450ecab5-1$ SYSTEM (ASK, 16363751447148919): Please use this form  written permission from your supervisor. This is requ
+0873d6b838eecdd434786c450ecab5-1$ SYSTEM (SKIP, 16363752591243585): What country are you traveling to?
+0873d6b838eecdd434786c450ecab5-1$ SYSTEM (SKIP, 16363753123487784): What city are you traveling to?
+0873d6b838eecdd434786c450ecab5-1$ SYSTEM (SKIP, 16391575204698838): {{COUNTRY
+0873d6b838eecdd434786c450ecab5-1$ SYSTEM (SKIP, 16363754346769013): COVID-19: Business trips should be reduced to an absolute minimum and are o
+0873d6b838eecdd434786c450ecab5-1$ SYSTEM (SKIP, 16348093549280346): Are you planning to extend your trip with private travel?
+0873d6b838eecdd434786c450ecab5-1$ SYSTEM (SKIP, 16378316272591567): {{PRIVATE_EXTENSION
+0873d6b838eecdd434786c450ecab5-1$ SYSTEM (SKIP, 16348097487038694): Which topic do you want to know more about?
+0873d6b838eecdd434786c450ecab5-1$ SYSTEM (ASK, 16348097487038694): Which topic do you want to know more about?
+a487f65ef4d356755ba5f896b4e452-1$ USER: Problem/emergency during a business trip
+a487f65ef4d356755ba5f896b4e452-1$ SYSTEM (SKIP, 16460436532310883): What emergency are you experiencing?
+a487f65ef4d356755ba5f896b4e452-1$ SYSTEM (SKIP, 16370679473901470): What do I do in an emergency on a business trip? Please call the number lis
+a487f65ef4d356755ba5f896b4e452-1$ SYSTEM (ASK, 16370679473901470): What do I do in an emergency on a business trip? Please call the number lis
+a487f65ef4d356755ba5f896b4e452-1$ BST: {}
+a487f65ef4d356755ba5f896b4e452-1$ REACHED GOAL ONCE: False
+a487f65ef4d356755ba5f896b4e452-1$ ASKED GOAL ONCE: False
+a487f65ef4d356755ba5f896b4e452-1$ TOTAL LENGTH: 5
+a487f65ef4d356755ba5f896b4e452-1$ PERCEIVED LENGTH: 3
+USER: a487f65ef4d356755ba5f896b4e452 || QUALITY: 3
+USER: a487f65ef4d356755ba5f896b4e452 || LENGTH: 3
+==== NEW DIALOG STARTED FOR USER a487f65ef4d356755ba5f896b4e452 ====
+USER: a487f65ef4d356755ba5f896b4e452 || GOAL: You want to know if you can get reimbursed if you reserve a seat for yourself on the train || NODE_ID: 16363756478730906
+a487f65ef4d356755ba5f896b4e452-1$ RESET
+a487f65ef4d356755ba5f896b4e452-1$ GOAL (16363756478730906): Seat reservations are allowed for train travel
+a487f65ef4d356755ba5f896b4e452-2$ SYSTEM (ASK, 16348058621438633): What topic do you have questions about? You can either click on an answer f
+a487f65ef4d356755ba5f896b4e452-2$ USER: Travel Risk Management
+a487f65ef4d356755ba5f896b4e452-2$ INTENT: 0
+a487f65ef4d356755ba5f896b4e452-2$ SYSTEM (SKIP, 16353412627443913): Travel Safety/ Travel Risk Management: What would you like to know about? E
+a487f65ef4d356755ba5f896b4e452-2$ SYSTEM (ASK, 16353412627443913): Travel Safety/ Travel Risk Management: What would you like to know about? E
+0873d6b838eecdd434786c450ecab5-1$ USER: transportation
+0873d6b838eecdd434786c450ecab5-1$ SYSTEM (SKIP, 16348100109577394): What type of transportation would you like?
+0873d6b838eecdd434786c450ecab5-1$ SYSTEM (ASK, 16348100109577394): What type of transportation would you like?
+0873d6b838eecdd434786c450ecab5-1$ USER: flight
+0873d6b838eecdd434786c450ecab5-1$ SYSTEM (SKIP, 16478798353898107): Are you planning to extend your trip with private travel?
+0873d6b838eecdd434786c450ecab5-1$ SYSTEM (SKIP, 16378317000884236): {{PRIVATE_EXTENSION
+0873d6b838eecdd434786c450ecab5-1$ SYSTEM (SKIP, 16351700401033947): Flights are reimbursable there is a compelling  business or economic reason
+0873d6b838eecdd434786c450ecab5-1$ SYSTEM (ASK, 16351700401033947): Flights are reimbursable there is a compelling  business or economic reason
+0873d6b838eecdd434786c450ecab5-1$ SYSTEM (SKIP, 16351719713796576): Booking a "Business"  class ticket is allowed on flights which last more th
+0873d6b838eecdd434786c450ecab5-1$ SYSTEM (ASK, 16351719713796576): Booking a "Business"  class ticket is allowed on flights which last more th
+0873d6b838eecdd434786c450ecab5-1$ SYSTEM (SKIP, 16351710117855351): Flights must be booked through the university's Partner Travel Agency (Tel.
+0873d6b838eecdd434786c450ecab5-1$ SYSTEM (ASK, 16351710117855351): Flights must be booked through the university's Partner Travel Agency (Tel.
+0873d6b838eecdd434786c450ecab5-1$ BST: {}
+0873d6b838eecdd434786c450ecab5-1$ REACHED GOAL ONCE: False
+0873d6b838eecdd434786c450ecab5-1$ ASKED GOAL ONCE: False
+0873d6b838eecdd434786c450ecab5-1$ TOTAL LENGTH: 23
+0873d6b838eecdd434786c450ecab5-1$ PERCEIVED LENGTH: 7
+a487f65ef4d356755ba5f896b4e452-2$ USER: reserve seat on train
+a487f65ef4d356755ba5f896b4e452-2$ SYSTEM (SKIP, 16354905244322603): Content: Why was it introduced: To show the services provided both internal
+a487f65ef4d356755ba5f896b4e452-2$ SYSTEM (ASK, 16354905244322603): Content: Why was it introduced: To show the services provided both internal
+a487f65ef4d356755ba5f896b4e452-2$ SYSTEM (SKIP, 16384313191857195): Do you have any further questions?
+a487f65ef4d356755ba5f896b4e452-2$ SYSTEM (ASK, 16384313191857195): Do you have any further questions?
+a487f65ef4d356755ba5f896b4e452-2$ USER: yes
+a487f65ef4d356755ba5f896b4e452-2$ SYSTEM (SKIP, 16348058621438633): What topic do you have questions about? You can either click on an answer f
+a487f65ef4d356755ba5f896b4e452-2$ SYSTEM (ASK, 16348058621438633): What topic do you have questions about? You can either click on an answer f
+a487f65ef4d356755ba5f896b4e452-2$ USER: cancel a trip
+a487f65ef4d356755ba5f896b4e452-2$ SYSTEM (SKIP, 16457053159041482): You should try to cancel anything which has already been booked as quickly 
+a487f65ef4d356755ba5f896b4e452-2$ SYSTEM (ASK, 16457053159041482): You should try to cancel anything which has already been booked as quickly 
+a487f65ef4d356755ba5f896b4e452-2$ SYSTEM (SKIP, 16348058621438633): What topic do you have questions about? You can either click on an answer f
+a487f65ef4d356755ba5f896b4e452-2$ SYSTEM (ASK, 16348058621438633): What topic do you have questions about? You can either click on an answer f
+USER: 0873d6b838eecdd434786c450ecab5 || QUALITY: 3
+USER: 0873d6b838eecdd434786c450ecab5 || LENGTH: 3
+==== NEW DIALOG STARTED FOR USER 0873d6b838eecdd434786c450ecab5 ====
+USER: 0873d6b838eecdd434786c450ecab5 || GOAL: You are traveling with another colleague and want to know if you have to share a room or if each of you can book your own || NODE_ID: 16363834594338823
+0873d6b838eecdd434786c450ecab5-1$ RESET
+0873d6b838eecdd434786c450ecab5-1$ GOAL (16363834594338823): Yes, staying in a room by yourself is allowed
+0873d6b838eecdd434786c450ecab5-2$ SYSTEM (ASK, 16348058621438633): What topic do you have questions about? You can either click on an answer f
+a487f65ef4d356755ba5f896b4e452-2$=> REACHED GOAL ONCE: False
+a487f65ef4d356755ba5f896b4e452-2$=> ASKED GOAL ONCE: False
+a487f65ef4d356755ba5f896b4e452-2$=> PERCIEVED LENGTH: 7
+USER: a487f65ef4d356755ba5f896b4e452 || QUALITY: 3
+USER: a487f65ef4d356755ba5f896b4e452 || LENGTH: 3
+==== NEW DIALOG STARTED FOR USER a487f65ef4d356755ba5f896b4e452 ====
+USER: a487f65ef4d356755ba5f896b4e452 || GOAL: You want to know how the reimbursement process works for research semester.<ul><li>You plan to bring your family with you</li></ul> || NODE_ID: 16370483534787100
+a487f65ef4d356755ba5f896b4e452-2$ RESET
+a487f65ef4d356755ba5f896b4e452-2$ GOAL (16370483534787100): Your business trip must be planned as though you were traveling alone (with
+a487f65ef4d356755ba5f896b4e452-3$ SYSTEM (ASK, 16348058621438633): What topic do you have questions about? You can either click on an answer f
+a487f65ef4d356755ba5f896b4e452-3$ USER: cancel a trip
+a487f65ef4d356755ba5f896b4e452-3$ INTENT: 0
+a487f65ef4d356755ba5f896b4e452-3$ SYSTEM (SKIP, 16457053159041482): You should try to cancel anything which has already been booked as quickly 
+a487f65ef4d356755ba5f896b4e452-3$ SYSTEM (ASK, 16457053159041482): You should try to cancel anything which has already been booked as quickly 
+a487f65ef4d356755ba5f896b4e452-3$ SYSTEM (SKIP, 16348058621438633): What topic do you have questions about? You can either click on an answer f
+a487f65ef4d356755ba5f896b4e452-3$ SYSTEM (ASK, 16348058621438633): What topic do you have questions about? You can either click on an answer f
+0873d6b838eecdd434786c450ecab5-2$ USER: book a trip
+0873d6b838eecdd434786c450ecab5-2$ INTENT: 0
+0873d6b838eecdd434786c450ecab5-2$ SYSTEM (SKIP, 16348058588084537): Are you going on an intracity trip or a business trip?
+0873d6b838eecdd434786c450ecab5-2$ SYSTEM (ASK, 16348058588084537): Are you going on an intracity trip or a business trip?
+USER: 9410be2ca7911ad76b207b44834bb0 || GROUP: cts_llm
+==== NEW DIALOG STARTED FOR USER 9410be2ca7911ad76b207b44834bb0 ====
+USER: 9410be2ca7911ad76b207b44834bb0 || GOAL: You want more information about how to plan a research semester. || NODE_ID: 16387868859695624
+9410be2ca7911ad76b207b44834bb0-0$ RESET
+9410be2ca7911ad76b207b44834bb0-0$ GOAL (16387868859695624): Thank you for using the business travel chatbot.Please let us know about yo
+9410be2ca7911ad76b207b44834bb0-1$ SYSTEM (ASK, 16348058621438633): What topic do you have questions about? You can either click on an answer f
+a487f65ef4d356755ba5f896b4e452-3$ USER: reimbursement process for research semester
+a487f65ef4d356755ba5f896b4e452-3$ SYSTEM (SKIP, 16370487978253782): How long will your research semester last?  
+a487f65ef4d356755ba5f896b4e452-3$ SYSTEM (ASK, 16370487978253782): How long will your research semester last?  
+0873d6b838eecdd434786c450ecab5-2$ USER: business trip
+0873d6b838eecdd434786c450ecab5-2$ SYSTEM (SKIP, 16348064261907944): Did you get written permission from your supervisor?
+0873d6b838eecdd434786c450ecab5-2$ SYSTEM (ASK, 16348064261907944): Did you get written permission from your supervisor?
+a487f65ef4d356755ba5f896b4e452-3$ USER: unsure
+a487f65ef4d356755ba5f896b4e452-3$ VAR ERROR: Sorry, but the time span you entered was not recognized by the system. Please rephrase.
+a487f65ef4d356755ba5f896b4e452-3$ USER: n/a
+a487f65ef4d356755ba5f896b4e452-3$ VAR ERROR: Sorry, but the time span you entered was not recognized by the system. Please rephrase.
+0873d6b838eecdd434786c450ecab5-2$ USER: no
+0873d6b838eecdd434786c450ecab5-2$ SYSTEM (SKIP, 16363751447148919): Please use this form  written permission from your supervisor. This is requ
+0873d6b838eecdd434786c450ecab5-2$ SYSTEM (ASK, 16363751447148919): Please use this form  written permission from your supervisor. This is requ
+0873d6b838eecdd434786c450ecab5-2$ SYSTEM (SKIP, 16363752591243585): What country are you traveling to?
+0873d6b838eecdd434786c450ecab5-2$ SYSTEM (ASK, 16363752591243585): What country are you traveling to?
+a487f65ef4d356755ba5f896b4e452-3$ USER: 1 month
+a487f65ef4d356755ba5f896b4e452-3$ SYSTEM (SKIP, 16460422182910140): {{TRIP_LENGTH
+a487f65ef4d356755ba5f896b4e452-3$ SYSTEM (SKIP, 16460422136134149): If you are traveling for more than 4 weeks and need help finding accommodat
+a487f65ef4d356755ba5f896b4e452-3$ SYSTEM (ASK, 16460422136134149): If you are traveling for more than 4 weeks and need help finding accommodat
+a487f65ef4d356755ba5f896b4e452-3$ SYSTEM (SKIP, 16353297472197738): Is this as part of a reallocation?  
+a487f65ef4d356755ba5f896b4e452-3$ SYSTEM (ASK, 16353297472197738): Is this as part of a reallocation?  
+a487f65ef4d356755ba5f896b4e452-3$ USER: bringing family on business trip
+a487f65ef4d356755ba5f896b4e452-3$ SYSTEM (SKIP, 16370481846790432): As part of a reallocation/delegation, your office is relocated (no longer i
+a487f65ef4d356755ba5f896b4e452-3$ SYSTEM (ASK, 16370481846790432): As part of a reallocation/delegation, your office is relocated (no longer i
+a487f65ef4d356755ba5f896b4e452-3$ SYSTEM (SKIP, 16353297472197738): Is this as part of a reallocation?  
+a487f65ef4d356755ba5f896b4e452-3$ SYSTEM (ASK, 16353297472197738): Is this as part of a reallocation?  
+9410be2ca7911ad76b207b44834bb0-1$ USER: How do i properly plan for a research semester?
+9410be2ca7911ad76b207b44834bb0-1$ INTENT: 1
+9410be2ca7911ad76b207b44834bb0-1$ SYSTEM (ASK, 16348058621438633): What topic do you have questions about? You can either click on an answer f
+a487f65ef4d356755ba5f896b4e452-3$=> REACHED GOAL ONCE: False
+a487f65ef4d356755ba5f896b4e452-3$=> ASKED GOAL ONCE: False
+a487f65ef4d356755ba5f896b4e452-3$=> PERCIEVED LENGTH: 8
+USER: a487f65ef4d356755ba5f896b4e452 || QUALITY: 2
+USER: a487f65ef4d356755ba5f896b4e452 || LENGTH: 4
+Closing connection for user a487f65ef4d356755ba5f896b4e452
+9410be2ca7911ad76b207b44834bb0-1$ USER: research semester
+9410be2ca7911ad76b207b44834bb0-1$ SYSTEM (SKIP, 16370487978253782): How long will your research semester last?  
+9410be2ca7911ad76b207b44834bb0-1$ SYSTEM (SKIP, 16460422182910140): {{TRIP_LENGTH
+9410be2ca7911ad76b207b44834bb0-1$ SYSTEM (SKIP, 16460422136134149): If you are traveling for more than 4 weeks and need help finding accommodat
+9410be2ca7911ad76b207b44834bb0-1$ SYSTEM (ASK, 16460422136134149): If you are traveling for more than 4 weeks and need help finding accommodat
+9410be2ca7911ad76b207b44834bb0-1$ SYSTEM (SKIP, 16353297472197738): Is this as part of a reallocation?  
+9410be2ca7911ad76b207b44834bb0-1$ SYSTEM (SKIP, 16370501863636503): As there has been no reallocation, your research semester counts as a busin
+9410be2ca7911ad76b207b44834bb0-1$ SYSTEM (ASK, 16370501863636503): As there has been no reallocation, your research semester counts as a busin
+9410be2ca7911ad76b207b44834bb0-1$ SYSTEM (SKIP, 16353303012891903): Are you traveling alone or with your family?
+9410be2ca7911ad76b207b44834bb0-1$ SYSTEM (SKIP, 16370483534787100): Your business trip must be planned as though you were traveling alone (with
+9410be2ca7911ad76b207b44834bb0-1$ SYSTEM (ASK, 16370483534787100): Your business trip must be planned as though you were traveling alone (with
+9410be2ca7911ad76b207b44834bb0-1$ SYSTEM (SKIP, 16363752591243585): What country are you traveling to?
+9410be2ca7911ad76b207b44834bb0-1$ SYSTEM (SKIP, 16363753123487784): What city are you traveling to?
+9410be2ca7911ad76b207b44834bb0-1$ SYSTEM (SKIP, 16391575204698838): {{COUNTRY
+9410be2ca7911ad76b207b44834bb0-1$ SYSTEM (SKIP, 16389695846089108): For all  business trips (even for short trips or ones lasting only a single
+9410be2ca7911ad76b207b44834bb0-1$ SYSTEM (SKIP, 16363753477187975): Please check the current COVID-19 travel warnings travel restrictions from 
+9410be2ca7911ad76b207b44834bb0-1$ SYSTEM (SKIP, 16363754346769013): COVID-19: Business trips should be reduced to an absolute minimum and are o
+9410be2ca7911ad76b207b44834bb0-1$ SYSTEM (SKIP, 16348093549280346): Are you planning to extend your trip with private travel?
+9410be2ca7911ad76b207b44834bb0-1$ SYSTEM (SKIP, 16378316272591567): {{PRIVATE_EXTENSION
+9410be2ca7911ad76b207b44834bb0-1$ SYSTEM (SKIP, 16363754793760356): A private extension to a trip must remain in proportion to the length of bu
+9410be2ca7911ad76b207b44834bb0-1$ SYSTEM (SKIP, 16348097487038694): Which topic do you want to know more about?
+9410be2ca7911ad76b207b44834bb0-1$ SYSTEM (ASK, 16348097487038694): Which topic do you want to know more about?
+0873d6b838eecdd434786c450ecab5-2$ USER: I am travelling with a colleague, do I have to sshare a room or can we book individually?
+0873d6b838eecdd434786c450ecab5-2$ VAR ERROR: Sorry, but the country you entered is unknown to the system. Please check spelling or try another value.
+9410be2ca7911ad76b207b44834bb0-1$=> REACHED GOAL ONCE: False
+9410be2ca7911ad76b207b44834bb0-1$=> ASKED GOAL ONCE: False
+9410be2ca7911ad76b207b44834bb0-1$=> PERCIEVED LENGTH: 6
+USER: 9410be2ca7911ad76b207b44834bb0 || QUALITY: 3
+USER: 9410be2ca7911ad76b207b44834bb0 || LENGTH: 2
+==== NEW DIALOG STARTED FOR USER 9410be2ca7911ad76b207b44834bb0 ====
+USER: 9410be2ca7911ad76b207b44834bb0 || GOAL: You are booking a trip to attend a conference and want to know if the conference fee can be reimbursed || NODE_ID: 16384329210117153
+9410be2ca7911ad76b207b44834bb0-1$ RESET
+9410be2ca7911ad76b207b44834bb0-1$ GOAL (16384329210117153): Conference fees are reimbursable.
+9410be2ca7911ad76b207b44834bb0-2$ SYSTEM (ASK, 16348058621438633): What topic do you have questions about? You can either click on an answer f
+0873d6b838eecdd434786c450ecab5-2$=> REACHED GOAL ONCE: False
+0873d6b838eecdd434786c450ecab5-2$=> ASKED GOAL ONCE: False
+0873d6b838eecdd434786c450ecab5-2$=> PERCIEVED LENGTH: 5
+=== USER (0873d6b838eecdd434786c450ecab5) RESTART === 
+0873d6b838eecdd434786c450ecab5-2$ RESET
+0873d6b838eecdd434786c450ecab5-2$ GOAL (16363834594338823): Yes, staying in a room by yourself is allowed
+0873d6b838eecdd434786c450ecab5-3$ SYSTEM (ASK, 16348058621438633): What topic do you have questions about? You can either click on an answer f
+0873d6b838eecdd434786c450ecab5-3$ USER: accomodation
+0873d6b838eecdd434786c450ecab5-3$ INTENT: 1
+0873d6b838eecdd434786c450ecab5-3$ SYSTEM (ASK, 16348058621438633): What topic do you have questions about? You can either click on an answer f
+0873d6b838eecdd434786c450ecab5-3$ USER: book a trip
+0873d6b838eecdd434786c450ecab5-3$ SYSTEM (SKIP, 16348058588084537): Are you going on an intracity trip or a business trip?
+0873d6b838eecdd434786c450ecab5-3$ SYSTEM (SKIP, 16348064261907944): Did you get written permission from your supervisor?
+0873d6b838eecdd434786c450ecab5-3$ SYSTEM (SKIP, 16363752591243585): What country are you traveling to?
+0873d6b838eecdd434786c450ecab5-3$ SYSTEM (SKIP, 16363753123487784): What city are you traveling to?
+0873d6b838eecdd434786c450ecab5-3$ SYSTEM (SKIP, 16391575204698838): {{COUNTRY
+0873d6b838eecdd434786c450ecab5-3$ SYSTEM (ASK, 16363752591243585): What country are you traveling to?
+9410be2ca7911ad76b207b44834bb0-2$ USER: conferences fee
+9410be2ca7911ad76b207b44834bb0-2$ INTENT: 1
+9410be2ca7911ad76b207b44834bb0-2$ SYSTEM (ASK, 16348058621438633): What topic do you have questions about? You can either click on an answer f
+0873d6b838eecdd434786c450ecab5-3$ USER: China
+0873d6b838eecdd434786c450ecab5-3$ SYSTEM (SKIP, 16389695846089108): For all  business trips (even for short trips or ones lasting only a single
+0873d6b838eecdd434786c450ecab5-3$ SYSTEM (SKIP, 16363753477187975): Please check the current COVID-19 travel warnings travel restrictions from 
+0873d6b838eecdd434786c450ecab5-3$ SYSTEM (SKIP, 16363754346769013): COVID-19: Business trips should be reduced to an absolute minimum and are o
+0873d6b838eecdd434786c450ecab5-3$ SYSTEM (SKIP, 16348093549280346): Are you planning to extend your trip with private travel?
+0873d6b838eecdd434786c450ecab5-3$ SYSTEM (SKIP, 16378316272591567): {{PRIVATE_EXTENSION
+0873d6b838eecdd434786c450ecab5-3$ SYSTEM (SKIP, 16348097487038694): Which topic do you want to know more about?
+0873d6b838eecdd434786c450ecab5-3$ SYSTEM (SKIP, 16378350683837525): If the trip is being paid for by a third party (not from the university) or
+0873d6b838eecdd434786c450ecab5-3$ SYSTEM (SKIP, 16478801254732768): What country are you traveling to?
+0873d6b838eecdd434786c450ecab5-3$ SYSTEM (SKIP, 16370471522263677): Where do you plan to stay
+0873d6b838eecdd434786c450ecab5-3$ SYSTEM (SKIP, 16363812426270449): Hotels can be booked using the university's partner travel agency, through 
+0873d6b838eecdd434786c450ecab5-3$ SYSTEM (ASK, 16363812426270449): Hotels can be booked using the university's partner travel agency, through 
+0873d6b838eecdd434786c450ecab5-3$ SYSTEM (SKIP, 16389574258367592): In order to book trips through the partner travel agency, you will need to 
+0873d6b838eecdd434786c450ecab5-3$ SYSTEM (SKIP, 16363811629822245): It is required that the bill is addressed to your employer with your name e
+0873d6b838eecdd434786c450ecab5-3$ SYSTEM (SKIP, 16370471520509009): {{COUNTRY
+0873d6b838eecdd434786c450ecab5-3$ SYSTEM (SKIP, 16365521324065600): In {{ COUNTRY }} you have a budget of up to 90€ (or 120€ in cities with a p
+0873d6b838eecdd434786c450ecab5-3$ SYSTEM (ASK, 16365521324065600): In {{ COUNTRY }} you have a budget of up to 90€ (or 120€ in cities with a p
+0873d6b838eecdd434786c450ecab5-3$ SYSTEM (SKIP, 16363810595542638): Exceeding the accommodation allowance can be allowed on a case-by-case basi
+0873d6b838eecdd434786c450ecab5-3$ SYSTEM (ASK, 16363810595542638): Exceeding the accommodation allowance can be allowed on a case-by-case basi
+0873d6b838eecdd434786c450ecab5-3$ SYSTEM (SKIP, 16370471523444253): Do have any more questions about booking an accommodation
+0873d6b838eecdd434786c450ecab5-3$ SYSTEM (ASK, 16370471523444253): Do have any more questions about booking an accommodation
+9410be2ca7911ad76b207b44834bb0-2$ USER: Problem/emergency during a business trip
+9410be2ca7911ad76b207b44834bb0-2$ SYSTEM (SKIP, 16460436532310883): What emergency are you experiencing?
+9410be2ca7911ad76b207b44834bb0-2$ SYSTEM (SKIP, 16460439592347465): If you are at fault, costs cannot be reimbursed.
+9410be2ca7911ad76b207b44834bb0-2$ SYSTEM (SKIP, 16460439966919842): If you are not at fault (e.g., a conference ran over), costs can be reimbur
+9410be2ca7911ad76b207b44834bb0-2$ SYSTEM (ASK, 16460439966919842): If you are not at fault (e.g., a conference ran over), costs can be reimbur
+9410be2ca7911ad76b207b44834bb0-2$ BST: {}
+9410be2ca7911ad76b207b44834bb0-2$ REACHED GOAL ONCE: False
+9410be2ca7911ad76b207b44834bb0-2$ ASKED GOAL ONCE: False
+9410be2ca7911ad76b207b44834bb0-2$ TOTAL LENGTH: 6
+9410be2ca7911ad76b207b44834bb0-2$ PERCEIVED LENGTH: 3
+USER: 9410be2ca7911ad76b207b44834bb0 || QUALITY: 4
+USER: 9410be2ca7911ad76b207b44834bb0 || LENGTH: 2
+==== NEW DIALOG STARTED FOR USER 9410be2ca7911ad76b207b44834bb0 ====
+USER: 9410be2ca7911ad76b207b44834bb0 || GOAL: You want to know how to book your flight.<ul><li>You plan to extend your stay with private vacation before flying back</li></ul> || NODE_ID: 16363755463439219
+9410be2ca7911ad76b207b44834bb0-2$ RESET
+9410be2ca7911ad76b207b44834bb0-2$ GOAL (16363755463439219): Costs which occur as part of the business aspect of a trip are reimbursable
+9410be2ca7911ad76b207b44834bb0-3$ SYSTEM (ASK, 16348058621438633): What topic do you have questions about? You can either click on an answer f
+0873d6b838eecdd434786c450ecab5-3$ USER: can i book just for myself
+0873d6b838eecdd434786c450ecab5-3$ SYSTEM (SKIP, 16363834594338823): Yes, staying in a room by yourself is allowed
+0873d6b838eecdd434786c450ecab5-3$ REACHED GOAL ONCE
+0873d6b838eecdd434786c450ecab5-3$ SYSTEM (ASK, 16363834594338823): Yes, staying in a room by yourself is allowed
+0873d6b838eecdd434786c450ecab5-3$ ASKED GOAL ONCE
+0873d6b838eecdd434786c450ecab5-3$ BST: {"COUNTRY": "China"}
+0873d6b838eecdd434786c450ecab5-3$ REACHED GOAL ONCE: True
+0873d6b838eecdd434786c450ecab5-3$ ASKED GOAL ONCE: True
+0873d6b838eecdd434786c450ecab5-3$ TOTAL LENGTH: 30
+0873d6b838eecdd434786c450ecab5-3$ PERCEIVED LENGTH: 8
+9410be2ca7911ad76b207b44834bb0-3$ USER: Forms, deadlines, and procedure
+9410be2ca7911ad76b207b44834bb0-3$ INTENT: 0
+9410be2ca7911ad76b207b44834bb0-3$ SYSTEM (SKIP, 16430179741642982): Are you looking for a form or looking for help filling a form out?
+9410be2ca7911ad76b207b44834bb0-3$ SYSTEM (ASK, 16430179741642982): Are you looking for a form or looking for help filling a form out?
+USER: 0873d6b838eecdd434786c450ecab5 || QUALITY: 3
+USER: 0873d6b838eecdd434786c450ecab5 || LENGTH: 3
+==== NEW DIALOG STARTED FOR USER 0873d6b838eecdd434786c450ecab5 ====
+USER: 0873d6b838eecdd434786c450ecab5 || GOAL: You want to know how much money you can get for your accommodations. <ul><li>You are traveling to France for your next trip</li><li>You plan to stay with your brother in his apartment. </li></ul> || NODE_ID: 16378349334755637
+0873d6b838eecdd434786c450ecab5-3$ RESET
+0873d6b838eecdd434786c450ecab5-3$ GOAL (16378349334755637): Outside of Germany, you are entitled to 30€ if you are staying with friends
+0873d6b838eecdd434786c450ecab5-4$ SYSTEM (ASK, 16348058621438633): What topic do you have questions about? You can either click on an answer f
+9410be2ca7911ad76b207b44834bb0-3$ USER: Find a form
+9410be2ca7911ad76b207b44834bb0-3$ SYSTEM (SKIP, 16391225409774083): Which forms do you need?
+9410be2ca7911ad76b207b44834bb0-3$ SYSTEM (ASK, 16391225409774083): Which forms do you need?
+0873d6b838eecdd434786c450ecab5-4$ USER: book a trip
+0873d6b838eecdd434786c450ecab5-4$ INTENT: 0
+0873d6b838eecdd434786c450ecab5-4$ SYSTEM (SKIP, 16348058588084537): Are you going on an intracity trip or a business trip?
+0873d6b838eecdd434786c450ecab5-4$ SYSTEM (ASK, 16348058588084537): Are you going on an intracity trip or a business trip?
+9410be2ca7911ad76b207b44834bb0-3$ USER: Apply for a business trip
+9410be2ca7911ad76b207b44834bb0-3$ SYSTEM (SKIP, 16391241972677029): Application for business travel: 
+German version: Application for business 
+9410be2ca7911ad76b207b44834bb0-3$ SYSTEM (ASK, 16391241972677029): Application for business travel: 
+German version: Application for business 
+9410be2ca7911ad76b207b44834bb0-3$ SYSTEM (SKIP, 16391274636239225): Do you need any other forms?
+9410be2ca7911ad76b207b44834bb0-3$ SYSTEM (ASK, 16391274636239225): Do you need any other forms?
+9410be2ca7911ad76b207b44834bb0-3$ USER: no
+9410be2ca7911ad76b207b44834bb0-3$ SYSTEM (SKIP, 16384313191857195): Do you have any further questions?
+9410be2ca7911ad76b207b44834bb0-3$ SYSTEM (ASK, 16384313191857195): Do you have any further questions?
+9410be2ca7911ad76b207b44834bb0-3$ USER: no
+9410be2ca7911ad76b207b44834bb0-3$ SYSTEM (SKIP, 16387868859695624): Thank you for using the business travel chatbot.Please let us know about yo
+9410be2ca7911ad76b207b44834bb0-3$ SYSTEM (ASK, 16387868859695624): Thank you for using the business travel chatbot.Please let us know about yo
+9410be2ca7911ad76b207b44834bb0-3$ BST: {}
+9410be2ca7911ad76b207b44834bb0-3$ REACHED GOAL ONCE: False
+9410be2ca7911ad76b207b44834bb0-3$ ASKED GOAL ONCE: False
+9410be2ca7911ad76b207b44834bb0-3$ TOTAL LENGTH: 13
+9410be2ca7911ad76b207b44834bb0-3$ PERCEIVED LENGTH: 7
+0873d6b838eecdd434786c450ecab5-4$ USER: what is the differnce
+0873d6b838eecdd434786c450ecab5-4$ SYSTEM (SKIP, 16363751845458600): Business trips are business related travel outside of the city. The followi
+0873d6b838eecdd434786c450ecab5-4$ SYSTEM (ASK, 16363751845458600): Business trips are business related travel outside of the city. The followi
+0873d6b838eecdd434786c450ecab5-4$ SYSTEM (SKIP, 16363752201349915): Intracity business trips are business related travel within the city.
+0873d6b838eecdd434786c450ecab5-4$ SYSTEM (ASK, 16363752201349915): Intracity business trips are business related travel within the city.
+0873d6b838eecdd434786c450ecab5-4$ SYSTEM (SKIP, 16348058588084537): Are you going on an intracity trip or a business trip?
+0873d6b838eecdd434786c450ecab5-4$ SYSTEM (ASK, 16348058588084537): Are you going on an intracity trip or a business trip?
+USER: 9410be2ca7911ad76b207b44834bb0 || QUALITY: 1
+USER: 9410be2ca7911ad76b207b44834bb0 || LENGTH: 4
+Closing connection for user 9410be2ca7911ad76b207b44834bb0
+0873d6b838eecdd434786c450ecab5-4$ USER: business
+0873d6b838eecdd434786c450ecab5-4$ SYSTEM (SKIP, 16348064261907944): Did you get written permission from your supervisor?
+0873d6b838eecdd434786c450ecab5-4$ SYSTEM (ASK, 16348064261907944): Did you get written permission from your supervisor?
+0873d6b838eecdd434786c450ecab5-4$ USER: yes
+0873d6b838eecdd434786c450ecab5-4$ SYSTEM (SKIP, 16363752591243585): What country are you traveling to?
+0873d6b838eecdd434786c450ecab5-4$ SYSTEM (ASK, 16363752591243585): What country are you traveling to?
+0873d6b838eecdd434786c450ecab5-4$ USER: france
+0873d6b838eecdd434786c450ecab5-4$ SYSTEM (SKIP, 16363753123487784): What city are you traveling to?
+0873d6b838eecdd434786c450ecab5-4$ SYSTEM (ASK, 16363753123487784): What city are you traveling to?
+0873d6b838eecdd434786c450ecab5-4$ USER: france
+0873d6b838eecdd434786c450ecab5-4$ SYSTEM (SKIP, 16391575204698838): {{COUNTRY
+0873d6b838eecdd434786c450ecab5-4$ SYSTEM (SKIP, 16389695846089108): For all  business trips (even for short trips or ones lasting only a single
+0873d6b838eecdd434786c450ecab5-4$ SYSTEM (ASK, 16389695846089108): For all  business trips (even for short trips or ones lasting only a single
+0873d6b838eecdd434786c450ecab5-4$ SYSTEM (SKIP, 16363753477187975): Please check the current COVID-19 travel warnings travel restrictions from 
+0873d6b838eecdd434786c450ecab5-4$ SYSTEM (ASK, 16363753477187975): Please check the current COVID-19 travel warnings travel restrictions from 
+0873d6b838eecdd434786c450ecab5-4$ SYSTEM (SKIP, 16363754346769013): COVID-19: Business trips should be reduced to an absolute minimum and are o
+0873d6b838eecdd434786c450ecab5-4$ SYSTEM (ASK, 16363754346769013): COVID-19: Business trips should be reduced to an absolute minimum and are o
+0873d6b838eecdd434786c450ecab5-4$ SYSTEM (SKIP, 16348093549280346): Are you planning to extend your trip with private travel?
+0873d6b838eecdd434786c450ecab5-4$ SYSTEM (ASK, 16348093549280346): Are you planning to extend your trip with private travel?
+0873d6b838eecdd434786c450ecab5-4$ USER: yes
+0873d6b838eecdd434786c450ecab5-4$ SYSTEM (SKIP, 16378316272591567): {{PRIVATE_EXTENSION
+0873d6b838eecdd434786c450ecab5-4$ SYSTEM (SKIP, 16363754793760356): A private extension to a trip must remain in proportion to the length of bu
+0873d6b838eecdd434786c450ecab5-4$ SYSTEM (ASK, 16363754793760356): A private extension to a trip must remain in proportion to the length of bu
+0873d6b838eecdd434786c450ecab5-4$ SYSTEM (SKIP, 16348097487038694): Which topic do you want to know more about?
+0873d6b838eecdd434786c450ecab5-4$ SYSTEM (ASK, 16348097487038694): Which topic do you want to know more about?
+0873d6b838eecdd434786c450ecab5-4$ USER: request an advance
+0873d6b838eecdd434786c450ecab5-4$ SYSTEM (SKIP, 16430174900099207): You can use the following form application for advancement of travel reimbu
+0873d6b838eecdd434786c450ecab5-4$ SYSTEM (ASK, 16430174900099207): You can use the following form application for advancement of travel reimbu
+0873d6b838eecdd434786c450ecab5-4$ SYSTEM (SKIP, 16384313191857195): Do you have any further questions?
+0873d6b838eecdd434786c450ecab5-4$ SYSTEM (ASK, 16384313191857195): Do you have any further questions?
+0873d6b838eecdd434786c450ecab5-4$ USER: yes
+0873d6b838eecdd434786c450ecab5-4$ SYSTEM (SKIP, 16348058621438633): What topic do you have questions about? You can either click on an answer f
+0873d6b838eecdd434786c450ecab5-4$ SYSTEM (ASK, 16348058621438633): What topic do you have questions about? You can either click on an answer f
+0873d6b838eecdd434786c450ecab5-4$ USER: book a trip
+0873d6b838eecdd434786c450ecab5-4$ SYSTEM (SKIP, 16348058588084537): Are you going on an intracity trip or a business trip?
+0873d6b838eecdd434786c450ecab5-4$ SYSTEM (ASK, 16348058588084537): Are you going on an intracity trip or a business trip?
+0873d6b838eecdd434786c450ecab5-4$ USER: business
+0873d6b838eecdd434786c450ecab5-4$ SYSTEM (SKIP, 16348064261907944): Did you get written permission from your supervisor?
+0873d6b838eecdd434786c450ecab5-4$ SYSTEM (ASK, 16348064261907944): Did you get written permission from your supervisor?
+0873d6b838eecdd434786c450ecab5-4$ USER: yes
+0873d6b838eecdd434786c450ecab5-4$ SYSTEM (SKIP, 16363752591243585): What country are you traveling to?
+0873d6b838eecdd434786c450ecab5-4$ SYSTEM (SKIP, 16363753123487784): What city are you traveling to?
+0873d6b838eecdd434786c450ecab5-4$ SYSTEM (SKIP, 16391575204698838): {{COUNTRY
+0873d6b838eecdd434786c450ecab5-4$ SYSTEM (SKIP, 16389695846089108): For all  business trips (even for short trips or ones lasting only a single
+0873d6b838eecdd434786c450ecab5-4$ SYSTEM (ASK, 16389695846089108): For all  business trips (even for short trips or ones lasting only a single
+0873d6b838eecdd434786c450ecab5-4$ SYSTEM (SKIP, 16363753477187975): Please check the current COVID-19 travel warnings travel restrictions from 
+0873d6b838eecdd434786c450ecab5-4$ SYSTEM (ASK, 16363753477187975): Please check the current COVID-19 travel warnings travel restrictions from 
+0873d6b838eecdd434786c450ecab5-4$ SYSTEM (SKIP, 16363754346769013): COVID-19: Business trips should be reduced to an absolute minimum and are o
+0873d6b838eecdd434786c450ecab5-4$ SYSTEM (ASK, 16363754346769013): COVID-19: Business trips should be reduced to an absolute minimum and are o
+0873d6b838eecdd434786c450ecab5-4$ SYSTEM (SKIP, 16348093549280346): Are you planning to extend your trip with private travel?
+0873d6b838eecdd434786c450ecab5-4$ SYSTEM (SKIP, 16378316272591567): {{PRIVATE_EXTENSION
+0873d6b838eecdd434786c450ecab5-4$ SYSTEM (SKIP, 16363754793760356): A private extension to a trip must remain in proportion to the length of bu
+0873d6b838eecdd434786c450ecab5-4$ SYSTEM (ASK, 16363754793760356): A private extension to a trip must remain in proportion to the length of bu
+0873d6b838eecdd434786c450ecab5-4$ SYSTEM (SKIP, 16348097487038694): Which topic do you want to know more about?
+0873d6b838eecdd434786c450ecab5-4$ SYSTEM (ASK, 16348097487038694): Which topic do you want to know more about?
+0873d6b838eecdd434786c450ecab5-4$ USER: accomodation
+0873d6b838eecdd434786c450ecab5-4$ SYSTEM (SKIP, 16378350683837525): If the trip is being paid for by a third party (not from the university) or
+0873d6b838eecdd434786c450ecab5-4$ SYSTEM (ASK, 16378350683837525): If the trip is being paid for by a third party (not from the university) or
+0873d6b838eecdd434786c450ecab5-4$ SYSTEM (SKIP, 16478801254732768): What country are you traveling to?
+0873d6b838eecdd434786c450ecab5-4$ SYSTEM (SKIP, 16370471522263677): Where do you plan to stay
+0873d6b838eecdd434786c450ecab5-4$ SYSTEM (ASK, 16370471522263677): Where do you plan to stay
+0873d6b838eecdd434786c450ecab5-4$ USER: family
+0873d6b838eecdd434786c450ecab5-4$ SYSTEM (SKIP, 16378344891556489): {{COUNTRY
+0873d6b838eecdd434786c450ecab5-4$ SYSTEM (SKIP, 16378349334755637): Outside of Germany, you are entitled to 30€ if you are staying with friends
+0873d6b838eecdd434786c450ecab5-4$ REACHED GOAL ONCE
+0873d6b838eecdd434786c450ecab5-4$ SYSTEM (ASK, 16378349334755637): Outside of Germany, you are entitled to 30€ if you are staying with friends
+0873d6b838eecdd434786c450ecab5-4$ ASKED GOAL ONCE
+0873d6b838eecdd434786c450ecab5-4$ BST: {"COUNTRY": "France", "CITY": "$REST", "PRIVATE_EXTENSION": true}
+0873d6b838eecdd434786c450ecab5-4$ REACHED GOAL ONCE: True
+0873d6b838eecdd434786c450ecab5-4$ ASKED GOAL ONCE: True
+0873d6b838eecdd434786c450ecab5-4$ TOTAL LENGTH: 62
+0873d6b838eecdd434786c450ecab5-4$ PERCEIVED LENGTH: 27
+USER: 0873d6b838eecdd434786c450ecab5 || QUALITY: 2
+USER: 0873d6b838eecdd434786c450ecab5 || LENGTH: 5
+Closing connection for user 0873d6b838eecdd434786c450ecab5
+USER: dbe6cac22313a197629f86c1566a4b || GROUP: cts_llm
+USER: 2d7395b6dfd2c325b0186be76e9c81 || GROUP: cts_llm
+==== NEW DIALOG STARTED FOR USER 2d7395b6dfd2c325b0186be76e9c81 ====
+USER: 2d7395b6dfd2c325b0186be76e9c81 || GOAL: You want to know how to book a flight || NODE_ID: 16387868859695624
+2d7395b6dfd2c325b0186be76e9c81-0$ RESET
+2d7395b6dfd2c325b0186be76e9c81-0$ GOAL (16387868859695624): Thank you for using the business travel chatbot.Please let us know about yo
+2d7395b6dfd2c325b0186be76e9c81-1$ SYSTEM (ASK, 16348058621438633): What topic do you have questions about? You can either click on an answer f
+==== NEW DIALOG STARTED FOR USER dbe6cac22313a197629f86c1566a4b ====
+USER: dbe6cac22313a197629f86c1566a4b || GOAL: You want more information about how to plan a research semester. || NODE_ID: 16387868859695624
+dbe6cac22313a197629f86c1566a4b-0$ RESET
+dbe6cac22313a197629f86c1566a4b-0$ GOAL (16387868859695624): Thank you for using the business travel chatbot.Please let us know about yo
+dbe6cac22313a197629f86c1566a4b-1$ SYSTEM (ASK, 16348058621438633): What topic do you have questions about? You can either click on an answer f
+2d7395b6dfd2c325b0186be76e9c81-1$ USER: to book  FLIGHT
+2d7395b6dfd2c325b0186be76e9c81-1$ INTENT: 1
+2d7395b6dfd2c325b0186be76e9c81-1$ SYSTEM (SKIP, 16348058588084537): Are you going on an intracity trip or a business trip?
+2d7395b6dfd2c325b0186be76e9c81-1$ SYSTEM (SKIP, 16348064261907944): Did you get written permission from your supervisor?
+2d7395b6dfd2c325b0186be76e9c81-1$ SYSTEM (SKIP, 16363752591243585): What country are you traveling to?
+2d7395b6dfd2c325b0186be76e9c81-1$ SYSTEM (SKIP, 16363753123487784): What city are you traveling to?
+2d7395b6dfd2c325b0186be76e9c81-1$ SYSTEM (SKIP, 16391575204698838): {{COUNTRY
+2d7395b6dfd2c325b0186be76e9c81-1$ SYSTEM (SKIP, 16363754346769013): COVID-19: Business trips should be reduced to an absolute minimum and are o
+2d7395b6dfd2c325b0186be76e9c81-1$ SYSTEM (SKIP, 16348093549280346): Are you planning to extend your trip with private travel?
+2d7395b6dfd2c325b0186be76e9c81-1$ SYSTEM (SKIP, 16378316272591567): {{PRIVATE_EXTENSION
+2d7395b6dfd2c325b0186be76e9c81-1$ SYSTEM (SKIP, 16348097487038694): Which topic do you want to know more about?
+2d7395b6dfd2c325b0186be76e9c81-1$ SYSTEM (ASK, 16348097487038694): Which topic do you want to know more about?
+dbe6cac22313a197629f86c1566a4b-1$ USER: more information about how to plan a research semester.
+dbe6cac22313a197629f86c1566a4b-1$ INTENT: 1
+dbe6cac22313a197629f86c1566a4b-1$ SYSTEM (ASK, 16348058621438633): What topic do you have questions about? You can either click on an answer f
+2d7395b6dfd2c325b0186be76e9c81-1$=> REACHED GOAL ONCE: False
+2d7395b6dfd2c325b0186be76e9c81-1$=> ASKED GOAL ONCE: False
+2d7395b6dfd2c325b0186be76e9c81-1$=> PERCIEVED LENGTH: 2
+USER: 2d7395b6dfd2c325b0186be76e9c81 || QUALITY: 2
+USER: 2d7395b6dfd2c325b0186be76e9c81 || LENGTH: 1
+==== NEW DIALOG STARTED FOR USER 2d7395b6dfd2c325b0186be76e9c81 ====
+USER: 2d7395b6dfd2c325b0186be76e9c81 || GOAL: You have to cancel your trip. You want to know if the money you have already paid can be reimbursed || NODE_ID: 16457053159041482
+2d7395b6dfd2c325b0186be76e9c81-1$ RESET
+2d7395b6dfd2c325b0186be76e9c81-1$ GOAL (16457053159041482): You should try to cancel anything which has already been booked as quickly 
+2d7395b6dfd2c325b0186be76e9c81-2$ SYSTEM (ASK, 16348058621438633): What topic do you have questions about? You can either click on an answer f
+2d7395b6dfd2c325b0186be76e9c81-2$ USER: cancellation of trip and refund
+2d7395b6dfd2c325b0186be76e9c81-2$ INTENT: 0
+2d7395b6dfd2c325b0186be76e9c81-2$ SYSTEM (SKIP, 16457053159041482): You should try to cancel anything which has already been booked as quickly 
+2d7395b6dfd2c325b0186be76e9c81-2$ REACHED GOAL ONCE
+2d7395b6dfd2c325b0186be76e9c81-2$ SYSTEM (ASK, 16457053159041482): You should try to cancel anything which has already been booked as quickly 
+2d7395b6dfd2c325b0186be76e9c81-2$ ASKED GOAL ONCE
+2d7395b6dfd2c325b0186be76e9c81-2$ BST: {}
+2d7395b6dfd2c325b0186be76e9c81-2$ REACHED GOAL ONCE: True
+2d7395b6dfd2c325b0186be76e9c81-2$ ASKED GOAL ONCE: True
+2d7395b6dfd2c325b0186be76e9c81-2$ TOTAL LENGTH: 3
+2d7395b6dfd2c325b0186be76e9c81-2$ PERCEIVED LENGTH: 2
+dbe6cac22313a197629f86c1566a4b-1$ USER: more information about how to plan a research semester.
+dbe6cac22313a197629f86c1566a4b-1$ SYSTEM (SKIP, 16370487978253782): How long will your research semester last?  
+dbe6cac22313a197629f86c1566a4b-1$ SYSTEM (SKIP, 16460422182910140): {{TRIP_LENGTH
+dbe6cac22313a197629f86c1566a4b-1$ SYSTEM (SKIP, 16460422136134149): If you are traveling for more than 4 weeks and need help finding accommodat
+dbe6cac22313a197629f86c1566a4b-1$ SYSTEM (ASK, 16460422136134149): If you are traveling for more than 4 weeks and need help finding accommodat
+dbe6cac22313a197629f86c1566a4b-1$ SYSTEM (SKIP, 16353297472197738): Is this as part of a reallocation?  
+dbe6cac22313a197629f86c1566a4b-1$ SYSTEM (SKIP, 16370501863636503): As there has been no reallocation, your research semester counts as a busin
+dbe6cac22313a197629f86c1566a4b-1$ SYSTEM (ASK, 16370501863636503): As there has been no reallocation, your research semester counts as a busin
+dbe6cac22313a197629f86c1566a4b-1$ SYSTEM (SKIP, 16353303012891903): Are you traveling alone or with your family?
+dbe6cac22313a197629f86c1566a4b-1$ SYSTEM (SKIP, 16370483534787100): Your business trip must be planned as though you were traveling alone (with
+dbe6cac22313a197629f86c1566a4b-1$ SYSTEM (ASK, 16370483534787100): Your business trip must be planned as though you were traveling alone (with
+dbe6cac22313a197629f86c1566a4b-1$ SYSTEM (SKIP, 16363752591243585): What country are you traveling to?
+dbe6cac22313a197629f86c1566a4b-1$ SYSTEM (SKIP, 16363753123487784): What city are you traveling to?
+dbe6cac22313a197629f86c1566a4b-1$ SYSTEM (SKIP, 16391575204698838): {{COUNTRY
+dbe6cac22313a197629f86c1566a4b-1$ SYSTEM (SKIP, 16363754346769013): COVID-19: Business trips should be reduced to an absolute minimum and are o
+dbe6cac22313a197629f86c1566a4b-1$ SYSTEM (SKIP, 16348093549280346): Are you planning to extend your trip with private travel?
+dbe6cac22313a197629f86c1566a4b-1$ SYSTEM (SKIP, 16378316272591567): {{PRIVATE_EXTENSION
+dbe6cac22313a197629f86c1566a4b-1$ SYSTEM (SKIP, 16363754793760356): A private extension to a trip must remain in proportion to the length of bu
+dbe6cac22313a197629f86c1566a4b-1$ SYSTEM (SKIP, 16348097487038694): Which topic do you want to know more about?
+dbe6cac22313a197629f86c1566a4b-1$ SYSTEM (ASK, 16348097487038694): Which topic do you want to know more about?
+USER: 2d7395b6dfd2c325b0186be76e9c81 || QUALITY: 4
+USER: 2d7395b6dfd2c325b0186be76e9c81 || LENGTH: 3
+==== NEW DIALOG STARTED FOR USER 2d7395b6dfd2c325b0186be76e9c81 ====
+USER: 2d7395b6dfd2c325b0186be76e9c81 || GOAL: You want to know how much money you can get for your accommodations. <ul><li>You are traveling to France for your next trip</li><li>You plan to stay with your brother in his apartment. </li></ul> || NODE_ID: 16378349334755637
+2d7395b6dfd2c325b0186be76e9c81-2$ RESET
+2d7395b6dfd2c325b0186be76e9c81-2$ GOAL (16378349334755637): Outside of Germany, you are entitled to 30€ if you are staying with friends
+2d7395b6dfd2c325b0186be76e9c81-3$ SYSTEM (ASK, 16348058621438633): What topic do you have questions about? You can either click on an answer f
+2d7395b6dfd2c325b0186be76e9c81-3$ USER: how much for flights to france, no accommodation required
+2d7395b6dfd2c325b0186be76e9c81-3$ INTENT: 1
+2d7395b6dfd2c325b0186be76e9c81-3$ SYSTEM (ASK, 16348058621438633): What topic do you have questions about? You can either click on an answer f
+2d7395b6dfd2c325b0186be76e9c81-3$=> REACHED GOAL ONCE: False
+2d7395b6dfd2c325b0186be76e9c81-3$=> ASKED GOAL ONCE: False
+2d7395b6dfd2c325b0186be76e9c81-3$=> PERCIEVED LENGTH: 2
+USER: 2d7395b6dfd2c325b0186be76e9c81 || QUALITY: 1
+USER: 2d7395b6dfd2c325b0186be76e9c81 || LENGTH: 2
+Closing connection for user 2d7395b6dfd2c325b0186be76e9c81
+dbe6cac22313a197629f86c1566a4b-1$ USER: accomodation
+dbe6cac22313a197629f86c1566a4b-1$ SYSTEM (SKIP, 16378350683837525): If the trip is being paid for by a third party (not from the university) or
+dbe6cac22313a197629f86c1566a4b-1$ SYSTEM (ASK, 16378350683837525): If the trip is being paid for by a third party (not from the university) or
+dbe6cac22313a197629f86c1566a4b-1$ SYSTEM (SKIP, 16478801254732768): What country are you traveling to?
+dbe6cac22313a197629f86c1566a4b-1$ SYSTEM (SKIP, 16370471522263677): Where do you plan to stay
+dbe6cac22313a197629f86c1566a4b-1$ SYSTEM (SKIP, 16363812426270449): Hotels can be booked using the university's partner travel agency, through 
+dbe6cac22313a197629f86c1566a4b-1$ SYSTEM (ASK, 16363812426270449): Hotels can be booked using the university's partner travel agency, through 
+dbe6cac22313a197629f86c1566a4b-1$ BST: {}
+dbe6cac22313a197629f86c1566a4b-1$ REACHED GOAL ONCE: False
+dbe6cac22313a197629f86c1566a4b-1$ ASKED GOAL ONCE: False
+dbe6cac22313a197629f86c1566a4b-1$ TOTAL LENGTH: 27
+dbe6cac22313a197629f86c1566a4b-1$ PERCEIVED LENGTH: 8
+USER: dbe6cac22313a197629f86c1566a4b || QUALITY: 2
+USER: dbe6cac22313a197629f86c1566a4b || LENGTH: 2
+==== NEW DIALOG STARTED FOR USER dbe6cac22313a197629f86c1566a4b ====
+USER: dbe6cac22313a197629f86c1566a4b || GOAL: You want to know if you can get reimbursed if you reserve a seat for yourself on the train || NODE_ID: 16363756478730906
+dbe6cac22313a197629f86c1566a4b-1$ RESET
+dbe6cac22313a197629f86c1566a4b-1$ GOAL (16363756478730906): Seat reservations are allowed for train travel
+dbe6cac22313a197629f86c1566a4b-2$ SYSTEM (ASK, 16348058621438633): What topic do you have questions about? You can either click on an answer f
+dbe6cac22313a197629f86c1566a4b-2$ USER: Will I get reimbursed if I reserve a seat on train for myself
+dbe6cac22313a197629f86c1566a4b-2$ INTENT: 1
+dbe6cac22313a197629f86c1566a4b-2$ SYSTEM (SKIP, 16348058588084537): Are you going on an intracity trip or a business trip?
+dbe6cac22313a197629f86c1566a4b-2$ SYSTEM (SKIP, 16348070558358676): Did you get verbal permission from your supervisor?
+dbe6cac22313a197629f86c1566a4b-2$ SYSTEM (SKIP, 16348071239272239): Do you want to know more about booking Transportation or about ancillary co
+dbe6cac22313a197629f86c1566a4b-2$ SYSTEM (SKIP, 16348100109577394): What type of transportation would you like?
+dbe6cac22313a197629f86c1566a4b-2$ SYSTEM (ASK, 16348100109577394): What type of transportation would you like?
+dbe6cac22313a197629f86c1566a4b-2$ USER: train
+dbe6cac22313a197629f86c1566a4b-2$ SYSTEM (SKIP, 16363756478730906): Seat reservations are allowed for train travel
+dbe6cac22313a197629f86c1566a4b-2$ REACHED GOAL ONCE
+dbe6cac22313a197629f86c1566a4b-2$ SYSTEM (ASK, 16363756478730906): Seat reservations are allowed for train travel
+dbe6cac22313a197629f86c1566a4b-2$ ASKED GOAL ONCE
+dbe6cac22313a197629f86c1566a4b-2$ BST: {}
+dbe6cac22313a197629f86c1566a4b-2$ REACHED GOAL ONCE: True
+dbe6cac22313a197629f86c1566a4b-2$ ASKED GOAL ONCE: True
+dbe6cac22313a197629f86c1566a4b-2$ TOTAL LENGTH: 8
+dbe6cac22313a197629f86c1566a4b-2$ PERCEIVED LENGTH: 3
+USER: dbe6cac22313a197629f86c1566a4b || QUALITY: 2
+USER: dbe6cac22313a197629f86c1566a4b || LENGTH: 3
+==== NEW DIALOG STARTED FOR USER dbe6cac22313a197629f86c1566a4b ====
+USER: dbe6cac22313a197629f86c1566a4b || GOAL: You want to figure out how much money you can get for your travel. <ul><li>You used your own car</li><li>You took two colleagues with you</li></ul> || NODE_ID: 16460328708250870
+dbe6cac22313a197629f86c1566a4b-2$ RESET
+dbe6cac22313a197629f86c1566a4b-2$ GOAL (16460328708250870): If you are also transporting other coworkers, you are entitled to 2 Cent pe
+dbe6cac22313a197629f86c1566a4b-3$ SYSTEM (ASK, 16348058621438633): What topic do you have questions about? You can either click on an answer f
+dbe6cac22313a197629f86c1566a4b-3$ USER: how much money can I get if I travelled in my own car with colleagues
+dbe6cac22313a197629f86c1566a4b-3$ INTENT: 1
+dbe6cac22313a197629f86c1566a4b-3$ SYSTEM (SKIP, 16348058588084537): Are you going on an intracity trip or a business trip?
+dbe6cac22313a197629f86c1566a4b-3$ SYSTEM (SKIP, 16348070558358676): Did you get verbal permission from your supervisor?
+dbe6cac22313a197629f86c1566a4b-3$ SYSTEM (SKIP, 16348071239272239): Do you want to know more about booking Transportation or about ancillary co
+dbe6cac22313a197629f86c1566a4b-3$ SYSTEM (SKIP, 16348100109577394): What type of transportation would you like?
+dbe6cac22313a197629f86c1566a4b-3$ SYSTEM (SKIP, 16460325754790153): If you used your car for a pressing reason, you are entitled to 0,25€ per k
+dbe6cac22313a197629f86c1566a4b-3$ SYSTEM (ASK, 16460325754790153): If you used your car for a pressing reason, you are entitled to 0,25€ per k
+dbe6cac22313a197629f86c1566a4b-3$ SYSTEM (SKIP, 16460327938891442): Pressing personal reasons: Severe illness of a family member 
+ Poor health 
+dbe6cac22313a197629f86c1566a4b-3$ SYSTEM (SKIP, 16460328708250870): If you are also transporting other coworkers, you are entitled to 2 Cent pe
+dbe6cac22313a197629f86c1566a4b-3$ REACHED GOAL ONCE
+dbe6cac22313a197629f86c1566a4b-3$ SYSTEM (ASK, 16460328708250870): If you are also transporting other coworkers, you are entitled to 2 Cent pe
+dbe6cac22313a197629f86c1566a4b-3$ ASKED GOAL ONCE
+dbe6cac22313a197629f86c1566a4b-3$ BST: {}
+dbe6cac22313a197629f86c1566a4b-3$ REACHED GOAL ONCE: True
+dbe6cac22313a197629f86c1566a4b-3$ ASKED GOAL ONCE: True
+dbe6cac22313a197629f86c1566a4b-3$ TOTAL LENGTH: 10
+dbe6cac22313a197629f86c1566a4b-3$ PERCEIVED LENGTH: 3
+USER: dbe6cac22313a197629f86c1566a4b || QUALITY: 3
+USER: dbe6cac22313a197629f86c1566a4b || LENGTH: 3
+Closing connection for user dbe6cac22313a197629f86c1566a4b
+USER: afa9456c3a94c52b5df7690c4f58d2 || GROUP: cts_llm
+==== NEW DIALOG STARTED FOR USER afa9456c3a94c52b5df7690c4f58d2 ====
+USER: afa9456c3a94c52b5df7690c4f58d2 || GOAL: You want to know how to book a hotel || NODE_ID: 16387868859695624
+afa9456c3a94c52b5df7690c4f58d2-0$ RESET
+afa9456c3a94c52b5df7690c4f58d2-0$ GOAL (16387868859695624): Thank you for using the business travel chatbot.Please let us know about yo
+afa9456c3a94c52b5df7690c4f58d2-1$ SYSTEM (ASK, 16348058621438633): What topic do you have questions about? You can either click on an answer f
+afa9456c3a94c52b5df7690c4f58d2-1$ USER: book a hotel
+afa9456c3a94c52b5df7690c4f58d2-1$ INTENT: 1
+afa9456c3a94c52b5df7690c4f58d2-1$ SYSTEM (ASK, 16348058621438633): What topic do you have questions about? You can either click on an answer f
+afa9456c3a94c52b5df7690c4f58d2-1$ USER: book a trip
+afa9456c3a94c52b5df7690c4f58d2-1$ SYSTEM (SKIP, 16348058588084537): Are you going on an intracity trip or a business trip?
+afa9456c3a94c52b5df7690c4f58d2-1$ SYSTEM (SKIP, 16348064261907944): Did you get written permission from your supervisor?
+afa9456c3a94c52b5df7690c4f58d2-1$ SYSTEM (SKIP, 16363752591243585): What country are you traveling to?
+afa9456c3a94c52b5df7690c4f58d2-1$ SYSTEM (SKIP, 16363753123487784): What city are you traveling to?
+afa9456c3a94c52b5df7690c4f58d2-1$ SYSTEM (SKIP, 16391575204698838): {{COUNTRY
+afa9456c3a94c52b5df7690c4f58d2-1$ SYSTEM (ASK, 16363752591243585): What country are you traveling to?
+afa9456c3a94c52b5df7690c4f58d2-1$ USER: USA
+afa9456c3a94c52b5df7690c4f58d2-1$ SYSTEM (SKIP, 16389695846089108): For all  business trips (even for short trips or ones lasting only a single
+afa9456c3a94c52b5df7690c4f58d2-1$ SYSTEM (SKIP, 16363753477187975): Please check the current COVID-19 travel warnings travel restrictions from 
+afa9456c3a94c52b5df7690c4f58d2-1$ SYSTEM (SKIP, 16363754346769013): COVID-19: Business trips should be reduced to an absolute minimum and are o
+afa9456c3a94c52b5df7690c4f58d2-1$ SYSTEM (SKIP, 16348093549280346): Are you planning to extend your trip with private travel?
+afa9456c3a94c52b5df7690c4f58d2-1$ SYSTEM (SKIP, 16378316272591567): {{PRIVATE_EXTENSION
+afa9456c3a94c52b5df7690c4f58d2-1$ SYSTEM (SKIP, 16348097487038694): Which topic do you want to know more about?
+afa9456c3a94c52b5df7690c4f58d2-1$ SYSTEM (SKIP, 16378350683837525): If the trip is being paid for by a third party (not from the university) or
+afa9456c3a94c52b5df7690c4f58d2-1$ SYSTEM (SKIP, 16478801254732768): What country are you traveling to?
+afa9456c3a94c52b5df7690c4f58d2-1$ SYSTEM (SKIP, 16370471522263677): Where do you plan to stay
+afa9456c3a94c52b5df7690c4f58d2-1$ SYSTEM (SKIP, 16363812426270449): Hotels can be booked using the university's partner travel agency, through 
+afa9456c3a94c52b5df7690c4f58d2-1$ SYSTEM (ASK, 16363812426270449): Hotels can be booked using the university's partner travel agency, through 
+afa9456c3a94c52b5df7690c4f58d2-1$ SYSTEM (SKIP, 16389574258367592): In order to book trips through the partner travel agency, you will need to 
+afa9456c3a94c52b5df7690c4f58d2-1$ SYSTEM (SKIP, 16363811629822245): It is required that the bill is addressed to your employer with your name e
+afa9456c3a94c52b5df7690c4f58d2-1$ SYSTEM (SKIP, 16370471520509009): {{COUNTRY
+afa9456c3a94c52b5df7690c4f58d2-1$ SYSTEM (SKIP, 16365521324065600): In {{ COUNTRY }} you have a budget of up to 90€ (or 120€ in cities with a p
+afa9456c3a94c52b5df7690c4f58d2-1$ SYSTEM (ASK, 16365521324065600): In {{ COUNTRY }} you have a budget of up to 90€ (or 120€ in cities with a p
+afa9456c3a94c52b5df7690c4f58d2-1$ SYSTEM (SKIP, 16363810595542638): Exceeding the accommodation allowance can be allowed on a case-by-case basi
+afa9456c3a94c52b5df7690c4f58d2-1$ SYSTEM (ASK, 16363810595542638): Exceeding the accommodation allowance can be allowed on a case-by-case basi
+afa9456c3a94c52b5df7690c4f58d2-1$ SYSTEM (SKIP, 16370471523444253): Do have any more questions about booking an accommodation
+afa9456c3a94c52b5df7690c4f58d2-1$ SYSTEM (ASK, 16370471523444253): Do have any more questions about booking an accommodation
+afa9456c3a94c52b5df7690c4f58d2-1$=> REACHED GOAL ONCE: False
+afa9456c3a94c52b5df7690c4f58d2-1$=> ASKED GOAL ONCE: False
+afa9456c3a94c52b5df7690c4f58d2-1$=> PERCIEVED LENGTH: 7
+USER: afa9456c3a94c52b5df7690c4f58d2 || QUALITY: 4
+USER: afa9456c3a94c52b5df7690c4f58d2 || LENGTH: 3
+==== NEW DIALOG STARTED FOR USER afa9456c3a94c52b5df7690c4f58d2 ====
+USER: afa9456c3a94c52b5df7690c4f58d2 || GOAL: You want to know if you can be reimbursed if you need to book a taxi during your trip. || NODE_ID: 16365525829145685
+afa9456c3a94c52b5df7690c4f58d2-1$ RESET
+afa9456c3a94c52b5df7690c4f58d2-1$ GOAL (16365525829145685): A taxi is only reimbursable if there is a business related reason or a pres
+afa9456c3a94c52b5df7690c4f58d2-2$ SYSTEM (ASK, 16348058621438633): What topic do you have questions about? You can either click on an answer f
+afa9456c3a94c52b5df7690c4f58d2-2$ USER: can i be reimbursed if i have to book a taxi?
+afa9456c3a94c52b5df7690c4f58d2-2$ INTENT: 1
+afa9456c3a94c52b5df7690c4f58d2-2$ SYSTEM (SKIP, 16348058588084537): Are you going on an intracity trip or a business trip?
+afa9456c3a94c52b5df7690c4f58d2-2$ SYSTEM (SKIP, 16348070558358676): Did you get verbal permission from your supervisor?
+afa9456c3a94c52b5df7690c4f58d2-2$ SYSTEM (SKIP, 16348071239272239): Do you want to know more about booking Transportation or about ancillary co
+afa9456c3a94c52b5df7690c4f58d2-2$ SYSTEM (ASK, 16348071239272239): Do you want to know more about booking Transportation or about ancillary co
+afa9456c3a94c52b5df7690c4f58d2-2$ USER: incidental costs
+afa9456c3a94c52b5df7690c4f58d2-2$ SYSTEM (SKIP, 16366214877516370): Which incidental costs ocurred during your trip or do you anticipate occurr
+afa9456c3a94c52b5df7690c4f58d2-2$ SYSTEM (SKIP, 16369666762318746): Parking fees are refundable if there was a pressing reason. Pressing reason
+afa9456c3a94c52b5df7690c4f58d2-2$ SYSTEM (ASK, 16369666762318746): Parking fees are refundable if there was a pressing reason. Pressing reason
+afa9456c3a94c52b5df7690c4f58d2-2$ BST: {}
+afa9456c3a94c52b5df7690c4f58d2-2$ REACHED GOAL ONCE: False
+afa9456c3a94c52b5df7690c4f58d2-2$ ASKED GOAL ONCE: False
+afa9456c3a94c52b5df7690c4f58d2-2$ TOTAL LENGTH: 8
+afa9456c3a94c52b5df7690c4f58d2-2$ PERCEIVED LENGTH: 3
+USER: afa9456c3a94c52b5df7690c4f58d2 || QUALITY: 2
+USER: afa9456c3a94c52b5df7690c4f58d2 || LENGTH: 2
+==== NEW DIALOG STARTED FOR USER afa9456c3a94c52b5df7690c4f58d2 ====
+USER: afa9456c3a94c52b5df7690c4f58d2 || GOAL: You want to know how much money you can get for your accommodations. <ul><li>You are traveling to France for your next trip</li><li>You plan to stay with your brother in his apartment. </li></ul> || NODE_ID: 16378349334755637
+afa9456c3a94c52b5df7690c4f58d2-2$ RESET
+afa9456c3a94c52b5df7690c4f58d2-2$ GOAL (16378349334755637): Outside of Germany, you are entitled to 30€ if you are staying with friends
+afa9456c3a94c52b5df7690c4f58d2-3$ SYSTEM (ASK, 16348058621438633): What topic do you have questions about? You can either click on an answer f
+afa9456c3a94c52b5df7690c4f58d2-3$ USER: book a trip
+afa9456c3a94c52b5df7690c4f58d2-3$ INTENT: 0
+afa9456c3a94c52b5df7690c4f58d2-3$ SYSTEM (SKIP, 16348058588084537): Are you going on an intracity trip or a business trip?
+afa9456c3a94c52b5df7690c4f58d2-3$ SYSTEM (ASK, 16348058588084537): Are you going on an intracity trip or a business trip?
+afa9456c3a94c52b5df7690c4f58d2-3$ USER: business trip
+afa9456c3a94c52b5df7690c4f58d2-3$ SYSTEM (SKIP, 16348064261907944): Did you get written permission from your supervisor?
+afa9456c3a94c52b5df7690c4f58d2-3$ SYSTEM (ASK, 16348064261907944): Did you get written permission from your supervisor?
+afa9456c3a94c52b5df7690c4f58d2-3$ USER: yes
+afa9456c3a94c52b5df7690c4f58d2-3$ SYSTEM (SKIP, 16363752591243585): What country are you traveling to?
+afa9456c3a94c52b5df7690c4f58d2-3$ SYSTEM (ASK, 16363752591243585): What country are you traveling to?
+afa9456c3a94c52b5df7690c4f58d2-3$ USER: france
+afa9456c3a94c52b5df7690c4f58d2-3$ SYSTEM (SKIP, 16363753123487784): What city are you traveling to?
+afa9456c3a94c52b5df7690c4f58d2-3$ SYSTEM (ASK, 16363753123487784): What city are you traveling to?
+afa9456c3a94c52b5df7690c4f58d2-3$ USER: paris
+afa9456c3a94c52b5df7690c4f58d2-3$ SYSTEM (SKIP, 16391575204698838): {{COUNTRY
+afa9456c3a94c52b5df7690c4f58d2-3$ SYSTEM (SKIP, 16389695846089108): For all  business trips (even for short trips or ones lasting only a single
+afa9456c3a94c52b5df7690c4f58d2-3$ SYSTEM (ASK, 16389695846089108): For all  business trips (even for short trips or ones lasting only a single
+afa9456c3a94c52b5df7690c4f58d2-3$ SYSTEM (SKIP, 16363753477187975): Please check the current COVID-19 travel warnings travel restrictions from 
+afa9456c3a94c52b5df7690c4f58d2-3$ SYSTEM (ASK, 16363753477187975): Please check the current COVID-19 travel warnings travel restrictions from 
+afa9456c3a94c52b5df7690c4f58d2-3$ SYSTEM (SKIP, 16363754346769013): COVID-19: Business trips should be reduced to an absolute minimum and are o
+afa9456c3a94c52b5df7690c4f58d2-3$ SYSTEM (ASK, 16363754346769013): COVID-19: Business trips should be reduced to an absolute minimum and are o
+afa9456c3a94c52b5df7690c4f58d2-3$ SYSTEM (SKIP, 16348093549280346): Are you planning to extend your trip with private travel?
+afa9456c3a94c52b5df7690c4f58d2-3$ SYSTEM (ASK, 16348093549280346): Are you planning to extend your trip with private travel?
+afa9456c3a94c52b5df7690c4f58d2-3$ USER: yes
+afa9456c3a94c52b5df7690c4f58d2-3$ SYSTEM (SKIP, 16378316272591567): {{PRIVATE_EXTENSION
+afa9456c3a94c52b5df7690c4f58d2-3$ SYSTEM (SKIP, 16363754793760356): A private extension to a trip must remain in proportion to the length of bu
+afa9456c3a94c52b5df7690c4f58d2-3$ SYSTEM (ASK, 16363754793760356): A private extension to a trip must remain in proportion to the length of bu
+afa9456c3a94c52b5df7690c4f58d2-3$ SYSTEM (SKIP, 16348097487038694): Which topic do you want to know more about?
+afa9456c3a94c52b5df7690c4f58d2-3$ SYSTEM (ASK, 16348097487038694): Which topic do you want to know more about?
+afa9456c3a94c52b5df7690c4f58d2-3$ USER: accommodation
+afa9456c3a94c52b5df7690c4f58d2-3$ SYSTEM (SKIP, 16378350683837525): If the trip is being paid for by a third party (not from the university) or
+afa9456c3a94c52b5df7690c4f58d2-3$ SYSTEM (ASK, 16378350683837525): If the trip is being paid for by a third party (not from the university) or
+afa9456c3a94c52b5df7690c4f58d2-3$ SYSTEM (SKIP, 16478801254732768): What country are you traveling to?
+afa9456c3a94c52b5df7690c4f58d2-3$ SYSTEM (SKIP, 16370471522263677): Where do you plan to stay
+afa9456c3a94c52b5df7690c4f58d2-3$ SYSTEM (ASK, 16370471522263677): Where do you plan to stay
+afa9456c3a94c52b5df7690c4f58d2-3$ USER: with family
+afa9456c3a94c52b5df7690c4f58d2-3$ SYSTEM (SKIP, 16378344891556489): {{COUNTRY
+afa9456c3a94c52b5df7690c4f58d2-3$ SYSTEM (SKIP, 16378349334755637): Outside of Germany, you are entitled to 30€ if you are staying with friends
+afa9456c3a94c52b5df7690c4f58d2-3$ REACHED GOAL ONCE
+afa9456c3a94c52b5df7690c4f58d2-3$ SYSTEM (ASK, 16378349334755637): Outside of Germany, you are entitled to 30€ if you are staying with friends
+afa9456c3a94c52b5df7690c4f58d2-3$ ASKED GOAL ONCE
+afa9456c3a94c52b5df7690c4f58d2-3$ BST: {"COUNTRY": "France", "CITY": "Paris", "PRIVATE_EXTENSION": true}
+afa9456c3a94c52b5df7690c4f58d2-3$ REACHED GOAL ONCE: True
+afa9456c3a94c52b5df7690c4f58d2-3$ ASKED GOAL ONCE: True
+afa9456c3a94c52b5df7690c4f58d2-3$ TOTAL LENGTH: 31
+afa9456c3a94c52b5df7690c4f58d2-3$ PERCEIVED LENGTH: 14
+USER: afa9456c3a94c52b5df7690c4f58d2 || QUALITY: 4
+USER: afa9456c3a94c52b5df7690c4f58d2 || LENGTH: 4
+Closing connection for user afa9456c3a94c52b5df7690c4f58d2
+USER: 55832a2b722d7391aee76497d06081 || GROUP: cts_llm
+USER: 4c0a4a03ff02a7ff4e01de725ac38c || GROUP: cts_llm
+==== NEW DIALOG STARTED FOR USER 55832a2b722d7391aee76497d06081 ====
+USER: 55832a2b722d7391aee76497d06081 || GOAL: You want to know how to book a hotel || NODE_ID: 16387868859695624
+55832a2b722d7391aee76497d06081-0$ RESET
+55832a2b722d7391aee76497d06081-0$ GOAL (16387868859695624): Thank you for using the business travel chatbot.Please let us know about yo
+55832a2b722d7391aee76497d06081-1$ SYSTEM (ASK, 16348058621438633): What topic do you have questions about? You can either click on an answer f
+==== NEW DIALOG STARTED FOR USER 4c0a4a03ff02a7ff4e01de725ac38c ====
+USER: 4c0a4a03ff02a7ff4e01de725ac38c || GOAL: You want more information about how to plan a research semester. || NODE_ID: 16387868859695624
+4c0a4a03ff02a7ff4e01de725ac38c-0$ RESET
+4c0a4a03ff02a7ff4e01de725ac38c-0$ GOAL (16387868859695624): Thank you for using the business travel chatbot.Please let us know about yo
+4c0a4a03ff02a7ff4e01de725ac38c-1$ SYSTEM (ASK, 16348058621438633): What topic do you have questions about? You can either click on an answer f
+55832a2b722d7391aee76497d06081-1$ USER: I would like to book a hotel
+55832a2b722d7391aee76497d06081-1$ INTENT: 1
+55832a2b722d7391aee76497d06081-1$ SYSTEM (ASK, 16348058621438633): What topic do you have questions about? You can either click on an answer f
+55832a2b722d7391aee76497d06081-1$ USER: How do I book a hotel
+55832a2b722d7391aee76497d06081-1$ SYSTEM (SKIP, 16348058588084537): Are you going on an intracity trip or a business trip?
+55832a2b722d7391aee76497d06081-1$ SYSTEM (SKIP, 16348064261907944): Did you get written permission from your supervisor?
+55832a2b722d7391aee76497d06081-1$ SYSTEM (SKIP, 16363752591243585): What country are you traveling to?
+55832a2b722d7391aee76497d06081-1$ SYSTEM (SKIP, 16363753123487784): What city are you traveling to?
+55832a2b722d7391aee76497d06081-1$ SYSTEM (SKIP, 16391575204698838): {{COUNTRY
+55832a2b722d7391aee76497d06081-1$ SYSTEM (ASK, 16363752591243585): What country are you traveling to?
+55832a2b722d7391aee76497d06081-1$ USER: Germany
+55832a2b722d7391aee76497d06081-1$ SYSTEM (SKIP, 16363754346769013): COVID-19: Business trips should be reduced to an absolute minimum and are o
+55832a2b722d7391aee76497d06081-1$ SYSTEM (SKIP, 16348093549280346): Are you planning to extend your trip with private travel?
+55832a2b722d7391aee76497d06081-1$ SYSTEM (SKIP, 16378316272591567): {{PRIVATE_EXTENSION
+55832a2b722d7391aee76497d06081-1$ SYSTEM (SKIP, 16348097487038694): Which topic do you want to know more about?
+55832a2b722d7391aee76497d06081-1$ SYSTEM (SKIP, 16378350683837525): If the trip is being paid for by a third party (not from the university) or
+55832a2b722d7391aee76497d06081-1$ SYSTEM (SKIP, 16478801254732768): What country are you traveling to?
+55832a2b722d7391aee76497d06081-1$ SYSTEM (SKIP, 16370471522263677): Where do you plan to stay
+55832a2b722d7391aee76497d06081-1$ SYSTEM (SKIP, 16363812426270449): Hotels can be booked using the university's partner travel agency, through 
+55832a2b722d7391aee76497d06081-1$ SYSTEM (ASK, 16363812426270449): Hotels can be booked using the university's partner travel agency, through 
+55832a2b722d7391aee76497d06081-1$ SYSTEM (SKIP, 16389574258367592): In order to book trips through the partner travel agency, you will need to 
+55832a2b722d7391aee76497d06081-1$ SYSTEM (SKIP, 16363811629822245): It is required that the bill is addressed to your employer with your name e
+55832a2b722d7391aee76497d06081-1$ SYSTEM (SKIP, 16370471520509009): {{COUNTRY
+55832a2b722d7391aee76497d06081-1$ SYSTEM (SKIP, 16365520936325006): In Germany hotel costs can be reimbursed up to 60€ (or 80€ in cities with a
+55832a2b722d7391aee76497d06081-1$ SYSTEM (ASK, 16365520936325006): In Germany hotel costs can be reimbursed up to 60€ (or 80€ in cities with a
+55832a2b722d7391aee76497d06081-1$ SYSTEM (SKIP, 16363810595542638): Exceeding the accommodation allowance can be allowed on a case-by-case basi
+55832a2b722d7391aee76497d06081-1$ SYSTEM (ASK, 16363810595542638): Exceeding the accommodation allowance can be allowed on a case-by-case basi
+55832a2b722d7391aee76497d06081-1$ SYSTEM (SKIP, 16370471523444253): Do have any more questions about booking an accommodation
+55832a2b722d7391aee76497d06081-1$ SYSTEM (SKIP, 16378355894189764): When traveling alone, you may book a double bed room in cases where no sing
+55832a2b722d7391aee76497d06081-1$ SYSTEM (ASK, 16378355894189764): When traveling alone, you may book a double bed room in cases where no sing
+55832a2b722d7391aee76497d06081-1$ BST: {"COUNTRY": "Germany"}
+55832a2b722d7391aee76497d06081-1$ REACHED GOAL ONCE: False
+55832a2b722d7391aee76497d06081-1$ ASKED GOAL ONCE: False
+55832a2b722d7391aee76497d06081-1$ TOTAL LENGTH: 27
+55832a2b722d7391aee76497d06081-1$ PERCEIVED LENGTH: 7
+USER: 9b91e1b9158f22e2702060f291b21b || GROUP: cts_llm
+4c0a4a03ff02a7ff4e01de725ac38c-1$ USER: How do I go about getting information on how to plan a research semester?
+4c0a4a03ff02a7ff4e01de725ac38c-1$ INTENT: 1
+4c0a4a03ff02a7ff4e01de725ac38c-1$ SYSTEM (ASK, 16348058621438633): What topic do you have questions about? You can either click on an answer f
+USER: 55832a2b722d7391aee76497d06081 || QUALITY: 4
+USER: 55832a2b722d7391aee76497d06081 || LENGTH: 5
+==== NEW DIALOG STARTED FOR USER 55832a2b722d7391aee76497d06081 ====
+USER: 55832a2b722d7391aee76497d06081 || GOAL: You are booking a trip to attend a conference and want to know if the conference fee can be reimbursed || NODE_ID: 16384329210117153
+55832a2b722d7391aee76497d06081-1$ RESET
+55832a2b722d7391aee76497d06081-1$ GOAL (16384329210117153): Conference fees are reimbursable.
+55832a2b722d7391aee76497d06081-2$ SYSTEM (ASK, 16348058621438633): What topic do you have questions about? You can either click on an answer f
+4c0a4a03ff02a7ff4e01de725ac38c-1$ USER: research semester
+4c0a4a03ff02a7ff4e01de725ac38c-1$ SYSTEM (SKIP, 16370487978253782): How long will your research semester last?  
+4c0a4a03ff02a7ff4e01de725ac38c-1$ SYSTEM (SKIP, 16460422182910140): {{TRIP_LENGTH
+4c0a4a03ff02a7ff4e01de725ac38c-1$ SYSTEM (SKIP, 16460422136134149): If you are traveling for more than 4 weeks and need help finding accommodat
+4c0a4a03ff02a7ff4e01de725ac38c-1$ SYSTEM (ASK, 16460422136134149): If you are traveling for more than 4 weeks and need help finding accommodat
+4c0a4a03ff02a7ff4e01de725ac38c-1$ SYSTEM (SKIP, 16353297472197738): Is this as part of a reallocation?  
+4c0a4a03ff02a7ff4e01de725ac38c-1$ SYSTEM (SKIP, 16370501863636503): As there has been no reallocation, your research semester counts as a busin
+4c0a4a03ff02a7ff4e01de725ac38c-1$ SYSTEM (ASK, 16370501863636503): As there has been no reallocation, your research semester counts as a busin
+4c0a4a03ff02a7ff4e01de725ac38c-1$ SYSTEM (SKIP, 16353303012891903): Are you traveling alone or with your family?
+4c0a4a03ff02a7ff4e01de725ac38c-1$ SYSTEM (SKIP, 16370483534787100): Your business trip must be planned as though you were traveling alone (with
+4c0a4a03ff02a7ff4e01de725ac38c-1$ SYSTEM (ASK, 16370483534787100): Your business trip must be planned as though you were traveling alone (with
+4c0a4a03ff02a7ff4e01de725ac38c-1$ SYSTEM (SKIP, 16363752591243585): What country are you traveling to?
+4c0a4a03ff02a7ff4e01de725ac38c-1$ SYSTEM (SKIP, 16363753123487784): What city are you traveling to?
+4c0a4a03ff02a7ff4e01de725ac38c-1$ SYSTEM (SKIP, 16391575204698838): {{COUNTRY
+4c0a4a03ff02a7ff4e01de725ac38c-1$ SYSTEM (SKIP, 16363754346769013): COVID-19: Business trips should be reduced to an absolute minimum and are o
+4c0a4a03ff02a7ff4e01de725ac38c-1$ SYSTEM (SKIP, 16348093549280346): Are you planning to extend your trip with private travel?
+4c0a4a03ff02a7ff4e01de725ac38c-1$ SYSTEM (SKIP, 16378316272591567): {{PRIVATE_EXTENSION
+4c0a4a03ff02a7ff4e01de725ac38c-1$ SYSTEM (SKIP, 16363754793760356): A private extension to a trip must remain in proportion to the length of bu
+4c0a4a03ff02a7ff4e01de725ac38c-1$ SYSTEM (SKIP, 16348097487038694): Which topic do you want to know more about?
+4c0a4a03ff02a7ff4e01de725ac38c-1$ SYSTEM (ASK, 16348097487038694): Which topic do you want to know more about?
+==== NEW DIALOG STARTED FOR USER 9b91e1b9158f22e2702060f291b21b ====
+USER: 9b91e1b9158f22e2702060f291b21b || GOAL: You want to know how to book a flight || NODE_ID: 16387868859695624
+9b91e1b9158f22e2702060f291b21b-0$ RESET
+9b91e1b9158f22e2702060f291b21b-0$ GOAL (16387868859695624): Thank you for using the business travel chatbot.Please let us know about yo
+9b91e1b9158f22e2702060f291b21b-1$ SYSTEM (ASK, 16348058621438633): What topic do you have questions about? You can either click on an answer f
+55832a2b722d7391aee76497d06081-2$ USER: I am booking a trip to attend a conference and want to know if the conference fee can be reimbursed
+55832a2b722d7391aee76497d06081-2$ INTENT: 1
+55832a2b722d7391aee76497d06081-2$ SYSTEM (ASK, 16348058621438633): What topic do you have questions about? You can either click on an answer f
+55832a2b722d7391aee76497d06081-2$ USER: I want to know if the conference fee can be reimbursed
+55832a2b722d7391aee76497d06081-2$ SYSTEM (SKIP, 16430179741642982): Are you looking for a form or looking for help filling a form out?
+Traceback (most recent call last):
+  File "/home/ubuntu/cts_activelearning/server.py", line 215, in on_message
+    CHAT_ENGINES[self.current_user].user_reply(value)
+  File "/home/ubuntu/cts_activelearning/server/cts_llm_policy.py", line 692, in user_reply
+    self.dialog_loop(user_utterance=msg)
+  File "/home/ubuntu/cts_activelearning/server/cts_llm_policy.py", line 600, in dialog_loop
+    action, intent = self.predict(current_node=self.current_node, user_utterance=user_utterance)
+  File "/home/ubuntu/cts_activelearning/server/cts_llm_policy.py", line 911, in predict
+    action = self._predict_free(current_node=current_node)
+  File "/home/ubuntu/cts_activelearning/server/cts_llm_policy.py", line 821, in _predict_free
+    return self._get_next_node_question(current_node=current_node)
+  File "/home/ubuntu/cts_activelearning/server/cts_llm_policy.py", line 796, in _get_next_node_question
+    allreaching_answer = get_branches_reaching_all_goal_nodes(current_node=current_node, paths=self.candidate_paths, verbose=self.verbose)
+  File "/home/ubuntu/cts_activelearning/server/cts_llm_policy.py", line 261, in get_branches_reaching_all_goal_nodes
+    avg_branch_length = mean(reachable_node_ids.values())
+  File "/usr/lib/python3.10/statistics.py", line 328, in mean
+    raise StatisticsError('mean requires at least one data point')
+statistics.StatisticsError: mean requires at least one data point
+
+4c0a4a03ff02a7ff4e01de725ac38c-1$=> REACHED GOAL ONCE: False
+4c0a4a03ff02a7ff4e01de725ac38c-1$=> ASKED GOAL ONCE: False
+4c0a4a03ff02a7ff4e01de725ac38c-1$=> PERCIEVED LENGTH: 6
+USER: 4c0a4a03ff02a7ff4e01de725ac38c || QUALITY: 2
+USER: 4c0a4a03ff02a7ff4e01de725ac38c || LENGTH: 3
+==== NEW DIALOG STARTED FOR USER 4c0a4a03ff02a7ff4e01de725ac38c ====
+USER: 4c0a4a03ff02a7ff4e01de725ac38c || GOAL: You are traveling with another colleague and want to know if you have to share a room or if each of you can book your own || NODE_ID: 16363834594338823
+4c0a4a03ff02a7ff4e01de725ac38c-1$ RESET
+4c0a4a03ff02a7ff4e01de725ac38c-1$ GOAL (16363834594338823): Yes, staying in a room by yourself is allowed
+4c0a4a03ff02a7ff4e01de725ac38c-2$ SYSTEM (ASK, 16348058621438633): What topic do you have questions about? You can either click on an answer f
+4c0a4a03ff02a7ff4e01de725ac38c-2$ USER: book a trip
+4c0a4a03ff02a7ff4e01de725ac38c-2$ INTENT: 0
+4c0a4a03ff02a7ff4e01de725ac38c-2$ SYSTEM (SKIP, 16348058588084537): Are you going on an intracity trip or a business trip?
+4c0a4a03ff02a7ff4e01de725ac38c-2$ SYSTEM (ASK, 16348058588084537): Are you going on an intracity trip or a business trip?
+55832a2b722d7391aee76497d06081-2$=> REACHED GOAL ONCE: False
+55832a2b722d7391aee76497d06081-2$=> ASKED GOAL ONCE: False
+55832a2b722d7391aee76497d06081-2$=> PERCIEVED LENGTH: 2
+=== USER (55832a2b722d7391aee76497d06081) RESTART === 
+55832a2b722d7391aee76497d06081-2$ RESET
+55832a2b722d7391aee76497d06081-2$ GOAL (16384329210117153): Conference fees are reimbursable.
+55832a2b722d7391aee76497d06081-3$ SYSTEM (ASK, 16348058621438633): What topic do you have questions about? You can either click on an answer f
+55832a2b722d7391aee76497d06081-3$ USER: i want to know if the conference fee can be reimbursed
+55832a2b722d7391aee76497d06081-3$ INTENT: 1
+55832a2b722d7391aee76497d06081-3$ SYSTEM (ASK, 16348058621438633): What topic do you have questions about? You can either click on an answer f
+4c0a4a03ff02a7ff4e01de725ac38c-2$ USER: intracity business trip
+4c0a4a03ff02a7ff4e01de725ac38c-2$ SYSTEM (SKIP, 16348070558358676): Did you get verbal permission from your supervisor?
+4c0a4a03ff02a7ff4e01de725ac38c-2$ SYSTEM (ASK, 16348070558358676): Did you get verbal permission from your supervisor?
+55832a2b722d7391aee76497d06081-3$ USER: I am booking a trip to attend a conference and want to know if the conference fee can be reimbursed
+55832a2b722d7391aee76497d06081-3$ SYSTEM (SKIP, 16348058588084537): Are you going on an intracity trip or a business trip?
+55832a2b722d7391aee76497d06081-3$ SYSTEM (SKIP, 16348070558358676): Did you get verbal permission from your supervisor?
+55832a2b722d7391aee76497d06081-3$ SYSTEM (SKIP, 16348071239272239): Do you want to know more about booking Transportation or about ancillary co
+55832a2b722d7391aee76497d06081-3$ SYSTEM (ASK, 16348071239272239): Do you want to know more about booking Transportation or about ancillary co
+4c0a4a03ff02a7ff4e01de725ac38c-2$=> REACHED GOAL ONCE: False
+4c0a4a03ff02a7ff4e01de725ac38c-2$=> ASKED GOAL ONCE: False
+4c0a4a03ff02a7ff4e01de725ac38c-2$=> PERCIEVED LENGTH: 3
+USER: 4c0a4a03ff02a7ff4e01de725ac38c || QUALITY: 1
+USER: 4c0a4a03ff02a7ff4e01de725ac38c || LENGTH: 3
+==== NEW DIALOG STARTED FOR USER 4c0a4a03ff02a7ff4e01de725ac38c ====
+USER: 4c0a4a03ff02a7ff4e01de725ac38c || GOAL: You want to know how the reimbursement process works for research semester.<ul><li>You plan to bring your family with you</li></ul> || NODE_ID: 16370483534787100
+4c0a4a03ff02a7ff4e01de725ac38c-2$ RESET
+4c0a4a03ff02a7ff4e01de725ac38c-2$ GOAL (16370483534787100): Your business trip must be planned as though you were traveling alone (with
+4c0a4a03ff02a7ff4e01de725ac38c-3$ SYSTEM (ASK, 16348058621438633): What topic do you have questions about? You can either click on an answer f
+55832a2b722d7391aee76497d06081-3$ USER: What are incidental costs?
+55832a2b722d7391aee76497d06081-3$ SYSTEM (SKIP, 16354903154347892): Incidental costs are, e.g.,: Insurances Visa fees 
+ Conference meals 
+ Park
+55832a2b722d7391aee76497d06081-3$ SYSTEM (ASK, 16354903154347892): Incidental costs are, e.g.,: Insurances Visa fees 
+ Conference meals 
+ Park
+55832a2b722d7391aee76497d06081-3$ BST: {}
+55832a2b722d7391aee76497d06081-3$ REACHED GOAL ONCE: False
+55832a2b722d7391aee76497d06081-3$ ASKED GOAL ONCE: False
+55832a2b722d7391aee76497d06081-3$ TOTAL LENGTH: 8
+55832a2b722d7391aee76497d06081-3$ PERCEIVED LENGTH: 4
+4c0a4a03ff02a7ff4e01de725ac38c-3$ USER: research semester
+4c0a4a03ff02a7ff4e01de725ac38c-3$ INTENT: 0
+4c0a4a03ff02a7ff4e01de725ac38c-3$ SYSTEM (SKIP, 16370487978253782): How long will your research semester last?  
+4c0a4a03ff02a7ff4e01de725ac38c-3$ SYSTEM (ASK, 16370487978253782): How long will your research semester last?  
+USER: 55832a2b722d7391aee76497d06081 || QUALITY: 2
+USER: 55832a2b722d7391aee76497d06081 || LENGTH: 2
+==== NEW DIALOG STARTED FOR USER 55832a2b722d7391aee76497d06081 ====
+USER: 55832a2b722d7391aee76497d06081 || GOAL: You want to figure out how much money you can get for your travel. <ul><li>You used your own car</li><li>You took two colleagues with you</li></ul> || NODE_ID: 16460328708250870
+55832a2b722d7391aee76497d06081-3$ RESET
+55832a2b722d7391aee76497d06081-3$ GOAL (16460328708250870): If you are also transporting other coworkers, you are entitled to 2 Cent pe
+55832a2b722d7391aee76497d06081-4$ SYSTEM (ASK, 16348058621438633): What topic do you have questions about? You can either click on an answer f
+9b91e1b9158f22e2702060f291b21b-1$ USER: I can book a trip
+9b91e1b9158f22e2702060f291b21b-1$ INTENT: 0
+9b91e1b9158f22e2702060f291b21b-1$ SYSTEM (SKIP, 16348058588084537): Are you going on an intracity trip or a business trip?
+9b91e1b9158f22e2702060f291b21b-1$ SYSTEM (ASK, 16348058588084537): Are you going on an intracity trip or a business trip?
+4c0a4a03ff02a7ff4e01de725ac38c-3$ USER: bringing family
+4c0a4a03ff02a7ff4e01de725ac38c-3$ VAR ERROR: Sorry, but the time span you entered was not recognized by the system. Please rephrase.
+4c0a4a03ff02a7ff4e01de725ac38c-3$ USER: research semester bringing guest
+4c0a4a03ff02a7ff4e01de725ac38c-3$ VAR ERROR: Sorry, but the time span you entered was not recognized by the system. Please rephrase.
+4c0a4a03ff02a7ff4e01de725ac38c-3$=> REACHED GOAL ONCE: False
+4c0a4a03ff02a7ff4e01de725ac38c-3$=> ASKED GOAL ONCE: False
+4c0a4a03ff02a7ff4e01de725ac38c-3$=> PERCIEVED LENGTH: 2
+USER: 4c0a4a03ff02a7ff4e01de725ac38c || QUALITY: 1
+USER: 4c0a4a03ff02a7ff4e01de725ac38c || LENGTH: 2
+Closing connection for user 4c0a4a03ff02a7ff4e01de725ac38c
+55832a2b722d7391aee76497d06081-4$ USER: I want to figure out how much money I can get for my travel. I used My own car and  I took two colleagues with me.
+55832a2b722d7391aee76497d06081-4$ INTENT: 1
+55832a2b722d7391aee76497d06081-4$ SYSTEM (SKIP, 16348058588084537): Are you going on an intracity trip or a business trip?
+55832a2b722d7391aee76497d06081-4$ SYSTEM (SKIP, 16348070558358676): Did you get verbal permission from your supervisor?
+55832a2b722d7391aee76497d06081-4$ SYSTEM (SKIP, 16348071239272239): Do you want to know more about booking Transportation or about ancillary co
+55832a2b722d7391aee76497d06081-4$ SYSTEM (SKIP, 16348100109577394): What type of transportation would you like?
+55832a2b722d7391aee76497d06081-4$ SYSTEM (ASK, 16348100109577394): What type of transportation would you like?
+9b91e1b9158f22e2702060f291b21b-1$=> REACHED GOAL ONCE: False
+9b91e1b9158f22e2702060f291b21b-1$=> ASKED GOAL ONCE: False
+9b91e1b9158f22e2702060f291b21b-1$=> PERCIEVED LENGTH: 2
+USER: 9b91e1b9158f22e2702060f291b21b || QUALITY: 4
+USER: 9b91e1b9158f22e2702060f291b21b || LENGTH: 2
+==== NEW DIALOG STARTED FOR USER 9b91e1b9158f22e2702060f291b21b ====
+USER: 9b91e1b9158f22e2702060f291b21b || GOAL: You are traveling with another colleague and want to know if you have to share a room or if each of you can book your own || NODE_ID: 16363834594338823
+9b91e1b9158f22e2702060f291b21b-1$ RESET
+9b91e1b9158f22e2702060f291b21b-1$ GOAL (16363834594338823): Yes, staying in a room by yourself is allowed
+9b91e1b9158f22e2702060f291b21b-2$ SYSTEM (ASK, 16348058621438633): What topic do you have questions about? You can either click on an answer f
+55832a2b722d7391aee76497d06081-4$ USER: Personal car
+55832a2b722d7391aee76497d06081-4$ SYSTEM (SKIP, 16460325754790153): If you used your car for a pressing reason, you are entitled to 0,25€ per k
+55832a2b722d7391aee76497d06081-4$ SYSTEM (ASK, 16460325754790153): If you used your car for a pressing reason, you are entitled to 0,25€ per k
+55832a2b722d7391aee76497d06081-4$ SYSTEM (SKIP, 16460327938891442): Pressing personal reasons: Severe illness of a family member 
+ Poor health 
+55832a2b722d7391aee76497d06081-4$ SYSTEM (SKIP, 16460328708250870): If you are also transporting other coworkers, you are entitled to 2 Cent pe
+55832a2b722d7391aee76497d06081-4$ REACHED GOAL ONCE
+55832a2b722d7391aee76497d06081-4$ SYSTEM (ASK, 16460328708250870): If you are also transporting other coworkers, you are entitled to 2 Cent pe
+55832a2b722d7391aee76497d06081-4$ ASKED GOAL ONCE
+55832a2b722d7391aee76497d06081-4$ BST: {}
+55832a2b722d7391aee76497d06081-4$ REACHED GOAL ONCE: True
+55832a2b722d7391aee76497d06081-4$ ASKED GOAL ONCE: True
+55832a2b722d7391aee76497d06081-4$ TOTAL LENGTH: 11
+55832a2b722d7391aee76497d06081-4$ PERCEIVED LENGTH: 4
+USER: 55832a2b722d7391aee76497d06081 || QUALITY: 3
+USER: 55832a2b722d7391aee76497d06081 || LENGTH: 3
+Closing connection for user 55832a2b722d7391aee76497d06081
+9b91e1b9158f22e2702060f291b21b-2$ USER: Can I book a separate room for my colleague?
+9b91e1b9158f22e2702060f291b21b-2$ INTENT: 1
+9b91e1b9158f22e2702060f291b21b-2$ SYSTEM (SKIP, 16348058588084537): Are you going on an intracity trip or a business trip?
+9b91e1b9158f22e2702060f291b21b-2$ SYSTEM (SKIP, 16348064261907944): Did you get written permission from your supervisor?
+9b91e1b9158f22e2702060f291b21b-2$ SYSTEM (SKIP, 16363752591243585): What country are you traveling to?
+9b91e1b9158f22e2702060f291b21b-2$ SYSTEM (SKIP, 16363753123487784): What city are you traveling to?
+9b91e1b9158f22e2702060f291b21b-2$ SYSTEM (SKIP, 16391575204698838): {{COUNTRY
+9b91e1b9158f22e2702060f291b21b-2$ SYSTEM (SKIP, 16363754346769013): COVID-19: Business trips should be reduced to an absolute minimum and are o
+9b91e1b9158f22e2702060f291b21b-2$ SYSTEM (SKIP, 16348093549280346): Are you planning to extend your trip with private travel?
+9b91e1b9158f22e2702060f291b21b-2$ SYSTEM (SKIP, 16378316272591567): {{PRIVATE_EXTENSION
+9b91e1b9158f22e2702060f291b21b-2$ SYSTEM (SKIP, 16348097487038694): Which topic do you want to know more about?
+9b91e1b9158f22e2702060f291b21b-2$ SYSTEM (SKIP, 16378350683837525): If the trip is being paid for by a third party (not from the university) or
+9b91e1b9158f22e2702060f291b21b-2$ SYSTEM (SKIP, 16478801254732768): What country are you traveling to?
+9b91e1b9158f22e2702060f291b21b-2$ SYSTEM (SKIP, 16370471522263677): Where do you plan to stay
+9b91e1b9158f22e2702060f291b21b-2$ SYSTEM (SKIP, 16363812426270449): Hotels can be booked using the university's partner travel agency, through 
+9b91e1b9158f22e2702060f291b21b-2$ SYSTEM (ASK, 16363812426270449): Hotels can be booked using the university's partner travel agency, through 
+9b91e1b9158f22e2702060f291b21b-2$ BST: {}
+9b91e1b9158f22e2702060f291b21b-2$ REACHED GOAL ONCE: False
+9b91e1b9158f22e2702060f291b21b-2$ ASKED GOAL ONCE: False
+9b91e1b9158f22e2702060f291b21b-2$ TOTAL LENGTH: 15
+9b91e1b9158f22e2702060f291b21b-2$ PERCEIVED LENGTH: 2
+USER: 9b91e1b9158f22e2702060f291b21b || QUALITY: 3
+USER: 9b91e1b9158f22e2702060f291b21b || LENGTH: 3
+==== NEW DIALOG STARTED FOR USER 9b91e1b9158f22e2702060f291b21b ====
+USER: 9b91e1b9158f22e2702060f291b21b || GOAL: You want to know how much money you can get for your accommodations. <ul><li>You are traveling to France for your next trip</li><li>You plan to stay with your brother in his apartment. </li></ul> || NODE_ID: 16378349334755637
+9b91e1b9158f22e2702060f291b21b-2$ RESET
+9b91e1b9158f22e2702060f291b21b-2$ GOAL (16378349334755637): Outside of Germany, you are entitled to 30€ if you are staying with friends
+9b91e1b9158f22e2702060f291b21b-3$ SYSTEM (ASK, 16348058621438633): What topic do you have questions about? You can either click on an answer f
+9b91e1b9158f22e2702060f291b21b-3$ USER: Hi I am traveling to frane and I would like to know how much will it cost?
+9b91e1b9158f22e2702060f291b21b-3$ INTENT: 1
+9b91e1b9158f22e2702060f291b21b-3$ SYSTEM (SKIP, 16348058588084537): Are you going on an intracity trip or a business trip?
+9b91e1b9158f22e2702060f291b21b-3$ SYSTEM (SKIP, 16348064261907944): Did you get written permission from your supervisor?
+9b91e1b9158f22e2702060f291b21b-3$ SYSTEM (SKIP, 16363752591243585): What country are you traveling to?
+9b91e1b9158f22e2702060f291b21b-3$ SYSTEM (SKIP, 16363753123487784): What city are you traveling to?
+9b91e1b9158f22e2702060f291b21b-3$ SYSTEM (SKIP, 16391575204698838): {{COUNTRY
+9b91e1b9158f22e2702060f291b21b-3$ SYSTEM (ASK, 16363752591243585): What country are you traveling to?
+9b91e1b9158f22e2702060f291b21b-3$ USER: France
+9b91e1b9158f22e2702060f291b21b-3$ SYSTEM (SKIP, 16389695846089108): For all  business trips (even for short trips or ones lasting only a single
+9b91e1b9158f22e2702060f291b21b-3$ SYSTEM (SKIP, 16363753477187975): Please check the current COVID-19 travel warnings travel restrictions from 
+9b91e1b9158f22e2702060f291b21b-3$ SYSTEM (SKIP, 16363754346769013): COVID-19: Business trips should be reduced to an absolute minimum and are o
+9b91e1b9158f22e2702060f291b21b-3$ SYSTEM (SKIP, 16348093549280346): Are you planning to extend your trip with private travel?
+9b91e1b9158f22e2702060f291b21b-3$ SYSTEM (SKIP, 16378316272591567): {{PRIVATE_EXTENSION
+9b91e1b9158f22e2702060f291b21b-3$ SYSTEM (SKIP, 16363754793760356): A private extension to a trip must remain in proportion to the length of bu
+9b91e1b9158f22e2702060f291b21b-3$ SYSTEM (SKIP, 16348097487038694): Which topic do you want to know more about?
+9b91e1b9158f22e2702060f291b21b-3$ SYSTEM (ASK, 16348097487038694): Which topic do you want to know more about?
+9b91e1b9158f22e2702060f291b21b-3$ USER: Transportation only please 
+9b91e1b9158f22e2702060f291b21b-3$ SYSTEM (SKIP, 16348100109577394): What type of transportation would you like?
+9b91e1b9158f22e2702060f291b21b-3$ SYSTEM (SKIP, 16478798353898107): Are you planning to extend your trip with private travel?
+9b91e1b9158f22e2702060f291b21b-3$ SYSTEM (SKIP, 16378317000884236): {{PRIVATE_EXTENSION
+9b91e1b9158f22e2702060f291b21b-3$ SYSTEM (SKIP, 16363755463439219): Costs which occur as part of the business aspect of a trip are reimbursable
+9b91e1b9158f22e2702060f291b21b-3$ SYSTEM (ASK, 16363755463439219): Costs which occur as part of the business aspect of a trip are reimbursable
+9b91e1b9158f22e2702060f291b21b-3$ BST: {"COUNTRY": "France"}
+9b91e1b9158f22e2702060f291b21b-3$ REACHED GOAL ONCE: False
+9b91e1b9158f22e2702060f291b21b-3$ ASKED GOAL ONCE: False
+9b91e1b9158f22e2702060f291b21b-3$ TOTAL LENGTH: 20
+9b91e1b9158f22e2702060f291b21b-3$ PERCEIVED LENGTH: 4
+USER: 9b91e1b9158f22e2702060f291b21b || QUALITY: 1
+USER: 9b91e1b9158f22e2702060f291b21b || LENGTH: 3
+Closing connection for user 9b91e1b9158f22e2702060f291b21b
+==== NEW DIALOG STARTED FOR USER 9b91e1b9158f22e2702060f291b21b ====

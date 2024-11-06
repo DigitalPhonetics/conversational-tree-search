@@ -1,0 +1,752 @@
+USER: 6d44179da1563592c5e344b692971e (POLICY: faq)
+GOAL TEXT: You want more information about how to plan a research semester.
+GOAL NODE: 16387868859695624 Thank you for using the business travel chatbot.Please let us know about your experience by filling
+USER: Book a trip
+SYSTEM: (NODE: 16363751447148919) Before you start booking a trip, please get written permission from your supervisor using <a title="Permission form for business trip" href="https://www.redacted.pdf">this form </a>. Thanks!
+RESET
+USER: how to play a research semester
+SYSTEM: (NODE: 16370501863636503) Since there hasn't been any change to your workplace location (reallocation), your research semester is considered a business trip.
+RESET
+USER: how do i plan a business trip
+SYSTEM: (NODE: 16370483534787100) <p>When planning your business trip, please act as if you're traveling solo, without your family. Here's how it works:</p>
+ <ul><li>Only submit receipts for your own expenses.</li>
+ <li>If needed, gather comparison offers (like for travel and hotels) to show what it would cost just for you.</li>
+ <li>Keep personal expenses separate from business ones.</li>
+ <li>You'll need to cover any extra costs that come from bringing your family.</li></ul>
+ <p>Thanks!</p>
+DIALOG END: SUCCESS
+DIALOG LENGTH: 1
+SUBJECTIVE QUALITY: 3
+SUBJECTIVE LENGTH: 3
+
+USER: 6d44179da1563592c5e344b692971e (POLICY: faq)
+GOAL TEXT: You are traveling with another colleague and want to know if you have to share a room or if each of you can book your own
+GOAL NODE: 16363834594338823 Yes, staying in a room by yourself is allowed
+USER: if i travel with a colleague do i have to share a room
+SYSTEM: (NODE: 16378355894189764) If you're traveling alone and there are no single rooms available, or if a double room costs the same, you can book a double room.
+RESET
+GOAL NODE: 16363834594338823 Yes, staying in a room by yourself is allowed
+USER: travelling with more than one person
+SYSTEM: (NODE: 16460328708250870) If you're giving a ride to other coworkers who can also get travel reimbursement, you get 2 cents per kilometer for each person. Just make sure they sign your travel reimbursement request. If you're carrying business stuff like files that weigh more than 50 kg, you get 2 cents per 50 kg and kilometer. (Heads up, this will change in 2022.)
+RESET
+USER: accomodation for 2 people
+SYSTEM: (NODE: 16378355894189764) If you're traveling alone and there are no single rooms available, or if a double room costs the same, you can book a double room.
+DIALOG END: FAILURE
+DIALOG LENGTH: 1
+SUBJECTIVE QUALITY: 1
+SUBJECTIVE LENGTH: 2
+
+USER: 6d44179da1563592c5e344b692971e (POLICY: faq)
+GOAL TEXT: You want to figure out how much money you can get for your travel. <ul><li>You used your own car</li><li>You took two colleagues with you</li></ul>
+GOAL NODE: 16460328708250870 If you are also transporting other coworkers, you are entitled to 2 Cent per person und kilometer, f
+USER: car allowance if i take other
+SYSTEM: (NODE: 16460325754790153) If you had to use your car for an urgent reason, you can get 0.25€ for each kilometer you drove.
+RESET
+USER: car reimbursement
+SYSTEM: (NODE: 16365524053616136) You can get reimbursed for rental cars if you have a good reason, like not having enough public transportation, health issues, or a disability.
+RESET
+USER: can i get car reimbursement if traveling with others
+SYSTEM: (NODE: 16365524053616136) You can get reimbursed for rental cars if you have a good reason, like not having enough public transportation, health issues, or a disability.
+DIALOG END: FAILURE
+DIALOG LENGTH: 1
+SUBJECTIVE QUALITY: 1
+SUBJECTIVE LENGTH: 2
+
+USER: 9ca122597c1202b50061404326cd1d (POLICY: faq)
+GOAL TEXT: You want more information about how to plan a research semester.
+GOAL NODE: 16387868859695624 Thank you for using the business travel chatbot.Please let us know about your experience by filling
+USER: Plan a research semester
+SYSTEM: (NODE: 16370501863636503) Since there hasn't been any change to your official workplace, your research semester is basically like a business trip. 😊
+DIALOG END: SUCCESS
+DIALOG LENGTH: 1
+SUBJECTIVE QUALITY: 2
+SUBJECTIVE LENGTH: 2
+
+USER: 9ca122597c1202b50061404326cd1d (POLICY: faq)
+GOAL TEXT: You have to cancel your trip. You want to know if the money you have already paid can be reimbursed
+GOAL NODE: 16457053159041482 You should try to cancel anything which has already been booked as quickly as possible. Necessary ex
+USER: Cancel trip and reimburse money
+SYSTEM: (NODE: 16457053159041482) If you've already booked stuff, try to cancel it ASAP. If you can't cancel some things and they cost you money, don't worry, you'll get reimbursed. Just use the travel reimbursement form to get your money back for any cancellation fees too. 😊
+DIALOG END: SUCCESS
+DIALOG LENGTH: 1
+SUBJECTIVE QUALITY: 4
+SUBJECTIVE LENGTH: 3
+
+USER: 9ca122597c1202b50061404326cd1d (POLICY: faq)
+GOAL TEXT: You want to know how you can get reimbursed for your flight.<ul><li>You plan to extend your stay with private vacation before flying back</li></ul>
+GOAL NODE: 16363755463439219 Costs which occur as part of the business aspect of a trip are reimbursable. Therefore, you will nee
+USER: How can I get reimbursed for my flight? Also, I would like to extend my stay with private vacation before flying back
+SYSTEM: (NODE: 16370483570980906) If you're traveling for work, you can get your money back for any work-related expenses. Just fill out this form! 😊
+DIALOG END: FAILURE
+DIALOG LENGTH: 1
+SUBJECTIVE QUALITY: 4
+SUBJECTIVE LENGTH: 3
+
+USER: c334bbab21038ec5b0e8ef2532ca98 (POLICY: faq)
+GOAL TEXT: You want to know how to book a hotel
+GOAL NODE: 16387868859695624 Thank you for using the business travel chatbot.Please let us know about your experience by filling
+USER: Book a trip
+SYSTEM: (NODE: 16363751447148919) Please obtain written authorization from your supervisor using <a title="Permission form for business trip" href="https://www.redacted.pdf">this form</a>. This approval is mandatory prior to initiating any travel booking.
+DIALOG END: FAILURE
+DIALOG LENGTH: 1
+SUBJECTIVE QUALITY: 3
+SUBJECTIVE LENGTH: 4
+
+USER: c334bbab21038ec5b0e8ef2532ca98 (POLICY: faq)
+GOAL TEXT: You are trying to figure out how much money you get for booking somewhere to stay on your trip. <ul><li>Your trip is to Tokyo, Japan</li><li>Your trip should take 10 days</li><li>You plan to stay in a hotel</li></ul>
+GOAL NODE: 16365521324065600 In {{ COUNTRY }} you have a budget of up to 90€ (or 120€ in cities with a population of more than 10
+USER: Book a trip
+SYSTEM: (NODE: 16363751447148919) Please obtain written authorization from your supervisor using <a title="Permission form for business trip" href="https://www.redacted.pdf">this form</a>. This approval is mandatory prior to initiating any travel booking.
+DIALOG END: FAILURE
+DIALOG LENGTH: 1
+SUBJECTIVE QUALITY: 3
+SUBJECTIVE LENGTH: 4
+
+USER: 7bc26d20092c35be168b3c702b3ff5 (POLICY: faq)
+GOAL TEXT: You want to know how to book a hotel
+GOAL NODE: 16387868859695624 Thank you for using the business travel chatbot.Please let us know about your experience by filling
+USER: Hello I am looking to book a hotel for a business trip, could you help me with this?
+SYSTEM: (NODE: 16460422136134149) If you're going to be away for more than 4 weeks and need help with where to stay, just reach out to our business travel team.
+RESET
+USER: hello I am looking to book a hotel for a business trip, could you tell me how to book it?
+SYSTEM: (NODE: 16460422136134149) If you're going to be away for more than 4 weeks and need help with where to stay, just reach out to our business travel team.
+RESET
+USER: how do i book a hotel?
+SYSTEM: (NODE: 16363812426270449) You can book hotels through our partner travel agency, using a booking portal, or directly. You can find the contact info for our partner travel agency <a title="contact travel agency DER" href="https://www.redacted.pdf">here</a>. We recommend  <a title="Hotel recommendation list Germany" href="https://www.redacted.xlsx">these hotels</a>.
+DIALOG END: SUCCESS
+DIALOG LENGTH: 1
+SUBJECTIVE QUALITY: 4
+SUBJECTIVE LENGTH: 3
+
+USER: 7bc26d20092c35be168b3c702b3ff5 (POLICY: faq)
+GOAL TEXT: You are traveling with another colleague and want to know if you have to share a room or if each of you can book your own
+GOAL NODE: 16363834594338823 Yes, staying in a room by yourself is allowed
+USER: i am travelling with a collegue, do i have to share or can we book seperate rooms?
+SYSTEM: (NODE: 16378355894189764) If you're traveling alone and there are no single rooms available, or if a double room costs the same, you can book a double room.
+RESET
+USER: do i have to share a room for a business trip if I'm with someone else?
+SYSTEM: (NODE: 16363751039893796) Just a heads-up! You need to get a verbal okay from your supervisor for any business trips within the city. No need for anything in writing. Don't forget!
+RESET
+USER: can i book my own room?
+SYSTEM: (NODE: 16363834594338823) Sure, you can definitely stay in a room by yourself!
+RESET
+USER: do i have to share a room?
+SYSTEM: (NODE: 16363834594338823) Sure, you can definitely stay in a room by yourself!
+DIALOG END: SUCCESS
+DIALOG LENGTH: 1
+SUBJECTIVE QUALITY: 3
+SUBJECTIVE LENGTH: 2
+
+USER: 7bc26d20092c35be168b3c702b3ff5 (POLICY: faq)
+GOAL TEXT: You are trying to figure out how much money you get for booking somewhere to stay on your trip. <ul><li>Your trip is to Tokyo, Japan</li><li>Your trip should take 10 days</li><li>You plan to stay in a hotel</li></ul>
+GOAL NODE: 16365521324065600 In {{ COUNTRY }} you have a budget of up to 90€ (or 120€ in cities with a population of more than 10
+USER: how much money do i get for booking a trip to tokyo that will take 10 days and I stay in a hotel?
+SYSTEM: (NODE: 16365521324065600) In {{ COUNTRY }}, you can spend up to 90€ on accommodations. If you're in a city with more than 100,000 people or where hotel prices are usually high, you can spend up to 120€. Just make sure to keep and show us the paid invoice.
+RESET
+USER: how much money do i get for a tokyo trip?
+SYSTEM: (NODE: 16365521324065600) In {{ COUNTRY }}, you can spend up to 90€ on accommodations. If you're in a city with more than 100,000 people or where hotel prices are usually high, you can spend up to 120€. Just make sure to keep and show us the paid invoice.
+RESET
+USER: my trip will take 10 days how much money will i get?
+SYSTEM: (NODE: 16370471522950468) In {{ COUNTRY }}, you get {{ PERDIEM.AMOUNT(COUNTRY, CITY) }} € per day for expenses, but this amount will be reduced by the number of free meals you're offered, even if you don't eat them.
+RESET
+USER: my trip in japan will take 10 days how much money will i get?
+SYSTEM: (NODE: 16370471522950468) In {{ COUNTRY }}, you get {{ PERDIEM.AMOUNT(COUNTRY, CITY) }} € per day for expenses, but this amount will be reduced by the number of free meals you're offered, even if you don't eat them.
+RESET
+USER: how much money will i get for my trip to japan which will take 10 days and I will be staying in a hotel?
+SYSTEM: (NODE: 16365521324065600) In {{ COUNTRY }}, you can spend up to 90€ on accommodations. If you're in a city with more than 100,000 people or where hotel prices are usually high, you can spend up to 120€. Just make sure to keep and show us the paid invoice.
+USER: how much do i get for a trip to japan?
+SYSTEM: (NODE: 16370471522950468) In {{ COUNTRY }}, you get {{ PERDIEM.AMOUNT(COUNTRY, CITY) }} € per day for expenses, but this amount will be reduced by the number of free meals you're offered, even if you don't eat them.
+DIALOG END: FAILURE
+DIALOG LENGTH: 1
+SUBJECTIVE QUALITY: 2
+SUBJECTIVE LENGTH: 3
+
+USER: dd245671ec7246a2ddf0308bf900ed (POLICY: faq)
+GOAL TEXT: You want more information about how to plan a research semester.
+GOAL NODE: 16387868859695624 Thank you for using the business travel chatbot.Please let us know about your experience by filling
+USER: How can I plan out a research semester?
+SYSTEM: (NODE: 16370501863636503) Since there has been no reallocation, your research semester will be considered a business trip.
+DIALOG END: SUCCESS
+DIALOG LENGTH: 1
+SUBJECTIVE QUALITY: 1
+SUBJECTIVE LENGTH: 1
+
+USER: dd245671ec7246a2ddf0308bf900ed (POLICY: faq)
+GOAL TEXT: You are traveling with another colleague and want to know if you have to share a room or if each of you can book your own
+GOAL NODE: 16363834594338823 Yes, staying in a room by yourself is allowed
+USER: I'm travelling with another person. Can we share a room, or do I need to book my own?
+SYSTEM: (NODE: 16378355894189764) When traveling alone, you are permitted to book a double bed room if single bed rooms are unavailable or if the cost of a double bed room is equivalent to that of a single bed room.
+DIALOG END: FAILURE
+DIALOG LENGTH: 1
+SUBJECTIVE QUALITY: 3
+SUBJECTIVE LENGTH: 3
+
+USER: dd245671ec7246a2ddf0308bf900ed (POLICY: faq)
+GOAL TEXT: You want to figure out how much money you can get for your travel. <ul><li>You used your own car</li><li>You took two colleagues with you</li></ul>
+GOAL NODE: 16460328708250870 If you are also transporting other coworkers, you are entitled to 2 Cent per person und kilometer, f
+USER: How much money can I get for my travel? I used my own car and also took two colleagues with me.
+SYSTEM: (NODE: 16460328708250870) If you are transporting additional colleagues, you are entitled to receive €0.02 per person per kilometer for each passenger who is also eligible for travel reimbursement. To claim this reimbursement, each passenger must sign your travel reimbursement request. Additionally, if you are transporting business-related items (e.g., files) weighing more than 50 kilograms, you are eligible for €0.02 per 50 kilograms per kilometer. Please note that changes to this policy will be implemented in 2022.
+DIALOG END: SUCCESS
+DIALOG LENGTH: 1
+SUBJECTIVE QUALITY: 4
+SUBJECTIVE LENGTH: 3
+
+USER: de6c54120f63fc4a569c1735655b4e (POLICY: faq)
+GOAL TEXT: You want to know how to book a flight
+GOAL NODE: 16387868859695624 Thank you for using the business travel chatbot.Please let us know about your experience by filling
+USER: Book a trip
+SYSTEM: (NODE: 16363751447148919) <p>Please use this <a title="Permission form for business trip" href="https://www.redacted.pdf">form </a> written permission from your supervisor.<strong> This is required before starting to book a trip.</strong></p>
+DIALOG END: FAILURE
+DIALOG LENGTH: 1
+SUBJECTIVE QUALITY: 2
+SUBJECTIVE LENGTH: 1
+
+USER: de6c54120f63fc4a569c1735655b4e (POLICY: faq)
+GOAL TEXT: You are planning on attending a conference and want to know if the conference fee can be reimbursed
+GOAL NODE: 16384329210117153 Conference fees are reimbursable.
+USER: I want to know about booking a flight for the 25th of August
+SYSTEM: (NODE: 16351710117855351) <p>Flights must be booked through the <a title="Contact to travel agency DER" href="mailto:redacted.com">university's Partner Travel Agency</a> (Tel. +123456789). It is not possible to book through an alternative agency. You can find more information on the business travel website.</p>
+ <p>Contact information for the partner travel agency can be found <a title="Contact for travel agency DER" href="https://www.redacted.pdf">here</a>.</p>
+RESET
+USER: I am attending a conference and wanted to know if the conference can be reimbursed if i am unable to make it
+SYSTEM: (NODE: 16384329210117153) <p>Conference fees are <strong>reimbursable</strong>.</p>
+RESET
+USER: I am attending a conference and wanted to know if the conference can be reimbursed if i am unable to make it
+SYSTEM: (NODE: 16384329210117153) <p>Conference fees are <strong>reimbursable</strong>.</p>
+RESET
+USER: I am planning on attending a conference and wanted to find out if the conference can be reimbursed
+SYSTEM: (NODE: 16384329210117153) <p>Conference fees are <strong>reimbursable</strong>.</p>
+DIALOG END: SUCCESS
+DIALOG LENGTH: 1
+SUBJECTIVE QUALITY: 1
+SUBJECTIVE LENGTH: 1
+
+USER: de6c54120f63fc4a569c1735655b4e (POLICY: faq)
+GOAL TEXT: You want to figure out how much money you can get for your travel. <ul><li>You used your own car</li><li>You took two colleagues with you</li></ul>
+GOAL NODE: 16460328708250870 If you are also transporting other coworkers, you are entitled to 2 Cent per person und kilometer, f
+USER: I have used my own car and took 2 coworkers with me. How much will i be compensated
+SYSTEM: (NODE: 16460328708250870) <p>If you are also transporting <strong>other coworkers</strong>, you are entitled to <strong>2 Cent per person und kilometer, </strong>  for each passenger who is also eligible for travel reimbursement. <br />(To claim a passenger, they must also sign your travel reimbursement request.)</p>
+ <p>If you are transporting <strong>business related items</strong> (e.g., files) <strong>weighing more than 50 Kg </strong>you are eligible for <strong>2 Cent per 50 Kg and Kilometer</strong>.</p>
+ <p>(Changes coming in 2022)</p>
+DIALOG END: SUCCESS
+DIALOG LENGTH: 1
+SUBJECTIVE QUALITY: 4
+SUBJECTIVE LENGTH: 3
+
+USER: b8e63eafb8b739a9afbdc07936e3d9 (POLICY: faq)
+GOAL TEXT: You want more information about how to plan a research semester.
+GOAL NODE: 16387868859695624 Thank you for using the business travel chatbot.Please let us know about your experience by filling
+USER: Research semester
+SYSTEM: (NODE: 16370501863636503) Since there hasn't been any change to your official workplace, your research semester is basically like a business trip. 😊
+DIALOG END: SUCCESS
+DIALOG LENGTH: 1
+SUBJECTIVE QUALITY: 2
+SUBJECTIVE LENGTH: 2
+
+USER: b8e63eafb8b739a9afbdc07936e3d9 (POLICY: faq)
+GOAL TEXT: You have to cancel your trip. You want to know if the money you have already paid can be reimbursed
+GOAL NODE: 16457053159041482 You should try to cancel anything which has already been booked as quickly as possible. Necessary ex
+USER: cancel a trip
+SYSTEM: (NODE: 16457053159041482) If you've already booked stuff, try to cancel it ASAP. If you can't cancel some things and they cost you money, don't worry, you'll get reimbursed. Just use the travel reimbursement form to get your money back for any cancellation fees too. 😊
+DIALOG END: SUCCESS
+DIALOG LENGTH: 1
+SUBJECTIVE QUALITY: 2
+SUBJECTIVE LENGTH: 2
+
+USER: b8e63eafb8b739a9afbdc07936e3d9 (POLICY: faq)
+GOAL TEXT: You want to know how you can get reimbursed for your flight.<ul><li>You plan to extend your stay with private vacation before flying back</li></ul>
+GOAL NODE: 16363755463439219 Costs which occur as part of the business aspect of a trip are reimbursable. Therefore, you will nee
+USER: Reimbursement for my flight as I plan to extend my stay with private vacation before flying there
+SYSTEM: (NODE: 16378350683837525) If someone else (not the university) is covering the trip costs or offered to pay, you can't get any money back.
+DIALOG END: FAILURE
+DIALOG LENGTH: 1
+SUBJECTIVE QUALITY: 2
+SUBJECTIVE LENGTH: 1
+
+USER: 0f7453ed7e2a7d60350698c1343c32 (POLICY: faq)
+GOAL TEXT: You want to know how to book a flight
+GOAL NODE: 16387868859695624 Thank you for using the business travel chatbot.Please let us know about your experience by filling
+USER: How do I book a flight?
+SYSTEM: (NODE: 16351710117855351) <p>Flights must be booked through the <a title="Contact to travel agency DER" href="mailto:redacted.com">university's Partner Travel Agency</a> (Tel. +123456789). It is not possible to book through an alternative agency. You can find more information on the business travel website.</p>
+ <p>Contact information for the partner travel agency can be found <a title="Contact for travel agency DER" href="https://www.redacted.pdf">here</a>.</p>
+DIALOG END: SUCCESS
+DIALOG LENGTH: 1
+SUBJECTIVE QUALITY: 4
+SUBJECTIVE LENGTH: 3
+
+USER: 0f7453ed7e2a7d60350698c1343c32 (POLICY: faq)
+GOAL TEXT: You are planning on attending a conference and want to know if the conference fee can be reimbursed
+GOAL NODE: 16384329210117153 Conference fees are reimbursable.
+USER: I am attending a conference. Will the conference fee be reimbursed?
+SYSTEM: (NODE: 16384329210117153) <p>Conference fees are <strong>reimbursable</strong>.</p>
+DIALOG END: SUCCESS
+DIALOG LENGTH: 1
+SUBJECTIVE QUALITY: 4
+SUBJECTIVE LENGTH: 3
+
+USER: 0f7453ed7e2a7d60350698c1343c32 (POLICY: faq)
+GOAL TEXT: You want to figure out how much money you can get for your travel. <ul><li>You used your own car</li><li>You took two colleagues with you</li></ul>
+GOAL NODE: 16460328708250870 If you are also transporting other coworkers, you are entitled to 2 Cent per person und kilometer, f
+USER: I need to know how much I will be reimbursed if I have used my own car and took two colleagues along with me?
+SYSTEM: (NODE: 16460325754790153) <p>If you used your car for a  <strong>pressing reason  </strong>, you are entitled to <strong>0,25€ per</strong> kilometer driven.</p>
+DIALOG END: FAILURE
+DIALOG LENGTH: 1
+SUBJECTIVE QUALITY: 3
+SUBJECTIVE LENGTH: 3
+
+USER: be07cc2f28ed5eafa09a432ff5f14c (POLICY: faq)
+GOAL TEXT: You want to know how to book a flight
+GOAL NODE: 16387868859695624 Thank you for using the business travel chatbot.Please let us know about your experience by filling
+USER: i would like to book a trip
+SYSTEM: (NODE: 16363751447148919) <p>Please use this <a title="Permission form for business trip" href="https://www.redacted.pdf">form </a> written permission from your supervisor.<strong> This is required before starting to book a trip.</strong></p>
+DIALOG END: FAILURE
+DIALOG LENGTH: 1
+SUBJECTIVE QUALITY: 4
+SUBJECTIVE LENGTH: 3
+
+USER: be07cc2f28ed5eafa09a432ff5f14c (POLICY: faq)
+GOAL TEXT: You want to know if you can be reimbursed if you need to book a taxi during your trip.
+GOAL NODE: 16365525829145685 A taxi is only reimbursable if there is a business related reason or a pressing personal reason, e.g
+USER: cancel trip
+SYSTEM: (NODE: 16457053159041482) <p>You should try to cancel anything which has already been booked as quickly as possible.</p>
+ <p><strong>Necessary expenses as a result of the planned Business trip, which cannot be cancelled will be reimbursed. </p>
+ <p>Cancellation costs can also be reimbursed using the <a title="Form for travel reimbursement" href="https://www.redacted.pdf">Form for travel reimbursement</a>.</p>
+DIALOG END: FAILURE
+DIALOG LENGTH: 1
+SUBJECTIVE QUALITY: 4
+SUBJECTIVE LENGTH: 3
+
+USER: be07cc2f28ed5eafa09a432ff5f14c (POLICY: faq)
+GOAL TEXT: You want to know how the reimbursement process works for research semester.<ul><li>You plan to bring your family with you</li></ul>
+GOAL NODE: 16370483534787100 Your business trip must be planned as though you were traveling alone (without your family). How doe
+USER: would i be able to bring my family along on my trip
+SYSTEM: (NODE: 16363751447148919) <p>Please use this <a title="Permission form for business trip" href="https://www.redacted.pdf">form </a> written permission from your supervisor.<strong> This is required before starting to book a trip.</strong></p>
+DIALOG END: FAILURE
+DIALOG LENGTH: 1
+SUBJECTIVE QUALITY: 1
+SUBJECTIVE LENGTH: 2
+
+USER: 430de41a3e698669b0b72ac6369fdd (POLICY: faq)
+GOAL TEXT: You want more information about how to plan a research semester.
+GOAL NODE: 16387868859695624 Thank you for using the business travel chatbot.Please let us know about your experience by filling
+USER: research semester
+SYSTEM: (NODE: 16370501863636503) Since there has been no reallocation, your research semester will be considered a business trip.
+RESET
+USER: how to plan a research semester
+SYSTEM: (NODE: 16370501863636503) Since there has been no reallocation, your research semester will be considered a business trip.
+DIALOG END: SUCCESS
+DIALOG LENGTH: 1
+SUBJECTIVE QUALITY: 1
+SUBJECTIVE LENGTH: 2
+
+USER: 430de41a3e698669b0b72ac6369fdd (POLICY: faq)
+GOAL TEXT: You are traveling with another colleague and want to know if you have to share a room or if each of you can book your own
+GOAL NODE: 16363834594338823 Yes, staying in a room by yourself is allowed
+USER: sharing a room when traveling
+SYSTEM: (NODE: 16378355894189764) When traveling alone, you are permitted to book a double bed room if single bed rooms are unavailable or if the cost of a double bed room is equivalent to that of a single bed room.
+DIALOG END: FAILURE
+DIALOG LENGTH: 1
+SUBJECTIVE QUALITY: 2
+SUBJECTIVE LENGTH: 2
+
+USER: 430de41a3e698669b0b72ac6369fdd (POLICY: faq)
+GOAL TEXT: You want to know how much money you can get for your accommodations. <ul><li>You are traveling to France for your next trip</li><li>You plan to stay with your brother in his apartment. </li></ul>
+GOAL NODE: 16378349334755637 Outside of Germany, you are entitled to 30€ if you are staying with friends or family.
+USER: accomodation prices in France
+SYSTEM: (NODE: 16365521324065600) In {{ COUNTRY }}, you are allocated a budget of up to 90€ for accommodations. However, in cities with a population exceeding 100,000 or in areas with generally or seasonally high hotel prices, this budget may be extended to 120€. Reimbursement is contingent upon the submission of a paid invoice as proof of expenditure.
+DIALOG END: FAILURE
+DIALOG LENGTH: 1
+SUBJECTIVE QUALITY: 1
+SUBJECTIVE LENGTH: 1
+
+USER: 70dc75e8c252d187be492c1be79b33 (POLICY: faq)
+GOAL TEXT: You want to inform yourself what to do in case of an emergency during travel.
+GOAL NODE: 16387868859695624 Thank you for using the business travel chatbot.Please let us know about your experience by filling
+USER: Can you give me some information about what I need to do, in case the airplane has to make an emergency landing on water?
+SYSTEM: (NODE: 16370679473901470) <p>In the event of an emergency while on a business trip, please contact the number provided on the <a title="Emergency Card" href="https://www.redacted.pdf"><span style="text-decoration: underline;"><strong>Emergency-Card</strong></span> </a>: +123456789. The Emergency Card is also available in a business card format. For further details, please consult the business travel department or your institute. This phone number is strictly for emergency use only and should not be shared.</p>
+ <p>Additionally, the Emergency App offers 24/7 emergency calling, text chat, and video advice services. The Business App is available for both iOS and Android platforms. You can download it using the following link: <a title="Emergency-App" href="https://redacted"><span style="text-decoration: underline;">Notfall-App</span></a>. Please note that the distribution of the registration code to third parties is strictly prohibited.</p>
+DIALOG END: SUCCESS
+DIALOG LENGTH: 1
+SUBJECTIVE QUALITY: 1
+SUBJECTIVE LENGTH: 4
+
+USER: 70dc75e8c252d187be492c1be79b33 (POLICY: faq)
+GOAL TEXT: You want to know if you can be reimbursed if you need to book a taxi during your trip.
+GOAL NODE: 16365525829145685 A taxi is only reimbursable if there is a business related reason or a pressing personal reason, e.g
+USER: Do companies usually provide reimbursement in case of business trip taxi usage?
+SYSTEM: (NODE: 16365525829145685) A taxi fare will only be reimbursed if there is a valid business-related justification or an urgent personal necessity, such as inadequate public transportation, health concerns, or a disability.
+DIALOG END: SUCCESS
+DIALOG LENGTH: 1
+SUBJECTIVE QUALITY: 4
+SUBJECTIVE LENGTH: 3
+
+USER: 70dc75e8c252d187be492c1be79b33 (POLICY: faq)
+GOAL TEXT: You want to know how much money you can get for your accommodations. <ul><li>You are traveling to France for your next trip</li><li>You plan to stay with your brother in his apartment. </li></ul>
+GOAL NODE: 16378349334755637 Outside of Germany, you are entitled to 30€ if you are staying with friends or family.
+USER: I was wondering about what my allotment expectations should be for my upcoming trip. Here are some details to help estimate: I am having to fly to France, and will be able to stay at my brother's apartment, so no accomodation cost necessary
+SYSTEM: (NODE: 16365521324065600) In {{ COUNTRY }}, you are allocated a budget of up to 90€ for accommodations. However, in cities with a population exceeding 100,000 or in areas with generally or seasonally high hotel prices, this budget may be extended to 120€. Reimbursement is contingent upon the submission of a paid invoice as proof of expenditure.
+DIALOG END: FAILURE
+DIALOG LENGTH: 1
+SUBJECTIVE QUALITY: 2
+SUBJECTIVE LENGTH: 3
+
+USER: 7981a2cb007ba83846ba25c00b163f (POLICY: faq)
+GOAL TEXT: You want to inform yourself what to do in case of an emergency during travel.
+GOAL NODE: 16387868859695624 Thank you for using the business travel chatbot.Please let us know about your experience by filling
+USER: call my family first and alert them what is about to take place
+SYSTEM: (NODE: 16370679473901470) <p>In the event of an emergency while on a business trip, please contact the number provided on the <a title="Emergency Card" href="https://www.redacted.pdf"><span style="text-decoration: underline;"><strong>Emergency-Card</strong></span> </a>: +123456789. The Emergency Card is also available in a business card format. For further details, please consult the business travel department or your institute. This phone number is strictly for emergency use only and should not be shared.</p>
+ <p>Additionally, the Emergency App offers 24/7 emergency calling, text chat, and video advice services. The Business App is available for both iOS and Android platforms. You can download it using the following link: <a title="Emergency-App" href="https://redacted"><span style="text-decoration: underline;">Notfall-App</span></a>. Please note that the distribution of the registration code to third parties is strictly prohibited.</p>
+DIALOG END: SUCCESS
+DIALOG LENGTH: 1
+SUBJECTIVE QUALITY: 1
+SUBJECTIVE LENGTH: 3
+
+USER: 7981a2cb007ba83846ba25c00b163f (POLICY: faq)
+GOAL TEXT: You want to know if you can get reimbursed if you reserve a seat for yourself on the train
+GOAL NODE: 16363756478730906 Seat reservations are allowed for train travel
+USER: cancel a trip
+SYSTEM: (NODE: 16457053159041482) Please proceed to cancel any pre-booked arrangements at your earliest convenience. Any unavoidable expenses incurred due to the planned business trip, which cannot be canceled, will be reimbursed. Additionally, cancellation costs can be claimed using the Travel Reimbursement Form.
+DIALOG END: SUCCESS
+DIALOG LENGTH: 1
+SUBJECTIVE QUALITY: 3
+SUBJECTIVE LENGTH: 3
+
+USER: 7981a2cb007ba83846ba25c00b163f (POLICY: faq)
+GOAL TEXT: You want to know how you can get reimbursed for your flight.<ul><li>You plan to extend your stay with private vacation before flying back</li></ul>
+GOAL NODE: 16363755463439219 Costs which occur as part of the business aspect of a trip are reimbursable. Therefore, you will nee
+USER: Check with your employer: Confirm if your company allows reimbursement for flights taken before or after a business trip.
+SYSTEM: (NODE: 16370483570980906) Business travelers are eligible for reimbursement of business-related expenses upon submission of the following <a title="Form for travel reimbursement" href="https://www.redacted.pdf">form</a>.
+DIALOG END: FAILURE
+DIALOG LENGTH: 1
+SUBJECTIVE QUALITY: 3
+SUBJECTIVE LENGTH: 3
+
+USER: 9a2703aa0688484505f242f8bbf8d1 (POLICY: faq)
+GOAL TEXT: You want more information about how to plan a research semester.
+GOAL NODE: 16387868859695624 Thank you for using the business travel chatbot.Please let us know about your experience by filling
+USER: research semester
+SYSTEM: (NODE: 16370501863636503) Since there has been no reallocation, your research semester will be considered a business trip.
+DIALOG END: SUCCESS
+DIALOG LENGTH: 1
+SUBJECTIVE QUALITY: 2
+SUBJECTIVE LENGTH: 2
+
+USER: 9a2703aa0688484505f242f8bbf8d1 (POLICY: faq)
+GOAL TEXT: You want to know if you can get reimbursed if you reserve a seat for yourself on the train
+GOAL NODE: 16363756478730906 Seat reservations are allowed for train travel
+USER: can I get reimbursed if I reserve a seat for myrself on the train?
+SYSTEM: (NODE: 16363756478730906) Seat reservations are permitted for train travel.
+DIALOG END: SUCCESS
+DIALOG LENGTH: 1
+SUBJECTIVE QUALITY: 1
+SUBJECTIVE LENGTH: 1
+
+USER: 9a2703aa0688484505f242f8bbf8d1 (POLICY: faq)
+GOAL TEXT: You are trying to figure out how much money you get for booking somewhere to stay on your trip. <ul><li>Your trip is to Tokyo, Japan</li><li>Your trip should take 10 days</li><li>You plan to stay in a hotel</li></ul>
+GOAL NODE: 16365521324065600 In {{ COUNTRY }} you have a budget of up to 90€ (or 120€ in cities with a population of more than 10
+USER: How much money would I get a 10 day hotel stay in Tokyo?
+SYSTEM: (NODE: 16365521324065600) In {{ COUNTRY }}, you are allocated a budget of up to 90€ for accommodations. However, in cities with a population exceeding 100,000 or in areas with generally or seasonally high hotel prices, this budget may be extended to 120€. Reimbursement is contingent upon the submission of a paid invoice as proof of expenditure.
+DIALOG END: SUCCESS
+DIALOG LENGTH: 1
+SUBJECTIVE QUALITY: 3
+SUBJECTIVE LENGTH: 3
+
+USER: 7252eaa5da52fa0e0c9a7146d2c78b (POLICY: faq)
+GOAL TEXT: You want more information about how to plan a research semester.
+GOAL NODE: 16387868859695624 Thank you for using the business travel chatbot.Please let us know about your experience by filling
+USER: Travel Risk Management
+SYSTEM: (NODE: 16370678190615289) Please consult the country database to familiarize yourself with any potential risks associated with your trip. It is mandatory to confirm that you have reviewed this information and obtained the necessary advice as part of your travel application. Your supervisor will verify this when signing the <a title="Form for travel application" href="https://www.redacted.pdf">authorization form</a> for your travel.
+DIALOG END: SUCCESS
+DIALOG LENGTH: 1
+SUBJECTIVE QUALITY: 2
+SUBJECTIVE LENGTH: 3
+
+USER: 7252eaa5da52fa0e0c9a7146d2c78b (POLICY: faq)
+GOAL TEXT: You have to cancel your trip. You want to know if the money you have already paid can be reimbursed
+GOAL NODE: 16457053159041482 You should try to cancel anything which has already been booked as quickly as possible. Necessary ex
+USER: I want to cancel my already booked trip. Is there a way to get the money I already paid before back?
+SYSTEM: (NODE: 16457053159041482) Please proceed to cancel any pre-booked arrangements at your earliest convenience. Any unavoidable expenses incurred due to the planned business trip, which cannot be canceled, will be reimbursed. Additionally, cancellation costs can be claimed using the Travel Reimbursement Form.
+DIALOG END: SUCCESS
+DIALOG LENGTH: 1
+SUBJECTIVE QUALITY: 3
+SUBJECTIVE LENGTH: 3
+
+USER: 7252eaa5da52fa0e0c9a7146d2c78b (POLICY: faq)
+GOAL TEXT: You want to know how much money you can get for your accommodations. <ul><li>You are traveling to France for your next trip</li><li>You plan to stay with your brother in his apartment. </li></ul>
+RESET
+GOAL NODE: 16378349334755637 Outside of Germany, you are entitled to 30€ if you are staying with friends or family.
+USER: I want to go to France with my brother for the next trip and I d like to know how much money I can get to do so, I will be staying with him so no apartment is needed
+SYSTEM: (NODE: 16365521324065600) In {{ COUNTRY }}, you are allocated a budget of up to 90€ for accommodations. However, in cities with a population exceeding 100,000 or in areas with generally or seasonally high hotel prices, this budget may be extended to 120€. Reimbursement is contingent upon the submission of a paid invoice as proof of expenditure.
+DIALOG END: FAILURE
+DIALOG LENGTH: 1
+SUBJECTIVE QUALITY: 1
+SUBJECTIVE LENGTH: 3
+
+USER: 373292acc466b7540b4da32575227f (POLICY: faq)
+GOAL TEXT: You want to know how to book a hotel
+GOAL NODE: 16387868859695624 Thank you for using the business travel chatbot.Please let us know about your experience by filling
+USER: How can I book a hotel?
+SYSTEM: (NODE: 16363812426270449) Accommodations can be reserved through the university's affiliated travel agency, via an online booking portal, or directly with the hotel. The contact information for the affiliated travel agency is available  <a title="contact travel agency DER" href="https://www.redacted.pdf">here</a>. The university endorses the <a title="Hotel recommendation list Germany" href="https://www.redacted.xlsx">following hotels</a>.
+DIALOG END: SUCCESS
+DIALOG LENGTH: 1
+SUBJECTIVE QUALITY: 2
+SUBJECTIVE LENGTH: 2
+
+USER: 373292acc466b7540b4da32575227f (POLICY: faq)
+GOAL TEXT: You want to know if you can get reimbursed if you reserve a seat for yourself on the train
+GOAL NODE: 16363756478730906 Seat reservations are allowed for train travel
+USER: How would I be reimbursed if I reserve a seat in the train?
+SYSTEM: (NODE: 16363756478730906) Seat reservations are permitted for train travel.
+DIALOG END: SUCCESS
+DIALOG LENGTH: 1
+SUBJECTIVE QUALITY: 2
+SUBJECTIVE LENGTH: 2
+
+USER: 373292acc466b7540b4da32575227f (POLICY: faq)
+GOAL TEXT: You are trying to figure out how much money you get for booking somewhere to stay on your trip. <ul><li>Your trip is to Tokyo, Japan</li><li>Your trip should take 10 days</li><li>You plan to stay in a hotel</li></ul>
+GOAL NODE: 16365521324065600 In {{ COUNTRY }} you have a budget of up to 90€ (or 120€ in cities with a population of more than 10
+USER: How much should I budget if I want to travel to Tokyo?
+SYSTEM: (NODE: 16365521324065600) In {{ COUNTRY }}, you are allocated a budget of up to 90€ for accommodations. However, in cities with a population exceeding 100,000 or in areas with generally or seasonally high hotel prices, this budget may be extended to 120€. Reimbursement is contingent upon the submission of a paid invoice as proof of expenditure.
+DIALOG END: SUCCESS
+DIALOG LENGTH: 1
+SUBJECTIVE QUALITY: 4
+SUBJECTIVE LENGTH: 4
+
+USER: 88be59647581deb262307b4ba42c67 (POLICY: faq)
+GOAL TEXT: You want to know how to book a flight
+GOAL NODE: 16387868859695624 Thank you for using the business travel chatbot.Please let us know about your experience by filling
+USER: i wat to book a flight
+SYSTEM: (NODE: 16351710117855351) <p>Flights must be booked through the <a title="Contact to travel agency DER" href="mailto:redacted.com">university's Partner Travel Agency</a> (Tel. +123456789). It is not possible to book through an alternative agency. You can find more information on the business travel website.</p>
+ <p>Contact information for the partner travel agency can be found <a title="Contact for travel agency DER" href="https://www.redacted.pdf">here</a>.</p>
+DIALOG END: SUCCESS
+DIALOG LENGTH: 1
+SUBJECTIVE QUALITY: 4
+SUBJECTIVE LENGTH: 3
+
+USER: 88be59647581deb262307b4ba42c67 (POLICY: faq)
+GOAL TEXT: You want to know if you can be reimbursed if you need to book a taxi during your trip.
+GOAL NODE: 16365525829145685 A taxi is only reimbursable if there is a business related reason or a pressing personal reason, e.g
+USER: i want to know if i can be reimbursed if i need to book a taxi during my trip.
+SYSTEM: (NODE: 16365525829145685) <p>A taxi is only reimbursable if there is a business related reason or a pressing personal reason, e.g.:</p>
+ <ul>
+ <li>insufficient public transportation</li>
+ <li>Health reasons</li>
+ <li>Disability</li>
+ </ul>
+DIALOG END: SUCCESS
+DIALOG LENGTH: 1
+SUBJECTIVE QUALITY: 3
+SUBJECTIVE LENGTH: 3
+
+USER: 88be59647581deb262307b4ba42c67 (POLICY: faq)
+GOAL TEXT: You want to figure out how much money you can get for your travel. <ul><li>You used your own car</li><li>You took two colleagues with you</li></ul>
+GOAL NODE: 16460328708250870 If you are also transporting other coworkers, you are entitled to 2 Cent per person und kilometer, f
+USER: how much money can i get for my travel if i used my own car and took two colleagues along with me
+SYSTEM: (NODE: 16460328708250870) <p>If you are also transporting <strong>other coworkers</strong>, you are entitled to <strong>2 Cent per person und kilometer, </strong>  for each passenger who is also eligible for travel reimbursement. <br />(To claim a passenger, they must also sign your travel reimbursement request.)</p>
+ <p>If you are transporting <strong>business related items</strong> (e.g., files) <strong>weighing more than 50 Kg </strong>you are eligible for <strong>2 Cent per 50 Kg and Kilometer</strong>.</p>
+ <p>(Changes coming in 2022)</p>
+DIALOG END: SUCCESS
+DIALOG LENGTH: 1
+SUBJECTIVE QUALITY: 3
+SUBJECTIVE LENGTH: 3
+
+USER: 4c56b791532b2baae6b7eba1a8af9b (POLICY: faq)
+GOAL TEXT: You want to know how to book a flight
+GOAL NODE: 16387868859695624 Thank you for using the business travel chatbot.Please let us know about your experience by filling
+USER: i want to book a flight
+SYSTEM: (NODE: 16351710117855351) <p>Flights must be booked through the <a title="Contact to travel agency DER" href="mailto:redacted.com">university's Partner Travel Agency</a> (Tel. +123456789). It is not possible to book through an alternative agency. You can find more information on the business travel website.</p>
+ <p>Contact information for the partner travel agency can be found <a title="Contact for travel agency DER" href="https://www.redacted.pdf">here</a>.</p>
+DIALOG END: SUCCESS
+DIALOG LENGTH: 1
+SUBJECTIVE QUALITY: 4
+SUBJECTIVE LENGTH: 3
+
+USER: 4c56b791532b2baae6b7eba1a8af9b (POLICY: faq)
+GOAL TEXT: You are planning on attending a conference and want to know if the conference fee can be reimbursed
+GOAL NODE: 16384329210117153 Conference fees are reimbursable.
+USER: i have to go on a conference and i awnt to know if the conference feecan be reibursed
+SYSTEM: (NODE: 16384329210117153) <p>Conference fees are <strong>reimbursable</strong>.</p>
+DIALOG END: SUCCESS
+DIALOG LENGTH: 1
+SUBJECTIVE QUALITY: 4
+SUBJECTIVE LENGTH: 3
+
+USER: 4c56b791532b2baae6b7eba1a8af9b (POLICY: faq)
+GOAL TEXT: You want to know how you can get reimbursed for your flight.<ul><li>You plan to extend your stay with private vacation before flying back</li></ul>
+GOAL NODE: 16363755463439219 Costs which occur as part of the business aspect of a trip are reimbursable. Therefore, you will nee
+USER: how can i get reimbursed for my flight ?
+SYSTEM: (NODE: 16457017855826480) <p>Please fill out the <a title="form for travel reimbursement" href="https://www.redacted.pdf">travel reimbursement form</a> and send it along with original versions of all receipts to:</p>
+ <p><br />Central Administration<br />Business Travel Department<br />Redacted St 123, using the internal mail system.</p>
+RESET
+USER: how can i get reimbursed for my flight ?is this also availabe if i book a private vacation before i flight back ?
+SYSTEM: (NODE: 16351719713796576) <p>Booking a "Business"  class ticket is allowed on flights which last more than 10 uninterrupted hours. Otherwise, only the cheapest flight class is reimbursable. </p>
+ <p>A seat reservation is not reimbursable.</p>
+DIALOG END: FAILURE
+DIALOG LENGTH: 1
+SUBJECTIVE QUALITY: 4
+SUBJECTIVE LENGTH: 3
+
+USER: 39f64ccdabe4372ed615752f572e41 (POLICY: faq)
+GOAL TEXT: You want to inform yourself what to do in case of an emergency during travel.
+GOAL NODE: 16387868859695624 Thank you for using the business travel chatbot.Please let us know about your experience by filling
+USER: what to do during airplane turbulence
+SYSTEM: (NODE: 16370679473901470) <p>If you run into an emergency while on a business trip, just call the number on your <a title="Emergency Card" href="https://www.redacted.pdf"><span style="text-decoration: underline;"><strong>Emergency-Card</strong></span> </a>: +123456789. You can also find this info in a business card format. For more details, ask the business travel department or your institute. Remember, this number is for emergencies only, so keep it to yourself!</p>
+
+<p>Also, check out the <a title="Emergency-App" href="https://redacted"><span style="text-decoration: underline;">Emergency App</span></a>! It's got 24/7 emergency calling, text chat, and video advice. You can download it on iOS and Android. Just use the registration code to get started. But hey, don't share that code with anyone else, okay?</p>
+RESET
+USER: Travel Risk Management
+SYSTEM: (NODE: 16370678190615289) Before you head out on your trip, make sure to check out the country database for any risks or important info. You gotta confirm that you've looked it over and got any advice you need as part of your <a title="Form for travel application" href="https://www.redacted.pdf">travel application</a></strong>. Your supervisor will double-check this when they sign off on your travel permission. Safe travels!
+DIALOG END: FAILURE
+DIALOG LENGTH: 1
+SUBJECTIVE QUALITY: 2
+SUBJECTIVE LENGTH: 3
+
+USER: 39f64ccdabe4372ed615752f572e41 (POLICY: faq)
+GOAL TEXT: You are planning on attending a conference and want to know if the conference fee can be reimbursed
+GOAL NODE: 16384329210117153 Conference fees are reimbursable.
+USER: deadlines, and procedures
+SYSTEM: (NODE: 16457028994518300) Just a heads-up: make sure you send in your travel reimbursement form within 6 months after you get back from your business trip. 😊
+DIALOG END: FAILURE
+DIALOG LENGTH: 1
+SUBJECTIVE QUALITY: 4
+SUBJECTIVE LENGTH: 3
+
+USER: 39f64ccdabe4372ed615752f572e41 (POLICY: faq)
+GOAL TEXT: You want to know how the reimbursement process works for research semester.<ul><li>You plan to bring your family with you</li></ul>
+GOAL NODE: 16370483534787100 Your business trip must be planned as though you were traveling alone (without your family). How doe
+USER: reimbursement process on a flight
+SYSTEM: (NODE: 16351700401033947) You can get your flight costs covered if there's a good business reason, like being able to go to a bunch of meetings in a row, health reasons, saving work time, or if flying is actually cheaper. 😊✈️
+DIALOG END: FAILURE
+DIALOG LENGTH: 1
+SUBJECTIVE QUALITY: 3
+SUBJECTIVE LENGTH: 3
+
+USER: 997737fd3e5a316e16a9fe575c3c94 (POLICY: faq)
+GOAL TEXT: You want to know how to book a hotel
+GOAL NODE: 16387868859695624 Thank you for using the business travel chatbot.Please let us know about your experience by filling
+USER: book a trip
+SYSTEM: (NODE: 16363751447148919) Just a heads-up, you'll need to get your supervisor to fill out <a title="Permission form for business trip" href="https://www.redacted.pdf">this form</a> and give you the green light before you can start booking your trip. Thanks!
+DIALOG END: FAILURE
+DIALOG LENGTH: 1
+SUBJECTIVE QUALITY: 2
+SUBJECTIVE LENGTH: 2
+
+USER: 997737fd3e5a316e16a9fe575c3c94 (POLICY: faq)
+GOAL TEXT: You are traveling with another colleague and want to know if you have to share a room or if each of you can book your own
+GOAL NODE: 16363834594338823 Yes, staying in a room by yourself is allowed
+USER: can i book my own room or do i have to share a room with my colleague when travelling?
+SYSTEM: (NODE: 16378355894189764) If you're traveling solo and there aren't any single rooms left, or if a double room is the same price, go ahead and book the double!
+DIALOG END: FAILURE
+DIALOG LENGTH: 1
+SUBJECTIVE QUALITY: 4
+SUBJECTIVE LENGTH: 3
+
+USER: 997737fd3e5a316e16a9fe575c3c94 (POLICY: faq)
+GOAL TEXT: You want to know how much money you can get for your accommodations. <ul><li>You are traveling to France for your next trip</li><li>You plan to stay with your brother in his apartment. </li></ul>
+GOAL NODE: 16378349334755637 Outside of Germany, you are entitled to 30€ if you are staying with friends or family.
+USER: how much money should i have on me if i travel to France and my accommodation is already covered?
+SYSTEM: (NODE: 16365521324065600) In {{ COUNTRY }}, you can spend up to 90€ on a place to stay (or 120€ if you're in a big city with over 100,000 people or if hotel prices are usually high). Just make sure you show a paid invoice. 😊
+DIALOG END: FAILURE
+DIALOG LENGTH: 1
+SUBJECTIVE QUALITY: 3
+SUBJECTIVE LENGTH: 3
+
+USER: 13c8e631cc837d9daaf64eb658a0f4 (POLICY: faq)
+GOAL TEXT: You want to know how to book a flight
+GOAL NODE: 16387868859695624 Thank you for using the business travel chatbot.Please let us know about your experience by filling
+USER: book a trip
+SYSTEM: (NODE: 16363751447148919) Just a heads-up, you'll need to get your supervisor to fill out <a title="Permission form for business trip" href="https://www.redacted.pdf">this form</a> and give you the green light before you can start booking your trip. Thanks!
+DIALOG END: FAILURE
+DIALOG LENGTH: 1
+SUBJECTIVE QUALITY: 3
+SUBJECTIVE LENGTH: 2
+
+USER: 13c8e631cc837d9daaf64eb658a0f4 (POLICY: faq)
+GOAL TEXT: You have to cancel your trip. You want to know if the money you have already paid can be reimbursed
+GOAL NODE: 16457053159041482 You should try to cancel anything which has already been booked as quickly as possible. Necessary ex
+USER: You have to cancel your trip. You want to know if the money you have already paid can be reimbursed
+SYSTEM: (NODE: 16457053159041482) If you've already booked stuff, try to cancel it ASAP. If you can't cancel some things and they cost you money, don't worry, you'll get reimbursed. Just use the travel reimbursement form to get your money back for any cancellation fees too. 😊
+DIALOG END: SUCCESS
+DIALOG LENGTH: 1
+SUBJECTIVE QUALITY: 3
+SUBJECTIVE LENGTH: 3
+
+USER: 13c8e631cc837d9daaf64eb658a0f4 (POLICY: faq)
+GOAL TEXT: You want to know how the reimbursement process works for research semester.<ul><li>You plan to bring your family with you</li></ul>
+GOAL NODE: 16370483534787100 Your business trip must be planned as though you were traveling alone (without your family). 
+USER: How does the reimbursement process works for research semester.
+SYSTEM: (NODE: 16378350683837525) If someone else (not the university) is covering the trip costs or offered to pay, you can't get any money back.
+DIALOG END: FAILURE
+DIALOG LENGTH: 1
+SUBJECTIVE QUALITY: 3
+SUBJECTIVE LENGTH: 3
+
+USER: 2c956e456918b2d8207b052c82e8d9 (POLICY: faq)
+GOAL TEXT: You want to know how to book a hotel
+GOAL NODE: 16387868859695624 Thank you for using the business travel chatbot.Please let us know about your experience by filling
+USER: How to book a hotel
+SYSTEM: (NODE: 16363812426270449) Accommodations can be reserved through the university's affiliated travel agency, via an online booking portal, or directly with the hotel. The contact information for the affiliated travel agency is available  <a title="contact travel agency DER" href="https://www.redacted.pdf">here</a>. The university endorses the <a title="Hotel recommendation list Germany" href="https://www.redacted.xlsx">following hotels</a>.
+DIALOG END: SUCCESS
+DIALOG LENGTH: 1
+SUBJECTIVE QUALITY: 4
+SUBJECTIVE LENGTH: 3
+
+USER: 2c956e456918b2d8207b052c82e8d9 (POLICY: faq)
+GOAL TEXT: You want to know if you can be reimbursed if you need to book a taxi during your trip.
+GOAL NODE: 16365525829145685 A taxi is only reimbursable if there is a business related reason or a pressing personal reason, e.g
+USER: Will I be refunded if i need to book a taxi during the trip
+SYSTEM: (NODE: 16365525829145685) A taxi fare will only be reimbursed if there is a valid business-related justification or an urgent personal necessity, such as inadequate public transportation, health concerns, or a disability.
+DIALOG END: SUCCESS
+DIALOG LENGTH: 1
+SUBJECTIVE QUALITY: 4
+SUBJECTIVE LENGTH: 3
+
+USER: 2c956e456918b2d8207b052c82e8d9 (POLICY: faq)
+GOAL TEXT: You are trying to figure out how much money you get for booking somewhere to stay on your trip. <ul><li>Your trip is to Tokyo, Japan</li><li>Your trip should take 10 days</li><li>You plan to stay in a hotel</li></ul>
+GOAL NODE: 16365521324065600 In {{ COUNTRY }} you have a budget of up to 90€ (or 120€ in cities with a population of more than 10
+USER: How much will I get for a trip in Tokyo that is 10 days and I will be staying at a hotel
+SYSTEM: (NODE: 16365521324065600) In {{ COUNTRY }}, you are allocated a budget of up to 90€ for accommodations. However, in cities with a population exceeding 100,000 or in areas with generally or seasonally high hotel prices, this budget may be extended to 120€. Reimbursement is contingent upon the submission of a paid invoice as proof of expenditure.
+DIALOG END: SUCCESS
+DIALOG LENGTH: 1
+SUBJECTIVE QUALITY: 1
+SUBJECTIVE LENGTH: 2
+
+USER: 7b86ffdd1f544b2ff30b86ba8b8c25 (POLICY: faq)
+GOAL TEXT: You want more information about how to plan a research semester.
+GOAL NODE: 16387868859695624 Thank you for using the business travel chatbot.Please let us know about your experience by filling
+USER: Hi how do I book a flight for a business trip?
+SYSTEM: (NODE: 16370483534787100) <p>Your business trip must be planned as though you were traveling alone (without your family).</p>
+ <p>How doe that work?</p>
+ <ul>
+ <li>Provide receipts for only the costs associated with purchases for yourself</li>
+ <li>Collect comparison offers where necessary (e.g., transportation costs and accommodation) for what the costs would have been for only one person</li>
+ <li>Personal expenses must be strictly separated from business expenses</li>
+ </ul>
+ <p><strong>You are responsible for paying all additional costs that result from bringing your family along.</strong></p>
+DIALOG END: FAILURE
+DIALOG LENGTH: 1
+SUBJECTIVE QUALITY: 3
+SUBJECTIVE LENGTH: 3
+
+USER: 7b86ffdd1f544b2ff30b86ba8b8c25 (POLICY: faq)
+GOAL TEXT: You have to cancel your trip. You want to know if the money you have already paid can be reimbursed
+GOAL NODE: 16457053159041482 You should try to cancel anything which has already been booked as quickly as possible. Necessary ex
+USER: Who needs to approve my travel request?
+SYSTEM: (NODE: 16363751447148919) <p>Please use this <a title="Permission form for business trip" href="https://www.redacted.pdf">form </a> written permission from your supervisor.<strong> This is required before starting to book a trip.</strong></p>
+DIALOG END: FAILURE
+DIALOG LENGTH: 1
+SUBJECTIVE QUALITY: 4
+SUBJECTIVE LENGTH: 3
+
+USER: 7b86ffdd1f544b2ff30b86ba8b8c25 (POLICY: faq)
+GOAL TEXT: You want to know how much money you can get for your accommodations. <ul><li>You are traveling to France for your next trip</li><li>You plan to stay with your brother in his apartment. </li></ul>
+GOAL NODE: 16378349334755637 Outside of Germany, you are entitled to 30€ if you are staying with friends or family.
+USER: How can i cancel a trip?
+SYSTEM: (NODE: 16457053159041482) <p>You should try to cancel anything which has already been booked as quickly as possible.</p>
+ <p><strong>Necessary expenses as a result of the planned Business trip, which cannot be cancelled will be reimbursed. </p>
+ <p>Cancellation costs can also be reimbursed using the <a title="Form for travel reimbursement" href="https://www.redacted.pdf">Form for travel reimbursement</a>.</p>
+DIALOG END: FAILURE
+DIALOG LENGTH: 1
+SUBJECTIVE QUALITY: 4
+SUBJECTIVE LENGTH: 3
+

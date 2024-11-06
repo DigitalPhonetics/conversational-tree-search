@@ -1,0 +1,333 @@
+USER: 73ea4eee3beb783446d5e7ab391055 (POLICY: cts_llm)
+GOAL TEXT: You want to know how to book a hotel
+RESET
+GOAL NODE: (16387868859695624) Thank you for using the business travel chatbot.Please let us know about yo
+SYSTEM: (NODE: 16348058621438633) What topic do you have questions about? You can either click on an answer f
+USER: Hi, I would like to book a hotel for my business trip
+SYSTEM: (NODE: 16348058621438633) What topic do you have questions about? You can either click on an answer f
+USER: Book a trip
+SYSTEM: (NODE: 16363752591243585) What country are you traveling to?
+USER: UK
+SYSTEM: (NODE: 16348097487038694) Which topic do you want to know more about?
+USER: Accommodation
+SYSTEM: (NODE: 16363812426270449) Hotels can be booked using the university's partner travel agency, through
+SYSTEM: (NODE: 16389574258367592) In order to book trips through the partner travel agency, you will need to
+SYSTEM: (NODE: 16365521324065600) In {{ COUNTRY }} you have a budget of up to 90€ (or 120€ in cities with a p
+SUBJECTIVE QUALITY: 3
+SUBJECTIVE LENGTH: 3
+
+USER: 73ea4eee3beb783446d5e7ab391055 (POLICY: cts_llm)
+GOAL TEXT: You have to cancel your trip. You want to know if the money you have already paid can be reimbursed
+RESET
+GOAL NODE: (16457053159041482) You should try to cancel anything which has already been booked as quickly
+SYSTEM: (NODE: 16348058621438633) What topic do you have questions about? You can either click on an answer f
+USER: cancel a trip
+SYSTEM: (NODE: 16457053159041482) You should try to cancel anything which has already been booked as quickly
+DIALOG END: SUCCESS
+SUBJECTIVE QUALITY: 2
+SUBJECTIVE LENGTH: 1
+
+USER: 73ea4eee3beb783446d5e7ab391055 (POLICY: cts_llm)
+GOAL TEXT: You want to know how the reimbursement process works for research semester.<ul><li>You plan to bring your family with you</li></ul>
+RESET
+GOAL NODE: (16370483534787100) Your business trip must be planned as though you were traveling alone (with
+SYSTEM: (NODE: 16348058621438633) What topic do you have questions about? You can either click on an answer f
+USER: I want to know how the reimbursement process works
+SYSTEM: (NODE: 16348058621438633) What topic do you have questions about? You can either click on an answer f
+USER: Research semester
+SYSTEM: (NODE: 16353297472197738) Is this as part of a reallocation?
+USER: yes
+SYSTEM: (NODE: 16437227645843044) If there was a reallocation/delegation, only the travel to the new location
+DIALOG END: FAILURE
+SUBJECTIVE QUALITY: 1
+SUBJECTIVE LENGTH: 2
+
+USER: 0b7848a9e1bfef18f523ef0a9d4485 (POLICY: cts_llm)
+GOAL TEXT: You want to inform yourself what to do in case of an emergency during travel.
+RESET
+GOAL NODE: (16387868859695624) Thank you for using the business travel chatbot.Please let us know about yo
+SYSTEM: (NODE: 16348058621438633) What topic do you have questions about? You can either click on an answer f
+USER: Problem/emergency during a business trip
+SYSTEM: (NODE: 16460436532310883) What emergency are you experiencing?
+USER: Transport missed or cancelled
+SYSTEM: (NODE: 16460439592347465) If you are at fault, costs cannot be reimbursed.
+SYSTEM: (NODE: 16460439966919842) If you are not at fault (e.g., a conference ran over), costs can be reimbur
+SYSTEM: (NODE: 16348058621438633) What topic do you have questions about? You can either click on an answer f
+USER: Travel Risk Management
+SYSTEM: (NODE: 16353412627443913) Travel Safety/ Travel Risk Management
+USER: What to consider when planning a trip?
+SYSTEM: (NODE: 16354038874355911) What would you like to know about? Information Before the start of a Busine
+USER: Information Before the start of a Business trip
+SYSTEM: (NODE: 16389562608833278) Please note the  current COVID-19 travel warnings posted by the  and restri
+SYSTEM: (NODE: 16370678190615289) Please use the country database  to inform yourself about possible  Risks r
+SYSTEM: (NODE: 16370678856758681) The country database is available in German and English.  Countries are div
+SYSTEM: (NODE: 16384313191857195) Do you have any further questions?
+USER: No
+SYSTEM: (NODE: 16387868859695624) Thank you for using the business travel chatbot.Please let us know about yo
+DIALOG END: SUCCESS
+SUBJECTIVE QUALITY: 4
+SUBJECTIVE LENGTH: 3
+
+USER: 0b7848a9e1bfef18f523ef0a9d4485 (POLICY: cts_llm)
+GOAL TEXT: You are planning to book a trip, and want to know If you can get reimbursed for taking a taxi during your trip.
+RESET
+GOAL NODE: (16365525829145685) A taxi is only reimbursable if there is a business related reason or a pres
+SYSTEM: (NODE: 16348058621438633) What topic do you have questions about? You can either click on an answer f
+USER: Book a trip
+SYSTEM: (NODE: 16348058588084537) Are you going on an intracity trip or a business trip?
+USER: If I happen to use a taxi, will I be reimbursed?
+SYSTEM: (NODE: 16348064261907944) Did you get written permission from your supervisor?
+USER: No
+SYSTEM: (NODE: 16363751447148919) Please use this form  written permission from your supervisor. This is requ
+SYSTEM: (NODE: 16363752591243585) What country are you traveling to?
+USER: China
+SYSTEM: (NODE: 16363753123487784) What city are you traveling to?
+USER: Beijing
+SYSTEM: (NODE: 16389695846089108) For all  business trips (even for short trips or ones lasting only a single
+SYSTEM: (NODE: 16363753477187975) Please check the current COVID-19 travel warnings travel restrictions from
+SYSTEM: (NODE: 16363754346769013) COVID-19
+SYSTEM: (NODE: 16348093549280346) Are you planning to extend your trip with private travel?
+USER: Yes
+SYSTEM: (NODE: 16363754793760356) A private extension to a trip must remain in proportion to the length of bu
+SYSTEM: (NODE: 16348097487038694) Which topic do you want to know more about?
+USER: Transportation
+SYSTEM: (NODE: 16348100109577394) What type of transportation would you like?
+USER: Train
+SYSTEM: (NODE: 16363756478730906) Seat reservations are allowed for train travel
+SYSTEM: (NODE: 16365527610579139) Booking a first class train ticket is only allowed for distances of more th
+SYSTEM: (NODE: 16351756063145903) You can book train tickets yourself (through the DB website, at their count
+SYSTEM: (NODE: 16351756667261880) Do you have any other questions about booking transportation?
+USER: No
+SYSTEM: (NODE: 16384313191857195) Do you have any further questions?
+USER: No
+SYSTEM: (NODE: 16387868859695624) Thank you for using the business travel chatbot.Please let us know about yo
+DIALOG END: FAILURE
+SUBJECTIVE QUALITY: 3
+SUBJECTIVE LENGTH: 3
+
+USER: 0b7848a9e1bfef18f523ef0a9d4485 (POLICY: cts_llm)
+GOAL TEXT: You want to know how to book your flight.<ul><li>You plan to extend your stay with private vacation before flying back</li></ul>
+RESET
+GOAL NODE: (16363755463439219) Costs which occur as part of the business aspect of a trip are reimbursable
+SYSTEM: (NODE: 16348058621438633) What topic do you have questions about? You can either click on an answer f
+USER: How do I book to and fro tickets if I'm planning to extend my stay?
+SYSTEM: (NODE: 16460422136134149) If you are traveling for more than 4 weeks and need help finding accommodat
+SYSTEM: (NODE: 16363754793760356) A private extension to a trip must remain in proportion to the length of bu
+SYSTEM: (NODE: 16348097487038694) Which topic do you want to know more about?
+USER: Accommodation
+SYSTEM: (NODE: 16363812426270449) Hotels can be booked using the university's partner travel agency, through
+DIALOG END: FAILURE
+SUBJECTIVE QUALITY: 4
+SUBJECTIVE LENGTH: 3
+
+USER: d4627c2d60993f6c2df67458967a99 (POLICY: cts_llm)
+GOAL TEXT: You want to inform yourself what to do in case of an emergency during travel.
+RESET
+GOAL NODE: (16387868859695624) Thank you for using the business travel chatbot.Please let us know about yo
+SYSTEM: (NODE: 16348058621438633) What topic do you have questions about? You can either click on an answer f
+USER: where should i go
+SYSTEM: (NODE: 16348058621438633) What topic do you have questions about? You can either click on an answer f
+USER: what would i do in emergency during travel
+SYSTEM: (NODE: 16370678190615289) Please use the country database  to inform yourself about possible  Risks r
+SYSTEM: (NODE: 16370678856758681) The country database is available in German and English.  Countries are div
+SUBJECTIVE QUALITY: 3
+SUBJECTIVE LENGTH: 3
+
+USER: d4627c2d60993f6c2df67458967a99 (POLICY: cts_llm)
+GOAL TEXT: You are planning to book a trip, and want to know If you can get reimbursed for taking a taxi during your trip.
+RESET
+GOAL NODE: (16365525829145685) A taxi is only reimbursable if there is a business related reason or a pres
+SYSTEM: (NODE: 16348058621438633) What topic do you have questions about? You can either click on an answer f
+USER: can i get reimbursed for taking a taxi during a trip
+SYSTEM: (NODE: 16348058621438633) What topic do you have questions about? You can either click on an answer f
+USER: trip
+SYSTEM: (NODE: 16365525829145685) A taxi is only reimbursable if there is a business related reason or a pres
+DIALOG END: SUCCESS
+SUBJECTIVE QUALITY: 2
+SUBJECTIVE LENGTH: 2
+
+USER: d4627c2d60993f6c2df67458967a99 (POLICY: cts_llm)
+GOAL TEXT: You want to know how much money you can get for your accommodations. <ul><li>You are traveling to France for your next trip</li><li>You plan to stay with your brother in his apartment. </li></ul>
+RESET
+GOAL NODE: (16378349334755637) Outside of Germany, you are entitled to 30€ if you are staying with friends
+SYSTEM: (NODE: 16348058621438633) What topic do you have questions about? You can either click on an answer f
+USER: how much money you can get for your accommodations. if WE are traveling to France for your next trip AND I plan to stay with your brother in his apartment.
+SYSTEM: (NODE: 16370471522263677) Where do you plan to stay
+USER: With family
+SYSTEM: (NODE: 16378349334755637) Outside of Germany, you are entitled to 30€ if you are staying with friends
+DIALOG END: SUCCESS
+SUBJECTIVE QUALITY: 3
+SUBJECTIVE LENGTH: 3
+
+USER: 421203b41777bdbe17c87832aa4397 (POLICY: cts_llm)
+GOAL TEXT: You want to know how to book a flight
+RESET
+GOAL NODE: (16387868859695624) Thank you for using the business travel chatbot.Please let us know about yo
+SYSTEM: (NODE: 16348058621438633) What topic do you have questions about? You can either click on an answer f
+USER: Book a trip from hungary to canada
+SYSTEM: (NODE: 16348058621438633) What topic do you have questions about? You can either click on an answer f
+USER: Book a trip
+SYSTEM: (NODE: 16363751447148919) Please use this form  written permission from your supervisor. This is requ
+SYSTEM: (NODE: 16348097487038694) Which topic do you want to know more about?
+USER: Transportation
+SYSTEM: (NODE: 16351710117855351) Flights must be booked through the university's Partner Travel Agency (Tel.
+SUBJECTIVE QUALITY: 3
+SUBJECTIVE LENGTH: 3
+
+USER: 421203b41777bdbe17c87832aa4397 (POLICY: cts_llm)
+GOAL TEXT: You want to know if you can get reimbursed if you reserve a seat for yourself on the train
+RESET
+GOAL NODE: (16363756478730906) Seat reservations are allowed for train travel
+SYSTEM: (NODE: 16348058621438633) What topic do you have questions about? You can either click on an answer f
+USER: Travel Risk Management
+SYSTEM: (NODE: 16353412627443913) Travel Safety/ Travel Risk Management
+USER: Training opportunities
+SYSTEM: (NODE: 16354905244322603) Content
+SYSTEM: (NODE: 16384313191857195) Do you have any further questions?
+USER: No
+SYSTEM: (NODE: 16387868859695624) Thank you for using the business travel chatbot.Please let us know about yo
+DIALOG END: FAILURE
+SUBJECTIVE QUALITY: 3
+SUBJECTIVE LENGTH: 2
+
+USER: 421203b41777bdbe17c87832aa4397 (POLICY: cts_llm)
+GOAL TEXT: You want to figure out how much money you can get for your travel. <ul><li>You used your own car</li><li>You took two colleagues with you</li></ul>
+RESET
+GOAL NODE: (16460328708250870) If you are also transporting other coworkers, you are entitled to 2 Cent pe
+SYSTEM: (NODE: 16348058621438633) What topic do you have questions about? You can either click on an answer f
+USER: Problem/emergency during a business trip
+SYSTEM: (NODE: 16460436532310883) What emergency are you experiencing?
+USER: Safety emergency
+SYSTEM: (NODE: 16370679473901470) What do I do in an emergency on a business trip? Please call the number lis
+SYSTEM: (NODE: 16384313191857195) Do you have any further questions?
+USER: Yes
+SYSTEM: (NODE: 16348058621438633) What topic do you have questions about? You can either click on an answer f
+USER: cancel a trip
+SYSTEM: (NODE: 16457053159041482) You should try to cancel anything which has already been booked as quickly
+SYSTEM: (NODE: 16348058621438633) What topic do you have questions about? You can either click on an answer f
+USER: Research semester
+SYSTEM: (NODE: 16370487978253782) How long will your research semester last?
+USER: 1 month
+SYSTEM: (NODE: 16460422136134149) If you are traveling for more than 4 weeks and need help finding accommodat
+SYSTEM: (NODE: 16353297472197738) Is this as part of a reallocation?
+USER: Yes
+SYSTEM: (NODE: 16437227645843044) If there was a reallocation/delegation, only the travel to the new location
+SYSTEM: (NODE: 16384313191857195) Do you have any further questions?
+USER: No
+SYSTEM: (NODE: 16387868859695624) Thank you for using the business travel chatbot.Please let us know about yo
+DIALOG END: FAILURE
+SUBJECTIVE QUALITY: 3
+SUBJECTIVE LENGTH: 4
+
+USER: e0172ae6660ce8f7cee3f64ce83f52 (POLICY: cts_llm)
+GOAL TEXT: You want more information about how to plan a research semester.
+RESET
+GOAL NODE: (16387868859695624) Thank you for using the business travel chatbot.Please let us know about yo
+SYSTEM: (NODE: 16348058621438633) What topic do you have questions about? You can either click on an answer f
+USER: I want more information about how to plan a research semester.
+SYSTEM: (NODE: 16348058621438633) What topic do you have questions about? You can either click on an answer f
+USER: more information about how to plan a research semester.
+SYSTEM: (NODE: 16370501863636503) As there has been no reallocation, your research semester counts as a busin
+SYSTEM: (NODE: 16370483534787100) Your business trip must be planned as though you were traveling alone (with
+SYSTEM: (NODE: 16363752591243585) What country are you traveling to?
+USER: JAMAICA
+SYSTEM: (NODE: 16348097487038694) Which topic do you want to know more about?
+USER: TRANSPORT AND ACCOMODATION
+SYSTEM: (NODE: 16363812426270449) Hotels can be booked using the university's partner travel agency, through
+SYSTEM: (NODE: 16365521324065600) In {{ COUNTRY }} you have a budget of up to 90€ (or 120€ in cities with a p
+SUBJECTIVE QUALITY: 3
+SUBJECTIVE LENGTH: 1
+
+USER: e0172ae6660ce8f7cee3f64ce83f52 (POLICY: cts_llm)
+GOAL TEXT: You are traveling with another colleague and want to know if you have to share a room or if each of you can book your own
+RESET
+GOAL NODE: (16363834594338823) Yes, staying in a room by yourself is allowed
+SYSTEM: (NODE: 16348058621438633) What topic do you have questions about? You can either click on an answer f
+USER: I am traveling with another colleague and want to know if I have to share a room or if each of you can book your own
+SYSTEM: (NODE: 16370483534787100) Your business trip must be planned as though you were traveling alone (with
+SYSTEM: (NODE: 16370471523444253) Do have any more questions about booking an accommodation
+USER: Can I book a double bed room even if I'm traveling alone?
+SYSTEM: (NODE: 16378355894189764) When traveling alone, you may book a double bed room in cases where no sing
+SYSTEM: (NODE: 16363834594338823) Yes, staying in a room by yourself is allowed
+DIALOG END: SUCCESS
+SUBJECTIVE QUALITY: 3
+SUBJECTIVE LENGTH: 1
+
+USER: e0172ae6660ce8f7cee3f64ce83f52 (POLICY: cts_llm)
+GOAL TEXT: You want to know how the reimbursement process works for research semester.<ul><li>You plan to bring your family with you</li></ul>
+RESET
+GOAL NODE: (16370483534787100) Your business trip must be planned as though you were traveling alone (with
+SYSTEM: (NODE: 16348058621438633) What topic do you have questions about? You can either click on an answer f
+USER: I want to know how the reimbursement process works for research semester, I am plan to bring my family with along
+SYSTEM: (NODE: 16348058621438633) What topic do you have questions about? You can either click on an answer f
+USER: Research semester
+SYSTEM: (NODE: 16370501863636503) As there has been no reallocation, your research semester counts as a busin
+SYSTEM: (NODE: 16370483534787100) Your business trip must be planned as though you were traveling alone (with
+DIALOG END: SUCCESS
+SUBJECTIVE QUALITY: 2
+SUBJECTIVE LENGTH: 2
+
+USER: 34ed72f1fa250d0b32a405d1749d28 (POLICY: cts_llm)
+GOAL TEXT: You want to inform yourself what to do in case of an emergency during travel.
+RESET
+GOAL NODE: (16387868859695624) Thank you for using the business travel chatbot.Please let us know about yo
+SYSTEM: (NODE: 16348058621438633) What topic do you have questions about? You can either click on an answer f
+USER: Book a trip
+SYSTEM: (NODE: 16348058588084537) Are you going on an intracity trip or a business trip?
+USER: Bussiness trip
+SYSTEM: (NODE: 16348064261907944) Did you get written permission from your supervisor?
+USER: Yes
+SYSTEM: (NODE: 16363752591243585) What country are you traveling to?
+USER: Zimbabwe
+SYSTEM: (NODE: 16363753123487784) What city are you traveling to?
+USER: Bulawayo
+SYSTEM: (NODE: 16389695846089108) For all  business trips (even for short trips or ones lasting only a single
+SYSTEM: (NODE: 16363753477187975) Please check the current COVID-19 travel warnings travel restrictions from
+SYSTEM: (NODE: 16363754346769013) COVID-19
+SYSTEM: (NODE: 16348093549280346) Are you planning to extend your trip with private travel?
+USER: Yes
+SYSTEM: (NODE: 16363754793760356) A private extension to a trip must remain in proportion to the length of bu
+SYSTEM: (NODE: 16348097487038694) Which topic do you want to know more about?
+USER: Accommodation
+SYSTEM: (NODE: 16378350683837525) If the trip is being paid for by a third party (not from the university) or
+SYSTEM: (NODE: 16370471522263677) Where do you plan to stay
+USER: Friends
+SYSTEM: (NODE: 16378349334755637) Outside of Germany, you are entitled to 30€ if you are staying with friends
+SYSTEM: (NODE: 16370471523444253) Do have any more questions about booking an accommodation
+USER: Is there any other information I need to know about hotel
+SYSTEM: (NODE: 16370471522263677) Where do you plan to stay
+USER: With friends
+SYSTEM: (NODE: 16378349334755637) Outside of Germany, you are entitled to 30€ if you are staying with friends
+SYSTEM: (NODE: 16370471523444253) Do have any more questions about booking an accommodation
+USER: No
+SYSTEM: (NODE: 16384313191857195) Do you have any further questions?
+USER: No
+SYSTEM: (NODE: 16387868859695624) Thank you for using the business travel chatbot.Please let us know about yo
+DIALOG END: SUCCESS
+SUBJECTIVE QUALITY: 4
+SUBJECTIVE LENGTH: 5
+
+USER: 34ed72f1fa250d0b32a405d1749d28 (POLICY: cts_llm)
+GOAL TEXT: You are traveling with another colleague and want to know if you have to share a room or if each of you can book your own
+RESET
+GOAL NODE: (16363834594338823) Yes, staying in a room by yourself is allowed
+SYSTEM: (NODE: 16348058621438633) What topic do you have questions about? You can either click on an answer f
+USER: Travel with other colleague
+SYSTEM: (NODE: 16370483534787100) Your business trip must be planned as though you were traveling alone (with
+SYSTEM: (NODE: 16460328708250870) If you are also transporting other coworkers, you are entitled to 2 Cent pe
+DIALOG END: FAILURE
+SUBJECTIVE QUALITY: 4
+SUBJECTIVE LENGTH: 3
+
+USER: 34ed72f1fa250d0b32a405d1749d28 (POLICY: cts_llm)
+GOAL TEXT: You want to figure out how much money you can get for your travel. <ul><li>You used your own car</li><li>You took two colleagues with you</li></ul>
+RESET
+GOAL NODE: (16460328708250870) If you are also transporting other coworkers, you are entitled to 2 Cent pe
+SYSTEM: (NODE: 16348058621438633) What topic do you have questions about? You can either click on an answer f
+USER: Book trip with two colleagues by my car
+SYSTEM: (NODE: 16460325754790153) If you used your car for a pressing reason, you are entitled to 0,25€ per k
+SYSTEM: (NODE: 16460328708250870) If you are also transporting other coworkers, you are entitled to 2 Cent pe
+DIALOG END: SUCCESS
+SUBJECTIVE QUALITY: 4
+SUBJECTIVE LENGTH: 3
+

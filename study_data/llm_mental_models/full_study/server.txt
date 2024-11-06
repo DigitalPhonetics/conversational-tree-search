@@ -1,0 +1,54 @@
+/home/ubuntu/cts_activelearning/.env/lib/python3.10/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+/home/ubuntu/cts_activelearning/.env/lib/python3.10/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+/home/ubuntu/cts_activelearning/server.py:130: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  node_text_embeddings = torch.load("embedding_cache.pt")
+SSL Error on 18 ('18.212.155.249', 3073): [SSL: UNSUPPORTED_PROTOCOL] unsupported protocol (_ssl.c:1007)
+SSL Error on 14 ('18.212.155.249', 21168): [SSL: UNSUPPORTED_PROTOCOL] unsupported protocol (_ssl.c:1007)
+SSL Error on 13 ('18.212.155.249', 22928): [SSL: VERSION_TOO_LOW] version too low (_ssl.c:1007)
+SSL Error on 15 ('18.212.155.249', 21518): [SSL: NO_SHARED_CIPHER] no shared cipher (_ssl.c:1007)
+SSL Error on 17 ('18.212.155.249', 28823): [SSL: UNKNOWN_PROTOCOL] unknown protocol (_ssl.c:1007)
+404 GET /favicon.ico (219.104.139.72) 1.59ms
+404 GET /favicon.ico (154.119.69.114) 0.61ms
+404 GET /favicon.ico (105.247.137.12) 0.74ms
+404 GET /index.asp (92.249.48.232) 0.64ms
+404 GET /favicon.ico (91.225.135.59) 0.66ms
+404 GET /favicon.ico (41.76.96.194) 0.63ms
+404 GET /favicon.ico (41.13.70.102) 0.64ms
+SSL Error on 17 ('13.64.107.205', 49930): [SSL: UNSUPPORTED_PROTOCOL] unsupported protocol (_ssl.c:1007)
+404 GET /web/function/init.js (185.224.128.52) 1.24ms
+SSL Error on 14 ('185.224.128.52', 35876): [SSL: HTTP_REQUEST] http request (_ssl.c:1007)
+404 GET /favicon.ico (188.117.244.234) 0.66ms
+404 GET /favicon.ico (196.39.216.201) 0.65ms
+404 GET /favicon.ico (105.163.0.161) 0.64ms
+405 GET /check_login (197.136.0.6) 0.64ms
+SSL Error on 15 ('104.152.52.242', 53586): [SSL: UNSUPPORTED_PROTOCOL] unsupported protocol (_ssl.c:1007)
+404 GET /favicon.ico (41.150.219.115) 0.65ms
+404 GET /favicon.ico (196.39.216.201) 0.73ms
+404 GET /favicon.ico (37.30.8.41) 0.63ms
+404 GET /favicon.ico (197.229.7.28) 1.34ms
+SSL Error on 16 ('51.15.54.119', 55181): [SSL: SSLV3_ALERT_BAD_CERTIFICATE] sslv3 alert bad certificate (_ssl.c:1007)
+404 GET /favicon.ico (45.83.65.73) 0.63ms
+405 GET /log_post_survey (197.136.0.5) 0.53ms
+404 GET /favicon.ico (31.127.112.162) 0.69ms
+404 GET /favicon.ico (197.89.11.2) 0.69ms
+404 GET /favicon.ico (82.155.122.155) 0.76ms
+404 GET /favicon.ico (83.26.187.82) 0.67ms
+404 GET /favicon.ico (160.0.202.189) 1.12ms
+404 GET /favicon.ico (41.144.38.161) 0.72ms
+404 GET /favicon.ico (197.229.0.87) 0.69ms
+404 GET /favicon.ico (160.0.202.189) 0.66ms
+404 GET /ab2g (178.128.239.0) 0.65ms
+404 GET /ab2h (178.128.239.0) 0.61ms
+404 GET /alive.php (178.128.239.0) 0.67ms
+SSL Error on 14 ('178.128.239.0', 36404): [SSL: NO_SHARED_CIPHER] no shared cipher (_ssl.c:1007)
+SSL Error on 14 ('178.128.239.0', 45236): [SSL: UNSUPPORTED_PROTOCOL] unsupported protocol (_ssl.c:1007)
+SSL Error on 14 ('178.128.239.0', 45248): [SSL: NO_SHARED_CIPHER] no shared cipher (_ssl.c:1007)
+SSL Error on 14 ('178.128.239.0', 45264): [SSL: BAD_KEY_SHARE] bad key share (_ssl.c:1007)
+SSL Error on 14 ('178.128.239.0', 45272): [SSL: HTTP_REQUEST] http request (_ssl.c:1007)
+SSL Error on 14 ('178.128.239.0', 45286): [SSL: HTTP_REQUEST] http request (_ssl.c:1007)
+404 GET /t4 (178.128.239.0) 0.51ms
+SSL Error on 14 ('178.128.239.0', 45302): [SSL: HTTP_REQUEST] http request (_ssl.c:1007)
+404 GET /favicon.ico (178.128.239.0) 0.67ms
+404 GET /teorema505?t=1 (178.128.239.0) 0.55ms

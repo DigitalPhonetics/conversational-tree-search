@@ -1,0 +1,1328 @@
+USER: bdd856b672ac99f02096f1b0fd6b03 (POLICY: hdc)
+GOAL TEXT: You want to know how to book a hotel
+GOAL NODE: 16387868859695624 Thank you for using the business travel chatbot.Please let us know about your experience by filling
+USER: book hotel
+SYSTEM: (NODE: 16348058588084537) Are you going on an intracity trip or a business trip?
+USER: busiiness trip
+SYSTEM: (NODE: 16348064261907944) Did you get written permission from your supervisor?
+USER: yes
+SYSTEM: (NODE: 16363752591243585) What country are you traveling to?
+USER: Germany
+SYSTEM: (NODE: 16363753123487784) What city are you traveling to?
+USER: berlin
+SYSTEM: (NODE: 16363754346769013) COVID-19: Business trips should be reduced to an absolute minimum and are only allowed when they are
+SYSTEM: (NODE: 16348093549280346) Are you planning to extend your trip with private travel?
+USER: no
+SYSTEM: (NODE: 16348097487038694) Which topic do you want to know more about?
+USER: accomondation
+SYSTEM: (NODE: 16378350683837525) If the trip is being paid for by a third party (not from the university) or was offered to be paid f
+SYSTEM: (NODE: 16370471522263677) Where do you plan to stay
+USER: hotel
+SYSTEM: (NODE: 16363812426270449) Hotels can be booked using the university's partner travel agency, through a booking portal, or book
+SYSTEM: (NODE: 16389574258367592) In order to book trips through the partner travel agency, you will need to use an institute specific
+SYSTEM: (NODE: 16363811629822245) It is required that the bill is addressed to your employer with your name entered as the guest.
+SYSTEM: (NODE: 16365520936325006) In Germany hotel costs can be reimbursed up to 60€ (or 80€ in cities with a population of more than
+SYSTEM: (NODE: 16363810595542638) Exceeding the accommodation allowance can be allowed on a case-by-case basis when justified as neces
+SYSTEM: (NODE: 16370471523444253) Do have any more questions about booking an accommodation
+USER: other infomation for accomindation
+SYSTEM: (NODE: 16370471522263677) Where do you plan to stay
+USER: hotel
+SYSTEM: (NODE: 16363812426270449) Hotels can be booked using the university's partner travel agency, through a booking portal, or book
+SYSTEM: (NODE: 16389574258367592) In order to book trips through the partner travel agency, you will need to use an institute specific
+SYSTEM: (NODE: 16363811629822245) It is required that the bill is addressed to your employer with your name entered as the guest.
+SYSTEM: (NODE: 16365520936325006) In Germany hotel costs can be reimbursed up to 60€ (or 80€ in cities with a population of more than
+SYSTEM: (NODE: 16363810595542638) Exceeding the accommodation allowance can be allowed on a case-by-case basis when justified as neces
+DIALOG END: SUCCESS
+DIALOG LENGTH: 22
+SUBJECTIVE QUALITY: 3
+SUBJECTIVE LENGTH: 4
+
+USER: bdd856b672ac99f02096f1b0fd6b03 (POLICY: hdc)
+GOAL TEXT: You are traveling with another colleague and want to know if you have to share a hotel room or if each of you can book your own
+GOAL NODE: 16363834594338823 Yes, staying in a room by yourself is allowed
+USER: can i have my own hotel room
+SYSTEM: (NODE: 16348058588084537) Are you going on an intracity trip or a business trip?
+USER: business trip
+SYSTEM: (NODE: 16348064261907944) Did you get written permission from your supervisor?
+USER: yes
+SYSTEM: (NODE: 16363752591243585) What country are you traveling to?
+USER: germany
+SYSTEM: (NODE: 16363753123487784) What city are you traveling to?
+USER: berlin
+SYSTEM: (NODE: 16363754346769013) COVID-19: Business trips should be reduced to an absolute minimum and are only allowed when they are
+SYSTEM: (NODE: 16348093549280346) Are you planning to extend your trip with private travel?
+USER: no
+SYSTEM: (NODE: 16348097487038694) Which topic do you want to know more about?
+USER: accommodation
+SYSTEM: (NODE: 16378350683837525) If the trip is being paid for by a third party (not from the university) or was offered to be paid f
+SYSTEM: (NODE: 16370471522263677) Where do you plan to stay
+USER: hotel
+SYSTEM: (NODE: 16363812426270449) Hotels can be booked using the university's partner travel agency, through a booking portal, or book
+SYSTEM: (NODE: 16389574258367592) In order to book trips through the partner travel agency, you will need to use an institute specific
+SYSTEM: (NODE: 16363811629822245) It is required that the bill is addressed to your employer with your name entered as the guest.
+SYSTEM: (NODE: 16365520936325006) In Germany hotel costs can be reimbursed up to 60€ (or 80€ in cities with a population of more than
+SYSTEM: (NODE: 16363810595542638) Exceeding the accommodation allowance can be allowed on a case-by-case basis when justified as neces
+SYSTEM: (NODE: 16370471523444253) Do have any more questions about booking an accommodation
+USER: can i book a solo room
+SYSTEM: (NODE: 16363834594338823) Yes, staying in a room by yourself is allowed
+DIALOG END: SUCCESS
+DIALOG LENGTH: 17
+SUBJECTIVE QUALITY: 4
+SUBJECTIVE LENGTH: 5
+
+USER: bdd856b672ac99f02096f1b0fd6b03 (POLICY: hdc)
+GOAL TEXT: You are trying to figure out how much money you get for booking somewhere to stay on your trip. <ul><li>Your trip is to Tokyo, Japan</li><li>Your trip should take 10 days</li><li>You plan to stay in a hotel</li></ul>
+GOAL NODE: 16365521324065600 In {{ COUNTRY }} you have a budget of up to 90€ (or 120€ in cities with a population of more than 10
+USER: book a trip
+SYSTEM: (NODE: 16348058588084537) Are you going on an intracity trip or a business trip?
+USER: business trip
+SYSTEM: (NODE: 16348064261907944) Did you get written permission from your supervisor?
+USER: yes
+SYSTEM: (NODE: 16363752591243585) What country are you traveling to?
+USER: japan
+SYSTEM: (NODE: 16363753123487784) What city are you traveling to?
+USER: tokyo
+SYSTEM: (NODE: 16389695846089108) For all  business trips (even for short trips or ones lasting only a single day) outside the country
+SYSTEM: (NODE: 16363753477187975) Please check the current COVID-19 travel warnings travel restrictions from the foreign ministry and
+SYSTEM: (NODE: 16363754346769013) COVID-19: Business trips should be reduced to an absolute minimum and are only allowed when they are
+SYSTEM: (NODE: 16348093549280346) Are you planning to extend your trip with private travel?
+USER: no
+SYSTEM: (NODE: 16348097487038694) Which topic do you want to know more about?
+USER: hotel
+SYSTEM: (NODE: 16378350683837525) If the trip is being paid for by a third party (not from the university) or was offered to be paid f
+SYSTEM: (NODE: 16370471522263677) Where do you plan to stay
+USER: hotel
+SYSTEM: (NODE: 16363812426270449) Hotels can be booked using the university's partner travel agency, through a booking portal, or book
+SYSTEM: (NODE: 16389574258367592) In order to book trips through the partner travel agency, you will need to use an institute specific
+SYSTEM: (NODE: 16363811629822245) It is required that the bill is addressed to your employer with your name entered as the guest.
+SYSTEM: (NODE: 16365521324065600) In {{ COUNTRY }} you have a budget of up to 90€ (or 120€ in cities with a population of more than 10
+DIALOG END: FAILURE
+DIALOG LENGTH: 16
+SUBJECTIVE QUALITY: 4
+SUBJECTIVE LENGTH: 4
+
+USER: 562db0d432a4918a3e2b4fc1ab0ac9 (POLICY: hdc)
+GOAL TEXT: You want more information about how to plan a research semester.
+GOAL NODE: 16387868859695624 Thank you for using the business travel chatbot.Please let us know about your experience by filling
+USER: Hi i would like you to help me plan my research semester
+SYSTEM: (NODE: 16370487978253782) How long will your research semester last?
+USER: 1 month
+SYSTEM: (NODE: 16460422136134149) If you are traveling for more than 4 weeks and need help finding accommodations, please contact the
+SYSTEM: (NODE: 16353297472197738) Is this as part of a reallocation?
+USER: Yes
+SYSTEM: (NODE: 16437227645843044) If there was a reallocation/delegation, only the travel to the new location and the return trip can
+SYSTEM: (NODE: 16384313191857195) Do you have any further questions?
+USER: No
+DIALOG END: SUCCESS
+DIALOG LENGTH: 6
+SUBJECTIVE QUALITY: 3
+SUBJECTIVE LENGTH: 3
+
+USER: 562db0d432a4918a3e2b4fc1ab0ac9 (POLICY: hdc)
+GOAL TEXT: You have to cancel your trip. You want to know if the money you have already paid can be reimbursed
+GOAL NODE: 16457053159041482 You should try to cancel anything which has already been booked as quickly as possible. Necessary ex
+USER: I need to cancel my trip. Can  the payments i have made be reimbursed?
+SYSTEM: (NODE: 16457053159041482) You should try to cancel anything which has already been booked as quickly as possible. Necessary ex
+DIALOG END: SUCCESS
+DIALOG LENGTH: 2
+SUBJECTIVE QUALITY: 4
+SUBJECTIVE LENGTH: 2
+
+USER: 562db0d432a4918a3e2b4fc1ab0ac9 (POLICY: hdc)
+GOAL TEXT: You want to know how you can get reimbursed for your flight.<ul><li>You plan to extend your stay with private vacation before flying back</li></ul>
+GOAL NODE: 16363755463439219 Costs which occur as part of the business aspect of a trip are reimbursable. Therefore, you will nee
+USER: We want to extend our vacation before we go home how  do we do that?
+SYSTEM: (NODE: 16348058588084537) Are you going on an intracity trip or a business trip?
+USER: i want to take a private vacation
+SYSTEM: (NODE: 16348064261907944) Did you get written permission from your supervisor?
+USER: yes
+SYSTEM: (NODE: 16363752591243585) What country are you traveling to?
+USER: USA
+SYSTEM: (NODE: 16363753123487784) What city are you traveling to?
+USER: Texas
+SYSTEM: (NODE: 16389695846089108) For all  business trips (even for short trips or ones lasting only a single day) outside the country
+SYSTEM: (NODE: 16363753477187975) Please check the current COVID-19 travel warnings travel restrictions from the foreign ministry and
+SYSTEM: (NODE: 16363754346769013) COVID-19: Business trips should be reduced to an absolute minimum and are only allowed when they are
+SYSTEM: (NODE: 16348093549280346) Are you planning to extend your trip with private travel?
+USER: yes
+SYSTEM: (NODE: 16363754793760356) A private extension to a trip must remain in proportion to the length of business-related travel. Bu
+SYSTEM: (NODE: 16348097487038694) Which topic do you want to know more about?
+USER: request an advance
+SYSTEM: (NODE: 16430174900099207) You can use the following form application for advancement of travel reimbursement to apply for an a
+SYSTEM: (NODE: 16384313191857195) Do you have any further questions?
+USER: no
+DIALOG END: FAILURE
+DIALOG LENGTH: 13
+SUBJECTIVE QUALITY: 1
+SUBJECTIVE LENGTH: 5
+
+USER: b31abe70f9457ba9f13dd77ae3863a (POLICY: hdc)
+GOAL TEXT: You want to inform yourself what to do in case of an emergency during travel.
+GOAL NODE: 16387868859695624 Thank you for using the business travel chatbot.Please let us know about your experience by filling
+USER: I'd like to know about handling emergency during business trip.
+SYSTEM: (NODE: 16460436532310883) What emergency are you experiencing?
+USER: I'm more interesting in general informations about emergiencies. What am I supposed to do in case of emergency?
+SYSTEM: (NODE: 16370679473901470) What do I do in an emergency on a business trip? Please call the number listed on the Emergency-Card
+DIALOG END: SUCCESS
+DIALOG LENGTH: 3
+SUBJECTIVE QUALITY: 3
+SUBJECTIVE LENGTH: 2
+
+USER: b31abe70f9457ba9f13dd77ae3863a (POLICY: hdc)
+GOAL TEXT: You want to know if you can get reimbursed if you reserve a seat for yourself on the train
+GOAL NODE: 16363756478730906 Seat reservations are allowed for train travel
+USER: Hi, I'd like to cancel a trip after I reserved a seat on the train. Can I get reimbursed?
+SYSTEM: (NODE: 16457053159041482) You should try to cancel anything which has already been booked as quickly as possible. Necessary ex
+SYSTEM: (NODE: 16348058621438633) What topic do you have questions about? You can either click on an answer from the suggested topics
+USER: What's the cancellation cost?
+SYSTEM: (NODE: 16457053159041482) You should try to cancel anything which has already been booked as quickly as possible. Necessary ex
+DIALOG END: FAILURE
+DIALOG LENGTH: 4
+SUBJECTIVE QUALITY: 2
+SUBJECTIVE LENGTH: 1
+
+USER: b31abe70f9457ba9f13dd77ae3863a (POLICY: hdc)
+GOAL TEXT: You want to know how you can get reimbursed for your flight.<ul><li>You plan to extend your stay with private vacation before flying back</li></ul>
+GOAL NODE: 16363755463439219 Costs which occur as part of the business aspect of a trip are reimbursable. Therefore, you will nee
+USER: Hi, I'd like to reschedule my flight. Will I get reimbursed for the earlier reservation?
+SYSTEM: (NODE: 16457053159041482) You should try to cancel anything which has already been booked as quickly as possible. Necessary ex
+DIALOG END: FAILURE
+DIALOG LENGTH: 2
+SUBJECTIVE QUALITY: 1
+SUBJECTIVE LENGTH: 1
+
+USER: b284d3f286ce58f9587ec7c8bdc73c (POLICY: hdc)
+GOAL TEXT: You want to inform yourself what to do in case of an emergency during travel.
+GOAL NODE: 16387868859695624 Thank you for using the business travel chatbot.Please let us know about your experience by filling
+USER: what do i do in case of emergency while im travelling
+SYSTEM: (NODE: 16460436532310883) What emergency are you experiencing?
+USER: transport cancelled
+SYSTEM: (NODE: 16460439592347465) If you are at fault, costs cannot be reimbursed.
+SYSTEM: (NODE: 16460439966919842) If you are not at fault (e.g., a conference ran over), costs can be reimbursed if a suitable justifi
+DIALOG END: SUCCESS
+DIALOG LENGTH: 4
+SUBJECTIVE QUALITY: 3
+SUBJECTIVE LENGTH: 2
+
+USER: b284d3f286ce58f9587ec7c8bdc73c (POLICY: hdc)
+GOAL TEXT: You want to know if you can be reimbursed if you need to book a taxi during your trip.
+GOAL NODE: 16365525829145685 A taxi is only reimbursable if there is a business related reason or a pressing personal reason, e.g
+USER: can i be reimbursed if i need to book a taxi during my trip
+DIALOG END: FAILURE
+DIALOG LENGTH: 1
+SUBJECTIVE QUALITY: 1
+SUBJECTIVE LENGTH: 1
+
+USER: b284d3f286ce58f9587ec7c8bdc73c (POLICY: hdc)
+GOAL TEXT: You want to know how much money you can get for your accommodations. <ul><li>You are traveling to France for your next trip</li><li>You plan to stay with your brother in his apartment. </li></ul>
+GOAL NODE: 16378349334755637 Outside of Germany, you are entitled to 30€ if you are staying with friends or family.
+USER: how much money can i get for accomodation
+SYSTEM: (NODE: 16348058588084537) Are you going on an intracity trip or a business trip?
+USER: im planning on staying in my brothers apartment
+DIALOG END: FAILURE
+DIALOG LENGTH: 2
+SUBJECTIVE QUALITY: 1
+SUBJECTIVE LENGTH: 1
+
+USER: daddc76437d328b08c7c776782eb34 (POLICY: hdc)
+GOAL TEXT: You want to know how to book a flight
+GOAL NODE: 16387868859695624 Thank you for using the business travel chatbot.Please let us know about your experience by filling
+USER: Book a trip
+SYSTEM: (NODE: 16348058588084537) Are you going on an intracity trip or a business trip?
+USER: Business trip
+SYSTEM: (NODE: 16348064261907944) Did you get written permission from your supervisor?
+USER: Yes
+SYSTEM: (NODE: 16363752591243585) What country are you traveling to?
+USER: Uk
+SYSTEM: (NODE: 16363753123487784) What city are you traveling to?
+USER: Edinburgh
+SYSTEM: (NODE: 16389695846089108) For all  business trips (even for short trips or ones lasting only a single day) outside the country
+SYSTEM: (NODE: 16363753477187975) Please check the current COVID-19 travel warnings travel restrictions from the foreign ministry and
+SYSTEM: (NODE: 16363754346769013) COVID-19: Business trips should be reduced to an absolute minimum and are only allowed when they are
+SYSTEM: (NODE: 16348093549280346) Are you planning to extend your trip with private travel?
+USER: No
+SYSTEM: (NODE: 16348097487038694) Which topic do you want to know more about?
+USER: Accommidation
+SYSTEM: (NODE: 16378350683837525) If the trip is being paid for by a third party (not from the university) or was offered to be paid f
+SYSTEM: (NODE: 16370471522263677) Where do you plan to stay
+USER: Hotel
+SYSTEM: (NODE: 16363812426270449) Hotels can be booked using the university's partner travel agency, through a booking portal, or book
+SYSTEM: (NODE: 16389574258367592) In order to book trips through the partner travel agency, you will need to use an institute specific
+SYSTEM: (NODE: 16363811629822245) It is required that the bill is addressed to your employer with your name entered as the guest.
+SYSTEM: (NODE: 16365521324065600) In {{ COUNTRY }} you have a budget of up to 90€ (or 120€ in cities with a population of more than 10
+SYSTEM: (NODE: 16363810595542638) Exceeding the accommodation allowance can be allowed on a case-by-case basis when justified as neces
+SYSTEM: (NODE: 16370471523444253) Do have any more questions about booking an accommodation
+USER: No
+SYSTEM: (NODE: 16384313191857195) Do you have any further questions?
+USER: No
+DIALOG END: SUCCESS
+DIALOG LENGTH: 19
+SUBJECTIVE QUALITY: 3
+SUBJECTIVE LENGTH: 3
+
+USER: daddc76437d328b08c7c776782eb34 (POLICY: hdc)
+GOAL TEXT: You are planning on attending a conference and want to know if the conference fee can be reimbursed
+GOAL NODE: 16384329210117153 Conference fees are reimbursable.
+USER: Research semester
+SYSTEM: (NODE: 16370487978253782) How long will your research semester last?
+USER: 2 days
+USER: (POST-NLU) 48
+SYSTEM: (NODE: 16353297472197738) Is this as part of a reallocation?
+USER: No
+SYSTEM: (NODE: 16370501863636503) As there has been no reallocation, your research semester counts as a business trip.
+SYSTEM: (NODE: 16353303012891903) Are you traveling alone or with your family?
+USER: Alone
+SYSTEM: (NODE: 16370483570980906) Business traveler can receive reimbursement for business related expenses by submitting the followin
+SYSTEM: (NODE: 16363752591243585) What country are you traveling to?
+USER: Germany
+SYSTEM: (NODE: 16363753123487784) What city are you traveling to?
+USER: Berlin
+SYSTEM: (NODE: 16363754346769013) COVID-19: Business trips should be reduced to an absolute minimum and are only allowed when they are
+SYSTEM: (NODE: 16348093549280346) Are you planning to extend your trip with private travel?
+USER: No
+SYSTEM: (NODE: 16348097487038694) Which topic do you want to know more about?
+USER: Transportation
+SYSTEM: (NODE: 16348100109577394) What type of transportation would you like?
+USER: Train
+SYSTEM: (NODE: 16363756478730906) Seat reservations are allowed for train travel
+SYSTEM: (NODE: 16365527610579139) Booking a first class train ticket is only allowed for distances of more than 100km.
+SYSTEM: (NODE: 16351756063145903) You can book train tickets yourself (through the DB website, at their counter / ticket machine) or t
+SYSTEM: (NODE: 16351756667261880) Do you have any other questions about booking transportation?
+USER: No
+SYSTEM: (NODE: 16384313191857195) Do you have any further questions?
+USER: No
+DIALOG END: SUCCESS
+DIALOG LENGTH: 17
+SUBJECTIVE QUALITY: 3
+SUBJECTIVE LENGTH: 3
+
+USER: daddc76437d328b08c7c776782eb34 (POLICY: hdc)
+GOAL TEXT: You want to figure out how much money you can get for your travel. <ul><li>You used your own car</li><li>You took two colleagues with you</li></ul>
+GOAL NODE: 16460328708250870 If you are also transporting other coworkers, you are entitled to 2 Cent per person und kilometer, f
+USER: Cancel a trip
+SYSTEM: (NODE: 16457053159041482) You should try to cancel anything which has already been booked as quickly as possible. Necessary ex
+SYSTEM: (NODE: 16348058621438633) What topic do you have questions about? You can either click on an answer from the suggested topics
+USER: Cancel a trip
+SYSTEM: (NODE: 16457053159041482) You should try to cancel anything which has already been booked as quickly as possible. Necessary ex
+DIALOG END: SUCCESS
+DIALOG LENGTH: 4
+SUBJECTIVE QUALITY: 4
+SUBJECTIVE LENGTH: 3
+
+USER: ece2aa21ec41b1a612611f32724525 (POLICY: hdc)
+GOAL TEXT: You want more information about how to plan a research semester.
+GOAL NODE: 16387868859695624 Thank you for using the business travel chatbot.Please let us know about your experience by filling
+USER: research semester
+SYSTEM: (NODE: 16370487978253782) How long will your research semester last?
+USER: 3 weeks
+SYSTEM: (NODE: 16353297472197738) Is this as part of a reallocation?
+USER: no
+SYSTEM: (NODE: 16370501863636503) As there has been no reallocation, your research semester counts as a business trip.
+SYSTEM: (NODE: 16353303012891903) Are you traveling alone or with your family?
+USER: alone
+SYSTEM: (NODE: 16370483570980906) Business traveler can receive reimbursement for business related expenses by submitting the followin
+SYSTEM: (NODE: 16363752591243585) What country are you traveling to?
+USER: usa
+SYSTEM: (NODE: 16363753123487784) What city are you traveling to?
+USER: New York
+SYSTEM: (NODE: 16389695846089108) For all  business trips (even for short trips or ones lasting only a single day) outside the country
+SYSTEM: (NODE: 16363753477187975) Please check the current COVID-19 travel warnings travel restrictions from the foreign ministry and
+SYSTEM: (NODE: 16363754346769013) COVID-19: Business trips should be reduced to an absolute minimum and are only allowed when they are
+SYSTEM: (NODE: 16348093549280346) Are you planning to extend your trip with private travel?
+USER: no
+DIALOG END: SUCCESS
+DIALOG LENGTH: 12
+SUBJECTIVE QUALITY: 3
+SUBJECTIVE LENGTH: 3
+
+USER: ece2aa21ec41b1a612611f32724525 (POLICY: hdc)
+GOAL TEXT: You are traveling with another colleague and want to know if you have to share a hotel room or if each of you can book your own
+GOAL NODE: 16363834594338823 Yes, staying in a room by yourself is allowed
+USER: busines trip
+SYSTEM: (NODE: 16348058588084537) Are you going on an intracity trip or a business trip?
+USER: business trip
+SYSTEM: (NODE: 16348064261907944) Did you get written permission from your supervisor?
+USER: yes
+SYSTEM: (NODE: 16363752591243585) What country are you traveling to?
+USER: usa
+SYSTEM: (NODE: 16363753123487784) What city are you traveling to?
+USER: new york
+SYSTEM: (NODE: 16389695846089108) For all  business trips (even for short trips or ones lasting only a single day) outside the country
+SYSTEM: (NODE: 16363753477187975) Please check the current COVID-19 travel warnings travel restrictions from the foreign ministry and
+SYSTEM: (NODE: 16363754346769013) COVID-19: Business trips should be reduced to an absolute minimum and are only allowed when they are
+SYSTEM: (NODE: 16348093549280346) Are you planning to extend your trip with private travel?
+USER: no
+SYSTEM: (NODE: 16348097487038694) Which topic do you want to know more about?
+USER: accommodation
+SYSTEM: (NODE: 16378350683837525) If the trip is being paid for by a third party (not from the university) or was offered to be paid f
+SYSTEM: (NODE: 16370471522263677) Where do you plan to stay
+USER: hotel
+SYSTEM: (NODE: 16363812426270449) Hotels can be booked using the university's partner travel agency, through a booking portal, or book
+SYSTEM: (NODE: 16389574258367592) In order to book trips through the partner travel agency, you will need to use an institute specific
+SYSTEM: (NODE: 16363811629822245) It is required that the bill is addressed to your employer with your name entered as the guest.
+SYSTEM: (NODE: 16365521324065600) In {{ COUNTRY }} you have a budget of up to 90€ (or 120€ in cities with a population of more than 10
+SYSTEM: (NODE: 16363810595542638) Exceeding the accommodation allowance can be allowed on a case-by-case basis when justified as neces
+SYSTEM: (NODE: 16370471523444253) Do have any more questions about booking an accommodation
+USER: can i book a room for just myself?
+SYSTEM: (NODE: 16363834594338823) Yes, staying in a room by yourself is allowed
+DIALOG END: SUCCESS
+DIALOG LENGTH: 19
+SUBJECTIVE QUALITY: 4
+SUBJECTIVE LENGTH: 4
+
+USER: ece2aa21ec41b1a612611f32724525 (POLICY: hdc)
+GOAL TEXT: You want to know how much money you can get for your accommodations. <ul><li>You are traveling to France for your next trip</li><li>You plan to stay with your brother in his apartment. </li></ul>
+GOAL NODE: 16378349334755637 Outside of Germany, you are entitled to 30€ if you are staying with friends or family.
+USER: accommodations
+SYSTEM: (NODE: 16348058588084537) Are you going on an intracity trip or a business trip?
+USER: business trip
+SYSTEM: (NODE: 16348064261907944) Did you get written permission from your supervisor?
+USER: yes
+SYSTEM: (NODE: 16363752591243585) What country are you traveling to?
+USER: france
+SYSTEM: (NODE: 16363753123487784) What city are you traveling to?
+USER: Paris
+SYSTEM: (NODE: 16389695846089108) For all  business trips (even for short trips or ones lasting only a single day) outside the country
+SYSTEM: (NODE: 16363753477187975) Please check the current COVID-19 travel warnings travel restrictions from the foreign ministry and
+SYSTEM: (NODE: 16363754346769013) COVID-19: Business trips should be reduced to an absolute minimum and are only allowed when they are
+SYSTEM: (NODE: 16348093549280346) Are you planning to extend your trip with private travel?
+USER: no
+SYSTEM: (NODE: 16348097487038694) Which topic do you want to know more about?
+USER: accomodation
+SYSTEM: (NODE: 16378350683837525) If the trip is being paid for by a third party (not from the university) or was offered to be paid f
+SYSTEM: (NODE: 16370471522263677) Where do you plan to stay
+USER: with family
+SYSTEM: (NODE: 16378349334755637) Outside of Germany, you are entitled to 30€ if you are staying with friends or family.
+DIALOG END: SUCCESS
+DIALOG LENGTH: 13
+SUBJECTIVE QUALITY: 4
+SUBJECTIVE LENGTH: 3
+
+USER: 36b2e74b2308778203e6aa1a67d368 (POLICY: hdc)
+GOAL TEXT: You want to know how to book a flight
+GOAL NODE: 16387868859695624 Thank you for using the business travel chatbot.Please let us know about your experience by filling
+USER: Book a flight
+SYSTEM: (NODE: 16348058588084537) Are you going on an intracity trip or a business trip?
+USER: what is the difference between an intracity business trip and a business trip?
+SYSTEM: (NODE: 16363751845458600) Business trips are business related travel outside of the city. The following are not business trips
+SYSTEM: (NODE: 16363752201349915) Intracity business trips are business related travel within the city.
+DIALOG END: FAILURE
+DIALOG LENGTH: 4
+SUBJECTIVE QUALITY: 1
+SUBJECTIVE LENGTH: 1
+
+USER: 36b2e74b2308778203e6aa1a67d368 (POLICY: hdc)
+GOAL TEXT: You want to know if you can be reimbursed if you need to book a taxi during your trip.
+GOAL NODE: 16365525829145685 A taxi is only reimbursable if there is a business related reason or a pressing personal reason, e.g
+USER: can I be reimbursed if I need to book a taxi during my trip?
+SYSTEM: (NODE: 16460436532310883) What emergency are you experiencing?
+USER: trasport reimbursement
+SYSTEM: (NODE: 16460439592347465) If you are at fault, costs cannot be reimbursed.
+SYSTEM: (NODE: 16460439966919842) If you are not at fault (e.g., a conference ran over), costs can be reimbursed if a suitable justifi
+SYSTEM: (NODE: 16348058621438633) What topic do you have questions about? You can either click on an answer from the suggested topics
+USER: trasport reimbursement using taxi
+SYSTEM: (NODE: 16353412627443913) Travel Safety/ Travel Risk Management: What would you like to know about? Emergency help
+USER: means of trasport reimbursement
+SYSTEM: (NODE: 16354905244322603) Content: Why was it introduced: To show the services provided both internally and from MDMedicus
+SYSTEM: (NODE: 16384313191857195) Do you have any further questions?
+USER: taxi reimbursement
+DIALOG END: FAILURE
+DIALOG LENGTH: 8
+SUBJECTIVE QUALITY: 2
+SUBJECTIVE LENGTH: 3
+
+USER: 36b2e74b2308778203e6aa1a67d368 (POLICY: hdc)
+GOAL TEXT: You want to figure out how much money you can get for your travel. <ul><li>You used your own car</li><li>You took two colleagues with you</li></ul>
+GOAL NODE: 16460328708250870 If you are also transporting other coworkers, you are entitled to 2 Cent per person und kilometer, f
+USER: money returned if I use my own car
+SYSTEM: (NODE: 16457053159041482) You should try to cancel anything which has already been booked as quickly as possible. Necessary ex
+SYSTEM: (NODE: 16348058621438633) What topic do you have questions about? You can either click on an answer from the suggested topics
+USER: Travel Reimbursement
+SYSTEM: (NODE: 16353412627443913) Travel Safety/ Travel Risk Management: What would you like to know about? Emergency help
+USER: travelling by my own car
+SYSTEM: (NODE: 16354038874355911) What would you like to know about? Information Before the start of a Business trip
+USER: Available services
+SYSTEM: (NODE: 16370679473901470) What do I do in an emergency on a business trip? Please call the number listed on the Emergency-Card
+SYSTEM: (NODE: 16384313191857195) Do you have any further questions?
+USER: yes
+SYSTEM: (NODE: 16348058621438633) What topic do you have questions about? You can either click on an answer from the suggested topics
+USER: travel expenses using my car
+SYSTEM: (NODE: 16353412627443913) Travel Safety/ Travel Risk Management: What would you like to know about? Emergency help
+USER: how much money can I get for my travel by car
+SYSTEM: (NODE: 16354038874355911) What would you like to know about? Information Before the start of a Business trip
+USER: how much money can I get for my travel by car?
+SYSTEM: (NODE: 16370679473901470) What do I do in an emergency on a business trip? Please call the number listed on the Emergency-Card
+DIALOG END: FAILURE
+DIALOG LENGTH: 11
+SUBJECTIVE QUALITY: 1
+SUBJECTIVE LENGTH: 4
+
+USER: 5b180aecb48b50aa0900c791e31b7e (POLICY: hdc)
+GOAL TEXT: You want to know how to book a hotel
+GOAL NODE: 16387868859695624 Thank you for using the business travel chatbot.Please let us know about your experience by filling
+USER: I would like to book a hotel stay for 3 nights.
+SYSTEM: (NODE: 16348058588084537) Are you going on an intracity trip or a business trip?
+USER: Business trip
+SYSTEM: (NODE: 16348064261907944) Did you get written permission from your supervisor?
+USER: Yes
+SYSTEM: (NODE: 16363752591243585) What country are you traveling to?
+USER: Germany
+SYSTEM: (NODE: 16363753123487784) What city are you traveling to?
+USER: Munich
+SYSTEM: (NODE: 16363754346769013) COVID-19: Business trips should be reduced to an absolute minimum and are only allowed when they are
+SYSTEM: (NODE: 16348093549280346) Are you planning to extend your trip with private travel?
+USER: No
+SYSTEM: (NODE: 16348097487038694) Which topic do you want to know more about?
+USER: Accommodation
+SYSTEM: (NODE: 16378350683837525) If the trip is being paid for by a third party (not from the university) or was offered to be paid f
+SYSTEM: (NODE: 16370471522263677) Where do you plan to stay
+USER: Hotel
+SYSTEM: (NODE: 16363812426270449) Hotels can be booked using the university's partner travel agency, through a booking portal, or book
+SYSTEM: (NODE: 16389574258367592) In order to book trips through the partner travel agency, you will need to use an institute specific
+SYSTEM: (NODE: 16363811629822245) It is required that the bill is addressed to your employer with your name entered as the guest.
+SYSTEM: (NODE: 16365520936325006) In Germany hotel costs can be reimbursed up to 60€ (or 80€ in cities with a population of more than
+SYSTEM: (NODE: 16363810595542638) Exceeding the accommodation allowance can be allowed on a case-by-case basis when justified as neces
+DIALOG END: SUCCESS
+DIALOG LENGTH: 15
+SUBJECTIVE QUALITY: 4
+SUBJECTIVE LENGTH: 3
+
+USER: 5b180aecb48b50aa0900c791e31b7e (POLICY: hdc)
+GOAL TEXT: You want to know if you can get reimbursed if you reserve a seat for yourself on the train
+GOAL NODE: 16363756478730906 Seat reservations are allowed for train travel
+USER: Reimbursement of seat charges?
+SYSTEM: (NODE: 16460436532310883) What emergency are you experiencing?
+USER: Missed train
+SYSTEM: (NODE: 16460439592347465) If you are at fault, costs cannot be reimbursed.
+SYSTEM: (NODE: 16460439966919842) If you are not at fault (e.g., a conference ran over), costs can be reimbursed if a suitable justifi
+DIALOG END: FAILURE
+DIALOG LENGTH: 4
+SUBJECTIVE QUALITY: 3
+SUBJECTIVE LENGTH: 2
+
+USER: 5b180aecb48b50aa0900c791e31b7e (POLICY: hdc)
+GOAL TEXT: You are trying to figure out how much money you get for booking somewhere to stay on your trip. <ul><li>Your trip is to Tokyo, Japan</li><li>Your trip should take 10 days</li><li>You plan to stay in a hotel</li></ul>
+GOAL NODE: 16365521324065600 In {{ COUNTRY }} you have a budget of up to 90€ (or 120€ in cities with a population of more than 10
+USER: What incentive will I receive if I book a 10 night stay in a hotel in Japan?
+SYSTEM: (NODE: 16348058588084537) Are you going on an intracity trip or a business trip?
+USER: Business Trip
+SYSTEM: (NODE: 16348064261907944) Did you get written permission from your supervisor?
+USER: Yes
+SYSTEM: (NODE: 16363753123487784) What city are you traveling to?
+USER: Tokyo
+SYSTEM: (NODE: 16389695846089108) For all  business trips (even for short trips or ones lasting only a single day) outside the country
+SYSTEM: (NODE: 16363753477187975) Please check the current COVID-19 travel warnings travel restrictions from the foreign ministry and
+SYSTEM: (NODE: 16363754346769013) COVID-19: Business trips should be reduced to an absolute minimum and are only allowed when they are
+SYSTEM: (NODE: 16348093549280346) Are you planning to extend your trip with private travel?
+USER: No
+SYSTEM: (NODE: 16348097487038694) Which topic do you want to know more about?
+USER: Accommodation, Per Diem
+SYSTEM: (NODE: 16370471520148677) How long is the business related portion of your travel?
+USER: 10 days
+SYSTEM: (NODE: 16370471522950468) In {{ COUNTRY }}, you are entitled to {{ PERDIEM.AMOUNT(COUNTRY, CITY) }} €  per day, minus any free
+DIALOG END: SUCCESS
+DIALOG LENGTH: 11
+SUBJECTIVE QUALITY: 4
+SUBJECTIVE LENGTH: 3
+
+USER: da23555b7f227184db93069b8fe90d (POLICY: hdc)
+GOAL TEXT: You want more information about how to plan a research semester.
+GOAL NODE: 16387868859695624 Thank you for using the business travel chatbot.Please let us know about your experience by filling
+USER: Research semester
+SYSTEM: (NODE: 16370487978253782) How long will your research semester last?
+USER: 4 months
+USER: (POST-NLU) 2880
+SYSTEM: (NODE: 16460422136134149) If you are traveling for more than 4 weeks and need help finding accommodations, please contact the
+SYSTEM: (NODE: 16353297472197738) Is this as part of a reallocation?
+USER: Yes
+SYSTEM: (NODE: 16437227645843044) If there was a reallocation/delegation, only the travel to the new location and the return trip can
+SYSTEM: (NODE: 16384313191857195) Do you have any further questions?
+USER: No
+DIALOG END: SUCCESS
+DIALOG LENGTH: 6
+SUBJECTIVE QUALITY: 3
+SUBJECTIVE LENGTH: 1
+
+USER: da23555b7f227184db93069b8fe90d (POLICY: hdc)
+GOAL TEXT: You have to cancel your trip. You want to know if the money you have already paid can be reimbursed
+GOAL NODE: 16457053159041482 You should try to cancel anything which has already been booked as quickly as possible. Necessary ex
+USER: cancel a trip
+SYSTEM: (NODE: 16457053159041482) You should try to cancel anything which has already been booked as quickly as possible. Necessary ex
+DIALOG END: SUCCESS
+DIALOG LENGTH: 2
+SUBJECTIVE QUALITY: 4
+SUBJECTIVE LENGTH: 1
+
+USER: da23555b7f227184db93069b8fe90d (POLICY: hdc)
+GOAL TEXT: You want to know how much money you can get for your accommodations. <ul><li>You are traveling to France for your next trip</li><li>You plan to stay with your brother in his apartment. </li></ul>
+GOAL NODE: 16378349334755637 Outside of Germany, you are entitled to 30€ if you are staying with friends or family.
+USER: Book a trip
+SYSTEM: (NODE: 16348058588084537) Are you going on an intracity trip or a business trip?
+USER: Business trips
+SYSTEM: (NODE: 16348064261907944) Did you get written permission from your supervisor?
+USER: Yes
+SYSTEM: (NODE: 16363752591243585) What country are you traveling to?
+USER: France
+RESET
+USER: Refund
+SYSTEM: (NODE: 16457053159041482) You should try to cancel anything which has already been booked as quickly as possible. Necessary ex
+SYSTEM: (NODE: 16348058621438633) What topic do you have questions about? You can either click on an answer from the suggested topics
+USER: Travel Reimbursement Form
+DIALOG END: FAILURE
+DIALOG LENGTH: 3
+SUBJECTIVE QUALITY: 2
+SUBJECTIVE LENGTH: 4
+
+USER: 10fd97013def5584b50f75bf176ff9 (POLICY: hdc)
+GOAL TEXT: You want to know how to book a flight
+GOAL NODE: 16387868859695624 Thank you for using the business travel chatbot.Please let us know about your experience by filling
+USER: Book a Flight
+SYSTEM: (NODE: 16348058588084537) Are you going on an intracity trip or a business trip?
+USER: Business Trip
+SYSTEM: (NODE: 16348064261907944) Did you get written permission from your supervisor?
+USER: ye
+SYSTEM: (NODE: 16363752591243585) What country are you traveling to?
+USER: usa
+SYSTEM: (NODE: 16363753123487784) What city are you traveling to?
+USER: san diego
+SYSTEM: (NODE: 16389695846089108) For all  business trips (even for short trips or ones lasting only a single day) outside the country
+SYSTEM: (NODE: 16363753477187975) Please check the current COVID-19 travel warnings travel restrictions from the foreign ministry and
+SYSTEM: (NODE: 16363754346769013) COVID-19: Business trips should be reduced to an absolute minimum and are only allowed when they are
+SYSTEM: (NODE: 16348093549280346) Are you planning to extend your trip with private travel?
+USER: no
+DIALOG END: FAILURE
+DIALOG LENGTH: 9
+SUBJECTIVE QUALITY: 2
+SUBJECTIVE LENGTH: 4
+
+USER: 10fd97013def5584b50f75bf176ff9 (POLICY: hdc)
+GOAL TEXT: You are planning on attending a conference and want to know if the conference fee can be reimbursed
+GOAL NODE: 16384329210117153 Conference fees are reimbursable.
+USER: Conference fee
+SYSTEM: (NODE: 16348058588084537) Are you going on an intracity trip or a business trip?
+USER: fee
+DIALOG END: FAILURE
+DIALOG LENGTH: 2
+SUBJECTIVE QUALITY: 1
+SUBJECTIVE LENGTH: 4
+
+USER: 10fd97013def5584b50f75bf176ff9 (POLICY: hdc)
+GOAL TEXT: You want to know how you can get reimbursed for your flight.<ul><li>You plan to extend your stay with private vacation before flying back</li></ul>
+GOAL NODE: 16363755463439219 Costs which occur as part of the business aspect of a trip are reimbursable. Therefore, you will nee
+USER: refund a trip
+SYSTEM: (NODE: 16457053159041482) You should try to cancel anything which has already been booked as quickly as possible. Necessary ex
+DIALOG END: FAILURE
+DIALOG LENGTH: 2
+SUBJECTIVE QUALITY: 3
+SUBJECTIVE LENGTH: 3
+
+USER: 750c51071a48cb39f6b7ab22bef5f6 (POLICY: hdc)
+GOAL TEXT: You want to inform yourself what to do in case of an emergency during travel.
+GOAL NODE: 16387868859695624 Thank you for using the business travel chatbot.Please let us know about your experience by filling
+USER: Book a trip
+SYSTEM: (NODE: 16348058588084537) Are you going on an intracity trip or a business trip?
+USER: Business trip
+SYSTEM: (NODE: 16348064261907944) Did you get written permission from your supervisor?
+USER: Yes
+SYSTEM: (NODE: 16363752591243585) What country are you traveling to?
+USER: USA
+DIALOG END: FAILURE
+DIALOG LENGTH: 4
+SUBJECTIVE QUALITY: 4
+SUBJECTIVE LENGTH: 3
+
+USER: 750c51071a48cb39f6b7ab22bef5f6 (POLICY: hdc)
+GOAL TEXT: You are planning on attending a conference and want to know if the conference fee can be reimbursed
+GOAL NODE: 16384329210117153 Conference fees are reimbursable.
+USER: Cancel a trip
+SYSTEM: (NODE: 16457053159041482) You should try to cancel anything which has already been booked as quickly as possible. Necessary ex
+DIALOG END: SUCCESS
+DIALOG LENGTH: 2
+SUBJECTIVE QUALITY: 4
+SUBJECTIVE LENGTH: 3
+
+USER: f666f28aaa150b0282e569cdafa469 (POLICY: hdc)
+GOAL TEXT: You want more information about how to plan a research semester.
+GOAL NODE: 16387868859695624 Thank you for using the business travel chatbot.Please let us know about your experience by filling
+USER: Research semester
+SYSTEM: (NODE: 16370487978253782) How long will your research semester last?
+USER: 2 days
+SYSTEM: (NODE: 16353297472197738) Is this as part of a reallocation?
+USER: Yes
+SYSTEM: (NODE: 16437227645843044) If there was a reallocation/delegation, only the travel to the new location and the return trip can
+SYSTEM: (NODE: 16384313191857195) Do you have any further questions?
+USER: No
+DIALOG END: SUCCESS
+DIALOG LENGTH: 5
+SUBJECTIVE QUALITY: 3
+SUBJECTIVE LENGTH: 3
+
+USER: f666f28aaa150b0282e569cdafa469 (POLICY: hdc)
+GOAL TEXT: You have to cancel your trip. You want to know if the money you have already paid can be reimbursed
+GOAL NODE: 16457053159041482 You should try to cancel anything which has already been booked as quickly as possible. Necessary ex
+USER: Book a trip
+SYSTEM: (NODE: 16348058588084537) Are you going on an intracity trip or a business trip?
+USER: Sell stock
+SYSTEM: (NODE: 16348064261907944) Did you get written permission from your supervisor?
+USER: Yes
+SYSTEM: (NODE: 16363752591243585) What country are you traveling to?
+USER: USA
+SYSTEM: (NODE: 16363753123487784) What city are you traveling to?
+USER: Miami
+SYSTEM: (NODE: 16389695846089108) For all  business trips (even for short trips or ones lasting only a single day) outside the country
+SYSTEM: (NODE: 16363753477187975) Please check the current COVID-19 travel warnings travel restrictions from the foreign ministry and
+SYSTEM: (NODE: 16363754346769013) COVID-19: Business trips should be reduced to an absolute minimum and are only allowed when they are
+SYSTEM: (NODE: 16348093549280346) Are you planning to extend your trip with private travel?
+USER: Yes
+SYSTEM: (NODE: 16363754793760356) A private extension to a trip must remain in proportion to the length of business-related travel. Bu
+SYSTEM: (NODE: 16348097487038694) Which topic do you want to know more about?
+USER: Accomodation
+SYSTEM: (NODE: 16378350683837525) If the trip is being paid for by a third party (not from the university) or was offered to be paid f
+SYSTEM: (NODE: 16370471522263677) Where do you plan to stay
+USER: Hotel
+SYSTEM: (NODE: 16363812426270449) Hotels can be booked using the university's partner travel agency, through a booking portal, or book
+SYSTEM: (NODE: 16389574258367592) In order to book trips through the partner travel agency, you will need to use an institute specific
+SYSTEM: (NODE: 16363811629822245) It is required that the bill is addressed to your employer with your name entered as the guest.
+SYSTEM: (NODE: 16365521324065600) In {{ COUNTRY }} you have a budget of up to 90€ (or 120€ in cities with a population of more than 10
+SYSTEM: (NODE: 16363810595542638) Exceeding the accommodation allowance can be allowed on a case-by-case basis when justified as neces
+SYSTEM: (NODE: 16370471523444253) Do have any more questions about booking an accommodation
+USER: No
+SYSTEM: (NODE: 16384313191857195) Do you have any further questions?
+USER: No
+DIALOG END: SUCCESS
+DIALOG LENGTH: 20
+SUBJECTIVE QUALITY: 3
+SUBJECTIVE LENGTH: 3
+
+USER: f666f28aaa150b0282e569cdafa469 (POLICY: hdc)
+GOAL TEXT: You want to know how much money you can get for your accommodations. <ul><li>You are traveling to France for your next trip</li><li>You plan to stay with your brother in his apartment. </li></ul>
+GOAL NODE: 16378349334755637 Outside of Germany, you are entitled to 30€ if you are staying with friends or family.
+USER: Cancel a trip
+SYSTEM: (NODE: 16457053159041482) You should try to cancel anything which has already been booked as quickly as possible. Necessary ex
+SYSTEM: (NODE: 16348058621438633) What topic do you have questions about? You can either click on an answer from the suggested topics
+USER: Book a trip
+DIALOG END: SUCCESS
+DIALOG LENGTH: 3
+SUBJECTIVE QUALITY: 3
+SUBJECTIVE LENGTH: 4
+
+USER: 6a545b2723bb8f31b6bbe95a2fd2e8 (POLICY: hdc)
+GOAL TEXT: You want to know how to book a hotel
+GOAL NODE: 16387868859695624 Thank you for using the business travel chatbot.Please let us know about your experience by filling
+USER: Book a trip
+SYSTEM: (NODE: 16348058588084537) Are you going on an intracity trip or a business trip?
+USER: Business trip
+SYSTEM: (NODE: 16348064261907944) Did you get written permission from your supervisor?
+USER: Yes
+SYSTEM: (NODE: 16363752591243585) What country are you traveling to?
+USER: USA
+SYSTEM: (NODE: 16363753123487784) What city are you traveling to?
+USER: Washington DC
+SYSTEM: (NODE: 16389695846089108) For all  business trips (even for short trips or ones lasting only a single day) outside the country
+SYSTEM: (NODE: 16363753477187975) Please check the current COVID-19 travel warnings travel restrictions from the foreign ministry and
+SYSTEM: (NODE: 16363754346769013) COVID-19: Business trips should be reduced to an absolute minimum and are only allowed when they are
+SYSTEM: (NODE: 16348093549280346) Are you planning to extend your trip with private travel?
+USER: No
+SYSTEM: (NODE: 16348097487038694) Which topic do you want to know more about?
+USER: Accommodation
+SYSTEM: (NODE: 16378350683837525) If the trip is being paid for by a third party (not from the university) or was offered to be paid f
+SYSTEM: (NODE: 16370471522263677) Where do you plan to stay
+USER: Hotel
+SYSTEM: (NODE: 16363812426270449) Hotels can be booked using the university's partner travel agency, through a booking portal, or book
+SYSTEM: (NODE: 16389574258367592) In order to book trips through the partner travel agency, you will need to use an institute specific
+SYSTEM: (NODE: 16363811629822245) It is required that the bill is addressed to your employer with your name entered as the guest.
+SYSTEM: (NODE: 16365521324065600) In {{ COUNTRY }} you have a budget of up to 90€ (or 120€ in cities with a population of more than 10
+SYSTEM: (NODE: 16363810595542638) Exceeding the accommodation allowance can be allowed on a case-by-case basis when justified as neces
+SYSTEM: (NODE: 16370471523444253) Do have any more questions about booking an accommodation
+USER: Can I book a room for just myself?
+SYSTEM: (NODE: 16363834594338823) Yes, staying in a room by yourself is allowed
+DIALOG END: SUCCESS
+DIALOG LENGTH: 19
+SUBJECTIVE QUALITY: 4
+SUBJECTIVE LENGTH: 3
+
+USER: 6a545b2723bb8f31b6bbe95a2fd2e8 (POLICY: hdc)
+GOAL TEXT: You are traveling with another colleague and want to know if you have to share a hotel room or if each of you can book your own
+GOAL NODE: 16363834594338823 Yes, staying in a room by yourself is allowed
+USER: Problem or emergency during a trip
+SYSTEM: (NODE: 16460436532310883) What emergency are you experiencing?
+USER: Safety emergency
+SYSTEM: (NODE: 16370679473901470) What do I do in an emergency on a business trip? Please call the number listed on the Emergency-Card
+SYSTEM: (NODE: 16384313191857195) Do you have any further questions?
+USER: No
+DIALOG END: SUCCESS
+DIALOG LENGTH: 4
+SUBJECTIVE QUALITY: 4
+SUBJECTIVE LENGTH: 1
+
+USER: 6a545b2723bb8f31b6bbe95a2fd2e8 (POLICY: hdc)
+GOAL TEXT: You want to know how much money you can get for your accommodations. <ul><li>You are traveling to France for your next trip</li><li>You plan to stay with your brother in his apartment. </li></ul>
+GOAL NODE: 16378349334755637 Outside of Germany, you are entitled to 30€ if you are staying with friends or family.
+USER: Research semester
+SYSTEM: (NODE: 16370487978253782) How long will your research semester last?
+USER: 3 weeks
+USER: (POST-NLU) 504
+SYSTEM: (NODE: 16353297472197738) Is this as part of a reallocation?
+USER: Yes
+SYSTEM: (NODE: 16437227645843044) If there was a reallocation/delegation, only the travel to the new location and the return trip can
+SYSTEM: (NODE: 16384313191857195) Do you have any further questions?
+USER: Yes
+DIALOG END: SUCCESS
+DIALOG LENGTH: 5
+SUBJECTIVE QUALITY: 4
+SUBJECTIVE LENGTH: 3
+
+USER: 30290a9c9bcd2bf161eb4c945c2281 (POLICY: hdc)
+GOAL TEXT: You want more information about how to plan a research semester.
+GOAL NODE: 16387868859695624 Thank you for using the business travel chatbot.Please let us know about your experience by filling
+USER: research semester
+SYSTEM: (NODE: 16370487978253782) How long will your research semester last?
+USER: 3 weeks
+USER: (POST-NLU) 504
+SYSTEM: (NODE: 16353297472197738) Is this as part of a reallocation?
+USER: no
+SYSTEM: (NODE: 16370501863636503) As there has been no reallocation, your research semester counts as a business trip.
+SYSTEM: (NODE: 16353303012891903) Are you traveling alone or with your family?
+USER: alone
+SYSTEM: (NODE: 16370483570980906) Business traveler can receive reimbursement for business related expenses by submitting the followin
+SYSTEM: (NODE: 16363752591243585) What country are you traveling to?
+USER: uk
+SYSTEM: (NODE: 16363753123487784) What city are you traveling to?
+USER: manchester
+SYSTEM: (NODE: 16389695846089108) For all  business trips (even for short trips or ones lasting only a single day) outside the country
+SYSTEM: (NODE: 16363753477187975) Please check the current COVID-19 travel warnings travel restrictions from the foreign ministry and
+SYSTEM: (NODE: 16363754346769013) COVID-19: Business trips should be reduced to an absolute minimum and are only allowed when they are
+DIALOG END: SUCCESS
+DIALOG LENGTH: 11
+SUBJECTIVE QUALITY: 2
+SUBJECTIVE LENGTH: 2
+
+USER: 30290a9c9bcd2bf161eb4c945c2281 (POLICY: hdc)
+GOAL TEXT: You are traveling with another colleague and want to know if you have to share a hotel room or if each of you can book your own
+GOAL NODE: 16363834594338823 Yes, staying in a room by yourself is allowed
+USER: I have a tripped booked do i need to share a room?
+SYSTEM: (NODE: 16460436532310883) What emergency are you experiencing?
+USER: I need to book a trip with a colleague
+SYSTEM: (NODE: 16460439592347465) If you are at fault, costs cannot be reimbursed.
+SYSTEM: (NODE: 16460439966919842) If you are not at fault (e.g., a conference ran over), costs can be reimbursed if a suitable justifi
+RESET
+USER: do i have to share with my colleague
+SYSTEM: (NODE: 16460436532310883) What emergency are you experiencing?
+USER: none
+SYSTEM: (NODE: 16370679473901470) What do I do in an emergency on a business trip? Please call the number listed on the Emergency-Card
+SYSTEM: (NODE: 16384313191857195) Do you have any further questions?
+USER: yes
+SYSTEM: (NODE: 16348058621438633) What topic do you have questions about? You can either click on an answer from the suggested topics
+USER: sharing a room
+DIALOG END: FAILURE
+DIALOG LENGTH: 5
+SUBJECTIVE QUALITY: 1
+SUBJECTIVE LENGTH: 2
+
+USER: 30290a9c9bcd2bf161eb4c945c2281 (POLICY: hdc)
+GOAL TEXT: You want to know how much money you can get for your accommodations. <ul><li>You are traveling to France for your next trip</li><li>You plan to stay with your brother in his apartment. </li></ul>
+GOAL NODE: 16378349334755637 Outside of Germany, you are entitled to 30€ if you are staying with friends or family.
+USER: how much money can i get for accommodation?
+SYSTEM: (NODE: 16348058588084537) Are you going on an intracity trip or a business trip?
+USER: business
+SYSTEM: (NODE: 16348064261907944) Did you get written permission from your supervisor?
+USER: yes
+SYSTEM: (NODE: 16363752591243585) What country are you traveling to?
+USER: france
+SYSTEM: (NODE: 16363753123487784) What city are you traveling to?
+USER: paris
+SYSTEM: (NODE: 16389695846089108) For all  business trips (even for short trips or ones lasting only a single day) outside the country
+SYSTEM: (NODE: 16363753477187975) Please check the current COVID-19 travel warnings travel restrictions from the foreign ministry and
+SYSTEM: (NODE: 16363754346769013) COVID-19: Business trips should be reduced to an absolute minimum and are only allowed when they are
+SYSTEM: (NODE: 16348093549280346) Are you planning to extend your trip with private travel?
+USER: yes
+SYSTEM: (NODE: 16363754793760356) A private extension to a trip must remain in proportion to the length of business-related travel. Bu
+SYSTEM: (NODE: 16348097487038694) Which topic do you want to know more about?
+USER: accommodati0on
+SYSTEM: (NODE: 16378350683837525) If the trip is being paid for by a third party (not from the university) or was offered to be paid f
+SYSTEM: (NODE: 16370471522263677) Where do you plan to stay
+USER: with family
+SYSTEM: (NODE: 16378349334755637) Outside of Germany, you are entitled to 30€ if you are staying with friends or family.
+DIALOG END: SUCCESS
+DIALOG LENGTH: 14
+SUBJECTIVE QUALITY: 4
+SUBJECTIVE LENGTH: 3
+
+USER: bef4f95c2e4d20aa7762ff58cea744 (POLICY: hdc)
+GOAL TEXT: You want to know how to book a flight
+GOAL NODE: 16387868859695624 Thank you for using the business travel chatbot.Please let us know about your experience by filling
+USER: hi
+RESET
+USER: How can i book a flight
+SYSTEM: (NODE: 16348058588084537) Are you going on an intracity trip or a business trip?
+USER: business trip
+SYSTEM: (NODE: 16348064261907944) Did you get written permission from your supervisor?
+USER: yes
+SYSTEM: (NODE: 16363752591243585) What country are you traveling to?
+USER: usa
+SYSTEM: (NODE: 16363753123487784) What city are you traveling to?
+USER: new york
+SYSTEM: (NODE: 16389695846089108) For all  business trips (even for short trips or ones lasting only a single day) outside the country
+SYSTEM: (NODE: 16363753477187975) Please check the current COVID-19 travel warnings travel restrictions from the foreign ministry and
+SYSTEM: (NODE: 16363754346769013) COVID-19: Business trips should be reduced to an absolute minimum and are only allowed when they are
+DIALOG END: FAILURE
+DIALOG LENGTH: 8
+SUBJECTIVE QUALITY: 3
+SUBJECTIVE LENGTH: 3
+
+USER: bef4f95c2e4d20aa7762ff58cea744 (POLICY: hdc)
+GOAL TEXT: You want to know if you can be reimbursed if you need to book a taxi during your trip.
+GOAL NODE: 16365525829145685 A taxi is only reimbursable if there is a business related reason or a pressing personal reason, e.g
+USER: can I book a taxi during your trip.
+SYSTEM: (NODE: 16348058588084537) Are you going on an intracity trip or a business trip?
+USER: Business trip
+SYSTEM: (NODE: 16348064261907944) Did you get written permission from your supervisor?
+USER: yes
+SYSTEM: (NODE: 16363752591243585) What country are you traveling to?
+USER: usa
+SYSTEM: (NODE: 16363753123487784) What city are you traveling to?
+USER: newyork
+SYSTEM: (NODE: 16389695846089108) For all  business trips (even for short trips or ones lasting only a single day) outside the country
+SYSTEM: (NODE: 16363753477187975) Please check the current COVID-19 travel warnings travel restrictions from the foreign ministry and
+SYSTEM: (NODE: 16363754346769013) COVID-19: Business trips should be reduced to an absolute minimum and are only allowed when they are
+DIALOG END: FAILURE
+DIALOG LENGTH: 8
+SUBJECTIVE QUALITY: 3
+SUBJECTIVE LENGTH: 3
+
+USER: bef4f95c2e4d20aa7762ff58cea744 (POLICY: hdc)
+GOAL TEXT: You want to know how the reimbursement process works for research semester.<ul><li>You plan to bring your family with you</li></ul>
+GOAL NODE: 16370483534787100 Your business trip must be planned as though you were traveling alone (without your family). How doe
+USER: can i take my family also
+DIALOG END: FAILURE
+DIALOG LENGTH: 1
+SUBJECTIVE QUALITY: 1
+SUBJECTIVE LENGTH: 1
+
+USER: 85f5482a7b17efbf91e92f3aeafa23 (POLICY: hdc)
+GOAL TEXT: You want to know how to book a hotel
+GOAL NODE: 16387868859695624 Thank you for using the business travel chatbot.Please let us know about your experience by filling
+USER: I need to book a hotel.
+SYSTEM: (NODE: 16348058588084537) Are you going on an intracity trip or a business trip?
+USER: Business trip.
+SYSTEM: (NODE: 16348064261907944) Did you get written permission from your supervisor?
+USER: Yes
+SYSTEM: (NODE: 16363752591243585) What country are you traveling to?
+USER: UK
+USER: (POST-NLU) Great Britain
+SYSTEM: (NODE: 16363753123487784) What city are you traveling to?
+USER: London
+SYSTEM: (NODE: 16389695846089108) For all  business trips (even for short trips or ones lasting only a single day) outside the country
+SYSTEM: (NODE: 16363753477187975) Please check the current COVID-19 travel warnings travel restrictions from the foreign ministry and
+SYSTEM: (NODE: 16363754346769013) COVID-19: Business trips should be reduced to an absolute minimum and are only allowed when they are
+SYSTEM: (NODE: 16348093549280346) Are you planning to extend your trip with private travel?
+USER: No
+SYSTEM: (NODE: 16348097487038694) Which topic do you want to know more about?
+USER: Hotel
+SYSTEM: (NODE: 16378350683837525) If the trip is being paid for by a third party (not from the university) or was offered to be paid f
+SYSTEM: (NODE: 16370471522263677) Where do you plan to stay
+USER: Hotel
+SYSTEM: (NODE: 16363812426270449) Hotels can be booked using the university's partner travel agency, through a booking portal, or book
+SYSTEM: (NODE: 16389574258367592) In order to book trips through the partner travel agency, you will need to use an institute specific
+SYSTEM: (NODE: 16363811629822245) It is required that the bill is addressed to your employer with your name entered as the guest.
+SYSTEM: (NODE: 16365521324065600) In {{ COUNTRY }} you have a budget of up to 90€ (or 120€ in cities with a population of more than 10
+SYSTEM: (NODE: 16363810595542638) Exceeding the accommodation allowance can be allowed on a case-by-case basis when justified as neces
+DIALOG END: SUCCESS
+DIALOG LENGTH: 17
+SUBJECTIVE QUALITY: 1
+SUBJECTIVE LENGTH: 4
+
+USER: 85f5482a7b17efbf91e92f3aeafa23 (POLICY: hdc)
+GOAL TEXT: You are traveling with another colleague and want to know if you have to share a hotel room or if each of you can book your own
+GOAL NODE: 16363834594338823 Yes, staying in a room by yourself is allowed
+USER: Book a trip
+SYSTEM: (NODE: 16348058588084537) Are you going on an intracity trip or a business trip?
+USER: Business trup
+SYSTEM: (NODE: 16348064261907944) Did you get written permission from your supervisor?
+USER: Yes
+SYSTEM: (NODE: 16363752591243585) What country are you traveling to?
+USER: UK
+SYSTEM: (NODE: 16363753123487784) What city are you traveling to?
+USER: London
+SYSTEM: (NODE: 16389695846089108) For all  business trips (even for short trips or ones lasting only a single day) outside the country
+SYSTEM: (NODE: 16363753477187975) Please check the current COVID-19 travel warnings travel restrictions from the foreign ministry and
+SYSTEM: (NODE: 16363754346769013) COVID-19: Business trips should be reduced to an absolute minimum and are only allowed when they are
+SYSTEM: (NODE: 16348093549280346) Are you planning to extend your trip with private travel?
+USER: No
+SYSTEM: (NODE: 16348097487038694) Which topic do you want to know more about?
+USER: Accomidation
+SYSTEM: (NODE: 16378350683837525) If the trip is being paid for by a third party (not from the university) or was offered to be paid f
+SYSTEM: (NODE: 16370471522263677) Where do you plan to stay
+USER: Can I share a hotel room
+SYSTEM: (NODE: 16363812426270449) Hotels can be booked using the university's partner travel agency, through a booking portal, or book
+SYSTEM: (NODE: 16389574258367592) In order to book trips through the partner travel agency, you will need to use an institute specific
+SYSTEM: (NODE: 16363811629822245) It is required that the bill is addressed to your employer with your name entered as the guest.
+SYSTEM: (NODE: 16365521324065600) In {{ COUNTRY }} you have a budget of up to 90€ (or 120€ in cities with a population of more than 10
+SYSTEM: (NODE: 16363810595542638) Exceeding the accommodation allowance can be allowed on a case-by-case basis when justified as neces
+SYSTEM: (NODE: 16370471523444253) Do have any more questions about booking an accommodation
+USER: Can I book a room for just myself?
+SYSTEM: (NODE: 16363834594338823) Yes, staying in a room by yourself is allowed
+DIALOG END: SUCCESS
+DIALOG LENGTH: 19
+SUBJECTIVE QUALITY: 2
+SUBJECTIVE LENGTH: 5
+
+USER: 85f5482a7b17efbf91e92f3aeafa23 (POLICY: hdc)
+GOAL TEXT: You are trying to figure out how much money you get for booking somewhere to stay on your trip. <ul><li>Your trip is to Tokyo, Japan</li><li>Your trip should take 10 days</li><li>You plan to stay in a hotel</li></ul>
+GOAL NODE: 16365521324065600 In {{ COUNTRY }} you have a budget of up to 90€ (or 120€ in cities with a population of more than 10
+USER: How much money do I get for booking a trip
+SYSTEM: (NODE: 16348058588084537) Are you going on an intracity trip or a business trip?
+USER: Business trip
+SYSTEM: (NODE: 16348064261907944) Did you get written permission from your supervisor?
+USER: Yes
+SYSTEM: (NODE: 16363752591243585) What country are you traveling to?
+USER: Tokyo, Japan
+SYSTEM: (NODE: 16363753123487784) What city are you traveling to?
+USER: Tokyo
+SYSTEM: (NODE: 16389695846089108) For all  business trips (even for short trips or ones lasting only a single day) outside the country
+SYSTEM: (NODE: 16363753477187975) Please check the current COVID-19 travel warnings travel restrictions from the foreign ministry and
+SYSTEM: (NODE: 16363754346769013) COVID-19: Business trips should be reduced to an absolute minimum and are only allowed when they are
+SYSTEM: (NODE: 16348093549280346) Are you planning to extend your trip with private travel?
+USER: No
+SYSTEM: (NODE: 16348097487038694) Which topic do you want to know more about?
+USER: Costs
+SYSTEM: (NODE: 16366214877516370) Which incidental costs ocurred during your trip or do you anticipate occurring
+USER: Money for booking a trip
+SYSTEM: (NODE: 16369666664574541) Passport and Visa fees are reimbursable if they are required to fulfill business interests.
+SYSTEM: (NODE: 16366218125775037) Were there any other incidental costs?
+USER: No
+SYSTEM: (NODE: 16384313191857195) Do you have any further questions?
+USER: No
+DIALOG END: FAILURE
+DIALOG LENGTH: 14
+SUBJECTIVE QUALITY: 1
+SUBJECTIVE LENGTH: 5
+
+USER: 5037c79044cefc022ea4be342d1fb3 (POLICY: hdc)
+GOAL TEXT: You want to inform yourself what to do in case of an emergency during travel.
+GOAL NODE: 16387868859695624 Thank you for using the business travel chatbot.Please let us know about your experience by filling
+USER: emergency during travel
+SYSTEM: (NODE: 16460436532310883) What emergency are you experiencing?
+USER: What should i do in case of emergency?
+SYSTEM: (NODE: 16370679473901470) What do I do in an emergency on a business trip? Please call the number listed on the Emergency-Card
+SYSTEM: (NODE: 16384313191857195) Do you have any further questions?
+USER: No
+DIALOG END: SUCCESS
+DIALOG LENGTH: 4
+SUBJECTIVE QUALITY: 4
+SUBJECTIVE LENGTH: 3
+
+USER: 5037c79044cefc022ea4be342d1fb3 (POLICY: hdc)
+GOAL TEXT: You want to know if you can get reimbursed if you reserve a seat for yourself on the train
+GOAL NODE: 16363756478730906 Seat reservations are allowed for train travel
+USER: If I reserve my own seat on the train, can I get reimbursed?
+SYSTEM: (NODE: 16457053159041482) You should try to cancel anything which has already been booked as quickly as possible. Necessary ex
+SYSTEM: (NODE: 16348058621438633) What topic do you have questions about? You can either click on an answer from the suggested topics
+USER: Why should I cancel the bookings?
+SYSTEM: (NODE: 16457053159041482) You should try to cancel anything which has already been booked as quickly as possible. Necessary ex
+DIALOG END: FAILURE
+DIALOG LENGTH: 4
+SUBJECTIVE QUALITY: 2
+SUBJECTIVE LENGTH: 2
+
+USER: 5037c79044cefc022ea4be342d1fb3 (POLICY: hdc)
+GOAL TEXT: You want to know how you can get reimbursed for your flight.<ul><li>You plan to extend your stay with private vacation before flying back</li></ul>
+GOAL NODE: 16363755463439219 Costs which occur as part of the business aspect of a trip are reimbursable. Therefore, you will nee
+USER: Can I get a reimbursement for my flight back? I want to stay longer than planned.
+SYSTEM: (NODE: 16457053159041482) You should try to cancel anything which has already been booked as quickly as possible. Necessary ex
+DIALOG END: FAILURE
+DIALOG LENGTH: 2
+SUBJECTIVE QUALITY: 1
+SUBJECTIVE LENGTH: 1
+
+USER: 46ec81c0f5b71b6c29ab9ab3dc6c99 (POLICY: hdc)
+GOAL TEXT: You want more information about how to plan a research semester.
+GOAL NODE: 16387868859695624 Thank you for using the business travel chatbot.Please let us know about your experience by filling
+USER: Hi, I need your help to plan my research semester'
+SYSTEM: (NODE: 16370487978253782) How long will your research semester last?
+USER: It's 4 weeks long
+SYSTEM: (NODE: 16353297472197738) Is this as part of a reallocation?
+USER: Just give me general idea how should I do it
+SYSTEM: (NODE: 16370481846790432) As part of a reallocation/delegation, your office is relocated (no longer in CITY)
+DIALOG END: FAILURE
+DIALOG LENGTH: 4
+SUBJECTIVE QUALITY: 1
+SUBJECTIVE LENGTH: 1
+
+USER: 46ec81c0f5b71b6c29ab9ab3dc6c99 (POLICY: hdc)
+GOAL TEXT: You have to cancel your trip. You want to know if the money you have already paid can be reimbursed
+GOAL NODE: 16457053159041482 You should try to cancel anything which has already been booked as quickly as possible. Necessary ex
+USER: Hi, unfortunately my trip was canceled and I'd like to know if there is a way to get back my money I paid for flying tickets
+SYSTEM: (NODE: 16457053159041482) You should try to cancel anything which has already been booked as quickly as possible. Necessary ex
+DIALOG END: SUCCESS
+DIALOG LENGTH: 2
+SUBJECTIVE QUALITY: 2
+SUBJECTIVE LENGTH: 1
+
+USER: 46ec81c0f5b71b6c29ab9ab3dc6c99 (POLICY: hdc)
+GOAL TEXT: You want to know how you can get reimbursed for your flight.<ul><li>You plan to extend your stay with private vacation before flying back</li></ul>
+GOAL NODE: 16363755463439219 Costs which occur as part of the business aspect of a trip are reimbursable. Therefore, you will nee
+USER: Hi, I have a flight back home in 2 days but I got an idea to stay longer, how can I get reimbursed for the tickets?
+SYSTEM: (NODE: 16457053159041482) You should try to cancel anything which has already been booked as quickly as possible. Necessary ex
+DIALOG END: FAILURE
+DIALOG LENGTH: 2
+SUBJECTIVE QUALITY: 2
+SUBJECTIVE LENGTH: 2
+
+USER: 3430e4045ec89d661a7f4d1d9fa659 (POLICY: hdc)
+GOAL TEXT: You want more information about how to plan a research semester.
+GOAL NODE: 16387868859695624 Thank you for using the business travel chatbot.Please let us know about your experience by filling
+USER: Hey, I'm studying marine biology at my University. Can you help me plan a research semester?
+SYSTEM: (NODE: 16370487978253782) How long will your research semester last?
+USER: It's going to be 3 months
+SYSTEM: (NODE: 16460422136134149) If you are traveling for more than 4 weeks and need help finding accommodations, please contact the
+SYSTEM: (NODE: 16353297472197738) Is this as part of a reallocation?
+USER: What you said to me is not relevant to my research semester request
+SYSTEM: (NODE: 16370481846790432) As part of a reallocation/delegation, your office is relocated (no longer in CITY)
+DIALOG END: FAILURE
+DIALOG LENGTH: 5
+SUBJECTIVE QUALITY: 1
+SUBJECTIVE LENGTH: 1
+
+USER: 3430e4045ec89d661a7f4d1d9fa659 (POLICY: hdc)
+GOAL TEXT: You are traveling with another colleague and want to know if you have to share a hotel room or if each of you can book your own
+GOAL NODE: 16363834594338823 Yes, staying in a room by yourself is allowed
+USER: I'm travelling with another colleague for a business trip. I was wondering if we have to share the same hotel room or if we can book separate ones.
+SYSTEM: (NODE: 16460436532310883) What emergency are you experiencing?
+USER: I'm not facing an emergency. I'm asking a simple question about a business trip.
+SYSTEM: (NODE: 16370679473901470) What do I do in an emergency on a business trip? Please call the number listed on the Emergency-Card
+SYSTEM: (NODE: 16384313191857195) Do you have any further questions?
+USER: Yes, I'm travelling with another colleague for a business trip. I was wondering if we have to share the same hotel room or if we can book separate ones.
+SYSTEM: (NODE: 16348058621438633) What topic do you have questions about? You can either click on an answer from the suggested topics
+USER: booking a trip with a colleague
+SYSTEM: (NODE: 16348058588084537) Are you going on an intracity trip or a business trip?
+USER: a business trip
+SYSTEM: (NODE: 16348064261907944) Did you get written permission from your supervisor?
+USER: yes
+SYSTEM: (NODE: 16363752591243585) What country are you traveling to?
+USER: Belgium
+SYSTEM: (NODE: 16363753123487784) What city are you traveling to?
+USER: bruges
+SYSTEM: (NODE: 16389695846089108) For all  business trips (even for short trips or ones lasting only a single day) outside the country
+SYSTEM: (NODE: 16363753477187975) Please check the current COVID-19 travel warnings travel restrictions from the foreign ministry and
+SYSTEM: (NODE: 16363754346769013) COVID-19: Business trips should be reduced to an absolute minimum and are only allowed when they are
+DIALOG END: FAILURE
+DIALOG LENGTH: 12
+SUBJECTIVE QUALITY: 1
+SUBJECTIVE LENGTH: 2
+
+USER: 3430e4045ec89d661a7f4d1d9fa659 (POLICY: hdc)
+GOAL TEXT: You want to figure out how much money you can get for your travel. <ul><li>You used your own car</li><li>You took two colleagues with you</li></ul>
+GOAL NODE: 16460328708250870 If you are also transporting other coworkers, you are entitled to 2 Cent per person und kilometer, f
+USER: I'm wondering how much money I can get for my travel if I use my own car and take two colleagues with me.
+SYSTEM: (NODE: 16353412627443913) Travel Safety/ Travel Risk Management: What would you like to know about? Emergency help
+USER: I'm wondering how much money I can get for my travel if I use my own car and take two colleagues with me.
+DIALOG END: FAILURE
+DIALOG LENGTH: 2
+SUBJECTIVE QUALITY: 1
+SUBJECTIVE LENGTH: 1
+
+USER: 362db4eff5c339f4119679dd8a63ec (POLICY: hdc)
+GOAL TEXT: You want to know how to book a flight
+GOAL NODE: 16387868859695624 Thank you for using the business travel chatbot.Please let us know about your experience by filling
+USER: Book a trip
+SYSTEM: (NODE: 16348058588084537) Are you going on an intracity trip or a business trip?
+USER: Business trip
+SYSTEM: (NODE: 16348064261907944) Did you get written permission from your supervisor?
+USER: yes
+SYSTEM: (NODE: 16363752591243585) What country are you traveling to?
+USER: Germany
+SYSTEM: (NODE: 16363753123487784) What city are you traveling to?
+USER: Hamburg
+SYSTEM: (NODE: 16363754346769013) COVID-19: Business trips should be reduced to an absolute minimum and are only allowed when they are
+SYSTEM: (NODE: 16348093549280346) Are you planning to extend your trip with private travel?
+USER: no
+SYSTEM: (NODE: 16348097487038694) Which topic do you want to know more about?
+USER: accomodation
+SYSTEM: (NODE: 16378350683837525) If the trip is being paid for by a third party (not from the university) or was offered to be paid f
+SYSTEM: (NODE: 16370471522263677) Where do you plan to stay
+USER: hotel
+SYSTEM: (NODE: 16363812426270449) Hotels can be booked using the university's partner travel agency, through a booking portal, or book
+SYSTEM: (NODE: 16389574258367592) In order to book trips through the partner travel agency, you will need to use an institute specific
+SYSTEM: (NODE: 16363811629822245) It is required that the bill is addressed to your employer with your name entered as the guest.
+SYSTEM: (NODE: 16365520936325006) In Germany hotel costs can be reimbursed up to 60€ (or 80€ in cities with a population of more than
+SYSTEM: (NODE: 16363810595542638) Exceeding the accommodation allowance can be allowed on a case-by-case basis when justified as neces
+SYSTEM: (NODE: 16370471523444253) Do have any more questions about booking an accommodation
+USER: no
+SYSTEM: (NODE: 16384313191857195) Do you have any further questions?
+USER: no
+DIALOG END: SUCCESS
+DIALOG LENGTH: 17
+SUBJECTIVE QUALITY: 4
+SUBJECTIVE LENGTH: 3
+
+USER: 362db4eff5c339f4119679dd8a63ec (POLICY: hdc)
+GOAL TEXT: You are planning on attending a conference and want to know if the conference fee can be reimbursed
+GOAL NODE: 16384329210117153 Conference fees are reimbursable.
+USER: forms, deadline and procedures
+SYSTEM: (NODE: 16430179741642982) Are you looking for a form or looking for help filling a form out?
+USER: help filling put a form
+SYSTEM: (NODE: 16430180551117165) What would you like to know about?
+USER: conference fee reimbursement
+SYSTEM: (NODE: 16430181901118602) You can find your employee number on your pay stub.
+SYSTEM: (NODE: 16391274636239225) Do you need any other forms?
+USER: no
+SYSTEM: (NODE: 16384313191857195) Do you have any further questions?
+USER: no
+DIALOG END: FAILURE
+DIALOG LENGTH: 6
+SUBJECTIVE QUALITY: 2
+SUBJECTIVE LENGTH: 3
+
+USER: 362db4eff5c339f4119679dd8a63ec (POLICY: hdc)
+GOAL TEXT: You want to figure out how much money you can get for your travel. <ul><li>You used your own car</li><li>You took two colleagues with you</li></ul>
+GOAL NODE: 16460328708250870 If you are also transporting other coworkers, you are entitled to 2 Cent per person und kilometer, f
+USER: transportation arrangements
+SYSTEM: (NODE: 16353412627443913) Travel Safety/ Travel Risk Management: What would you like to know about? Emergency help
+USER: emergecy assistance, safety considerations, genral information and resources
+SYSTEM: (NODE: 16354905244322603) Content: Why was it introduced: To show the services provided both internally and from MDMedicus
+SYSTEM: (NODE: 16384313191857195) Do you have any further questions?
+USER: no
+DIALOG END: FAILURE
+DIALOG LENGTH: 4
+SUBJECTIVE QUALITY: 4
+SUBJECTIVE LENGTH: 3
+
+USER: 2455f27c8aed531cb2046b35a292f8 (POLICY: hdc)
+GOAL TEXT: You want to inform yourself what to do in case of an emergency during travel.
+GOAL NODE: 16387868859695624 Thank you for using the business travel chatbot.Please let us know about your experience by filling
+USER: emergency during business trip
+SYSTEM: (NODE: 16460436532310883) What emergency are you experiencing?
+USER: general
+SYSTEM: (NODE: 16370679473901470) What do I do in an emergency on a business trip? Please call the number listed on the Emergency-Card
+SYSTEM: (NODE: 16384313191857195) Do you have any further questions?
+USER: no
+DIALOG END: SUCCESS
+DIALOG LENGTH: 4
+SUBJECTIVE QUALITY: 4
+SUBJECTIVE LENGTH: 3
+
+USER: 2455f27c8aed531cb2046b35a292f8 (POLICY: hdc)
+GOAL TEXT: You want to know if you can be reimbursed if you need to book a taxi during your trip.
+GOAL NODE: 16365525829145685 A taxi is only reimbursable if there is a business related reason or a pressing personal reason, e.g
+USER: reimbursments
+SYSTEM: (NODE: 16430179741642982) Are you looking for a form or looking for help filling a form out?
+USER: find a form for taxi
+SYSTEM: (NODE: 16391225409774083) Which forms do you need?
+USER: business trip reimbursement
+SYSTEM: (NODE: 16391245479319732) Business travel reimbursement forms:
+SYSTEM: (NODE: 16391274636239225) Do you need any other forms?
+USER: no
+SYSTEM: (NODE: 16384313191857195) Do you have any further questions?
+USER: no
+DIALOG END: FAILURE
+DIALOG LENGTH: 6
+SUBJECTIVE QUALITY: 4
+SUBJECTIVE LENGTH: 3
+
+USER: 2455f27c8aed531cb2046b35a292f8 (POLICY: hdc)
+GOAL TEXT: You want to know how much money you can get for your accommodations. <ul><li>You are traveling to France for your next trip</li><li>You plan to stay with your brother in his apartment. </li></ul>
+GOAL NODE: 16378349334755637 Outside of Germany, you are entitled to 30€ if you are staying with friends or family.
+USER: Budget for travel to France
+SYSTEM: (NODE: 16348058588084537) Are you going on an intracity trip or a business trip?
+USER: what is the difference between an intracity business trip and a business trip?
+SYSTEM: (NODE: 16363751845458600) Business trips are business related travel outside of the city. The following are not business trips
+SYSTEM: (NODE: 16363752201349915) Intracity business trips are business related travel within the city.
+DIALOG END: FAILURE
+DIALOG LENGTH: 4
+SUBJECTIVE QUALITY: 1
+SUBJECTIVE LENGTH: 2
+
+USER: 680364a9f4d189548e98bc745564ec (POLICY: hdc)
+GOAL TEXT: You want to know how to book a flight
+GOAL NODE: 16387868859695624 Thank you for using the business travel chatbot.Please let us know about your experience by filling
+USER: Book a trip.
+SYSTEM: (NODE: 16348058588084537) Are you going on an intracity trip or a business trip?
+USER: I am headed for a business trip.
+SYSTEM: (NODE: 16348064261907944) Did you get written permission from your supervisor?
+USER: Yes
+SYSTEM: (NODE: 16363752591243585) What country are you traveling to?
+USER: Egypt
+SYSTEM: (NODE: 16363753123487784) What city are you traveling to?
+USER: Cairo
+SYSTEM: (NODE: 16389695846089108) For all  business trips (even for short trips or ones lasting only a single day) outside the country
+SYSTEM: (NODE: 16363753477187975) Please check the current COVID-19 travel warnings travel restrictions from the foreign ministry and
+SYSTEM: (NODE: 16363754346769013) COVID-19: Business trips should be reduced to an absolute minimum and are only allowed when they are
+SYSTEM: (NODE: 16348093549280346) Are you planning to extend your trip with private travel?
+USER: No
+SYSTEM: (NODE: 16348097487038694) Which topic do you want to know more about?
+USER: I would like to know more about traveling options from various accommodation options.\
+SYSTEM: (NODE: 16378350683837525) If the trip is being paid for by a third party (not from the university) or was offered to be paid f
+SYSTEM: (NODE: 16370471522263677) Where do you plan to stay
+USER: Self-catering house
+SYSTEM: (NODE: 16363811629822245) It is required that the bill is addressed to your employer with your name entered as the guest.
+SYSTEM: (NODE: 16365521324065600) In {{ COUNTRY }} you have a budget of up to 90€ (or 120€ in cities with a population of more than 10
+SYSTEM: (NODE: 16363810595542638) Exceeding the accommodation allowance can be allowed on a case-by-case basis when justified as neces
+SYSTEM: (NODE: 16370471523444253) Do have any more questions about booking an accommodation
+USER: No
+SYSTEM: (NODE: 16384313191857195) Do you have any further questions?
+USER: No
+DIALOG END: SUCCESS
+DIALOG LENGTH: 17
+SUBJECTIVE QUALITY: 2
+SUBJECTIVE LENGTH: 3
+
+USER: 680364a9f4d189548e98bc745564ec (POLICY: hdc)
+GOAL TEXT: You are planning on attending a conference and want to know if the conference fee can be reimbursed
+GOAL NODE: 16384329210117153 Conference fees are reimbursable.
+USER: How do I get reimbursed for travel costs
+SYSTEM: (NODE: 16348058588084537) Are you going on an intracity trip or a business trip?
+USER: I am going for work.
+SYSTEM: (NODE: 16348064261907944) Did you get written permission from your supervisor?
+USER: Yes
+SYSTEM: (NODE: 16363752591243585) What country are you traveling to?
+USER: South Africa
+SYSTEM: (NODE: 16363753123487784) What city are you traveling to?
+USER: Durban
+SYSTEM: (NODE: 16389695846089108) For all  business trips (even for short trips or ones lasting only a single day) outside the country
+SYSTEM: (NODE: 16363753477187975) Please check the current COVID-19 travel warnings travel restrictions from the foreign ministry and
+SYSTEM: (NODE: 16363754346769013) COVID-19: Business trips should be reduced to an absolute minimum and are only allowed when they are
+SYSTEM: (NODE: 16348093549280346) Are you planning to extend your trip with private travel?
+USER: Yes
+SYSTEM: (NODE: 16363754793760356) A private extension to a trip must remain in proportion to the length of business-related travel. Bu
+SYSTEM: (NODE: 16348097487038694) Which topic do you want to know more about?
+USER: Reimbursement for my travel
+SYSTEM: (NODE: 16370471520148677) How long is the business related portion of your travel?
+USER: 3 days
+SYSTEM: (NODE: 16370471522950468) In {{ COUNTRY }}, you are entitled to {{ PERDIEM.AMOUNT(COUNTRY, CITY) }} €  per day, minus any free
+SYSTEM: (NODE: 16384313191857195) Do you have any further questions?
+USER: No
+DIALOG END: FAILURE
+DIALOG LENGTH: 14
+SUBJECTIVE QUALITY: 1
+SUBJECTIVE LENGTH: 3
+
+USER: 680364a9f4d189548e98bc745564ec (POLICY: hdc)
+GOAL TEXT: You want to figure out how much money you can get for your travel. <ul><li>You used your own car</li><li>You took two colleagues with you</li></ul>
+GOAL NODE: 16460328708250870 If you are also transporting other coworkers, you are entitled to 2 Cent per person und kilometer, f
+USER: What is the travel allowance?
+SYSTEM: (NODE: 16348058588084537) Are you going on an intracity trip or a business trip?
+USER: Both work and personal.
+SYSTEM: (NODE: 16348064261907944) Did you get written permission from your supervisor?
+USER: Yes
+SYSTEM: (NODE: 16363752591243585) What country are you traveling to?
+USER: China
+SYSTEM: (NODE: 16363753123487784) What city are you traveling to?
+USER: Shanghi
+SYSTEM: (NODE: 16389695846089108) For all  business trips (even for short trips or ones lasting only a single day) outside the country
+SYSTEM: (NODE: 16363753477187975) Please check the current COVID-19 travel warnings travel restrictions from the foreign ministry and
+SYSTEM: (NODE: 16363754346769013) COVID-19: Business trips should be reduced to an absolute minimum and are only allowed when they are
+SYSTEM: (NODE: 16348093549280346) Are you planning to extend your trip with private travel?
+USER: No
+SYSTEM: (NODE: 16348097487038694) Which topic do you want to know more about?
+USER: Rate for using own transport.
+SYSTEM: (NODE: 16348100109577394) What type of transportation would you like?
+USER: Personal car
+SYSTEM: (NODE: 16460325754790153) If you used your car for a pressing reason, you are entitled to 0,25€ per kilometer driven.
+SYSTEM: (NODE: 16460327938891442) Pressing personal reasons: Severe illness of a family member
+SYSTEM: (NODE: 16460328708250870) If you are also transporting other coworkers, you are entitled to 2 Cent per person und kilometer, f
+DIALOG END: SUCCESS
+DIALOG LENGTH: 14
+SUBJECTIVE QUALITY: 3
+SUBJECTIVE LENGTH: 3
+

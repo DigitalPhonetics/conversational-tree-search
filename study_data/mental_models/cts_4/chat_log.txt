@@ -1,0 +1,1422 @@
+USER: 4b9924c0c8ce326ac3c1e1688937c6 || GROUP: cts
+USER: 2e4bd44563cdfd591a0a4bd566c308 || GROUP: cts
+USER: 7224eb019715bd25cc799d87862cf7 || GROUP: cts
+USER: d9a101002e1d23b86bf785bab7b5e3 || GROUP: cts
+USER: e5de0b4b0679651ef175fceeb3413f || GROUP: cts
+USER: 9938b0e41bc9ee7b9ec9087e0d4a28 || GROUP: cts
+USER: 273666715e559c45c6cc9a2e7f5033 || GROUP: cts
+USER: 1fd4736bcd456d02458c2a32944e60 || GROUP: cts
+==== NEW DIALOG STARTED FOR USER 4b9924c0c8ce326ac3c1e1688937c6 ====
+USER: 4b9924c0c8ce326ac3c1e1688937c6 || GOAL: You want more information about how to plan a research semester. || NODE_ID: 16387868859695624
+==== NEW DIALOG STARTED FOR USER e5de0b4b0679651ef175fceeb3413f ====
+USER: e5de0b4b0679651ef175fceeb3413f || GOAL: You want to inform yourself what to do in case of an emergency during travel. || NODE_ID: 16387868859695624
+e5de0b4b0679651ef175fceeb3413f-1$ ======== RESET =========
+e5de0b4b0679651ef175fceeb3413f-1$ GOAL: 16387868859695624 Thank you for using the business travel chatbot.Please let us know about your experience by filling 
+e5de0b4b0679651ef175fceeb3413f-1$ CONSTRAINTS: {}
+e5de0b4b0679651ef175fceeb3413f-1$ INITIAL UTTERANCE: What happens in an emmergency?
+e5de0b4b0679651ef175fceeb3413f-1$ -> TURN REWARD: -1.0
+e5de0b4b0679651ef175fceeb3413f-1$ -> USER UTTERANCE: 
+e5de0b4b0679651ef175fceeb3413f-1$ TO NODE: userResponseNode - 16353412627443913 - Travel Safety/ Travel Risk Management: What would you like to know about? Emergency help 
+ What to c
+e5de0b4b0679651ef175fceeb3413f-1$ -> TURN REWARD: -1.0
+e5de0b4b0679651ef175fceeb3413f-1$ -> USER UTTERANCE: 
+e5de0b4b0679651ef175fceeb3413f-1$ TO NODE: infoNode - 16354905244322603 - Content: Why was it introduced: To show the services provided both internally and from MDMedicus 
+ N
+e5de0b4b0679651ef175fceeb3413f-1$ -> TURN REWARD: -1.0
+e5de0b4b0679651ef175fceeb3413f-1$ -> USER UTTERANCE: 
+e5de0b4b0679651ef175fceeb3413f-1$ TO NODE: userResponseNode - 16384313191857195 - Do you have any further questions?
+e5de0b4b0679651ef175fceeb3413f-1$ -> TURN REWARD: -1.0
+e5de0b4b0679651ef175fceeb3413f-1$ -> USER UTTERANCE: 
+e5de0b4b0679651ef175fceeb3413f-1$ TO NODE: userResponseNode - 16348058621438633 - What topic do you have questions about? You can either click on an answer from the suggested topics 
+e5de0b4b0679651ef175fceeb3413f-1$ -> TURN REWARD: -1.0
+e5de0b4b0679651ef175fceeb3413f-1$ -> USER UTTERANCE: 
+e5de0b4b0679651ef175fceeb3413f-1$ TO NODE: userResponseNode - 16348058588084537 - Are you going on an intracity trip or a business trip?
+e5de0b4b0679651ef175fceeb3413f-1$ -> TURN REWARD: -1.0
+e5de0b4b0679651ef175fceeb3413f-1$ -> USER UTTERANCE: 
+e5de0b4b0679651ef175fceeb3413f-1$ TO NODE: userResponseNode - 16348070558358676 - Did you get verbal permission from your supervisor?
+e5de0b4b0679651ef175fceeb3413f-1$ -> TURN REWARD: -1.0
+e5de0b4b0679651ef175fceeb3413f-1$ -> USER UTTERANCE: 
+e5de0b4b0679651ef175fceeb3413f-1$ TO NODE: userResponseNode - 16348071239272239 - Do you want to know more about booking Transportation or about ancillary costs?
+e5de0b4b0679651ef175fceeb3413f-1$ -> TURN REWARD: -1.0
+e5de0b4b0679651ef175fceeb3413f-1$ -> USER UTTERANCE: 
+e5de0b4b0679651ef175fceeb3413f-1$ TO NODE: userResponseNode - 16366214877516370 - Which incidental costs ocurred during your trip or do you anticipate occurring
+e5de0b4b0679651ef175fceeb3413f-1$ -> TURN REWARD: -1.0
+e5de0b4b0679651ef175fceeb3413f-1$ -> USER UTTERANCE: 
+e5de0b4b0679651ef175fceeb3413f-1$ TO NODE: infoNode - 16369793221368112 - Expenses for insurances (e.g., Travel insurance, liability insurance, etc.) are generally not reimbu
+e5de0b4b0679651ef175fceeb3413f-1$ -> TURN REWARD: -1.0
+e5de0b4b0679651ef175fceeb3413f-1$ -> USER UTTERANCE: 
+e5de0b4b0679651ef175fceeb3413f-1$ TO NODE: userResponseNode - 16366218125775037 - Were there any other incidental costs?
+e5de0b4b0679651ef175fceeb3413f-1$ -> TURN REWARD: -1.0
+e5de0b4b0679651ef175fceeb3413f-1$ -> USER UTTERANCE: 
+e5de0b4b0679651ef175fceeb3413f-1$ TO NODE: userResponseNode - 16384313191857195 - Do you have any further questions?
+e5de0b4b0679651ef175fceeb3413f-1$ -> TURN REWARD: -1.0
+e5de0b4b0679651ef175fceeb3413f-1$ -> USER UTTERANCE: 
+e5de0b4b0679651ef175fceeb3413f-1$ TO NODE: userResponseNode - 16348058621438633 - What topic do you have questions about? You can either click on an answer from the suggested topics 
+e5de0b4b0679651ef175fceeb3413f-1$ -> TURN REWARD: -1.0
+e5de0b4b0679651ef175fceeb3413f-1$ -> USER UTTERANCE: 
+e5de0b4b0679651ef175fceeb3413f-1$ TO NODE: userResponseNode - 16348058588084537 - Are you going on an intracity trip or a business trip?
+e5de0b4b0679651ef175fceeb3413f-1$ -> TURN REWARD: -1.0
+e5de0b4b0679651ef175fceeb3413f-1$ -> USER UTTERANCE: 
+e5de0b4b0679651ef175fceeb3413f-1$ TO NODE: userResponseNode - 16348070558358676 - Did you get verbal permission from your supervisor?
+e5de0b4b0679651ef175fceeb3413f-1$ -> TURN REWARD: -1.0
+e5de0b4b0679651ef175fceeb3413f-1$ -> USER UTTERANCE: 
+e5de0b4b0679651ef175fceeb3413f-1$ TO NODE: userResponseNode - 16348071239272239 - Do you want to know more about booking Transportation or about ancillary costs?
+e5de0b4b0679651ef175fceeb3413f-1$ -> TURN REWARD: -1.0
+e5de0b4b0679651ef175fceeb3413f-1$ -> USER UTTERANCE: 
+e5de0b4b0679651ef175fceeb3413f-1$ TO NODE: userResponseNode - 16348100109577394 - What type of transportation would you like?
+e5de0b4b0679651ef175fceeb3413f-1$ -> TURN REWARD: -1.0
+e5de0b4b0679651ef175fceeb3413f-1$ -> USER UTTERANCE: 
+e5de0b4b0679651ef175fceeb3413f-1$ TO NODE: infoNode - 16363756081293233 - You can book tickets for public transportation yourself
+e5de0b4b0679651ef175fceeb3413f-1$ -> TURN REWARD: -1.0
+e5de0b4b0679651ef175fceeb3413f-1$ -> USER UTTERANCE: 
+e5de0b4b0679651ef175fceeb3413f-1$ TO NODE: userResponseNode - 16351756667261880 - Do you have any other questions about booking transportation?
+e5de0b4b0679651ef175fceeb3413f-1$ -> TURN REWARD: -1.0
+e5de0b4b0679651ef175fceeb3413f-1$ -> USER UTTERANCE: 
+e5de0b4b0679651ef175fceeb3413f-1$ TO NODE: userResponseNode - 16384313191857195 - Do you have any further questions?
+e5de0b4b0679651ef175fceeb3413f-1$ -> TURN REWARD: -1.0
+e5de0b4b0679651ef175fceeb3413f-1$ -> USER UTTERANCE: 
+e5de0b4b0679651ef175fceeb3413f-1$ TO NODE: userResponseNode - 16348058621438633 - What topic do you have questions about? You can either click on an answer from the suggested topics 
+e5de0b4b0679651ef175fceeb3413f-1$ -> TURN REWARD: -1.0
+e5de0b4b0679651ef175fceeb3413f-1$ -> USER UTTERANCE: 
+e5de0b4b0679651ef175fceeb3413f-1$ TO NODE: userResponseNode - 16348058588084537 - Are you going on an intracity trip or a business trip?
+e5de0b4b0679651ef175fceeb3413f-1$ -> TURN REWARD: -1.0
+e5de0b4b0679651ef175fceeb3413f-1$ -> USER UTTERANCE: 
+e5de0b4b0679651ef175fceeb3413f-1$ TO NODE: userResponseNode - 16348070558358676 - Did you get verbal permission from your supervisor?
+e5de0b4b0679651ef175fceeb3413f-1$ -> TURN REWARD: -1.0
+e5de0b4b0679651ef175fceeb3413f-1$ -> USER UTTERANCE: 
+e5de0b4b0679651ef175fceeb3413f-1$ TO NODE: userResponseNode - 16348071239272239 - Do you want to know more about booking Transportation or about ancillary costs?
+e5de0b4b0679651ef175fceeb3413f-1$ -> TURN REWARD: -1.0
+e5de0b4b0679651ef175fceeb3413f-1$ -> USER UTTERANCE: 
+e5de0b4b0679651ef175fceeb3413f-1$ TO NODE: userResponseNode - 16348100109577394 - What type of transportation would you like?
+e5de0b4b0679651ef175fceeb3413f-1$ -> TURN REWARD: -1.0
+e5de0b4b0679651ef175fceeb3413f-1$ -> USER UTTERANCE: 
+e5de0b4b0679651ef175fceeb3413f-1$ TO NODE: infoNode - 16363756081293233 - You can book tickets for public transportation yourself
+e5de0b4b0679651ef175fceeb3413f-1$ -> TURN REWARD: -1.0
+e5de0b4b0679651ef175fceeb3413f-1$ -> USER UTTERANCE: 
+e5de0b4b0679651ef175fceeb3413f-1$ TO NODE: userResponseNode - 16351756667261880 - Do you have any other questions about booking transportation?
+e5de0b4b0679651ef175fceeb3413f-1$ -> TURN REWARD: -1.0
+e5de0b4b0679651ef175fceeb3413f-1$ -> USER UTTERANCE: 
+e5de0b4b0679651ef175fceeb3413f-1$ TO NODE: userResponseNode - 16384313191857195 - Do you have any further questions?
+e5de0b4b0679651ef175fceeb3413f-1$ -> TURN REWARD: -1.0
+e5de0b4b0679651ef175fceeb3413f-1$ -> USER UTTERANCE: 
+e5de0b4b0679651ef175fceeb3413f-1$ TO NODE: userResponseNode - 16348058621438633 - What topic do you have questions about? You can either click on an answer from the suggested topics 
+e5de0b4b0679651ef175fceeb3413f-1$ -> TURN REWARD: -1.0
+e5de0b4b0679651ef175fceeb3413f-1$ -> USER UTTERANCE: 
+e5de0b4b0679651ef175fceeb3413f-1$ TO NODE: userResponseNode - 16348058588084537 - Are you going on an intracity trip or a business trip?
+e5de0b4b0679651ef175fceeb3413f-1$ -> TURN REWARD: -1.0
+e5de0b4b0679651ef175fceeb3413f-1$ -> USER UTTERANCE: 
+e5de0b4b0679651ef175fceeb3413f-1$ TO NODE: userResponseNode - 16348070558358676 - Did you get verbal permission from your supervisor?
+e5de0b4b0679651ef175fceeb3413f-1$ -> TURN REWARD: -1.0
+e5de0b4b0679651ef175fceeb3413f-1$ -> USER UTTERANCE: 
+e5de0b4b0679651ef175fceeb3413f-1$ TO NODE: userResponseNode - 16348071239272239 - Do you want to know more about booking Transportation or about ancillary costs?
+e5de0b4b0679651ef175fceeb3413f-1$ -> TURN REWARD: -1.0
+e5de0b4b0679651ef175fceeb3413f-1$ -> USER UTTERANCE: 
+e5de0b4b0679651ef175fceeb3413f-1$ TO NODE: userResponseNode - 16348100109577394 - What type of transportation would you like?
+e5de0b4b0679651ef175fceeb3413f-1$ -> TURN REWARD: -1.0
+e5de0b4b0679651ef175fceeb3413f-1$ -> USER UTTERANCE: 
+e5de0b4b0679651ef175fceeb3413f-1$ TO NODE: infoNode - 16363756081293233 - You can book tickets for public transportation yourself
+e5de0b4b0679651ef175fceeb3413f-1$ -> TURN REWARD: -1.0
+e5de0b4b0679651ef175fceeb3413f-1$ -> USER UTTERANCE: 
+e5de0b4b0679651ef175fceeb3413f-1$ TO NODE: userResponseNode - 16351756667261880 - Do you have any other questions about booking transportation?
+e5de0b4b0679651ef175fceeb3413f-1$ -> TURN REWARD: -1.0
+e5de0b4b0679651ef175fceeb3413f-1$ -> USER UTTERANCE: 
+e5de0b4b0679651ef175fceeb3413f-1$ TO NODE: userResponseNode - 16384313191857195 - Do you have any further questions?
+e5de0b4b0679651ef175fceeb3413f-1$ -> TURN REWARD: -1.0
+e5de0b4b0679651ef175fceeb3413f-1$ -> USER UTTERANCE: 
+e5de0b4b0679651ef175fceeb3413f-1$ TO NODE: userResponseNode - 16348058621438633 - What topic do you have questions about? You can either click on an answer from the suggested topics 
+e5de0b4b0679651ef175fceeb3413f-1$ -> TURN REWARD: -1.0
+e5de0b4b0679651ef175fceeb3413f-1$ -> USER UTTERANCE: 
+e5de0b4b0679651ef175fceeb3413f-1$ TO NODE: userResponseNode - 16348058588084537 - Are you going on an intracity trip or a business trip?
+e5de0b4b0679651ef175fceeb3413f-1$ -> TURN REWARD: -1.0
+e5de0b4b0679651ef175fceeb3413f-1$ -> USER UTTERANCE: 
+e5de0b4b0679651ef175fceeb3413f-1$ TO NODE: userResponseNode - 16348070558358676 - Did you get verbal permission from your supervisor?
+e5de0b4b0679651ef175fceeb3413f-1$ -> TURN REWARD: -1.0
+e5de0b4b0679651ef175fceeb3413f-1$ -> USER UTTERANCE: 
+e5de0b4b0679651ef175fceeb3413f-1$ TO NODE: userResponseNode - 16348071239272239 - Do you want to know more about booking Transportation or about ancillary costs?
+e5de0b4b0679651ef175fceeb3413f-1$ -> TURN REWARD: -1.0
+e5de0b4b0679651ef175fceeb3413f-1$ -> USER UTTERANCE: 
+e5de0b4b0679651ef175fceeb3413f-1$ TO NODE: userResponseNode - 16348100109577394 - What type of transportation would you like?
+e5de0b4b0679651ef175fceeb3413f-1$ -> TURN REWARD: -1.0
+e5de0b4b0679651ef175fceeb3413f-1$ -> USER UTTERANCE: 
+e5de0b4b0679651ef175fceeb3413f-1$ TO NODE: infoNode - 16363756081293233 - You can book tickets for public transportation yourself
+e5de0b4b0679651ef175fceeb3413f-1$ -> TURN REWARD: -1.0
+e5de0b4b0679651ef175fceeb3413f-1$ -> USER UTTERANCE: 
+e5de0b4b0679651ef175fceeb3413f-1$ TO NODE: userResponseNode - 16351756667261880 - Do you have any other questions about booking transportation?
+e5de0b4b0679651ef175fceeb3413f-1$ -> TURN REWARD: -1.0
+e5de0b4b0679651ef175fceeb3413f-1$ -> USER UTTERANCE: 
+e5de0b4b0679651ef175fceeb3413f-1$ TO NODE: userResponseNode - 16384313191857195 - Do you have any further questions?
+e5de0b4b0679651ef175fceeb3413f-1$=> REACHED GOAL ONCE: False
+e5de0b4b0679651ef175fceeb3413f-1$=> ASKED GOAL ONCE: False
+e5de0b4b0679651ef175fceeb3413f-1$=> PERCIEVED LENGTH: 1
+USER: e5de0b4b0679651ef175fceeb3413f || QUALITY: 1
+USER: e5de0b4b0679651ef175fceeb3413f || LENGTH: 4
+==== NEW DIALOG STARTED FOR USER e5de0b4b0679651ef175fceeb3413f ====
+USER: e5de0b4b0679651ef175fceeb3413f || GOAL: You are planning on attending a conference and want to know if the conference fee can be reimbursed || NODE_ID: 16384329210117153
+==== NEW DIALOG STARTED FOR USER 7224eb019715bd25cc799d87862cf7 ====
+USER: 7224eb019715bd25cc799d87862cf7 || GOAL: You want to inform yourself what to do in case of an emergency during travel. || NODE_ID: 16387868859695624
+4b9924c0c8ce326ac3c1e1688937c6-1$ ======== RESET =========
+4b9924c0c8ce326ac3c1e1688937c6-1$ GOAL: 16387868859695624 Thank you for using the business travel chatbot.Please let us know about your experience by filling 
+4b9924c0c8ce326ac3c1e1688937c6-1$ CONSTRAINTS: {}
+4b9924c0c8ce326ac3c1e1688937c6-1$ INITIAL UTTERANCE: Could you tell me how to plan a research semester?
+4b9924c0c8ce326ac3c1e1688937c6-1$ -> TURN REWARD: -1.0
+4b9924c0c8ce326ac3c1e1688937c6-1$ -> USER UTTERANCE: 
+4b9924c0c8ce326ac3c1e1688937c6-1$ TO NODE: userInputNode - 16370487978253782 - How long will your research semester last?  
+4b9924c0c8ce326ac3c1e1688937c6-1$ - VARIABLE NODE: REAL USER UTTERANCE BEFORE NLU: 2 months.
+4b9924c0c8ce326ac3c1e1688937c6-1$ ASKING NODE: userInputNode - 16370487978253782 - How long will your research semester last?  
+4b9924c0c8ce326ac3c1e1688937c6-1$ -> USER UTTERANCE: 1440
+4b9924c0c8ce326ac3c1e1688937c6-1$ TO NODE: userInputNode - 16370487978253782 - How long will your research semester last?  
+4b9924c0c8ce326ac3c1e1688937c6-1$ -> AUTO SKIP LOGIC NODE: SUCCESS 16460422136134149
+4b9924c0c8ce326ac3c1e1688937c6-1$ -> TURN REWARD: -1.0
+4b9924c0c8ce326ac3c1e1688937c6-1$ -> USER UTTERANCE: 
+4b9924c0c8ce326ac3c1e1688937c6-1$ TO NODE: infoNode - 16460422136134149 - If you are traveling for more than 4 weeks and need help finding accommodations, please contact the 
+4b9924c0c8ce326ac3c1e1688937c6-1$ ASKING NODE: infoNode - 16460422136134149 - If you are traveling for more than 4 weeks and need help finding accommodations, please contact the 
+4b9924c0c8ce326ac3c1e1688937c6-1$ -> USER UTTERANCE: 
+4b9924c0c8ce326ac3c1e1688937c6-1$ TO NODE: infoNode - 16460422136134149 - If you are traveling for more than 4 weeks and need help finding accommodations, please contact the 
+4b9924c0c8ce326ac3c1e1688937c6-1$ -> TURN REWARD: -1.0
+4b9924c0c8ce326ac3c1e1688937c6-1$ -> USER UTTERANCE: 
+4b9924c0c8ce326ac3c1e1688937c6-1$ TO NODE: userResponseNode - 16353297472197738 - Is this as part of a reallocation?  
+4b9924c0c8ce326ac3c1e1688937c6-1$ ASKING NODE: userResponseNode - 16353297472197738 - Is this as part of a reallocation?  
+4b9924c0c8ce326ac3c1e1688937c6-1$ -> USER UTTERANCE: No
+4b9924c0c8ce326ac3c1e1688937c6-1$ TO NODE: userResponseNode - 16353297472197738 - Is this as part of a reallocation?  
+4b9924c0c8ce326ac3c1e1688937c6-1$ -> TURN REWARD: -1.0
+4b9924c0c8ce326ac3c1e1688937c6-1$ -> USER UTTERANCE: 
+4b9924c0c8ce326ac3c1e1688937c6-1$ TO NODE: infoNode - 16370501863636503 - As there has been no reallocation, your research semester counts as a business trip.
+4b9924c0c8ce326ac3c1e1688937c6-1$ ASKING NODE: infoNode - 16370501863636503 - As there has been no reallocation, your research semester counts as a business trip.
+4b9924c0c8ce326ac3c1e1688937c6-1$ -> USER UTTERANCE: 
+4b9924c0c8ce326ac3c1e1688937c6-1$ TO NODE: infoNode - 16370501863636503 - As there has been no reallocation, your research semester counts as a business trip.
+4b9924c0c8ce326ac3c1e1688937c6-1$ -> TURN REWARD: -1.0
+4b9924c0c8ce326ac3c1e1688937c6-1$ -> USER UTTERANCE: 
+4b9924c0c8ce326ac3c1e1688937c6-1$ TO NODE: userResponseNode - 16353303012891903 - Are you traveling alone or with your family?
+4b9924c0c8ce326ac3c1e1688937c6-1$ ASKING NODE: userResponseNode - 16353303012891903 - Are you traveling alone or with your family?
+4b9924c0c8ce326ac3c1e1688937c6-1$ -> USER UTTERANCE: Alone
+4b9924c0c8ce326ac3c1e1688937c6-1$ TO NODE: userResponseNode - 16353303012891903 - Are you traveling alone or with your family?
+4b9924c0c8ce326ac3c1e1688937c6-1$ -> TURN REWARD: -1.0
+4b9924c0c8ce326ac3c1e1688937c6-1$ -> USER UTTERANCE: 
+4b9924c0c8ce326ac3c1e1688937c6-1$ TO NODE: infoNode - 16370483570980906 - Business traveler can receive reimbursement for business related expenses by submitting the followin
+4b9924c0c8ce326ac3c1e1688937c6-1$ ASKING NODE: infoNode - 16370483570980906 - Business traveler can receive reimbursement for business related expenses by submitting the followin
+4b9924c0c8ce326ac3c1e1688937c6-1$ -> USER UTTERANCE: 
+4b9924c0c8ce326ac3c1e1688937c6-1$ TO NODE: infoNode - 16370483570980906 - Business traveler can receive reimbursement for business related expenses by submitting the followin
+4b9924c0c8ce326ac3c1e1688937c6-1$ -> TURN REWARD: -1.0
+4b9924c0c8ce326ac3c1e1688937c6-1$ -> USER UTTERANCE: 
+4b9924c0c8ce326ac3c1e1688937c6-1$ TO NODE: userInputNode - 16363752591243585 - What country are you traveling to?
+4b9924c0c8ce326ac3c1e1688937c6-1$ - VARIABLE NODE: REAL USER UTTERANCE BEFORE NLU: UK
+4b9924c0c8ce326ac3c1e1688937c6-1$ ASKING NODE: userInputNode - 16363752591243585 - What country are you traveling to?
+4b9924c0c8ce326ac3c1e1688937c6-1$ -> USER UTTERANCE: Great Britain
+4b9924c0c8ce326ac3c1e1688937c6-1$ TO NODE: userInputNode - 16363752591243585 - What country are you traveling to?
+4b9924c0c8ce326ac3c1e1688937c6-1$ -> TURN REWARD: -1.0
+4b9924c0c8ce326ac3c1e1688937c6-1$ -> USER UTTERANCE: 
+4b9924c0c8ce326ac3c1e1688937c6-1$ TO NODE: userInputNode - 16363753123487784 - What city are you traveling to?
+4b9924c0c8ce326ac3c1e1688937c6-1$ - VARIABLE NODE: REAL USER UTTERANCE BEFORE NLU: London
+4b9924c0c8ce326ac3c1e1688937c6-1$ ASKING NODE: userInputNode - 16363753123487784 - What city are you traveling to?
+4b9924c0c8ce326ac3c1e1688937c6-1$ -> USER UTTERANCE: London
+4b9924c0c8ce326ac3c1e1688937c6-1$ TO NODE: userInputNode - 16363753123487784 - What city are you traveling to?
+4b9924c0c8ce326ac3c1e1688937c6-1$ -> AUTO SKIP LOGIC NODE: SUCCESS 16389695846089108
+4b9924c0c8ce326ac3c1e1688937c6-1$ -> TURN REWARD: -1.0
+4b9924c0c8ce326ac3c1e1688937c6-1$ -> USER UTTERANCE: 
+4b9924c0c8ce326ac3c1e1688937c6-1$ TO NODE: infoNode - 16389695846089108 - For all  business trips (even for short trips or ones lasting only a single day) outside the country
+4b9924c0c8ce326ac3c1e1688937c6-1$ ASKING NODE: infoNode - 16389695846089108 - For all  business trips (even for short trips or ones lasting only a single day) outside the country
+4b9924c0c8ce326ac3c1e1688937c6-1$ -> USER UTTERANCE: 
+4b9924c0c8ce326ac3c1e1688937c6-1$ TO NODE: infoNode - 16389695846089108 - For all  business trips (even for short trips or ones lasting only a single day) outside the country
+4b9924c0c8ce326ac3c1e1688937c6-1$ -> TURN REWARD: -1.0
+4b9924c0c8ce326ac3c1e1688937c6-1$ -> USER UTTERANCE: 
+4b9924c0c8ce326ac3c1e1688937c6-1$ TO NODE: infoNode - 16363753477187975 - Please check the current COVID-19 travel warnings travel restrictions from the foreign ministry and 
+4b9924c0c8ce326ac3c1e1688937c6-1$ ASKING NODE: infoNode - 16363753477187975 - Please check the current COVID-19 travel warnings travel restrictions from the foreign ministry and 
+4b9924c0c8ce326ac3c1e1688937c6-1$ -> USER UTTERANCE: 
+4b9924c0c8ce326ac3c1e1688937c6-1$ TO NODE: infoNode - 16363753477187975 - Please check the current COVID-19 travel warnings travel restrictions from the foreign ministry and 
+4b9924c0c8ce326ac3c1e1688937c6-1$ -> TURN REWARD: -1.0
+4b9924c0c8ce326ac3c1e1688937c6-1$ -> USER UTTERANCE: 
+4b9924c0c8ce326ac3c1e1688937c6-1$ TO NODE: infoNode - 16363754346769013 - COVID-19: Business trips should be reduced to an absolute minimum and are only allowed when they are
+4b9924c0c8ce326ac3c1e1688937c6-1$ ASKING NODE: infoNode - 16363754346769013 - COVID-19: Business trips should be reduced to an absolute minimum and are only allowed when they are
+4b9924c0c8ce326ac3c1e1688937c6-1$ -> USER UTTERANCE: 
+4b9924c0c8ce326ac3c1e1688937c6-1$ TO NODE: infoNode - 16363754346769013 - COVID-19: Business trips should be reduced to an absolute minimum and are only allowed when they are
+4b9924c0c8ce326ac3c1e1688937c6-1$ -> TURN REWARD: -1.0
+4b9924c0c8ce326ac3c1e1688937c6-1$ -> USER UTTERANCE: 
+4b9924c0c8ce326ac3c1e1688937c6-1$ TO NODE: userInputNode - 16348093549280346 - Are you planning to extend your trip with private travel?
+4b9924c0c8ce326ac3c1e1688937c6-1$ - VARIABLE NODE: REAL USER UTTERANCE BEFORE NLU: no
+4b9924c0c8ce326ac3c1e1688937c6-1$ ASKING NODE: userInputNode - 16348093549280346 - Are you planning to extend your trip with private travel?
+4b9924c0c8ce326ac3c1e1688937c6-1$ -> USER UTTERANCE: False
+4b9924c0c8ce326ac3c1e1688937c6-1$ TO NODE: userInputNode - 16348093549280346 - Are you planning to extend your trip with private travel?
+4b9924c0c8ce326ac3c1e1688937c6-1$ -> AUTO SKIP LOGIC NODE: SUCCESS 16348097487038694
+4b9924c0c8ce326ac3c1e1688937c6-1$ -> TURN REWARD: -1.0
+4b9924c0c8ce326ac3c1e1688937c6-1$ -> USER UTTERANCE: 
+4b9924c0c8ce326ac3c1e1688937c6-1$ TO NODE: userResponseNode - 16348097487038694 - Which topic do you want to know more about?
+4b9924c0c8ce326ac3c1e1688937c6-1$=> REACHED GOAL ONCE: False
+4b9924c0c8ce326ac3c1e1688937c6-1$=> ASKED GOAL ONCE: False
+4b9924c0c8ce326ac3c1e1688937c6-1$=> PERCIEVED LENGTH: 13
+USER: 4b9924c0c8ce326ac3c1e1688937c6 || QUALITY: 3
+USER: 4b9924c0c8ce326ac3c1e1688937c6 || LENGTH: 3
+==== NEW DIALOG STARTED FOR USER 4b9924c0c8ce326ac3c1e1688937c6 ====
+USER: 4b9924c0c8ce326ac3c1e1688937c6 || GOAL: You have to cancel your trip. You want to know if the money you have already paid can be reimbursed || NODE_ID: 16457053159041482
+7224eb019715bd25cc799d87862cf7-1$ ======== RESET =========
+7224eb019715bd25cc799d87862cf7-1$ GOAL: 16387868859695624 Thank you for using the business travel chatbot.Please let us know about your experience by filling 
+7224eb019715bd25cc799d87862cf7-1$ CONSTRAINTS: {}
+7224eb019715bd25cc799d87862cf7-1$ INITIAL UTTERANCE: what to do in case of an emergency during travel
+7224eb019715bd25cc799d87862cf7-1$ -> TURN REWARD: -1.0
+7224eb019715bd25cc799d87862cf7-1$ -> USER UTTERANCE: 
+7224eb019715bd25cc799d87862cf7-1$ TO NODE: userResponseNode - 16460436532310883 - What emergency are you experiencing?
+7224eb019715bd25cc799d87862cf7-1$ ASKING NODE: userResponseNode - 16460436532310883 - What emergency are you experiencing?
+7224eb019715bd25cc799d87862cf7-1$ -> USER UTTERANCE: general emergency situations
+7224eb019715bd25cc799d87862cf7-1$ TO NODE: userResponseNode - 16460436532310883 - What emergency are you experiencing?
+7224eb019715bd25cc799d87862cf7-1$ -> TURN REWARD: -1.0
+7224eb019715bd25cc799d87862cf7-1$ -> USER UTTERANCE: 
+7224eb019715bd25cc799d87862cf7-1$ TO NODE: infoNode - 16370679473901470 - What do I do in an emergency on a business trip? Please call the number listed on the Emergency-Card
+7224eb019715bd25cc799d87862cf7-1$ ASKING NODE: infoNode - 16370679473901470 - What do I do in an emergency on a business trip? Please call the number listed on the Emergency-Card
+7224eb019715bd25cc799d87862cf7-1$ -> USER UTTERANCE: 
+7224eb019715bd25cc799d87862cf7-1$ TO NODE: infoNode - 16370679473901470 - What do I do in an emergency on a business trip? Please call the number listed on the Emergency-Card
+7224eb019715bd25cc799d87862cf7-1$ -> TURN REWARD: -1.0
+7224eb019715bd25cc799d87862cf7-1$ -> USER UTTERANCE: 
+7224eb019715bd25cc799d87862cf7-1$ TO NODE: userResponseNode - 16384313191857195 - Do you have any further questions?
+7224eb019715bd25cc799d87862cf7-1$ -> TURN REWARD: -1.0
+7224eb019715bd25cc799d87862cf7-1$ -> USER UTTERANCE: 
+7224eb019715bd25cc799d87862cf7-1$ TO NODE: userResponseNode - 16348058621438633 - What topic do you have questions about? You can either click on an answer from the suggested topics 
+7224eb019715bd25cc799d87862cf7-1$ -> TURN REWARD: -1.0
+7224eb019715bd25cc799d87862cf7-1$ -> USER UTTERANCE: 
+7224eb019715bd25cc799d87862cf7-1$ TO NODE: userResponseNode - 16353412627443913 - Travel Safety/ Travel Risk Management: What would you like to know about? Emergency help 
+ What to c
+7224eb019715bd25cc799d87862cf7-1$ -> TURN REWARD: -1.0
+7224eb019715bd25cc799d87862cf7-1$ -> USER UTTERANCE: 
+7224eb019715bd25cc799d87862cf7-1$ TO NODE: infoNode - 16389550594484927 - Emergencies are, e.g.: Evacuations 
+ Theft 
+ Accidents 
+ Public unrest 
+ Natural disasters 
+ Securit
+7224eb019715bd25cc799d87862cf7-1$ ASKING NODE: infoNode - 16389550594484927 - Emergencies are, e.g.: Evacuations 
+ Theft 
+ Accidents 
+ Public unrest 
+ Natural disasters 
+ Securit
+7224eb019715bd25cc799d87862cf7-1$ -> USER UTTERANCE: 
+7224eb019715bd25cc799d87862cf7-1$ TO NODE: infoNode - 16389550594484927 - Emergencies are, e.g.: Evacuations 
+ Theft 
+ Accidents 
+ Public unrest 
+ Natural disasters 
+ Securit
+7224eb019715bd25cc799d87862cf7-1$ -> TURN REWARD: -1.0
+7224eb019715bd25cc799d87862cf7-1$ -> USER UTTERANCE: 
+7224eb019715bd25cc799d87862cf7-1$ TO NODE: infoNode - 16370679473901470 - What do I do in an emergency on a business trip? Please call the number listed on the Emergency-Card
+7224eb019715bd25cc799d87862cf7-1$ => STOPPED POLICY BEFORE REPEATING
+7224eb019715bd25cc799d87862cf7-1$=> REACHED GOAL ONCE: False
+7224eb019715bd25cc799d87862cf7-1$=> ASKED GOAL ONCE: False
+7224eb019715bd25cc799d87862cf7-1$=> PERCIEVED LENGTH: 4
+USER: 7224eb019715bd25cc799d87862cf7 || QUALITY: 3
+USER: 7224eb019715bd25cc799d87862cf7 || LENGTH: 3
+==== NEW DIALOG STARTED FOR USER 7224eb019715bd25cc799d87862cf7 ====
+USER: 7224eb019715bd25cc799d87862cf7 || GOAL: You want to know if you can get reimbursed if you reserve a seat for yourself on the train || NODE_ID: 16363756478730906
+==== NEW DIALOG STARTED FOR USER 1fd4736bcd456d02458c2a32944e60 ====
+USER: 1fd4736bcd456d02458c2a32944e60 || GOAL: You want to know how to book a flight || NODE_ID: 16387868859695624
+==== NEW DIALOG STARTED FOR USER 273666715e559c45c6cc9a2e7f5033 ====
+USER: 273666715e559c45c6cc9a2e7f5033 || GOAL: You want to know how to book a flight || NODE_ID: 16387868859695624
+e5de0b4b0679651ef175fceeb3413f-2$ ======== RESET =========
+e5de0b4b0679651ef175fceeb3413f-2$ GOAL: 16384329210117153 Conference fees are reimbursable.
+e5de0b4b0679651ef175fceeb3413f-2$ CONSTRAINTS: {}
+e5de0b4b0679651ef175fceeb3413f-2$ INITIAL UTTERANCE: Is there a conference reimbursement option?
+e5de0b4b0679651ef175fceeb3413f-2$ -> TURN REWARD: -1.0
+e5de0b4b0679651ef175fceeb3413f-2$ -> USER UTTERANCE: 
+e5de0b4b0679651ef175fceeb3413f-2$ TO NODE: infoNode - 16457053159041482 - You should try to cancel anything which has already been booked as quickly as possible. Necessary ex
+e5de0b4b0679651ef175fceeb3413f-2$ -> TURN REWARD: -1.0
+e5de0b4b0679651ef175fceeb3413f-2$ -> USER UTTERANCE: 
+e5de0b4b0679651ef175fceeb3413f-2$ TO NODE: userResponseNode - 16348058621438633 - What topic do you have questions about? You can either click on an answer from the suggested topics 
+e5de0b4b0679651ef175fceeb3413f-2$ -> TURN REWARD: -1.0
+e5de0b4b0679651ef175fceeb3413f-2$ -> USER UTTERANCE: 
+e5de0b4b0679651ef175fceeb3413f-2$ TO NODE: userResponseNode - 16348058588084537 - Are you going on an intracity trip or a business trip?
+e5de0b4b0679651ef175fceeb3413f-2$ -> TURN REWARD: -1.0
+e5de0b4b0679651ef175fceeb3413f-2$ -> USER UTTERANCE: 
+e5de0b4b0679651ef175fceeb3413f-2$ TO NODE: userResponseNode - 16348070558358676 - Did you get verbal permission from your supervisor?
+e5de0b4b0679651ef175fceeb3413f-2$ -> TURN REWARD: -1.0
+e5de0b4b0679651ef175fceeb3413f-2$ -> USER UTTERANCE: 
+e5de0b4b0679651ef175fceeb3413f-2$ TO NODE: userResponseNode - 16348071239272239 - Do you want to know more about booking Transportation or about ancillary costs?
+e5de0b4b0679651ef175fceeb3413f-2$ -> TURN REWARD: -1.0
+e5de0b4b0679651ef175fceeb3413f-2$ -> USER UTTERANCE: 
+e5de0b4b0679651ef175fceeb3413f-2$ TO NODE: userResponseNode - 16366214877516370 - Which incidental costs ocurred during your trip or do you anticipate occurring
+e5de0b4b0679651ef175fceeb3413f-2$ -> TURN REWARD: -1.0
+e5de0b4b0679651ef175fceeb3413f-2$ -> USER UTTERANCE: 
+e5de0b4b0679651ef175fceeb3413f-2$ TO NODE: infoNode - 16369666626028975 - Meals which are part of a conference are reimbursable, as long as the conference is being attended o
+e5de0b4b0679651ef175fceeb3413f-2$ -> TURN REWARD: -1.0
+e5de0b4b0679651ef175fceeb3413f-2$ -> USER UTTERANCE: 
+e5de0b4b0679651ef175fceeb3413f-2$ TO NODE: userResponseNode - 16366218125775037 - Were there any other incidental costs?
+e5de0b4b0679651ef175fceeb3413f-2$ -> TURN REWARD: -1.0
+e5de0b4b0679651ef175fceeb3413f-2$ -> USER UTTERANCE: 
+e5de0b4b0679651ef175fceeb3413f-2$ TO NODE: userResponseNode - 16366214877516370 - Which incidental costs ocurred during your trip or do you anticipate occurring
+e5de0b4b0679651ef175fceeb3413f-2$ -> TURN REWARD: -1.0
+e5de0b4b0679651ef175fceeb3413f-2$ -> USER UTTERANCE: 
+e5de0b4b0679651ef175fceeb3413f-2$ TO NODE: infoNode - 16369666626028975 - Meals which are part of a conference are reimbursable, as long as the conference is being attended o
+e5de0b4b0679651ef175fceeb3413f-2$ -> TURN REWARD: -1.0
+e5de0b4b0679651ef175fceeb3413f-2$ -> USER UTTERANCE: 
+e5de0b4b0679651ef175fceeb3413f-2$ TO NODE: userResponseNode - 16366218125775037 - Were there any other incidental costs?
+e5de0b4b0679651ef175fceeb3413f-2$ -> TURN REWARD: -1.0
+e5de0b4b0679651ef175fceeb3413f-2$ -> USER UTTERANCE: 
+e5de0b4b0679651ef175fceeb3413f-2$ TO NODE: userResponseNode - 16366214877516370 - Which incidental costs ocurred during your trip or do you anticipate occurring
+e5de0b4b0679651ef175fceeb3413f-2$ -> TURN REWARD: -1.0
+e5de0b4b0679651ef175fceeb3413f-2$ -> USER UTTERANCE: 
+e5de0b4b0679651ef175fceeb3413f-2$ TO NODE: infoNode - 16369666626028975 - Meals which are part of a conference are reimbursable, as long as the conference is being attended o
+e5de0b4b0679651ef175fceeb3413f-2$ ASKING NODE: infoNode - 16369666626028975 - Meals which are part of a conference are reimbursable, as long as the conference is being attended o
+e5de0b4b0679651ef175fceeb3413f-2$ -> USER UTTERANCE: 
+e5de0b4b0679651ef175fceeb3413f-2$ TO NODE: infoNode - 16369666626028975 - Meals which are part of a conference are reimbursable, as long as the conference is being attended o
+e5de0b4b0679651ef175fceeb3413f-2$ -> TURN REWARD: -1.0
+e5de0b4b0679651ef175fceeb3413f-2$ -> USER UTTERANCE: 
+e5de0b4b0679651ef175fceeb3413f-2$ TO NODE: userResponseNode - 16366218125775037 - Were there any other incidental costs?
+e5de0b4b0679651ef175fceeb3413f-2$ -> TURN REWARD: -1.0
+e5de0b4b0679651ef175fceeb3413f-2$ -> USER UTTERANCE: 
+e5de0b4b0679651ef175fceeb3413f-2$ TO NODE: userResponseNode - 16366214877516370 - Which incidental costs ocurred during your trip or do you anticipate occurring
+e5de0b4b0679651ef175fceeb3413f-2$ -> TURN REWARD: -1.0
+e5de0b4b0679651ef175fceeb3413f-2$ -> USER UTTERANCE: 
+e5de0b4b0679651ef175fceeb3413f-2$ TO NODE: infoNode - 16460405343775029 - Telephone and/or internet fees are reimbursable if they were needed for business reasons.
+e5de0b4b0679651ef175fceeb3413f-2$ ASKING NODE: infoNode - 16460405343775029 - Telephone and/or internet fees are reimbursable if they were needed for business reasons.
+e5de0b4b0679651ef175fceeb3413f-2$ -> USER UTTERANCE: 
+e5de0b4b0679651ef175fceeb3413f-2$ TO NODE: infoNode - 16460405343775029 - Telephone and/or internet fees are reimbursable if they were needed for business reasons.
+e5de0b4b0679651ef175fceeb3413f-2$ -> TURN REWARD: -1.0
+e5de0b4b0679651ef175fceeb3413f-2$ -> USER UTTERANCE: 
+e5de0b4b0679651ef175fceeb3413f-2$ TO NODE: userResponseNode - 16366218125775037 - Were there any other incidental costs?
+e5de0b4b0679651ef175fceeb3413f-2$ -> TURN REWARD: -1.0
+e5de0b4b0679651ef175fceeb3413f-2$ -> USER UTTERANCE: 
+e5de0b4b0679651ef175fceeb3413f-2$ TO NODE: userResponseNode - 16366214877516370 - Which incidental costs ocurred during your trip or do you anticipate occurring
+e5de0b4b0679651ef175fceeb3413f-2$ -> TURN REWARD: -1.0
+e5de0b4b0679651ef175fceeb3413f-2$ -> USER UTTERANCE: 
+e5de0b4b0679651ef175fceeb3413f-2$ TO NODE: infoNode - 16460405343775029 - Telephone and/or internet fees are reimbursable if they were needed for business reasons.
+e5de0b4b0679651ef175fceeb3413f-2$ => STOPPED POLICY BEFORE REPEATING
+e5de0b4b0679651ef175fceeb3413f-2$=> REACHED GOAL ONCE: False
+e5de0b4b0679651ef175fceeb3413f-2$=> ASKED GOAL ONCE: False
+e5de0b4b0679651ef175fceeb3413f-2$=> PERCIEVED LENGTH: 3
+USER: e5de0b4b0679651ef175fceeb3413f || QUALITY: 2
+USER: e5de0b4b0679651ef175fceeb3413f || LENGTH: 2
+==== NEW DIALOG STARTED FOR USER e5de0b4b0679651ef175fceeb3413f ====
+USER: e5de0b4b0679651ef175fceeb3413f || GOAL: You want to know how you can get reimbursed for your flight.<ul><li>You plan to extend your stay with private vacation before flying back</li></ul> || NODE_ID: 16363755463439219
+==== NEW DIALOG STARTED FOR USER 2e4bd44563cdfd591a0a4bd566c308 ====
+USER: 2e4bd44563cdfd591a0a4bd566c308 || GOAL: You want to know how to book a flight || NODE_ID: 16387868859695624
+7224eb019715bd25cc799d87862cf7-2$ ======== RESET =========
+7224eb019715bd25cc799d87862cf7-2$ GOAL: 16363756478730906 Seat reservations are allowed for train travel
+7224eb019715bd25cc799d87862cf7-2$ CONSTRAINTS: {}
+7224eb019715bd25cc799d87862cf7-2$ INITIAL UTTERANCE: can i get reimbursed if i reserved a seat for yourself on the train
+7224eb019715bd25cc799d87862cf7-2$ -> TURN REWARD: -1.0
+7224eb019715bd25cc799d87862cf7-2$ -> USER UTTERANCE: 
+7224eb019715bd25cc799d87862cf7-2$ TO NODE: infoNode - 16457053159041482 - You should try to cancel anything which has already been booked as quickly as possible. Necessary ex
+7224eb019715bd25cc799d87862cf7-2$ -> TURN REWARD: -1.0
+7224eb019715bd25cc799d87862cf7-2$ -> USER UTTERANCE: 
+7224eb019715bd25cc799d87862cf7-2$ TO NODE: userResponseNode - 16348058621438633 - What topic do you have questions about? You can either click on an answer from the suggested topics 
+7224eb019715bd25cc799d87862cf7-2$ -> TURN REWARD: -1.0
+7224eb019715bd25cc799d87862cf7-2$ -> USER UTTERANCE: 
+7224eb019715bd25cc799d87862cf7-2$ TO NODE: userResponseNode - 16348058588084537 - Are you going on an intracity trip or a business trip?
+7224eb019715bd25cc799d87862cf7-2$ -> TURN REWARD: -1.0
+7224eb019715bd25cc799d87862cf7-2$ -> USER UTTERANCE: 
+7224eb019715bd25cc799d87862cf7-2$ TO NODE: userResponseNode - 16348070558358676 - Did you get verbal permission from your supervisor?
+7224eb019715bd25cc799d87862cf7-2$ -> TURN REWARD: -1.0
+7224eb019715bd25cc799d87862cf7-2$ -> USER UTTERANCE: 
+7224eb019715bd25cc799d87862cf7-2$ TO NODE: userResponseNode - 16348071239272239 - Do you want to know more about booking Transportation or about ancillary costs?
+7224eb019715bd25cc799d87862cf7-2$ -> TURN REWARD: -1.0
+7224eb019715bd25cc799d87862cf7-2$ -> USER UTTERANCE: 
+7224eb019715bd25cc799d87862cf7-2$ TO NODE: userResponseNode - 16348100109577394 - What type of transportation would you like?
+7224eb019715bd25cc799d87862cf7-2$ -> TURN REWARD: -1.0
+7224eb019715bd25cc799d87862cf7-2$ -> USER UTTERANCE: 
+7224eb019715bd25cc799d87862cf7-2$ TO NODE: infoNode - 16363756478730906 - Seat reservations are allowed for train travel
+7224eb019715bd25cc799d87862cf7-2$ REACHED GOAL
+7224eb019715bd25cc799d87862cf7-2$ ASKING NODE: infoNode - 16363756478730906 - Seat reservations are allowed for train travel
+7224eb019715bd25cc799d87862cf7-2$ -> USER UTTERANCE: 
+7224eb019715bd25cc799d87862cf7-2$ TO NODE: infoNode - 16363756478730906 - Seat reservations are allowed for train travel
+7224eb019715bd25cc799d87862cf7-2$=> REACHED GOAL ONCE: True
+7224eb019715bd25cc799d87862cf7-2$=> ASKED GOAL ONCE: True
+7224eb019715bd25cc799d87862cf7-2$=> FINAL REWARD: 8.0
+7224eb019715bd25cc799d87862cf7-2$=> PERCIEVED LENGTH: 2
+7224eb019715bd25cc799d87862cf7-2$=> TOTAL LENGTH: 8
+7224eb019715bd25cc799d87862cf7-2$=> REACHED GOAL ONCE: True
+7224eb019715bd25cc799d87862cf7-2$=> ASKED GOAL ONCE: True
+7224eb019715bd25cc799d87862cf7-2$=> PERCIEVED LENGTH: 2
+USER: 7224eb019715bd25cc799d87862cf7 || QUALITY: 1
+USER: 7224eb019715bd25cc799d87862cf7 || LENGTH: 2
+==== NEW DIALOG STARTED FOR USER 7224eb019715bd25cc799d87862cf7 ====
+USER: 7224eb019715bd25cc799d87862cf7 || GOAL: You want to figure out how much money you can get for your travel. <ul><li>You used your own car</li><li>You took two colleagues with you</li></ul> || NODE_ID: 16460328708250870
+==== NEW DIALOG STARTED FOR USER d9a101002e1d23b86bf785bab7b5e3 ====
+USER: d9a101002e1d23b86bf785bab7b5e3 || GOAL: You want to know how to book a hotel || NODE_ID: 16387868859695624
+1fd4736bcd456d02458c2a32944e60-1$ ======== RESET =========
+1fd4736bcd456d02458c2a32944e60-1$ GOAL: 16387868859695624 Thank you for using the business travel chatbot.Please let us know about your experience by filling 
+1fd4736bcd456d02458c2a32944e60-1$ CONSTRAINTS: {}
+1fd4736bcd456d02458c2a32944e60-1$ INITIAL UTTERANCE: How do I book a travel flight
+1fd4736bcd456d02458c2a32944e60-1$ -> TURN REWARD: -1.0
+1fd4736bcd456d02458c2a32944e60-1$ -> USER UTTERANCE: 
+1fd4736bcd456d02458c2a32944e60-1$ TO NODE: userResponseNode - 16348058588084537 - Are you going on an intracity trip or a business trip?
+1fd4736bcd456d02458c2a32944e60-1$ -> TURN REWARD: -1.0
+1fd4736bcd456d02458c2a32944e60-1$ -> USER UTTERANCE: 
+1fd4736bcd456d02458c2a32944e60-1$ TO NODE: userResponseNode - 16348070558358676 - Did you get verbal permission from your supervisor?
+1fd4736bcd456d02458c2a32944e60-1$ -> TURN REWARD: -1.0
+1fd4736bcd456d02458c2a32944e60-1$ -> USER UTTERANCE: 
+1fd4736bcd456d02458c2a32944e60-1$ TO NODE: userResponseNode - 16348071239272239 - Do you want to know more about booking Transportation or about ancillary costs?
+1fd4736bcd456d02458c2a32944e60-1$ -> TURN REWARD: -1.0
+1fd4736bcd456d02458c2a32944e60-1$ -> USER UTTERANCE: 
+1fd4736bcd456d02458c2a32944e60-1$ TO NODE: userResponseNode - 16348100109577394 - What type of transportation would you like?
+1fd4736bcd456d02458c2a32944e60-1$ -> TURN REWARD: -1.0
+1fd4736bcd456d02458c2a32944e60-1$ -> USER UTTERANCE: 
+1fd4736bcd456d02458c2a32944e60-1$ TO NODE: userInputNode - 16478798353898107 - Are you planning to extend your trip with private travel?
+1fd4736bcd456d02458c2a32944e60-1$=> REACHED GOAL ONCE: False
+1fd4736bcd456d02458c2a32944e60-1$=> ASKED GOAL ONCE: False
+1fd4736bcd456d02458c2a32944e60-1$=> PERCIEVED LENGTH: 1
+USER: 1fd4736bcd456d02458c2a32944e60 || QUALITY: 3
+USER: 1fd4736bcd456d02458c2a32944e60 || LENGTH: 3
+==== NEW DIALOG STARTED FOR USER 1fd4736bcd456d02458c2a32944e60 ====
+USER: 1fd4736bcd456d02458c2a32944e60 || GOAL: You are traveling with another colleague and want to know if you have to share a room or if each of you can book your own || NODE_ID: 16363834594338823
+4b9924c0c8ce326ac3c1e1688937c6-2$ ======== RESET =========
+4b9924c0c8ce326ac3c1e1688937c6-2$ GOAL: 16457053159041482 You should try to cancel anything which has already been booked as quickly as possible. Necessary ex
+4b9924c0c8ce326ac3c1e1688937c6-2$ CONSTRAINTS: {}
+4b9924c0c8ce326ac3c1e1688937c6-2$ INITIAL UTTERANCE: I would like to cancel my trip. Can I receive a refund?
+4b9924c0c8ce326ac3c1e1688937c6-2$ -> TURN REWARD: -1.0
+4b9924c0c8ce326ac3c1e1688937c6-2$ -> USER UTTERANCE: 
+4b9924c0c8ce326ac3c1e1688937c6-2$ TO NODE: infoNode - 16457053159041482 - You should try to cancel anything which has already been booked as quickly as possible. Necessary ex
+4b9924c0c8ce326ac3c1e1688937c6-2$ REACHED GOAL
+4b9924c0c8ce326ac3c1e1688937c6-2$ -> TURN REWARD: -1.0
+4b9924c0c8ce326ac3c1e1688937c6-2$ -> USER UTTERANCE: 
+4b9924c0c8ce326ac3c1e1688937c6-2$ TO NODE: userResponseNode - 16348058621438633 - What topic do you have questions about? You can either click on an answer from the suggested topics 
+4b9924c0c8ce326ac3c1e1688937c6-2$ -> TURN REWARD: -1.0
+4b9924c0c8ce326ac3c1e1688937c6-2$ -> USER UTTERANCE: 
+4b9924c0c8ce326ac3c1e1688937c6-2$ TO NODE: infoNode - 16457053159041482 - You should try to cancel anything which has already been booked as quickly as possible. Necessary ex
+4b9924c0c8ce326ac3c1e1688937c6-2$ -> TURN REWARD: -1.0
+4b9924c0c8ce326ac3c1e1688937c6-2$ -> USER UTTERANCE: 
+4b9924c0c8ce326ac3c1e1688937c6-2$ TO NODE: userResponseNode - 16348058621438633 - What topic do you have questions about? You can either click on an answer from the suggested topics 
+4b9924c0c8ce326ac3c1e1688937c6-2$ -> TURN REWARD: -1.0
+4b9924c0c8ce326ac3c1e1688937c6-2$ -> USER UTTERANCE: 
+4b9924c0c8ce326ac3c1e1688937c6-2$ TO NODE: infoNode - 16457053159041482 - You should try to cancel anything which has already been booked as quickly as possible. Necessary ex
+4b9924c0c8ce326ac3c1e1688937c6-2$ ASKING NODE: infoNode - 16457053159041482 - You should try to cancel anything which has already been booked as quickly as possible. Necessary ex
+4b9924c0c8ce326ac3c1e1688937c6-2$ -> USER UTTERANCE: 
+4b9924c0c8ce326ac3c1e1688937c6-2$ TO NODE: infoNode - 16457053159041482 - You should try to cancel anything which has already been booked as quickly as possible. Necessary ex
+4b9924c0c8ce326ac3c1e1688937c6-2$=> REACHED GOAL ONCE: True
+4b9924c0c8ce326ac3c1e1688937c6-2$=> ASKED GOAL ONCE: True
+4b9924c0c8ce326ac3c1e1688937c6-2$=> FINAL REWARD: 10.0
+4b9924c0c8ce326ac3c1e1688937c6-2$=> PERCIEVED LENGTH: 2
+4b9924c0c8ce326ac3c1e1688937c6-2$=> TOTAL LENGTH: 6
+4b9924c0c8ce326ac3c1e1688937c6-2$=> REACHED GOAL ONCE: True
+4b9924c0c8ce326ac3c1e1688937c6-2$=> ASKED GOAL ONCE: True
+4b9924c0c8ce326ac3c1e1688937c6-2$=> PERCIEVED LENGTH: 2
+USER: 4b9924c0c8ce326ac3c1e1688937c6 || QUALITY: 4
+USER: 4b9924c0c8ce326ac3c1e1688937c6 || LENGTH: 3
+==== NEW DIALOG STARTED FOR USER 4b9924c0c8ce326ac3c1e1688937c6 ====
+USER: 4b9924c0c8ce326ac3c1e1688937c6 || GOAL: You want to figure out how much money you can get for your travel. <ul><li>You used your own car</li><li>You took two colleagues with you</li></ul> || NODE_ID: 16460328708250870
+e5de0b4b0679651ef175fceeb3413f-3$ ======== RESET =========
+e5de0b4b0679651ef175fceeb3413f-3$ GOAL: 16363755463439219 Costs which occur as part of the business aspect of a trip are reimbursable. Therefore, you will nee
+e5de0b4b0679651ef175fceeb3413f-3$ CONSTRAINTS: {}
+e5de0b4b0679651ef175fceeb3413f-3$ INITIAL UTTERANCE: Flight Reimbursement?
+e5de0b4b0679651ef175fceeb3413f-3$ -> TURN REWARD: -1.0
+e5de0b4b0679651ef175fceeb3413f-3$ -> USER UTTERANCE: 
+e5de0b4b0679651ef175fceeb3413f-3$ TO NODE: userResponseNode - 16348058588084537 - Are you going on an intracity trip or a business trip?
+e5de0b4b0679651ef175fceeb3413f-3$ -> TURN REWARD: -1.0
+e5de0b4b0679651ef175fceeb3413f-3$ -> USER UTTERANCE: 
+e5de0b4b0679651ef175fceeb3413f-3$ TO NODE: userResponseNode - 16348070558358676 - Did you get verbal permission from your supervisor?
+e5de0b4b0679651ef175fceeb3413f-3$ -> TURN REWARD: -1.0
+e5de0b4b0679651ef175fceeb3413f-3$ -> USER UTTERANCE: 
+e5de0b4b0679651ef175fceeb3413f-3$ TO NODE: userResponseNode - 16348071239272239 - Do you want to know more about booking Transportation or about ancillary costs?
+e5de0b4b0679651ef175fceeb3413f-3$ -> TURN REWARD: -1.0
+e5de0b4b0679651ef175fceeb3413f-3$ -> USER UTTERANCE: 
+e5de0b4b0679651ef175fceeb3413f-3$ TO NODE: userResponseNode - 16348100109577394 - What type of transportation would you like?
+e5de0b4b0679651ef175fceeb3413f-3$ -> TURN REWARD: -1.0
+e5de0b4b0679651ef175fceeb3413f-3$ -> USER UTTERANCE: 
+e5de0b4b0679651ef175fceeb3413f-3$ TO NODE: userInputNode - 16478798353898107 - Are you planning to extend your trip with private travel?
+e5de0b4b0679651ef175fceeb3413f-3$ - VARIABLE NODE: REAL USER UTTERANCE BEFORE NLU: Yes
+e5de0b4b0679651ef175fceeb3413f-3$ ASKING NODE: userInputNode - 16478798353898107 - Are you planning to extend your trip with private travel?
+e5de0b4b0679651ef175fceeb3413f-3$ -> USER UTTERANCE: True
+e5de0b4b0679651ef175fceeb3413f-3$ TO NODE: userInputNode - 16478798353898107 - Are you planning to extend your trip with private travel?
+e5de0b4b0679651ef175fceeb3413f-3$ -> AUTO SKIP LOGIC NODE: SUCCESS 16363755463439219
+e5de0b4b0679651ef175fceeb3413f-3$ -> REACHED GOAL
+e5de0b4b0679651ef175fceeb3413f-3$ -> TURN REWARD: 14.0
+e5de0b4b0679651ef175fceeb3413f-3$ -> USER UTTERANCE: 
+e5de0b4b0679651ef175fceeb3413f-3$ TO NODE: infoNode - 16363755463439219 - Costs which occur as part of the business aspect of a trip are reimbursable. Therefore, you will nee
+e5de0b4b0679651ef175fceeb3413f-3$ ASKING NODE: infoNode - 16363755463439219 - Costs which occur as part of the business aspect of a trip are reimbursable. Therefore, you will nee
+e5de0b4b0679651ef175fceeb3413f-3$ -> USER UTTERANCE: 
+e5de0b4b0679651ef175fceeb3413f-3$ TO NODE: infoNode - 16363755463439219 - Costs which occur as part of the business aspect of a trip are reimbursable. Therefore, you will nee
+e5de0b4b0679651ef175fceeb3413f-3$=> REACHED GOAL ONCE: True
+e5de0b4b0679651ef175fceeb3413f-3$=> ASKED GOAL ONCE: True
+e5de0b4b0679651ef175fceeb3413f-3$=> FINAL REWARD: 24.0
+e5de0b4b0679651ef175fceeb3413f-3$=> PERCIEVED LENGTH: 3
+e5de0b4b0679651ef175fceeb3413f-3$=> TOTAL LENGTH: 8
+e5de0b4b0679651ef175fceeb3413f-3$=> REACHED GOAL ONCE: True
+e5de0b4b0679651ef175fceeb3413f-3$=> ASKED GOAL ONCE: True
+e5de0b4b0679651ef175fceeb3413f-3$=> PERCIEVED LENGTH: 3
+USER: e5de0b4b0679651ef175fceeb3413f || QUALITY: 4
+USER: e5de0b4b0679651ef175fceeb3413f || LENGTH: 3
+2e4bd44563cdfd591a0a4bd566c308-1$ ======== RESET =========
+2e4bd44563cdfd591a0a4bd566c308-1$ GOAL: 16387868859695624 Thank you for using the business travel chatbot.Please let us know about your experience by filling 
+2e4bd44563cdfd591a0a4bd566c308-1$ CONSTRAINTS: {}
+2e4bd44563cdfd591a0a4bd566c308-1$ INITIAL UTTERANCE: how to book a flight
+2e4bd44563cdfd591a0a4bd566c308-1$ -> TURN REWARD: -1.0
+2e4bd44563cdfd591a0a4bd566c308-1$ -> USER UTTERANCE: 
+2e4bd44563cdfd591a0a4bd566c308-1$ TO NODE: infoNode - 16457053159041482 - You should try to cancel anything which has already been booked as quickly as possible. Necessary ex
+2e4bd44563cdfd591a0a4bd566c308-1$ -> TURN REWARD: -1.0
+2e4bd44563cdfd591a0a4bd566c308-1$ -> USER UTTERANCE: 
+2e4bd44563cdfd591a0a4bd566c308-1$ TO NODE: userResponseNode - 16348058621438633 - What topic do you have questions about? You can either click on an answer from the suggested topics 
+2e4bd44563cdfd591a0a4bd566c308-1$ -> TURN REWARD: -1.0
+2e4bd44563cdfd591a0a4bd566c308-1$ -> USER UTTERANCE: 
+2e4bd44563cdfd591a0a4bd566c308-1$ TO NODE: userResponseNode - 16348058588084537 - Are you going on an intracity trip or a business trip?
+2e4bd44563cdfd591a0a4bd566c308-1$ -> TURN REWARD: -1.0
+2e4bd44563cdfd591a0a4bd566c308-1$ -> USER UTTERANCE: 
+2e4bd44563cdfd591a0a4bd566c308-1$ TO NODE: userResponseNode - 16348070558358676 - Did you get verbal permission from your supervisor?
+2e4bd44563cdfd591a0a4bd566c308-1$ -> TURN REWARD: -1.0
+2e4bd44563cdfd591a0a4bd566c308-1$ -> USER UTTERANCE: 
+2e4bd44563cdfd591a0a4bd566c308-1$ TO NODE: userResponseNode - 16348071239272239 - Do you want to know more about booking Transportation or about ancillary costs?
+2e4bd44563cdfd591a0a4bd566c308-1$ -> TURN REWARD: -1.0
+2e4bd44563cdfd591a0a4bd566c308-1$ -> USER UTTERANCE: 
+2e4bd44563cdfd591a0a4bd566c308-1$ TO NODE: userResponseNode - 16348100109577394 - What type of transportation would you like?
+2e4bd44563cdfd591a0a4bd566c308-1$ -> TURN REWARD: -1.0
+2e4bd44563cdfd591a0a4bd566c308-1$ -> USER UTTERANCE: 
+2e4bd44563cdfd591a0a4bd566c308-1$ TO NODE: userInputNode - 16478798353898107 - Are you planning to extend your trip with private travel?
+2e4bd44563cdfd591a0a4bd566c308-1$ - VARIABLE NODE: REAL USER UTTERANCE BEFORE NLU: no
+2e4bd44563cdfd591a0a4bd566c308-1$ ASKING NODE: userInputNode - 16478798353898107 - Are you planning to extend your trip with private travel?
+2e4bd44563cdfd591a0a4bd566c308-1$ -> USER UTTERANCE: False
+2e4bd44563cdfd591a0a4bd566c308-1$ TO NODE: userInputNode - 16478798353898107 - Are you planning to extend your trip with private travel?
+2e4bd44563cdfd591a0a4bd566c308-1$ -> AUTO SKIP LOGIC NODE: SUCCESS 16351700401033947
+2e4bd44563cdfd591a0a4bd566c308-1$ -> TURN REWARD: -1.0
+2e4bd44563cdfd591a0a4bd566c308-1$ -> USER UTTERANCE: 
+2e4bd44563cdfd591a0a4bd566c308-1$ TO NODE: infoNode - 16351700401033947 - Flights are reimbursable there is a compelling  business or economic reason, e.g.: Ability to attend
+2e4bd44563cdfd591a0a4bd566c308-1$ -> TURN REWARD: -1.0
+2e4bd44563cdfd591a0a4bd566c308-1$ -> USER UTTERANCE: 
+2e4bd44563cdfd591a0a4bd566c308-1$ TO NODE: infoNode - 16351719713796576 - Booking a "Business"  class ticket is allowed on flights which last more than 10 uninterrupted hours
+2e4bd44563cdfd591a0a4bd566c308-1$ -> TURN REWARD: -1.0
+2e4bd44563cdfd591a0a4bd566c308-1$ -> USER UTTERANCE: 
+2e4bd44563cdfd591a0a4bd566c308-1$ TO NODE: infoNode - 16351710117855351 - Flights must be booked through the university's Partner Travel Agency (Tel. +123456789). It is not p
+2e4bd44563cdfd591a0a4bd566c308-1$ ASKING NODE: infoNode - 16351710117855351 - Flights must be booked through the university's Partner Travel Agency (Tel. +123456789). It is not p
+2e4bd44563cdfd591a0a4bd566c308-1$ -> USER UTTERANCE: 
+2e4bd44563cdfd591a0a4bd566c308-1$ TO NODE: infoNode - 16351710117855351 - Flights must be booked through the university's Partner Travel Agency (Tel. +123456789). It is not p
+2e4bd44563cdfd591a0a4bd566c308-1$ => STOPPED POLICY BEFORE REPEATING
+2e4bd44563cdfd591a0a4bd566c308-1$=> REACHED GOAL ONCE: False
+2e4bd44563cdfd591a0a4bd566c308-1$=> ASKED GOAL ONCE: False
+2e4bd44563cdfd591a0a4bd566c308-1$=> PERCIEVED LENGTH: 3
+USER: 2e4bd44563cdfd591a0a4bd566c308 || QUALITY: 2
+USER: 2e4bd44563cdfd591a0a4bd566c308 || LENGTH: 2
+==== NEW DIALOG STARTED FOR USER 2e4bd44563cdfd591a0a4bd566c308 ====
+USER: 2e4bd44563cdfd591a0a4bd566c308 || GOAL: You are planning on attending a conference and want to know if the conference fee can be reimbursed || NODE_ID: 16384329210117153
+273666715e559c45c6cc9a2e7f5033-1$ ======== RESET =========
+273666715e559c45c6cc9a2e7f5033-1$ GOAL: 16387868859695624 Thank you for using the business travel chatbot.Please let us know about your experience by filling 
+273666715e559c45c6cc9a2e7f5033-1$ CONSTRAINTS: {}
+273666715e559c45c6cc9a2e7f5033-1$ INITIAL UTTERANCE: how do i book a flight?
+273666715e559c45c6cc9a2e7f5033-1$ -> TURN REWARD: -1.0
+273666715e559c45c6cc9a2e7f5033-1$ -> USER UTTERANCE: 
+273666715e559c45c6cc9a2e7f5033-1$ TO NODE: infoNode - 16457053159041482 - You should try to cancel anything which has already been booked as quickly as possible. Necessary ex
+273666715e559c45c6cc9a2e7f5033-1$ -> TURN REWARD: -1.0
+273666715e559c45c6cc9a2e7f5033-1$ -> USER UTTERANCE: 
+273666715e559c45c6cc9a2e7f5033-1$ TO NODE: userResponseNode - 16348058621438633 - What topic do you have questions about? You can either click on an answer from the suggested topics 
+273666715e559c45c6cc9a2e7f5033-1$ -> TURN REWARD: -1.0
+273666715e559c45c6cc9a2e7f5033-1$ -> USER UTTERANCE: 
+273666715e559c45c6cc9a2e7f5033-1$ TO NODE: userResponseNode - 16348058588084537 - Are you going on an intracity trip or a business trip?
+273666715e559c45c6cc9a2e7f5033-1$ -> TURN REWARD: -1.0
+273666715e559c45c6cc9a2e7f5033-1$ -> USER UTTERANCE: 
+273666715e559c45c6cc9a2e7f5033-1$ TO NODE: userResponseNode - 16348070558358676 - Did you get verbal permission from your supervisor?
+273666715e559c45c6cc9a2e7f5033-1$ -> TURN REWARD: -1.0
+273666715e559c45c6cc9a2e7f5033-1$ -> USER UTTERANCE: 
+273666715e559c45c6cc9a2e7f5033-1$ TO NODE: userResponseNode - 16348071239272239 - Do you want to know more about booking Transportation or about ancillary costs?
+273666715e559c45c6cc9a2e7f5033-1$ -> TURN REWARD: -1.0
+273666715e559c45c6cc9a2e7f5033-1$ -> USER UTTERANCE: 
+273666715e559c45c6cc9a2e7f5033-1$ TO NODE: userResponseNode - 16348100109577394 - What type of transportation would you like?
+273666715e559c45c6cc9a2e7f5033-1$ -> TURN REWARD: -1.0
+273666715e559c45c6cc9a2e7f5033-1$ -> USER UTTERANCE: 
+273666715e559c45c6cc9a2e7f5033-1$ TO NODE: userInputNode - 16478798353898107 - Are you planning to extend your trip with private travel?
+273666715e559c45c6cc9a2e7f5033-1$ - VARIABLE NODE: REAL USER UTTERANCE BEFORE NLU: No
+273666715e559c45c6cc9a2e7f5033-1$ ASKING NODE: userInputNode - 16478798353898107 - Are you planning to extend your trip with private travel?
+273666715e559c45c6cc9a2e7f5033-1$ -> USER UTTERANCE: False
+273666715e559c45c6cc9a2e7f5033-1$ TO NODE: userInputNode - 16478798353898107 - Are you planning to extend your trip with private travel?
+273666715e559c45c6cc9a2e7f5033-1$ -> AUTO SKIP LOGIC NODE: SUCCESS 16351700401033947
+273666715e559c45c6cc9a2e7f5033-1$ -> TURN REWARD: -1.0
+273666715e559c45c6cc9a2e7f5033-1$ -> USER UTTERANCE: 
+273666715e559c45c6cc9a2e7f5033-1$ TO NODE: infoNode - 16351700401033947 - Flights are reimbursable there is a compelling  business or economic reason, e.g.: Ability to attend
+273666715e559c45c6cc9a2e7f5033-1$ -> TURN REWARD: -1.0
+273666715e559c45c6cc9a2e7f5033-1$ -> USER UTTERANCE: 
+273666715e559c45c6cc9a2e7f5033-1$ TO NODE: infoNode - 16351719713796576 - Booking a "Business"  class ticket is allowed on flights which last more than 10 uninterrupted hours
+273666715e559c45c6cc9a2e7f5033-1$ -> TURN REWARD: -1.0
+273666715e559c45c6cc9a2e7f5033-1$ -> USER UTTERANCE: 
+273666715e559c45c6cc9a2e7f5033-1$ TO NODE: infoNode - 16351710117855351 - Flights must be booked through the university's Partner Travel Agency (Tel. +123456789). It is not p
+273666715e559c45c6cc9a2e7f5033-1$ ASKING NODE: infoNode - 16351710117855351 - Flights must be booked through the university's Partner Travel Agency (Tel. +123456789). It is not p
+273666715e559c45c6cc9a2e7f5033-1$ -> USER UTTERANCE: 
+273666715e559c45c6cc9a2e7f5033-1$ TO NODE: infoNode - 16351710117855351 - Flights must be booked through the university's Partner Travel Agency (Tel. +123456789). It is not p
+273666715e559c45c6cc9a2e7f5033-1$ => STOPPED POLICY BEFORE REPEATING
+273666715e559c45c6cc9a2e7f5033-1$=> REACHED GOAL ONCE: False
+273666715e559c45c6cc9a2e7f5033-1$=> ASKED GOAL ONCE: False
+273666715e559c45c6cc9a2e7f5033-1$=> PERCIEVED LENGTH: 3
+USER: 273666715e559c45c6cc9a2e7f5033 || QUALITY: 2
+USER: 273666715e559c45c6cc9a2e7f5033 || LENGTH: 3
+==== NEW DIALOG STARTED FOR USER 273666715e559c45c6cc9a2e7f5033 ====
+USER: 273666715e559c45c6cc9a2e7f5033 || GOAL: You are traveling with another colleague and want to know if you have to share a room or if each of you can book your own || NODE_ID: 16363834594338823
+273666715e559c45c6cc9a2e7f5033-1$=> REACHED GOAL ONCE: False
+273666715e559c45c6cc9a2e7f5033-1$=> ASKED GOAL ONCE: False
+273666715e559c45c6cc9a2e7f5033-1$=> PERCIEVED LENGTH: 3
+=== USER (273666715e559c45c6cc9a2e7f5033) RESTART === 
+2e4bd44563cdfd591a0a4bd566c308-2$ ======== RESET =========
+2e4bd44563cdfd591a0a4bd566c308-2$ GOAL: 16384329210117153 Conference fees are reimbursable.
+2e4bd44563cdfd591a0a4bd566c308-2$ CONSTRAINTS: {}
+2e4bd44563cdfd591a0a4bd566c308-2$ INITIAL UTTERANCE: can conference fee be reimbursed
+2e4bd44563cdfd591a0a4bd566c308-2$ -> TURN REWARD: -1.0
+2e4bd44563cdfd591a0a4bd566c308-2$ -> USER UTTERANCE: 
+2e4bd44563cdfd591a0a4bd566c308-2$ TO NODE: userResponseNode - 16353412627443913 - Travel Safety/ Travel Risk Management: What would you like to know about? Emergency help 
+ What to c
+2e4bd44563cdfd591a0a4bd566c308-2$ -> TURN REWARD: -1.0
+2e4bd44563cdfd591a0a4bd566c308-2$ -> USER UTTERANCE: 
+2e4bd44563cdfd591a0a4bd566c308-2$ TO NODE: infoNode - 16354905244322603 - Content: Why was it introduced: To show the services provided both internally and from MDMedicus 
+ N
+2e4bd44563cdfd591a0a4bd566c308-2$ -> TURN REWARD: -1.0
+2e4bd44563cdfd591a0a4bd566c308-2$ -> USER UTTERANCE: 
+2e4bd44563cdfd591a0a4bd566c308-2$ TO NODE: userResponseNode - 16384313191857195 - Do you have any further questions?
+2e4bd44563cdfd591a0a4bd566c308-2$ -> TURN REWARD: -1.0
+2e4bd44563cdfd591a0a4bd566c308-2$ -> USER UTTERANCE: 
+2e4bd44563cdfd591a0a4bd566c308-2$ TO NODE: userResponseNode - 16348058621438633 - What topic do you have questions about? You can either click on an answer from the suggested topics 
+2e4bd44563cdfd591a0a4bd566c308-2$ -> TURN REWARD: -1.0
+2e4bd44563cdfd591a0a4bd566c308-2$ -> USER UTTERANCE: 
+2e4bd44563cdfd591a0a4bd566c308-2$ TO NODE: userResponseNode - 16348058588084537 - Are you going on an intracity trip or a business trip?
+2e4bd44563cdfd591a0a4bd566c308-2$ -> TURN REWARD: -1.0
+2e4bd44563cdfd591a0a4bd566c308-2$ -> USER UTTERANCE: 
+2e4bd44563cdfd591a0a4bd566c308-2$ TO NODE: userResponseNode - 16348070558358676 - Did you get verbal permission from your supervisor?
+2e4bd44563cdfd591a0a4bd566c308-2$ -> TURN REWARD: -1.0
+2e4bd44563cdfd591a0a4bd566c308-2$ -> USER UTTERANCE: 
+2e4bd44563cdfd591a0a4bd566c308-2$ TO NODE: userResponseNode - 16348071239272239 - Do you want to know more about booking Transportation or about ancillary costs?
+2e4bd44563cdfd591a0a4bd566c308-2$ -> TURN REWARD: -1.0
+2e4bd44563cdfd591a0a4bd566c308-2$ -> USER UTTERANCE: 
+2e4bd44563cdfd591a0a4bd566c308-2$ TO NODE: userResponseNode - 16366214877516370 - Which incidental costs ocurred during your trip or do you anticipate occurring
+2e4bd44563cdfd591a0a4bd566c308-2$ -> TURN REWARD: -1.0
+2e4bd44563cdfd591a0a4bd566c308-2$ -> USER UTTERANCE: 
+2e4bd44563cdfd591a0a4bd566c308-2$ TO NODE: infoNode - 16384329210117153 - Conference fees are reimbursable.
+2e4bd44563cdfd591a0a4bd566c308-2$ REACHED GOAL
+2e4bd44563cdfd591a0a4bd566c308-2$ -> TURN REWARD: -1.0
+2e4bd44563cdfd591a0a4bd566c308-2$ -> USER UTTERANCE: 
+2e4bd44563cdfd591a0a4bd566c308-2$ TO NODE: userResponseNode - 16366218125775037 - Were there any other incidental costs?
+2e4bd44563cdfd591a0a4bd566c308-2$ -> TURN REWARD: -1.0
+2e4bd44563cdfd591a0a4bd566c308-2$ -> USER UTTERANCE: 
+2e4bd44563cdfd591a0a4bd566c308-2$ TO NODE: userResponseNode - 16366214877516370 - Which incidental costs ocurred during your trip or do you anticipate occurring
+2e4bd44563cdfd591a0a4bd566c308-2$ -> TURN REWARD: -1.0
+2e4bd44563cdfd591a0a4bd566c308-2$ -> USER UTTERANCE: 
+2e4bd44563cdfd591a0a4bd566c308-2$ TO NODE: infoNode - 16384329210117153 - Conference fees are reimbursable.
+2e4bd44563cdfd591a0a4bd566c308-2$ ASKING NODE: infoNode - 16384329210117153 - Conference fees are reimbursable.
+2e4bd44563cdfd591a0a4bd566c308-2$ -> USER UTTERANCE: 
+2e4bd44563cdfd591a0a4bd566c308-2$ TO NODE: infoNode - 16384329210117153 - Conference fees are reimbursable.
+2e4bd44563cdfd591a0a4bd566c308-2$=> REACHED GOAL ONCE: True
+2e4bd44563cdfd591a0a4bd566c308-2$=> ASKED GOAL ONCE: True
+2e4bd44563cdfd591a0a4bd566c308-2$=> FINAL REWARD: 3.0
+2e4bd44563cdfd591a0a4bd566c308-2$=> PERCIEVED LENGTH: 2
+2e4bd44563cdfd591a0a4bd566c308-2$=> TOTAL LENGTH: 13
+2e4bd44563cdfd591a0a4bd566c308-2$=> REACHED GOAL ONCE: True
+2e4bd44563cdfd591a0a4bd566c308-2$=> ASKED GOAL ONCE: True
+2e4bd44563cdfd591a0a4bd566c308-2$=> PERCIEVED LENGTH: 2
+USER: 2e4bd44563cdfd591a0a4bd566c308 || QUALITY: 4
+USER: 2e4bd44563cdfd591a0a4bd566c308 || LENGTH: 3
+==== NEW DIALOG STARTED FOR USER 2e4bd44563cdfd591a0a4bd566c308 ====
+USER: 2e4bd44563cdfd591a0a4bd566c308 || GOAL: You want to know how the reimbursement process works for research semester.<ul><li>You plan to bring your family with you</li></ul> || NODE_ID: 16370483534787100
+4b9924c0c8ce326ac3c1e1688937c6-3$ ======== RESET =========
+4b9924c0c8ce326ac3c1e1688937c6-3$ GOAL: 16460328708250870 If you are also transporting other coworkers, you are entitled to 2 Cent per person und kilometer, f
+4b9924c0c8ce326ac3c1e1688937c6-3$ CONSTRAINTS: {}
+4b9924c0c8ce326ac3c1e1688937c6-3$ INITIAL UTTERANCE: How much money can I get for my travel? I used my own car and took two colleagues with me.
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> TURN REWARD: -1.0
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> USER UTTERANCE: 
+4b9924c0c8ce326ac3c1e1688937c6-3$ TO NODE: infoNode - 16457053159041482 - You should try to cancel anything which has already been booked as quickly as possible. Necessary ex
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> TURN REWARD: -1.0
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> USER UTTERANCE: 
+4b9924c0c8ce326ac3c1e1688937c6-3$ TO NODE: userResponseNode - 16348058621438633 - What topic do you have questions about? You can either click on an answer from the suggested topics 
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> TURN REWARD: -1.0
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> USER UTTERANCE: 
+4b9924c0c8ce326ac3c1e1688937c6-3$ TO NODE: userResponseNode - 16348058588084537 - Are you going on an intracity trip or a business trip?
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> TURN REWARD: -1.0
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> USER UTTERANCE: 
+4b9924c0c8ce326ac3c1e1688937c6-3$ TO NODE: userResponseNode - 16348064261907944 - Did you get written permission from your supervisor?
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> TURN REWARD: -1.0
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> USER UTTERANCE: 
+4b9924c0c8ce326ac3c1e1688937c6-3$ TO NODE: userInputNode - 16363752591243585 - What country are you traveling to?
+4b9924c0c8ce326ac3c1e1688937c6-3$ - VARIABLE NODE: REAL USER UTTERANCE BEFORE NLU: UK
+4b9924c0c8ce326ac3c1e1688937c6-3$ ASKING NODE: userInputNode - 16363752591243585 - What country are you traveling to?
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> USER UTTERANCE: Great Britain
+4b9924c0c8ce326ac3c1e1688937c6-3$ TO NODE: userInputNode - 16363752591243585 - What country are you traveling to?
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> TURN REWARD: -1.0
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> USER UTTERANCE: 
+4b9924c0c8ce326ac3c1e1688937c6-3$ TO NODE: userInputNode - 16363753123487784 - What city are you traveling to?
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> AUTO SKIP LOGIC NODE: SUCCESS 16389695846089108
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> TURN REWARD: -1.0
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> USER UTTERANCE: 
+4b9924c0c8ce326ac3c1e1688937c6-3$ TO NODE: infoNode - 16389695846089108 - For all  business trips (even for short trips or ones lasting only a single day) outside the country
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> TURN REWARD: -1.0
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> USER UTTERANCE: 
+4b9924c0c8ce326ac3c1e1688937c6-3$ TO NODE: infoNode - 16363753477187975 - Please check the current COVID-19 travel warnings travel restrictions from the foreign ministry and 
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> TURN REWARD: -1.0
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> USER UTTERANCE: 
+4b9924c0c8ce326ac3c1e1688937c6-3$ TO NODE: infoNode - 16363754346769013 - COVID-19: Business trips should be reduced to an absolute minimum and are only allowed when they are
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> TURN REWARD: -1.0
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> USER UTTERANCE: 
+4b9924c0c8ce326ac3c1e1688937c6-3$ TO NODE: userInputNode - 16348093549280346 - Are you planning to extend your trip with private travel?
+4b9924c0c8ce326ac3c1e1688937c6-3$ - VARIABLE NODE: REAL USER UTTERANCE BEFORE NLU: no
+4b9924c0c8ce326ac3c1e1688937c6-3$ ASKING NODE: userInputNode - 16348093549280346 - Are you planning to extend your trip with private travel?
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> USER UTTERANCE: False
+4b9924c0c8ce326ac3c1e1688937c6-3$ TO NODE: userInputNode - 16348093549280346 - Are you planning to extend your trip with private travel?
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> AUTO SKIP LOGIC NODE: SUCCESS 16348097487038694
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> TURN REWARD: -1.0
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> USER UTTERANCE: 
+4b9924c0c8ce326ac3c1e1688937c6-3$ TO NODE: userResponseNode - 16348097487038694 - Which topic do you want to know more about?
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> TURN REWARD: -1.0
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> USER UTTERANCE: 
+4b9924c0c8ce326ac3c1e1688937c6-3$ TO NODE: userInputNode - 16370471520148677 - How long is the business related portion of your travel?
+4b9924c0c8ce326ac3c1e1688937c6-3$ - VARIABLE NODE: REAL USER UTTERANCE BEFORE NLU: 2 weeks
+4b9924c0c8ce326ac3c1e1688937c6-3$ ASKING NODE: userInputNode - 16370471520148677 - How long is the business related portion of your travel?
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> USER UTTERANCE: 336
+4b9924c0c8ce326ac3c1e1688937c6-3$ TO NODE: userInputNode - 16370471520148677 - How long is the business related portion of your travel?
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> TURN REWARD: -1.0
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> USER UTTERANCE: 
+4b9924c0c8ce326ac3c1e1688937c6-3$ TO NODE: userInputNode - 16478799587660558 - What country are you traveling to?
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> AUTO SKIP LOGIC NODE: SUCCESS 16370471522950468
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> TURN REWARD: -1.0
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> USER UTTERANCE: 
+4b9924c0c8ce326ac3c1e1688937c6-3$ TO NODE: infoNode - 16370471522950468 - In {{ COUNTRY }}, you are entitled to {{ PERDIEM.AMOUNT(COUNTRY, CITY) }} €  per day, minus any free
+4b9924c0c8ce326ac3c1e1688937c6-3$ ASKING NODE: infoNode - 16370471522950468 - In {{ COUNTRY }}, you are entitled to {{ PERDIEM.AMOUNT(COUNTRY, CITY) }} €  per day, minus any free
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> USER UTTERANCE: 
+4b9924c0c8ce326ac3c1e1688937c6-3$ TO NODE: infoNode - 16370471522950468 - In {{ COUNTRY }}, you are entitled to {{ PERDIEM.AMOUNT(COUNTRY, CITY) }} €  per day, minus any free
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> AUTO SKIP LOGIC NODE: SUCCESS 16384313191857195
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> TURN REWARD: -1.0
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> USER UTTERANCE: 
+4b9924c0c8ce326ac3c1e1688937c6-3$ TO NODE: userResponseNode - 16384313191857195 - Do you have any further questions?
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> TURN REWARD: -1.0
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> USER UTTERANCE: 
+4b9924c0c8ce326ac3c1e1688937c6-3$ TO NODE: userResponseNode - 16348058621438633 - What topic do you have questions about? You can either click on an answer from the suggested topics 
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> TURN REWARD: -1.0
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> USER UTTERANCE: 
+4b9924c0c8ce326ac3c1e1688937c6-3$ TO NODE: userResponseNode - 16353412627443913 - Travel Safety/ Travel Risk Management: What would you like to know about? Emergency help 
+ What to c
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> TURN REWARD: -1.0
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> USER UTTERANCE: 
+4b9924c0c8ce326ac3c1e1688937c6-3$ TO NODE: userResponseNode - 16354038874355911 - What would you like to know about? Information Before the start of a Business trip 
+ An Emergency du
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> TURN REWARD: -1.0
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> USER UTTERANCE: 
+4b9924c0c8ce326ac3c1e1688937c6-3$ TO NODE: infoNode - 16389562608833278 - Please note the  current COVID-19 travel warnings posted by the  and restrictions foreign ministry a
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> TURN REWARD: -1.0
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> USER UTTERANCE: 
+4b9924c0c8ce326ac3c1e1688937c6-3$ TO NODE: infoNode - 16370678190615289 - Please use the country database  to inform yourself about possible  Risks related to your trip. It i
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> TURN REWARD: -1.0
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> USER UTTERANCE: 
+4b9924c0c8ce326ac3c1e1688937c6-3$ TO NODE: infoNode - 16370678856758681 - The country database is available in German and English.  Countries are divided into risk classes: g
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> TURN REWARD: -1.0
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> USER UTTERANCE: 
+4b9924c0c8ce326ac3c1e1688937c6-3$ TO NODE: userResponseNode - 16384313191857195 - Do you have any further questions?
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> TURN REWARD: -1.0
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> USER UTTERANCE: 
+4b9924c0c8ce326ac3c1e1688937c6-3$ TO NODE: userResponseNode - 16348058621438633 - What topic do you have questions about? You can either click on an answer from the suggested topics 
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> TURN REWARD: -1.0
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> USER UTTERANCE: 
+4b9924c0c8ce326ac3c1e1688937c6-3$ TO NODE: userResponseNode - 16353412627443913 - Travel Safety/ Travel Risk Management: What would you like to know about? Emergency help 
+ What to c
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> TURN REWARD: -1.0
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> USER UTTERANCE: 
+4b9924c0c8ce326ac3c1e1688937c6-3$ TO NODE: userResponseNode - 16354038874355911 - What would you like to know about? Information Before the start of a Business trip 
+ An Emergency du
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> TURN REWARD: -1.0
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> USER UTTERANCE: 
+4b9924c0c8ce326ac3c1e1688937c6-3$ TO NODE: infoNode - 16389562608833278 - Please note the  current COVID-19 travel warnings posted by the  and restrictions foreign ministry a
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> TURN REWARD: -1.0
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> USER UTTERANCE: 
+4b9924c0c8ce326ac3c1e1688937c6-3$ TO NODE: infoNode - 16370678190615289 - Please use the country database  to inform yourself about possible  Risks related to your trip. It i
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> TURN REWARD: -1.0
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> USER UTTERANCE: 
+4b9924c0c8ce326ac3c1e1688937c6-3$ TO NODE: infoNode - 16370678856758681 - The country database is available in German and English.  Countries are divided into risk classes: g
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> TURN REWARD: -1.0
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> USER UTTERANCE: 
+4b9924c0c8ce326ac3c1e1688937c6-3$ TO NODE: userResponseNode - 16384313191857195 - Do you have any further questions?
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> TURN REWARD: -1.0
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> USER UTTERANCE: 
+4b9924c0c8ce326ac3c1e1688937c6-3$ TO NODE: userResponseNode - 16348058621438633 - What topic do you have questions about? You can either click on an answer from the suggested topics 
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> TURN REWARD: -1.0
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> USER UTTERANCE: 
+4b9924c0c8ce326ac3c1e1688937c6-3$ TO NODE: userResponseNode - 16353412627443913 - Travel Safety/ Travel Risk Management: What would you like to know about? Emergency help 
+ What to c
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> TURN REWARD: -1.0
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> USER UTTERANCE: 
+4b9924c0c8ce326ac3c1e1688937c6-3$ TO NODE: userResponseNode - 16354038874355911 - What would you like to know about? Information Before the start of a Business trip 
+ An Emergency du
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> TURN REWARD: -1.0
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> USER UTTERANCE: 
+4b9924c0c8ce326ac3c1e1688937c6-3$ TO NODE: infoNode - 16389562608833278 - Please note the  current COVID-19 travel warnings posted by the  and restrictions foreign ministry a
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> TURN REWARD: -1.0
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> USER UTTERANCE: 
+4b9924c0c8ce326ac3c1e1688937c6-3$ TO NODE: infoNode - 16370678190615289 - Please use the country database  to inform yourself about possible  Risks related to your trip. It i
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> TURN REWARD: -1.0
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> USER UTTERANCE: 
+4b9924c0c8ce326ac3c1e1688937c6-3$ TO NODE: infoNode - 16370678856758681 - The country database is available in German and English.  Countries are divided into risk classes: g
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> TURN REWARD: -1.0
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> USER UTTERANCE: 
+4b9924c0c8ce326ac3c1e1688937c6-3$ TO NODE: userResponseNode - 16384313191857195 - Do you have any further questions?
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> TURN REWARD: -1.0
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> USER UTTERANCE: 
+4b9924c0c8ce326ac3c1e1688937c6-3$ TO NODE: userResponseNode - 16348058621438633 - What topic do you have questions about? You can either click on an answer from the suggested topics 
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> TURN REWARD: -1.0
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> USER UTTERANCE: 
+4b9924c0c8ce326ac3c1e1688937c6-3$ TO NODE: userResponseNode - 16353412627443913 - Travel Safety/ Travel Risk Management: What would you like to know about? Emergency help 
+ What to c
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> TURN REWARD: -1.0
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> USER UTTERANCE: 
+4b9924c0c8ce326ac3c1e1688937c6-3$ TO NODE: userResponseNode - 16354038874355911 - What would you like to know about? Information Before the start of a Business trip 
+ An Emergency du
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> TURN REWARD: -1.0
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> USER UTTERANCE: 
+4b9924c0c8ce326ac3c1e1688937c6-3$ TO NODE: infoNode - 16389562608833278 - Please note the  current COVID-19 travel warnings posted by the  and restrictions foreign ministry a
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> TURN REWARD: -1.0
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> USER UTTERANCE: 
+4b9924c0c8ce326ac3c1e1688937c6-3$ TO NODE: infoNode - 16370678190615289 - Please use the country database  to inform yourself about possible  Risks related to your trip. It i
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> TURN REWARD: -1.0
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> USER UTTERANCE: 
+4b9924c0c8ce326ac3c1e1688937c6-3$ TO NODE: infoNode - 16370678856758681 - The country database is available in German and English.  Countries are divided into risk classes: g
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> TURN REWARD: -1.0
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> USER UTTERANCE: 
+4b9924c0c8ce326ac3c1e1688937c6-3$ TO NODE: userResponseNode - 16384313191857195 - Do you have any further questions?
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> TURN REWARD: -1.0
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> USER UTTERANCE: 
+4b9924c0c8ce326ac3c1e1688937c6-3$ TO NODE: userResponseNode - 16348058621438633 - What topic do you have questions about? You can either click on an answer from the suggested topics 
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> TURN REWARD: -1.0
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> USER UTTERANCE: 
+4b9924c0c8ce326ac3c1e1688937c6-3$ TO NODE: userResponseNode - 16353412627443913 - Travel Safety/ Travel Risk Management: What would you like to know about? Emergency help 
+ What to c
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> TURN REWARD: -1.0
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> USER UTTERANCE: 
+4b9924c0c8ce326ac3c1e1688937c6-3$ TO NODE: userResponseNode - 16354038874355911 - What would you like to know about? Information Before the start of a Business trip 
+ An Emergency du
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> TURN REWARD: -1.0
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> USER UTTERANCE: 
+4b9924c0c8ce326ac3c1e1688937c6-3$ TO NODE: infoNode - 16389562608833278 - Please note the  current COVID-19 travel warnings posted by the  and restrictions foreign ministry a
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> TURN REWARD: -1.0
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> USER UTTERANCE: 
+4b9924c0c8ce326ac3c1e1688937c6-3$ TO NODE: infoNode - 16370678190615289 - Please use the country database  to inform yourself about possible  Risks related to your trip. It i
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> TURN REWARD: -1.0
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> USER UTTERANCE: 
+4b9924c0c8ce326ac3c1e1688937c6-3$ TO NODE: infoNode - 16370678856758681 - The country database is available in German and English.  Countries are divided into risk classes: g
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> TURN REWARD: -1.0
+4b9924c0c8ce326ac3c1e1688937c6-3$ -> USER UTTERANCE: 
+4b9924c0c8ce326ac3c1e1688937c6-3$ TO NODE: userResponseNode - 16384313191857195 - Do you have any further questions?
+4b9924c0c8ce326ac3c1e1688937c6-3$=> REACHED GOAL ONCE: False
+4b9924c0c8ce326ac3c1e1688937c6-3$=> ASKED GOAL ONCE: False
+4b9924c0c8ce326ac3c1e1688937c6-3$=> PERCIEVED LENGTH: 5
+USER: 4b9924c0c8ce326ac3c1e1688937c6 || QUALITY: 1
+USER: 4b9924c0c8ce326ac3c1e1688937c6 || LENGTH: 1
+d9a101002e1d23b86bf785bab7b5e3-1$ ======== RESET =========
+d9a101002e1d23b86bf785bab7b5e3-1$ GOAL: 16387868859695624 Thank you for using the business travel chatbot.Please let us know about your experience by filling 
+d9a101002e1d23b86bf785bab7b5e3-1$ CONSTRAINTS: {}
+d9a101002e1d23b86bf785bab7b5e3-1$ INITIAL UTTERANCE: How can I book a hotel?
+d9a101002e1d23b86bf785bab7b5e3-1$ -> TURN REWARD: -1.0
+d9a101002e1d23b86bf785bab7b5e3-1$ -> USER UTTERANCE: 
+d9a101002e1d23b86bf785bab7b5e3-1$ TO NODE: userResponseNode - 16348058588084537 - Are you going on an intracity trip or a business trip?
+d9a101002e1d23b86bf785bab7b5e3-1$ -> TURN REWARD: -1.0
+d9a101002e1d23b86bf785bab7b5e3-1$ -> USER UTTERANCE: 
+d9a101002e1d23b86bf785bab7b5e3-1$ TO NODE: userResponseNode - 16348064261907944 - Did you get written permission from your supervisor?
+d9a101002e1d23b86bf785bab7b5e3-1$ -> TURN REWARD: -1.0
+d9a101002e1d23b86bf785bab7b5e3-1$ -> USER UTTERANCE: 
+d9a101002e1d23b86bf785bab7b5e3-1$ TO NODE: userInputNode - 16363752591243585 - What country are you traveling to?
+d9a101002e1d23b86bf785bab7b5e3-1$ - VARIABLE NODE: REAL USER UTTERANCE BEFORE NLU: UK
+d9a101002e1d23b86bf785bab7b5e3-1$ ASKING NODE: userInputNode - 16363752591243585 - What country are you traveling to?
+d9a101002e1d23b86bf785bab7b5e3-1$ -> USER UTTERANCE: Great Britain
+d9a101002e1d23b86bf785bab7b5e3-1$ TO NODE: userInputNode - 16363752591243585 - What country are you traveling to?
+d9a101002e1d23b86bf785bab7b5e3-1$ -> TURN REWARD: -1.0
+d9a101002e1d23b86bf785bab7b5e3-1$ -> USER UTTERANCE: 
+d9a101002e1d23b86bf785bab7b5e3-1$ TO NODE: userInputNode - 16363753123487784 - What city are you traveling to?
+d9a101002e1d23b86bf785bab7b5e3-1$ -> AUTO SKIP LOGIC NODE: SUCCESS 16389695846089108
+d9a101002e1d23b86bf785bab7b5e3-1$ -> TURN REWARD: -1.0
+d9a101002e1d23b86bf785bab7b5e3-1$ -> USER UTTERANCE: 
+d9a101002e1d23b86bf785bab7b5e3-1$ TO NODE: infoNode - 16389695846089108 - For all  business trips (even for short trips or ones lasting only a single day) outside the country
+d9a101002e1d23b86bf785bab7b5e3-1$ -> TURN REWARD: -1.0
+d9a101002e1d23b86bf785bab7b5e3-1$ -> USER UTTERANCE: 
+d9a101002e1d23b86bf785bab7b5e3-1$ TO NODE: infoNode - 16363753477187975 - Please check the current COVID-19 travel warnings travel restrictions from the foreign ministry and 
+d9a101002e1d23b86bf785bab7b5e3-1$ -> TURN REWARD: -1.0
+d9a101002e1d23b86bf785bab7b5e3-1$ -> USER UTTERANCE: 
+d9a101002e1d23b86bf785bab7b5e3-1$ TO NODE: infoNode - 16363754346769013 - COVID-19: Business trips should be reduced to an absolute minimum and are only allowed when they are
+d9a101002e1d23b86bf785bab7b5e3-1$ -> TURN REWARD: -1.0
+d9a101002e1d23b86bf785bab7b5e3-1$ -> USER UTTERANCE: 
+d9a101002e1d23b86bf785bab7b5e3-1$ TO NODE: userInputNode - 16348093549280346 - Are you planning to extend your trip with private travel?
+d9a101002e1d23b86bf785bab7b5e3-1$ - VARIABLE NODE: REAL USER UTTERANCE BEFORE NLU: Yes
+d9a101002e1d23b86bf785bab7b5e3-1$ ASKING NODE: userInputNode - 16348093549280346 - Are you planning to extend your trip with private travel?
+d9a101002e1d23b86bf785bab7b5e3-1$ -> USER UTTERANCE: True
+d9a101002e1d23b86bf785bab7b5e3-1$ TO NODE: userInputNode - 16348093549280346 - Are you planning to extend your trip with private travel?
+d9a101002e1d23b86bf785bab7b5e3-1$ -> AUTO SKIP LOGIC NODE: SUCCESS 16363754793760356
+d9a101002e1d23b86bf785bab7b5e3-1$ -> TURN REWARD: -1.0
+d9a101002e1d23b86bf785bab7b5e3-1$ -> USER UTTERANCE: 
+d9a101002e1d23b86bf785bab7b5e3-1$ TO NODE: infoNode - 16363754793760356 - A private extension to a trip must remain in proportion to the length of business-related travel. Bu
+d9a101002e1d23b86bf785bab7b5e3-1$ -> TURN REWARD: -1.0
+d9a101002e1d23b86bf785bab7b5e3-1$ -> USER UTTERANCE: 
+d9a101002e1d23b86bf785bab7b5e3-1$ TO NODE: userResponseNode - 16348097487038694 - Which topic do you want to know more about?
+d9a101002e1d23b86bf785bab7b5e3-1$ -> TURN REWARD: -1.0
+d9a101002e1d23b86bf785bab7b5e3-1$ -> USER UTTERANCE: 
+d9a101002e1d23b86bf785bab7b5e3-1$ TO NODE: infoNode - 16378350683837525 - If the trip is being paid for by a third party (not from the university) or was offered to be paid f
+d9a101002e1d23b86bf785bab7b5e3-1$ -> TURN REWARD: -1.0
+d9a101002e1d23b86bf785bab7b5e3-1$ -> USER UTTERANCE: 
+d9a101002e1d23b86bf785bab7b5e3-1$ TO NODE: userInputNode - 16478801254732768 - What country are you traveling to?
+d9a101002e1d23b86bf785bab7b5e3-1$ -> TURN REWARD: -1.0
+d9a101002e1d23b86bf785bab7b5e3-1$ -> USER UTTERANCE: 
+d9a101002e1d23b86bf785bab7b5e3-1$ TO NODE: userResponseNode - 16370471522263677 - Where do you plan to stay
+d9a101002e1d23b86bf785bab7b5e3-1$ -> TURN REWARD: -1.0
+d9a101002e1d23b86bf785bab7b5e3-1$ -> USER UTTERANCE: 
+d9a101002e1d23b86bf785bab7b5e3-1$ TO NODE: infoNode - 16363812426270449 - Hotels can be booked using the university's partner travel agency, through a booking portal, or book
+d9a101002e1d23b86bf785bab7b5e3-1$ ASKING NODE: infoNode - 16363812426270449 - Hotels can be booked using the university's partner travel agency, through a booking portal, or book
+d9a101002e1d23b86bf785bab7b5e3-1$ -> USER UTTERANCE: 
+d9a101002e1d23b86bf785bab7b5e3-1$ TO NODE: infoNode - 16363812426270449 - Hotels can be booked using the university's partner travel agency, through a booking portal, or book
+d9a101002e1d23b86bf785bab7b5e3-1$ => STOPPED POLICY BEFORE REPEATING
+d9a101002e1d23b86bf785bab7b5e3-1$=> REACHED GOAL ONCE: False
+d9a101002e1d23b86bf785bab7b5e3-1$=> ASKED GOAL ONCE: False
+d9a101002e1d23b86bf785bab7b5e3-1$=> PERCIEVED LENGTH: 4
+USER: d9a101002e1d23b86bf785bab7b5e3 || QUALITY: 4
+USER: d9a101002e1d23b86bf785bab7b5e3 || LENGTH: 3
+==== NEW DIALOG STARTED FOR USER d9a101002e1d23b86bf785bab7b5e3 ====
+USER: d9a101002e1d23b86bf785bab7b5e3 || GOAL: You want to know if you can be reimbursed if you need to book a taxi during your trip. || NODE_ID: 16365525829145685
+1fd4736bcd456d02458c2a32944e60-2$ ======== RESET =========
+1fd4736bcd456d02458c2a32944e60-2$ GOAL: 16363834594338823 Yes, staying in a room by yourself is allowed
+1fd4736bcd456d02458c2a32944e60-2$ CONSTRAINTS: {}
+1fd4736bcd456d02458c2a32944e60-2$ INITIAL UTTERANCE: I am travelling with a colleague and can I either share a room or book my own room
+1fd4736bcd456d02458c2a32944e60-3$ ======== RESET =========
+1fd4736bcd456d02458c2a32944e60-3$ GOAL: 16363834594338823 Yes, staying in a room by yourself is allowed
+1fd4736bcd456d02458c2a32944e60-3$ CONSTRAINTS: {}
+1fd4736bcd456d02458c2a32944e60-3$ INITIAL UTTERANCE: Book a trip
+1fd4736bcd456d02458c2a32944e60-3$ -> TURN REWARD: -1.0
+1fd4736bcd456d02458c2a32944e60-3$ -> USER UTTERANCE: 
+1fd4736bcd456d02458c2a32944e60-3$ TO NODE: userResponseNode - 16348058588084537 - Are you going on an intracity trip or a business trip?
+1fd4736bcd456d02458c2a32944e60-3$=> REACHED GOAL ONCE: False
+1fd4736bcd456d02458c2a32944e60-3$=> ASKED GOAL ONCE: False
+1fd4736bcd456d02458c2a32944e60-3$=> PERCIEVED LENGTH: 1
+USER: 1fd4736bcd456d02458c2a32944e60 || QUALITY: 2
+USER: 1fd4736bcd456d02458c2a32944e60 || LENGTH: 3
+==== NEW DIALOG STARTED FOR USER 1fd4736bcd456d02458c2a32944e60 ====
+USER: 1fd4736bcd456d02458c2a32944e60 || GOAL: You want to know how much money you can get for your accommodations. <ul><li>You are traveling to France for your next trip</li><li>You plan to stay with your brother in his apartment. </li></ul> || NODE_ID: 16378349334755637
+d9a101002e1d23b86bf785bab7b5e3-2$ ======== RESET =========
+d9a101002e1d23b86bf785bab7b5e3-2$ GOAL: 16365525829145685 A taxi is only reimbursable if there is a business related reason or a pressing personal reason, e.g
+d9a101002e1d23b86bf785bab7b5e3-2$ CONSTRAINTS: {}
+d9a101002e1d23b86bf785bab7b5e3-2$ INITIAL UTTERANCE: Can I reimburse my taxi fare during my trip?
+d9a101002e1d23b86bf785bab7b5e3-2$ -> TURN REWARD: -1.0
+d9a101002e1d23b86bf785bab7b5e3-2$ -> USER UTTERANCE: 
+d9a101002e1d23b86bf785bab7b5e3-2$ TO NODE: infoNode - 16457053159041482 - You should try to cancel anything which has already been booked as quickly as possible. Necessary ex
+d9a101002e1d23b86bf785bab7b5e3-2$ -> TURN REWARD: -1.0
+d9a101002e1d23b86bf785bab7b5e3-2$ -> USER UTTERANCE: 
+d9a101002e1d23b86bf785bab7b5e3-2$ TO NODE: userResponseNode - 16348058621438633 - What topic do you have questions about? You can either click on an answer from the suggested topics 
+d9a101002e1d23b86bf785bab7b5e3-2$ -> TURN REWARD: -1.0
+d9a101002e1d23b86bf785bab7b5e3-2$ -> USER UTTERANCE: 
+d9a101002e1d23b86bf785bab7b5e3-2$ TO NODE: userResponseNode - 16348058588084537 - Are you going on an intracity trip or a business trip?
+d9a101002e1d23b86bf785bab7b5e3-2$ -> TURN REWARD: -1.0
+d9a101002e1d23b86bf785bab7b5e3-2$ -> USER UTTERANCE: 
+d9a101002e1d23b86bf785bab7b5e3-2$ TO NODE: userResponseNode - 16348070558358676 - Did you get verbal permission from your supervisor?
+d9a101002e1d23b86bf785bab7b5e3-2$ -> TURN REWARD: -1.0
+d9a101002e1d23b86bf785bab7b5e3-2$ -> USER UTTERANCE: 
+d9a101002e1d23b86bf785bab7b5e3-2$ TO NODE: userResponseNode - 16348071239272239 - Do you want to know more about booking Transportation or about ancillary costs?
+d9a101002e1d23b86bf785bab7b5e3-2$ -> TURN REWARD: -1.0
+d9a101002e1d23b86bf785bab7b5e3-2$ -> USER UTTERANCE: 
+d9a101002e1d23b86bf785bab7b5e3-2$ TO NODE: userResponseNode - 16348100109577394 - What type of transportation would you like?
+d9a101002e1d23b86bf785bab7b5e3-2$ -> TURN REWARD: -1.0
+d9a101002e1d23b86bf785bab7b5e3-2$ -> USER UTTERANCE: 
+d9a101002e1d23b86bf785bab7b5e3-2$ TO NODE: infoNode - 16365525829145685 - A taxi is only reimbursable if there is a business related reason or a pressing personal reason, e.g
+d9a101002e1d23b86bf785bab7b5e3-2$ REACHED GOAL
+d9a101002e1d23b86bf785bab7b5e3-2$ -> TURN REWARD: -1.0
+d9a101002e1d23b86bf785bab7b5e3-2$ -> USER UTTERANCE: 
+d9a101002e1d23b86bf785bab7b5e3-2$ TO NODE: userResponseNode - 16351756667261880 - Do you have any other questions about booking transportation?
+d9a101002e1d23b86bf785bab7b5e3-2$ -> TURN REWARD: -1.0
+d9a101002e1d23b86bf785bab7b5e3-2$ -> USER UTTERANCE: 
+d9a101002e1d23b86bf785bab7b5e3-2$ TO NODE: userResponseNode - 16348100109577394 - What type of transportation would you like?
+d9a101002e1d23b86bf785bab7b5e3-2$ -> TURN REWARD: -1.0
+d9a101002e1d23b86bf785bab7b5e3-2$ -> USER UTTERANCE: 
+d9a101002e1d23b86bf785bab7b5e3-2$ TO NODE: infoNode - 16365525829145685 - A taxi is only reimbursable if there is a business related reason or a pressing personal reason, e.g
+d9a101002e1d23b86bf785bab7b5e3-2$ ASKING NODE: infoNode - 16365525829145685 - A taxi is only reimbursable if there is a business related reason or a pressing personal reason, e.g
+d9a101002e1d23b86bf785bab7b5e3-2$ -> USER UTTERANCE: 
+d9a101002e1d23b86bf785bab7b5e3-2$ TO NODE: infoNode - 16365525829145685 - A taxi is only reimbursable if there is a business related reason or a pressing personal reason, e.g
+d9a101002e1d23b86bf785bab7b5e3-2$=> REACHED GOAL ONCE: True
+d9a101002e1d23b86bf785bab7b5e3-2$=> ASKED GOAL ONCE: True
+d9a101002e1d23b86bf785bab7b5e3-2$=> FINAL REWARD: 5.0
+d9a101002e1d23b86bf785bab7b5e3-2$=> PERCIEVED LENGTH: 2
+d9a101002e1d23b86bf785bab7b5e3-2$=> TOTAL LENGTH: 11
+d9a101002e1d23b86bf785bab7b5e3-2$=> REACHED GOAL ONCE: True
+d9a101002e1d23b86bf785bab7b5e3-2$=> ASKED GOAL ONCE: True
+d9a101002e1d23b86bf785bab7b5e3-2$=> PERCIEVED LENGTH: 2
+USER: d9a101002e1d23b86bf785bab7b5e3 || QUALITY: 3
+USER: d9a101002e1d23b86bf785bab7b5e3 || LENGTH: 2
+==== NEW DIALOG STARTED FOR USER d9a101002e1d23b86bf785bab7b5e3 ====
+USER: d9a101002e1d23b86bf785bab7b5e3 || GOAL: You are trying to figure out how much money you get for booking somewhere to stay on your trip. <ul><li>Your trip is to Tokyo, Japan</li><li>Your trip should take 10 days</li><li>You plan to stay in a hotel</li></ul> || NODE_ID: 16365521324065600
+2e4bd44563cdfd591a0a4bd566c308-3$ ======== RESET =========
+2e4bd44563cdfd591a0a4bd566c308-3$ GOAL: 16370483534787100 Your business trip must be planned as though you were traveling alone (without your family). How doe
+2e4bd44563cdfd591a0a4bd566c308-3$ CONSTRAINTS: {}
+2e4bd44563cdfd591a0a4bd566c308-3$ INITIAL UTTERANCE: can i bring my family
+2e4bd44563cdfd591a0a4bd566c308-3$ -> TURN REWARD: -1.0
+2e4bd44563cdfd591a0a4bd566c308-3$ -> USER UTTERANCE: 
+2e4bd44563cdfd591a0a4bd566c308-3$ TO NODE: userResponseNode - 16348058588084537 - Are you going on an intracity trip or a business trip?
+2e4bd44563cdfd591a0a4bd566c308-3$ -> TURN REWARD: -1.0
+2e4bd44563cdfd591a0a4bd566c308-3$ -> USER UTTERANCE: 
+2e4bd44563cdfd591a0a4bd566c308-3$ TO NODE: userResponseNode - 16348064261907944 - Did you get written permission from your supervisor?
+2e4bd44563cdfd591a0a4bd566c308-3$ -> TURN REWARD: -1.0
+2e4bd44563cdfd591a0a4bd566c308-3$ -> USER UTTERANCE: 
+2e4bd44563cdfd591a0a4bd566c308-3$ TO NODE: userInputNode - 16363752591243585 - What country are you traveling to?
+2e4bd44563cdfd591a0a4bd566c308-3$=> REACHED GOAL ONCE: False
+2e4bd44563cdfd591a0a4bd566c308-3$=> ASKED GOAL ONCE: False
+2e4bd44563cdfd591a0a4bd566c308-3$=> PERCIEVED LENGTH: 1
+USER: 2e4bd44563cdfd591a0a4bd566c308 || QUALITY: 1
+USER: 2e4bd44563cdfd591a0a4bd566c308 || LENGTH: 3
+273666715e559c45c6cc9a2e7f5033-2$ ======== RESET =========
+273666715e559c45c6cc9a2e7f5033-2$ GOAL: 16363834594338823 Yes, staying in a room by yourself is allowed
+273666715e559c45c6cc9a2e7f5033-2$ CONSTRAINTS: {}
+273666715e559c45c6cc9a2e7f5033-2$ INITIAL UTTERANCE: I am travelling with a colleague. Is it possible to book separate rooms?
+273666715e559c45c6cc9a2e7f5033-2$ -> TURN REWARD: -1.0
+273666715e559c45c6cc9a2e7f5033-2$ -> USER UTTERANCE: 
+273666715e559c45c6cc9a2e7f5033-2$ TO NODE: userResponseNode - 16348058588084537 - Are you going on an intracity trip or a business trip?
+273666715e559c45c6cc9a2e7f5033-2$ -> TURN REWARD: -1.0
+273666715e559c45c6cc9a2e7f5033-2$ -> USER UTTERANCE: 
+273666715e559c45c6cc9a2e7f5033-2$ TO NODE: userResponseNode - 16348064261907944 - Did you get written permission from your supervisor?
+273666715e559c45c6cc9a2e7f5033-2$ -> TURN REWARD: -1.0
+273666715e559c45c6cc9a2e7f5033-2$ -> USER UTTERANCE: 
+273666715e559c45c6cc9a2e7f5033-2$ TO NODE: userInputNode - 16363752591243585 - What country are you traveling to?
+273666715e559c45c6cc9a2e7f5033-2$ - VARIABLE NODE: REAL USER UTTERANCE BEFORE NLU: Germany
+273666715e559c45c6cc9a2e7f5033-2$ ASKING NODE: userInputNode - 16363752591243585 - What country are you traveling to?
+273666715e559c45c6cc9a2e7f5033-2$ -> USER UTTERANCE: Germany
+273666715e559c45c6cc9a2e7f5033-2$ TO NODE: userInputNode - 16363752591243585 - What country are you traveling to?
+273666715e559c45c6cc9a2e7f5033-2$ -> TURN REWARD: -1.0
+273666715e559c45c6cc9a2e7f5033-2$ -> USER UTTERANCE: 
+273666715e559c45c6cc9a2e7f5033-2$ TO NODE: userInputNode - 16363753123487784 - What city are you traveling to?
+273666715e559c45c6cc9a2e7f5033-2$ -> AUTO SKIP LOGIC NODE: SUCCESS 16363754346769013
+273666715e559c45c6cc9a2e7f5033-2$ -> TURN REWARD: -1.0
+273666715e559c45c6cc9a2e7f5033-2$ -> USER UTTERANCE: 
+273666715e559c45c6cc9a2e7f5033-2$ TO NODE: infoNode - 16363754346769013 - COVID-19: Business trips should be reduced to an absolute minimum and are only allowed when they are
+273666715e559c45c6cc9a2e7f5033-2$ -> TURN REWARD: -1.0
+273666715e559c45c6cc9a2e7f5033-2$ -> USER UTTERANCE: 
+273666715e559c45c6cc9a2e7f5033-2$ TO NODE: userInputNode - 16348093549280346 - Are you planning to extend your trip with private travel?
+273666715e559c45c6cc9a2e7f5033-2$ - VARIABLE NODE: REAL USER UTTERANCE BEFORE NLU: No
+273666715e559c45c6cc9a2e7f5033-2$ ASKING NODE: userInputNode - 16348093549280346 - Are you planning to extend your trip with private travel?
+273666715e559c45c6cc9a2e7f5033-2$ -> USER UTTERANCE: False
+273666715e559c45c6cc9a2e7f5033-2$ TO NODE: userInputNode - 16348093549280346 - Are you planning to extend your trip with private travel?
+273666715e559c45c6cc9a2e7f5033-2$ -> AUTO SKIP LOGIC NODE: SUCCESS 16348097487038694
+273666715e559c45c6cc9a2e7f5033-2$ -> TURN REWARD: -1.0
+273666715e559c45c6cc9a2e7f5033-2$ -> USER UTTERANCE: 
+273666715e559c45c6cc9a2e7f5033-2$ TO NODE: userResponseNode - 16348097487038694 - Which topic do you want to know more about?
+273666715e559c45c6cc9a2e7f5033-2$ -> TURN REWARD: -1.0
+273666715e559c45c6cc9a2e7f5033-2$ -> USER UTTERANCE: 
+273666715e559c45c6cc9a2e7f5033-2$ TO NODE: infoNode - 16378350683837525 - If the trip is being paid for by a third party (not from the university) or was offered to be paid f
+273666715e559c45c6cc9a2e7f5033-2$ -> TURN REWARD: -1.0
+273666715e559c45c6cc9a2e7f5033-2$ -> USER UTTERANCE: 
+273666715e559c45c6cc9a2e7f5033-2$ TO NODE: userInputNode - 16478801254732768 - What country are you traveling to?
+273666715e559c45c6cc9a2e7f5033-2$ -> TURN REWARD: -1.0
+273666715e559c45c6cc9a2e7f5033-2$ -> USER UTTERANCE: 
+273666715e559c45c6cc9a2e7f5033-2$ TO NODE: userResponseNode - 16370471522263677 - Where do you plan to stay
+273666715e559c45c6cc9a2e7f5033-2$ -> AUTO SKIP LOGIC NODE: SUCCESS 16378344233411490
+273666715e559c45c6cc9a2e7f5033-2$ -> TURN REWARD: -1.0
+273666715e559c45c6cc9a2e7f5033-2$ -> USER UTTERANCE: 
+273666715e559c45c6cc9a2e7f5033-2$ TO NODE: infoNode - 16378344233411490 - In Germany, you are entitled to 20€ if you are staying with friends or family
+273666715e559c45c6cc9a2e7f5033-2$ -> TURN REWARD: -1.0
+273666715e559c45c6cc9a2e7f5033-2$ -> USER UTTERANCE: 
+273666715e559c45c6cc9a2e7f5033-2$ TO NODE: userResponseNode - 16370471523444253 - Do have any more questions about booking an accommodation
+273666715e559c45c6cc9a2e7f5033-2$ -> TURN REWARD: -1.0
+273666715e559c45c6cc9a2e7f5033-2$ -> USER UTTERANCE: 
+273666715e559c45c6cc9a2e7f5033-2$ TO NODE: infoNode - 16363834594338823 - Yes, staying in a room by yourself is allowed
+273666715e559c45c6cc9a2e7f5033-2$ REACHED GOAL
+273666715e559c45c6cc9a2e7f5033-2$ ASKING NODE: infoNode - 16363834594338823 - Yes, staying in a room by yourself is allowed
+273666715e559c45c6cc9a2e7f5033-2$ -> USER UTTERANCE: 
+273666715e559c45c6cc9a2e7f5033-2$ TO NODE: infoNode - 16363834594338823 - Yes, staying in a room by yourself is allowed
+273666715e559c45c6cc9a2e7f5033-2$=> REACHED GOAL ONCE: True
+273666715e559c45c6cc9a2e7f5033-2$=> ASKED GOAL ONCE: True
+273666715e559c45c6cc9a2e7f5033-2$=> FINAL REWARD: 2.0
+273666715e559c45c6cc9a2e7f5033-2$=> PERCIEVED LENGTH: 4
+273666715e559c45c6cc9a2e7f5033-2$=> TOTAL LENGTH: 16
+273666715e559c45c6cc9a2e7f5033-2$=> REACHED GOAL ONCE: True
+273666715e559c45c6cc9a2e7f5033-2$=> ASKED GOAL ONCE: True
+273666715e559c45c6cc9a2e7f5033-2$=> PERCIEVED LENGTH: 4
+USER: 273666715e559c45c6cc9a2e7f5033 || QUALITY: 4
+USER: 273666715e559c45c6cc9a2e7f5033 || LENGTH: 3
+==== NEW DIALOG STARTED FOR USER 273666715e559c45c6cc9a2e7f5033 ====
+USER: 273666715e559c45c6cc9a2e7f5033 || GOAL: You want to know how much money you can get for your accommodations. <ul><li>You are traveling to France for your next trip</li><li>You plan to stay with your brother in his apartment. </li></ul> || NODE_ID: 16378349334755637
+1fd4736bcd456d02458c2a32944e60-4$ ======== RESET =========
+1fd4736bcd456d02458c2a32944e60-4$ GOAL: 16378349334755637 Outside of Germany, you are entitled to 30€ if you are staying with friends or family.
+1fd4736bcd456d02458c2a32944e60-4$ CONSTRAINTS: {}
+1fd4736bcd456d02458c2a32944e60-4$ INITIAL UTTERANCE: I am travelling to France to stay with my brother's apartment
+1fd4736bcd456d02458c2a32944e60-4$=> REACHED GOAL ONCE: False
+1fd4736bcd456d02458c2a32944e60-4$=> ASKED GOAL ONCE: False
+1fd4736bcd456d02458c2a32944e60-4$=> PERCIEVED LENGTH: 1
+USER: 1fd4736bcd456d02458c2a32944e60 || QUALITY: 1
+USER: 1fd4736bcd456d02458c2a32944e60 || LENGTH: 2
+7224eb019715bd25cc799d87862cf7-3$ ======== RESET =========
+7224eb019715bd25cc799d87862cf7-3$ GOAL: 16460328708250870 If you are also transporting other coworkers, you are entitled to 2 Cent per person und kilometer, f
+7224eb019715bd25cc799d87862cf7-3$ CONSTRAINTS: {}
+7224eb019715bd25cc799d87862cf7-3$ INITIAL UTTERANCE: how much money can i get  for my travel.
+7224eb019715bd25cc799d87862cf7-3$ -> TURN REWARD: -1.0
+7224eb019715bd25cc799d87862cf7-3$ -> USER UTTERANCE: 
+7224eb019715bd25cc799d87862cf7-3$ TO NODE: userResponseNode - 16348058588084537 - Are you going on an intracity trip or a business trip?
+7224eb019715bd25cc799d87862cf7-3$ -> TURN REWARD: -1.0
+7224eb019715bd25cc799d87862cf7-3$ -> USER UTTERANCE: 
+7224eb019715bd25cc799d87862cf7-3$ TO NODE: userResponseNode - 16348064261907944 - Did you get written permission from your supervisor?
+7224eb019715bd25cc799d87862cf7-3$ -> TURN REWARD: -1.0
+7224eb019715bd25cc799d87862cf7-3$ -> USER UTTERANCE: 
+7224eb019715bd25cc799d87862cf7-3$ TO NODE: userInputNode - 16363752591243585 - What country are you traveling to?
+7224eb019715bd25cc799d87862cf7-3$ - VARIABLE NODE: REAL USER UTTERANCE BEFORE NLU: usa
+7224eb019715bd25cc799d87862cf7-3$ ASKING NODE: userInputNode - 16363752591243585 - What country are you traveling to?
+7224eb019715bd25cc799d87862cf7-3$ -> USER UTTERANCE: USA
+7224eb019715bd25cc799d87862cf7-3$ TO NODE: userInputNode - 16363752591243585 - What country are you traveling to?
+7224eb019715bd25cc799d87862cf7-3$ -> TURN REWARD: -1.0
+7224eb019715bd25cc799d87862cf7-3$ -> USER UTTERANCE: 
+7224eb019715bd25cc799d87862cf7-3$ TO NODE: userInputNode - 16363753123487784 - What city are you traveling to?
+7224eb019715bd25cc799d87862cf7-3$ -> AUTO SKIP LOGIC NODE: SUCCESS 16389695846089108
+7224eb019715bd25cc799d87862cf7-3$ -> TURN REWARD: -1.0
+7224eb019715bd25cc799d87862cf7-3$ -> USER UTTERANCE: 
+7224eb019715bd25cc799d87862cf7-3$ TO NODE: infoNode - 16389695846089108 - For all  business trips (even for short trips or ones lasting only a single day) outside the country
+7224eb019715bd25cc799d87862cf7-3$ -> TURN REWARD: -1.0
+7224eb019715bd25cc799d87862cf7-3$ -> USER UTTERANCE: 
+7224eb019715bd25cc799d87862cf7-3$ TO NODE: infoNode - 16363753477187975 - Please check the current COVID-19 travel warnings travel restrictions from the foreign ministry and 
+7224eb019715bd25cc799d87862cf7-3$ -> TURN REWARD: -1.0
+7224eb019715bd25cc799d87862cf7-3$ -> USER UTTERANCE: 
+7224eb019715bd25cc799d87862cf7-3$ TO NODE: infoNode - 16363754346769013 - COVID-19: Business trips should be reduced to an absolute minimum and are only allowed when they are
+7224eb019715bd25cc799d87862cf7-3$ -> TURN REWARD: -1.0
+7224eb019715bd25cc799d87862cf7-3$ -> USER UTTERANCE: 
+7224eb019715bd25cc799d87862cf7-3$ TO NODE: userInputNode - 16348093549280346 - Are you planning to extend your trip with private travel?
+7224eb019715bd25cc799d87862cf7-3$=> REACHED GOAL ONCE: False
+7224eb019715bd25cc799d87862cf7-3$=> ASKED GOAL ONCE: False
+7224eb019715bd25cc799d87862cf7-3$=> PERCIEVED LENGTH: 2
+=== USER (7224eb019715bd25cc799d87862cf7) RESTART === 
+7224eb019715bd25cc799d87862cf7-4$ ======== RESET =========
+7224eb019715bd25cc799d87862cf7-4$ GOAL: 16460328708250870 If you are also transporting other coworkers, you are entitled to 2 Cent per person und kilometer, f
+7224eb019715bd25cc799d87862cf7-4$ CONSTRAINTS: {}
+7224eb019715bd25cc799d87862cf7-4$ INITIAL UTTERANCE: how much money can i get for my travel. i used my own car. i took two colleagues with me
+7224eb019715bd25cc799d87862cf7-4$ -> TURN REWARD: -1.0
+7224eb019715bd25cc799d87862cf7-4$ -> USER UTTERANCE: 
+7224eb019715bd25cc799d87862cf7-4$ TO NODE: userResponseNode - 16348058588084537 - Are you going on an intracity trip or a business trip?
+7224eb019715bd25cc799d87862cf7-4$ -> TURN REWARD: -1.0
+7224eb019715bd25cc799d87862cf7-4$ -> USER UTTERANCE: 
+7224eb019715bd25cc799d87862cf7-4$ TO NODE: userResponseNode - 16348070558358676 - Did you get verbal permission from your supervisor?
+7224eb019715bd25cc799d87862cf7-4$ -> TURN REWARD: -1.0
+7224eb019715bd25cc799d87862cf7-4$ -> USER UTTERANCE: 
+7224eb019715bd25cc799d87862cf7-4$ TO NODE: userResponseNode - 16348071239272239 - Do you want to know more about booking Transportation or about ancillary costs?
+7224eb019715bd25cc799d87862cf7-4$ -> TURN REWARD: -1.0
+7224eb019715bd25cc799d87862cf7-4$ -> USER UTTERANCE: 
+7224eb019715bd25cc799d87862cf7-4$ TO NODE: userResponseNode - 16348100109577394 - What type of transportation would you like?
+7224eb019715bd25cc799d87862cf7-4$ -> TURN REWARD: -1.0
+7224eb019715bd25cc799d87862cf7-4$ -> USER UTTERANCE: 
+7224eb019715bd25cc799d87862cf7-4$ TO NODE: infoNode - 16460325754790153 - If you used your car for a pressing reason, you are entitled to 0,25€ per kilometer driven.
+7224eb019715bd25cc799d87862cf7-4$ ASKING NODE: infoNode - 16460325754790153 - If you used your car for a pressing reason, you are entitled to 0,25€ per kilometer driven.
+7224eb019715bd25cc799d87862cf7-4$ -> USER UTTERANCE: 
+7224eb019715bd25cc799d87862cf7-4$ TO NODE: infoNode - 16460325754790153 - If you used your car for a pressing reason, you are entitled to 0,25€ per kilometer driven.
+7224eb019715bd25cc799d87862cf7-4$ -> TURN REWARD: -1.0
+7224eb019715bd25cc799d87862cf7-4$ -> USER UTTERANCE: 
+7224eb019715bd25cc799d87862cf7-4$ TO NODE: infoNode - 16460327938891442 - Pressing personal reasons: Severe illness of a family member 
+ Poor health of the traveler 
+ Pressin
+7224eb019715bd25cc799d87862cf7-4$ -> TURN REWARD: -1.0
+7224eb019715bd25cc799d87862cf7-4$ -> USER UTTERANCE: 
+7224eb019715bd25cc799d87862cf7-4$ TO NODE: infoNode - 16460328708250870 - If you are also transporting other coworkers, you are entitled to 2 Cent per person und kilometer, f
+7224eb019715bd25cc799d87862cf7-4$ REACHED GOAL
+7224eb019715bd25cc799d87862cf7-4$ ASKING NODE: infoNode - 16460328708250870 - If you are also transporting other coworkers, you are entitled to 2 Cent per person und kilometer, f
+7224eb019715bd25cc799d87862cf7-4$ -> USER UTTERANCE: 
+7224eb019715bd25cc799d87862cf7-4$ TO NODE: infoNode - 16460328708250870 - If you are also transporting other coworkers, you are entitled to 2 Cent per person und kilometer, f
+7224eb019715bd25cc799d87862cf7-4$=> REACHED GOAL ONCE: True
+7224eb019715bd25cc799d87862cf7-4$=> ASKED GOAL ONCE: True
+7224eb019715bd25cc799d87862cf7-4$=> FINAL REWARD: 8.0
+7224eb019715bd25cc799d87862cf7-4$=> PERCIEVED LENGTH: 3
+7224eb019715bd25cc799d87862cf7-4$=> TOTAL LENGTH: 9
+7224eb019715bd25cc799d87862cf7-4$=> REACHED GOAL ONCE: True
+7224eb019715bd25cc799d87862cf7-4$=> ASKED GOAL ONCE: True
+7224eb019715bd25cc799d87862cf7-4$=> PERCIEVED LENGTH: 3
+USER: 7224eb019715bd25cc799d87862cf7 || QUALITY: 3
+USER: 7224eb019715bd25cc799d87862cf7 || LENGTH: 3
+273666715e559c45c6cc9a2e7f5033-3$ ======== RESET =========
+273666715e559c45c6cc9a2e7f5033-3$ GOAL: 16378349334755637 Outside of Germany, you are entitled to 30€ if you are staying with friends or family.
+273666715e559c45c6cc9a2e7f5033-3$ CONSTRAINTS: {}
+273666715e559c45c6cc9a2e7f5033-3$ INITIAL UTTERANCE: I am travelling to France. Can you tell me how much my accommodation allowance will be?
+273666715e559c45c6cc9a2e7f5033-3$ -> TURN REWARD: -1.0
+273666715e559c45c6cc9a2e7f5033-3$ -> USER UTTERANCE: 
+273666715e559c45c6cc9a2e7f5033-3$ TO NODE: userResponseNode - 16348058588084537 - Are you going on an intracity trip or a business trip?
+273666715e559c45c6cc9a2e7f5033-3$ -> TURN REWARD: -1.0
+273666715e559c45c6cc9a2e7f5033-3$ -> USER UTTERANCE: 
+273666715e559c45c6cc9a2e7f5033-3$ TO NODE: userResponseNode - 16348064261907944 - Did you get written permission from your supervisor?
+273666715e559c45c6cc9a2e7f5033-3$ -> TURN REWARD: -1.0
+273666715e559c45c6cc9a2e7f5033-3$ -> USER UTTERANCE: 
+273666715e559c45c6cc9a2e7f5033-3$ TO NODE: userInputNode - 16363752591243585 - What country are you traveling to?
+273666715e559c45c6cc9a2e7f5033-3$ -> TURN REWARD: -1.0
+273666715e559c45c6cc9a2e7f5033-3$ -> USER UTTERANCE: 
+273666715e559c45c6cc9a2e7f5033-3$ TO NODE: userInputNode - 16363753123487784 - What city are you traveling to?
+273666715e559c45c6cc9a2e7f5033-3$ -> AUTO SKIP LOGIC NODE: SUCCESS 16389695846089108
+273666715e559c45c6cc9a2e7f5033-3$ -> TURN REWARD: -1.0
+273666715e559c45c6cc9a2e7f5033-3$ -> USER UTTERANCE: 
+273666715e559c45c6cc9a2e7f5033-3$ TO NODE: infoNode - 16389695846089108 - For all  business trips (even for short trips or ones lasting only a single day) outside the country
+273666715e559c45c6cc9a2e7f5033-3$ -> TURN REWARD: -1.0
+273666715e559c45c6cc9a2e7f5033-3$ -> USER UTTERANCE: 
+273666715e559c45c6cc9a2e7f5033-3$ TO NODE: infoNode - 16363753477187975 - Please check the current COVID-19 travel warnings travel restrictions from the foreign ministry and 
+273666715e559c45c6cc9a2e7f5033-3$ -> TURN REWARD: -1.0
+273666715e559c45c6cc9a2e7f5033-3$ -> USER UTTERANCE: 
+273666715e559c45c6cc9a2e7f5033-3$ TO NODE: infoNode - 16363754346769013 - COVID-19: Business trips should be reduced to an absolute minimum and are only allowed when they are
+273666715e559c45c6cc9a2e7f5033-3$ -> TURN REWARD: -1.0
+273666715e559c45c6cc9a2e7f5033-3$ -> USER UTTERANCE: 
+273666715e559c45c6cc9a2e7f5033-3$ TO NODE: userInputNode - 16348093549280346 - Are you planning to extend your trip with private travel?
+273666715e559c45c6cc9a2e7f5033-3$ - VARIABLE NODE: REAL USER UTTERANCE BEFORE NLU: No
+273666715e559c45c6cc9a2e7f5033-3$ ASKING NODE: userInputNode - 16348093549280346 - Are you planning to extend your trip with private travel?
+273666715e559c45c6cc9a2e7f5033-3$ -> USER UTTERANCE: False
+273666715e559c45c6cc9a2e7f5033-3$ TO NODE: userInputNode - 16348093549280346 - Are you planning to extend your trip with private travel?
+273666715e559c45c6cc9a2e7f5033-3$ -> AUTO SKIP LOGIC NODE: SUCCESS 16348097487038694
+273666715e559c45c6cc9a2e7f5033-3$ -> TURN REWARD: -1.0
+273666715e559c45c6cc9a2e7f5033-3$ -> USER UTTERANCE: 
+273666715e559c45c6cc9a2e7f5033-3$ TO NODE: userResponseNode - 16348097487038694 - Which topic do you want to know more about?
+273666715e559c45c6cc9a2e7f5033-3$ -> TURN REWARD: -1.0
+273666715e559c45c6cc9a2e7f5033-3$ -> USER UTTERANCE: 
+273666715e559c45c6cc9a2e7f5033-3$ TO NODE: infoNode - 16378350683837525 - If the trip is being paid for by a third party (not from the university) or was offered to be paid f
+273666715e559c45c6cc9a2e7f5033-3$ -> TURN REWARD: -1.0
+273666715e559c45c6cc9a2e7f5033-3$ -> USER UTTERANCE: 
+273666715e559c45c6cc9a2e7f5033-3$ TO NODE: userInputNode - 16478801254732768 - What country are you traveling to?
+273666715e559c45c6cc9a2e7f5033-3$ -> TURN REWARD: -1.0
+273666715e559c45c6cc9a2e7f5033-3$ -> USER UTTERANCE: 
+273666715e559c45c6cc9a2e7f5033-3$ TO NODE: userResponseNode - 16370471522263677 - Where do you plan to stay
+273666715e559c45c6cc9a2e7f5033-3$ -> TURN REWARD: -1.0
+273666715e559c45c6cc9a2e7f5033-3$ -> USER UTTERANCE: 
+273666715e559c45c6cc9a2e7f5033-3$ TO NODE: infoNode - 16363811629822245 - It is required that the bill is addressed to your employer with your name entered as the guest.
+273666715e559c45c6cc9a2e7f5033-3$ -> AUTO SKIP LOGIC NODE: SUCCESS 16365521324065600
+273666715e559c45c6cc9a2e7f5033-3$ -> TURN REWARD: -1.0
+273666715e559c45c6cc9a2e7f5033-3$ -> USER UTTERANCE: 
+273666715e559c45c6cc9a2e7f5033-3$ TO NODE: infoNode - 16365521324065600 - In {{ COUNTRY }} you have a budget of up to 90€ (or 120€ in cities with a population of more than 10
+273666715e559c45c6cc9a2e7f5033-3$ ASKING NODE: infoNode - 16365521324065600 - In {{ COUNTRY }} you have a budget of up to 90€ (or 120€ in cities with a population of more than 10
+273666715e559c45c6cc9a2e7f5033-3$ -> USER UTTERANCE: 
+273666715e559c45c6cc9a2e7f5033-3$ TO NODE: infoNode - 16365521324065600 - In {{ COUNTRY }} you have a budget of up to 90€ (or 120€ in cities with a population of more than 10
+273666715e559c45c6cc9a2e7f5033-3$ -> TURN REWARD: -1.0
+273666715e559c45c6cc9a2e7f5033-3$ -> USER UTTERANCE: 
+273666715e559c45c6cc9a2e7f5033-3$ TO NODE: infoNode - 16363810595542638 - Exceeding the accommodation allowance can be allowed on a case-by-case basis when justified as neces
+273666715e559c45c6cc9a2e7f5033-3$ -> TURN REWARD: -1.0
+273666715e559c45c6cc9a2e7f5033-3$ -> USER UTTERANCE: 
+273666715e559c45c6cc9a2e7f5033-3$ TO NODE: userResponseNode - 16370471523444253 - Do have any more questions about booking an accommodation
+273666715e559c45c6cc9a2e7f5033-3$ -> TURN REWARD: -1.0
+273666715e559c45c6cc9a2e7f5033-3$ -> USER UTTERANCE: 
+273666715e559c45c6cc9a2e7f5033-3$ TO NODE: userResponseNode - 16370471522263677 - Where do you plan to stay
+273666715e559c45c6cc9a2e7f5033-3$ -> TURN REWARD: -1.0
+273666715e559c45c6cc9a2e7f5033-3$ -> USER UTTERANCE: 
+273666715e559c45c6cc9a2e7f5033-3$ TO NODE: infoNode - 16363811629822245 - It is required that the bill is addressed to your employer with your name entered as the guest.
+273666715e559c45c6cc9a2e7f5033-3$ -> AUTO SKIP LOGIC NODE: SUCCESS 16365521324065600
+273666715e559c45c6cc9a2e7f5033-3$ -> TURN REWARD: -1.0
+273666715e559c45c6cc9a2e7f5033-3$ -> USER UTTERANCE: 
+273666715e559c45c6cc9a2e7f5033-3$ TO NODE: infoNode - 16365521324065600 - In {{ COUNTRY }} you have a budget of up to 90€ (or 120€ in cities with a population of more than 10
+273666715e559c45c6cc9a2e7f5033-3$ => STOPPED POLICY BEFORE REPEATING
+273666715e559c45c6cc9a2e7f5033-3$=> REACHED GOAL ONCE: False
+273666715e559c45c6cc9a2e7f5033-3$=> ASKED GOAL ONCE: False
+273666715e559c45c6cc9a2e7f5033-3$=> PERCIEVED LENGTH: 3
+=== USER (273666715e559c45c6cc9a2e7f5033) RESTART === 
+d9a101002e1d23b86bf785bab7b5e3-3$ ======== RESET =========
+d9a101002e1d23b86bf785bab7b5e3-3$ GOAL: 16365521324065600 In {{ COUNTRY }} you have a budget of up to 90€ (or 120€ in cities with a population of more than 10
+d9a101002e1d23b86bf785bab7b5e3-3$ CONSTRAINTS: {}
+d9a101002e1d23b86bf785bab7b5e3-3$ INITIAL UTTERANCE: How much money do I get for going on a business trip to Tokyo for 10 days and I prefer to stay in a hotel?
+d9a101002e1d23b86bf785bab7b5e3-3$ -> TURN REWARD: -1.0
+d9a101002e1d23b86bf785bab7b5e3-3$ -> USER UTTERANCE: 
+d9a101002e1d23b86bf785bab7b5e3-3$ TO NODE: userResponseNode - 16348058588084537 - Are you going on an intracity trip or a business trip?
+d9a101002e1d23b86bf785bab7b5e3-3$ -> TURN REWARD: -1.0
+d9a101002e1d23b86bf785bab7b5e3-3$ -> USER UTTERANCE: 
+d9a101002e1d23b86bf785bab7b5e3-3$ TO NODE: userResponseNode - 16348064261907944 - Did you get written permission from your supervisor?
+d9a101002e1d23b86bf785bab7b5e3-3$ -> TURN REWARD: -1.0
+d9a101002e1d23b86bf785bab7b5e3-3$ -> USER UTTERANCE: 
+d9a101002e1d23b86bf785bab7b5e3-3$ TO NODE: userInputNode - 16363752591243585 - What country are you traveling to?
+d9a101002e1d23b86bf785bab7b5e3-3$ - VARIABLE NODE: REAL USER UTTERANCE BEFORE NLU: Japan
+d9a101002e1d23b86bf785bab7b5e3-3$ ASKING NODE: userInputNode - 16363752591243585 - What country are you traveling to?
+d9a101002e1d23b86bf785bab7b5e3-3$ -> USER UTTERANCE: Japan
+d9a101002e1d23b86bf785bab7b5e3-3$ TO NODE: userInputNode - 16363752591243585 - What country are you traveling to?
+d9a101002e1d23b86bf785bab7b5e3-3$ -> TURN REWARD: -1.0
+d9a101002e1d23b86bf785bab7b5e3-3$ -> USER UTTERANCE: 
+d9a101002e1d23b86bf785bab7b5e3-3$ TO NODE: userInputNode - 16363753123487784 - What city are you traveling to?
+d9a101002e1d23b86bf785bab7b5e3-3$ -> AUTO SKIP LOGIC NODE: SUCCESS 16389695846089108
+d9a101002e1d23b86bf785bab7b5e3-3$ -> TURN REWARD: -1.0
+d9a101002e1d23b86bf785bab7b5e3-3$ -> USER UTTERANCE: 
+d9a101002e1d23b86bf785bab7b5e3-3$ TO NODE: infoNode - 16389695846089108 - For all  business trips (even for short trips or ones lasting only a single day) outside the country
+d9a101002e1d23b86bf785bab7b5e3-3$ -> TURN REWARD: -1.0
+d9a101002e1d23b86bf785bab7b5e3-3$ -> USER UTTERANCE: 
+d9a101002e1d23b86bf785bab7b5e3-3$ TO NODE: infoNode - 16363753477187975 - Please check the current COVID-19 travel warnings travel restrictions from the foreign ministry and 
+d9a101002e1d23b86bf785bab7b5e3-3$ -> TURN REWARD: -1.0
+d9a101002e1d23b86bf785bab7b5e3-3$ -> USER UTTERANCE: 
+d9a101002e1d23b86bf785bab7b5e3-3$ TO NODE: infoNode - 16363754346769013 - COVID-19: Business trips should be reduced to an absolute minimum and are only allowed when they are
+d9a101002e1d23b86bf785bab7b5e3-3$ -> TURN REWARD: -1.0
+d9a101002e1d23b86bf785bab7b5e3-3$ -> USER UTTERANCE: 
+d9a101002e1d23b86bf785bab7b5e3-3$ TO NODE: userInputNode - 16348093549280346 - Are you planning to extend your trip with private travel?
+d9a101002e1d23b86bf785bab7b5e3-3$ - VARIABLE NODE: REAL USER UTTERANCE BEFORE NLU: No
+d9a101002e1d23b86bf785bab7b5e3-3$ ASKING NODE: userInputNode - 16348093549280346 - Are you planning to extend your trip with private travel?
+d9a101002e1d23b86bf785bab7b5e3-3$ -> USER UTTERANCE: False
+d9a101002e1d23b86bf785bab7b5e3-3$ TO NODE: userInputNode - 16348093549280346 - Are you planning to extend your trip with private travel?
+d9a101002e1d23b86bf785bab7b5e3-3$ -> AUTO SKIP LOGIC NODE: SUCCESS 16348097487038694
+d9a101002e1d23b86bf785bab7b5e3-3$ -> TURN REWARD: -1.0
+d9a101002e1d23b86bf785bab7b5e3-3$ -> USER UTTERANCE: 
+d9a101002e1d23b86bf785bab7b5e3-3$ TO NODE: userResponseNode - 16348097487038694 - Which topic do you want to know more about?
+d9a101002e1d23b86bf785bab7b5e3-3$ -> TURN REWARD: -1.0
+d9a101002e1d23b86bf785bab7b5e3-3$ -> USER UTTERANCE: 
+d9a101002e1d23b86bf785bab7b5e3-3$ TO NODE: infoNode - 16378350683837525 - If the trip is being paid for by a third party (not from the university) or was offered to be paid f
+d9a101002e1d23b86bf785bab7b5e3-3$ -> TURN REWARD: -1.0
+d9a101002e1d23b86bf785bab7b5e3-3$ -> USER UTTERANCE: 
+d9a101002e1d23b86bf785bab7b5e3-3$ TO NODE: userInputNode - 16478801254732768 - What country are you traveling to?
+d9a101002e1d23b86bf785bab7b5e3-3$ -> TURN REWARD: -1.0
+d9a101002e1d23b86bf785bab7b5e3-3$ -> USER UTTERANCE: 
+d9a101002e1d23b86bf785bab7b5e3-3$ TO NODE: userResponseNode - 16370471522263677 - Where do you plan to stay
+d9a101002e1d23b86bf785bab7b5e3-3$ -> TURN REWARD: -1.0
+d9a101002e1d23b86bf785bab7b5e3-3$ -> USER UTTERANCE: 
+d9a101002e1d23b86bf785bab7b5e3-3$ TO NODE: infoNode - 16363811629822245 - It is required that the bill is addressed to your employer with your name entered as the guest.
+d9a101002e1d23b86bf785bab7b5e3-3$ -> AUTO SKIP LOGIC NODE: SUCCESS 16365521324065600
+d9a101002e1d23b86bf785bab7b5e3-3$ -> REACHED GOAL
+d9a101002e1d23b86bf785bab7b5e3-3$ -> TURN REWARD: 14.0
+d9a101002e1d23b86bf785bab7b5e3-3$ -> USER UTTERANCE: 
+d9a101002e1d23b86bf785bab7b5e3-3$ TO NODE: infoNode - 16365521324065600 - In {{ COUNTRY }} you have a budget of up to 90€ (or 120€ in cities with a population of more than 10
+d9a101002e1d23b86bf785bab7b5e3-3$ ASKING NODE: infoNode - 16365521324065600 - In {{ COUNTRY }} you have a budget of up to 90€ (or 120€ in cities with a population of more than 10
+d9a101002e1d23b86bf785bab7b5e3-3$ -> USER UTTERANCE: 
+d9a101002e1d23b86bf785bab7b5e3-3$ TO NODE: infoNode - 16365521324065600 - In {{ COUNTRY }} you have a budget of up to 90€ (or 120€ in cities with a population of more than 10
+d9a101002e1d23b86bf785bab7b5e3-3$=> REACHED GOAL ONCE: True
+d9a101002e1d23b86bf785bab7b5e3-3$=> ASKED GOAL ONCE: True
+d9a101002e1d23b86bf785bab7b5e3-3$=> FINAL REWARD: 16.0
+d9a101002e1d23b86bf785bab7b5e3-3$=> PERCIEVED LENGTH: 4
+d9a101002e1d23b86bf785bab7b5e3-3$=> TOTAL LENGTH: 17
+d9a101002e1d23b86bf785bab7b5e3-3$=> REACHED GOAL ONCE: True
+d9a101002e1d23b86bf785bab7b5e3-3$=> ASKED GOAL ONCE: True
+d9a101002e1d23b86bf785bab7b5e3-3$=> PERCIEVED LENGTH: 4
+USER: d9a101002e1d23b86bf785bab7b5e3 || QUALITY: 4
+USER: d9a101002e1d23b86bf785bab7b5e3 || LENGTH: 3
+273666715e559c45c6cc9a2e7f5033-4$ ======== RESET =========
+273666715e559c45c6cc9a2e7f5033-4$ GOAL: 16378349334755637 Outside of Germany, you are entitled to 30€ if you are staying with friends or family.
+273666715e559c45c6cc9a2e7f5033-4$ CONSTRAINTS: {}
+273666715e559c45c6cc9a2e7f5033-4$ INITIAL UTTERANCE: I am traveling to France and will be staying at my brother's apartment. Can you tell me how much my accommodation allowance will be
+273666715e559c45c6cc9a2e7f5033-4$ -> TURN REWARD: -1.0
+273666715e559c45c6cc9a2e7f5033-4$ -> USER UTTERANCE: 
+273666715e559c45c6cc9a2e7f5033-4$ TO NODE: userResponseNode - 16348058588084537 - Are you going on an intracity trip or a business trip?
+273666715e559c45c6cc9a2e7f5033-4$ -> TURN REWARD: -1.0
+273666715e559c45c6cc9a2e7f5033-4$ -> USER UTTERANCE: 
+273666715e559c45c6cc9a2e7f5033-4$ TO NODE: userResponseNode - 16348064261907944 - Did you get written permission from your supervisor?
+273666715e559c45c6cc9a2e7f5033-4$ -> TURN REWARD: -1.0
+273666715e559c45c6cc9a2e7f5033-4$ -> USER UTTERANCE: 
+273666715e559c45c6cc9a2e7f5033-4$ TO NODE: userInputNode - 16363752591243585 - What country are you traveling to?
+273666715e559c45c6cc9a2e7f5033-4$ -> TURN REWARD: -1.0
+273666715e559c45c6cc9a2e7f5033-4$ -> USER UTTERANCE: 
+273666715e559c45c6cc9a2e7f5033-4$ TO NODE: userInputNode - 16363753123487784 - What city are you traveling to?
+273666715e559c45c6cc9a2e7f5033-4$ -> AUTO SKIP LOGIC NODE: SUCCESS 16389695846089108
+273666715e559c45c6cc9a2e7f5033-4$ -> TURN REWARD: -1.0
+273666715e559c45c6cc9a2e7f5033-4$ -> USER UTTERANCE: 
+273666715e559c45c6cc9a2e7f5033-4$ TO NODE: infoNode - 16389695846089108 - For all  business trips (even for short trips or ones lasting only a single day) outside the country
+273666715e559c45c6cc9a2e7f5033-4$ -> TURN REWARD: -1.0
+273666715e559c45c6cc9a2e7f5033-4$ -> USER UTTERANCE: 
+273666715e559c45c6cc9a2e7f5033-4$ TO NODE: infoNode - 16363753477187975 - Please check the current COVID-19 travel warnings travel restrictions from the foreign ministry and 
+273666715e559c45c6cc9a2e7f5033-4$ -> TURN REWARD: -1.0
+273666715e559c45c6cc9a2e7f5033-4$ -> USER UTTERANCE: 
+273666715e559c45c6cc9a2e7f5033-4$ TO NODE: infoNode - 16363754346769013 - COVID-19: Business trips should be reduced to an absolute minimum and are only allowed when they are
+273666715e559c45c6cc9a2e7f5033-4$ -> TURN REWARD: -1.0
+273666715e559c45c6cc9a2e7f5033-4$ -> USER UTTERANCE: 
+273666715e559c45c6cc9a2e7f5033-4$ TO NODE: userInputNode - 16348093549280346 - Are you planning to extend your trip with private travel?
+273666715e559c45c6cc9a2e7f5033-4$ - VARIABLE NODE: REAL USER UTTERANCE BEFORE NLU: no
+273666715e559c45c6cc9a2e7f5033-4$ ASKING NODE: userInputNode - 16348093549280346 - Are you planning to extend your trip with private travel?
+273666715e559c45c6cc9a2e7f5033-4$ -> USER UTTERANCE: False
+273666715e559c45c6cc9a2e7f5033-4$ TO NODE: userInputNode - 16348093549280346 - Are you planning to extend your trip with private travel?
+273666715e559c45c6cc9a2e7f5033-4$ -> AUTO SKIP LOGIC NODE: SUCCESS 16348097487038694
+273666715e559c45c6cc9a2e7f5033-4$ -> TURN REWARD: -1.0
+273666715e559c45c6cc9a2e7f5033-4$ -> USER UTTERANCE: 
+273666715e559c45c6cc9a2e7f5033-4$ TO NODE: userResponseNode - 16348097487038694 - Which topic do you want to know more about?
+273666715e559c45c6cc9a2e7f5033-4$ -> TURN REWARD: -1.0
+273666715e559c45c6cc9a2e7f5033-4$ -> USER UTTERANCE: 
+273666715e559c45c6cc9a2e7f5033-4$ TO NODE: infoNode - 16378350683837525 - If the trip is being paid for by a third party (not from the university) or was offered to be paid f
+273666715e559c45c6cc9a2e7f5033-4$ -> TURN REWARD: -1.0
+273666715e559c45c6cc9a2e7f5033-4$ -> USER UTTERANCE: 
+273666715e559c45c6cc9a2e7f5033-4$ TO NODE: userInputNode - 16478801254732768 - What country are you traveling to?
+273666715e559c45c6cc9a2e7f5033-4$ -> TURN REWARD: -1.0
+273666715e559c45c6cc9a2e7f5033-4$ -> USER UTTERANCE: 
+273666715e559c45c6cc9a2e7f5033-4$ TO NODE: userResponseNode - 16370471522263677 - Where do you plan to stay
+273666715e559c45c6cc9a2e7f5033-4$ -> TURN REWARD: -1.0
+273666715e559c45c6cc9a2e7f5033-4$ -> USER UTTERANCE: 
+273666715e559c45c6cc9a2e7f5033-4$ TO NODE: infoNode - 16363811629822245 - It is required that the bill is addressed to your employer with your name entered as the guest.
+273666715e559c45c6cc9a2e7f5033-4$ -> AUTO SKIP LOGIC NODE: SUCCESS 16365521324065600
+273666715e559c45c6cc9a2e7f5033-4$ -> TURN REWARD: -1.0
+273666715e559c45c6cc9a2e7f5033-4$ -> USER UTTERANCE: 
+273666715e559c45c6cc9a2e7f5033-4$ TO NODE: infoNode - 16365521324065600 - In {{ COUNTRY }} you have a budget of up to 90€ (or 120€ in cities with a population of more than 10
+273666715e559c45c6cc9a2e7f5033-4$ ASKING NODE: infoNode - 16365521324065600 - In {{ COUNTRY }} you have a budget of up to 90€ (or 120€ in cities with a population of more than 10
+273666715e559c45c6cc9a2e7f5033-4$ -> USER UTTERANCE: 
+273666715e559c45c6cc9a2e7f5033-4$ TO NODE: infoNode - 16365521324065600 - In {{ COUNTRY }} you have a budget of up to 90€ (or 120€ in cities with a population of more than 10
+273666715e559c45c6cc9a2e7f5033-4$ -> TURN REWARD: -1.0
+273666715e559c45c6cc9a2e7f5033-4$ -> USER UTTERANCE: 
+273666715e559c45c6cc9a2e7f5033-4$ TO NODE: infoNode - 16363810595542638 - Exceeding the accommodation allowance can be allowed on a case-by-case basis when justified as neces
+273666715e559c45c6cc9a2e7f5033-4$ -> TURN REWARD: -1.0
+273666715e559c45c6cc9a2e7f5033-4$ -> USER UTTERANCE: 
+273666715e559c45c6cc9a2e7f5033-4$ TO NODE: userResponseNode - 16370471523444253 - Do have any more questions about booking an accommodation
+273666715e559c45c6cc9a2e7f5033-4$ -> TURN REWARD: -1.0
+273666715e559c45c6cc9a2e7f5033-4$ -> USER UTTERANCE: 
+273666715e559c45c6cc9a2e7f5033-4$ TO NODE: userResponseNode - 16370471522263677 - Where do you plan to stay
+273666715e559c45c6cc9a2e7f5033-4$ -> TURN REWARD: -1.0
+273666715e559c45c6cc9a2e7f5033-4$ -> USER UTTERANCE: 
+273666715e559c45c6cc9a2e7f5033-4$ TO NODE: infoNode - 16363811629822245 - It is required that the bill is addressed to your employer with your name entered as the guest.
+273666715e559c45c6cc9a2e7f5033-4$ -> AUTO SKIP LOGIC NODE: SUCCESS 16365521324065600
+273666715e559c45c6cc9a2e7f5033-4$ -> TURN REWARD: -1.0
+273666715e559c45c6cc9a2e7f5033-4$ -> USER UTTERANCE: 
+273666715e559c45c6cc9a2e7f5033-4$ TO NODE: infoNode - 16365521324065600 - In {{ COUNTRY }} you have a budget of up to 90€ (or 120€ in cities with a population of more than 10
+273666715e559c45c6cc9a2e7f5033-4$ => STOPPED POLICY BEFORE REPEATING
+273666715e559c45c6cc9a2e7f5033-4$=> REACHED GOAL ONCE: False
+273666715e559c45c6cc9a2e7f5033-4$=> ASKED GOAL ONCE: False
+273666715e559c45c6cc9a2e7f5033-4$=> PERCIEVED LENGTH: 3
+USER: 273666715e559c45c6cc9a2e7f5033 || QUALITY: 2
+USER: 273666715e559c45c6cc9a2e7f5033 || LENGTH: 4

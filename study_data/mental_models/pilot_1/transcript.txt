@@ -1,0 +1,488 @@
+USER: 51c10c217bcecd31011f6de8bd7139 (POLICY: faq)
+GOAL TEXT: You want more information about how to plan a research semester.
+RESET
+GOAL NODE: 16387868859695624 Thank you for using the business travel chatbot.Please let us know about your experience by filling
+USER: I want more information about how to plan a research semester.
+SYSTEM: (NODE: 16370501863636503) As there has been no reallocation- your research s
+DIALOG LENGTH: 1
+
+USER: 51c10c217bcecd31011f6de8bd7139 (POLICY: faq)
+GOAL TEXT: You are traveling with another colleague and want to know if you have to share a room or if each of you can book your own
+RESET
+GOAL NODE: 16363834594338823 Yes, staying in a room by yourself is allowed
+USER: Do I have to share a room or can I book my own room?
+SYSTEM: (NODE: 16363834594338823) Yes- staying in a room by yourself is allowed
+DIALOG END: FAILURE
+DIALOG LENGTH: 1
+
+USER: 51c10c217bcecd31011f6de8bd7139 (POLICY: faq)
+GOAL TEXT: You want to figure out how much money you can get reimbursed for your travel. <ul><li>You used your own car</li><li>You took two colleagues with you</li></ul>
+RESET
+GOAL NODE: 16460328708250870 If you are also transporting other coworkers, you are entitled to 2 Cent per person und kilometer, f
+USER: How much much can I be reimbursed for if I use my own car and if i took two colleagues with me?
+SYSTEM: (NODE: 16365524053616136) Rental cars can be reimbursed if there is a pressi
+DIALOG END: FAILURE
+DIALOG LENGTH: 1
+
+USER: 2fae24da56216ebe2a668c4f5116f8 (POLICY: hdc)
+GOAL TEXT: You want to know what forms you will need for a business trip
+RESET
+GOAL NODE: 16387868859695624 Thank you for using the business travel chatbot.Please let us know about your experience by filling
+USER: Problem/emergency during a business trip
+SYSTEM: (NODE: 16460436532310883) What emergency are you experiencing?
+USER: Transport missed or cancelled
+SYSTEM: (NODE: 16460439592347465) If you are at fault, costs cannot be reimbursed.
+SYSTEM: (NODE: 16460439966919842) If you are not at fault (e.g., a conference ran over), costs can be reimbursed if a suitable justifi
+SYSTEM: (NODE: 16348058621438633) What topic do you have questions about? You can either click on an answer from the suggested topics
+USER: I have missed my flight home due to traffic out of my control
+SYSTEM: (NODE: 16460436532310883) What emergency are you experiencing?
+USER: Transport missed or cancelled
+SYSTEM: (NODE: 16460439592347465) If you are at fault, costs cannot be reimbursed.
+SYSTEM: (NODE: 16460439966919842) If you are not at fault (e.g., a conference ran over), costs can be reimbursed if a suitable justifi
+SYSTEM: (NODE: 16348058621438633) What topic do you have questions about? You can either click on an answer from the suggested topics
+USER: cancel a trip
+SYSTEM: (NODE: 16457053159041482) You should try to cancel anything which has already been booked as quickly as possible. Necessary ex
+SYSTEM: (NODE: 16348058621438633) What topic do you have questions about? You can either click on an answer from the suggested topics
+USER: When is it too late to cancel the trip
+SYSTEM: (NODE: 16457053159041482) You should try to cancel anything which has already been booked as quickly as possible. Necessary ex
+SYSTEM: (NODE: 16348058621438633) What topic do you have questions about? You can either click on an answer from the suggested topics
+USER: Forms, deadlines, and procedures
+SYSTEM: (NODE: 16430179741642982) Are you looking for a form or looking for help filling a form out?
+USER: What forms will I need for a business trip
+SYSTEM: (NODE: 16391225409774083) Which forms do you need?
+USER: Apply for a business trip
+SYSTEM: (NODE: 16391241972677029) Application for business travel:
+SYSTEM: (NODE: 16391274636239225) Do you need any other forms?
+USER: No
+DIALOG LENGTH: 17
+
+USER: 2fae24da56216ebe2a668c4f5116f8 (POLICY: hdc)
+GOAL TEXT: You have to cancel your trip. You want to know if the money you have already paid can be reimbursed
+RESET
+GOAL NODE: 16457053159041482 You should try to cancel anything which has already been booked as quickly as possible. Necessary ex
+USER: cancel a trip
+SYSTEM: (NODE: 16457053159041482) You should try to cancel anything which has already been booked as quickly as possible. Necessary ex
+DIALOG END: SUCCESS
+DIALOG LENGTH: 2
+
+USER: 2fae24da56216ebe2a668c4f5116f8 (POLICY: hdc)
+GOAL TEXT: You want to know how the reimbursement process works for research semester.<ul><li>You plan to bring your family with you</li></ul>
+RESET
+GOAL NODE: 16370483534787100 Your business trip must be planned as though you were traveling alone (without your family). How doe
+USER: Research semester
+How long will your research semester last?
+USER: (PRE-NLU) 1 month
+USER: (POST-NLU) 720
+SYSTEM: (NODE: 16460422136134149) If you are traveling for more than 4 weeks and need help finding accommodations, please contact the
+SYSTEM: (NODE: 16353297472197738) Is this as part of a reallocation?
+USER: Yes
+SYSTEM: (NODE: 16437227645843044) If there was a reallocation/delegation, only the travel to the new location and the return trip can
+SYSTEM: (NODE: 16384313191857195) Do you have any further questions?
+USER: How does the reimbursement process work for the research semester
+DIALOG END: FAILURE
+DIALOG LENGTH: 6
+
+USER: 918d608670e305a3ebc70bad52dc96 (POLICY: faq)
+GOAL TEXT: You want to know what you need to consider when planning a business trip outside your city.
+RESET
+GOAL NODE: 16387868859695624 Thank you for using the business travel chatbot.Please let us know about your experience by filling
+USER: business travel
+SYSTEM: (NODE: 16363751845458600) Business trips are business related travel outside
+DIALOG LENGTH: 1
+RESET
+GOAL NODE: 16387868859695624 Thank you for using the business travel chatbot.Please let us know about your experience by filling
+USER: how to plan a trip
+SYSTEM: (NODE: 16370483534787100) Your business trip must be planned as though you w
+DIALOG LENGTH: 1
+
+USER: 918d608670e305a3ebc70bad52dc96 (POLICY: faq)
+GOAL TEXT: You want to know if you can get reimbursed if you reserve a seat for yourself on the train
+RESET
+GOAL NODE: 16363756478730906 Seat reservations are allowed for train travel
+USER: refunding a reserved seat
+SYSTEM: (NODE: 16351719713796576) Booking a "Business"  class ticket is allowed on f
+DIALOG END: FAILURE
+DIALOG LENGTH: 1
+
+USER: 918d608670e305a3ebc70bad52dc96 (POLICY: faq)
+GOAL TEXT: You are trying to figure out how much money you get for booking somewhere to stay on your trip. <ul><li>Your trip is to Tokyo, Japan</li><li>Your trip should take 10 days</li><li>You plan to stay in a hotel</li></ul>
+RESET
+GOAL NODE: 16365521324065600 In {{ COUNTRY }} you have a budget of up to 90€ (or 120€ in cities with a population of more than 10
+USER: pricing hotel in japan
+SYSTEM: (NODE: 16365521324065600) In {{ COUNTRY }} you have a budget of up to 90€ (o
+DIALOG END: FAILURE
+DIALOG LENGTH: 1
+
+USER: b4b8f1d54afc890a7264858b7e3167 (POLICY: cts)
+GOAL TEXT: You want to know more about choosing/booking transportation mode of your choice for your trip outside your country.
+RESET
+GOAL NODE: 16387868859695624 Thank you for using the business travel chatbot.Please let us know about your experience by filling
+USER: Book a trip
+DIALOG LENGTH: 1
+RESET
+GOAL NODE: 16387868859695624 Thank you for using the business travel chatbot.Please let us know about your experience by filling
+USER: Book a trip
+SYSTEM: (NODE: 16348058588084537) Are you going on an intracity trip or a business trip?
+USER: Business trip
+SYSTEM: (NODE: 16348064261907944) Did you get written permission from your supervisor?
+USER: yes
+What country are you traveling to?
+USER: (PRE-NLU) Germany
+USER: (POST-NLU) Germany
+DIALOG LENGTH: 4
+RESET
+GOAL NODE: 16387868859695624 Thank you for using the business travel chatbot.Please let us know about your experience by filling
+USER: Problem/emergency during a business trip
+DIALOG LENGTH: 1
+RESET
+GOAL NODE: 16387868859695624 Thank you for using the business travel chatbot.Please let us know about your experience by filling
+USER: Booking transport for business trip
+SYSTEM: (NODE: 16354905244322603) Content: Why was it introduced: To show the services provided both internally and from MDMedicus
+SYSTEM: (NODE: 16363756081293233) You can book tickets for public transportation yourself
+SYSTEM: (NODE: 16363756081293233) You can book tickets for public transportation yourself
+SYSTEM: (NODE: 16363756081293233) You can book tickets for public transportation yourself
+How long will your research semester last?
+USER: (PRE-NLU) 3 weeks
+USER: (POST-NLU) 504
+SYSTEM: (NODE: 16437227645843044) If there was a reallocation/delegation, only the travel to the new location and the return trip can
+DIALOG LENGTH: 7
+RESET
+GOAL NODE: 16387868859695624 Thank you for using the business travel chatbot.Please let us know about your experience by filling
+USER: choosing transportation on business trip
+DIALOG LENGTH: 1
+
+USER: b4b8f1d54afc890a7264858b7e3167 (POLICY: cts)
+GOAL TEXT: You are planning on attending a conference and want to know if the membership fee can be reimbursed
+DIALOG END: FAILURE
+DIALOG LENGTH: 1
+
+USER: b4b8f1d54afc890a7264858b7e3167 (POLICY: cts)
+GOAL TEXT: You are planning on attending a conference and want to know if the membership fee can be reimbursed
+DIALOG END: FAILURE
+DIALOG LENGTH: 1
+
+USER: b4b8f1d54afc890a7264858b7e3167 (POLICY: cts)
+GOAL TEXT: You are planning on attending a conference and want to know if the membership fee can be reimbursed
+DIALOG END: FAILURE
+DIALOG LENGTH: 1
+
+USER: b4b8f1d54afc890a7264858b7e3167 (POLICY: cts)
+GOAL TEXT: You are planning on attending a conference and want to know if the membership fee can be reimbursed
+DIALOG END: FAILURE
+DIALOG LENGTH: 1
+
+USER: b4b8f1d54afc890a7264858b7e3167 (POLICY: cts)
+GOAL TEXT: You are planning on attending a conference and want to know if the membership fee can be reimbursed
+DIALOG END: FAILURE
+DIALOG LENGTH: 1
+RESET
+GOAL NODE: 16384329210117153 Conference fees are reimbursable.
+USER: conference membership fee reimbursement
+SYSTEM: (NODE: 16384329210117153) Conference fees are reimbursable.
+DIALOG END: SUCCESS
+DIALOG LENGTH: 2
+
+USER: b4b8f1d54afc890a7264858b7e3167 (POLICY: cts)
+GOAL TEXT: You want to know how much money you can get reimbursed for for your accommodations. <ul><li>You are traveling to France for your next trip</li><li>You plan to stay with your brother in his apartment. </li></ul>
+RESET
+GOAL NODE: 16378349334755637 Outside of Germany, you are entitled to 30€ if you are staying with friends or family.
+USER: reimbursement for business trip accomodation
+What country are you traveling to?
+USER: (PRE-NLU) France
+USER: (POST-NLU) France
+Are you planning to extend your trip with private travel?
+USER: (PRE-NLU) no
+USER: (POST-NLU) False
+SYSTEM: (NODE: 16365623179506925) Resort taxes may be applied to trips outside of Germany.
+SYSTEM: (NODE: 16365623179506925) Resort taxes may be applied to trips outside of Germany.
+SYSTEM: (NODE: 16365623179506925) Resort taxes may be applied to trips outside of Germany.
+SYSTEM: (NODE: 16365623179506925) Resort taxes may be applied to trips outside of Germany.
+SYSTEM: (NODE: 16365623179506925) Resort taxes may be applied to trips outside of Germany.
+SYSTEM: (NODE: 16365623179506925) Resort taxes may be applied to trips outside of Germany.
+SYSTEM: (NODE: 16365623179506925) Resort taxes may be applied to trips outside of Germany.
+SYSTEM: (NODE: 16365623179506925) Resort taxes may be applied to trips outside of Germany.
+DIALOG END: FAILURE
+DIALOG LENGTH: 11
+
+USER: 7339b44f18de1d0d46a257f03e820d (POLICY: hdc)
+GOAL TEXT: You want to know what you need to consider when planning a business trip outside your city.
+RESET
+GOAL NODE: 16387868859695624 Thank you for using the business travel chatbot.Please let us know about your experience by filling
+USER: Book a trip
+SYSTEM: (NODE: 16348058588084537) Are you going on an intracity trip or a business trip?
+USER: Intracity business trip
+SYSTEM: (NODE: 16348070558358676) Did you get verbal permission from your supervisor?
+USER: Yes
+SYSTEM: (NODE: 16348071239272239) Do you want to know more about booking Transportation or about ancillary costs?
+USER: Transportation
+SYSTEM: (NODE: 16348100109577394) What type of transportation would you like?
+USER: Train
+SYSTEM: (NODE: 16363756478730906) Seat reservations are allowed for train travel
+SYSTEM: (NODE: 16365527610579139) Booking a first class train ticket is only allowed for distances of more than 100km.
+SYSTEM: (NODE: 16351756063145903) You can book train tickets yourself (through the DB website, at their counter / ticket machine) or t
+SYSTEM: (NODE: 16351756667261880) Do you have any other questions about booking transportation?
+USER: no
+SYSTEM: (NODE: 16384313191857195) Do you have any further questions?
+USER: Yes
+SYSTEM: (NODE: 16348058621438633) What topic do you have questions about? You can either click on an answer from the suggested topics
+USER: Travel Risk Management
+SYSTEM: (NODE: 16353412627443913) Travel Safety/ Travel Risk Management: What would you like to know about? Emergency help
+USER: What do I need to consider?
+SYSTEM: (NODE: 16354038874355911) What would you like to know about? Information Before the start of a Business trip
+USER: Before the start of a business trip
+SYSTEM: (NODE: 16389562608833278) Please note the  current COVID-19 travel warnings posted by the  and restrictions foreign ministry a
+SYSTEM: (NODE: 16370678190615289) Please use the country database  to inform yourself about possible  Risks related to your trip. It i
+SYSTEM: (NODE: 16370678856758681) The country database is available in German and English.  Countries are divided into risk classes: g
+SYSTEM: (NODE: 16384313191857195) Do you have any further questions?
+USER: Yes
+SYSTEM: (NODE: 16348058621438633) What topic do you have questions about? You can either click on an answer from the suggested topics
+USER: Problem/emergency during a business trip
+SYSTEM: (NODE: 16460436532310883) What emergency are you experiencing?
+USER: Transport missed or cancelled
+SYSTEM: (NODE: 16460439592347465) If you are at fault, costs cannot be reimbursed.
+SYSTEM: (NODE: 16460439966919842) If you are not at fault (e.g., a conference ran over), costs can be reimbursed if a suitable justifi
+SYSTEM: (NODE: 16348058621438633) What topic do you have questions about? You can either click on an answer from the suggested topics
+USER: Problem/emergency during a business trip
+SYSTEM: (NODE: 16460436532310883) What emergency are you experiencing?
+USER: Medical emergency
+SYSTEM: (NODE: 16370679473901470) What do I do in an emergency on a business trip? Please call the number listed on the Emergency-Card
+SYSTEM: (NODE: 16384313191857195) Do you have any further questions?
+USER: Yes
+SYSTEM: (NODE: 16348058621438633) What topic do you have questions about? You can either click on an answer from the suggested topics
+USER: Forms, deadlines, and procedures
+SYSTEM: (NODE: 16430179741642982) Are you looking for a form or looking for help filling a form out?
+USER: Find a form
+SYSTEM: (NODE: 16391225409774083) Which forms do you need?
+USER: Apply for a business trip
+SYSTEM: (NODE: 16391241972677029) Application for business travel:
+SYSTEM: (NODE: 16391274636239225) Do you need any other forms?
+USER: Yes
+SYSTEM: (NODE: 16391225409774083) Which forms do you need?
+USER: Hotel list
+SYSTEM: (NODE: 16391250907662288) Here is the hotel list: Hotel list Germany 2021
+SYSTEM: (NODE: 16391274636239225) Do you need any other forms?
+USER: No
+SYSTEM: (NODE: 16384313191857195) Do you have any further questions?
+USER: Yes
+SYSTEM: (NODE: 16348058621438633) What topic do you have questions about? You can either click on an answer from the suggested topics
+USER: Forms, deadlines, and procedures
+SYSTEM: (NODE: 16430179741642982) Are you looking for a form or looking for help filling a form out?
+USER: How long do I have to submit my trip reimbursement request?
+SYSTEM: (NODE: 16457028994518300) The application for travel reimbursement must be submitted within 6 months of returning from a busin
+SYSTEM: (NODE: 16391274636239225) Do you need any other forms?
+USER: Yes
+SYSTEM: (NODE: 16391225409774083) Which forms do you need?
+USER: Business trip reimbursement
+SYSTEM: (NODE: 16391245479319732) Business travel reimbursement forms:
+SYSTEM: (NODE: 16391274636239225) Do you need any other forms?
+USER: No
+SYSTEM: (NODE: 16384313191857195) Do you have any further questions?
+USER: Yes
+SYSTEM: (NODE: 16348058621438633) What topic do you have questions about? You can either click on an answer from the suggested topics
+USER: Research semester
+How long will your research semester last?
+USER: (PRE-NLU) 2 days
+USER: (POST-NLU) 48
+SYSTEM: (NODE: 16353297472197738) Is this as part of a reallocation?
+USER: No
+SYSTEM: (NODE: 16370501863636503) As there has been no reallocation, your research semester counts as a business trip.
+SYSTEM: (NODE: 16353303012891903) Are you traveling alone or with your family?
+USER: Alone
+SYSTEM: (NODE: 16370483570980906) Business traveler can receive reimbursement for business related expenses by submitting the followin
+What country are you traveling to?
+USER: (PRE-NLU) USA
+USER: (POST-NLU) USA
+What city are you traveling to?
+USER: (PRE-NLU) New York
+USER: (POST-NLU) New York
+DIALOG LENGTH: 50
+
+USER: 7339b44f18de1d0d46a257f03e820d (POLICY: hdc)
+GOAL TEXT: You want to know if you can get reimbursed if you reserve a seat for yourself on the train
+RESET
+GOAL NODE: 16363756478730906 Seat reservations are allowed for train travel
+USER: Travel Risk Management
+SYSTEM: (NODE: 16353412627443913) Travel Safety/ Travel Risk Management: What would you like to know about? Emergency help
+USER: What do I need to consider?
+SYSTEM: (NODE: 16354038874355911) What would you like to know about? Information Before the start of a Business trip
+USER: Problem/Emergency during a business trip
+SYSTEM: (NODE: 16370679473901470) What do I do in an emergency on a business trip? Please call the number listed on the Emergency-Card
+SYSTEM: (NODE: 16384313191857195) Do you have any further questions?
+USER: Yes
+SYSTEM: (NODE: 16348058621438633) What topic do you have questions about? You can either click on an answer from the suggested topics
+USER: Problem/emergency during a business trip
+SYSTEM: (NODE: 16460436532310883) What emergency are you experiencing?
+USER: Safety emergency
+SYSTEM: (NODE: 16370679473901470) What do I do in an emergency on a business trip? Please call the number listed on the Emergency-Card
+SYSTEM: (NODE: 16384313191857195) Do you have any further questions?
+USER: Yes
+SYSTEM: (NODE: 16348058621438633) What topic do you have questions about? You can either click on an answer from the suggested topics
+USER: Book a trip
+SYSTEM: (NODE: 16348058588084537) Are you going on an intracity trip or a business trip?
+USER: Business trip
+SYSTEM: (NODE: 16348064261907944) Did you get written permission from your supervisor?
+USER: no
+SYSTEM: (NODE: 16363751447148919) Please use this form  written permission from your supervisor. This is required before starting to b
+What country are you traveling to?
+USER: (PRE-NLU) USA
+USER: (POST-NLU) USA
+DIALOG END: FAILURE
+DIALOG LENGTH: 14
+RESET
+GOAL NODE: 16363756478730906 Seat reservations are allowed for train travel
+USER: Book a trip
+DIALOG END: FAILURE
+DIALOG LENGTH: 1
+RESET
+GOAL NODE: 16363756478730906 Seat reservations are allowed for train travel
+USER: Forms, deadlines, and procedures
+SYSTEM: (NODE: 16430179741642982) Are you looking for a form or looking for help filling a form out?
+USER: Find a form
+DIALOG END: FAILURE
+DIALOG LENGTH: 2
+
+USER: 7339b44f18de1d0d46a257f03e820d (POLICY: hdc)
+GOAL TEXT: You are trying to figure out how much money you get for booking somewhere to stay on your trip. <ul><li>Your trip is to Tokyo, Japan</li><li>Your trip should take 10 days</li><li>You plan to stay in a hotel</li></ul>
+DIALOG END: FAILURE
+DIALOG LENGTH: 2
+
+USER: 7339b44f18de1d0d46a257f03e820d (POLICY: hdc)
+GOAL TEXT: You are trying to figure out how much money you get for booking somewhere to stay on your trip. <ul><li>Your trip is to Tokyo, Japan</li><li>Your trip should take 10 days</li><li>You plan to stay in a hotel</li></ul>
+RESET
+GOAL NODE: 16365521324065600 In {{ COUNTRY }} you have a budget of up to 90€ (or 120€ in cities with a population of more than 10
+USER: Book a trip
+SYSTEM: (NODE: 16348058588084537) Are you going on an intracity trip or a business trip?
+USER: Business trip
+SYSTEM: (NODE: 16348064261907944) Did you get written permission from your supervisor?
+USER: no
+SYSTEM: (NODE: 16363751447148919) Please use this form  written permission from your supervisor. This is required before starting to b
+What country are you traveling to?
+USER: (PRE-NLU) Japan
+USER: (POST-NLU) Japan
+What city are you traveling to?
+USER: (PRE-NLU) Tokyo
+USER: (POST-NLU) Tokyo
+SYSTEM: (NODE: 16389695846089108) For all  business trips (even for short trips or ones lasting only a single day) outside the country
+SYSTEM: (NODE: 16363753477187975) Please check the current COVID-19 travel warnings travel restrictions from the foreign ministry and
+SYSTEM: (NODE: 16363754346769013) COVID-19: Business trips should be reduced to an absolute minimum and are only allowed when they are
+Are you planning to extend your trip with private travel?
+USER: (PRE-NLU) no
+USER: (POST-NLU) False
+SYSTEM: (NODE: 16348097487038694) Which topic do you want to know more about?
+USER: Accommodation
+SYSTEM: (NODE: 16378350683837525) If the trip is being paid for by a third party (not from the university) or was offered to be paid f
+SYSTEM: (NODE: 16370471522263677) Where do you plan to stay
+USER: Hotel
+SYSTEM: (NODE: 16363812426270449) Hotels can be booked using the university's partner travel agency, through a booking portal, or book
+SYSTEM: (NODE: 16389574258367592) In order to book trips through the partner travel agency, you will need to use an institute specific
+SYSTEM: (NODE: 16363811629822245) It is required that the bill is addressed to your employer with your name entered as the guest.
+SYSTEM: (NODE: 16365521324065600) In {{ COUNTRY }} you have a budget of up to 90€ (or 120€ in cities with a population of more than 10
+DIALOG END: SUCCESS
+DIALOG LENGTH: 17
+RESET
+GOAL NODE: 16365521324065600 In {{ COUNTRY }} you have a budget of up to 90€ (or 120€ in cities with a population of more than 10
+USER: Travel Risk Management
+SYSTEM: (NODE: 16353412627443913) Travel Safety/ Travel Risk Management: What would you like to know about? Emergency help
+USER: What do I need to consider?
+DIALOG END: FAILURE
+DIALOG LENGTH: 2
+RESET
+GOAL NODE: 16365521324065600 In {{ COUNTRY }} you have a budget of up to 90€ (or 120€ in cities with a population of more than 10
+USER: Problem/emergency during a business trip
+DIALOG END: FAILURE
+DIALOG LENGTH: 1
+RESET
+GOAL NODE: 16365521324065600 In {{ COUNTRY }} you have a budget of up to 90€ (or 120€ in cities with a population of more than 10
+USER: Forms, deadlines, and procedures
+SYSTEM: (NODE: 16430179741642982) Are you looking for a form or looking for help filling a form out?
+USER: Find a form
+SYSTEM: (NODE: 16391225409774083) Which forms do you need?
+USER: Business trip reimbursement
+SYSTEM: (NODE: 16391245479319732) Business travel reimbursement forms:
+SYSTEM: (NODE: 16391274636239225) Do you need any other forms?
+USER: Yes
+SYSTEM: (NODE: 16391225409774083) Which forms do you need?
+USER: Business trip reimbursement
+SYSTEM: (NODE: 16391245479319732) Business travel reimbursement forms:
+DIALOG END: FAILURE
+DIALOG LENGTH: 7
+RESET
+GOAL NODE: 16365521324065600 In {{ COUNTRY }} you have a budget of up to 90€ (or 120€ in cities with a population of more than 10
+USER: Book a trip
+SYSTEM: (NODE: 16348058588084537) Are you going on an intracity trip or a business trip?
+USER: Business trip
+SYSTEM: (NODE: 16348064261907944) Did you get written permission from your supervisor?
+USER: yes
+What country are you traveling to?
+USER: (PRE-NLU) Japan
+USER: (POST-NLU) Japan
+What city are you traveling to?
+USER: (PRE-NLU) Tokyo
+USER: (POST-NLU) Tokyo
+SYSTEM: (NODE: 16389695846089108) For all  business trips (even for short trips or ones lasting only a single day) outside the country
+SYSTEM: (NODE: 16363753477187975) Please check the current COVID-19 travel warnings travel restrictions from the foreign ministry and
+SYSTEM: (NODE: 16363754346769013) COVID-19: Business trips should be reduced to an absolute minimum and are only allowed when they are
+Are you planning to extend your trip with private travel?
+USER: (PRE-NLU) yes
+USER: (POST-NLU) True
+SYSTEM: (NODE: 16363754793760356) A private extension to a trip must remain in proportion to the length of business-related travel. Bu
+SYSTEM: (NODE: 16348097487038694) Which topic do you want to know more about?
+USER: Accommodation
+SYSTEM: (NODE: 16378350683837525) If the trip is being paid for by a third party (not from the university) or was offered to be paid f
+SYSTEM: (NODE: 16370471522263677) Where do you plan to stay
+USER: Hotel
+SYSTEM: (NODE: 16363812426270449) Hotels can be booked using the university's partner travel agency, through a booking portal, or book
+SYSTEM: (NODE: 16389574258367592) In order to book trips through the partner travel agency, you will need to use an institute specific
+SYSTEM: (NODE: 16363811629822245) It is required that the bill is addressed to your employer with your name entered as the guest.
+SYSTEM: (NODE: 16365521324065600) In {{ COUNTRY }} you have a budget of up to 90€ (or 120€ in cities with a population of more than 10
+DIALOG END: SUCCESS
+DIALOG LENGTH: 17
+
+USER: 6be779a6661206ff8a46af68434afa (POLICY: cts)
+GOAL TEXT: You want more information about how to plan a research semester.
+RESET
+GOAL NODE: 16387868859695624 Thank you for using the business travel chatbot.Please let us know about your experience by filling
+USER: Research semester
+How long will your research semester last?
+USER: (PRE-NLU) 1 month
+USER: (POST-NLU) 720
+SYSTEM: (NODE: 16460422136134149) If you are traveling for more than 4 weeks and need help finding accommodations, please contact the
+SYSTEM: (NODE: 16353297472197738) Is this as part of a reallocation?
+USER: No
+SYSTEM: (NODE: 16370501863636503) As there has been no reallocation, your research semester counts as a business trip.
+SYSTEM: (NODE: 16353303012891903) Are you traveling alone or with your family?
+USER: Alone
+SYSTEM: (NODE: 16370483570980906) Business traveler can receive reimbursement for business related expenses by submitting the followin
+DIALOG LENGTH: 7
+
+USER: 6be779a6661206ff8a46af68434afa (POLICY: cts)
+GOAL TEXT: You are traveling with another colleague and want to know if you have to share a room or if each of you can book your own
+RESET
+GOAL NODE: 16363834594338823 Yes, staying in a room by yourself is allowed
+USER: Book a trip
+SYSTEM: (NODE: 16348058588084537) Are you going on an intracity trip or a business trip?
+USER: Business trip
+SYSTEM: (NODE: 16348064261907944) Did you get written permission from your supervisor?
+USER: no
+SYSTEM: (NODE: 16363751447148919) Please use this form  written permission from your supervisor. This is required before starting to b
+DIALOG END: FAILURE
+DIALOG LENGTH: 4
+
+USER: 6be779a6661206ff8a46af68434afa (POLICY: cts)
+GOAL TEXT: You want to figure out how much money you can get reimbursed for your travel. <ul><li>You used your own car</li><li>You took two colleagues with you</li></ul>
+RESET
+GOAL NODE: 16460328708250870 If you are also transporting other coworkers, you are entitled to 2 Cent per person und kilometer, f
+USER: reimburse
+SYSTEM: (NODE: 16430181901118602) You can find your employee number on your pay stub.
+SYSTEM: (NODE: 16430181901118602) You can find your employee number on your pay stub.
+SYSTEM: (NODE: 16369662459644892) Postal fees are reimbursable if they are required for business reasons.
+SYSTEM: (NODE: 16369662459644892) Postal fees are reimbursable if they are required for business reasons.
+SYSTEM: (NODE: 16369662459644892) Postal fees are reimbursable if they are required for business reasons.
+SYSTEM: (NODE: 16369662459644892) Postal fees are reimbursable if they are required for business reasons.
+SYSTEM: (NODE: 16369662459644892) Postal fees are reimbursable if they are required for business reasons.
+SYSTEM: (NODE: 16369662459644892) Postal fees are reimbursable if they are required for business reasons.
+SYSTEM: (NODE: 16369662459644892) Postal fees are reimbursable if they are required for business reasons.
+SYSTEM: (NODE: 16369662459644892) Postal fees are reimbursable if they are required for business reasons.
+DIALOG END: FAILURE
+DIALOG LENGTH: 11
+

@@ -1,0 +1,14 @@
+9597e20137307a6a6b3dc058772a5d: 1, 2 (FRANCE)
+aba8a70de6cd22ed03570c48020315: 2 (FRANCE)
+273666715e559c45c6cc9a2e7f5033: 2 (FRANCE)
+9597e20137307a6a6b3dc058772a5d: 2 (FRANCE)
+439f4ba6c2ffb420d0c05c0e246d3f: 2 (FRANCE-SUCCESS)
+e5088a3c41e522ad23886b6a2eb748: 2 (FRANCE-SUCCESS)
+e5088a3c41e522ad23886b6a2eb748: 0, 2
+d96abd518a2b3832ed0d1255257326: 1 
+
+6d91b06047716a0a0b2c2cd86fdc78 -> used only keywords (successfully)
+57affbcf1a53cf8152a4f84b337572 -> used only keywords (failed)
+d8ea183c5c1aa1eb1d9f8b7677c4b2 -> keywords (failed), because they gave up
+
+bf83f3984f247796d4437afe55ffa1 -> they seem to not give the system a chance to respond
