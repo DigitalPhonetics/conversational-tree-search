@@ -1,6 +1,9 @@
 dialogmanagement/static/dialogmanagement/dialogdesigner
 
+open_ai_key.sh
 logs/
+paper logs/
+BLEURT-20/
 runs/
 wandb/
 *.arrow
@@ -18,7 +21,6 @@ __pycache__/
 *.pt
 *.pth
 *.txt
-*.json
 *.bin
 .data/
 .ipynb_checkpoints/
@@ -27,7 +29,8 @@ runs/
 debug/
 newruns/
 study_data/
-
+outputs/
+testing
 
 Cargo.lock
 CACHEDIR.TAG

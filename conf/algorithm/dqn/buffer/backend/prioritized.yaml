@@ -1,0 +1,6 @@
+_target_: data.buffers.dqn.prioritized.PrioritizedReplayBuffer
+buffer_size: 100000
+device: cpu
+alpha: 0.6
+beta: 0.4
+use_lap: false

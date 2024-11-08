@@ -1,0 +1,743 @@
+{% extends "base.html" %}
+
+{% block css %}
+<style>
+    body {
+        height: 100%;
+        background-image: linear-gradient(45deg, #004191, #00BEFF);
+        box-sizing: border-box;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .mainContainer {
+        height: 100%;
+        display: flex;
+        flex-flow: column nowrap;
+        gap: 0px;
+    }
+
+    .contentFooterDivider {
+        display: flex;
+        flex-flow: column;
+        flex-grow: 1;
+        background-color: white;
+        margin: 1rem;
+        margin-bottom: 0.5rem;
+        border-radius: 1rem;
+        min-width: 30rem;
+        max-width: 60rem;
+        height: calc(100% - 2.5rem - 0.25em - 4.5rem);
+    }
+
+    .commandBtnBar {
+        display: flex;
+        flex-flow: row wrap;
+        align-items: center;
+        width: 100%;
+        border-top-left-radius: 1em;
+        border-top-right-radius: 1em;
+        gap: 0.25em;
+        background-color: #323232;
+        padding: 0.25em;
+        padding-left: 0.75em;
+        z-index: 10;
+    }
+
+    .content {
+        /* Divides the main part of the website into messagelist (left) and.goalbox (right) */
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        flex-grow: 1;
+        width: 100%;
+        height: 100%;
+        gap: 0.25em;
+    }
+
+    .goalbox {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        gap: 0.5em;
+        background-color: white;
+        margin: 1rem;
+        margin-bottom: 0.5rem;
+        padding-bottom: 0.5rem;
+        border-radius: 1rem;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .messagebox {
+        padding: 1.5em;
+        flex-grow: 1;
+        flex-flow: row nowrap;
+        overflow-y: auto;
+        min-height: 20rem;
+    }
+
+    .inputContainer {
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: stretch;
+        background-color: #323232;
+        padding: 0.75em;
+        border-bottom-left-radius: 1em;
+        border-bottom-right-radius: 1em;
+    }
+
+    footer {
+        font-size: 0.8rem;
+        margin: 0px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    footer a {
+        color: white;
+        padding-right: 0.5rem;
+    }
+
+    .speech-bubble {
+        position: relative;
+        border-radius: .4em;
+        clear: both;
+        margin-bottom: 1em;
+        margin-top: 1em;
+        padding-bottom: 0.5em;
+        font-size: 1rem;
+    }
+
+    .speech-bubble::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        width: 0;
+        height: 0;
+        border: 21px solid transparent;
+        border-top: 0;
+        margin-top: -10px;
+    }
+
+    .system {
+        background: #E5E5EA;
+        text-align: left;
+        float: left;
+    }
+
+    .system:after {
+        left: 0;
+        border-right-color: #E5E5EA;
+        border-left: 0;
+        margin-left: -20px;
+    }
+
+    .user {
+        background: #ccf2ff;
+        text-align: right;
+        float: right;
+    }
+
+    .user:after {
+        right: 0;
+        border-left-color: #ccf2ff;
+        border-right: 0;
+        margin-right: -20px;
+    }
+
+    .message {
+        padding: 0.5em;
+        color: black;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .systemMsg {
+        margin-left: 0.5em;
+        margin-right: 0.5em;
+        margin-top: 0.5em;
+        border-radius: .4em;
+        padding: 0.5em;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .answer_candidate_list {
+        display: flex;
+        flex-flow: row wrap;
+        gap: 0.2em;
+        align-items: center;
+    }
+
+    .answer_candidate {
+        color: black;
+        border-radius: 1em;
+        background-color: #F5F5FA;
+        padding: 0.3em;
+        /* cursor: pointer; */
+        margin: 0px;
+    }
+
+    /* .answer_candidate:hover {
+        background-color: #ffcd39;
+    } */
+
+    .divBtn {
+        font-family: Arial, Helvetica, sans-serif;
+        color: white;
+        border-radius: 0.25em;
+        height: 2em;
+        text-decoration: none;
+        text-align: center;
+        /* line-height: 2em; */
+        border: none;
+        max-height: 2em;
+        padding-left: 0.2em;
+        padding-right: 0.2em;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-flow: row wrap;
+        gap: 0.3em;
+    }
+
+    .divBtn:hover {
+        background-color: white;
+        color: black;
+    }
+
+    .divBtn:after {
+        border-left: 2px solid white;
+        height: 1em;
+        content: '';
+        margin-left: 0.5em;
+    }
+
+    .headerBtn {
+        font-family: Arial, Helvetica, sans-serif;
+        background-color: #00BEFF;
+        color: white;
+        border-radius: 0.25em;
+        height: 2em;
+        text-decoration: none;
+        text-align: center;
+        line-height: 2em;
+        border: none;
+        max-height: 2em;
+        padding-left: 0.2em;
+        padding-right: 0.2em;
+        cursor: pointer;
+    }
+
+    .headerBtn:hover {
+        background-color: white;
+        color: black;
+    }
+
+    .userinput {
+        font-size: 1rem;
+        flex-grow: 1;
+        height: 2rem;
+    }
+
+    #overlay {
+        background: #ffffff;
+        color: #666666;
+        position: fixed;
+        height: 100%;
+        width: 100%;
+        z-index: 5000;
+        top: 0;
+        left: 0;
+        float: left;
+        text-align: center;
+        padding-top: 25%;
+        opacity: .80;
+    }
+
+    .typing {
+        align-items: center;
+        display: flex;
+        height: 17px;
+    }
+
+    .typing .dot {
+        animation: mercuryTypingAnimation 1.8s infinite ease-in-out;
+        background-color: #6CAD96;
+        border-radius: 50%;
+        height: 7px;
+        margin-right: 4px;
+        vertical-align: middle;
+        width: 7px;
+        display: inline-block;
+    }
+
+    .typing .dot:nth-child(1) {
+        animation-delay: 200ms;
+    }
+
+    .typing .dot:nth-child(2) {
+        animation-delay: 300ms;
+    }
+
+    .typing .dot:nth-child(3) {
+        animation-delay: 400ms;
+    }
+
+    .typing .dot:last-child {
+        margin-right: 0;
+    }
+
+    @keyframes mercuryTypingAnimation {
+        0% {
+            transform: translateY(0px);
+            background-color: #6CAD96;
+        }
+
+        28% {
+            transform: translateY(-7px);
+            background-color: #9ECAB9;
+        }
+
+        44% {
+            transform: translateY(0px);
+            background-color: #B5D9CB;
+        }
+    }
+
+    @keyframes rotate {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+</style>
+{% end %}
+
+{% block scripts %}
+<script>
+    // disable backward button functionallity
+    // history.pushState(null, null, window.location.href);
+    // history.back();
+    // window.onpopstate = () => history.forward();
+
+    var goal_counter = Number.parseInt(get_cookie('goal_counter'));
+    var listen_to_messages = false;
+
+    function open_link_info() {
+        $('#linkInfoModal').modal('show');
+    }
+
+    function set_cookie(cname, cvalue, exdays) {
+        const d = new Date();
+        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+        let expires = "expires=" + d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
+
+    function get_cookie(cname) {
+        let name = cname + "=";
+        let ca = document.cookie.split(';');
+        for (let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+
+    var typingAnimation = false;
+
+    $(document).ready(function () {
+        $('#overlay').fadeIn();
+    });
+
+    function toggleTypingAnimation(value) {
+        if (value == true && value != typingAnimation) {
+            const sys_msg = `<div id="typingAnimationDiv" class="speech-bubble system">
+                <div class="systemMsg">
+                    <div class="typing">
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                    </div>
+                </div>
+            </div>`;
+            $("#messagelist").append(sys_msg);
+            $("#messagelist").animate({ scrollTop: $('#messagelist').prop("scrollHeight") }, 500); // scroll to newest message
+        } else if (value == false) {
+            // console.log("remove");
+            // console.log($("#typingAnimationDiv"));
+            $("#typingAnimationDiv").remove();
+            // console.log($("#typingAnimationDiv"));
+        }
+        typingAnimation = value;
+    }
+
+    const socket = new WebSocket("wss://" + window.location.host + "/channel");
+    socket.onmessage = (msg) => {
+        const msg_data = JSON.parse(msg.data);
+        event = msg_data['EVENT'];
+        value = msg_data['VALUE'];
+        if (event === "MSG") {
+            if(listen_to_messages) {
+                $("#restart_button").show();
+                value = msg_data['VALUE'];
+                const node_type = msg_data['NODE_TYPE']
+                addSystemMessage(value, msg_data['CANDIDATES']);
+                if(node_type === "userInputNode" || node_type === "userResponseNode") {
+                    disableUserInput(false);
+                    toggleTypingAnimation(false);
+                } else {
+                    disableUserInput(true);
+                    toggleTypingAnimation(true);
+                }
+                if($("#messagelist").children().length > 2) {
+                    $("#finished_dialog").show();
+                }
+            }
+        } else if (event === "RESTART") {
+            listen_to_messages = true;
+            $("#finished_dialog").hide();
+        } 
+        else if (event === "USER_MSG") {
+            addUserMessage(value);
+        } else if (event === "NEW_GOAL") {
+            // Update the goal
+            g = document.getElementById("goalContainer");
+            g.innerHTML = `
+            <div class="commandBtnBar" style="color: white; text-align: center;">
+                    <b style="margin: 0.2em;">Your goal is to answer the following question:</b>
+                </div>
+                <div id="goal" style="width:100%; padding: 2%; text-align: left;">
+                    ${value}
+                </div>   
+                <div style="display: flex; flex-direction: row; justify-content: center; width: 100%;">
+                    <button id="finished_dialog" class="btn btn-success mb-4" style="margin: 2%;" onclick="nextGoal()">Finished Dialog</button>
+                </div> 
+            `;
+            disableUserInput(false);
+            listen_to_messages = true;
+            $('#finished_dialog').hide();
+        } else if (event === "EXPERIMENT_OVER") {
+            // console.log(window.location.host + "/post_survey");
+            window.location.replace("https://" + window.location.host + "/post_survey")
+        } else if (event === "DIALOG_ENDED") {
+            addSystemMessage("I hope this answered your question. Please click the <b>finished dialog</b> button on the right to proceed.", []);
+            disableUserInput(true);
+        }
+
+    }
+    socket.onopen = (event) => {
+        console.log('connected');
+        disableUserInput(false);
+        listen_to_messages = true;
+        $("#finished_dialog").hide();
+    };
+    socket.onerror = (event) => {
+        console.log('error');
+        addSystemMessage("The server is currently unavailable. Please contact the researchers so it can be restarted.", []);
+        $("#finished_dialog").show();
+    }
+
+    function disableUserInput(disable) {
+        console.log("DISABLE", disable)
+        if (disable) {
+            $("#inputContainer").hide();
+        } else {
+            $("#inputContainer").show();
+        }
+    }
+
+    function addUserMessage(query) {
+        /*
+        Adds a new messagebox to the message list
+        Args:
+            query (String): the user query
+        */
+        
+        $("#messagelist").append(`
+            <div class="speech-bubble user">
+                <div class="message" style="color: anthrazit">${query}</div>
+            </div>
+        `);
+        toggleTypingAnimation(true);
+
+        $("#messagelist").animate({ scrollTop: $('#messagelist').prop("scrollHeight") }, 500); // scroll to newest message
+    }
+
+    function addSystemMessage(msg, candidates) {
+        toggleTypingAnimation(false);
+        console.log(msg);
+
+        var sys_msg = '<div class="speech-bubble system"><div class="systemMsg">';
+        sys_msg += msg
+            .replace('\n <p>You can either click on an answer from the suggested topics or enter your own text.</p>', '\n <p>I can provide information about the following topics:</p>')
+            .replace('<p><strong>What topic do you have questions about? </strong></p>', '<p><strong>How can I help you?</strong></p>');
+        
+        if (candidates !== undefined && candidates.length > 0) {
+            // add answer candidates
+            sys_msg += '<div class="answer_candidate_list">E.g.:';
+            candidates.forEach(cand => {
+                sys_msg += `<p class="answer_candidate">${cand}</p>`; // onClick="sendMessage('${cand.replace(/"/g, '\\"').replace(/'/g, "\\'")}')"
+            });
+            sys_msg += '</div>'
+        }
+        sys_msg += "</div></div>";
+        $("#messagelist").append(sys_msg);
+        $("#messagelist").animate({ scrollTop: $('#messagelist').prop("scrollHeight") }, 500); // scroll to newest message
+        $("#userinput").focus();
+    }
+
+    function sendMessage(user_utterance) {
+        console.log('sending msg', user_utterance);
+        const user_input = $("#userinput").val(); // get user input from input field
+
+        disableUserInput(true);
+
+        // remove answer candidates
+        $('.answer_candidate_list').remove();
+
+        // select as message either input from textfield or candidate from answer list
+        const msg_content = user_utterance.length > 0 ? user_utterance : user_input;
+        addUserMessage(msg_content);
+
+        // send query, receive and render answer
+        socket.send(JSON.stringify({
+            EVENT: "MSG",
+            VALUE: msg_content
+        }));
+
+        // $("#finished_dialog").show();
+        $('#userinput').val(""); // reset text
+    }
+
+    function restart() {
+        $("#messagelist").empty();
+        socket.send(JSON.stringify({
+            EVENT: "RESTART",
+            VALUE: true
+        }));
+        disableUserInput(false);
+    }
+
+    function nextGoal() {
+        $("#messagelist").empty();
+        listen_to_messages = false;
+        $("#restart_button").hide();
+        disableUserInput(true);
+        goal_counter += 1;
+        set_cookie('goal_counter', goal_counter.toString(), 2);
+        g = document.getElementById("goalContainer");
+        g.innerHTML = `
+            <div class="commandBtnBar" style="color: white; text-align: center;">
+                <b style="margin: 0.2em;">Please rate your dialog:</b>
+            </div>
+            <div id="goal" style="width:100%; padding: 2%; text-align: left;">
+                <form onsubmit="sendGoalFeedback(event); return false;">
+                <p><b>The length of dialog felt: </b></p>
+                <table class="table table-striped" style="width: 70%; margin-top: 2%; margin-left: 15%; margin-bottom: 2%">
+                <thead>
+                    <tr>
+                        <td scope="col" style="text-align: center">
+                        Much Too Short
+                        </td>
+                        <td scope="col" style="text-align: center">
+                        Too Short
+                        </td>
+                        <td scope="col" style="text-align: center">
+                        Good
+                        </td>
+                        <td scope="col" style="text-align: center">
+                        Too Long
+                        </td>
+                        <td scope="col" style="text-align: center">
+                        Much Too Long
+                        </td>   
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr id="chat_exp_1">
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="length" id="length_1" value="1" required>
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="length" id="length_2" value="2" required>
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="length" id="length_3" value="3" required>
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="length" id="length_4" value="4" required>
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="length" id="length_5" value="5" required>
+                            </td>                 
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p><b>I felt my question was: </b></p>
+
+                <table class="table table-striped" style="width: 70%; margin-top: 2%; margin-left: 15%; margin-bottom: 2%">
+                <thead>
+                    <tr>
+                        <td scope="col" style="text-align: center">
+                        Completely unanswered
+                        </td>
+                        <td scope="col" style="text-align: center">
+                        Mostly unanswered
+                        </td>
+                        <td scope="col" style="text-align: center">
+                        Mostly answered
+                        </td>
+                        <td scope="col" style="text-align: center">
+                        Completely answered
+                        </td>      
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr id="chat_exp_1">
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="quality" id="quality_1" value="1" required>
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="quality" id="quality_2" value="2" required>
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="quality" id="quality_3" value="3" required>
+                            </td>
+                            <td style="text-align: center">
+                            <input class="form-check-input" type="radio" name="quality" id="quality_4" value="4" required>
+                            </td>                
+                        </tr>
+                    </tbody>
+                </table>
+            <div style="display: flex; flex-direction: row; justify-content: center; width: 100%;">
+                <input class="btn btn-success mb-4" style="margin: 2%;" type="submit" value="Submit"/>
+            </div> 
+            </form> 
+        </div> 
+        `;
+    }
+
+    function enterKeyDown(e) {
+        if (e.key === "Enter") {
+            sendMessage("");
+        }
+    }
+
+    function sendGoalFeedback(event) {
+        // console.log("hallo");
+        event.preventDefault();
+
+        var length = null;
+        var quality = null;
+        var ele = document.getElementsByTagName('input');
+        for (i = 0; i < ele.length; i++) {
+            if (ele[i].type === "radio" && ele[i].checked) {
+                if (ele[i].name === "length") {
+                    length = ele[i].value;
+                } else if (ele[i].name === "quality") {
+                    quality = ele[i].value;
+                }
+            }
+        }
+
+        const goalWidth = Math.trunc($("#goalContainer").width());
+        const goalHeight = Math.trunc($("#goalContainer").height());
+
+        g = document.getElementById("goalContainer");
+        g.innerHTML = `
+            <div id="typingAnimationDiv" style="min-width=${goalWidth}px;min-height=${goalHeight}px;background=#ffca2c" >
+                <div class="systemMsg">
+                    <div class="typing">
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        socket.send(JSON.stringify({
+            EVENT: "NEXT_GOAL",
+            VALUE: {
+                length: length,
+                quality: quality,
+                goal_counter: goal_counter
+            }
+        }));
+    }
+
+</script>
+{% end %}
+
+{% block content %}
+<div id="linkInfoModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Link Information</h4>
+            </div>
+            <div class="modal-body">
+                <p>You don't have to follow links in the chat for this task.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="mainContainer">
+    <div class="alert alert-warning" style="margin-top: 10px; margin-bottom: 0px;" role="alert">
+        <b>PLEASE be patient and don't immediately restart if the system takes a while to respond.
+        This is a research project.</b>
+    </div>
+
+    <div class="content">
+        <div class="contentFooterDivider">
+            <div class="commandBtnBar" style="justify-content: flex-end;" id="chat_header">
+                <button id="restart_button" class="btn btn-warning" style="margin: 0.2em;" onclick="restart()">Restart Dialog</button>
+            </div>
+
+            <div id="messagelist" class="messagebox"></div>
+
+            <div class="inputContainer" id="inputContainer">
+                <input id="userinput" class="userinput" placeholder="Enter your text here"
+                    onkeydown="enterKeyDown(event)" />
+                <div class="headerBtn" id='btnSend' onclick="sendMessage('')">Send</div>
+            </div>
+        </div>
+
+        <div id="goalContainer" class="goalbox">
+            <div class="commandBtnBar" style="color: white; text-align: center;">
+                <b style="margin: 0.2em;">Your goal is to answer the following question:</b>
+            </div>
+            <div id="goal" style="width:100%; padding: 2%; text-align: left;">
+            </div>
+            <div style="display: flex; flex-direction: row; justify-content: center; width: 100%;">
+                <button id="finished_dialog" class="btn btn-success mb-4" style="margin: 2%;" onclick="nextGoal()">Finished Dialog</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <a href='https://www.uni-stuttgart.de/impressum/'>Impressum</a>
+        <!-- <a href="TODO">Datenschutz</a> -->
+    </footer>
+</div>
+{% end %}

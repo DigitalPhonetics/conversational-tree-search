@@ -1,0 +1,143 @@
+
+from dataclasses import dataclass
+from enum import Enum, IntEnum
+from typing import Any, Dict, Optional 
+from hydra.core.config_store import ConfigStore
+from utils.utils import AutoSkipMode
+
+from data.dataset import DatasetConfig
+from encoding.text.base import TextEmbeddingConfig
+from utils.envutils import GoalDistanceMode
+
+
+class InstanceArgs(Enum):
+    MAX_DISTANCE = 'max_distance'
+
+INSTANCES = {
+    InstanceArgs.MAX_DISTANCE: 0
+}
+
+
+class WandbLogLevel(Enum):
+    NONE = 'none',
+    OFFLINE = 'offline'
+    ONLINE = 'online'
+
+class DialogLogLevel(Enum):
+    NONE = 'none'
+    FULL = 'full'
+
+class ActionType(IntEnum):
+    ASK = 0
+    SKIP = 1
+
+class InstanceType(Enum):
+    ALGORITHM = 'algorithm'
+    CONFIG = 'config'
+    BUFFER = 'buffer'
+    STATE_ENCODING = 'state_encoding'
+
+
+@dataclass
+class TrainingStageConfig:
+    dataset: DatasetConfig
+    every_steps: int
+    noise: float
+    steps: int
+
+@dataclass
+class EvalStageConfig:
+    dataset: DatasetConfig
+    every_steps: int 
+    noise: float
+    dialogs: int
+
+
+@dataclass
+class ActionConfig:
+    in_state_space: bool
+    action_masking: bool
+
+@dataclass
+class StateConfig:
+    last_system_action: bool
+    beliefstate: bool
+    node_position: bool
+    node_type: bool
+    action_position: bool
+    node_text: Optional[TextEmbeddingConfig] = None
+    dialog_history: Optional[TextEmbeddingConfig] = None
+    action_text: Optional[TextEmbeddingConfig] = None
+    current_user_utterance: Optional[TextEmbeddingConfig] = None
+    initial_user_utterance: Optional[TextEmbeddingConfig] = None
+
+    
+@dataclass
+class EnvironmentConfig:
+    guided_free_ratio: float
+    auto_skip: AutoSkipMode
+    normalize_rewards: bool
+    max_steps: int
+    user_patience: int
+    stop_when_reaching_goal: bool 
+    stop_on_invalid_skip: bool
+    num_train_envs: int 
+    num_val_envs: int
+    num_test_envs: int
+    goal_distance_mode: GoalDistanceMode
+    goal_distance_increment: int
+    sys_token: Optional[str] = ""
+    usr_token: Optional[str] = ""
+    sep_token: Optional[str] = ""
+
+
+@dataclass
+class ActiveLearningConfig:
+    active: bool = False
+    reference_size: Optional[int] = 0
+    proportion_threshold: Optional[float] = 0.0
+    query_budget: Optional[int] = 0
+    expert_turns: Optional[int] = 0
+    expert_model_ckpt: Optional[str] = None
+    expert_model_cfg: Optional[str] = None
+
+@dataclass
+class PolicyConfig:
+    _target_: str
+    activation_fn: str
+    net_arch: Any
+
+@dataclass
+class LoggingConfig:
+    dialog_log: DialogLogLevel
+    wandb_log: WandbLogLevel
+    log_interval: int
+    keep_checkpoints: int
+
+@dataclass
+class Experiment:
+    _target_: str
+    device: str
+    seed: int
+    torch_compile: bool
+    cudnn_deterministic: bool
+    optimizer: Dict[str, Any]
+    policy: PolicyConfig
+    algorithm: Any
+    logging: LoggingConfig
+    environment: EnvironmentConfig
+    actions: ActionConfig
+    state: StateConfig
+    training: Optional[TrainingStageConfig] = None
+    validation: Optional[EvalStageConfig] = None
+    testing: Optional[EvalStageConfig] = None
+
+
+@dataclass
+class ConfigEntrypoint:
+    experiment: Experiment
+
+def register_configs() -> None:
+    cs = ConfigStore.instance()
+    cs.store(name="config_schema", node=ConfigEntrypoint)
+

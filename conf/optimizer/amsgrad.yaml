@@ -1,0 +1,2 @@
+class_path: torch.optim.Adam
+amsgrad: true

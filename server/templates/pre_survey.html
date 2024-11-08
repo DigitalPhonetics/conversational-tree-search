@@ -1,0 +1,160 @@
+{% extends "base.html" %}
+
+{% block css %}
+
+<style>
+    .btn-secondary.active, .btn-secondary:active {
+        color: white !important;
+        background: #00BEFF !important;
+        border-color: #00BEFF !important;
+    }
+    .header {
+        position:absolute;
+        top: 0px;
+        width: 80%;
+        height: 3%;
+        text-align: right;
+        padding-right: 10px;
+        }
+</style>
+
+{% end %}
+
+{% block scripts %}
+<script>
+    function validate_form() {
+        var elements = document.getElementById("survey_form").elements;
+        for (var i = 0, element; element = elements[i++];) {
+            if (element.type == "radio"){
+            var valid = element.checkValidity()
+            if (!valid){
+                var table = document.getElementById(element.name + '_table');
+                // Handles the additional questions which are hidden and optional
+                if (table){
+                table.style.borderStyle = 'dotted';
+                table.style.borderWidth = '2px';
+                table.style.borderColor = 'red';
+                };
+            }
+            }
+            else if (element.type == "textarea"){
+            var valid = element.checkValidity()
+            if (!valid){
+                element.style.borderStyle = 'solid';
+                element.style.borderColor = 'red';
+            }
+            else {
+                element.style.borderColor = 'grey';
+            }
+            };
+        };
+    };
+    </script> 
+
+{% end %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mb-4 mt-4">Pre-Interaction Survey</h1>
+    <form id="survey_form" onsubmit="return submit_form(event)" method="POST" action="/log_pre_survey">
+
+        <div class="card mt-5 mb-3">
+            <div class="card-header">
+                <h4>Demographic Information</h4>
+            </div>
+            <h5 style="padding-left: 1%; padding-top: 1%;">What gender do you identify as?</h5>
+            <div style="display: inline; padding-left: 3%;">
+                <input class="form-check-input" type="radio" name="gender" id="male" value="male" required/>
+                <label for="male">Male</label>
+            </div>
+            <div style="display: inline; padding-left: 3%;">
+                <input class="form-check-input" type="radio" name="gender" id="female" value="female" required/>
+                <label for="female">Female</label>
+            </div>
+            <div style="display: inline; padding-left: 3%;">
+                <input class="form-check-input" type="radio" name="gender" id="other" value="other" required/>
+                <label for="other">Other</label>
+            </div>            
+
+        <h5 style="padding-left: 1%; padding-top: 1%;">What is your age?</h5>
+        <div style="display: inline; padding-left: 3%;">
+            <input class="form-check-input" type="radio" name="age" id="u20" value="<20" required/>
+            <label for="u20">Less than 20</label>
+        </div>
+        <div style="display: inline; padding-left: 3%;">
+            <input class="form-check-input" type="radio" name="age" id="20s" value="20-29" required/>
+            <label for="20s">20 to 29</label>
+        </div>
+        <div style="display: inline; padding-left: 3%;">
+            <input class="form-check-input" type="radio" name="age" id="30s" value="30-39" required/>
+            <label for="30s">30 to 39</label>
+        </div>  
+        <div style="display: inline; padding-left: 3%;">
+            <input class="form-check-input" type="radio" name="age" id="40s" value="40-49" required/>
+            <label for="40s">40 to 49</label>
+        </div>
+        <div style="display: inline; padding-left: 3%;">
+            <input class="form-check-input" type="radio" name="age" id="50s" value="50-59" required/>
+            <label for="50s">50 to 59</label>
+        </div>
+        <div style="display: inline; padding-left: 3%;">
+            <input class="form-check-input" type="radio" name="age" id="60s" value="60-69" required/>
+            <label for="60s">60 to 69</label>
+        </div>
+        <div style="display: inline; padding-left: 3%;">
+            <input class="form-check-input" type="radio" name="age" id="70p" value=">=70" required/>
+            <label for="other">70 or older</label>
+        </div>  
+        
+       <h5 style="padding-left: 1%; padding-top: 1%;">Previous Experience with Chatbots</h5> 
+        <div style="display: inline; padding-left: 3%;">
+            <input class="form-check-input" type="radio" name="experience_chatbots" id="ex_1" value="1" required/>
+            <label for="ex_1">I've never used a chatbot</label>
+        </div>
+        <div style="display: inline; padding-left: 3%;">
+            <input class="form-check-input" type="radio" name="experience_chatbots" id="ex_2" value="2" required/>
+            <label for="ex_2">I've used a chatbot once</label>
+        </div>
+        <div style="display: inline; padding-left: 3%;">
+            <input class="form-check-input" type="radio" name="experience_chatbots" id="ex_3" value="3" required/>
+            <label for="ex_3">I've used a chatbot more than once</label>
+        </div> 
+        <div style="display: inline; padding-left: 3%;">
+            <input class="form-check-input" type="radio" name="experience_chatbots" id="ex_4" value="4" required/>
+            <label for="ex_4">I frequently use chatbot(s)</label>
+        </div>
+        <div style="display: inline; padding-left: 3%;">
+            <input class="form-check-input" type="radio" name="experience_chatbots" id="ex_5" value="5" required/>
+            <label for="ex_5">I use chatbot(s) daily or near daily</label>
+        </div>
+
+        <h5 style="padding-left: 1%; padding-top: 1%;">Previous Experience with Business Travel</h5> 
+        <div style="display: inline; padding-left: 3%;">
+            <input class="form-check-input" type="radio" name="experience_businesstravel" id="bus_ex_1" value="1" required/>
+            <label for="bus_ex_1">I've never been on a business trip</label>
+        </div>
+        <div style="display: inline; padding-left: 3%;">
+            <input class="form-check-input" type="radio" name="experience_businesstravel" id="bus_ex_2" value="2" required/>
+            <label for="bus_ex_2">I have been on a business trip once</label>
+        </div>
+        <div style="display: inline; padding-left: 3%;">
+            <input class="form-check-input" type="radio" name="experience_businesstravel" id="bus_ex_3" value="3" required/>
+            <label for="bus_ex_3">I have been on more than one business trip</label>
+        </div> 
+        <div style="display: inline; padding-left: 3%;">
+            <input class="form-check-input" type="radio" name="experience_businesstravel" id="bus_ex_4" value="4" required/>
+            <label for="bus_ex_4">I frequently go on business trips</label>
+        </div>
+        <div style="display: inline; padding-left: 3%; padding-bottom: 1%;">
+            <input class="form-check-input" type="radio" name="experience_businesstravel" id="bus_ex_5" value="5" required/>
+            <label for="bus_ex_5">I am a part of the business travel department at my company</label>
+        </div>                
+    </div> 
+        
+    <button type="submit" class="btn btn-success mb-4" onclick="validate_form()">Submit</button>
+    </form>
+    <div class="header">
+        <a href="https://www.uni-stuttgart.de/impressum/">Impressum</a>
+    </div> 
+</div>
+{% end %}

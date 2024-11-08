@@ -1,0 +1,1423 @@
+import os
+os.environ["CUDA_VISIBLE_DEVICES"] = "2" 
+os.environ['TRANSFORMERS_CACHE'] = '/mount/arbeitsdaten/asr-2/vaethdk/resources/weights/llm'
+
+# %%
+import torch 
+import transformers
+from transformers import AutoModelForCausalLM, pipeline, AutoTokenizer, set_seed
+
+EXPERIMENT_NOTE = ""
+NUM_EPISODES = 500
+TOP_K = 15
+SEED = 43
+TEMPERATURE = 0.0
+MODEL = "llama3"
+DATA = "onboarding" # reimburse # diagnose # onboarding
+MODE = "test" # train
+PROMPT = 2 # 1 # 2
+EXPERIMENT_PREFIX = f"final{MODEL.replace('-', '')}_{DATA}_prompt{PROMPT}{EXPERIMENT_NOTE}"
+GUIDED_FREE_RATIO = 0.5
+
+if MODEL == "llama3":
+    llama = pipeline(
+        "text-generation",
+        model= "meta-llama/Meta-Llama-3.1-8B-Instruct",
+        model_kwargs={"torch_dtype": torch.float16},
+        device='cuda:0'
+    )
+    gemma = None
+    phi = None
+elif MODEL == "gemma2":
+    gemma = pipeline(
+        "text-generation",
+        model="google/gemma-2-9b-it",
+        model_kwargs={"torch_dtype": torch.bfloat16},
+        device="cuda:0",
+    )
+    llama = None
+    phi = None
+elif "gpt" in MODEL:
+    gemma = None
+    llama = None
+    phi = None
+elif MODEL == "phi":
+    model_id = "microsoft/Phi-3-medium-4k-instruct"
+    model = AutoModelForCausalLM.from_pretrained(
+        model_id,
+        device_map="cuda:0", 
+        torch_dtype=torch.float16, 
+        trust_remote_code=True, 
+        attn_implementation="flash_attention_2",
+    )
+    tokenizer = AutoTokenizer.from_pretrained(model_id)
+    tokenizer.chat_template = "{{ bos_token }}{% for message in messages %}\n{% if message['role'] == 'user' %}\n{{ '<|user|>\n' + message['content'] + '<|end|>' }}\n{% elif message['role'] == 'system' %}\n{{ '<|system|>\n' + message['content'] + '<|end|>' }}\n{% elif message['role'] == 'assistant' %}\n{{ '<|assistant|>\n'  + message['content'] + '<|end|>' }}\n{% endif %}\n{% if loop.last and add_generation_prompt %}\n{{ '<|assistant|>' }}\n{% endif %}\n{% endfor %}"
+
+    phi = pipeline(
+        "text-generation",
+        model=model,
+        tokenizer=tokenizer,
+    )
+    gemma = None
+    llama = None
+
+# %%
+import openai
+from openai import OpenAI
+
+with open("openai_api_key.sh", "r") as f:
+    line = f.readline()
+    env_var_name, api_key = line.split("=")
+
+client = OpenAI(api_key=api_key)
+
+# %%
+from data.dataset import ReimburseGraphDataset, DataAugmentationLevel, NodeType, DialogNode, Answer, NodeType, GraphDataset, StandardGraphDataset
+from data.parsers.parserValueProvider import ReimbursementRealValueBackend
+from environment.goal import UserGoal, GoalPath
+import json
+from copy import deepcopy
+from typing import List, Set, Union, Dict, Tuple
+from pprint import pprint
+from data.parsers.answerTemplateParser import AnswerTemplateParser
+from data.parsers.systemTemplateParser import SystemTemplateParser
+from data.parsers.logicParser import LogicTemplateParser
+from collections import defaultdict
+from server.nlu import NLU
+from statistics import mean
+from tqdm import tqdm
+
+
+# %%
+def format_prompts_gemma2(messages: List[dict]) -> List[dict]:
+    results = []
+    # gemma 2 does not support system role, replace by user role
+    for msg in messages:
+        if msg['role'] == "system":
+            msg['role'] = 'user'
+    # gemma 2 does not support 2 consecutive user messages, merge them together
+    last_role = ""
+    for msg in messages:
+        if not last_role == msg['role']:
+            last_role = msg['role']
+            results.append(msg)
+        else:
+            results[-1]['content'] += f"""=====
+            {msg['content']}
+            """
+    return results
+
+
+# %%
+def generate_output(model: str, messages, temperature: float=0.7, seed: int = None, max_new_tokens: int = 50000, batch_size: int = 1) -> str:
+    if model in ["gpt-4o-mini", "gpt-4o-2024-08-06"]:
+        if not isinstance(seed, type(None)):
+            kwargs = {"seed": seed}
+        else:
+            kwargs = {}
+        output = client.chat.completions.create(
+            model=model,
+            messages=messages,
+            temperature=temperature,
+            stream=False,
+            **kwargs
+        )
+        raw = output.choices[0].message.content
+    elif model in ["llama3", "gemma2", "phi"]:
+        if model == "llama3":
+            pipe = llama 
+        elif model == "gemma2":
+            pipe = gemma
+        elif model == "phi":
+            pipe = phi
+        kwargs = {
+            "max_new_tokens": max_new_tokens,
+            "temperature": temperature
+        }
+        if temperature > 0.0:
+            kwargs["temperature"] = temperature
+            kwargs["do_sample"] = True
+        elif temperature == 0:
+            kwargs["do_sample"] = False
+        if model == "gemma2":
+            messages = format_prompts_gemma2(messages)
+            
+        outputs = pipe(
+            messages,
+            pad_token_id=pipe.tokenizer.eos_token_id,
+            batch_size=batch_size,
+            **kwargs,
+        )
+        raw = outputs[0]["generated_text"][-1]['content']
+    return raw
+
+# %%
+# Mono-Lingual
+from sentence_transformers import SentenceTransformer
+
+
+bi_encoder = SentenceTransformer("multi-qa-mpnet-base-dot-v1",
+                                device="cuda:0", 
+                                cache_folder="/mount/arbeitsdaten/asr-2/vaethdk/resources/weights/")
+
+# # Multi-Lingual
+# bi_encoder = SentenceTransformer("T-Systems-onsite/cross-en-de-roberta-sentence-transformer",
+#                                 device="cuda:0", 
+#                                 cache_folder="/mount/arbeitsdaten/asr-2/vaethdk/resources/weights/")
+
+# %%
+from enum import Enum
+
+
+class UserIntent(Enum):
+    QUESTION = 1
+    STATEMENT = 0
+
+
+# %%
+if PROMPT == 1:
+    system_prompt = """You will be provided with a json list of facts and a query.
+    You are to act as a first filter to decide which of the given facts answer the query or are relevant to answering the query, at least partially, and which ones are not relevant to answering the query at all?
+    Assign each fact a relevance indicator between 0 and 2, and add a justification of why it is relevant (2), partially related (1), or irrelevant (0).
+    Facts are also considered relevant if they imply the answer.
+    If facts contain placeholders inside curly braces, assume the placeholder will be filled with a reasonable value.
+    Don't return anything besides the json list of relevant facts, and only return facts with relevance indicator higher than 0. Don't return code or additional text.
+
+    REMEMBER: even if some facts are only slightly relevant to answering the query, it is better to rate them with a relevance of 1 than to have all facts have relevance 0.
+
+    For example, given the facts:
+    [{"key": 0, "fact": "In Singapore, at 9 a.m., it is usually around 35 degrees celsius."},
+    {"key": 1, "fact": "In Singapore, between 8 a.m. and 11 a.m., the weather is around 35 degrees celsius."},
+    {"key": 2, "fact": "In London, at 9 a.m., it is usually 25 degrees celsius."},
+    {"key": 3, "fact": "In Singapore, between 10 a.m. and 11 a.m., it is usually around 30 degrees celsius."},
+    {"key": 4, "fact": "In Singapore, there are many tourist attractions."},
+    {"key": 5, "fact": In Singapore, it is usually around 35 degrees celsius in the mornings, but cooler in the evenings."},
+    {"key": 6, "fact": "In {{ COUNTRY }}, at 9 a.m., it is usually around 35 degrees celsius."},]
+
+    And a query:
+    "What is the weather usually in Singapore at 9 a.m.?"
+
+    The reply should only be a json list of the facts, indicating if the facts are related to or directly answering the query, formatted like this:
+    [{"key": 0, "relevance": 2, "justification": "The fact is relevant because it answers the user request perfectly"},
+    {"key": 1, "relevance": 2, "justification": "The fact is relevant as it answers the user request, because the requested time of 9 a.m. lies between the fact's timespan of 8 a.m. t0 11 a.m."},
+    {"key": 2, "relevance": 1, "justification": "While the time is correct, the fact is listing the temperature for London instead of Singapore"},
+    {"key": 3, "relevance": 1, "justification": "The fact is talking about the weather in Singapore, which is relevant to the user, alhtough the requested time of 9 a.m. lies outside the fact's timespan of 10 a.m. to 11 a.m."},
+    {"key": 5, "relevance": 2, "justification": "The fact is relevant as it partially answers the user query: while it does not state a specific time, it implies the temperatures in Singapore at the requested time"},
+    {"key": 6, "relevance": 2, "justification": "The fact is relevant as it could answer the user request perfectly, once the placeholder is filled."},]
+
+    Note that the fact with key 4 was excluded from the output, as it has a relevance of 0: Fact 4 is not related to the query about the weather in Singapore.
+    """
+
+elif PROMPT == 2:
+    system_prompt = """You will be provided with a json list of facts and a query.
+    You are to act as a first filter to decide which of the given facts answer the query or are relevant to answering the query, at least partially, and which ones are not relevant to answering the query at all?
+    Assign each fact a relevance indicator between 0 and 2, and add a justification of why it is relevant (2), partially related (1), or irrelevant (0).
+    Facts are also considered relevant if they imply the answer.
+    If facts contain placeholders inside curly braces, assume the placeholder will be filled with a reasonable value.
+    Each fact should be considered independent of the other facts.
+    Don't return anything besides the json list. Don't return code or additional text.
+
+    REMEMBER: even if some facts are only slightly relevant to answering the query, it is better to rate them with a relevance of 1 than to have all facts have relevance 0.
+
+    For example, given the facts:
+    [{"key": 0, "fact": "In Singapore, at 9 a.m., it is usually around 35 degrees celsius."},
+    {"key": 1, "fact": "In Singapore, between 8 a.m. and 11 a.m., the weather is around 35 degrees celsius."},
+    {"key": 2, "fact": "In London, at 9 a.m., it is usually 25 degrees celsius."},
+    {"key": 3, "fact": "In Singapore, between 10 a.m. and 11 a.m., it is usually around 30 degrees celsius."},
+    {"key": 4, "fact": "In Singapore, there are many tourist attractions."},
+    {"key": 5, "fact": In Singapore, it is usually around 35 degrees celsius in the mornings, but cooler in the evenings."},
+    {"key": 6, "fact": "In {{ COUNTRY }}, at 9 a.m., it is usually around 35 degrees celsius."},]
+
+    And a query:
+    "What is the weather usually in Singapore at 9 a.m.?"
+
+    The reply should only be a json list of the facts, indicating if the facts are related to or directly answering the query, formatted like this:
+    [{"key": 0, "relevance": 2, "justification": "The fact is relevant because it answers the user request perfectly"},
+    {"key": 1, "relevance": 2, "justification": "The fact is relevant as it answers the user request, because the requested time of 9 a.m. lies between the fact's timespan of 8 a.m. t0 11 a.m."},
+    {"key": 2, "relevance": 1, "justification": "While the time is correct, the fact is listing the temperature for London instead of Singapore"},
+    {"key": 3, "relevance": 1, "justification": "The fact is talking about the weather in Singapore, which is relevant to the user, alhtough the requested time of 9 a.m. lies outside the fact's timespan of 10 a.m. to 11 a.m."},
+    {"key": 4, "relevance": 0, "justification": "The fact is not related to the query about the weather in Singapore"},
+    {"key": 5, "relevance": 2, "justification": "The fact is relevant as it partially answers the user query: while it does not state a specific time, it implies the temperatures in Singapore at the requested time"},
+    {"key": 6, "relevance": 2, "justification": "The fact is relevant as it could answer the user request perfectly, once the placeholder is filled."},]
+    """
+else:
+    print("ERROR: UNKNOWN PROMPT", PROMPT)
+
+# %%
+import itertools
+
+def get_node_candidate_list_by_type(data: GraphDataset, node_types: List = [NodeType.INFO]) -> List[DialogNode]:
+    nodes_by_type = itertools.chain.from_iterable([data.nodes_by_type[node_type] for node_type in node_types])
+    nodes_with_questions = filter(lambda node: len(node.questions) > 0, nodes_by_type)
+    return list(nodes_with_questions)
+
+def calculate_node_text_embeddings(bi_encoder: SentenceTransformer, node_list: List[DialogNode]):
+    docs = []
+    for node in node_list:
+        docs.append(node.text)
+    return bi_encoder.encode(docs, convert_to_tensor=True, batch_size=512)
+
+def calculate_similarity(bi_encoder: SentenceTransformer, query: str, k: int = 5, info_node_embeddings=None):
+    query_embedding = bi_encoder.encode(query, convert_to_tensor=True, batch_size=512)
+
+    similarity_scores = bi_encoder.similarity(query_embedding, info_node_embeddings)[0]
+    scores, indices = torch.topk(similarity_scores, k=k)
+    return scores, indices
+
+# %%
+
+def get_goal_candidates_similarity(node_list: List[DialogNode], info_node_embeddings: torch.Tensor, 
+                                   query: str, k: int = 10, model: str = "llama3", seed: int = 43, temperature: float = 0.0, 
+                                   verbose: bool =False, strict: bool = True,
+                                   system_prompt: str = "") -> Tuple[Set[int], List[dict]]:
+    # step 1: get most similar nodes
+    scores, indices = calculate_similarity(bi_encoder=bi_encoder, query=query, k=k, info_node_embeddings=info_node_embeddings)
+
+    # step 2: use LLM to determine which candidates are useful
+    facts = []
+    for idx, node_idx in enumerate(indices.tolist()):
+        facts.append({
+            "id": idx,
+            "fact": node_list[node_idx].text
+        })
+        # print(f"-fact {idx}: {scores[idx]} - {facts[-1]['fact']}")
+
+    user = f"""======= Facts =======
+    {json.dumps(facts)}
+
+    ======= Query =======
+    "{query}"
+    """
+
+    messages = [
+        {"role": "system", "content": system_prompt},
+        {"role": "user", "content": user}
+    ]
+
+    outputs = generate_output(model=model, messages=messages, temperature=temperature, seed=seed)
+    outputs = outputs.replace("\n", "").strip("(").strip(")").strip("'").strip()
+    try:
+        results = json.loads(outputs)
+        all_candidate_ids = set([int(res['id']) for res in results])
+        if all_candidate_ids != set(range(len(indices.tolist()))):
+            left_diff = len(all_candidate_ids.difference(set(range(len(indices.tolist())))))
+            right_diff = len(set(range(len(indices.tolist()))).difference(all_candidate_ids))
+            if left_diff > 0:
+                if strict:
+                    assert False, f"Missing candidate ids from result: {left_diff}"
+                else:
+                    print("WARNING:", f"Missing candidate ids from result: {left_diff}")
+            if right_diff > 0:
+                if strict:
+                    assert False, f"Candidate ids included in result that are not in node list: {right_diff}"
+                else:
+                    print("WARNING:", f"Missing candidate ids from result: {right_diff}")
+
+        relevant_candidate_ids = set()
+        
+        if strict:
+            assert len(results) == len(facts)
+        for idx, res in enumerate(results):
+            res_idx = int(res['id'])
+            try:
+                candidate_id = node_list[indices[res_idx]].key
+                res["node"] = candidate_id
+                res["text"] = node_list[indices[res_idx]].text
+                if verbose:
+                    print(f"-fact idx: {idx}, res_idx: {res_idx}/ {candidate_id}: {scores[idx]} - relevant: {res['relevance']} - {facts[res_idx]['fact']}")
+                    print("  -> ", res['justification'])
+                if int(res['relevance']) > 0:
+                    relevant_candidate_ids.add(candidate_id)
+            except:
+                if strict:
+                    assert False, f"Query: {query} returned non-existing node: {res_idx}"
+                else:
+                    print(f"WARNING: Query: {query} returned non-existing node: {res_idx}")
+        if verbose:
+            print(f"{len(relevant_candidate_ids)}/{len(results)} relevant nodes")
+
+        return relevant_candidate_ids, results
+    except:
+        # TODO return error message to the user in this case?
+        print("ERROR PARSING JSON: ")
+        print(outputs)
+        traceback.print_exc()
+        return set(), {}
+    
+
+# %%
+
+def trim_paths(paths: List[GoalPath], current_node: DialogNode) -> List[GoalPath]:
+    # trim prefix of path up to (excluding) current node.
+    trimmed_paths = []
+    for path in paths:
+        path_id_list = [node.key for node in path.visited_nodes]
+        if current_node.key in path_id_list:
+            current_node_idx = path_id_list.index(current_node.key)
+            visited_nodes = path.visited_nodes[current_node_idx:]   
+            trimmed_paths.append(GoalPath(visited_nodes=visited_nodes, visited_ids=path.visited_ids, current_node=None, chosen_answers=path.chosen_answers, constraints={}))
+    return trimmed_paths 
+
+
+from data.parsers.parserValueProvider import ValueBackend
+
+
+def _eval_logic_node(node: DialogNode, bst: dict, logicParser: LogicTemplateParser, backend: ValueBackend) ->Answer:
+    default_branch = None
+    for answer in node.answers:
+        if answer.text.replace("==", "").replace("}}", "").strip() == "DEFAULT":
+            # save default branch for the moment when all branches are evaluated, but none matched
+            default_branch = answer
+        else:
+            condition = node.text + answer.text
+            result = logicParser.parse_template(template=condition, backend=backend, bst=bst)
+            if result == True:
+                return answer
+    # no condition matched - follow default branch
+    return default_branch
+
+def convert_str_to_variable_type(nlu: NLU, var_name: str, utterance: str, var_type: str):
+    # get user reply and save to bst
+    if var_name in ["CITY", "COUNTRY"]:
+        # nlu_results = nlu.extract_places(utterance)
+        # if var_name in nlu_results and len(nlu_results[var_name]) > 0:
+        #     return nlu_results[var_name][0]
+        # elif var_name == "CITY":
+        #     return "$REST" # DEFAULT city
+        return utterance
+    elif var_name == "TRIP_LENGTH":
+        # nlu_results = nlu.extract_time(utterance)
+        # return nlu_results['time_spans'][0]
+        return float(utterance)
+    elif var_name == "PRIVATE_EXTENSION":
+        # boolean
+        # nlu_results = nlu.extract_boolean(utterance)
+        # return nlu_results[0]
+        return bool(utterance)
+    elif var_type == "NUMBER":
+        return float(utterance)
+    else:
+        return utterance
+def trim_paths(paths: List[GoalPath], current_node: DialogNode) -> List[GoalPath]:
+    # trim prefix of path up to (excluding) current node.
+    trimmed_paths = []
+    for path in paths:
+        path_id_list = [node.key for node in path.visited_nodes]
+        if current_node.key in path_id_list:
+            current_node_idx = path_id_list.index(current_node.key)
+            visited_nodes = path.visited_nodes[current_node_idx:]   
+            trimmed_paths.append(GoalPath(visited_nodes=visited_nodes, visited_ids=path.visited_ids, current_node=None, chosen_answers=path.chosen_answers, constraints={}))
+    return trimmed_paths 
+
+
+from data.parsers.parserValueProvider import ValueBackend
+
+
+def _eval_logic_node(node: DialogNode, bst: dict, logicParser: LogicTemplateParser, backend: ValueBackend) ->Answer:
+    default_branch = None
+    for answer in node.answers:
+        if answer.text.replace("==", "").replace("}}", "").strip() == "DEFAULT":
+            # save default branch for the moment when all branches are evaluated, but none matched
+            default_branch = answer
+        else:
+            condition = node.text + answer.text
+            result = logicParser.parse_template(template=condition, backend=backend, bst=bst)
+            if result == True:
+                return answer
+    # no condition matched - follow default branch
+    return default_branch
+
+def convert_str_to_variable_type(nlu: NLU, var_name: str, utterance: str, var_type: str):
+    # get user reply and save to bst
+    if var_name in ["CITY", "COUNTRY"]:
+        # nlu_results = nlu.extract_places(utterance)
+        # if var_name in nlu_results and len(nlu_results[var_name]) > 0:
+        #     return nlu_results[var_name][0]
+        # elif var_name == "CITY":
+        #     return "$REST" # DEFAULT city
+        return utterance
+    elif var_name == "TRIP_LENGTH":
+        # nlu_results = nlu.extract_time(utterance)
+        # return nlu_results['time_spans'][0]
+        return float(utterance)
+    elif var_name == "PRIVATE_EXTENSION":
+        # boolean
+        # nlu_results = nlu.extract_boolean(utterance)
+        # return nlu_results[0]
+        return bool(utterance)
+    elif var_type == "NUMBER":
+        return float(utterance)
+    else:
+        return utterance
+
+# %%
+# def best_answer4(current_node: DialogNode, user_response: str, model: str = "llama3", seed: int = None, temperature: float = 0.0, verbose: bool = False) -> Answer:
+#     # shortcut: if there is only one answer, return immediately
+#     if len(current_node.answers) == 0:
+#         return current_node.answers[0]
+
+#     candidates = []
+#     for candidate in current_node.answers:
+#         candidates.append({"index": candidate.index, "text": candidate.text})
+
+#     system = f"""Given this list of possible response candidates:
+#     {json.dumps(candidates)}
+    
+#     Decide which of the reponse candidate texts most closely matches the user intent, and only output the responses index.
+#     If none of the canidates match, output 'none'.
+#     Do not output any other text, any code, or anything else."""
+
+#     user = user_response
+
+#     messages = [
+#         {"role": "system", "content": system},
+#         {"role": "user", "content": user},
+#     ]
+
+#     outputs = generate_output(
+#         model=model, # "llama3"
+#         messages=messages,
+#         seed=43,
+#         temperature=0.0)
+#     if verbose:
+#         print(outputs)
+#     if 'none' in outputs.lower():
+#         return None
+#     outputs = re.match(r"(\d+)", outputs).group(1)
+#     # result = json.loads(outputs.strip())
+#     answer_idx = int(outputs)
+#     return current_node.answer_by_index(answer_idx)
+
+# %%
+import pickle
+
+
+with open(f"path_cache_{DATA}.pt", "rb") as f:
+    path_cache = pickle.load(f)
+print(len(path_cache))
+
+# %%
+import logging 
+import random
+import re
+
+from config import ActionType
+from environment.cts import CTSEnvironment
+from environment.goal import UserInput, UserResponse
+from utils.utils import rand_remove_questionmark
+
+class LLMPolicy:
+    def __init__(self, env: CTSEnvironment,
+                 node_list: List[DialogNode], node_embedding: torch.FloatTensor,
+                 bi_encoder : SentenceTransformer,
+                 data: GraphDataset, 
+                 nlu: NLU, sysParser: SystemTemplateParser, answerParser: AnswerTemplateParser, logicParser: LogicTemplateParser,
+                 value_backend: ValueBackend, 
+                 model: str, seed: int, temperature: float, top_k: int = 15,
+                 verbose: bool = True, strict: bool = True,
+                 sys_prompt: str = None) -> None:
+        self.data = data
+        self.env = env
+        self.model =  model
+        self.seed = seed
+        self.temperature = temperature
+        self.top_k = top_k
+
+        self.verbose = verbose
+        self.strict = strict
+
+        self.answerParser = answerParser
+        self.logicParser = logicParser
+        self.systemParser = sysParser
+        self.value_backend = value_backend
+        self.nlu = nlu
+
+        self.free_episode_counter = 0
+        self.guided_episode_counter = 0
+        self.current_episode = 0
+
+        self.goal_node_id = None
+        self.node_list = node_list
+        self.node_embedding = node_embedding
+        self.sys_prompt = sys_prompt
+        assert sys_prompt is not None and len(sys_prompt) > 0
+
+    def update_and_trim_goals_and_paths(self, current_node: DialogNode):
+        # update list of current goal nodes / goal paths based on next node
+        next_goal_node_ids = set()
+        next_goal_paths = {}
+        for goal_node in self.goal_node_candidates:
+            remaining_paths = trim_paths(paths=self.candidate_paths[goal_node.key], current_node=current_node)
+            # remaining_paths = []
+            # for path in self.candidate_paths[goal_node.key]:
+            #     if path.visited_nodes[0].key == current_node.key:
+            #         remaining_paths.append(path)
+            if len(remaining_paths) > 0:
+                # node is still reachable via paths left
+                next_goal_paths[goal_node.key] = remaining_paths
+                next_goal_node_ids.add(goal_node.key)
+        next_goal_node_candidates = [self.data.nodes_by_key[node_id] for node_id in next_goal_node_ids]
+        # for goal_node_key in next_goal_paths:
+        #     next_goal_paths[goal_node_key] = trim_paths(paths=next_goal_paths[goal_node_key], current_node=current_node)
+
+        self.goal_node_candidate_ids = next_goal_node_ids
+        self.goal_node_candidates = next_goal_node_candidates
+        self.candidate_paths = next_goal_paths
+        
+    def prefix_exists(self, prefix: List[int], path_candidates: Dict[int, List[GoalPath]]) -> bool:
+        # check if there exists a path for each goal node that contains node with "key" at the given position.
+        for goal_key in path_candidates:
+            found = False
+            for path in path_candidates[goal_key]:
+                if len(path) >= len(prefix):
+                    subpath = [node.key for node in path.visited_nodes[:len(prefix)]]
+                    if subpath == prefix:
+                        found = True
+            if not found:
+                return False
+        return True
+
+    def get_keys_at_position(self, position: int, path_candidates: Dict[int, List[GoalPath]]) -> Set[int]:
+        keys_per_goal = defaultdict(lambda: set())
+        for goal_key in path_candidates:
+            for path in path_candidates[goal_key]:
+                if len(path.visited_nodes) > position:
+                    keys_per_goal[goal_key].add(path.visited_nodes[position].key)
+        return set.intersection(*list(keys_per_goal.values()))
+
+    def get_longest_shared_prefix(self, path_candidates: Dict[int, List[GoalPath]]) -> List[int]:
+        if len(self.goal_node_candidate_ids) == 1:
+            # only one prefix -> return 
+            last_goal_node_id = list(self.goal_node_candidate_ids)[0]
+            shortes_path = self.get_shortest_path(paths=self.candidate_paths[last_goal_node_id])
+            return [node.key for node in shortes_path.visited_nodes]
+        shared_keys = self.get_keys_at_position(position=0, path_candidates=path_candidates)
+        if len(shared_keys) == 0:
+            # not even first node idx is shared
+            return []
+        position = 1
+        prefixes = [[key] for key in shared_keys]
+        while len(shared_keys) > 0:
+            # print(prefixes)
+            shared_keys = self.get_keys_at_position(position=position, path_candidates=path_candidates)
+            new_prefixes = []
+            for prefix in prefixes:
+                for key in shared_keys:
+                    if self.prefix_exists(prefix + [key], path_candidates):
+                        new_prefixes.append(prefix + [key])
+            if len(new_prefixes) == 0:
+                break
+            prefixes = new_prefixes
+            position +=1
+        return sorted(prefixes, key=lambda prefix: len(prefix), reverse=True)[0]
+
+    def best_answer3(self, current_node: DialogNode, user_response: str) -> Answer:
+        # shortcut: if there is only one answer, return immediately
+        assert len(current_node.answers) > 0, current_node
+        if len(current_node.answers) == 1:
+            return current_node.answers[0]
+
+        candidates = []
+        for candidate in self.get_node_answer_candidates(current_node=current_node):
+            candidates.append({"index": candidate.index, "text": candidate.text})
+
+        system = f"""Given this list of possible response candidates:
+        {json.dumps(candidates)}
+        
+        Decide which of the response candidate texts most closely matches the user intent, and only output the responses index.
+        Do not output any other text, any code, or anything else."""
+
+        user = user_response
+
+        messages = [
+            {"role": "system", "content": system},
+            {"role": "user", "content": user},
+        ]
+
+        outputs = generate_output(
+            model=self.model, # "llama3"
+            messages=messages,
+            seed=self.seed,
+            temperature=self.temperature)
+        if self.verbose:
+            print(outputs)
+        try:
+            if "{" in outputs:
+                # try parsing output as json
+                cleaned = outputs.lower().replace("\n", "").replace("```", "").replace("'''", "").replace("json", "").strip("(").strip(")").strip("'").strip() 
+                parsed = json.loads(cleaned)
+                answer_idx = parsed["index"]
+            else:
+                # try parsing output as number
+                outputs = re.match(r"(\d+)", outputs).group(1)
+                answer_idx = int(outputs)
+            return current_node.answer_by_index(answer_idx)
+        except:
+            print("error best answer with user response: ", user_response, "and outputs", outputs)
+            return current_node.answer_by_index(0)
+            # raise Exception(outputs)
+
+    def reached_tree_end(self) -> bool:
+        return not self.current_node or (len(self.current_node.answers) == 0 and not self.current_node.connected_node)
+  
+    def get_shortest_path(self, paths: List[GoalPath]) -> GoalPath:
+        shortest_path = None
+        shortest_len = None
+        for path in paths:
+            new_length = len(path.visited_nodes)
+            if shortest_path is None:
+                shortest_path = path
+                shortest_len = new_length
+            elif shortest_len > new_length:
+                shortest_path = path
+                shortest_len = new_length
+        return shortest_path
+
+    def get_node_answer_candidates(self, current_node: DialogNode) -> List[Answer]:
+        candidates = []
+        if self.turn >= 1 and self.mode == UserIntent.QUESTION and current_node.node_type == NodeType.QUESTION:
+            # filter list of candidates to options that allow reaching the current goals
+            for answer in current_node.answers:
+                found_answer = False
+                for goal_node_key in self.candidate_paths:
+                    for path in self.candidate_paths[goal_node_key]:
+                        if current_node.key in path.chosen_answers and answer.key == path.chosen_answers[current_node.key].key:
+                            candidates.append(answer)
+                            found_answer = True
+                            break
+                    if found_answer:
+                        break
+                # TODO should we end the dialog, if none are left?
+        elif current_node.node_type == NodeType.VARIABLE:
+            var = self.answerParser.find_variable(current_node.answer_by_index(0).text)
+            if var.type == "BOOLEAN":
+                return [
+                    Answer(key=0, text="yes", index=0, parent=current_node, connected_node=None),
+                    Answer(key=1, text="no", index=1, parent=current_node, connected_node=None)
+                ]
+            elif var.type == "LOCATION":
+                if var.name == "COUNTRY":
+                    return [
+                        Answer(key=0, text="USA", index=0, parent=current_node, connected_node=None),
+                        Answer(key=1, text="China", index=1, parent=current_node, connected_node=None),
+                        Answer(key=2, text="UK", index=2, parent=current_node, connected_node=None),
+                        Answer(key=3, text="Germany", index=3, parent=current_node, connected_node=None),
+                        Answer(key=4, text="Egypt", index=4, parent=current_node, connected_node=None)
+                    ]
+            elif var.type == "TIMESPAN":
+                return [
+                    Answer(key=0, text="2 days", index=0, parent=current_node, connected_node=None),
+                    Answer(key=1, text="3 weeks", index=1, parent=current_node, connected_node=None),
+                    Answer(key=2, text="1  month", index=2, parent=current_node, connected_node=None)
+                ]
+        else:
+            candidates = current_node.answers
+
+        return candidates # no answer candidates
+
+    def get_user_intent(self, current_node: DialogNode, user_utterance: str) -> UserIntent:
+            messages = [
+                {"role": "system", 
+                "content": """Answer with "yes" or "no" only."""},
+                {"role": "user", "content": f"""Is the following text a question / command / requesting or not:
+    {user_utterance}
+    """},
+            ]
+            raw = generate_output(model=self.model, messages=messages, seed=self.seed, temperature=self.temperature)
+            raw = raw.lower().replace("\n", "").replace("```", "").replace(".", "").replace("'''", "").replace("json", "").strip("(").strip(")").strip("'").strip()
+            if ("command" in raw or "request" in raw or "question" in raw or "yes" in raw) and ("statement" in raw or "no" in raw):
+                print("INTENT TRACKER FOUND CONTRADICTING OUTPUT:", raw)
+            if "command" in raw or "request" in raw or "question" in raw or "yes" in raw:
+                if self.verbose:
+                    print("- intent", UserIntent.QUESTION)
+                return UserIntent.QUESTION
+            if self.verbose:
+                print("- intent", UserIntent.STATEMENT)
+            return UserIntent.STATEMENT 
+    
+
+    # check user intent
+    # def get_user_intent(self, current_node: DialogNode, user_utterance: str) -> UserIntent:
+    #     # return UserIntent.STATEMENT
+    #     messages = [
+    #         {"role": "system", "content": "You classify user input as either question or statement, and only answer with 'question' or 'statement'."},
+    #         {"role": "user", "content": user_utterance},
+    #     ]
+    #     raw = generate_output(model=self.model, messages=messages, seed=self.seed, temperature=self.temperature)
+    #     cleaned = raw.lower()
+    #     assert not ('question' in cleaned and 'statement' in cleaned), f"GOT {cleaned}"
+    #     assert ('question' in cleaned or 'statement' in cleaned) 
+    #     if self.verbose:
+    #         print(f"INTENT: {cleaned}")
+    #     if 'question' in cleaned:
+    #         return UserIntent.QUESTION
+    #     elif 'statement' in cleaned:
+    #         return UserIntent.STATEMENT
+    #     raise Exception(cleaned)
+    
+    def reachable_goal_node_ids(self, current_node: DialogNode) -> Set[int]:
+        if current_node.key in path_cache:
+            return set(path_cache[current_node.key].keys())
+        return set()
+
+    def get_goal_nodes(self, user_utterance: str, current_node: DialogNode) -> List[DialogNode]:
+        if self.verbose:
+            print("Free step: checking for goals")
+
+        # get the most related goal candidates
+        if not current_node.key in path_cache:
+            print(f"WARNING: NO REACHABLE GOALS FROM CURRENT NODE:", user_utterance, current_node.key, current_node.text[:50])
+            return None
+
+        # filter out goal candidates that are not reachable 
+        reachable_goal_node_ids = self.reachable_goal_node_ids(current_node=current_node)
+        reachable_goal_nodes = [self.data.nodes_by_key[goal_id] for goal_id in reachable_goal_node_ids]
+        reachable_node_embeddings = self.node_embedding.index_select(0, torch.tensor([self.node_list.index(node) for node in reachable_goal_nodes], dtype=torch.long, device="cuda:0"))
+        
+        # two-stage filtering: filter reachable goal candidates by similarity, then by LLM reasoning
+        goal_node_candidate_ids, _ = get_goal_candidates_similarity(node_list=reachable_goal_nodes, info_node_embeddings=reachable_node_embeddings, query=user_utterance, k=self.top_k,
+                                                           model=self.model, seed=self.seed, temperature=self.temperature,
+                                                           verbose=self.verbose, strict=self.strict, system_prompt=self.sys_prompt)
+        if goal_node_candidate_ids is None:
+            print(f"WARNING: NO GOAL RETURN FOR QUERY:", user_utterance)
+            return None
+   
+        goal_node_candidates = [self.data.nodes_by_key[key] for key in goal_node_candidate_ids]
+        if len(goal_node_candidate_ids) == 0:
+            # swtich to guided mode then
+            # if self.verbose:
+            print("NO GOAL CANDIDATES FOUND FOR QUERY: " + user_utterance)
+            return None
+        return goal_node_candidates
+  
+    def update_goals(self, user_utterance: str, current_node: DialogNode) -> UserIntent:
+        # get_user_intent
+        # - if statement: continue to next node
+        # - if question: get possible goal candidates
+        #   - if no goal candidates: guided mode (most similar answer)
+        #       - if the goal node is reachable from the current node, continue
+        #          - if there are goal candidates left from the previous turns that are still reachable, add them to the candidate list
+        #       - otherwise: warn about switching context, restart dialog and move to first decision
+        #   - else: move until next question
+        # could also run pre-answer decision step with similarity serach: if similarity is very high with one of the answers (e.g. 0.98), classify as statement
+        intent = self.get_user_intent(current_node=current_node, user_utterance=user_utterance)
+        
+        if intent == UserIntent.QUESTION:
+            # get possible goal candidates
+            goal_candidates = self.get_goal_nodes(user_utterance=user_utterance, current_node=current_node)
+            if goal_candidates is None or len(goal_candidates) == 0:
+                # no goals found: continue as statement
+                if self.verbose:
+                    print("- no goals: continuing as statement")
+                return UserIntent.STATEMENT
+            elif self.turn == 1:
+                # add found goal to the goal stack
+                # changes = 0
+                for goal_node in goal_candidates:
+                    if( not goal_node.key in self.goal_node_candidates) and (not goal_node.key in self.visited_goal_ids):
+                        # don't visit same goal twice
+                        self.goal_node_candidate_ids.add(goal_node.key)
+                        self.goal_node_candidates.append(goal_node)
+                        self.candidate_paths[goal_node.key] = path_cache[current_node.key][goal_node.key]
+                # if changes > 0:
+                    # we have new goals: calculate longest shared prefix between all goals
+                    # self.longest_prefix = self.get_longest_shared_prefix(path_candidates=self.candidate_paths)
+        return intent
+                
+    def _start_dialog_guided(self):
+        self.guided_episode_counter += 1
+
+    def _start_dialog_free(self, initial_user_utterance: str, current_node: DialogNode):
+        self.free_episode_counter += 1
+
+    def reset(self, goal_node_id: int):
+        # this  should be called before start_dialog
+        # only outputs the first system message (greeting) and sets some common state
+        self.turn = 0
+        self.done = False
+        self.perceived_length = 0
+        self.reached_goal_once = False
+        self.asked_goal_once = False
+        self.dialog_node_id_history = []
+        self.goal_node_candidate_ids = set()
+        self.goal_node_candidates = []
+        self.candidate_paths = {}
+        self.longest_prefix = []
+        self.visited_goal_ids = set()
+        self.current_episode += 1
+        self.bst = {}
+        self.last_sys_act = ActionType.ASK
+        if not goal_node_id is None:
+            self.goal_node_id = goal_node_id
+        self.current_node = self.data.start_node.connected_node
+        self.var_filling_node = None
+ 
+        # print(intent, "ENV: ", "free" if self.env.active_env == self.env.free_env else "guided"
+        self.ask(current_node=self.current_node)    
+
+    def dialog_loop(self, user_utterance: str):
+        while not self.done:
+            if self.reached_tree_end():
+                # output last branch node: this handles the cases where the last node is the goal node, or if we are in guided mode
+                # (would otherwise not be asked, because done is already True from here on)
+                if self.current_node.key in self.goal_node_candidate_ids or self.mode == UserIntent.STATEMENT:
+                    self.ask(self.current_node)
+                self.done = True
+                break
+
+            action, first_turn = self.predict(current_node=self.current_node, user_utterance=user_utterance)
+            self.last_sys_act = action
+
+            user_utterance = ""
+            if action == -2:
+                # get response from simulator
+                if not self.var_filling_node is None:
+                    self.ask(current_node=self.var_filling_node)
+                    user_utterance = self.handle_user_reply(current_node=self.var_filling_node)
+                else:
+                    self.ask(current_node=self.current_node)
+                    user_utterance = self.handle_user_reply(current_node=self.current_node)
+                continue
+            elif action == -1:
+                # policy thinks the dialog is over (e.g., no more goal candidates left) - end dialog
+                self.done = True
+            elif action == ActionType.ASK:
+                # output current node text
+                self.ask(self.current_node)
+            else:
+                # skip
+                self.skip(action=action, first_turn=first_turn)
+
+        if self.done:
+            return
+
+    def ask(self, current_node: DialogNode):
+        # this action writes output to the user
+        obs, reward, done, _, info = self.env.step(action=ActionType.ASK)
+        if done:
+            self.done = True
+        self.perceived_length += 1
+        if current_node.key in self.goal_node_candidate_ids:
+            # remove current node from goal stack
+            self.goal_node_candidate_ids.remove(current_node.key)
+            self.goal_node_candidates = [cand for cand in self.goal_node_candidates if cand.key != current_node.key]
+            del self.candidate_paths[current_node.key]
+        if current_node.key == self.goal_node_id: # don't use self.current_node, because this could be a place where we fill missing variables
+            self.asked_goal_once = True
+            self.done = True
+        assert self.current_node.key == self.env.active_env.current_node.key
+
+    def skip(self, action: int, first_turn: bool):
+        # this action changes the current node
+
+        # subtract ASk-action to get the real answer skip index
+        skip_idx = action - 1
+        assert action >= 0
+
+        if not first_turn:
+            if self.current_node.node_type in [NodeType.INFO, NodeType.VARIABLE_UPDATE]:
+                assert skip_idx == 0
+                # move to connected neighbor
+                obs, reward, done, _, info =  self.env.step(action=ActionType.SKIP)
+                if done:
+                    self.done = True
+                self.current_node = self.current_node.connected_node
+                if not self.done:
+                    assert self.current_node.key == self.env.active_env.current_node.key
+            else:
+                if self.current_node.node_type == NodeType.VARIABLE:
+                    assert skip_idx == 0
+                else:
+                    assert skip_idx < len(self.current_node.answers)
+                obs, reward, done, _, info = self.env.step(action=skip_idx+1)
+                if done:
+                    self.done = True
+                self.current_node = self.current_node.answer_by_index(skip_idx).connected_node
+                if not self.done:
+                    assert self.current_node.key == self.env.active_env.current_node.key
+            if self.done == True:
+                return
+            if self.current_node.key in self.goal_node_candidate_ids:
+                self.reached_goal_once = True
+                self.visited_goal_ids.add(self.current_node.key)
+                return
+
+        self.update_and_trim_goals_and_paths(current_node=self.current_node)
+        if self.mode == UserIntent.QUESTION:
+            self.current_node = self.jump_to_end(current_node=self.current_node)
+            if not self.done:
+                assert self.current_node.key == self.env.active_env.current_node.key
+        self.update_and_trim_goals_and_paths(current_node=self.current_node)
+        
+        if self.current_node.key == self.goal_node_id:
+            self.reached_goal_once = True
+            self.visited_goal_ids.add(self.current_node.key)
+
+    def handle_user_reply(self, current_node: DialogNode) -> str:
+        # - user response: for question nodes
+        # - user input: for variable nodes
+
+        msg = ""
+        if (not self.var_filling_node is None) or self.last_sys_act == -2:
+            # fill variable node 
+            node = self.current_node if self.var_filling_node is None else self.var_filling_node
+            if node.node_type == NodeType.VARIABLE:
+                var_input: UserInput = self.env.active_env.goal.get_user_input(current_node=current_node,
+                                                              bst=self.bst,
+                                                              data=self.data,
+                                                              answerParser=self.answerParser)
+                msg = var_input.var_value
+                error = self.check_and_set_variable(node=node, utterance=msg)
+                if not error is None:
+                    raise Exception(f"unexpected value: {msg} for node {current_node.text[:50]}")
+                else:
+                    # continue dialog (w/o user utterance, was already used to fill variable)
+                    self.var_filling_node = None
+            elif node.node_type == NodeType.QUESTION:
+                # get user response to question
+                answer: UserResponse = self.env.active_env.goal.get_user_response(current_node=current_node)
+                msg = rand_remove_questionmark(random.choice(self.data.answer_synonyms[answer.answer_key]))
+
+        # proceed with dialog system loop
+        return msg
+
+    def set_inital_variables(self, initial_utterance: str):
+        places_results = self.nlu.extract_places(initial_utterance)
+        if "CITY" in places_results and len(places_results["CITY"]) == 1:
+            self.bst["CITY"] = "$REST"
+        if "COUNTRY" in places_results and len(places_results["COUNTRY"]) == 1:
+            self.bst["COUNTRY"] = places_results["COUNTRY"][0]
+        
+        time_results = self.nlu.extract_time(initial_utterance)
+        if "time_spans" in time_results and len(time_results['time_spans']) == 1:
+            self.bst["TRIP_LENGTH"] = time_results['time_spans'][0]
+
+    def check_and_set_variable(self, node: DialogNode, utterance: str) -> Union[str, None]:
+        # Retuns error string if problem
+        # else return None, and updates the BST
+
+        # in UI, check if error string not None 
+        #   -> step, if None
+        #   -> don't step, write error msg if not None
+        
+        # get variable name
+        var = self.answerParser.find_variable(node.answer_by_index(0).text)
+        self.bst[var.name] = utterance
+        return None
+
+    def _get_next_node_variable(self, current_node: DialogNode) -> int:
+        return current_node.answers[0].index + ActionType.SKIP
+
+    def fill_missing_variable(self, var_name: str) -> bool:
+        # track back the current dialog history, and find the last variable node that can fill the variable required by the current node
+        for last_node_id in reversed(self.dialog_node_id_history):
+            node = self.data.nodes_by_key[last_node_id]
+            if node.node_type == NodeType.VARIABLE:
+                # extract variable
+                var_info = self.answerParser.find_variable(node.answers[0].text)
+                if var_info.name == var_name:
+                    self.var_filling_node = node
+                    # WAIT FOR USER INPUT
+                    return True
+        return False
+
+    def _fill_template_variables(self, current_node: DialogNode) -> bool:
+        if current_node.node_type not in [NodeType.INFO, NodeType.QUESTION]:
+            return False
+        
+        # make sure we have all required variables filled, since this is a text output (ASK) action right now
+        var_names = self.systemParser.find_variables(current_node.text)
+        for var_name in var_names:
+            if not var_name in self.bst:
+                if self.fill_missing_variable(var_name=var_name):
+                    return True
+        return False
+    
+    def _get_next_node_logic(self, current_node: DialogNode) -> int:
+        # if we know the variable value, we can just evaluate the logic node
+        varName = current_node.text.strip("{{").strip()
+        if varName in self.bst:
+            # evaluate condition
+            return _eval_logic_node(node=current_node, bst=self.bst, logicParser=self.logicParser, backend=self.value_backend).index + ActionType.SKIP
+
+        # the logic node is decision relevant, since it doesn't have a branch that allows reaching all goals
+        # track back the current dialog history, and find the last variable node that can fill the variable required by the current logic node
+        assert self.fill_missing_variable(var_name=varName)
+        return -2
+  
+    def _get_next_node_variable_update(self, current_node: DialogNode) -> int:
+        # get variable and type
+        pattern = r'\s*(\w+)\s*\((\w+)\)\s*:=\s*(\w+)'
+        match = re.match(pattern, current_node.text)
+        var_name, var_type, var_value = match.groups()
+
+        if self.fill_missing_variable(var_name=var_name):
+            return -2
+
+        # update bst
+        if var_type == "BOOLEAN":
+            assert var_value.lower() in ["true", "false"]
+            self.bst[var_name] = True if var_value.lower() == "true" else False
+        # TODO support more variable types
+
+        # move on to next node
+        return ActionType.SKIP # only 1 connected node, no answers
+
+    def _predict_guided(self, current_node: DialogNode) -> int:
+        if current_node.node_type == NodeType.QUESTION:
+            # ASK - skipping is handled in parent method
+            return ActionType.ASK
+        elif current_node.node_type == NodeType.INFO:
+            # ask node, if we haven't asked it before.
+            # otherwise, skip to connected node.
+            if self.last_sys_act in [ActionType.ASK, -2]:
+                return ActionType.SKIP
+            else:
+                return ActionType.ASK
+        elif current_node.node_type == NodeType.LOGIC:
+            # raise Exception("SHOULD BE HANDLED BY GUIDED ENV" + json.dumps(self.bst))
+            return _eval_logic_node(node=current_node, bst=self.bst, logicParser=self.logicParser, backend=self.value_backend).index + ActionType.SKIP
+        elif current_node.node_type == NodeType.VARIABLE:
+            # ASK - skipping is handled in parent method
+            return ActionType.ASK
+        elif current_node.node_type == NodeType.VARIABLE_UPDATE:
+            return self._get_next_node_variable_update(current_node=current_node)
+        raise Exception("UNEXPECTED NODE TYPE" + str(current_node))
+
+    def jump_to_end(self, current_node: DialogNode) -> DialogNode:
+        # calculate longest common path prefix & jump to end
+        # filter out reachable nodes
+        # then, re-calculate longest path prefix
+        if self.mode == UserIntent.STATEMENT or len(self.goal_node_candidate_ids) == 0:
+            # guided mode, no available goal nodes
+            return current_node
+
+        self.longest_prefix = self.get_longest_shared_prefix(path_candidates=self.candidate_paths)
+        if len(self.longest_prefix) == 0:
+            return current_node
+
+        self.last_sys_act = ActionType.SKIP
+        self.dialog_node_id_history.extend(self.longest_prefix)
+        for skip_from_idx, skip_to_key in enumerate(self.longest_prefix[1:]):
+            # skip turns in env as well
+            skip_from_node = self.data.nodes_by_key[self.longest_prefix[skip_from_idx]]
+            skip_to_node = self.data.nodes_by_key[skip_to_key]
+            skip_idx = ActionType.SKIP # handles info nodes, variable nodes
+            if skip_from_node.node_type in [NodeType.QUESTION, NodeType.LOGIC]:
+                skip_idx += skip_from_node.answer_by_connected_node(skip_to_node).index
+            self.env.step(skip_idx)
+            if not self.done:
+                assert self.env.active_env.current_node == skip_to_node
+        next_node = self.data.nodes_by_key[self.longest_prefix[-1]]
+        if not self.done:
+            assert self.env.active_env.current_node == next_node
+        return next_node
+
+    def predict(self, current_node: DialogNode, user_utterance: str) -> Tuple[int, UserIntent]:
+        self.turn += 1
+
+        if self.turn == 1:
+            # first turn
+            self.set_inital_variables(initial_utterance=user_utterance)
+
+        # Intent tracker & update goal stack
+        intent = None
+        if (not user_utterance is None) and len(str(user_utterance).strip()) > 0 and self.turn == 1:
+            intent = self.update_goals(user_utterance=user_utterance, current_node=current_node) # update goals
+            if len(self.goal_node_candidate_ids) == 0 and intent == UserIntent.STATEMENT:
+                self.mode = UserIntent.STATEMENT
+            else:
+                self.mode = UserIntent.QUESTION
+
+        if self.turn > 1 and self.mode == UserIntent.QUESTION and len(self.goal_node_candidate_ids) == 0:
+            # end dialog, no goals left
+            return -1, None 
+        elif self.turn == 1 and self.mode == UserIntent.QUESTION:
+            return ActionType.SKIP, True
+        
+        if current_node.key in self.goal_node_candidate_ids and not self.last_sys_act == ActionType.ASK:
+            # current node is goal node, was not shown yet - output to the user
+            if self._fill_template_variables(current_node=current_node):
+                # fill missing variables
+                return -2, None
+            return ActionType.ASK, None
+
+
+        # now, we are at a decision node
+        if current_node.node_type == NodeType.LOGIC:
+            action_idx = self._get_next_node_logic(current_node=current_node)
+            # ask missing variable, or skip to followup-node
+            return action_idx, None
+        elif current_node.node_type == NodeType.QUESTION:
+            if self._fill_template_variables(current_node=current_node):
+                # fill missing variables
+                return -2, None
+            elif not self.last_sys_act in [-2, ActionType.ASK]:
+                # output question
+                return -2, None
+            else:
+                # move to next node
+                skip_idx = self.best_answer3(current_node=current_node, user_response=user_utterance).index + ActionType.SKIP
+                return skip_idx, None
+        elif current_node.node_type == NodeType.INFO:
+            if self._fill_template_variables(current_node=current_node):
+                # fill missing variables
+                return -2, None
+            elif not self.last_sys_act in [-2, ActionType.ASK]:
+                # output question
+                return ActionType.ASK, None
+            else:
+                return ActionType.SKIP, None
+        elif current_node.node_type == NodeType.VARIABLE:
+            var = self.answerParser.find_variable(current_node.answer_by_index(0).text)
+            if var.name in self.bst:
+                return ActionType.SKIP, None
+            else:
+                return -2, None
+        elif current_node.node_type == NodeType.VARIABLE_UPDATE:
+            action = self._get_next_node_variable_update(current_node=current_node)
+            return action, None
+        
+        print("PROBLEM")
+
+# %%
+from utils.envutils import GoalDistanceMode
+from utils.utils import AutoSkipMode
+
+
+# %%
+import traceback
+from sklearn.metrics import f1_score
+from environment.free import FreeEnvironment
+from environment.guided import GuidedEnvironment
+from utils.utils import EnvInfo
+
+assert MODE in ['train', 'test']
+print("MODE", MODE)
+print("DATASET", DATA)
+print("MODEL", MODEL)
+print("PROMPT", PROMPT)
+
+if DATA == "reimburse":
+    data = ReimburseGraphDataset(graph_path=f'en/reimburse/{MODE}_graph.json', answer_path=f'en/reimburse/{MODE}_answers.json', 
+                                        use_answer_synonyms=True,
+                                        augmentation=DataAugmentationLevel.NONE, augmentation_path=None,
+                                        resource_dir="./resources/",
+                                        question_limit=0, answer_limit=0, language="en")
+elif DATA == "onboarding":
+    data = StandardGraphDataset(graph_path=f'en/onboarding/{MODE}_graph.json', answer_path=f'en/onboarding/{MODE}_answers.json', 
+                                  use_answer_synonyms=True,
+                                  augmentation=DataAugmentationLevel.NONE, augmentation_path=None,
+                                  resource_dir="./resources/",
+                                  question_limit=0, answer_limit=0, language="en")
+elif DATA == "diagnose":
+    data = StandardGraphDataset(graph_path=f'en/diagnose/{MODE}_graph.json', answer_path=f'en/diagnose/{MODE}_answers.json', 
+                                  use_answer_synonyms=True,
+                                  augmentation=DataAugmentationLevel.NONE, augmentation_path=None,
+                                  resource_dir="./resources/",
+                                  question_limit=0, answer_limit=0, language="en")
+else:
+    print("ERROR: UNKOWN DATASET")
+    exit()
+
+
+def evaluate_dialogs(data: GraphDataset, 
+                     num_episodes: int, verbose: bool, strict: bool,
+                     top_k: int, seed: int, model: str,
+                     temperature: float, node_types: List[NodeType],
+                     write_output: bool, sys_prompt: str,
+                     experiment_prefix: str,
+                     guided_free_ratio: float = 0.5):
+    set_seed(seed)
+
+
+    test_env = CTSEnvironment(mode="eval", dataset=data, guided_free_ratio=guided_free_ratio, auto_skip=AutoSkipMode.NONE,
+                            normalize_rewards=True, max_steps=50, user_patience=3,
+                            stop_when_reaching_goal=True, stop_on_invalid_skip=False,
+                            sys_token='SYSTEM:', usr_token='USER:', sep_token='',
+                            goal_distance_mode=GoalDistanceMode.FULL_DISTANCE, goal_distance_increment=100,
+                            noise=0.0,
+                            auto_skip_logic_nodes=False,
+                            num_episodes=num_episodes)
+
+    node_list = get_node_candidate_list_by_type(data=data, node_types=node_types)
+    node_embedding = calculate_node_text_embeddings(bi_encoder=bi_encoder, node_list=node_list)
+    logicParser = LogicTemplateParser()
+    answerParser = AnswerTemplateParser()
+    sysParser = SystemTemplateParser()
+    if DATA == "reimburse":
+        value_backend = ReimbursementRealValueBackend(a1_laender=data.a1_countries, data=data)
+    else:
+        value_backend = ValueBackend()
+    nlu = NLU()
+
+
+    policy = LLMPolicy(env=test_env, node_list=node_list, node_embedding=node_embedding, bi_encoder=bi_encoder,
+                    data=data, nlu=nlu, sysParser=sysParser, answerParser=answerParser,
+                    logicParser=logicParser, value_backend=value_backend,
+                    model=model, seed=seed, temperature=temperature, top_k=top_k, verbose=verbose,
+                    strict=strict, sys_prompt=sys_prompt)
+
+
+    dialog_log = []
+    error_log = []
+
+    # episode_rewards_free = []
+    # episode_rewards_guided = []
+    episode_lengths_free = []
+    episode_lengths_guided = []
+    percieved_lengths_free = []
+    percieved_lengths_guided = []
+
+    reached_goals_free = []
+    reached_goals_guided = []
+    asked_goals_free = []
+    asked_goals_guided = []
+
+    total_dialogs = 0
+    free_dialogs = 0
+    guided_dialogs = 0
+    # intent_episode_log = defaultdict(list)
+    intent_preds = []
+    intent_labels = []
+
+    episode_counts = 0
+
+    pbar_free = tqdm(total=num_episodes, desc="Free")
+    pbar_guided = tqdm(total=num_episodes, desc="Guided")
+    while episode_counts < num_episodes:
+        if len(test_env._episode_envs) == 0:
+            break
+        try:
+            test_env.reset()
+            policy.reset(goal_node_id=test_env.active_env.goal.goal_node_key)
+            policy.dialog_loop(test_env.active_env.initial_user_utterance)
+            test_env.active_env.dialog_end()
+            info = test_env.active_env.get_obs()
+            intent_preds.append(policy.mode.value)
+
+            if verbose:
+                print(f"REACHED GOAL: {info[EnvInfo.REACHED_GOAL_ONCE]}")
+                print(f"ASKED GOAL: {info[EnvInfo.ASKED_GOAL]}")
+                print("####################################")
+            # print("DONE")
+            # record env mode: free or guided
+            total_dialogs += 1
+
+            if isinstance(test_env.active_env, FreeEnvironment):
+                intent_labels.append(UserIntent.QUESTION.value)
+                free_dialogs += 1
+                episode_lengths_free.append(info[EnvInfo.EPISODE_LENGTH])
+                percieved_lengths_free.append(policy.perceived_length) # note: we use the policy ask-counter, because the env set it to 1 on reset (the CTS-RL agent did not ask actively in the first turn, but assumed that the first turn was already given to the user during the reset)
+                dialog_log.extend(test_env.free_env.episode_log)
+                asked_goals_free.append(info[EnvInfo.ASKED_GOAL])
+                reached_goals_free.append(info[EnvInfo.REACHED_GOAL_ONCE])
+                pbar_free.update(1)
+            elif isinstance(test_env.active_env, GuidedEnvironment):
+                intent_labels.append(UserIntent.STATEMENT.value)
+                guided_dialogs += 1
+                episode_lengths_guided.append(info[EnvInfo.EPISODE_LENGTH])
+                percieved_lengths_guided.append(policy.perceived_length)
+                dialog_log.extend(test_env.guided_env.episode_log)
+                asked_goals_guided.append(info[EnvInfo.ASKED_GOAL])
+                reached_goals_guided.append(info[EnvInfo.REACHED_GOAL_ONCE])
+                pbar_guided.update(1)
+            else:
+                print("UNKOWN ENV")
+            
+            episode_counts += 1
+            test_env.reset_episode_log()
+
+            if episode_counts % 50 == 0:
+                print(f"=== EPISODES: {episode_counts} === ")
+                print("Intent F1:", f1_score(y_pred=intent_preds, y_true=intent_labels))
+                if free_dialogs > 0:
+                    print(f"FREE: (detected: {policy.free_episode_counter})", mean(asked_goals_free), "/", mean(reached_goals_free))
+                if guided_dialogs > 0:
+                    print(f"GUIDED (detected: {policy.guided_episode_counter}):", mean(asked_goals_guided), "/", mean(reached_goals_guided))
+                print(f"SUCCESS (avg)",  mean(asked_goals_guided+asked_goals_free), "/", mean(reached_goals_guided+reached_goals_free))
+
+                if free_dialogs > 0:
+                    print("Avg. Lengths (free): ", mean(episode_lengths_free))
+                    print("Avg. Perceived Lengths (free): ", mean(percieved_lengths_free))
+                if guided_dialogs > 0:
+                    print("Avg. Lengths (guided)", mean(episode_lengths_guided))
+                    print("Avg. Perceived Lengths (guided)", mean(percieved_lengths_guided))
+        except KeyboardInterrupt:
+            break
+        except IndexError:
+            print("INDEX ERROR")
+            break
+        except:
+            traceback.print_exc()
+            
+
+    # LOGS
+    if write_output:
+        with open(f"./results/{experiment_prefix}-{model}-similarity_k={top_k}-errors.json", "w") as f:
+            json.dump(error_log, f)
+        with open(f"./results/{experiment_prefix}-{model}-similarity_k={top_k}-dialogs.txt", "w") as f:
+            f.writelines([log_line + "\n" for log_line in dialog_log])
+        with open(f"./results/{experiment_prefix}-{model}-similarity_k={top_k}-stats.json", "w") as f:
+            json.dump({
+                "summary": {
+                    "episode_count": episode_counts,
+                    "dialog_count": {
+                        "combined": total_dialogs,
+                        "free": free_dialogs,
+                        "guided": guided_dialogs
+                    },
+                    "intent_f1": f1_score(y_pred=intent_preds, y_true=intent_labels),
+                    "goals_asked": {
+                        "combined": mean(asked_goals_free+asked_goals_guided),
+                        "free": mean(asked_goals_free) if free_dialogs > 0 else 0.0,
+                        "guided": mean(asked_goals_guided) if guided_dialogs > 0 else 0.0
+                    },
+                    "goals_reached": {
+                        "combined": mean(reached_goals_free+reached_goals_guided),
+                        "free": mean(reached_goals_free)  if free_dialogs > 0 else 0.0,
+                        "guided": mean(reached_goals_guided) if guided_dialogs > 0 else 0.0   
+                    },
+                    "episode_lengths": {
+                        "free": mean(episode_lengths_free) if free_dialogs > 0 else 0.0,
+                        "guided": mean(episode_lengths_guided) if guided_dialogs > 0 else 0.0
+                    },
+                    "perceived_episode_lengths": {
+                        "free": mean(percieved_lengths_free) if free_dialogs > 0 else 0.0, 
+                        "guided": mean(percieved_lengths_guided) if guided_dialogs > 0 else 0.0 
+                    },
+                },
+            }, f)
+    print('')
+    print("====== FINAL RESULTS =======")
+    print("EPISODE COUNTS", episode_counts)
+    print("Intent F1:", f1_score(y_pred=intent_preds, y_true=intent_labels))
+    if free_dialogs > 0:
+        print(f"FREE: (detected: {policy.free_episode_counter})", mean(asked_goals_free), "/", mean(reached_goals_free))
+    if guided_dialogs > 0:
+        print(f"GUIDED (detected: {policy.guided_episode_counter}):", mean(asked_goals_guided), "/", mean(reached_goals_guided))
+    print(f"SUCCESS (avg)",  mean(asked_goals_guided+asked_goals_free), "/", mean(reached_goals_guided+reached_goals_free))
+
+    if free_dialogs > 0:
+        print("Avg. Lengths (free): ", mean(episode_lengths_free))
+        print("Avg. Perceived Lengths (free): ", mean(percieved_lengths_free))
+    if guided_dialogs > 0:
+        print("Avg. Lengths (guided)", mean(episode_lengths_guided))
+        print("Avg. Perceived Lengths (guided)", mean(percieved_lengths_guided))
+
+
+# %%
+evaluate_dialogs(data=data, 
+                num_episodes=NUM_EPISODES,
+                verbose=False, strict=False,
+                top_k=TOP_K, seed=SEED, model=MODEL, temperature=TEMPERATURE,
+                node_types=[NodeType.INFO, NodeType.QUESTION],
+                write_output=True,
+                sys_prompt=system_prompt,
+                experiment_prefix=EXPERIMENT_PREFIX,
+                guided_free_ratio=GUIDED_FREE_RATIO)
+
+
+
+
+

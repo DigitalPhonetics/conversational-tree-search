@@ -1,0 +1,12 @@
+active_learning:
+  active: true
+
+  reference_size: 1000
+  proportion_threshold: 0.3
+
+  query_budget: 250
+  expert_turns: 5
+
+  expert_model_ckpt: '/mount/arbeitsdaten/asr-2/vaethdk/cts_activelearning_weights/run_1721138557/best_eval/weights/ckpt_52'
+  expert_model_cfg: 'reimburse_realdata_terminalobs_noise'
+

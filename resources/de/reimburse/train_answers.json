@@ -1,0 +1,394 @@
+{
+    "wo finde ich meine personalnummer?": [
+        "Wo kann ich meine Mitarbeiternummer finden?",
+        "Wo finde ich meine Personalnummer?",
+        "Was ist meine Personalnummer?",
+        "Personalnummer",
+        "Mitarbeiternummer"
+    ],
+    "mietwagen": [
+        "Ich will ein Auto mieten",
+        "Autoverleih",
+        "Wagen mieten",
+        "Auto mieten",
+        "Mietwagen",
+        "gemietetes Auto"
+    ],
+    "notfall-team intern": [
+        "Kontaktiere Notfall-Team",
+        "Notfallkontakt",
+        "Das Notfall Team kontaktieren",
+        "Internes Notfall Team",
+        "Kontakt f\u00fcr Notf\u00e4lle",
+        "Notfall-Team intern"
+    ],
+    "telefon- und internetgeb\u00fchren": [
+        "Telefongeld",
+        "Online-Geb\u00fchren",
+        "Handykosten",
+        "Internetanschluss",
+        "Handygeb\u00fchren",
+        "Telefongeb\u00fchren",
+        "Kosten f\u00fcrs Internet",
+        "Internetgeb\u00fchren"
+    ],
+    "eintrittskosten": [
+        "Eintrittsgeb\u00fchren",
+        "Einlass",
+        "Kosten f\u00fcr den Einlass",
+        "Geb\u00fchren f\u00fcr den Eintritt",
+        "Kosten f\u00fcr Eintrittskarten"
+    ],
+    "schutzimpfungen": [
+        "Geb\u00fchren f\u00fcr Impfung",
+        "Schutzimpfungen",
+        "Vorbeugende Impfung",
+        "Vakzin",
+        "Vorsorgeimpfung"
+    ],
+    "service-angebote": [
+        "Welche Leistungen sind verf\u00fcgbar?",
+        "Service-Angebote",
+        "\u00dcbersicht der Angebote",
+        "Welche Angebote gibt es?",
+        "Leistungsangebot",
+        "Angebote",
+        "Welche Dienstleistungen werden angeboten?",
+        "Service"
+    ],
+    "verwandte": [
+        "Meiner Mutter",
+        "Schwester",
+        "Bei Angeh\u00f6rigen",
+        "Bei meinem Bruder",
+        "Famlie",
+        "Den Eltern",
+        "Bei Verwandten"
+    ],
+    "\u00f6pnv": [
+        "\u00d6PNV",
+        "Personennahverkehr",
+        "Die \u00d6ffentlichen",
+        "Bus fahren",
+        "\u00f6ffentliche Transportmittel",
+        "Einen Bus",
+        "\u00d6ffentliche Verkehrsmittel",
+        "Nahverkehr",
+        "U-Bahn"
+    ],
+    "informationen der risikoklassen der l\u00e4nder": [
+        "Infos zu Risikoklassen",
+        "Infos zu Bedrohungen",
+        "Gef\u00e4hrungspotential",
+        "Landesrisiko",
+        "Informationen zu Gefahren",
+        "Informationen der Risikoklassen der L\u00e4nder"
+    ],
+    "dienstreise": [
+        "gesch\u00e4ftlich",
+        "Eine dienstliche Reise",
+        "dienstlich Unterwegs"
+    ],
+    "reise buchen": [
+        "Reise buchen",
+        "Eine Gesch\u00e4ftsreise planen",
+        "Business trip"
+    ],
+    "unterkunft": [
+        "Wohnm\u00f6glichkeiten",
+        "Beherbergung",
+        "Quartier",
+        "Zimmer",
+        "Wohngelegenheit",
+        "Hotel"
+    ],
+    "zug": [
+        "S-Bahn",
+        "Zug",
+        "Bahn fahren"
+    ],
+    "ich m\u00f6chte ein anderes transportmittel buchen": [
+        "Zus\u00e4tzliche Bef\u00f6rderungsm\u00f6glichkeit buchen",
+        "Anderes Transportmittel",
+        "Flugzeug buchen",
+        "Ich brauche auch noch einen Mietwagen"
+    ],
+    "was ist eine zuweisung/abordnung?": [
+        "Was ist eine Zuweisung?",
+        "Wann handelt es sich um eine Zuweisung?",
+        "In welchem Fall handelt es sich um eine Abordnung?",
+        "Ich wei\u00df nicht, was eine Zuweisung ist"
+    ],
+    "alleine": [
+        "ganz allein",
+        "Alleine",
+        "Ich reise ohne Begleitung"
+    ],
+    "mit familie": [
+        "Mit Familie",
+        "Zusammen mit meiner Frau",
+        "Mit Mann und Kinder"
+    ],
+    "schulungsangebote": [
+        "Schulungsangebote",
+        "Training f\u00fcr Travel Risk Management",
+        "Welche Schulungen werden angeboten?",
+        "Kurse"
+    ],
+    "vor antritt einer dienstreise": [
+        "Vor Antritt einer Dienstreise",
+        "Vor der Abreise",
+        "Infos zum Reiseantritt"
+    ],
+    "reiserisiko-l\u00e4nderdatenbank": [
+        "Reiserisiko-L\u00e4nderdatenbank",
+        "Gef\u00e4hrungspotential",
+        "Infos zu Bedrohungen",
+        "Infos zu Risikoklassen",
+        "Risikoinformationen",
+        "Datenbank der L\u00e4nder",
+        "Informationen zu Gefahren"
+    ],
+    "versicherungen": [
+        "Kosten f\u00fcr Reiser\u00fccktrittsversicherung",
+        "Ich musste Geld f\u00fcr Reiseversicherungen ausgeben",
+        "Versicherungkosten",
+        "Versicherungsgeb\u00fchren"
+    ],
+    "hotel": [
+        "Autobahnhotel",
+        "Jugendherberge",
+        "Hotel",
+        "In einer Pension",
+        "Motel",
+        "Hostel"
+    ],
+    "darf ich ein zimmer f\u00fcr mich alleine buchen?": [
+        "Kann ich alleine schlafen?",
+        "Einzelzimmer", 
+        "Ist es erlaubt ein Einzelzimmer zu buchen?"
+    ],
+    "dienstreise beantragen": [
+        "Erlaubnis",
+        "Dienstreise beantragen",
+        "Formular zur Beantragung"
+    ],
+    "formular finden": [
+        "Suchen",
+        "Finden",
+        "Formular finden"
+    ],
+    "transportmittel": [
+        "Informationen zu Fortbewegungsmitteln",
+        "Flugzeug buchen",
+        "Bus"
+    ],
+    "nein": [
+        "Habe ich nicht",
+        "N\u00f6",
+        "niemals",
+        "Nee"
+    ],
+    "ja": [
+        "So ist es",
+        "Ja",
+        "Nat\u00fcrlich"
+    ],
+    "sicherheitsnotfall": [
+        "Ein Sicherheitsvorfall ist aufgetreten",
+        "Sicherheitsnotfall"
+    ],
+    "dienstgang": [
+        "Dienstgang"
+    ],
+    "was ist zu beachten?": [
+        "Auf was muss ich aufpassen?",
+        "Gibt es etwas zu beachten?"
+    ],
+    "notfall auf der dienstreise": [
+        "Eine Notlage ist eingetreten",
+        "Notfall"
+    ],
+    "notfall-app": [
+        "Was ist die Notfall-App?",
+        "Mehr Informationen zur App"
+    ],
+    "\u00fcbergep\u00e4ck": [
+        "Gep\u00e4ck wiegt mehr als erlaubt",
+        "Koffer zu schwer",
+        "Extra Gep\u00e4ck",
+        "Zus\u00e4tzliches Gep\u00e4ck"
+    ],
+    "bekannte": [
+        "Bei Bekannten \u00fcbernachten",
+        "Bei Freunden"
+    ],
+    "ich ben\u00f6tige auskunft zu anderen unterk\u00fcnften": [
+        "Informationen zu anderen \u00dcbernachtungsm\u00f6glichkeiten",
+        "Ich ben\u00f6tige Auskunft zu anderen Unterk\u00fcnften",
+        "Ich will auch noch auf einem Campingplatz \u00fcbernachten"
+    ],
+    "dienstreise abrechnen": [
+        "Formular zur Erstattung",
+        "Dienstreiseabrechnung"
+    ],
+    "forschungssemester": [
+        "Auslandssemester",
+        "Forschungsaufenthalt"
+    ],
+    "was sind nebenkosten?": [
+        "Was sind Nebenkosten?",
+        "Beispiele für Nebenkosten",
+        "Ich weiß nicht was Nebenkosten sind"
+    ],
+    "hilfe beim ausf\u00fcllen": [
+        "Ausf\u00fcllhilfe",
+        "Ausf\u00fcllen",
+        "Ich ben\u00f6tige Unterst\u00fctzung beim Ausf\u00fcllen eines Formulars"
+    ],
+    "transportmittel verpasst oder ausgefallen": [
+        "Fortbewegungsmittel verpasst",
+        "Mein Flug wurde storniert",
+        "Transportmittel verpasst oder ausgefallen"
+    ],
+    "was ist der unterschied zwischen dienstgang und dienstreise?": [
+        "Definition Dienstreise",
+        "Worin unterscheiden sich diese?"
+    ],
+    "travel risk management": [
+        "Reisesicherheit",
+        "Travel Risk Management"
+    ],
+    "eigener pkw": [
+        "privateigener PKW",
+        "Auto",
+        "Meinen Wagen"
+    ],
+    "hilfe im notfall": [
+        "Notfallhilfe",
+        "Notfall auf der Dienstreise",
+        "Eine Notlage ist eingetreten",
+        "Ich brauche Hilfe"
+    ],
+    "nebenkosten": [
+        "Anfallende Kosten",
+        "Weitere Kosten",
+        "Nebengeb\u00fchren"
+    ],
+    "konferenzen": [
+        "Konferenzkosten",
+        "Geb\u00fchren f\u00fcr Konferenzmitgliedschaft",
+        "Kongress",
+        "Tagungsgeb\u00fchren"
+    ],
+    "muss ich kurtaxe oder \u00fcbernachtungssteuern zahlen?": [
+        "Fallen auf einer dienstlichen Reise auch Steuern f\u00fcr die \u00dcbernachtung an?",
+        "Muss ich Kurtaxe entrichten?",
+        "Ist Kurtaxe erstattbar?"
+    ],
+    "hotelliste": [
+        "Welche Hotels sollte man buchen?",
+        "Hotelvorschl\u00e4ge",
+        "Liste der empfohlenen Hotels"
+    ],
+    "wie viel zeit habe ich, um die dienstreiseabrechnung einzureichen?": [
+        "Gibt es eine Frist f\u00fcr die Einreichung des Erstattungsantrags?",
+        "Bis wann muss ich meine Erstattung beantragen?",
+        "Frist f\u00fcr Abrechnung"
+    ],
+    "medizinischer notfall": [
+        "Gesundheitsproblem",
+        "Problem mit Gesundheit",
+        "Ich brauche dringend medizinische Unterst\u00fctzung"
+    ],
+    "problem/notfall w\u00e4hrend der dienstreise": [
+        "Eine Notlage ist eingetreten",
+        "Reisenotfall",
+        "Notfall"
+    ],
+    "tagegeld": [
+        "T\u00e4gliche Spesen",
+        "Geld f\u00fcr Nahrung"
+    ],
+    "allgemeine informationen": [
+        "Allgemeine Informationen",
+        "Allgemeines"
+    ],
+    "md medicus": [
+        "Medicus"
+    ],
+    "kreditkartengeb\u00fchren": [
+        "Kreditkartengeb\u00fchren",
+        "Kosten f\u00fcr Kreditkarte"
+    ],
+    "selbstversorgerhaus": [
+        "Selbstversorgerhaus"
+    ],
+    "darf ich als alleinreisende*r ein doppelzimmer buchen?": [
+        "Sind Doppelzimmer erlaubt?",
+        "Darf ich ein Doppelzimmer f\u00fcr mich selbst buchen?"
+    ],
+    "wo kann ich die dienstreiseabrechnung einreichen": [
+        "Wo kann ich die Dienstreiseabrechnung einreichen?",
+        "Wohin schicke ich die Abrechnung meiner Dienstreise?"
+    ],
+    "formulare, fristen und abl\u00e4ufe": [
+        "Wo finde ich die Formulare?",
+        "Informationen zu Abl\u00e4ufen",
+        "Formulare, Fristen und Abl\u00e4ufe"
+    ],
+    "vorschuss beantragen": [
+        "Anzahlung beantragen",
+        "Vorschuss beantragen",
+        "Ich brauche Geld im Voraus"
+    ],
+    "taxi": [
+        "Taxi"
+    ],
+    "garderobengeb\u00fchren": [
+        "Kosten f\u00fcr Gardarobe",
+        "Verwahrgeb\u00fchr f\u00fcr Gep\u00e4ck"
+    ],
+    "wohnmobil": [
+        "Wohnmobil",
+        "Im Camper"
+    ],
+    "campingplatz": [
+        "Campingplatz",
+        "Camping Gel\u00e4nde"
+    ],
+    "reise stornieren": [
+        "Reise stornieren",
+        "Stornieren",
+        "Was muss ich tun um zu stornieren?"
+    ],
+    "flug": [
+        "Flieger",
+        "Darf ich ein Flugzeug nehmen?",
+        "Sind Fl\u00fcge erlaubt?",
+        "Flug"
+    ],
+    "postgeb\u00fchren": [
+        "Postgeb\u00fchren",
+        "Paket versenden",
+        "Brief abschickem"
+    ],
+    "visumgeb\u00fchren": [
+        "Einreisevisum",
+        "Kosten f\u00fcr Visum"
+    ],
+    "konferenzdinner ": [
+        "Konferenzdinner",
+        "Tagungsessen"
+    ],
+    "parkgeb\u00fchren": [
+        "Parkentgelt",
+        "Parkhausticket",
+        "Parkgeb\u00fchren",
+        "Parkuhr"
+    ],
+    "coronatests (pcr- oder antigentests)": [
+        "PRC Test",
+        "Coronatests (PCR- oder Antigentests)"
+    ]
+}

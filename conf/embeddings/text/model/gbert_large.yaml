@@ -1,0 +1,6 @@
+ckpt_name: 'deepset/gbert-large'
+embedding_dim: 1024
+pooling: CLS
+noise_std: 0.0
+caching: false
+_target_: encoding.text.gbert.GBertEmbeddings

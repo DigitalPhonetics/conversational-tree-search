@@ -1,0 +1,171 @@
+import torch
+from typing import List, Tuple
+
+from utils.utils import EnvInfo
+
+from data.dataset import GraphDataset, ReimburseGraphDataset
+
+from data.parsers.answerTemplateParser import AnswerTemplateParser
+from data.parsers.logicParser import LogicTemplateParser
+from data.parsers.systemTemplateParser import SystemTemplateParser
+from utils.utils import AutoSkipMode
+from environment.free import FreeEnvironment
+from environment.guided import GuidedEnvironment
+from utils.envutils import GoalDistanceMode
+import config as cfg
+
+import gymnasium
+
+class CTSEnvironment(gymnasium.Env):
+    def __init__(self, 
+                # env_id: int,
+                mode: str,
+                dataset: GraphDataset,
+                guided_free_ratio: float,
+                auto_skip: AutoSkipMode,
+                normalize_rewards: bool,
+                max_steps: int,
+                user_patience: int,
+                stop_when_reaching_goal: bool,
+                stop_on_invalid_skip: bool,
+                sys_token: str, usr_token: str, sep_token: str,
+                goal_distance_mode: GoalDistanceMode,
+                goal_distance_increment: int,
+                noise: float,
+                auto_skip_logic_nodes: bool = True,
+                num_episodes: int = None,
+                **kwargs):
+        # self.env_id = env_id
+        self.noise = noise
+        self.goal_distance_mode = goal_distance_mode
+        self.goal_distance_increment = goal_distance_increment
+        self.data = dataset
+        self.mode = mode
+        self.last_log_end_ptr_free = 0
+        self.last_log_end_ptr_guided = 0
+        self.auto_skip_logic_nodes = auto_skip_logic_nodes
+
+        self.max_reward = 4 * dataset.get_max_tree_depth() if normalize_rewards else 1.0
+        self.max_distance = dataset.get_max_tree_depth() + 1  if goal_distance_mode == GoalDistanceMode.FULL_DISTANCE else 1 # set max. or min. distance to start
+        cfg.INSTANCES[cfg.InstanceArgs.MAX_DISTANCE] = self.max_distance
+
+        # text parsers
+        answer_parser = AnswerTemplateParser()
+        logic_parser = LogicTemplateParser()
+        system_parser = SystemTemplateParser()
+        if isinstance(dataset, ReimburseGraphDataset):
+            from data.parsers.parserValueProvider import ReimbursementRealValueBackend
+            value_backend = ReimbursementRealValueBackend(dataset.a1_countries, dataset)
+        else:
+            from data.parsers.parserValueProvider import RealValueBackend
+            value_backend = RealValueBackend()
+
+        # initialize task-specific environments
+        self.guided_free_ratio = guided_free_ratio
+        self.num_episodes = num_episodes
+        self._episode_envs = []
+        if guided_free_ratio > 0.0:
+            self.guided_env = GuidedEnvironment(dataset=dataset,
+                sys_token=sys_token, usr_token=usr_token, sep_token=sep_token,
+                max_steps=max_steps, max_reward=self.max_reward, user_patience=user_patience,
+                stop_when_reaching_goal=stop_when_reaching_goal, stop_on_invalid_skip=stop_on_invalid_skip,
+                answer_parser=answer_parser, system_parser=system_parser, logic_parser=logic_parser,
+                value_backend=value_backend,
+                auto_skip=auto_skip,
+                noise=noise,
+                auto_skip_logic_nodes=auto_skip_logic_nodes)
+            if not self.num_episodes is None:
+                guided_episodes = [self.guided_env] * int(guided_free_ratio * self.num_episodes) 
+                self._episode_envs += guided_episodes
+                print("- GUIDED EPISODES:", len(guided_episodes))
+        if guided_free_ratio < 1.0:
+            self.free_env = FreeEnvironment(dataset=dataset,
+                sys_token=sys_token, usr_token=usr_token, sep_token=sep_token,
+                max_steps=max_steps, max_reward=self.max_reward, user_patience=user_patience,
+                stop_when_reaching_goal=stop_when_reaching_goal, stop_on_invalid_skip=stop_on_invalid_skip,
+                answer_parser=answer_parser, system_parser=system_parser, logic_parser=logic_parser, 
+                value_backend=value_backend,
+                auto_skip=auto_skip,
+                noise=noise,
+                auto_skip_logic_nodes=auto_skip_logic_nodes)
+            if not self.num_episodes is None:
+                free_episodes = [self.free_env] * int((1-guided_free_ratio) * self.num_episodes)
+                self._episode_envs += free_episodes
+                print("- FREE EPISODES:", len(free_episodes))
+
+
+        # TODO add logger
+        # TODO forward coverage stats
+        self.turn_counter = 0
+        self.rng = torch.Generator(device="cpu")
+
+        print("ENV!!", mode, "TOKENS:", sys_token, usr_token, sep_token)
+    
+    @property
+    def current_episode(self):
+        episode = 0
+        if hasattr(self, "guided_env"):
+            episode += self.guided_env.current_episode
+        if hasattr(self, "free_env"):
+            episode += self.free_env.current_episode
+        return episode
+    
+    @property
+    def current_step(self):
+        return self.active_env.current_step 
+
+    def reset(self):
+        # adapt max. goald distance
+        if self.mode == "train" and self.goal_distance_mode == GoalDistanceMode.INCREMENT_EVERY_N_EPISODES:
+            # don't adapt in evaluation / testing, because we have less episodes there 
+            self.max_distance = max(self.current_episode // self.goal_distance_increment, 1)
+            cfg.INSTANCES[cfg.InstanceArgs.MAX_DISTANCE] = self.max_distance
+        elif not self.mode == "train":
+            self.max_distance = cfg.INSTANCES[cfg.InstanceArgs.MAX_DISTANCE]
+
+        # choose uniformely at random between guided and free env according to ratio
+        rand = torch.rand(1, generator=self.rng).item()
+        if self.num_episodes is None:
+            self.active_env = self.guided_env if rand < self.guided_free_ratio else self.free_env
+        else:
+            self.active_env = self._episode_envs.pop()
+        # print("RAND", rand, "RATIO", self.guided_free_ratio)
+        return self.active_env.reset(current_episode=self.current_episode, max_distance=self.max_distance)
+    
+    @property
+    def episode_log(self):
+        log = []
+        if hasattr(self, "guided_env"):
+            log.extend(self.guided_env.episode_log)
+        if hasattr(self, "free_env"):
+            log.extend(self.free_env.episode_log)
+        return log
+    
+    def reset_episode_log(self):
+        self.last_log_end_ptr = 0
+        if hasattr(self, "guided_env"):
+            self.guided_env.episode_log = []
+        if hasattr(self, "free_env"):
+            self.free_env.episode_log = []
+
+    def step(self, action: int, replayed_user_utterance: Tuple[str, None] = None) -> Tuple[dict, float, bool, dict]:
+        obs, reward, done = self.active_env.step(action, replayed_user_utterance)
+        obs[EnvInfo.IS_FAQ] = hasattr(self, 'free_env') and (self.active_env == self.free_env)
+        obs["is_success"] = obs[EnvInfo.ASKED_GOAL]
+        self.turn_counter += 1
+        return obs, reward, done, False, obs # trunated, info = obs before encoding
+    
+    def get_local_skip_accuracy_free(self) -> List[float]:
+        return self.free_env.actioncount_skip_accuracy
+    
+    def get_local_skip_accuracy_guided(self) -> List[float]:
+        return self.guided_env.actioncount_skip_accuracy
+
+    def get_goal_node_coverage_free(self):
+        return len(self.free_env.goal_node_coverage) / self.data.count_question_nodes()
+
+    def get_goal_node_coverage_guided(self):
+        return len(self.guided_env.goal_node_coverage) / self.data.num_guided_goal_nodes
+
+    def seed(self, seed: int):
+        pass

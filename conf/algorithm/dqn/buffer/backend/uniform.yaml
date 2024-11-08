@@ -1,0 +1,3 @@
+_target_: data.buffers.dqn.uniform.UniformReplayBuffer
+buffer_size: 100000
+device: cpu

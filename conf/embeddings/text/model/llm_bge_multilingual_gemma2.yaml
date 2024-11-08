@@ -1,0 +1,6 @@
+ckpt_name: 'BAAI/bge-multilingual-gemma2'
+embedding_dim: 3584
+pooling: NONE
+noise_std: 0.0
+caching: false
+_target_: encoding.text.llm.LLMSentenceEmbeddings

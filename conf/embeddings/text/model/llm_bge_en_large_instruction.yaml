@@ -1,0 +1,8 @@
+ckpt_name: 'BAAI/bge-large-en-v1.5'
+embedding_dim: 1024
+pooling: NONE
+noise_std: 0.0
+caching: false
+normalize_embeddings: true
+query_instruction: 'Represent this sentence for searching relevant passages:'
+_target_: encoding.text.llm.LLMSentenceEmbeddings
