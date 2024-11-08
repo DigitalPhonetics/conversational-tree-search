@@ -42,7 +42,6 @@ argparse-dataclass==2.0.0
 argparse-manpage==4.5
 arrow==1.2.3
 asahi_firmware==0.1
-asciidoc @ file:///builddir/build/BUILD/asciidoc-py-10.2.0
 asgiref==3.7.2
 asn1==2.7.0
 asn1crypto==1.5.1
@@ -1384,17 +1383,14 @@ scp==0.14.5
 scramp==1.4.4
 seaborn==0.13.2
 SecretStorage==3.3.3
-selinux @ file:///builddir/build/BUILD/libselinux-3.6/src
 semantic-version==2.10.0
 semver==3.0.2
 Send2Trash==1.8.2
 sentry-sdk==2.13.0
-sepolicy @ file:///builddir/build/BUILD/selinux-3.6/python/sepolicy
 serpent==1.40
 service-identity==23.1.0
 setools==4.5.1
 setproctitle==1.2.3
-setroubleshoot @ file:///builddir/build/BUILD/setroubleshoot-3.3.33/src
 setuptools==69.0.3
 setuptools-gettext==0.1.8
 setuptools-git==1.2
