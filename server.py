@@ -275,7 +275,7 @@ class UserChatSocket(AuthenticatedWebSocketHandler):
 if __name__ == "__main__":
     # SSL options
     ssl_ctx = ssl.create_default_context(ssl.Purpose.CLIENT_AUTH)
-    ssl_ctx.load_cert_chain(certfile="./server/certificate.crt", keyfile="./server/private.key")
+    # ssl_ctx.load_cert_chain(certfile="./server/certificate.crt", keyfile="./server/private.key")
 
     settings = {
         "login_url": "/",
@@ -306,8 +306,8 @@ if __name__ == "__main__":
         **settings)
     print("created app")
     http_server = tornado.httpserver.HTTPServer(app,  ssl_options=ssl_ctx)
-    # http_server.listen(8081)
-    http_server.listen(443)
+    http_server.listen(8081)
+    # http_server.listen(443)
     print("set up server address")
 
     io_loop = tornado.ioloop.IOLoop.current()
