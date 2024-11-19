@@ -1,9 +1,10 @@
 import multiprocessing
+if not multiprocessing.get_start_method(allow_none=True):
+    multiprocessing.set_start_method("spawn")
 import pickle
 
 from sentence_transformers import SentenceTransformer
 import torch
-multiprocessing.set_start_method("spawn")
 
 import hashlib
 import logging
@@ -22,7 +23,7 @@ from data.parsers.parserValueProvider import ReimbursementRealValueBackend
 from data.parsers.answerTemplateParser import AnswerTemplateParser
 from data.parsers.systemTemplateParser import SystemTemplateParser
 from data.parsers.logicParser import LogicTemplateParser
-from server.cts_llm_policy import LLMPolicy, calculate_node_text_embeddings, get_node_candidate_list_by_type
+from server.cts_llm_policy import LLMPolicy, calculate_node_text_embeddings, get_node_candidate_list_by_type, parallel_path_computation
 from server.cts_llm_policy import system_1 as sys_prompt_1
 from server.formattedDataset import FormattedReimburseGraphDataset
 from server.handlers import AuthenticatedWebSocketHandler, BaseHandler, ChatIndex, DataAgreement, LogPostSurvey, LogPreSurvey, LoginHandler, PostSurvey, PreSurvey, ThankYou, KnownEntry
@@ -30,7 +31,7 @@ from tornado.web import RequestHandler
 
 from server.nlu import NLU
 
-MODEL = "gpt-4o-2024-08-06"
+MODEL = "gpt-4o-2024-08-06" # or "gpt-4o", "gpt-4o-mini"
 TEMPERATURE = 0.0
 SEED = 43
 TOP_K = 15
@@ -69,78 +70,6 @@ USER_GOAL_GROUPS_EASY = {i: [] for i in range(len(EASY_GOALS))}
 USER_GOAL_GROUPS_HARD = {i: [] for i in range(len(HARD_GOALS))}
 CHAT_ENGINES = {}
 
-# on start, check if we have an assignment file, if so, load it and pre-fill group assignments with content
-if os.path.isfile("user_log.txt"):
-    with open("user_log.txt", "r") as assignments:
-        for line in assignments:
-            if "GROUP" in line:
-                user, group = line.split("||")
-                user = user.split(":")[1].strip()
-                group = group.split(":")[1].strip()
-                POLICY_ASSIGNMENT[group].append(user)
-            elif "GOAL_INDICES" in line:
-                user, goal_groups = line.split("||")
-                user = user.split(":")[1].strip()
-                goal_groups = [int(group) for group in goal_groups.split(":")[1].strip().split(",")]
-                USER_GOAL_GROUPS_OPEN[goal_groups[0]].append(user)
-                USER_GOAL_GROUPS_EASY[goal_groups[1]].append(user)
-                USER_GOAL_GROUPS_HARD[goal_groups[2]].append(user)
-
-
-chat_logger = logging.getLogger("chat")
-chat_logger.setLevel(logging.INFO)
-chat_log_file_handler = logging.FileHandler("chat_log.txt")
-chat_log_file_handler.setLevel(logging.INFO)
-chat_logger.addHandler(chat_log_file_handler)
-
-survey_logger = logging.getLogger("survey")
-survey_logger.setLevel(logging.INFO)
-survey_log_file_handler = logging.FileHandler("survey_log.txt")
-survey_log_file_handler.setLevel(logging.INFO)
-survey_logger.addHandler(survey_log_file_handler)
-
-user_logger = logging.getLogger("user_info")
-user_logger.setLevel(logging.INFO)
-user_log_file_handler = logging.FileHandler("user_log.txt")
-user_log_file_handler.setLevel(logging.INFO)
-user_logger.addHandler(user_log_file_handler)
-
-
-
-# setup data
-nlu = NLU()
-data = FormattedReimburseGraphDataset('en/reimburse/test_graph.json', 'en/reimburse/test_answers.json', use_answer_synonyms=True, augmentation=DataAugmentationLevel.NONE, resource_dir='resources')
-# Add in graphs with different markup for the nodes, based on style (shown to user), but same raw text (seen by system)
-# setup data & parsers
-answerParser = AnswerTemplateParser()
-logicParser = LogicTemplateParser()
-sysParser = SystemTemplateParser()
-valueBackend = ReimbursementRealValueBackend(a1_laender=data.a1_countries, data=data)
-# setup model and encoding
-# Mono-Lingual
-bi_encoder = SentenceTransformer("multi-qa-mpnet-base-dot-v1",
-                                device="cpu", 
-                                cache_folder="./models")
-node_list = get_node_candidate_list_by_type(data=data, node_types=RETRIEVAL_NODE_TYPES)
-
-print("Loading embedding...")
-if not os.path.isfile("embedding_cache.pt"):
-    node_text_embeddings = calculate_node_text_embeddings(bi_encoder=bi_encoder, node_list=node_list)
-    torch.save(node_text_embeddings, "embedding_cache.pt")
-else:
-    node_text_embeddings = torch.load("embedding_cache.pt")
-
-print("Loading path cache...")
-if not os.path.isfile("path_cache.pt"):
-    print("START path calculation first!")
-    exit(0)
-    # path_cache = parallel_path_computation(num_workers=60)
-    # with open("path_cache.pkl", "w") as f:
-    #     pickle.dump(path_cache, f)
-else:
-    with open("path_cache.pt", "rb") as f:
-        path_cache = pickle.load(f)
-print("DONE")
 
 class CheckLogin(RequestHandler):
     def post(self):
@@ -273,8 +202,82 @@ class UserChatSocket(AuthenticatedWebSocketHandler):
         print(f"Closing connection for user {self.current_user}")
 
 if __name__ == "__main__":
+    # on start, check if we have an assignment file, if so, load it and pre-fill group assignments with content
+    if os.path.isfile("user_log.txt"):
+        with open("user_log.txt", "r") as assignments:
+            for line in assignments:
+                if "GROUP" in line:
+                    user, group = line.split("||")
+                    user = user.split(":")[1].strip()
+                    group = group.split(":")[1].strip()
+                    POLICY_ASSIGNMENT[group].append(user)
+                elif "GOAL_INDICES" in line:
+                    user, goal_groups = line.split("||")
+                    user = user.split(":")[1].strip()
+                    goal_groups = [int(group) for group in goal_groups.split(":")[1].strip().split(",")]
+                    USER_GOAL_GROUPS_OPEN[goal_groups[0]].append(user)
+                    USER_GOAL_GROUPS_EASY[goal_groups[1]].append(user)
+                    USER_GOAL_GROUPS_HARD[goal_groups[2]].append(user)
+
+
+    chat_logger = logging.getLogger("chat")
+    chat_logger.setLevel(logging.INFO)
+    chat_log_file_handler = logging.FileHandler("chat_log.txt")
+    chat_log_file_handler.setLevel(logging.INFO)
+    chat_logger.addHandler(chat_log_file_handler)
+
+    survey_logger = logging.getLogger("survey")
+    survey_logger.setLevel(logging.INFO)
+    survey_log_file_handler = logging.FileHandler("survey_log.txt")
+    survey_log_file_handler.setLevel(logging.INFO)
+    survey_logger.addHandler(survey_log_file_handler)
+
+    user_logger = logging.getLogger("user_info")
+    user_logger.setLevel(logging.INFO)
+    user_log_file_handler = logging.FileHandler("user_log.txt")
+    user_log_file_handler.setLevel(logging.INFO)
+    user_logger.addHandler(user_log_file_handler)
+
+
+
+    # setup data
+    nlu = NLU()
+    data = FormattedReimburseGraphDataset('en/reimburse/test_graph.json', 'en/reimburse/test_answers.json', use_answer_synonyms=True, augmentation=DataAugmentationLevel.NONE, resource_dir='resources')
+    print("Loading path cache...")
+    if not os.path.isfile("path_cache.pkl"):
+        print("BUILDING PATH CACHE (THIS SHOULD HAPPEN ONLY ON FIRST STARTUP)")
+        path_cache = parallel_path_computation(num_workers=16, data=data)
+        with open("path_cache.pkl", "wb") as f:
+            pickle.dump(path_cache, f)
+    else:
+        with open("path_cache.pkl", "rb") as f:
+            path_cache = pickle.load(f)
+    print("DONE")
+
+    # Add in graphs with different markup for the nodes, based on style (shown to user), but same raw text (seen by system)
+    # setup data & parsers
+    answerParser = AnswerTemplateParser()
+    logicParser = LogicTemplateParser()
+    sysParser = SystemTemplateParser()
+    valueBackend = ReimbursementRealValueBackend(a1_laender=data.a1_countries, data=data)
+    # setup model and encoding
+    # Mono-Lingual
+    bi_encoder = SentenceTransformer("multi-qa-mpnet-base-dot-v1",
+                                    device="cpu", 
+                                    cache_folder="./models")
+    node_list = get_node_candidate_list_by_type(data=data, node_types=RETRIEVAL_NODE_TYPES)
+
+    print("Loading embedding...")
+    if not os.path.isfile("embedding_cache.pt"):
+        node_text_embeddings = calculate_node_text_embeddings(bi_encoder=bi_encoder, node_list=node_list)
+        torch.save(node_text_embeddings, "embedding_cache.pt")
+    else:
+        node_text_embeddings = torch.load("embedding_cache.pt")
+
+
+
     # SSL options
-    ssl_ctx = ssl.create_default_context(ssl.Purpose.CLIENT_AUTH)
+    # ssl_ctx = ssl.create_default_context(ssl.Purpose.CLIENT_AUTH)
     # ssl_ctx.load_cert_chain(certfile="./server/certificate.crt", keyfile="./server/private.key")
 
     settings = {
@@ -302,10 +305,10 @@ if __name__ == "__main__":
         (r"/known_entry", KnownEntry),
         (r"/agreed_to_data_collection", UserAgreed),
     ], 
-        ssl_options=ssl_ctx,
+        # ssl_options=ssl_ctx,
         **settings)
     print("created app")
-    http_server = tornado.httpserver.HTTPServer(app,  ssl_options=ssl_ctx)
+    http_server = tornado.httpserver.HTTPServer(app) #,  ssl_options=ssl_ctx)
     http_server.listen(8081)
     # http_server.listen(443)
     print("set up server address")

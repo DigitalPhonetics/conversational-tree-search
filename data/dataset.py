@@ -342,7 +342,7 @@ class ReimburseGraphDataset(GraphDataset):
             city_list: Set[str]
         """
         # load max. hotel costs
-        hotel_costs = defaultdict(lambda: dict())
+        hotel_costs = {}
         country_list = set()
         city_list = set()
 
@@ -353,6 +353,8 @@ class ReimburseGraphDataset(GraphDataset):
             country_list.add(country)
             city_list.add(city)
             daily_allowance = row['Tagegeld LRKG']
+            if not country in hotel_costs:
+                hotel_costs[country] = {}
             hotel_costs[country][city] = Tagegeld(country=country, city=city, daily_allowance=daily_allowance)
         return hotel_costs, country_list, city_list
     

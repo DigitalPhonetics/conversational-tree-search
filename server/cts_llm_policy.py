@@ -197,52 +197,53 @@ def get_goal_candidates_similarity(node_list: List[DialogNode], info_node_embedd
     
 
 # Define a function to handle the path expansion logic
-# import multiprocessing
-# global_data = train_eval_data
+import multiprocessing
 
-# def compute_paths(args):
-#     start_node, goal_node = args
-#     try:
-#         goal = UserGoal(
-#             data=global_data,
-#             start_node=start_node,
-#             goal_node=goal_node,
-#             initial_user_utterance="",
-#             answer_parser=answerParser,
-#             system_parser=sysParser,
-#             value_backend=None
-#         )
-#         paths = goal.expand_path(goal_node=goal_node, start_node=start_node, answerParser=answerParser)
-#         if len(paths) > 0:
-#             return start_node.key, goal_node.key, paths
-#         else:
-#             return start_node.key, goal_node.key, []
-#     except Exception as e:
-#         return start_node.key, goal_node.key, []
+def compute_paths(args):
+    start_node, goal_node, data = args
+    answerParser = AnswerTemplateParser()
+    sysParser = SystemTemplateParser()
+    try:
+        goal = UserGoal(
+            data=data,
+            start_node=start_node,
+            goal_node=goal_node,
+            initial_user_utterance="",
+            answer_parser=answerParser,
+            system_parser=sysParser,
+            value_backend=None
+        )
+        paths = goal.expand_path(goal_node=goal_node, start_node=start_node, answerParser=answerParser)
+        if len(paths) > 0:
+            return start_node.key, goal_node.key, paths
+        else:
+            return start_node.key, goal_node.key, []
+    except Exception as e:
+        return start_node.key, goal_node.key, []
 
-# def parallel_path_computation(num_workers=60):
-#     path_map = {}
+def parallel_path_computation(data, num_workers=60):
+    path_map = {}
 
-#     # Collect all tasks (start_node, goal_node pairs) to process
-#     tasks = []
-#     for start_node in global_data.node_list:
-#         for goal_node in get_node_candidate_list_by_type(data=global_data, node_types=[NodeType.INFO, NodeType.QUESTION]):
-#             tasks.append((start_node, goal_node))
+    # Collect all tasks (start_node, goal_node pairs) to process
+    tasks = []
+    for start_node in data.node_list:
+        for goal_node in get_node_candidate_list_by_type(data=data, node_types=[NodeType.INFO, NodeType.QUESTION]):
+            tasks.append((start_node, goal_node, data))
 
-#     # Use multiprocessing Pool to parallelize the task
-#     with multiprocessing.Pool(processes=num_workers) as pool:
-#         results = list(tqdm(pool.imap(compute_paths, tasks), total=len(tasks)))
+    # Use multiprocessing Pool to parallelize the task
+    with multiprocessing.Pool(processes=num_workers) as pool:
+        results = list(tqdm(pool.imap(compute_paths, tasks), total=len(tasks)))
 
-#     # Populate the path_map based on results
-#     for start_key, goal_key, paths in results:
-#         if paths:
-#             if not start_key in path_map:
-#                 path_map[start_key] = {}
-#             if not goal_key in path_map[start_key]:
-#                 path_map[start_key][goal_key] = {}
-#             path_map[start_key][goal_key] = paths
+    # Populate the path_map based on results
+    for start_key, goal_key, paths in results:
+        if paths:
+            if not start_key in path_map:
+                path_map[start_key] = {}
+            if not goal_key in path_map[start_key]:
+                path_map[start_key][goal_key] = {}
+            path_map[start_key][goal_key] = paths
 
-#     return path_map
+    return path_map
 
 
 

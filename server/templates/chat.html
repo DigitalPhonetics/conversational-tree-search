@@ -384,7 +384,7 @@
         typingAnimation = value;
     }
 
-    const socket = new WebSocket("wss://" + window.location.host + "/channel");
+    const socket = new WebSocket("ws://" + window.location.host + "/channel");
     socket.onmessage = (msg) => {
         const msg_data = JSON.parse(msg.data);
         event = msg_data['EVENT'];
