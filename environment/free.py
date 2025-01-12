@@ -3,6 +3,7 @@ from copy import deepcopy
 import random
 from typing import Tuple, Union
 
+from config import RewardMode
 from environment.goal import DummyGoal, UserGoalGenerator
 from utils.utils import rand_remove_questionmark
 
@@ -24,12 +25,14 @@ class FreeEnvironment(BaseEnv):
             answer_parser: AnswerTemplateParser, system_parser: SystemTemplateParser, logic_parser: LogicTemplateParser,
             value_backend: RealValueBackend,
             auto_skip: AutoSkipMode,
-            noise: float) -> None:
+            noise: float,
+            reward_mode: RewardMode) -> None:
         super().__init__(dataset=dataset,
             sys_token=sys_token, usr_token=usr_token, sep_token=sep_token, 
             max_steps=max_steps, max_reward=max_reward, user_patience=user_patience,
             answer_parser=answer_parser, logic_parser=logic_parser, value_backend=value_backend,
-            auto_skip=auto_skip, stop_on_invalid_skip=stop_on_invalid_skip, noise=noise)
+            auto_skip=auto_skip, stop_on_invalid_skip=stop_on_invalid_skip, noise=noise,
+            reward_mode=reward_mode)
         self.goal_gen = UserGoalGenerator(graph=dataset, answer_parser=answer_parser,
             system_parser=system_parser, value_backend=value_backend)
         self.stop_when_reaching_goal = stop_when_reaching_goal
@@ -55,7 +58,12 @@ class FreeEnvironment(BaseEnv):
 
         if not self.asked_goal_once and self.goal.has_reached_goal_node(self.current_node):
             # we ask goal node for the first time
-            reward += self.max_reward
+            if self.reward_mode == RewardMode.BINARY_EXTENDED:
+                reward += 0.25
+            elif self.reward_mode == RewardMode.SHAPED:
+                reward += self.max_reward
+            elif self.reward_mode == RewardMode.BINARY:
+                reward += 1.0
             self.asked_goal_once = True
             self.episode_log.append(f'{self.env_id}-{self.current_episode}$ ASK REACHED GOAL')
 
@@ -64,10 +72,11 @@ class FreeEnvironment(BaseEnv):
                 self.episode_log.append(f'{self.env_id}-{self.current_episode}$ AUTO-STOP REACHED GOAL')
                 done = True
         else:
-            reward -= 1
+            if self.reward_mode == RewardMode.SHAPED:
+                reward -= 0.25
 
         if not done:
-            if self.auto_skip_mode != AutoSkipMode.NONE:
+            if self.auto_skip_mode != AutoSkipMode.NONE and self.reward_mode == RewardMode.SHAPED:
                 reward -= 1 # because it is 2 actions
 
             if self.current_node.node_type == NodeType.VARIABLE:
@@ -75,7 +84,7 @@ class FreeEnvironment(BaseEnv):
                 var = self.answerParser.find_variable(self.current_node.answer_by_index(0).text)
 
                 # check if variable was already asked
-                if var.name in self.bst:
+                if self.reward_mode == RewardMode.SHAPED and var.name in self.bst:
                     reward -= 1 # variable value already known
                 
                 # get user reply and save to bst
@@ -85,7 +94,8 @@ class FreeEnvironment(BaseEnv):
 
                 if not var_instance.relevant:
                     # asking for irrelevant variable is bad
-                    reward -= 2
+                    if self.reward_mode == RewardMode.SHAPED:
+                        reward -= 2
                     self.actioncount_ask_variable_irrelevant += 1
                     self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> IRRELEVANT VAR: {var.name} ')
                 self.coverage_variables[var.name][self.bst[var.name]] += 1
@@ -104,7 +114,8 @@ class FreeEnvironment(BaseEnv):
                 else:
                     # get user reply
                     if not response.relevant:
-                        reward -= 2 # chose different path than goal path]
+                        if self.reward_mode == RewardMode.SHAPED:
+                            reward -= 2 # chose different path than goal path]
                         self.actioncount_ask_question_irrelevant += 1
                         self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> IRRELEVANT QUESTION')
                     # answer = self.current_node.answers.get(key=response.answer_key)
@@ -123,10 +134,17 @@ class FreeEnvironment(BaseEnv):
     
     @property
     def reward_reached_goal(self) -> int:
-        return 15
+        if self.reward_mode == RewardMode.SHAPED:
+            return 15
+        elif self.reward_mode == RewardMode.BINARY_EXTENDED:
+            return 0.75
+        elif self.reward_mode == RewardMode.BINARY:
+            return 0.0
 
     def skip(self, answer_index: int) -> Tuple[bool, float]:
-        reward = -1.0
+        reward = 0.0
+        if self.reward_mode == RewardMode.SHAPED:
+            reward -= -1.0
         done = False 
 
         next_node = self.get_transition(answer_index)
@@ -134,7 +152,7 @@ class FreeEnvironment(BaseEnv):
         if next_node:
             # valid transition
             self.current_node = next_node
-            if self.goal.has_reached_goal_node(self.current_node):
+            if self.goal.has_reached_goal_node(self.current_node) and not self.reached_goal_once:
                 reward += self.reward_reached_goal # assign a reward for reaching the goal (but not asked yet, because this was a skip)
                 self.reached_goal_once = True
                 self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> REACHED GOAL')
@@ -143,7 +161,8 @@ class FreeEnvironment(BaseEnv):
         else:
             # invalid transition -> punish
             self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> INVALID SKIP (answer index: {answer_index} for {len(self.current_node.answers)})')
-            reward -= 3
+            if self.reward_mode == RewardMode.SHAPED:
+                reward -= 3
             self.actioncount_skip_invalid += 1
         return done, reward
 

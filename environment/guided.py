@@ -5,7 +5,7 @@ from typing import Tuple, Union
 from environment.goal import DummyGoal, UserGoalGenerator
 from utils.utils import rand_remove_questionmark
 from data.parsers.systemTemplateParser import SystemTemplateParser
-from config import ActionType
+from config import ActionType, RewardMode
 
 from data.dataset import GraphDataset, NodeType
 
@@ -25,13 +25,15 @@ class GuidedEnvironment(BaseEnv):
             answer_parser: AnswerTemplateParser, system_parser: SystemTemplateParser, logic_parser: LogicTemplateParser,
             value_backend: RealValueBackend,
             auto_skip: AutoSkipMode,
-            noise: float) -> None:
+            noise: float,
+            reward_mode: RewardMode) -> None:
         super().__init__(dataset=dataset,
             sys_token=sys_token, usr_token=usr_token, sep_token=sep_token,
             max_steps=max_steps, max_reward=max_reward, user_patience=user_patience,
             answer_parser=answer_parser, logic_parser=logic_parser, value_backend=value_backend,
             auto_skip=auto_skip, stop_on_invalid_skip=stop_on_invalid_skip,
-            noise=noise)
+            noise=noise,
+            reward_mode=reward_mode)
         self.goal_gen = UserGoalGenerator(graph=dataset, answer_parser=answer_parser,
             system_parser=system_parser, value_backend=value_backend)
         self.stop_when_reaching_goal = stop_when_reaching_goal
@@ -53,7 +55,12 @@ class GuidedEnvironment(BaseEnv):
 
         if not self.asked_goal_once and self.goal.has_reached_goal_node(self.current_node):
             # we ask goal node for the first time
-            reward += self.max_reward
+            if self.reward_mode == RewardMode.SHAPED:
+                reward += self.max_reward
+            elif self.reward_mode == RewardMode.BINARY_EXTENDED:
+                reward += 0.25
+            elif self.reward_mode == RewardMode.BINARY:
+                reward += 1.0
             self.asked_goal_once = True
             self.episode_log.append(f'{self.env_id}-{self.current_episode}$ ASK REACHED GOAL')
 
@@ -62,27 +69,29 @@ class GuidedEnvironment(BaseEnv):
                 self.episode_log.append(f'{self.env_id}-{self.current_episode}$ AUTO-STOP REACHED GOAL')
                 done = True
         else:
-            reward -= 1
+            if self.reward_mode == RewardMode.SHAPED:
+                reward -= 1
 
         if not done:        
-            if self.last_action_idx == ActionType.ASK:
-                if self.auto_skip_mode != AutoSkipMode.NONE:
-                    reward += 3 # ask is also skip
-                    # last ask brought us to correct goal
-                    # if not self.choose_next_goal_node_guided():
-                    #     done = True
+            if self.reward_mode == RewardMode.SHAPED:
+                if self.last_action_idx == ActionType.ASK:
+                    if self.auto_skip_mode != AutoSkipMode.NONE:
+                        reward += 3 # ask is also skip
+                        # last ask brought us to correct goal
+                        # if not self.choose_next_goal_node_guided():
+                        #     done = True
+                    else:
+                        reward -= 1 # don't ask multiple times in a row!
                 else:
-                    reward -= 1 # don't ask multiple times in a row!
-            else:
-                # last action == SKIP, current action = ASK 
-                reward += 3 # important to ask each node
+                    # last action == SKIP, current action = ASK 
+                    reward += 3 # important to ask each node
 
             if self.current_node.node_type == NodeType.VARIABLE:
                 # get variable name and value
                 var = self.answerParser.find_variable(self.current_node.answer_by_index(0).text)
 
                 # check if variable was already asked
-                if var.name in self.bst:
+                if self.reward_mode == RewardMode.SHAPED and var.name in self.bst:
                     reward -= 1 # variable value already known
                 
                 # get user reply and save to bst
@@ -92,7 +101,8 @@ class GuidedEnvironment(BaseEnv):
 
                 if not var_instance.relevant:
                     # asking for irrelevant variable is bad
-                    reward -= 2
+                    if self.reward_mode == RewardMode.SHAPED:
+                        reward -= 2
                     self.actioncount_ask_variable_irrelevant += 1
                     self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> IRRELEVANT VAR: {var.name} ')
                 self.coverage_variables[var.name][self.bst[var.name]] += 1
@@ -100,7 +110,8 @@ class GuidedEnvironment(BaseEnv):
 
                 if not var_instance.relevant:
                     # asking for irrelevant variable is bad
-                    reward -= 2
+                    if self.reward_mode == RewardMode.SHAPED:
+                        reward -= 2
                     self.actioncount_ask_variable_irrelevant += 1
                     self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> IRRELEVANT VAR: {var.name} ')
                 self.coverage_variables[var.name][self.bst[var.name]] += 1
@@ -120,7 +131,8 @@ class GuidedEnvironment(BaseEnv):
                 else:
                     # get user reply
                     if not response.relevant:
-                        reward -= 2 # chose different path than goal path]
+                        if self.reward_mode == RewardMode.SHAPED:
+                            reward -= 2 # chose different path than goal path]
                         self.actioncount_ask_question_irrelevant += 1
                         self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> IRRELEVANT QUESTION')
                     # answer = self.current_node.answers.get(key=response.answer_key)
@@ -134,7 +146,12 @@ class GuidedEnvironment(BaseEnv):
     
     @property
     def reward_reached_goal(self) -> int:
-        return 15
+        if self.reward_mode == RewardMode.SHAPED:
+            return 15
+        elif self.reward_mode == RewardMode.BINARY_EXTENDED:
+            return 0.75
+        elif self.reward_mode == RewardMode.BINARY:
+            return 0.0
 
 
     def skip(self, answer_index: int) -> Tuple[bool, float]:
@@ -145,7 +162,8 @@ class GuidedEnvironment(BaseEnv):
         skip_correct_globally = True
         if (not next_node) or ((next_node.node_type != NodeType.LOGIC) and (next_node.key not in self.goal.visited_ids)):
             # skipping is good after ask, but followup-node is wrong!
-            reward -= self.max_reward / 4
+            if self.reward_mode == RewardMode.SHAPED:
+                reward -= self.max_reward / 4
             self.actioncount_skip_invalid += 1
             self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> INVALID SKIP OR WRONG FOLLOWUP NODE')
             skip_correct_globally = False
@@ -167,24 +185,28 @@ class GuidedEnvironment(BaseEnv):
                     # check if variable was already asked
                     if var.name in self.bst:    
                         # it is good to skip this node since variable is already known!
-                        reward += 4
+                        if self.reward_mode == RewardMode.SHAPED:
+                            reward += 4
                         self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> SKIPPED ALREADY KNOWN VARIABLE')
                     else:
-                        reward -= 4
+                        if self.reward_mode == RewardMode.SHAPED:
+                            reward -= 4
                         self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> SKIPPED VARIABLE NODE W/O ASKING')
                 else:
-                    reward -= 2  # last action was skip: punish, should have asked this turn
+                    if self.reward_mode == RewardMode.SHAPED:
+                        reward -= 2  # last action was skip: punish, should have asked this turn
                     self.episode_log.append(f'{self.env_id}-{self.current_episode}$ -> SKIPPED TO NEXT NODE, BUT W/O ASKING')
             else: 
-                reward += 4 # skipping is good after ask, and we chose next node correctly
+                if self.reward_mode == RewardMode.SHAPED:
+                    reward += 4 # skipping is good after ask, and we chose next node correctly
 
-                # check if skip was locally correct (after knowing it wasn't correct globally)
-                # -> still reward local correctness, since a path of locally correct skips => global correctness
-                # That means, it's OK to reward locally correct behaviour, even if it is wrong on a global scale
-                if not skip_correct_globally and prev_node.node_type == NodeType.QUESTION:
-                    # last action was ASK -> get user utterance from ASK turn
-                    if self.locally_correct_skip(prev_usr_utterance=self.user_utterances_history[-1], origin_node=prev_node, followup_node=next_node):
-                        reward = 1 # turn reward positive again (+1), but lower than if it were correct skip & correct path
+                    # check if skip was locally correct (after knowing it wasn't correct globally)
+                    # -> still reward local correctness, since a path of locally correct skips => global correctness
+                    # That means, it's OK to reward locally correct behaviour, even if it is wrong on a global scale
+                    if not skip_correct_globally and prev_node.node_type == NodeType.QUESTION:
+                        # last action was ASK -> get user utterance from ASK turn
+                        if self.locally_correct_skip(prev_usr_utterance=self.user_utterances_history[-1], origin_node=prev_node, followup_node=next_node):
+                            reward = 1 # turn reward positive again (+1), but lower than if it were correct skip & correct path
 
         return done, reward
 

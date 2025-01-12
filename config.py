@@ -39,6 +39,10 @@ class InstanceType(Enum):
     BUFFER = 'buffer'
     STATE_ENCODING = 'state_encoding'
 
+class RewardMode(Enum):
+    SHAPED = 'shaped'
+    BINARY = 'binary'
+    BINARY_EXTENDED = 'binary_extended'
 
 @dataclass
 class TrainingStageConfig:
@@ -88,6 +92,7 @@ class EnvironmentConfig:
     num_test_envs: int
     goal_distance_mode: GoalDistanceMode
     goal_distance_increment: int
+    reward_mode: Optional[RewardMode] = RewardMode.SHAPED
     sys_token: Optional[str] = ""
     usr_token: Optional[str] = ""
     sep_token: Optional[str] = ""

@@ -10,7 +10,7 @@ from algorithm.dqn.her import HindsightExperienceReplayWrapper
 # from environment.old.her import OldHindsightExperienceReplayWrapper
 from utils.utils import AutoSkipMode, to_class
 
-from config import INSTANCES, ActionConfig, InstanceType, StateConfig, WandbLogLevel, register_configs, EnvironmentConfig, DatasetConfig
+from config import INSTANCES, ActionConfig, InstanceType, RewardMode, StateConfig, WandbLogLevel, register_configs, EnvironmentConfig, DatasetConfig
 from data.cache import Cache
 from data.dataset import GraphDataset
 from encoding.state import StateEncoding
@@ -36,7 +36,7 @@ os.environ['TOKENIZERS_PARALLELISM'] = "True"
 
 run_id = f"run_{str(time.time()).split('.')[0]}"
 print("RUN ID", run_id)
-OmegaConf.register_resolver("run_dir", lambda : f"/mount/arbeitsdaten/asr-2/vaethdk/cts_newcodebase_weights/{run_id}/")
+OmegaConf.register_resolver("run_dir", lambda : f"/fs/scratch/users/vaethdk/cts_thesis_generation/{run_id}/")
 
 cs = ConfigStore.instance()
 register_configs()
@@ -118,15 +118,15 @@ def load_cfg(cfg):
         train_env = VecMonitor(train_env)
     if "validation" in cfg.experiment and not isinstance(cfg.experiment.validation, type(None)): 
         val_data, cache, state_encoding, val_env = setup_data_and_vecenv(device=cfg.experiment.device, dataset_cfg=cfg.experiment.validation.dataset, environment_cfg=cfg.experiment.environment,
-                                                                        mode="val", n_envs=cfg.experiment.environment.num_val_envs, log_dir=f"/mount/arbeitsdaten/asr-2/vaethdk/cts_newcodebase_weights/{run_id}/best_eval/monitor_logs",
+                                                                        mode="val", n_envs=cfg.experiment.environment.num_val_envs, log_dir=f"/fs/scratch/users/vaethdk/cts_thesis_generation/{run_id}/best_eval/monitor_logs",
                                                                         cache=cache, encoding=state_encoding,
                                                                         state_config=cfg.experiment.state, action_config=cfg.experiment.actions,
                                                                         torch_compile=cfg.experiment.torch_compile,
                                                                         save_terminal_obs=cfg.experiment.algorithm.dqn.save_terminal_obs,
                                                                         noise=cfg.experiment.validation.noise)
         callbacks.append(CustomEvalCallback(eval_env=val_env, mode='eval',
-                             best_model_save_path=f"/mount/arbeitsdaten/asr-2/vaethdk/cts_newcodebase_weights/{run_id}/best_eval/weights",
-                             log_path=f"/mount/arbeitsdaten/asr-2/vaethdk/cts_newcodebase_weights/{run_id}/best_eval/logs",
+                             best_model_save_path=f"/fs/scratch/users/vaethdk/cts_thesis_generation/{run_id}/best_eval/weights",
+                             log_path=f"/fs/scratch/users/vaethdk/cts_thesis_generation/{run_id}/best_eval/logs",
                              eval_freq=max(cfg.experiment.validation.every_steps // cfg.experiment.environment.num_val_envs, 1),
                              deterministic=True, 
                              render=False,
@@ -134,15 +134,15 @@ def load_cfg(cfg):
                              keep_checkpoints=cfg.experiment.logging.keep_checkpoints))
     if "testing" in cfg.experiment and not isinstance(cfg.experiment.testing, type(None)):
         test_data, cache, state_encoding, test_env = setup_data_and_vecenv(device=cfg.experiment.device, dataset_cfg=cfg.experiment.testing.dataset, environment_cfg=cfg.experiment.environment,
-                                                                        mode="test", n_envs=cfg.experiment.environment.num_test_envs, log_dir=f"/mount/arbeitsdaten/asr-2/vaethdk/cts_newcodebase_weights/{run_id}/best_test/monitor_logs",
+                                                                        mode="test", n_envs=cfg.experiment.environment.num_test_envs, log_dir=f"/fs/scratch/users/vaethdk/cts_thesis_generation/{run_id}/best_test/monitor_logs",
                                                                         cache=cache, encoding=state_encoding,
                                                                         state_config=cfg.experiment.state, action_config=cfg.experiment.actions,
                                                                         torch_compile=cfg.experiment.torch_compile,
                                                                         save_terminal_obs=cfg.experiment.algorithm.dqn.save_terminal_obs,
                                                                         noise=cfg.experiment.testing.noise)
         callbacks.append(CustomEvalCallback(eval_env=test_env, mode='test',
-                        best_model_save_path=f"/mount/arbeitsdaten/asr-2/vaethdk/cts_newcodebase_weights/{run_id}/best_test/weights",
-                        log_path=f"/mount/arbeitsdaten/asr-2/vaethdk/cts_newcodebase_weights/{run_id}/best_test/logs",
+                        best_model_save_path=f"/fs/scratch/users/vaethdk/cts_thesis_generation/{run_id}/best_test/weights",
+                        log_path=f"/fs/scratch/users/vaethdk/cts_thesis_generation/{run_id}/best_test/logs",
                         eval_freq=max(cfg.experiment.testing.every_steps // cfg.experiment.environment.num_test_envs, 1),
                         deterministic=True,
                         render=False,
@@ -176,7 +176,7 @@ def load_cfg(cfg):
         "num_train_envs": cfg.experiment.environment.num_train_envs,
         "batch_size": cfg.experiment.algorithm.dqn.batch_size,
         "dataset": train_data,
-        "append_ask_action": False,
+        "append_ask_action": False if cfg.experiment.environment.reward_mode == RewardMode.SHAPED else True,
         # "state_encoding": state_encoding,
         "auto_skip": AutoSkipMode.NONE,
         "normalize_rewards": True,
@@ -190,7 +190,8 @@ def load_cfg(cfg):
         "alpha": cfg.experiment.algorithm.dqn.buffer.backend.alpha,
         "beta": cfg.experiment.algorithm.dqn.buffer.backend.beta,
         "use_lap": cfg.experiment.algorithm.dqn.buffer.backend.use_lap,
-        "noise": cfg.experiment.training.noise
+        "noise": cfg.experiment.training.noise,
+        "reward_mode": cfg.experiment.environment.reward_mode
     }
     # TODO change back!
     replay_buffer_class = HindsightExperienceReplayWrapper
@@ -228,12 +229,12 @@ def load_cfg(cfg):
         if cfg.experiment.logging.wandb_log == WandbLogLevel.OFFLINE:
             os.environ['WANDB_MODE'] = 'offline'
         run = wandb.init(
-            project="cts_en_stablebaselines",
+            project="cts_thesis",
             config=OmegaConf.to_container(cfg, resolve=True),
             sync_tensorboard=True,  # auto-upload sb3's tensorboard metrics
             # monitor_gym=True,  # auto-upload the videos of agents playing the game
             save_code=True,  # optional
-            dir=f"/mount/arbeitsdaten/asr-2/vaethdk/cts_newcodebase_weights/{run_id}"
+            dir=f"/fs/scratch/users/vaethdk/cts_thesis_generation/{run_id}/",
         )
         # callbacks.append(WandbCallback(
         #     model_save_path=f"/mount/arbeitsdaten/asr-2/vaethdk/cts_newcodebase_weights/{run_id}",

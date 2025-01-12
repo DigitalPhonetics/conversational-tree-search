@@ -30,6 +30,7 @@ class CTSHEREnvironment:
                 stop_on_invalid_skip: bool,
                 sys_token: str, usr_token: str, sep_token: str,
                 noise: float,
+                reward_mode: cfg.RewardMode,
                 **kwargs):
         # self.env_id = env_id
         self.data = dataset
@@ -38,7 +39,7 @@ class CTSHEREnvironment:
         self.usr_token = usr_token
         self.sep_token = sep_token
 
-        self.max_reward = 4 * dataset.get_max_tree_depth() if normalize_rewards else 1.0
+        self.max_reward = 1 # 4 * dataset.get_max_tree_depth() if normalize_rewards else 1.0
         self.max_distance = dataset.get_max_tree_depth() + 1
         cfg.INSTANCES[cfg.InstanceArgs.MAX_DISTANCE] = self.max_distance
 
@@ -61,7 +62,8 @@ class CTSHEREnvironment:
                 answer_parser=answer_parser, system_parser=system_parser, logic_parser=logic_parser,
                 value_backend=value_backend,
                 auto_skip=auto_skip,
-                noise=noise)
+                noise=noise,
+                reward_mode=reward_mode)
         self.free_env = FreeEnvironment(dataset=dataset,
                 sys_token=sys_token, usr_token=usr_token, sep_token=sep_token,
                 max_steps=max_steps, max_reward=self.max_reward, user_patience=user_patience,
@@ -69,7 +71,8 @@ class CTSHEREnvironment:
                 answer_parser=answer_parser, system_parser=system_parser, logic_parser=logic_parser, 
                 value_backend=value_backend,
                 auto_skip=auto_skip,
-                noise=noise)
+                noise=noise,
+                reward_mode=reward_mode)
 
         print("HER ENV!!", "TOKENS:", sys_token, usr_token, sep_token)
     

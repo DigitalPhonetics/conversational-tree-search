@@ -7,7 +7,7 @@ import torch
 from environment.goal import DummyGoal
 
 from utils.utils import EnvInfo
-from config import ActionType
+from config import ActionType, RewardMode
 
 from data.dataset import DialogNode, GraphDataset, NodeType
 
@@ -29,14 +29,16 @@ class BaseEnv:
             auto_skip: AutoSkipMode,
             stop_on_invalid_skip: bool,
             noise: float,
+            reward_mode: RewardMode,
             env_id: int = None) -> None:
 
         self.env_id = random.randint(0, 99999999) if isinstance(env_id, type(None)) else env_id
         self.data = dataset
         self.noise = noise
+        self.reward_mode = reward_mode
 
         self.max_steps = max_steps
-        self.max_reward = max_reward
+        self.max_reward = max_reward if reward_mode == RewardMode.SHAPED else 1.0
 
         self.user_patience = user_patience
         self.auto_skip_mode = auto_skip
@@ -301,7 +303,8 @@ class BaseEnv:
 
         # check if dialog should end
         if self.check_user_patience_reached(): 
-            reward = -self.max_reward  # bad
+            if self.reward_mode == RewardMode.SHAPED:
+                reward = -self.max_reward  # bad
             done = True
             self.episode_log.append(f'{self.env_id}-{self.current_episode}$ REACHED MAX USER PATIENCE')
         elif self.reached_max_length():
@@ -335,7 +338,8 @@ class BaseEnv:
                     if self.stop_on_invalid_skip and (not done) and self.current_node:
                         # we're not at the end of the tree, but we took a wrong skip
                         done = True
-                        reward = -self.max_reward
+                        if self.reward_mode == RewardMode.SHAPED:
+                            reward = -self.max_reward
                 if self.on_path:
                     # transition is on goal path! -> update index
                     self.last_valid_skip_transition_idx = self.current_step
@@ -383,6 +387,10 @@ class BaseEnv:
         obs = self.get_obs()
         reward /= self.max_reward 
         assert -1 <= reward <= 1, f"invalid reward normalization: {reward} not in [-1,1]"
+
+        if self.reward_mode != RewardMode.SHAPED and reward == 0:
+            # punish turn length, this turn did not reach the goal
+            reward = -0.01 # * 50 ergibt 0.5, falls erfolgreich also immer noch 0.75 (ziel erreicht) oder 0.25 (ziel gefragt)
 
         return obs, reward, done
 
@@ -439,7 +447,8 @@ class BaseEnv:
                         done = True
                 else:
                     # we don't know variable (yet?) -> punish and stop
-                    reward = -self.max_reward
+                    if self.reward_mode == RewardMode.SHAPED:
+                        reward = -self.max_reward
                     self.actioncount_missingvariable += 1
                     self.episode_log.append(f"{self.env_id}-{self.current_episode}$ -> AUTO SKIP LOGIC NODE: FAIL, VAR {var_name} not in BST -> {self.current_node.key}")
                     done = True

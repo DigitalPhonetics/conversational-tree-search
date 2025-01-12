@@ -32,6 +32,7 @@ class CTSEnvironment(gymnasium.Env):
                 goal_distance_mode: GoalDistanceMode,
                 goal_distance_increment: int,
                 noise: float,
+                reward_mode: cfg.RewardMode,
                 **kwargs):
         # self.env_id = env_id
         self.noise = noise
@@ -67,7 +68,8 @@ class CTSEnvironment(gymnasium.Env):
                 answer_parser=answer_parser, system_parser=system_parser, logic_parser=logic_parser,
                 value_backend=value_backend,
                 auto_skip=auto_skip,
-                noise=noise)
+                noise=noise,
+                reward_mode=reward_mode)
         if guided_free_ratio < 1.0:
             self.free_env = FreeEnvironment(dataset=dataset,
                 sys_token=sys_token, usr_token=usr_token, sep_token=sep_token,
@@ -76,7 +78,8 @@ class CTSEnvironment(gymnasium.Env):
                 answer_parser=answer_parser, system_parser=system_parser, logic_parser=logic_parser, 
                 value_backend=value_backend,
                 auto_skip=auto_skip,
-                noise=noise)
+                noise=noise,
+                reward_mode=reward_mode)
 
         # TODO add logger
         # TODO forward coverage stats

@@ -1,0 +1,502 @@
+{
+    "1736194414181696": {
+        "key": "1736194414181696",
+        "context": "ner",
+        "entity": "DB",
+        "dialog_node_key": 16351756063145903,
+        "node_text": "You can book train tickets yourself (through the DB website, at their counter / ticket machine) or through the university's partner travel agency (Tel. +123456789). You can find contact information for the partner travel agency here.",
+        "text": "You can book train tickets yourself (through the DB website, at their counter / ticket machine) or through the university's partner travel agency (Tel. +123456789). You can find contact information for the partner travel agency here."
+    },
+    "17361944269156742": {
+        "key": "17361944269156742",
+        "context": "node",
+        "dialog_node_key": 16351756063145903,
+        "node_text": "You can book train tickets yourself (through the DB website, at their counter / ticket machine) or through the university's partner travel agency (Tel. +123456789). You can find contact information for the partner travel agency here.",
+        "text": "You can book train tickets yourself (through the DB website, at their counter / ticket machine) or through the university's partner travel agency (Tel. +123456789). You can find contact information for the partner travel agency here."
+    },
+    "17361944820813763": {
+        "key": "17361944820813763",
+        "context": "node",
+        "dialog_node_key": 16363751447148919,
+        "node_text": "Please use this form  written permission from your supervisor. This is required before starting to book a trip.",
+        "text": "Please use this form  written permission from your supervisor. This is required before starting to book a trip."
+    },
+    "17361945142142286": {
+        "key": "17361945142142286",
+        "context": "ner",
+        "entity": "COVID-19",
+        "dialog_node_key": 16363753477187975,
+        "node_text": "Please check the current COVID-19 travel warnings travel restrictions from the foreign ministry and the RKI. Business trips to high risk areas or virus variation areas are not generally not allowed. In In extreme cases, authorization can be given by the leadership of Department 4 (Administrative Department).",
+        "text": "Please check the current COVID-19 travel warnings travel restrictions from the foreign ministry and the RKI. Business trips to high risk areas or virus variation areas are not generally not allowed. In In extreme cases, authorization can be given by the leadership of Department 4 (Administrative Department)."
+    },
+    "17361945325918593": {
+        "key": "17361945325918593",
+        "context": "ner",
+        "entity": "Department 4 (Administrative Department",
+        "dialog_node_key": 16363753477187975,
+        "node_text": "Please check the current COVID-19 travel warnings travel restrictions from the foreign ministry and the RKI. Business trips to high risk areas or virus variation areas are not generally not allowed. In In extreme cases, authorization can be given by the leadership of Department 4 (Administrative Department).",
+        "text": "Please check the current COVID-19 travel warnings travel restrictions from the foreign ministry and the RKI. Business trips to high risk areas or virus variation areas are not generally not allowed. In In extreme cases, authorization can be given by the leadership of Department 4 (Administrative Department)."
+    },
+    "17361945620687635": {
+        "key": "17361945620687635",
+        "context": "ner",
+        "entity": "2.4",
+        "dialog_node_key": 16363754346769013,
+        "node_text": "COVID-19: Business trips should be reduced to an absolute minimum and are only allowed when they are absolutely necessary. The decision for necessity can be made by the leaders of the administrative department (see Hygiene concept, 2.4).",
+        "text": "COVID-19: Business trips should be reduced to an absolute minimum and are only allowed when they are absolutely necessary. The decision for necessity can be made by the leaders of the administrative department (see Hygiene concept, 2.4)."
+    },
+    "17361945763636093": {
+        "key": "17361945763636093",
+        "context": "node",
+        "dialog_node_key": 16363754346769013,
+        "node_text": "COVID-19: Business trips should be reduced to an absolute minimum and are only allowed when they are absolutely necessary. The decision for necessity can be made by the leaders of the administrative department (see Hygiene concept, 2.4).",
+        "text": "COVID-19: Business trips should be reduced to an absolute minimum and are only allowed when they are absolutely necessary. The decision for necessity can be made by the leaders of the administrative department (see Hygiene concept, 2.4)."
+    },
+    "1736194587050447": {
+        "key": "1736194587050447",
+        "context": "node",
+        "dialog_node_key": 16363754793760356,
+        "node_text": "A private extension to a trip must remain in proportion to the length of business-related travel. Business interests must remain the priority. For questions, please contact the travel department.",
+        "text": "A private extension to a trip must remain in proportion to the length of business-related travel. Business interests must remain the priority. For questions, please contact the travel department."
+    },
+    "17361946472587316": {
+        "key": "17361946472587316",
+        "context": "node",
+        "dialog_node_key": 16363810595542638,
+        "node_text": "Exceeding the accommodation allowance can be allowed on a case-by-case basis when justified as necessary, e.g., If there were no cheaper hotels near the event location A cheaper hotel farther away would have resulted in higher transportation costs",
+        "text": "Exceeding the accommodation allowance can be allowed on a case-by-case basis when justified as necessary, e.g., If there were no cheaper hotels near the event location A cheaper hotel farther away would have resulted in higher transportation costs"
+    },
+    "17361946680618315": {
+        "key": "17361946680618315",
+        "context": "node",
+        "dialog_node_key": 16363811629822245,
+        "node_text": "It is required that the bill is addressed to your employer with your name entered as the guest.",
+        "text": "It is required that the bill is addressed to your employer with your name entered as the guest."
+    },
+    "17361947313077302": {
+        "key": "17361947313077302",
+        "context": "ner",
+        "entity": "60\u20ac (or 80\u20ac",
+        "dialog_node_key": 16365520936325006,
+        "node_text": "In Germany hotel costs can be reimbursed up to 60\u20ac (or 80\u20ac in cities with a population of more than 100,000 or general/seasonal high prices) with the submission of a paid invoice.",
+        "text": "In Germany hotel costs can be reimbursed up to 60\u20ac (or 80\u20ac in cities with a population of more than 100,000 or general/seasonal high prices) with the submission of a paid invoice."
+    },
+    "17361947610870526": {
+        "key": "17361947610870526",
+        "context": "ner",
+        "entity": "90\u20ac (or 120\u20ac",
+        "dialog_node_key": 16365521324065600,
+        "node_text": "In {{ COUNTRY }} you have a budget of up to 90\u20ac (or 120\u20ac in cities with a population of more than 100,000 or generally/seasonally high hotel prices) for accommodations, so long as you present proof of a paid invoice. ",
+        "text": "In {{ COUNTRY }} you have a budget of up to 90\u20ac (or 120\u20ac in cities with a population of more than 100,000 or generally/seasonally high hotel prices) for accommodations, so long as you present proof of a paid invoice. "
+    },
+    "173619477143734": {
+        "key": "173619477143734",
+        "context": "ner",
+        "entity": "more than 100,000",
+        "dialog_node_key": 16365521324065600,
+        "node_text": "In {{ COUNTRY }} you have a budget of up to 90\u20ac (or 120\u20ac in cities with a population of more than 100,000 or generally/seasonally high hotel prices) for accommodations, so long as you present proof of a paid invoice. ",
+        "text": "In {{ COUNTRY }} you have a budget of up to 90\u20ac (or 120\u20ac in cities with a population of more than 100,000 or generally/seasonally high hotel prices) for accommodations, so long as you present proof of a paid invoice. "
+    },
+    "17361950365497568": {
+        "key": "17361950365497568",
+        "context": "node",
+        "dialog_node_key": 16369793221368112,
+        "node_text": "Expenses for insurances (e.g., Travel insurance, liability insurance, etc.) are generally not reimbursable. Exceptions include for business trips outside of the country: If health insurance is required to enter the country, this can be reimbursed.",
+        "text": "Expenses for insurances (e.g., Travel insurance, liability insurance, etc.) are generally not reimbursable. Exceptions include for business trips outside of the country: If health insurance is required to enter the country, this can be reimbursed."
+    },
+    "17361950604795315": {
+        "key": "17361950604795315",
+        "context": "ner",
+        "entity": "the 15th day",
+        "dialog_node_key": 16370471520840317,
+        "node_text": "Beginning on the 15th day, your per diem will be reduced to {{ 0.75 *  PERDIEM.AMOUNT(COUNTRY, CITY) }} \u20ac.",
+        "text": "Beginning on the 15th day, your per diem will be reduced to {{ 0.75 *  PERDIEM.AMOUNT(COUNTRY, CITY) }} \u20ac."
+    },
+    "1736195068205559": {
+        "key": "1736195068205559",
+        "context": "ner",
+        "entity": "0.75",
+        "dialog_node_key": 16370471520840317,
+        "node_text": "Beginning on the 15th day, your per diem will be reduced to {{ 0.75 *  PERDIEM.AMOUNT(COUNTRY, CITY) }} \u20ac.",
+        "text": "Beginning on the 15th day, your per diem will be reduced to {{ 0.75 *  PERDIEM.AMOUNT(COUNTRY, CITY) }} \u20ac."
+    },
+    "17361950802970886": {
+        "key": "17361950802970886",
+        "context": "node",
+        "dialog_node_key": 16370471520840317,
+        "node_text": "Beginning on the 15th day, your per diem will be reduced to {{ 0.75 *  PERDIEM.AMOUNT(COUNTRY, CITY) }} \u20ac.",
+        "text": "Beginning on the 15th day, your per diem will be reduced to {{ 0.75 *  PERDIEM.AMOUNT(COUNTRY, CITY) }} \u20ac."
+    },
+    "1736195094859304": {
+        "key": "1736195094859304",
+        "context": "node",
+        "dialog_node_key": 16370471522950468,
+        "node_text": "In {{ COUNTRY }}, you are entitled to {{ PERDIEM.AMOUNT(COUNTRY, CITY) }} \u20ac  per day, minus any free meals which you choose to decline.",
+        "text": "In {{ COUNTRY }}, you are entitled to {{ PERDIEM.AMOUNT(COUNTRY, CITY) }} \u20ac  per day, minus any free meals which you choose to decline."
+    },
+    "17361951074030592": {
+        "key": "17361951074030592",
+        "context": "ner",
+        "entity": "the 8th day",
+        "dialog_node_key": 16370471523750267,
+        "node_text": "After the 8th day, depending on your case, the per diem may be reduced. For more information about your case, please contact the business travel department.",
+        "text": "After the 8th day, depending on your case, the per diem may be reduced. For more information about your case, please contact the business travel department."
+    },
+    "17361951394163067": {
+        "key": "17361951394163067",
+        "context": "node",
+        "dialog_node_key": 16370481846790432,
+        "node_text": "As part of a reallocation/delegation, your office is relocated (no longer in CITY) ",
+        "text": "As part of a reallocation/delegation, your office is relocated (no longer in CITY) "
+    },
+    "17361951457840667": {
+        "key": "17361951457840667",
+        "context": "ner",
+        "entity": "one",
+        "dialog_node_key": 16370483534787100,
+        "node_text": "Your business trip must be planned as though you were traveling alone (without your family). How doe that work? Provide receipts for only the costs associated with purchases for yourself \n Collect comparison offers where necessary (e.g., transportation costs and accommodation) for what the costs would have been for only one person \n Personal expenses must be strictly separated from business expenses \n You are responsible for paying all additional costs that result from bringing your family along.",
+        "text": "Your business trip must be planned as though you were traveling alone (without your family). How doe that work? Provide receipts for only the costs associated with purchases for yourself \n Collect comparison offers where necessary (e.g., transportation costs and accommodation) for what the costs would have been for only one person \n Personal expenses must be strictly separated from business expenses \n You are responsible for paying all additional costs that result from bringing your family along."
+    },
+    "1736195158459415": {
+        "key": "1736195158459415",
+        "context": "node",
+        "dialog_node_key": 16370483534787100,
+        "node_text": "Your business trip must be planned as though you were traveling alone (without your family). How doe that work? Provide receipts for only the costs associated with purchases for yourself \n Collect comparison offers where necessary (e.g., transportation costs and accommodation) for what the costs would have been for only one person \n Personal expenses must be strictly separated from business expenses \n You are responsible for paying all additional costs that result from bringing your family along.",
+        "text": "Your business trip must be planned as though you were traveling alone (without your family). How doe that work? Provide receipts for only the costs associated with purchases for yourself \n Collect comparison offers where necessary (e.g., transportation costs and accommodation) for what the costs would have been for only one person \n Personal expenses must be strictly separated from business expenses \n You are responsible for paying all additional costs that result from bringing your family along."
+    },
+    "17361951733122118": {
+        "key": "17361951733122118",
+        "context": "node",
+        "dialog_node_key": 16370483570980906,
+        "node_text": "Business traveler can receive reimbursement for business related expenses by submitting the following form.",
+        "text": "Business traveler can receive reimbursement for business related expenses by submitting the following form."
+    },
+    "1736195204949503": {
+        "key": "1736195204949503",
+        "context": "ner",
+        "entity": "German",
+        "dialog_node_key": 16370678856758681,
+        "node_text": "The country database is available in German and English.  Countries are divided into risk classes: green, yellow, and red. You can find more information here: Risk classes in the country database If you would like information about the Risk class of your destination, click here",
+        "text": "The country database is available in German and English.  Countries are divided into risk classes: green, yellow, and red. You can find more information here: Risk classes in the country database If you would like information about the Risk class of your destination, click here"
+    },
+    "17361952207096877": {
+        "key": "17361952207096877",
+        "context": "ner",
+        "entity": "English",
+        "dialog_node_key": 16370678856758681,
+        "node_text": "The country database is available in German and English.  Countries are divided into risk classes: green, yellow, and red. You can find more information here: Risk classes in the country database If you would like information about the Risk class of your destination, click here",
+        "text": "The country database is available in German and English.  Countries are divided into risk classes: green, yellow, and red. You can find more information here: Risk classes in the country database If you would like information about the Risk class of your destination, click here"
+    },
+    "1736195230638979": {
+        "key": "1736195230638979",
+        "context": "node",
+        "dialog_node_key": 16370678856758681,
+        "node_text": "The country database is available in German and English.  Countries are divided into risk classes: green, yellow, and red. You can find more information here: Risk classes in the country database If you would like information about the Risk class of your destination, click here",
+        "text": "The country database is available in German and English.  Countries are divided into risk classes: green, yellow, and red. You can find more information here: Risk classes in the country database If you would like information about the Risk class of your destination, click here"
+    },
+    "17361952386609354": {
+        "key": "17361952386609354",
+        "context": "ner",
+        "entity": "The Emergency-Card",
+        "dialog_node_key": 16370679473901470,
+        "node_text": "What do I do in an emergency on a business trip? Please call the number listed on the Emergency-Card :  +123456789. The Emergency-Card is also available in business card format. For more information, please enquire with the business travel department or your institute. This phone number is for emergencies only! Do not distribute it. Emergency App24/7 Emergency calling, Text chat, Video advice per the Emergency call Business App for iOS and AndroidDownload link: Notfall-AppQR-Code:Registration code: Note: distributing the registration code to third parties is strictly prohibited.",
+        "text": "What do I do in an emergency on a business trip? Please call the number listed on the Emergency-Card :  +123456789. The Emergency-Card is also available in business card format. For more information, please enquire with the business travel department or your institute. This phone number is for emergencies only! Do not distribute it. Emergency App24/7 Emergency calling, Text chat, Video advice per the Emergency call Business App for iOS and AndroidDownload link: Notfall-AppQR-Code:Registration code: Note: distributing the registration code to third parties is strictly prohibited."
+    },
+    "1736195247839649": {
+        "key": "1736195247839649",
+        "context": "ner",
+        "entity": "Notfall-AppQR-Code",
+        "dialog_node_key": 16370679473901470,
+        "node_text": "What do I do in an emergency on a business trip? Please call the number listed on the Emergency-Card :  +123456789. The Emergency-Card is also available in business card format. For more information, please enquire with the business travel department or your institute. This phone number is for emergencies only! Do not distribute it. Emergency App24/7 Emergency calling, Text chat, Video advice per the Emergency call Business App for iOS and AndroidDownload link: Notfall-AppQR-Code:Registration code: Note: distributing the registration code to third parties is strictly prohibited.",
+        "text": "What do I do in an emergency on a business trip? Please call the number listed on the Emergency-Card :  +123456789. The Emergency-Card is also available in business card format. For more information, please enquire with the business travel department or your institute. This phone number is for emergencies only! Do not distribute it. Emergency App24/7 Emergency calling, Text chat, Video advice per the Emergency call Business App for iOS and AndroidDownload link: Notfall-AppQR-Code:Registration code: Note: distributing the registration code to third parties is strictly prohibited."
+    },
+    "17361952541472974": {
+        "key": "17361952541472974",
+        "context": "ner",
+        "entity": "third",
+        "dialog_node_key": 16370679473901470,
+        "node_text": "What do I do in an emergency on a business trip? Please call the number listed on the Emergency-Card :  +123456789. The Emergency-Card is also available in business card format. For more information, please enquire with the business travel department or your institute. This phone number is for emergencies only! Do not distribute it. Emergency App24/7 Emergency calling, Text chat, Video advice per the Emergency call Business App for iOS and AndroidDownload link: Notfall-AppQR-Code:Registration code: Note: distributing the registration code to third parties is strictly prohibited.",
+        "text": "What do I do in an emergency on a business trip? Please call the number listed on the Emergency-Card :  +123456789. The Emergency-Card is also available in business card format. For more information, please enquire with the business travel department or your institute. This phone number is for emergencies only! Do not distribute it. Emergency App24/7 Emergency calling, Text chat, Video advice per the Emergency call Business App for iOS and AndroidDownload link: Notfall-AppQR-Code:Registration code: Note: distributing the registration code to third parties is strictly prohibited."
+    },
+    "17361952702743604": {
+        "key": "17361952702743604",
+        "context": "node",
+        "dialog_node_key": 16370679473901470,
+        "node_text": "What do I do in an emergency on a business trip? Please call the number listed on the Emergency-Card :  +123456789. The Emergency-Card is also available in business card format. For more information, please enquire with the business travel department or your institute. This phone number is for emergencies only! Do not distribute it. Emergency App24/7 Emergency calling, Text chat, Video advice per the Emergency call Business App for iOS and AndroidDownload link: Notfall-AppQR-Code:Registration code: Note: distributing the registration code to third parties is strictly prohibited.",
+        "text": "What do I do in an emergency on a business trip? Please call the number listed on the Emergency-Card :  +123456789. The Emergency-Card is also available in business card format. For more information, please enquire with the business travel department or your institute. This phone number is for emergencies only! Do not distribute it. Emergency App24/7 Emergency calling, Text chat, Video advice per the Emergency call Business App for iOS and AndroidDownload link: Notfall-AppQR-Code:Registration code: Note: distributing the registration code to third parties is strictly prohibited."
+    },
+    "17361953371657963": {
+        "key": "17361953371657963",
+        "context": "ner",
+        "entity": "third",
+        "dialog_node_key": 16378350683837525,
+        "node_text": "If the trip is being paid for by a third party (not from the university) or was offered to be paid for by one, no money can be reimbursed.",
+        "text": "If the trip is being paid for by a third party (not from the university) or was offered to be paid for by one, no money can be reimbursed."
+    },
+    "17361953641304872": {
+        "key": "17361953641304872",
+        "context": "node",
+        "dialog_node_key": 16378355894189764,
+        "node_text": "When traveling alone, you may book a double bed room in cases where no single bed rooms are available, or where a double bed room does not cost more.",
+        "text": "When traveling alone, you may book a double bed room in cases where no single bed rooms are available, or where a double bed room does not cost more."
+    },
+    "17361953751799436": {
+        "key": "17361953751799436",
+        "context": "node",
+        "dialog_node_key": 16384329210117153,
+        "node_text": "Conference fees are reimbursable.",
+        "text": "Conference fees are reimbursable."
+    },
+    "17361953872803738": {
+        "key": "17361953872803738",
+        "context": "node",
+        "dialog_node_key": 16387868859695624,
+        "node_text": "Thank you for using the business travel chatbot.Please let us know about your experience by filling out a quick survey, that way we can improve our performance and your experience.",
+        "text": "Thank you for using the business travel chatbot.Please let us know about your experience by filling out a quick survey, that way we can improve our performance and your experience."
+    },
+    "17361954095538094": {
+        "key": "17361954095538094",
+        "context": "ner",
+        "entity": "COVID-19",
+        "dialog_node_key": 16389562608833278,
+        "node_text": "Please note the  current COVID-19 travel warnings posted by the  and restrictions foreign ministry and the RKI. Business trips to high risk or variant areas are generally not allowed. In extreme cases, permission can be petitioned for through the leadership of Department 4 (administrative department).",
+        "text": "Please note the  current COVID-19 travel warnings posted by the  and restrictions foreign ministry and the RKI. Business trips to high risk or variant areas are generally not allowed. In extreme cases, permission can be petitioned for through the leadership of Department 4 (administrative department)."
+    },
+    "17361954151543245": {
+        "key": "17361954151543245",
+        "context": "ner",
+        "entity": "RKI",
+        "dialog_node_key": 16389562608833278,
+        "node_text": "Please note the  current COVID-19 travel warnings posted by the  and restrictions foreign ministry and the RKI. Business trips to high risk or variant areas are generally not allowed. In extreme cases, permission can be petitioned for through the leadership of Department 4 (administrative department).",
+        "text": "Please note the  current COVID-19 travel warnings posted by the  and restrictions foreign ministry and the RKI. Business trips to high risk or variant areas are generally not allowed. In extreme cases, permission can be petitioned for through the leadership of Department 4 (administrative department)."
+    },
+    "17361954223341036": {
+        "key": "17361954223341036",
+        "context": "ner",
+        "entity": "Department 4",
+        "dialog_node_key": 16389562608833278,
+        "node_text": "Please note the  current COVID-19 travel warnings posted by the  and restrictions foreign ministry and the RKI. Business trips to high risk or variant areas are generally not allowed. In extreme cases, permission can be petitioned for through the leadership of Department 4 (administrative department).",
+        "text": "Please note the  current COVID-19 travel warnings posted by the  and restrictions foreign ministry and the RKI. Business trips to high risk or variant areas are generally not allowed. In extreme cases, permission can be petitioned for through the leadership of Department 4 (administrative department)."
+    },
+    "17361954351809926": {
+        "key": "17361954351809926",
+        "context": "node",
+        "dialog_node_key": 16389562608833278,
+        "node_text": "Please note the  current COVID-19 travel warnings posted by the  and restrictions foreign ministry and the RKI. Business trips to high risk or variant areas are generally not allowed. In extreme cases, permission can be petitioned for through the leadership of Department 4 (administrative department).",
+        "text": "Please note the  current COVID-19 travel warnings posted by the  and restrictions foreign ministry and the RKI. Business trips to high risk or variant areas are generally not allowed. In extreme cases, permission can be petitioned for through the leadership of Department 4 (administrative department)."
+    },
+    "1736195473756059": {
+        "key": "1736195473756059",
+        "context": "ner",
+        "entity": "Iceland",
+        "dialog_node_key": 16389695846089108,
+        "node_text": "For all  business trips (even for short trips or ones lasting only a single day) outside the country to EU-countries, Iceland, Norway, Liechtenstein or Switzerland, you will need to fill out an A1 Form , which must be brought with you when you leave the country. You will need to fill out a new A1 for each business trip you take. Filling the form out once, does not allow it to apply for subsequent trips you tak.",
+        "text": "For all  business trips (even for short trips or ones lasting only a single day) outside the country to EU-countries, Iceland, Norway, Liechtenstein or Switzerland, you will need to fill out an A1 Form , which must be brought with you when you leave the country. You will need to fill out a new A1 for each business trip you take. Filling the form out once, does not allow it to apply for subsequent trips you tak."
+    },
+    "17361954817834458": {
+        "key": "17361954817834458",
+        "context": "ner",
+        "entity": "Norway",
+        "dialog_node_key": 16389695846089108,
+        "node_text": "For all  business trips (even for short trips or ones lasting only a single day) outside the country to EU-countries, Iceland, Norway, Liechtenstein or Switzerland, you will need to fill out an A1 Form , which must be brought with you when you leave the country. You will need to fill out a new A1 for each business trip you take. Filling the form out once, does not allow it to apply for subsequent trips you tak.",
+        "text": "For all  business trips (even for short trips or ones lasting only a single day) outside the country to EU-countries, Iceland, Norway, Liechtenstein or Switzerland, you will need to fill out an A1 Form , which must be brought with you when you leave the country. You will need to fill out a new A1 for each business trip you take. Filling the form out once, does not allow it to apply for subsequent trips you tak."
+    },
+    "17361954886104007": {
+        "key": "17361954886104007",
+        "context": "ner",
+        "entity": "Liechtenstein",
+        "dialog_node_key": 16389695846089108,
+        "node_text": "For all  business trips (even for short trips or ones lasting only a single day) outside the country to EU-countries, Iceland, Norway, Liechtenstein or Switzerland, you will need to fill out an A1 Form , which must be brought with you when you leave the country. You will need to fill out a new A1 for each business trip you take. Filling the form out once, does not allow it to apply for subsequent trips you tak.",
+        "text": "For all  business trips (even for short trips or ones lasting only a single day) outside the country to EU-countries, Iceland, Norway, Liechtenstein or Switzerland, you will need to fill out an A1 Form , which must be brought with you when you leave the country. You will need to fill out a new A1 for each business trip you take. Filling the form out once, does not allow it to apply for subsequent trips you tak."
+    },
+    "1736195497036382": {
+        "key": "1736195497036382",
+        "context": "ner",
+        "entity": "Switzerland",
+        "dialog_node_key": 16389695846089108,
+        "node_text": "For all  business trips (even for short trips or ones lasting only a single day) outside the country to EU-countries, Iceland, Norway, Liechtenstein or Switzerland, you will need to fill out an A1 Form , which must be brought with you when you leave the country. You will need to fill out a new A1 for each business trip you take. Filling the form out once, does not allow it to apply for subsequent trips you tak.",
+        "text": "For all  business trips (even for short trips or ones lasting only a single day) outside the country to EU-countries, Iceland, Norway, Liechtenstein or Switzerland, you will need to fill out an A1 Form , which must be brought with you when you leave the country. You will need to fill out a new A1 for each business trip you take. Filling the form out once, does not allow it to apply for subsequent trips you tak."
+    },
+    "1736195524045866": {
+        "key": "1736195524045866",
+        "context": "node",
+        "dialog_node_key": 16389695846089108,
+        "node_text": "For all  business trips (even for short trips or ones lasting only a single day) outside the country to EU-countries, Iceland, Norway, Liechtenstein or Switzerland, you will need to fill out an A1 Form , which must be brought with you when you leave the country. You will need to fill out a new A1 for each business trip you take. Filling the form out once, does not allow it to apply for subsequent trips you tak.",
+        "text": "For all  business trips (even for short trips or ones lasting only a single day) outside the country to EU-countries, Iceland, Norway, Liechtenstein or Switzerland, you will need to fill out an A1 Form , which must be brought with you when you leave the country. You will need to fill out a new A1 for each business trip you take. Filling the form out once, does not allow it to apply for subsequent trips you tak."
+    },
+    "1736195539825923": {
+        "key": "1736195539825923",
+        "context": "ner",
+        "entity": "German",
+        "dialog_node_key": 16391241972677029,
+        "node_text": "Application for business travel: \nGerman version: Application for business travel \n Application for financial help for business travel (for taking part in a lecture as part of a job application, for taking part in an interview panel, and for doctoral exams) \n Application for advancement of funds \n English version: Business Trip Application",
+        "text": "Application for business travel: \nGerman version: Application for business travel \n Application for financial help for business travel (for taking part in a lecture as part of a job application, for taking part in an interview panel, and for doctoral exams) \n Application for advancement of funds \n English version: Business Trip Application"
+    },
+    "17361955478520687": {
+        "key": "17361955478520687",
+        "context": "ner",
+        "entity": "English",
+        "dialog_node_key": 16391241972677029,
+        "node_text": "Application for business travel: \nGerman version: Application for business travel \n Application for financial help for business travel (for taking part in a lecture as part of a job application, for taking part in an interview panel, and for doctoral exams) \n Application for advancement of funds \n English version: Business Trip Application",
+        "text": "Application for business travel: \nGerman version: Application for business travel \n Application for financial help for business travel (for taking part in a lecture as part of a job application, for taking part in an interview panel, and for doctoral exams) \n Application for advancement of funds \n English version: Business Trip Application"
+    },
+    "17361956196535456": {
+        "key": "17361956196535456",
+        "context": "ner",
+        "entity": "2021",
+        "dialog_node_key": 16391250907662288,
+        "node_text": "Here is the hotel list: Hotel list Germany 2021 ",
+        "text": "Here is the hotel list: Hotel list Germany 2021 "
+    },
+    "17361956411918697": {
+        "key": "17361956411918697",
+        "context": "node",
+        "dialog_node_key": 16391250907662288,
+        "node_text": "Here is the hotel list: Hotel list Germany 2021 ",
+        "text": "Here is the hotel list: Hotel list Germany 2021 "
+    },
+    "17361956789241471": {
+        "key": "17361956789241471",
+        "context": "node",
+        "dialog_node_key": 16430181901118602,
+        "node_text": "You can find your employee number on your pay stub.",
+        "text": "You can find your employee number on your pay stub."
+    },
+    "17361957012514896": {
+        "key": "17361957012514896",
+        "context": "ner",
+        "entity": "Central AdministrationBusiness Travel Department",
+        "dialog_node_key": 16457017855826480,
+        "node_text": "Please fill out the travel reimbursement form and send it along with original versions of all receipts to: Central AdministrationBusiness Travel Department Redacted St 123, using the internal mail system.",
+        "text": "Please fill out the travel reimbursement form and send it along with original versions of all receipts to: Central AdministrationBusiness Travel Department Redacted St 123, using the internal mail system."
+    },
+    "1736195726461449": {
+        "key": "1736195726461449",
+        "context": "ner",
+        "entity": "less than 8 hours",
+        "dialog_node_key": 16457021337304621,
+        "node_text": "For business trips lasting less than 8 hours, you are not entitled to a per diem.",
+        "text": "For business trips lasting less than 8 hours, you are not entitled to a per diem."
+    },
+    "17361957508003454": {
+        "key": "17361957508003454",
+        "context": "ner",
+        "entity": "more than 8 hours",
+        "dialog_node_key": 16457022377469579,
+        "node_text": "For trips lasting more than 8 hours, but less than 14, you are entitled to a per diem of 6\u20ac.",
+        "text": "For trips lasting more than 8 hours, but less than 14, you are entitled to a per diem of 6\u20ac."
+    },
+    "17361957590583782": {
+        "key": "17361957590583782",
+        "context": "ner",
+        "entity": "less than 14",
+        "dialog_node_key": 16457022377469579,
+        "node_text": "For trips lasting more than 8 hours, but less than 14, you are entitled to a per diem of 6\u20ac.",
+        "text": "For trips lasting more than 8 hours, but less than 14, you are entitled to a per diem of 6\u20ac."
+    },
+    "17361957742758205": {
+        "key": "17361957742758205",
+        "context": "ner",
+        "entity": "6\u20ac",
+        "dialog_node_key": 16457022377469579,
+        "node_text": "For trips lasting more than 8 hours, but less than 14, you are entitled to a per diem of 6\u20ac.",
+        "text": "For trips lasting more than 8 hours, but less than 14, you are entitled to a per diem of 6\u20ac."
+    },
+    "17361957963951378": {
+        "key": "17361957963951378",
+        "context": "ner",
+        "entity": "6 months",
+        "dialog_node_key": 16457028994518300,
+        "node_text": "The application for travel reimbursement must be submitted within 6 months of returning from a business trip.",
+        "text": "The application for travel reimbursement must be submitted within 6 months of returning from a business trip."
+    },
+    "17361958122089465": {
+        "key": "17361958122089465",
+        "context": "node",
+        "dialog_node_key": 16457028994518300,
+        "node_text": "The application for travel reimbursement must be submitted within 6 months of returning from a business trip.",
+        "text": "The application for travel reimbursement must be submitted within 6 months of returning from a business trip."
+    },
+    "17361958222582912": {
+        "key": "17361958222582912",
+        "context": "node",
+        "dialog_node_key": 16457053159041482,
+        "node_text": "You should try to cancel anything which has already been booked as quickly as possible. Necessary expenses as a result of the planned Business trip, which cannot be cancelled will be reimbursed. Cancellation costs can also be reimbursed using the Form for travel reimbursement.",
+        "text": "You should try to cancel anything which has already been booked as quickly as possible. Necessary expenses as a result of the planned Business trip, which cannot be cancelled will be reimbursed. Cancellation costs can also be reimbursed using the Form for travel reimbursement."
+    },
+    "17361958582305372": {
+        "key": "17361958582305372",
+        "context": "node",
+        "dialog_node_key": 16460327938891442,
+        "node_text": "Pressing personal reasons: Severe illness of a family member \n Poor health of the traveler \n Pressing business reasons: A car is required to reach the place of business in a timely manner \n Multiple business locations must be reached \n It will be less expensive Transportation of other colleagues \n Heavy or large goods need to be transported",
+        "text": "Pressing personal reasons: Severe illness of a family member \n Poor health of the traveler \n Pressing business reasons: A car is required to reach the place of business in a timely manner \n Multiple business locations must be reached \n It will be less expensive Transportation of other colleagues \n Heavy or large goods need to be transported"
+    },
+    "1736195872114791": {
+        "key": "1736195872114791",
+        "context": "ner",
+        "entity": "2 Cent",
+        "dialog_node_key": 16460328708250870,
+        "node_text": "If you are also transporting other coworkers, you are entitled to 2 Cent per person und kilometer, for each passenger who is also eligible for travel reimbursement. (To claim a passenger, they must also sign your travel reimbursement request.) If you are transporting business related items (e.g., files) weighing more than 50 Kg you are eligible for 2 Cent per 50 Kg and Kilometer. (Changes coming in 2022)",
+        "text": "If you are also transporting other coworkers, you are entitled to 2 Cent per person und kilometer, for each passenger who is also eligible for travel reimbursement. (To claim a passenger, they must also sign your travel reimbursement request.) If you are transporting business related items (e.g., files) weighing more than 50 Kg you are eligible for 2 Cent per 50 Kg and Kilometer. (Changes coming in 2022)"
+    },
+    "173619587961928": {
+        "key": "173619587961928",
+        "context": "ner",
+        "entity": "50 Kg",
+        "dialog_node_key": 16460328708250870,
+        "node_text": "If you are also transporting other coworkers, you are entitled to 2 Cent per person und kilometer, for each passenger who is also eligible for travel reimbursement. (To claim a passenger, they must also sign your travel reimbursement request.) If you are transporting business related items (e.g., files) weighing more than 50 Kg you are eligible for 2 Cent per 50 Kg and Kilometer. (Changes coming in 2022)",
+        "text": "If you are also transporting other coworkers, you are entitled to 2 Cent per person und kilometer, for each passenger who is also eligible for travel reimbursement. (To claim a passenger, they must also sign your travel reimbursement request.) If you are transporting business related items (e.g., files) weighing more than 50 Kg you are eligible for 2 Cent per 50 Kg and Kilometer. (Changes coming in 2022)"
+    },
+    "1736195889331847": {
+        "key": "1736195889331847",
+        "context": "ner",
+        "entity": "2 Cent",
+        "dialog_node_key": 16460328708250870,
+        "node_text": "If you are also transporting other coworkers, you are entitled to 2 Cent per person und kilometer, for each passenger who is also eligible for travel reimbursement. (To claim a passenger, they must also sign your travel reimbursement request.) If you are transporting business related items (e.g., files) weighing more than 50 Kg you are eligible for 2 Cent per 50 Kg and Kilometer. (Changes coming in 2022)",
+        "text": "If you are also transporting other coworkers, you are entitled to 2 Cent per person und kilometer, for each passenger who is also eligible for travel reimbursement. (To claim a passenger, they must also sign your travel reimbursement request.) If you are transporting business related items (e.g., files) weighing more than 50 Kg you are eligible for 2 Cent per 50 Kg and Kilometer. (Changes coming in 2022)"
+    },
+    "173619589751493": {
+        "key": "173619589751493",
+        "context": "ner",
+        "entity": "50 Kg",
+        "dialog_node_key": 16460328708250870,
+        "node_text": "If you are also transporting other coworkers, you are entitled to 2 Cent per person und kilometer, for each passenger who is also eligible for travel reimbursement. (To claim a passenger, they must also sign your travel reimbursement request.) If you are transporting business related items (e.g., files) weighing more than 50 Kg you are eligible for 2 Cent per 50 Kg and Kilometer. (Changes coming in 2022)",
+        "text": "If you are also transporting other coworkers, you are entitled to 2 Cent per person und kilometer, for each passenger who is also eligible for travel reimbursement. (To claim a passenger, they must also sign your travel reimbursement request.) If you are transporting business related items (e.g., files) weighing more than 50 Kg you are eligible for 2 Cent per 50 Kg and Kilometer. (Changes coming in 2022)"
+    },
+    "1736195959560568": {
+        "key": "1736195959560568",
+        "context": "node",
+        "dialog_node_key": 16460411976259488,
+        "node_text": "PCR-Tests can be reimbursed, if they were required for business reasons (proof must be given of the necessity). Antigen tests can be reimbursed if, e.g., entrance to a business meeting or event is only allowed with proof of a negative test. ",
+        "text": "PCR-Tests can be reimbursed, if they were required for business reasons (proof must be given of the necessity). Antigen tests can be reimbursed if, e.g., entrance to a business meeting or event is only allowed with proof of a negative test. "
+    },
+    "17361959866478343": {
+        "key": "17361959866478343",
+        "context": "node",
+        "dialog_node_key": 16460422136134149,
+        "node_text": "If you are traveling for more than 4 weeks and need help finding accommodations, please contact the business travel department.",
+        "text": "If you are traveling for more than 4 weeks and need help finding accommodations, please contact the business travel department."
+    },
+    "17361960017690253": {
+        "key": "17361960017690253",
+        "context": "node",
+        "dialog_node_key": 16460439592347465,
+        "node_text": "If you are at fault, costs cannot be reimbursed.",
+        "text": "If you are at fault, costs cannot be reimbursed."
+    },
+    "1736196017327867": {
+        "key": "1736196017327867",
+        "context": "node",
+        "dialog_node_key": 16460439966919842,
+        "node_text": "If you are not at fault (e.g., a conference ran over), costs can be reimbursed if a suitable justification is presented",
+        "text": "If you are not at fault (e.g., a conference ran over), costs can be reimbursed if a suitable justification is presented"
+    },
+    "17361960316498609": {
+        "key": "17361960316498609",
+        "context": "ner",
+        "entity": "24\u20ac",
+        "dialog_node_key": 16572908886396643,
+        "node_text": "Within Germany, you are entitled to 24\u20ac per day, minus costs for free meals which were not eaten.",
+        "text": "Within Germany, you are entitled to 24\u20ac per day, minus costs for free meals which were not eaten."
+    }
+}

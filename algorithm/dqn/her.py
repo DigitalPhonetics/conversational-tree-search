@@ -10,7 +10,7 @@ from environment.goal import DummyGoal
 
 from utils.utils import AutoSkipMode, EnvInfo
 from data.parsers.systemTemplateParser import SystemTemplateParser
-from config import ActionType, InstanceType, INSTANCES
+from config import ActionType, InstanceType, INSTANCES, RewardMode
 from data.dataset import GraphDataset
 from environment.her import CTSHEREnvironment
 from utils.utils import rand_remove_questionmark
@@ -59,6 +59,7 @@ class HindsightExperienceReplayWrapper(object):
                     alpha: float,
                     beta: float,
                     noise: float,
+                    reward_mode: RewardMode,
                     device: Union[th.device, str] = "cpu",
                     **kwargs):
         
@@ -75,7 +76,8 @@ class HindsightExperienceReplayWrapper(object):
                                     max_steps=max_steps, user_patience=user_patience,
                                     stop_when_reaching_goal=stop_when_reaching_goal, stop_on_invalid_skip=stop_on_invalid_skip,
                                     sys_token=sys_token, usr_token=usr_token, sep_token=sep_token,
-                                    noise=noise)
+                                    noise=noise, reward_mode=reward_mode
+                                    )
 
         # Buffer for storing transitions of the current episode, for vectorized environment
         self.num_train_envs = num_train_envs
