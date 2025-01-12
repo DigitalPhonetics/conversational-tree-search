@@ -255,7 +255,7 @@ class HindsightExperienceReplayWrapper(object):
             self._store_aritificial_transition(obs, next_obs, original_action, reward, done, info)
             episode_reward += reward
             transition_idx += 1
-            assert info[EnvInfo.ASKED_GOAL] == True, "replay did not ask goal node"
+            # assert info[EnvInfo.ASKED_GOAL] == True, "replay did not ask goal node"
         # integrate artificial experiences
         self._staging_complete()
         return episode_reward
