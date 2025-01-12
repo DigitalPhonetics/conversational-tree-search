@@ -137,6 +137,7 @@ class GraphDataset:
 
     def _load_graph(self, resource_dir: str, graph_path: str, augmentation: DataAugmentationLevel, augmentation_path: str, question_limit: int):
         # load graph
+        print("LOADING GRAPH...")
         with open(os.path.join(resource_dir, graph_path), "r") as f:
             data = json.load(f)
 
@@ -219,9 +220,11 @@ class GraphDataset:
                 else:
                     fromDialogAnswer = self.answers_by_key[int(connection['sourceHandle'])]
                     fromDialogAnswer.connected_node = self.nodes_by_key[int(connection['target'])]
+        print("GRAPH LOADED")
 
     def _load_answer_synonyms(self, resource_dir: str, answer_path: str, use_answer_synonyms: bool, augmentation: DataAugmentationLevel, augmentation_path: str, answer_limit: int):
         # load synonyms
+        print(f"LOADING ANSWERS FROM {answer_path}...")
         with open(answer_path, "r") as f:
             data = json.load(f)
             answer_data = {int(key): data[key] for key in data}
@@ -233,14 +236,15 @@ class GraphDataset:
                 # key is also the only possible value
                 answer_data = {int(key): [self.answers_by_key[int(key)].text] for key in answer_data}   
         if use_answer_synonyms and self._should_load_generated_data(augmentation):
-            answer_augmentation_path = f"{resource_dir}/{os.path.dirname(augmentation_path)}/train_answers.json"
+            answer_augmentation_path = f"{resource_dir}{os.path.dirname(augmentation_path)}/train_answers.json"
+            print(f"Loading augmentation answers from {answer_augmentation_path}")
             with open(answer_augmentation_path, "r") as f:
-                print(f"Loading augmentation answers from {answer_augmentation_path}")
                 generated_answers = json.load(f)
                 for answer_key in generated_answers:
                     for syn in generated_answers[answer_key]:
                         if answer_limit == 0 or (answer_limit > 0 and len(answer_data[int(answer_key)]) < answer_limit):
                             answer_data[int(answer_key)].append(syn)
+        print("ANSWERS LOADED")
         return answer_data
 
     def _calculate_action_masks(self) -> Dict[int, torch.IntTensor]:

@@ -39,7 +39,9 @@ class CTSHEREnvironment:
         self.usr_token = usr_token
         self.sep_token = sep_token
 
-        self.max_reward = 1 # 4 * dataset.get_max_tree_depth() if normalize_rewards else 1.0
+        self.max_reward = 4 * dataset.get_max_tree_depth() if normalize_rewards else 1.0
+        if reward_mode != cfg.RewardMode.SHAPED:
+            self.max_reward = 1
         self.max_distance = dataset.get_max_tree_depth() + 1
         cfg.INSTANCES[cfg.InstanceArgs.MAX_DISTANCE] = self.max_distance
 

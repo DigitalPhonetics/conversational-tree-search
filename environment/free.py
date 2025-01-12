@@ -73,7 +73,7 @@ class FreeEnvironment(BaseEnv):
                 done = True
         else:
             if self.reward_mode == RewardMode.SHAPED:
-                reward -= 0.25
+                reward -= 1
 
         if not done:
             if self.auto_skip_mode != AutoSkipMode.NONE and self.reward_mode == RewardMode.SHAPED:
@@ -144,7 +144,7 @@ class FreeEnvironment(BaseEnv):
     def skip(self, answer_index: int) -> Tuple[bool, float]:
         reward = 0.0
         if self.reward_mode == RewardMode.SHAPED:
-            reward -= -1.0
+            reward = -1.0
         done = False 
 
         next_node = self.get_transition(answer_index)

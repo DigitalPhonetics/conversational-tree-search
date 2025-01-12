@@ -39,6 +39,7 @@ class BaseEnv:
 
         self.max_steps = max_steps
         self.max_reward = max_reward if reward_mode == RewardMode.SHAPED else 1.0
+        # print("MAX REWARD", self.max_reward)
 
         self.user_patience = user_patience
         self.auto_skip_mode = auto_skip
@@ -385,7 +386,7 @@ class BaseEnv:
             self.episode_log.append(f'{self.env_id}-{self.current_episode}$=> TOTAL LENGTH: {self.current_step}')
 
         obs = self.get_obs()
-        reward /= self.max_reward 
+        reward /= self.max_reward
         assert -1 <= reward <= 1, f"invalid reward normalization: {reward} not in [-1,1]"
 
         if self.reward_mode != RewardMode.SHAPED and reward == 0:

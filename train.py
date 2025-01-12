@@ -54,6 +54,7 @@ def setup_data_and_vecenv(device: str, dataset_cfg: DatasetConfig, environment_c
                          torch_compile: bool,
                          save_terminal_obs: bool,
                          noise: float) -> Tuple[GraphDataset, Cache, StateEncoding, CustomVecEnv]:
+    print("Instantiating dataset ", mode)
     data = instantiate(dataset_cfg)
     if isinstance(cache, type(None)):
         cache, encoding = setup_cache_and_encoding(device=device, data=data, state_config=state_config, action_config=action_config, torch_compile=torch_compile)

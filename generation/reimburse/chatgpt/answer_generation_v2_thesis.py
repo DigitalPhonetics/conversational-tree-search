@@ -31,7 +31,7 @@ def parse_output(result, expected_num: int, mode: str):
     result_strings = result.choices[0].message.content.split('<br>')
     questions = []
     unnumbered_questions = []
-    if len(result_strings) != expected_num:
+    if len(result_strings) < expected_num:
         unnumbered_questions.append(node)
         print("------", mode, "------")
         print(f"{len(result_strings)} / {expected_num}")
