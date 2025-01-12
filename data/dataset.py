@@ -351,8 +351,8 @@ class ReimburseGraphDataset(GraphDataset):
 
         content = pd.read_excel(os.path.join(resource_dir, f"{self.language}/reimburse/TAGEGELD_AUSLAND.xlsx"))
         for idx, row in content.iterrows():
-            country = row['Land']
-            city = row['Stadt']
+            country = row['Land'].strip().lower()
+            city = row['Stadt'].strip().lower()
             country_list.add(country)
             city_list.add(city)
             daily_allowance = row['Tagegeld LRKG']

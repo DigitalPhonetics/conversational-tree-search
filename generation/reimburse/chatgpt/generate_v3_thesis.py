@@ -3,7 +3,7 @@ import os
 import re
 os.environ["CUDA_VISIBLE_DEVICES"] = "8"
 
-GPT_VERSION = "gpt-4o-mini" # original: gpt-3.5-turbo
+GPT_VERSION = "gpt-3.5-turbo" # original: gpt-3.5-turbo
 SEED = 43
 
 # %%
@@ -129,7 +129,12 @@ for node in reimburse_human_data.nodes_by_type[NodeType.INFO]:
 
 # %%
 def parse_output(node: int, result, expected_num: int, mode: str):
-    result_strings = result.choices[0].message.content.split('<br>')
+    result_strings = []
+    initial_splits = result.choices[0].message.content.split('<br>')
+    for text in initial_splits:
+        splits = text.split("\n")
+        result_strings += splits
+
     questions = []
     unnumbered_questions = []
     if len(result_strings) != expected_num:
@@ -163,8 +168,8 @@ def user_ner(answer_text: str, ner: str, num_paraphrases: int) -> str:
     return f'Generate {num_paraphrases} short and diverse FAQ-style questions about the entity "{ner}" from the fact: "{answer_text}"'
 
 
-NUM_QUESTIONS = 50
-NUM_QUESTIONS_PER_SENTENCE = 25
+NUM_QUESTIONS = 200
+NUM_QUESTIONS_PER_SENTENCE = 0
 TEMPERATURE = 0.7
 MAX_NEW_TOKENS = 99999
 
@@ -176,45 +181,45 @@ for node in tqdm(reimburse_human_data.nodes_by_type[NodeType.INFO]):
     all_generations = {}
     
     # extract NERs
-    named_entities = extract_ner_sentences(node)
+    #named_entities = extract_ner_sentences(node)
     # print(named_entities)
 
     # Generate questions with NER sentences only, make asking about NER a requirement
-    for entity, sentence in named_entities:
-        # print("- ENTITY", entity)
-        done = False
-        while not done:
-            try:
-                # prompt = prompt_v3_ner(node.text, entity, NUM_QUESTIONS_PER_SENTENCE)
-                gen = api_completion_v3_ner(node.text, entity, NUM_QUESTIONS_PER_SENTENCE)
-                questions, unnumbered_questions = parse_output(node.text, gen, NUM_QUESTIONS_PER_SENTENCE, "NER")
+    # for entity, sentence in named_entities:
+    #     # print("- ENTITY", entity)
+    #     done = False
+    #     while not done:
+    #         try:
+    #             # prompt = prompt_v3_ner(node.text, entity, NUM_QUESTIONS_PER_SENTENCE)
+    #             gen = api_completion_v3_ner(node.text, entity, NUM_QUESTIONS_PER_SENTENCE)
+    #             questions, unnumbered_questions = parse_output(node.text, gen, NUM_QUESTIONS_PER_SENTENCE, "NER")
 
-                for question in questions:
-                    key = str(time.time()).replace(".", "")
-                    all_generations[key] = {
-                        "key": key,
-                        "context": "ner",
-                        "entity": entity,
-                        "dialog_node_key": node.key,
-                        "node_text": node.text,
-                        "text": question
-                    }
-                for question in unnumbered_questions:
-                    key = str(time.time()).replace(".", "")
-                    generated_data_unnumbered[key] = {
-                        "key": key,
-                        "context": "ner",
-                        "entity": entity,
-                        "dialog_node_key": node.key,
-                        "node_text": node.text,
-                        "text": question
-                    }
-                done = True
-            except:
-                traceback.print_exc()
-                done = True
-                print("waiting...")
-                time.sleep(15)
+    #             for question in questions:
+    #                 key = str(time.time()).replace(".", "")
+    #                 all_generations[key] = {
+    #                     "key": key,
+    #                     "context": "ner",
+    #                     "entity": entity,
+    #                     "dialog_node_key": node.key,
+    #                     "node_text": node.text,
+    #                     "text": question
+    #                 }
+    #             for question in unnumbered_questions:
+    #                 key = str(time.time()).replace(".", "")
+    #                 generated_data_unnumbered[key] = {
+    #                     "key": key,
+    #                     "context": "ner",
+    #                     "entity": entity,
+    #                     "dialog_node_key": node.key,
+    #                     "node_text": node.text,
+    #                     "text": question
+    #                 }
+    #             done = True
+    #         except:
+    #             traceback.print_exc()
+    #             done = True
+    #             print("waiting...")
+    #             time.sleep(15)
     # Generate questions with whole context
     # num_node_level_questions = NUM_QUESTIONS # max(NUM_QUESTIONS_PER_SENTENCE, NUM_QUESTIONS - len(named_entities) * NUM_QUESTIONS_PER_SENTENCE)
     # print("NUM GENERIC", num_node_level_questions)

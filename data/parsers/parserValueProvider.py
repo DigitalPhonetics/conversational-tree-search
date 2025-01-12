@@ -45,7 +45,7 @@ class ReimbursementRealValueBackend(ValueBackend):
                 country = values[0]
                 city = values[1]
                 # result = Tagegeld.objects.get(land=land, stadt=stadt).tagegeldsatz
-                result = self.data.hotel_costs[country][city].daily_allowance
+                result = self.data.hotel_costs[country.strip().lower()][city.strip().lower()].daily_allowance
                 return float(f"{result:g}")
             else:
                 return f"ERROR in Template: In Tabelle {table_name} konnte Spalte {func_name} nicht gefunden werden."

@@ -3,9 +3,9 @@ from tqdm.auto import tqdm
 import time
 import os
 import re
+from itertools import chain, zip_longest
 
-
-GPT_VERSION = "gpt-4o-mini" # original: gpt-3.5-turbo
+GPT_VERSION = "gpt-3.5-turbo" # original: gpt-3.5-turbo
 SEED = 43
 TEMPERATURE = 0.7
 
@@ -28,7 +28,12 @@ reimburse_human_data = ReimburseGraphDataset('en/reimburse/train_graph.json', 'e
 
 # %%
 def parse_output(result, expected_num: int, mode: str):
-    result_strings = result.choices[0].message.content.split('<br>')
+    result_strings = []
+    initial_splits = result.choices[0].message.content.split('<br>')
+    for text in initial_splits:
+        splits = text.split("\n")
+        result_strings += splits
+    
     questions = []
     unnumbered_questions = []
     if len(result_strings) < expected_num:
@@ -65,15 +70,13 @@ def api_completion(node_text: str, answer_text: str, num_paraphrases: int):
     )
 # %%
 from collections import defaultdict
-import traceback
 
-NUM_PARAPHRASES = 50
+NUM_PARAPHRASES = 100
 
-generated = defaultdict(lambda: set())
-generated_unnumbered = defaultdict(lambda: set())
-
-num_generated = 0
-num_generated_unnumbered = 0
+generated_paraphrases = defaultdict(lambda: [])
+generated_paraphrases_unnumbered = defaultdict(lambda: [])
+num_generated_paraphrases = 0
+num_generated_paraphrases_unnumbered = 0
 
 for idx, node in tqdm(enumerate(reimburse_human_data.nodes_by_type[NodeType.QUESTION])):
     for answer in node.answers:
@@ -83,14 +86,14 @@ for idx, node in tqdm(enumerate(reimburse_human_data.nodes_by_type[NodeType.QUES
                 response = api_completion(node.text, answer.text, NUM_PARAPHRASES)
                 answers, unnumbered_answers = parse_output(response, NUM_PARAPHRASES, 'paraphrase')
 
-                generated[answer.key] = generated[answer.key].union(answers)
-                generated_unnumbered[answer.key] = generated_unnumbered[answer.key].union(unnumbered_answers)
+                generated_paraphrases[answer.key] += answers
+                generated_paraphrases_unnumbered[answer.key] += unnumbered_answers
 
-                num_generated += len(answers)
-                num_generated_unnumbered += len(unnumbered_answers)
+                num_generated_paraphrases += len(answers)
+                num_generated_paraphrases_unnumbered += len(unnumbered_answers)
 
                 if idx % 10 == 0:
-                    print(f"Generated: {num_generated}, Unnumbered: {num_generated_unnumbered}")
+                    print(f"Generated: {num_generated_paraphrases}, Unnumbered: {num_generated_paraphrases_unnumbered}")
                 
                 done = True
             except:
@@ -121,7 +124,12 @@ def api_completion_keywords(node_text: str, answer_text: str, num_paraphrases: i
         seed=SEED
     )
 
-NUM_KEYWORD_PARAPHRASES = 25
+NUM_KEYWORD_PARAPHRASES = 100
+
+num_generated_shortened = 0
+num_generated_shortened_unnumbered = 0
+generated_shortened = defaultdict(lambda: [])
+generated_shortened_unnumbered = defaultdict(lambda: [])
 
 for idx, node in tqdm(enumerate(reimburse_human_data.nodes_by_type[NodeType.QUESTION])):
     for answer in node.answers:
@@ -131,14 +139,14 @@ for idx, node in tqdm(enumerate(reimburse_human_data.nodes_by_type[NodeType.QUES
                 response = api_completion_keywords(node.text, answer.text, NUM_KEYWORD_PARAPHRASES)
                 answers, unnumbered_answers = parse_output(response, NUM_KEYWORD_PARAPHRASES, 'shortening')
 
-                generated[answer.key] = generated[answer.key].union(answers)
-                generated_unnumbered[answer.key] = generated_unnumbered[answer.key].union(unnumbered_answers)
+                generated_shortened[answer.key] += answers
+                generated_shortened_unnumbered[answer.key] += unnumbered_answers
 
-                num_generated += len(answers)
-                num_generated_unnumbered += len(unnumbered_answers)
+                num_generated_shortened += len(answers)
+                num_generated_shortened_unnumbered += len(unnumbered_answers)
 
                 if idx % 10 == 0:
-                    print(f"Generated: {num_generated}, Unnumbered: {num_generated_unnumbered}")
+                    print(f"Generated: {num_generated_shortened}, Unnumbered: {num_generated_shortened_unnumbered}")
                 
                 done = True
             except:
@@ -146,20 +154,31 @@ for idx, node in tqdm(enumerate(reimburse_human_data.nodes_by_type[NodeType.QUES
                 done = True
                 print("waiting...")
                 time.sleep(15)
-        # break
+    #     break
     # break
+
+# interleave paraphrases + shortened paraphrases for fair data composition in generation studies with different amounts of data
+def interleave(l1, l2):
+    return [x for x in chain.from_iterable(zip_longest(l1, l2)) if x is not None]
+
+generated = defaultdict(lambda: [])
+generated_unnumbered = defaultdict(lambda: [])
+for idx, node in tqdm(enumerate(reimburse_human_data.nodes_by_type[NodeType.QUESTION])):
+    for answer in node.answers:
+        generated[answer.key] = interleave(generated_paraphrases[answer.key], generated_shortened[answer.key])
+        generated_unnumbered[answer.key] = interleave(generated_paraphrases_unnumbered[answer.key], generated_shortened_unnumbered[answer.key])
         
 
 # %%
 import json
-with open("../../../resources/en/reimburse/generated/chatgpt/thesis/train_answers_v2.json", "w") as f:
+with open("../../../resources/en/reimburse/generated/chatgpt/thesis/train_answers.json", "w") as f:
     formatted = {}
     for answer_key in generated:
-        formatted[answer_key] = list(generated[answer_key])
+        formatted[answer_key] = generated[answer_key]
     json.dump(formatted, f)
 
-with open("../../../resources/en/reimburse/generated/chatgpt/thesis/train_answers_unnumbered_v2.json", "w") as f:
+with open("../../../resources/en/reimburse/generated/chatgpt/thesis/train_answers_unnumbered.json", "w") as f:
     formatted = {}
     for answer_key in generated_unnumbered:
-        formatted[answer_key] = list(generated_unnumbered[answer_key])
+        formatted[answer_key] = generated_unnumbered[answer_key]
     json.dump(formatted, f)

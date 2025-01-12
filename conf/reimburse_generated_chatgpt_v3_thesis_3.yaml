@@ -156,8 +156,8 @@ experiment:
       use_answer_synonyms: true
       augmentation: ARTIFICIAL_ONLY
       augmentation_path: en/reimburse/generated/chatgpt/thesis/train_questions_v3.json
-      question_limit: 50
-      answer_limit: 50
+      question_limit: 3
+      answer_limit: 3
     every_steps: 3
     noise: 0.1
     steps: ???
@@ -168,8 +168,8 @@ experiment:
       use_answer_synonyms: true
       augmentation: ARTIFICIAL_ONLY
       augmentation_path: en/reimburse/generated/chatgpt/thesis/train_questions_v3.json
-      question_limit: 50
-      answer_limit: 50
+      question_limit: 3
+      answer_limit: 3
     every_steps: 15000
     noise: 0.0
     dialogs: 500
