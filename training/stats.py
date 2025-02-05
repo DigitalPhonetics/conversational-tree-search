@@ -51,6 +51,7 @@ class CustomEvalCallback(EventCallback):
         log_path: Optional[str] = None,
         best_model_save_path: Optional[str] = None,
         keep_checkpoints: int = 5,
+        save_buffer: bool = False,
         deterministic: bool = True,
         render: bool = False,
         verbose: int = 1,
@@ -72,6 +73,7 @@ class CustomEvalCallback(EventCallback):
         self.warn = warn
         self.mode = mode
         self.keep_checkpoints = keep_checkpoints
+        self.save_buffer = save_buffer
         self.checkpoint_handles = {} # map checkpoint scores to paths
         if mode == "eval":
             if os.path.exists(best_model_save_path):

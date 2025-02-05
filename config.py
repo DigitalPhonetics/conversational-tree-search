@@ -110,6 +110,7 @@ class LoggingConfig:
     wandb_log: WandbLogLevel
     log_interval: int
     keep_checkpoints: int
+    save_buffer: Optional[bool] = False
 
 @dataclass
 class Experiment:
