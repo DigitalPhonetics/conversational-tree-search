@@ -1,4 +1,5 @@
 dialogmanagement/static/dialogmanagement/dialogdesigner
+openai_api_key.sh
 
 open_ai_key.sh
 logs/
